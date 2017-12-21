@@ -1,52 +1,33 @@
 # [Arrays Multi-dimensionales](@id man-multi-dim-arrays)
 
-Julia, like most technical computing languages, provides a first-class array implementation. Most
-technical computing languages pay a lot of attention to their array implementation at the expense
-of other containers. Julia does not treat arrays in any special way. The array library is implemented
-almost completely in Julia itself, and derives its performance from the compiler, just like any
-other code written in Julia. As such, it's also possible to define custom array types by inheriting
-from `AbstractArray.` See the [manual section on the AbstractArray interface](@ref man-interface-array) for more details
-on implementing a custom array type.
+Julia, como la mayoría de los lenguajes informáticos técnicos, proporciona una implementación de los arrays de primera clase. La mayoría de los lenguajes informáticos técnicos prestan mucha atención a su implementación de arrays a expensas de otros contenedores. Julia no trata los arrays de manera especial. La biblioteca de arrays se ha implementado casi completamente en el propio lenguaje Julia, y deriva su rendimiento del compilador, al igual que cualquier otro código escrito en Julia. Como tal, es también posible definir tipos de arrays personalizados heredando de AbstractArray. Consulte la [sección de manual en la interfaz AbstractArray](@ref man-interface-array) para ms detalles sobre implementar un tipo array personalizado.
 
-An array is a collection of objects stored in a multi-dimensional grid. In the most general case,
-an array may contain objects of type `Any`. For most computational purposes, arrays should contain
-objects of a more specific type, such as [`Float64`](@ref) or [`Int32`](@ref).
+Un array es una colección de objetos almacenados en una cuadrícula multidimensional. En el caso más general, un array puede contener objetos de tipo `Any`. Para la mayoría de los propósitos computacionales, los arrays deben contener objetos de un tipo más específico, como  [`Float64`](@ref) o [`Int32`](@ref).
 
-In general, unlike many other technical computing languages, Julia does not expect programs to
-be written in a vectorized style for performance. Julia's compiler uses type inference and generates
-optimized code for scalar array indexing, allowing programs to be written in a style that is convenient
-and readable, without sacrificing performance, and using less memory at times.
+En general, a diferencia de muchos otros lenguajes informáticos técnicos, Julia no espera que los programas se escriban en un estilo vectorizado para el rendimiento. El compilador de Julia utiliza la inferencia de tipos y genera código optimizado para la indexación escalar de arrays, permitiendo que los programas se escriban en un estilo que sea conveniente y legible, sin sacrificar el rendimiento y utilizando menos memoria a veces.
 
-In Julia, all arguments to functions are passed by reference. Some technical computing languages
-pass arrays by value, and this is convenient in many cases. In Julia, modifications made to input
-arrays within a function will be visible in the parent function. The entire Julia array library
-ensures that inputs are not modified by library functions. User code, if it needs to exhibit similar
-behavior, should take care to create a copy of inputs that it may modify.
+En Julia, todos los argumentos a las funciones se pasan por referencia. Algunos lenguajes informáticos técnicos pasan los arrays por valor, y esto es conveniente en muchos casos. En Julia, las modificaciones hechas a los arrays de entrada dentro de una función serán visibles en la función principal. Toda la biblioteca de arrays de Julia garantiza que las entradas no sean modificadas por las funciones de biblioteca. El código de usuario, si necesita mostrar un comportamiento similar, debe tener cuidado de crear una copia de las entradas que puede modificar.
 
 ## Arrays
 
-### Basic Functions
+### Funciones Básicas
 
 | Function               | Description                                                                      |
 |:---------------------- |:-------------------------------------------------------------------------------- |
-| [`eltype(A)`](@ref)    | the type of the elements contained in `A`                                        |
-| [`length(A)`](@ref)    | the number of elements in `A`                                                    |
-| [`ndims(A)`](@ref)     | the number of dimensions of `A`                                                  |
-| [`size(A)`](@ref)      | a tuple containing the dimensions of `A`                                         |
-| [`size(A,n)`](@ref)    | the size of `A` along dimension `n`                                              |
-| [`indices(A)`](@ref)   | a tuple containing the valid indices of `A`                                      |
-| [`indices(A,n)`](@ref) | a range expressing the valid indices along dimension `n`                         |
-| [`eachindex(A)`](@ref) | an efficient iterator for visiting each position in `A`                          |
-| [`stride(A,k)`](@ref)  | the stride (linear index distance between adjacent elements) along dimension `k` |
-| [`strides(A)`](@ref)   | a tuple of the strides in each dimension                                         |
+| [`eltype(A)`](@ref)    | Tipo de los elementos contenidos en `A`                                          |
+| [`length(A)`](@ref)    | Número de elementos en `A`                                                       |
+| [`ndims(A)`](@ref)     | Número de dimensiones de `A`                                                     |
+| [`size(A)`](@ref)      | Una tupla que contien las dimensiones de `A`                                     |
+| [`size(A,n)`](@ref)    | El tamaño de `A` a lo largo de una dimensión particular `n`                      |
+| [`indices(A)`](@ref)   | Una tupla que contiene los índices válidos de `A`                                |
+| [`indices(A,n)`](@ref) | Un rango expresando los úndices válidos a lo largo de la dimensión `n`           |
+| [`eachindex(A)`](@ref) | Un iterador eficiente para visitar cada posición en `A`                          |
+| [`stride(A,k)`](@ref)  | La zancada (*stride*, distancia de índice lineal entre elementos adyacentes) a lo largo de la dimensión `k`. |
+| [`strides(A)`](@ref)   | Una tupla de las zancadas en cada dimensión                                      |
 
-### Construction and Initialization
+### Construcción e Inicialización
 
-Many functions for constructing and initializing arrays are provided. In the following list of
-such functions, calls with a `dims...` argument can either take a single tuple of dimension sizes
-or a series of dimension sizes passed as a variable number of arguments. Most of these functions
-also accept a first input `T`, which is the element type of the array. If the type `T` is
-omitted it will default to [`Float64`](@ref).
+Existen muchas funciones para construir e inicializar matrices. En la siguiente lista de tales funciones, las llamadas con un argumento `dims...` pueden tomar una sola tupla de tamaños de dimensión o una serie de tamaños de dimensión pasados como un número variable de argumentos. Muchas de estas funciones también aceptan un primea entrada `T`, que es el tipo de los elementos del array. Si este tipo es omitido se asumirá como tipo por defecto por defecto [`Float64`](@ref).
 
 | Function                           | Description                                                                                                                                                                                                                                  |
 |:---------------------------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,23 +55,21 @@ omitted it will default to [`Float64`](@ref).
 
 [^1]: *iid*, independently and identically distributed.
 
-The syntax `[A, B, C, ...]` constructs a 1-d array (vector) of its arguments. If all
-arguments have a common [promotion type](@ref conversion-and-promotion) then they get
-converted to that type using `convert()`.
+La sintaxis `[A, B, C, ...]` construye un array 1-dimensional (vector) a partir de sus argumentos. Si todos los argumentos tienen un [tipo de promocion](@ref conversion-and-promotion) comun entonces ellos son convertidos a este tipo usando `convert()`.
 
-### Concatenation
+### Concatenación
 
-Arrays can be constructed and also concatenated using the following functions:
+Los arrays pueden ser construídos y también concatenados usando las siguientes funciones:
 
 | Function               | Description                                          |
 |:---------------------- |:---------------------------------------------------- |
-| [`cat(k, A...)`](@ref) | concatenate input n-d arrays along the dimension `k` |
-| [`vcat(A...)`](@ref)   | shorthand for `cat(1, A...)`                         |
-| [`hcat(A...)`](@ref)   | shorthand for `cat(2, A...)`                         |
+| [`cat(k, A...)`](@ref) | concatena n-d arrays a lo largo de la dimensión `k`  |
+| [`vcat(A...)`](@ref)   | abreviatura para `cat(1, A...)`                      |
+| [`hcat(A...)`](@ref)   | abreviatura para `cat(2, A...)`                      |
 
-Scalar values passed to these functions are treated as 1-element arrays.
+Los valores escalares pasados a estas funciones son tratados como arrays de 1 elemento.
 
-The concatenation functions are used so often that they have special syntax:
+Las funciones de concatenación se usan tan frecuentemente que tiene una sintaxis especial:
 
 | Expression        | Calls             |
 |:----------------- |:----------------- |
@@ -98,7 +77,7 @@ The concatenation functions are used so often that they have special syntax:
 | `[A B C ...]`     | [`hcat()`](@ref)  |
 | `[A B; C D; ...]` | [`hvcat()`](@ref) |
 
-[`hvcat()`](@ref) concatenates in both dimension 1 (with semicolons) and dimension 2 (with spaces).
+[`hvcat()`](@ref) concatena tanto en la dimensión 1 (con puntos y coma) como en la dos (con espacios).
 
 ### Typed array initializers
 
