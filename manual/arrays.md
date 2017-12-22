@@ -79,14 +79,11 @@ Las funciones de concatenación se usan tan frecuentemente que tiene una sintaxi
 
 [`hvcat()`](@ref) concatena tanto en la dimensión 1 (con puntos y coma) como en la dos (con espacios).
 
-### Typed array initializers
+### Inicializadores de Array Tipados
 
-An array with a specific element type can be constructed using the syntax `T[A, B, C, ...]`. This
-will construct a 1-d array with element type `T`, initialized to contain elements `A`, `B`, `C`,
-etc. For example `Any[x, y, z]` constructs a heterogeneous array that can contain any values.
+Se puede construir una matriz con un tipo de elemento específico utilizando la sintaxis `T[A, B, C, ...]`. Esto construirá un array 1-d con el tipo de elemento `T`, inicializado para contener los elementos `A`, `B`, `C`, etc. Por ejemplo, `Any [x, y, z]` construye un array heterogéneo que puede contener cualquier valor.
 
-Concatenation syntax can similarly be prefixed with a type to specify the element type of the
-result.
+La sintaxis de concatenación puede ser prefijada de forma similar con un tipo para especificar el tipo de elemento del resultado.
 
 ```jldoctest
 julia> [[1 2] [3 4]]
@@ -98,23 +95,17 @@ julia> Int8[[1 2] [3 4]]
  1  2  3  4
 ```
 
-### Comprehensions
+### Comprensiones
 
-Comprehensions provide a general and powerful way to construct arrays. Comprehension syntax is
-similar to set construction notation in mathematics:
+Las comprensiones proporcionan una forma general y potente de construir arrays. Su sintaxis es similar a la notación de construcción de conjuntos en matemáticas:
 
 ```
 A = [ F(x,y,...) for x=rx, y=ry, ... ]
 ```
 
-The meaning of this form is that `F(x,y,...)` is evaluated with the variables `x`, `y`, etc. taking
-on each value in their given list of values. Values can be specified as any iterable object, but
-will commonly be ranges like `1:n` or `2:(n-1)`, or explicit arrays of values like `[1.2, 3.4, 5.7]`.
-The result is an N-d dense array with dimensions that are the concatenation of the dimensions
-of the variable ranges `rx`, `ry`, etc. and each `F(x,y,...)` evaluation returns a scalar.
+El significado de esta forma es que `F(x, y, ...)` es evaluado para las variables x, y, etc. tomando cada valor de la lista de valores proporcionada. Los valores se pueden especificar mediante cualquier objeto iterable, pero comúnmente serán rangos como `1:n` o `2:(n-1)`, o arrays de valores explícitos como `[1.2, 3.4, 5.7]`. El resultado es una matriz N-d densa con dimensiones que son la concatenación de las dimensiones de los rangos de las variables `rx`, `ry`, etc. y donde cada evaluación `F(x, y, ...)` devuelve un escalar.
 
-The following example computes a weighted average of the current element and its left and right
-neighbor along a 1-d grid. :
+El siguiente ejemplo calcula la media ponderada del elemento actual y su vecino izquierdo y derecho a lo largo de una rejilla unidimensional:
 
 ```julia-repl
 julia> x = rand(8)
@@ -138,36 +129,29 @@ julia> [ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
  0.656511
 ```
 
-The resulting array type depends on the types of the computed elements. In order to control the
-type explicitly, a type can be prepended to the comprehension. For example, we could have requested
-the result in single precision by writing:
+El tipo del array resultante depende de los tipos de los elementos calculados. Para controlar el tipo explícitamente, un tipo puede ser precedido a la comprensión. Por ejemplo, podríamos haber solicitado el resultado en precisión simple escribiendo:
 
 ```julia
 Float32[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 ```
 
-### Generator Expressions
+### Expresiones Generador
 
-Comprehensions can also be written without the enclosing square brackets, producing an object
-known as a generator. This object can be iterated to produce values on demand, instead of allocating
-an array and storing them in advance (see [Iteration](@ref)). For example, the following expression
-sums a series without allocating memory:
+Las comprensiones también se pueden escribir sin los corchetes que las encierran, produciendo un objeto conocido como **generador**. Este objeto puede ser iterado para producir valores bajo demanda, en lugar de reservar espacio para un array y almacenarlos en él de antemano (véase [Iteración](@ref)). Por ejemplo, la siguiente expresión suma una serie sin asignar memoria:
 
 ```jldoctest
 julia> sum(1/n^2 for n=1:1000)
 1.6439345666815615
 ```
 
-When writing a generator expression with multiple dimensions inside an argument list, parentheses
-are needed to separate the generator from subsequent arguments:
+Cuando se escribe una expresión generador con múltiples dimensiones dentro de una lista de argumentos, se necesitan paréntesis para separar el generador de argumentos posteriores:
 
 ```julia-repl
 julia> map(tuple, 1/(i+j) for i=1:2, j=1:2, [1:4;])
 ERROR: syntax: invalid iteration specification
 ```
 
-All comma-separated expressions after `for` are interpreted as ranges. Adding parentheses lets
-us add a third argument to `map`:
+Todas las expresiones separadas por comas después del `for` se interpretan como rangos. Añadir paréntesis permite añadir un tercer argumento a `map`:
 
 ```jldoctest
 julia> map(tuple, (1/(i+j) for i=1:2, j=1:2), [1 3; 2 4])
@@ -176,8 +160,7 @@ julia> map(tuple, (1/(i+j) for i=1:2, j=1:2), [1 3; 2 4])
  (0.333333, 2)  (0.25, 4)
 ```
 
-Ranges in generators and comprehensions can depend on previous ranges by writing multiple `for`
-keywords:
+Los rangos en generadores y comprensiones pueden depender de rangos anteriores escribiendo varias palabras clave `for`:
 
 ```jldoctest
 julia> [(i,j) for i=1:3 for j=1:i]
@@ -190,9 +173,9 @@ julia> [(i,j) for i=1:3 for j=1:i]
  (3, 3)
 ```
 
-In such cases, the result is always 1-d.
+En tales casos, el resultado es siempre unidimensional.
 
-Generated values can be filtered using the `if` keyword:
+Los valores generados se pueden filtrar usando la palabra clave `if`:
 
 ```jldoctest
 julia> [(i,j) for i=1:3 for j=1:i if i+j == 4]
@@ -201,35 +184,21 @@ julia> [(i,j) for i=1:3 for j=1:i if i+j == 4]
  (3, 1)
 ```
 
-### [Indexing](@id man-array-indexing)
+### [Indexación](@id man-array-indexing)
 
-The general syntax for indexing into an n-dimensional array A is:
+La sintaxis general para indexar en un array n-dimensional `A` es:
 
 ```
 X = A[I_1, I_2, ..., I_n]
 ```
 
-where each `I_k` may be a scalar integer, an array of integers, or any other
-[supported index](@ref man-supported-index-types). This includes
-[`Colon`](@ref) (`:`) to select all indices within the entire dimension,
-ranges of the form `a:c` or `a:b:c` to select contiguous or strided
-subsections, and arrays of booleans to select elements at their `true` indices.
+donde cada `I_k` puede ser un entero escalar, un array de enteros o cualquier otro [índice soportado](@ref man-supported-index-types). Esto incluye [`Colon`](@ref) (`:`) para seleccionar todos los índices dentro de la dimensión completa, rangos de la forma `a:c` o `a:b:c` para seleccionar subsecciones contiguas o con salto, y arrays de booleans para seleccionar elementos en sus índices `true`.
 
-If all the indices are scalars, then the result `X` is a single element from the array `A`. Otherwise,
-`X` is an array with the same number of dimensions as the sum of the dimensionalities of all the
-indices.
+Si todos los índices son escalares, entonces el resultado `X` es un solo elemento del array `A`. De lo contrario, `X` es un array con el mismo número de dimensiones que la suma de las dimensionalidades de todos los índices.
 
-If all indices are vectors, for example, then the shape of `X` would be `(length(I_1), length(I_2), ..., length(I_n))`,
-with location `(i_1, i_2, ..., i_n)` of `X` containing the value `A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`.
-If `I_1` is changed to a two-dimensional matrix, then `X` becomes an `n+1`-dimensional array of
-shape `(size(I_1, 1), size(I_1, 2), length(I_2), ..., length(I_n))`. The matrix adds a dimension.
-The location `(i_1, i_2, i_3, ..., i_{n+1})` contains the value at `A[I_1[i_1, i_2], I_2[i_3], ..., I_n[i_{n+1}]]`.
-All dimensions indexed with scalars are dropped. For example, the result of `A[2, I, 3]` is an
-array with size `size(I)`. Its `i`th element is populated by `A[2, I[i], 3]`.
+Si todos los índices son vectores, por ejemplo, entonces la forma de `X` sería `(length(I_1), length(I_2), ..., length(I_n))`, donde las ubicaciones `(i_1, i_2, ..., i_n)` de `X` contienen el valor `A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]`. Si `I_1` se cambia por un array bidimensional, entonces `X` se vuelve un `n+1`-dimensional array de forma `(size(I_1, 1), size(I_1, 2), length(I_2), ..., length(I_n))`. La matriz añade una dimensión. La ubicación `(i_1, i_2, i_3, ..., i_{n+1})` contiene el valor en `A[I_1[i_1, i_2], I_2[i_3], ..., I_n[i_{n+1}]]`. Todas las dimensiones indexadas con escalares se eliminan. Por ejemplo, el resultado de `A[2, I, 3]` es un array de tamaño `size(I)`. Su i-ésimo elemento es poblado por `A[2, I[i], 3]`.
 
-As a special part of this syntax, the `end` keyword may be used to represent the last index of
-each dimension within the indexing brackets, as determined by the size of the innermost array
-being indexed. Indexing syntax without the `end` keyword is equivalent to a call to `getindex`:
+Como parte especial de esta sintaxis, se puede usar la palabra clave `end` para representar el último índice de cada dimensión dentro de los corchetes de indexación, según lo determinado por el tamaño del array más interno indexado. La sintaxis de indexación sin la palabra `end` es equivalente a una llamada a `getindex`:
 
 ```
 X = getindex(A, I_1, I_2, ..., I_n)
