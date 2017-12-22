@@ -1,52 +1,40 @@
-# Integers and Floating-Point Numbers
+# [Números enteros y en punto flotante](@id integers-and-floating-point-numbers)
 
-Integers and floating-point values are the basic building blocks of arithmetic and computation.
-Built-in representations of such values are called numeric primitives, while representations of
-integers and floating-point numbers as immediate values in code are known as numeric literals.
-For example, `1` is an integer literal, while `1.0` is a floating-point literal; their binary
-in-memory representations as objects are numeric primitives.
+Los valores enteros y punto flotante son los bloques constructivos básicos de la aritmética y la computación. Las representaciones construidas para estos valores son denominadas *tipos primitivos*, mientras que las reprentacionesde números enteros y en punto flotante como valores inmediatos en código se conocen como *literales numéricos*. Por ejemplo, `1` es un literal entero, mientras que `1.0` es un literal en punto flotante; sus representaciones binarias en memoria como objetos son los tipos primitivos.
 
-Julia provides a broad range of primitive numeric types, and a full complement of arithmetic and
-bitwise operators as well as standard mathematical functions are defined over them. These map
-directly onto numeric types and operations that are natively supported on modern computers, thus
-allowing Julia to take full advantage of computational resources. Additionally, Julia provides
-software support for [Arbitrary Precision Arithmetic](@ref), which can handle operations on numeric
-values that cannot be represented effectively in native hardware representations, but at the cost
-of relatively slower performance.
+Julia proporciona un amplio rango de tipos primitivos numéricos, y un complemento complemento de operadores aritméticos y de bits así como funciones matemáticas estándar definidas sobre ellos. Los operadores establecen una correspondencia enre los tipos numéricos y las operaciones que son soportadas de forma nativa sobre los ordenadores modernos, permitiendo a Julia sacar plena ventaja de los recursos computacionales. Además, Julia proporciona soporte software para *aritmética de precisión arbitraria* que puede manejar operaciones sobre valores numéricos que no puede ser representada de forma efectiva en representaciones hardware nativas, pero al coste de un rendimiento relativamente menor.
 
-The following are Julia's primitive numeric types:
+Los tipos primitivos de Julia son los siguientes:
 
-  * **Integer types:**
+  * **Tipos enteros:**
 
-| Type              | Signed? | Number of bits | Smallest value | Largest value |
-|:----------------- |:------- |:-------------- |:-------------- |:------------- |
-| [`Int8`](@ref)    | ✓       | 8              | -2^7           | 2^7 - 1       |
-| [`UInt8`](@ref)   |         | 8              | 0              | 2^8 - 1       |
-| [`Int16`](@ref)   | ✓       | 16             | -2^15          | 2^15 - 1      |
-| [`UInt16`](@ref)  |         | 16             | 0              | 2^16 - 1      |
-| [`Int32`](@ref)   | ✓       | 32             | -2^31          | 2^31 - 1      |
-| [`UInt32`](@ref)  |         | 32             | 0              | 2^32 - 1      |
-| [`Int64`](@ref)   | ✓       | 64             | -2^63          | 2^63 - 1      |
-| [`UInt64`](@ref)  |         | 64             | 0              | 2^64 - 1      |
-| [`Int128`](@ref)  | ✓       | 128            | -2^127         | 2^127 - 1     |
-| [`UInt128`](@ref) |         | 128            | 0              | 2^128 - 1     |
-| [`Bool`](@ref)    | N/A     | 8              | `false` (0)    | `true` (1)    |
+| Tipo              | Signo?  | Número de bits | Valor más pequeño | Valor más grande |
+|:----------------- |:------- |:-------------- |:----------------- |:---------------- |
+| [`Int8`](@ref)    | ✓       | 8              | -2^7              | 2^7 - 1          |
+| [`UInt8`](@ref)   |         | 8              | 0                 | 2^8 - 1          |
+| [`Int16`](@ref)   | ✓       | 16             | -2^15             | 2^15 - 1         |
+| [`UInt16`](@ref)  |         | 16             | 0                 | 2^16 - 1         |
+| [`Int32`](@ref)   | ✓       | 32             | -2^31             | 2^31 - 1         |
+| [`UInt32`](@ref)  |         | 32             | 0                 | 2^32 - 1         |
+| [`Int64`](@ref)   | ✓       | 64             | -2^63             | 2^63 - 1         |
+| [`UInt64`](@ref)  |         | 64             | 0                 | 2^64 - 1         |
+| [`Int128`](@ref)  | ✓       | 128            | -2^127            | 2^127 - 1        |
+| [`UInt128`](@ref) |         | 128            | 0                 | 2^128 - 1        |
+| [`Bool`](@ref)    | N/A     | 8              | `false` (0)       | `true` (1)       |
 
-  * **Floating-point types:**
+  * **Tipos en punto flotante:**
 
-| Type              | Precision                                                                      | Number of bits |
-|:----------------- |:------------------------------------------------------------------------------ |:-------------- |
-| [`Float16`](@ref) | [half](https://en.wikipedia.org/wiki/Half-precision_floating-point_format)     | 16             |
-| [`Float32`](@ref) | [single](https://en.wikipedia.org/wiki/Single_precision_floating-point_format) | 32             |
-| [`Float64`](@ref) | [double](https://en.wikipedia.org/wiki/Double_precision_floating-point_format) | 64             |
+| Tipo              | Precisión                                                                        | Número de bits |
+|:----------------- |:-------------------------------------------------------------------------------- |:-------------- |
+| [`Float16`](@ref) | [media](https://en.wikipedia.org/wiki/Half-precision_floating-point_format)      | 16             |
+| [`Float32`](@ref) | [sencilla](https://en.wikipedia.org/wiki/Single_precision_floating-point_format) | 32             |
+| [`Float64`](@ref) | [doble](https://en.wikipedia.org/wiki/Double_precision_floating-point_format)    | 64             |
 
-Additionally, full support for [Complex and Rational Numbers](@ref) is built on top of these primitive
-numeric types. All numeric types interoperate naturally without explicit casting, thanks to a
-flexible, user-extensible [type promotion system](@ref conversion-and-promotion).
+Adicionalmente, se ha construído un soporte completo para [Números Complejos y Racionales](@ref) encima de estos tipos primitivos. Todos los tipos primitivos interoperan de forma natural sin tener que realizar conversiones específicas, gracias a un [sistema de promoción de tipos](@ref conversion-and-promotion) flexible y extensible por el usuario.
 
-## Integers
+## Enteros
 
-Literal integers are represented in the standard manner:
+Los literales enteros se representan del modo estándar:
 
 ```jldoctest
 julia> 1
@@ -56,8 +44,7 @@ julia> 1234
 1234
 ```
 
-The default type for an integer literal depends on whether the target system has a 32-bit architecture
-or a 64-bit architecture:
+El tipo por defecto para un literal entero depende de su el sistema objetivo tiene una aquitectura de 32 o de 64 bits:
 
 ```julia-repl
 # 32-bit system:
@@ -69,8 +56,7 @@ julia> typeof(1)
 Int64
 ```
 
-The Julia internal variable [`Sys.WORD_SIZE`](@ref) indicates whether the target system is 32-bit
-or 64-bit:
+La variable interna de Julia [`Sys.WORD_SIZE`](@ref) indica si el sistema objetivo es de 32 bits o de 64 bits:
 
 ```julia-repl
 # 32-bit system:
@@ -82,8 +68,7 @@ julia> Sys.WORD_SIZE
 64
 ```
 
-Julia also defines the types `Int` and `UInt`, which are aliases for the system's signed and unsigned
-native integer types respectively:
+Julia también define los tipos `Int` y `UInt`, que son aliases para los tipos enteros nativos del sistema con y sin signo:
 
 ```julia-repl
 # 32-bit system:
@@ -99,8 +84,7 @@ julia> UInt
 UInt64
 ```
 
-Larger integer literals that cannot be represented using only 32 bits but can be represented in
-64 bits always create 64-bit integers, regardless of the system type:
+Los enteros mayores que no pueden ser representados usando sólo 32 bits pero pueden ser representados en 64 bits se crean como enteros de 64 bits, independientemente del tipo que tenga el sistema por defecto:
 
 ```jldoctest
 # 32-bit or 64-bit system:
@@ -108,9 +92,7 @@ julia> typeof(3000000000)
 Int64
 ```
 
-Unsigned integers are input and output using the `0x` prefix and hexadecimal (base 16) digits
-`0-9a-f` (the capitalized digits `A-F` also work for input). The size of the unsigned value is
-determined by the number of hex digits used:
+Los enteros sin signo son introducidos y mostrados usando el prefijo `0x` y los dígitos hexadecimales `0-9a-f` (los dígitos capitalizados `A-F` también funcionan para la entrada). El tamaño de un valor sin signo está determinado por el número de dígitos hexadecimales usados:
 
 ```jldoctest
 julia> 0x1
@@ -138,14 +120,11 @@ julia> typeof(ans)
 UInt64
 ```
 
-This behavior is based on the observation that when one uses unsigned hex literals for integer
-values, one typically is using them to represent a fixed numeric byte sequence, rather than just
-an integer value.
+Este comportamiento está basado en la observación de que cuando uno usa literales hexadecimales sin signo para valores enteros, se los suele utilizar para representar una secuencia de bytes numéricos fijos en lugar de un valor entero.
 
-Recall that the variable [`ans`](@ref) is set to the value of the last expression evaluated in
-an interactive session. This does not occur when Julia code is run in other ways.
+Recuerde que la variable [`ans`](@ref) se establece en el valor de la última expresión evaluada en una sesión interactiva. Esto no ocurre cuando el código Julia se ejecuta de otras maneras.
 
-Binary and octal literals are also supported:
+Los literales binarios y octales también están soportados:
 
 ```jldoctest
 julia> 0b10
@@ -161,8 +140,7 @@ julia> typeof(ans)
 UInt8
 ```
 
-The minimum and maximum representable values of primitive numeric types such as integers are given
-by the [`typemin()`](@ref) and [`typemax()`](@ref) functions:
+Los valores máximo y mínimo de tipos primitivos numéricos representables como enteros vienen dados por las funciones  [`typemin()`](@ref) y [`typemax()`](@ref):
 
 ```jldoctest
 julia> (typemin(Int32), typemax(Int32))
@@ -183,14 +161,12 @@ julia> for T in [Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt12
 UInt128: [0,340282366920938463463374607431768211455]
 ```
 
-The values returned by [`typemin()`](@ref) and [`typemax()`](@ref) are always of the given argument
-type. (The above expression uses several features we have yet to introduce, including [for loops](@ref man-loops),
-[Strings](@ref man-strings), and [Interpolation](@ref), but should be easy enough to understand for users
-with some existing programming experience.)
+Los valores devueltos por [`typemin()`](@ref) y [`typemax()`](@ref) siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo [blucles for](@ref man-loops),
+[Cadenas](@ref man-strings), e [Interpolación](@ref), pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)
 
-### Overflow behavior
+### Comportamiento ante el Desbordamiento
 
-In Julia, exceeding the maximum representable value of a given type results in a wraparound behavior:
+En Julia, superar el valor máximo representable de un tipo dado da como resultado un comportamiento envolvente:
 
 ```jldoctest
 julia> x = typemax(Int64)
@@ -203,22 +179,15 @@ julia> x + 1 == typemin(Int64)
 true
 ```
 
-Thus, arithmetic with Julia integers is actually a form of [modular arithmetic](https://en.wikipedia.org/wiki/Modular_arithmetic).
-This reflects the characteristics of the underlying arithmetic of integers as implemented on modern
-computers. In applications where overflow is possible, explicit checking for wraparound produced
-by overflow is essential; otherwise, the [`BigInt`](@ref) type in [Arbitrary Precision Arithmetic](@ref)
-is recommended instead.
+Así, la aritmética con enteros de Julia es en realidad una forma de [aritmética modular](https://en.wikipedia.org/wiki/Modular_arithmetic). Esto refleja las características de la aritmética subyacente de números enteros tal como se implementa en las computadoras modernas. En aplicaciones donde es posible el desbordamiento, es esencial comprobar explícitamente el envolvente producido por el desbordamiento. De lo contrario, se recomienda el tipo [`BigInt`](@ref) en [Aritmética de Precisión Arbitraria](@ref).
 
-### Division errors
+### Errores de división
 
-Integer division (the `div` function) has two exceptional cases: dividing by zero, and dividing
-the lowest negative number ([`typemin()`](@ref)) by -1. Both of these cases throw a [`DivideError`](@ref).
-The remainder and modulus functions (`rem` and `mod`) throw a [`DivideError`](@ref) when their
-second argument is zero.
+La división entera (la función `div`) tiene dos casos excepcionales: dividir por cero, y dividir el número  negativo más bajo  ([`typemin()`](@ref)) por -1. Ambos casos lanzan un [`DivideError`](@ref). El resto y las funciones de módulo (`rem` y `mod`) lanzan un  [`DivideError`](@ref) cuando su segundo argumento es cero.
 
-## Floating-Point Numbers
+## Números en Punto Flotante
 
-Literal floating-point numbers are represented in the standard formats:
+Los literales de números en punto flotante son representados en las formas estándar:
 
 ```jldoctest
 julia> 1.0
@@ -243,8 +212,8 @@ julia> 2.5e-4
 0.00025
 ```
 
-The above results are all [`Float64`](@ref) values. Literal [`Float32`](@ref) values can be
-entered by writing an `f` in place of `e`:
+Los resultados anteriores son todos valores [`Float64`](@ref). Los valores literales [`Float32`](@ref) pueden
+introducirse escribiendo `f` en lugar de `e`:
 
 ```jldoctest
 julia> 0.5f0
@@ -257,7 +226,7 @@ julia> 2.5f-4
 0.00025f0
 ```
 
-Values can be converted to [`Float32`](@ref) easily:
+Los valores pueden ser convertidos a [`Float32`](@ref) fácilmente:
 
 ```jldoctest
 julia> Float32(-1.5)
@@ -267,7 +236,7 @@ julia> typeof(ans)
 Float32
 ```
 
-Hexadecimal floating-point literals are also valid, but only as [`Float64`](@ref) values:
+También son válidos los literales de punto flotante en formato hexadecimal, pero sólo como valores [`Float64`](@ref):
 
 ```jldoctest
 julia> 0x1p0
@@ -283,8 +252,7 @@ julia> typeof(ans)
 Float64
 ```
 
-Half-precision floating-point numbers are also supported ([`Float16`](@ref)), but they are
-implemented in software and use [`Float32`](@ref) for calculations.
+También esta soportados los números en punto flotante de media precisión ([`Float16`](@ref)), pero sólo como un formato de almacenamiento. En los cálculos son convertidos a [`Float32`](@ref).
 
 ```jldoctest
 julia> sizeof(Float16(4.))
@@ -294,18 +262,16 @@ julia> 2*Float16(4.)
 Float16(8.0)
 ```
 
-The underscore `_` can be used as digit separator:
+El guión bajo (*underscore*) puede usarse como separador de dígitos:
 
 ```jldoctest
 julia> 10_000, 0.000_000_005, 0xdead_beef, 0b1011_0010
 (10000, 5.0e-9, 0xdeadbeef, 0xb2)
 ```
 
-### Floating-point zero
+### Cero en punto flotante
 
-Floating-point numbers have [two zeros](https://en.wikipedia.org/wiki/Signed_zero), positive zero
-and negative zero. They are equal to each other but have different binary representations, as
-can be seen using the `bits` function: :
+Los números en punto flotante tienen [dos ceros](https://en.wikipedia.org/wiki/Signed_zero), positivo y negativo. Ellos son iguales entre sí, pero tienen distintas representaciones, como puede verse si usamos la función `bits`:
 
 ```jldoctest
 julia> 0.0 == -0.0
@@ -318,10 +284,10 @@ julia> bits(-0.0)
 "1000000000000000000000000000000000000000000000000000000000000000"
 ```
 
-### Special floating-point values
+### Valores especiales en punto flotante
 
-There are three specified standard floating-point values that do not correspond to any point on
-the real number line:
+Hay tres valores especificados en el estándar de punto flotante para valores que no se corresponden 
+con ningún punto en la línea de números reales:
 
 | `Float16` | `Float32` | `Float64` | Name              | Description                                                     |
 |:--------- |:--------- |:--------- |:----------------- |:--------------------------------------------------------------- |
@@ -329,9 +295,8 @@ the real number line:
 | `-Inf16`  | `-Inf32`  | `-Inf`    | negative infinity | a value less than all finite floating-point values              |
 | `NaN16`   | `NaN32`   | `NaN`     | not a number      | a value not `==` to any floating-point value (including itself) |
 
-For further discussion of how these non-finite floating-point values are ordered with respect
-to each other and other floats, see [Numeric Comparisons](@ref). By the [IEEE 754 standard](https://en.wikipedia.org/wiki/IEEE_754-2008),
-these floating-point values are the results of certain arithmetic operations:
+Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea [Comparaciones Numéricas](@ref). Mediante [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008), estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:
+
 
 ```jldoctest
 julia> 1/Inf
@@ -371,7 +336,7 @@ julia> 0 * Inf
 NaN
 ```
 
-The [`typemin()`](@ref) and [`typemax()`](@ref) functions also apply to floating-point types:
+Las funciones [`typemin()`](@ref) y [`typemax()`](@ref) también se aplican a los tipos en punto flotante:
 
 ```jldoctest
 julia> (typemin(Float16),typemax(Float16))
@@ -384,14 +349,11 @@ julia> (typemin(Float64),typemax(Float64))
 (-Inf, Inf)
 ```
 
-### Machine epsilon
+### Epsilon de máquina
 
-Most real numbers cannot be represented exactly with floating-point numbers, and so for many purposes
-it is important to know the distance between two adjacent representable floating-point numbers,
-which is often known as [machine epsilon](https://en.wikipedia.org/wiki/Machine_epsilon).
+La mayoría de los números reales no pueden representarse exactamente con números de coma flotante, por lo que para muchos propósitos es importante conocer la distancia entre dos números de punto flotante representables adyacentes, que a menudo se conoce como [epsilon de máquina](https://en.wikipedia.org/wiki/Machine_epsilon).
 
-Julia provides [`eps()`](@ref), which gives the distance between `1.0` and the next larger representable
-floating-point value:
+Julia proporciona [`eps()`](@ref), que da la distancia entre 1,0 y el siguiente valor de punto flotante representable más grande:
 
 ```jldoctest
 julia> eps(Float32)
@@ -404,11 +366,8 @@ julia> eps() # same as eps(Float64)
 2.220446049250313e-16
 ```
 
-These values are `2.0^-23` and `2.0^-52` as [`Float32`](@ref) and [`Float64`](@ref) values,
-respectively. The [`eps()`](@ref) function can also take a floating-point value as an
-argument, and gives the absolute difference between that value and the next representable
-floating point value. That is, `eps(x)` yields a value of the same type as `x` such that
-`x + eps(x)` is the next representable floating-point value larger than `x`:
+Estos valores son `2.0^-23` y `2.0^-52` como valores [`Float32`](@ref) y [`Float64`](@ref), respectivamente. La función [`eps()`](@ref) también puede tomar un valor de punto flotante como un argumento y da la diferencia absoluta entre ese valor y el siguiente valor de punto flotante representable. Es decir, `eps(x)` produce un valor del mismo tipo que `x` tal que
+`x` + `eps(x)` es el siguiente valor de punto flotante representable mayor que `x`:
 
 ```jldoctest
 julia> eps(1.0)
@@ -424,14 +383,10 @@ julia> eps(0.0)
 5.0e-324
 ```
 
-The distance between two adjacent representable floating-point numbers is not constant, but is
-smaller for smaller values and larger for larger values. In other words, the representable floating-point
-numbers are densest in the real number line near zero, and grow sparser exponentially as one moves
-farther away from zero. By definition, `eps(1.0)` is the same as `eps(Float64)` since `1.0` is
-a 64-bit floating-point value.
+La distancia entre dos números de punto flotante representables adyacentes no es constante, pero es menor para valores más pequeños y mayor para valores mayores. En otras palabras, los números de punto flotante representables son más densos en la línea de números reales cerca de cero, y crecen exponencialmente dispersos a medida que uno se aleja de cero. Por
+definición, `eps(1.0)` es el mismo que `eps(Float64)` ya que `1.0` es un valor de coma flotante de 64 bits.
 
-Julia also provides the [`nextfloat()`](@ref) and [`prevfloat()`](@ref) functions which return
-the next largest or smallest representable floating-point number to the argument respectively:
+Julia también proporciona las funciones [`nextfloat()`](@ref) y [`prevfloat()`](@ref) que devuelven el siguiente número de punto flotante representable más grande o más pequeño al argumento, respectivamente:
 
 ```jldoctest
 julia> x = 1.25f0
@@ -453,14 +408,11 @@ julia> bits(nextfloat(x))
 "00111111101000000000000000000001"
 ```
 
-This example highlights the general principle that the adjacent representable floating-point numbers
-also have adjacent binary integer representations.
+Este ejemplo resalta el principio general de que los números de punto flotante representables adyacentes también tienen representaciones binarias enteras adyacentes.
 
-### Rounding modes
+### Modos de Redondeo
 
-If a number doesn't have an exact floating-point representation, it must be rounded to an appropriate
-representable value, however, if wanted, the manner in which this rounding is done can be changed
-according to the rounding modes presented in the [IEEE 754 standard](https://en.wikipedia.org/wiki/IEEE_754-2008).
+Si un número no tiene una representación de punto flotante exacta, debe redondearse a un valor representable apropiado. Sin embargo, si se desea, la forma en que se realiza este redondeo puede cambiarse de acuerdo con los modos de redondeo presentados en el [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008).
 
 ```jldoctest
 julia> x = 1.1; y = 0.1;
@@ -474,8 +426,8 @@ julia> setrounding(Float64,RoundDown) do
 1.2
 ```
 
-The default mode used is always [`RoundNearest`](@ref), which rounds to the nearest representable
-value, with ties rounded towards the nearest value with an even least significant bit.
+El modo predeterminado utilizado siempre es [`RoundNearest`](@ref), , que redondea al valor representable 
+más cercano, con arcos redondeados hacia el valor más cercano con un bit menos significativo.
 
 !!! warning
     Rounding is generally only correct for basic arithmetic functions ([`+()`](@ref), [`-()`](@ref),
