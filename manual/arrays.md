@@ -398,10 +398,6 @@ end
 
 La primera construcción se usa cuando necesitamos el valor, pero no los índices, de cada elemento. En la segunda construcción, `i` será un `Int` si `A` es un tipo array con indexación lineal rápida; en caso contrario será un `CartesianIndex`:
 
-The first construct is used when you need the value, but not index, of each element. In the second
-construct, `i` will be an `Int` if `A` is an array type with fast linear indexing; otherwise,
-it will be a `CartesianIndex`:
-
 ```jldoctest
 julia> A = rand(4,3);
 
@@ -418,56 +414,40 @@ i = CartesianIndex{2}((2, 2))
 i = CartesianIndex{2}((3, 2))
 ```
 
-In contrast with `for i = 1:length(A)`, iterating with `eachindex` provides an efficient way to
-iterate over any array type.
+En contraste con `for i = 1:length(A)`, iterar con `eachindex` proporciona una forma eficiente de iterar sobre cualquier tipo de array.
 
-### Array traits
+### Rasgos de  Array
 
-If you write a custom [`AbstractArray`](@ref) type, you can specify that it has fast linear indexing using
+Si uno escribe un tipo [`AbstractArray`](@ref) personalizado, uno puede especificar que el tipo tiene indexación lineal rápida usando:
 
 ```julia
 Base.IndexStyle(::Type{<:MyArray}) = IndexLinear()
 ```
 
-This setting will cause `eachindex` iteration over a `MyArray` to use integers. If you don't
-specify this trait, the default value `IndexCartesian()` is used.
+Esta configuración hará que la iteración `eachindex` sobre un objeto `MyArray` use enteros. Si no especifica este rasgo, se usa el valor predeterminado `IndexCartesian()`.
 
-### Array and Vectorized Operators and Functions
+### Arrays, Funciones y Operadores Vectorizados
 
-The following operators are supported for arrays:
+Los siguientes operadores están soportados para arrays:
 
-1. Unary arithmetic -- `-`, `+`
-2. Binary arithmetic -- `-`, `+`, `*`, `/`, `\`, `^`
-3. Comparison -- `==`, `!=`, `≈` ([`isapprox`](@ref)), `≉`
+1. Aritmética unaria -- `-`, `+`
+2. Aritmética binaria -- `-`, `+`, `*`, `/`, `\`, `^`
+3. Comparación -- `==`, `!=`, `≈` ([`isapprox`](@ref)), `≉`
 
-Most of the binary arithmetic operators listed above also operate elementwise
-when one argument is scalar: `-`, `+`, and `*` when either argument is scalar,
-and `/` and `\` when the denominator is scalar. For example, `[1, 2] + 3 == [4, 5]`
-and `[6, 4] / 2 == [3, 2]`.
+La mayoría de los operadores aritméticos binarios enumerados anteriormente también funcionan elemento a elemento cuando un argumento es escalar: `-`, `+`, y `*`cuando cualquiera de los argumentos es escalar, y `/` y `\` cuando el denominador es escalar. Por ejemplo, `[1, 2] + 3 == [4, 5]` y `[6, 4] / 2 == [3, 2]`.
 
-Additionally, to enable convenient vectorization of mathematical and other operations,
-Julia [provides the dot syntax](@ref man-vectorized) `f.(args...)`, e.g. `sin.(x)`
-or `min.(x,y)`, for elementwise operations over arrays or mixtures of arrays and
-scalars (a [Broadcasting](@ref) operation); these have the additional advantage of
-"fusing" into a single loop when combined with other dot calls, e.g. `sin.(cos.(x))`.
+Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia [proporciona la sintaxis punto](@ref man-vectorized) `f.(args ...)`, por ejemplo, `sin.(x)` o `min.(x, y)`, para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una [Retransmisión (*broadcasting*)](@ref)); estos tienen la ventaja adicional de
+"fusión" en un solo bucle cuando se combina con otras llamadas de puntos, por ejemplo, `sin.(cos.(x))`
 
-Also, *every* binary operator supports a [dot version](@ref man-dot-operators)
-that can be applied to arrays (and combinations of arrays and scalars) in such
-[fused broadcasting operations](@ref man-vectorized), e.g. `z .== sin.(x .* y)`.
+También, *cada* operador binario admite una [versión de punto](@ref man-dot-operators) que se puede aplicar a matrices (y combinaciones de matrices y escalares) en tales [operaciones de retransmisión fusionadas](@ref man-vectorized), por ejemplo, `z .== sin.(x. * y)`.
 
-Note that comparisons such as `==` operate on whole arrays, giving a single boolean
-answer. Use dot operators like `.==` for elementwise comparisons. (For comparison
-operations like `<`, *only* the elementwise `.<` version is applicable to arrays.)
+Tenga en cuenta que las comparaciones como `==` operan en arrays completos, dando un solo booleano como respuesta. Use operadores de punto como `.==` para comparaciones elemento a elemento. (Para operaciones de comparación como `<`, *solo* la versión de elementos `.<` es aplicable a las matrices).
 
-Also notice the difference between `max.(a,b)`, which `broadcast`s [`max()`](@ref)
-elementwise over `a` and `b`, and `maximum(a)`, which finds the largest value within
-`a`. The same relationship holds for `min.(a,b)` and `minimum(a)`.
+También note la diferencia entre `max.(a, b)`, que retransmitir [`max()`](@ref) elemento a elemento sobre `a` y` b`, y `maximum(a)`, que encuentra el mayor valor dentro de `a`. La misma relación se cumple para `min.(A, b)` y `minimum(a)`.
 
-### Broadcasting
+### Retransmisión
 
-It is sometimes useful to perform element-by-element binary operations on arrays of different
-sizes, such as adding a vector to each column of a matrix. An inefficient way to do this would
-be to replicate the vector to the size of the matrix:
+A veces es útil realizar operaciones binarias elemento por elemento en matrices de diferentes tamaños, como agregar un vector a cada columna de una matriz. Una forma ineficiente de hacer esto sería replicar el vector al tamaño de la matriz:
 
 ```julia-repl
 julia> a = rand(2,1); A = rand(2,3);
@@ -478,9 +458,7 @@ julia> repmat(a,1,3)+A
  1.56851  1.86401  1.67846
 ```
 
-This is wasteful when dimensions get large, so Julia offers [`broadcast()`](@ref), which expands
-singleton dimensions in array arguments to match the corresponding dimension in the other array
-without using extra memory, and applies the given function elementwise:
+Esto es un desperdicio cuando las dimensiones son grandes, por lo que Julia ofrece [`broadcast()`](@ref), que expande las dimensiones *singleton* en los argumentos array para hacer coincidir la dimensión correspondiente en el otro array sin usar memoria extra, y aplicar la función dada elemento a elemento:
 
 ```julia-repl
 julia> broadcast(+, a, A)
@@ -498,17 +476,9 @@ julia> broadcast(+, a, b)
  1.73659  0.873631
 ```
 
-[Dotted operators](@ref man-dot-operators) such as `.+` and `.*` are equivalent
-to `broadcast` calls (except that they fuse, as described below). There is also a
-[`broadcast!()`](@ref) function to specify an explicit destination (which can also
-be accessed in a fusing fashion by `.=` assignment), and functions [`broadcast_getindex()`](@ref)
-and [`broadcast_setindex!()`](@ref) that broadcast the indices before indexing. Moreover, `f.(args...)`
-is equivalent to `broadcast(f, args...)`, providing a convenient syntax to broadcast any function
-([dot syntax](@ref man-vectorized)). Nested "dot calls" `f.(...)` (including calls to `.+` etcetera)
-[automatically fuse](@ref man-dot-operators) into a single `broadcast` call.
+[Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función [`broadcast!()`](@ref) para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y [`broadcast_setindex! ()`] (@ref) que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ ref man-dot-operators) en una sola llamada `broadcast`.
 
-Additionally, [`broadcast()`](@ref) is not limited to arrays (see the function documentation),
-it also handles tuples and treats any argument that is not an array, tuple or `Ref` (except for `Ptr`) as a "scalar".
+Además, [`broadcast ()`] (@ref) no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
 
 ```jldoctest
 julia> convert.(Float32, [1, 2])
