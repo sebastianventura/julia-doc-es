@@ -2,8 +2,8 @@
 
 ## Manual
 
-  * [Introduction](@ref man-introduction)
-  * [Getting Started](@ref)
+  * [Introducción](@ref man-introduction)
+  * [Empezando](@ref getting-started)
   * [Variables](@ref)
   * [Integers and Floating-Point Numbers](@ref)
   * [Mathematical Operations and Elementary Functions](@ref)
