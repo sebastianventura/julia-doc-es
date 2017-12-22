@@ -225,9 +225,7 @@ julia> x[1, [2 3; 4 1]]
  13  1
 ```
 
-Empty ranges of the form `n:n-1` are sometimes used to indicate the inter-index location between
-`n-1` and `n`. For example, the [`searchsorted()`](@ref) function uses this convention to indicate
-the insertion point of a value not found in a sorted array:
+Los rangos vacío de la forma `n:n-1` se suelen usar para indicar la localización inter-index entre `n-1` y `n`. Por ejemplo, la función [`searchsorted()`](@ref) usa esta convención para indicar el punto de inserción de un valor no encontrados en un array ordenado:
 
 ```jldoctest
 julia> a = [1,2,5,6,7];
@@ -236,36 +234,25 @@ julia> searchsorted(a, 3)
 3:2
 ```
 
-### Assignment
+### Asignación
 
-The general syntax for assigning values in an n-dimensional array A is:
+La sintaxis general para asignar valores en un array n-dimensional `A` es:
 
 ```
 A[I_1, I_2, ..., I_n] = X
 ```
 
-where each `I_k` may be a scalar integer, an array of integers, or any other
-[supported index](@ref man-supported-index-types). This includes
-[`Colon`](@ref) (`:`) to select all indices within the entire dimension,
-ranges of the form `a:c` or `a:b:c` to select contiguous or strided
-subsections, and arrays of booleans to select elements at their `true` indices.
+donde cada `I_k` puede ser un índice escalar, un array de enteros o cualquier otro [índice soportado](@ref man-supported-index-types). Esto incluye [`Colon`](@ref) (`:`) para seleccionar todos los índices dentro de la dimensión completa, rangos de la forma `a:c` o `a:b:c` para seleccionar subsecciones contiguas o con salto, y arrays de booleans para seleccionar elementos en sus índices `true`.
 
-If `X` is an array, it must have the same number of elements as the product of the lengths of
-the indices: `prod(length(I_1), length(I_2), ..., length(I_n))`. The value in location `I_1[i_1], I_2[i_2], ..., I_n[i_n]`
-of `A` is overwritten with the value `X[i_1, i_2, ..., i_n]`. If `X` is not an array, its value
-is written to all referenced locations of `A`.
+Si `X` es un array, debe tener el mismo número de elementos que el producto de las longitudes de los índices `prod(length(I_1), length(I_2), ..., length(I_n))`. El valor en la localización `I_1[i_1], I_2[i_2], ..., I_n[i_n]`de `A` es sobreescrito con el valor `X[i_1, i_2, ..., i_n]`. Si `X` no es un array, su valor es escrito a todas las localizaciones referenciadas de `A`.
 
-Just as in [Indexing](@ref man-array-indexing), the `end` keyword may be used
-to represent the last index of each dimension within the indexing brackets, as
-determined by the size of the array being assigned into. Indexed assignment
-syntax without the `end` keyword is equivalent to a call to
-[`setindex!()`](@ref):
+Justo como en [Indexación](@ref man-array-indexing), la palabra clave `end` puede utilizarse para representar el último índice de cada dimensión dentro de los corchetes de los índices, como queda determinado por el tamaño del array en el que se está siendo asignado. La sintaxis de la asignación indexada sin la palabra clave `end` es equivalente a llamar a la función [`setindex!()`](@ref):
 
 ```
 setindex!(A, X, I_1, I_2, ..., I_n)
 ```
 
-Example:
+Ejemplo:
 
 ```jldoctest
 julia> x = collect(reshape(1:9, 3, 3))
@@ -284,29 +271,26 @@ julia> x
  3   6   9
 ```
 
-### [Supported index types](@id man-supported-index-types)
+### [Tipos de Índices Soportados](@id man-supported-index-types)
 
-In the expression `A[I_1, I_2, ..., I_n]`, each `I_k` may be a scalar index, an
-array of scalar indices, or an object that represents an array of scalar
-indices and can be converted to such by [`to_indices`](@ref):
+En la expresión `A[I_1, I_2, ..., I_n]`, cada `I_k` puede ser un índice escalar, un array de índices escalares o un objeto que repreenta un array de índices escalares y puede ser convertido a tal mediante [`to_indices`](@ref):
 
-1. A scalar index. By default this includes:
-    * Non-boolean integers
-    * `CartesianIndex{N}`s, which behave like an `N`-tuple of integers spanning multiple dimensions (see below for more details)
-2. An array of scalar indices. This includes:
-    * Vectors and multidimensional arrays of integers
-    * Empty arrays like `[]`, which select no elements
-    * `Range`s of the form `a:c` or `a:b:c`, which select contiguous or strided subsections from `a` to `c` (inclusive)
-    * Any custom array of scalar indices that is a subtype of `AbstractArray`
-    * Arrays of `CartesianIndex{N}` (see below for more details)
-3. An object that represents an array of scalar indices and can be converted to such by [`to_indices`](@ref). By default this includes:
-    * [`Colon()`](@ref) (`:`), which represents all indices within an entire dimension or across the entire array
-    * Arrays of booleans, which select elements at their `true` indices (see below for more details)
+1. Un índice escalar. Por defecto esto incluye:
+    * Enteros no booleanos
+    * `CartesianIndex{N}`s, que se comportan como una `N`-tupla de enteros abarcando múltiples dimensiones (ver abajo para ms detalles)
+2. Un array de índices escalares. Esto incluye:
+    * Vectores y arrays multidimensionales de enteros
+    * Arrays vacíos como `[]`, que no selecciona elementos
+    * `Range`s de la forma `a:c` o `a:b:c`, que seleccionan subsecciones contiguas o con salto desde `a` hasta `c` (inclusive)
+    * Cualquier array de índices escalares que sea un subtipo de `AbstractArray`
+    * Arrays de `CartesianIndex{N}` (ver abajo para ms detalles)
+3. Un objeto que representa un array de índice escalares y puede ser convertido a tal mediante [`to_indices`](@ref). Por defecto esto incluye:
+    * [`Colon()`](@ref) (`:`), que representa todos los índices dentro de una dimensión entera o a través del array completo
+    * Arrays de booleans, que seleccionan los elementos en los que sus índices son `true` indices (ver abajo para más detalles)
 
-#### Cartesian indices
+#### Índices Cartesianos
 
-The special `CartesianIndex{N}` object represents a scalar index that behaves
-like an `N`-tuple of integers spanning multiple dimensions.  For example:
+El objeto especial `CartesianIndex{N}` representa un índice escalar que se comporta como una `N`-tupla de enteros que abarcan multiples dimensioneas. Por ejemplo:
 
 ```jldoctest cartesianindex
 julia> A = reshape(1:32, 4, 4, 2);
@@ -318,18 +302,9 @@ julia> A[CartesianIndex(3, 2, 1)] == A[3, 2, 1] == 7
 true
 ```
 
-Considered alone, this may seem relatively trivial; `CartesianIndex` simply
-gathers multiple integers together into one object that represents a single
-multidimensional index. When combined with other indexing forms and iterators
-that yield `CartesianIndex`es, however, this can lead directly to very elegant
-and efficient code. See [Iteration](@ref) below, and for some more advanced
-examples, see [this blog post on multidimensional algorithms and
-iteration](https://julialang.org/blog/2016/02/iteration).
+Considerado solo, esto puede parecer relativamente trivial; `CartesianIndex` simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen `CartesianIndex`es, esto puede conducir directamente a un código muy elegante y eficiente. Ver [Iteración](@ref) a continuación, y para algunos ejemplos más avanzados, ver [esta publicación en el blog sobre algoritmos multidimensionales e iteración](https://julialang.org/blog/2016/02/iteration).
 
-Arrays of `CartesianIndex{N}` are also supported. They represent a collection
-of scalar indices that each span `N` dimensions, enabling a form of indexing
-that is sometimes referred to as pointwise indexing. For example, it enables
-accessing the diagonal elements from the first "page" of `A` from above:
+Los *arrays* de `CartesianIndex{N}` también sestán soportados. Representan una colección de índices escalares que abarcan   `N` dimensiones cada uno, lo que permite una forma de indexación que a veces se denomina *indexación puntual*. Por ejemplo, permite acceder a los elementos diagonales desde la primera "página" de 'A' desde arriba:
 
 ```jldoctest cartesianindex
 julia> page = A[:,:,1]
@@ -350,10 +325,7 @@ julia> page[[CartesianIndex(1,1),
  16
 ```
 
-This can be expressed much more simply with [dot broadcasting](@ref man-vectorized)
-and by combining it with a normal integer index (instead of extracting the
-first `page` from `A` as a separate step). It can even be combined with a `:`
-to extract both diagonals from the two pages at the same time:
+Esto se puede expresar mucho más simplemente con [*dot broadcasting*] (@ref man-vectorized) y combinándolo con un índice entero normal (en lugar de extraer la primera página de` A` como un paso separado). Incluso se puede combinar con `:` para extraer ambas diagonales de las dos páginas al mismo tiempo:
 
 ```jldoctest cartesianindex
 julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), 1]
@@ -373,22 +345,13 @@ julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), :]
 
 !!! warning
 
-    `CartesianIndex` and arrays of `CartesianIndex` are not compatible with the
-    `end` keyword to represent the last index of a dimension. Do not use `end`
-    in indexing expressions that may contain either `CartesianIndex` or arrays thereof.
+    `CartesianIndex` y los arrays de `CartesianIndex` no son compatibles con la palabra
+    clave `end` que representa el último índice de una dimensión. No usaremos `end`
+    cuando se indexen expresiones que puedan contener `CartesianIndex` or arrays de ellos.
 
-#### Logical indexing
+#### Indexación Lógica
 
-Often referred to as logical indexing or indexing with a logical mask, indexing
-by a boolean array selects elements at the indices where its values are `true`.
-Indexing by a boolean vector `B` is effectively the same as indexing by the
-vector of integers that is returned by [`find(B)`](@ref). Similarly, indexing
-by a `N`-dimensional boolean array is effectively the same as indexing by the
-vector of `CartesianIndex{N}`s where its values are `true`. A logical index
-must be a vector of the same length as the dimension it indexes into, or it
-must be the only index provided and match the size and dimensionality of the
-array it indexes into. It is generally more efficient to use boolean arrays as
-indices directly instead of first calling [`find()`](@ref).
+A menudo denominada indexación lógica o indexación con una máscara lógica, la indexación mediante  una matriz booleana selecciona elementos en los índices cuyos valores son `verdaderos`. La indexación por un vector booleano `B` es efectivamente igual a la indexación por el vector de enteros que es devuelto por [`find (B)`](@ref). De forma similar, la indexación por una matriz booleana `N`-dimensional es efectivamente igual a la indexación por el vector de `CartesianIndex{N}`s donde sus valores son `true`. Un índice lógico debe ser un vector de la misma longitud que la dimensión en la que indexa, o debe ser el único índice proporcionado y debe coincidir con el tamaño y la dimensionalidad de la matriz en la que se indexa. En general, es más eficiente usar matrices booleanas como índices directamente en lugar de llamar primero a [`find()`](@ref).
 
 ```jldoctest
 julia> x = reshape(1:16, 4, 4)
@@ -419,9 +382,9 @@ julia> x[mask]
  16
 ```
 
-### Iteration
+### Iteración
 
-The recommended ways to iterate over a whole array are
+Las formas recomendadas de iterar sobre un array completo son:
 
 ```julia
 for a in A
@@ -432,6 +395,8 @@ for i in eachindex(A)
     # Do something with i and/or A[i]
 end
 ```
+
+La primera construcción se usa cuando necesitamos el valor, pero no los índices, de cada elemento. En la segunda construcción, `i` será un `Int` si `A` es un tipo array con indexación lineal rápida; en caso contrario será un `CartesianIndex`:
 
 The first construct is used when you need the value, but not index, of each element. In the second
 construct, `i` will be an `Int` if `A` is an array type with fast linear indexing; otherwise,
