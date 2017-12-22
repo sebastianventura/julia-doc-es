@@ -430,42 +430,35 @@ El modo predeterminado utilizado siempre es [`RoundNearest`](@ref), , que redond
 más cercano, con arcos redondeados hacia el valor más cercano con un bit menos significativo.
 
 !!! warning
-    Rounding is generally only correct for basic arithmetic functions ([`+()`](@ref), [`-()`](@ref),
-    [`*()`](@ref), [`/()`](@ref) and [`sqrt()`](@ref)) and type conversion operations. Many other
-    functions assume the default [`RoundNearest`](@ref) mode is set, and can give erroneous results
-    when operating under other rounding modes.
+    El redondeo generalmente sólo es correcto para las funciones aritméticas básicas ([`+()`](@ref), 
+    [`-()`](@ref), [`*()`](@ref), [`/()`](@ref) and [`sqrt()`](@ref)) y las operaciones de conversión 
+    de tipos. Muchas otras funciones asumen que el modo por defecto [`RoundNearest`](@ref) está 
+    establecido y pueden dar resultados erróneos al operar bajo otros modos de redondeo.
 
-### Background and References
+### Antecedentes y referencias
 
-Floating-point arithmetic entails many subtleties which can be surprising to users who are unfamiliar
-with the low-level implementation details. However, these subtleties are described in detail in
-most books on scientific computation, and also in the following references:
+La aritmética de punto flotante supone muchas sutilezas que pueden sorprender a los usuarios que no 
+están familiarizados con los detalles de implementación de bajo nivel. Sin embargo, estas sutilezas 
+se describen en detalle en la mayoría de los libros sobre computación científica, y también en las 
+siguientes referencias:
 
-  * The definitive guide to floating point arithmetic is the [IEEE 754-2008 Standard](http://standards.ieee.org/findstds/standard/754-2008.html);
-    however, it is not available for free online.
-  * For a brief but lucid presentation of how floating-point numbers are represented, see John D.
-    Cook's [article](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/)
-    on the subject as well as his [introduction](https://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/)
-    to some of the issues arising from how this representation differs in behavior from the idealized
-    abstraction of real numbers.
-  * Also recommended is Bruce Dawson's [series of blog posts on floating-point numbers](https://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/).
-  * For an excellent, in-depth discussion of floating-point numbers and issues of numerical accuracy
-    encountered when computing with them, see David Goldberg's paper [What Every Computer Scientist Should Know About Floating-Point Arithmetic](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.22.6768&rep=rep1&type=pdf).
-  * For even more extensive documentation of the history of, rationale for, and issues with floating-point
-    numbers, as well as discussion of many other topics in numerical computing, see the [collected writings](https://people.eecs.berkeley.edu/~wkahan/)
-    of [William Kahan](https://en.wikipedia.org/wiki/William_Kahan), commonly known as the "Father
-    of Floating-Point". Of particular interest may be [An Interview with the Old Man of Floating-Point](https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html).
+  * La guía definitiva para la aritmética de coma flotante es el estándar [IEEE 754-2008 (http://standards.ieee.org/findstds/standard/754-2008.html); Sin embargo, no está disponible 
+  en línea gratis.
+  * Para una presentación breve pero lúcida de cómo los números de punto flotante están 
+  representados, vea el [artículo de John D. Cook](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/) sobre el tema, así como su [introduction](https://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/)
+    a algunas de las cuestiones que surgen de cómo esta representación difiere en el comportamiento de la abstracción idealizada de números reales.
+    abstraction of real numbers.
+  * También se recomienda la serie de [publicaciones de Bruce Dawson sobre números en punto flotante](https://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/).
+  * Para un excelente y profundo análisis de los números de coma flotante y los problemas de precisión numérica encontrados al calcular con ellos, vea el artículo de David Goldberg [What Every Computer Scientist Should Know About Floating-Point Arithmetic](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.22.6768&rep=rep1&type=pdf).
+  * Para una documentación aún más extensa de la historia de, la razón y las cuestiones con los números de punto flotante, así como la discusión de muchos otros temas en la computación numérica, ver los [escritos recolectados](https://people.eecs.berkeley.edu/~wkahan/)
+    de [William Kahan](https://en.wikipedia.org/wiki/William_Kahan), comúnmente conocido como el "Padre de punto flotante". De interés particular puede ser [An Interview with the Old Man of Floating-Point](https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html).
+    
+## Aritmética de Precisión Arbitraria
 
-## Arbitrary Precision Arithmetic
+Para permitir cálculos con enteros y números de coma flotante de precisión arbitraria, Julia envuelve la [Biblioteca Aritmética de Precisión Múltiple GNU (GMP)](https://gmplib.org) y la [biblioteca GNU MPFR](http://www.mpfr.org),
+respectivamente. Los tipos [`BigInt`](@ref) y [`BigFloat`](@ref) están disponibles en Julia para números enteros de precisión arbitraria y números de coma flotante, respectivamente.
 
-To allow computations with arbitrary-precision integers and floating point numbers, Julia wraps
-the [GNU Multiple Precision Arithmetic Library (GMP)](https://gmplib.org) and the [GNU MPFR Library](http://www.mpfr.org),
-respectively. The [`BigInt`](@ref) and [`BigFloat`](@ref) types are available in Julia for arbitrary
-precision integer and floating point numbers respectively.
-
-Constructors exist to create these types from primitive numerical types, and [`parse()`](@ref)
-can be used to construct them from `AbstractString`s.  Once created, they participate in arithmetic
-with all other numeric types thanks to Julia's [type promotion and conversion mechanism](@ref conversion-and-promotion):
+Existen constructores para crear estos tipos de tipos numéricos primitivos, y podemos también utilizar [`parse()`](@ref) para construirlos a partir de `AbstractString`s.  Una vez creados, participan en la aritmética con todos los demás tipos numéricos gracias al [mecanismo de promotion y conversion de tipos](@ref conversion-and-promotion) de Julia:
 
 ```jldoctest
 julia> BigInt(typemax(Int64)) + 1
@@ -484,8 +477,7 @@ julia> factorial(BigInt(40))
 815915283247897734345611269596115894272000000000
 ```
 
-However, type promotion between the primitive types above and [`BigInt`](@ref)/[`BigFloat`](@ref)
-is not automatic and must be explicitly stated.
+Sin embargo, la promoción de tipos entre los tipos primitivos ya vistos y [`BigInt`](@ref)/[`BigFloat`](@ref) no es automática y debe ser establecida explícitamente: 
 
 ```jldoctest
 julia> x = typemin(Int64)
@@ -507,11 +499,7 @@ julia> typeof(y)
 BigInt
 ```
 
-The default precision (in number of bits of the significand) and rounding mode of [`BigFloat`](@ref)
-operations can be changed globally by calling [`setprecision()`](@ref) and [`setrounding()`](@ref),
-and all further calculations will take these changes in account.  Alternatively, the precision
-or the rounding can be changed only within the execution of a particular block of code by using
-the same functions with a `do` block:
+La precisión predeterminada (en número de bits del significado) y el modo de redondeo de las operaciones de [`BigFloat`](@ref) pueden cambiarse globalmente llamando [`setprecision()`](@ref) and [`setrounding()`](@ref), y todos los cálculos adicionales tomarán en cuenta estos cambios. Alternativamente, la precisión o el redondeo se puede cambiar dentro sólo de la ejecución de un bloque particular de código utilizando las mismas funciones dentro de un bloque `do`:
 
 ```jldoctest
 julia> setrounding(BigFloat, RoundUp) do
@@ -530,11 +518,9 @@ julia> setprecision(40) do
 1.1000000000004
 ```
 
-## [Numeric Literal Coefficients](@id man-numeric-literal-coefficients)
+## [Coeficientes Literales Numéricos](@id man-numeric-literal-coefficients)
 
-To make common numeric formulas and expressions clearer, Julia allows variables to be immediately
-preceded by a numeric literal, implying multiplication. This makes writing polynomial expressions
-much cleaner:
+Para hacer más claras fórmulas numéricas y expresiones, Julia permite que las variables sean precedidas inmediatamente por un literal numérico, implicando la multiplicación. Esto hace que la escritura de las expresiones polinómicas sea mucho más limpias:
 
 ```jldoctest numeric-coefficients
 julia> x = 3
@@ -547,38 +533,35 @@ julia> 1.5x^2 - .5x + 1
 13.0
 ```
 
-It also makes writing exponential functions more elegant:
+También hace que escribir funciones exponenciales sea más elegante:
 
 ```jldoctest numeric-coefficients
 julia> 2^2x
 64
 ```
 
-The precedence of numeric literal coefficients is the same as that of unary operators such as
-negation. So `2^3x` is parsed as `2^(3x)`, and `2x^3` is parsed as `2*(x^3)`.
+La precedencia de los coeficientes literales numéricos es la misma que la de los operadores unarios como la negación. Así que `2^3x` se analiza como `2^(3x)`, y `2x^3` se analiza como `2*(x ^ 3)`.
 
-Numeric literals also work as coefficients to parenthesized expressions:
+Los literales numéricos también funcionan como coeficientes de las expresiones entre paréntesis:
 
 ```jldoctest numeric-coefficients
 julia> 2(x-1)^2 - 3(x-1) + 1
 3
 ```
 !!! note
-    The precedence of numeric literal coefficients used for implicit
-    multiplication is higher than other binary operators such as multiplication
-    (`*`), and division (`/`, `\`, and `//`).  This means, for example, that
-    `1 / 2im` equals `-0.5im` and `6 // 2(2 + 1)` equals `1 // 1`.
+    La precedencia de coeficientes literales numéricos usada para multiplicación 
+    implícita es mayor que otros operadores binarios tales como la multiplicación
+    (`*`), y división (`/`, `\`, and `//`).  Esto significa, por ejemplo, que 
+    `1 / 2im` es igual a `-0.5im` y `6 // 2(2 + 1)` es igual a `1 // 1`.
 
-Additionally, parenthesized expressions can be used as coefficients to variables, implying multiplication
-of the expression by the variable:
+Además, las expresiones entre paréntesis se pueden utilizar como coeficientes a las variables, lo que implica la multiplicación de la expresión por la variable:
 
 ```jldoctest numeric-coefficients
 julia> (x-1)x
 6
 ```
 
-Neither juxtaposition of two parenthesized expressions, nor placing a variable before a parenthesized
-expression, however, can be used to imply multiplication:
+Sin embargo, ni la yuxtaposición de dos expresiones entre paréntesis, ni la colocación de una variable antes de una expresión entre paréntesis puede ser usada para implicar multiplicación:
 
 ```jldoctest numeric-coefficients
 julia> (x-1)(x+1)
@@ -588,45 +571,35 @@ julia> x(x+1)
 ERROR: MethodError: objects of type Int64 are not callable
 ```
 
-Both expressions are interpreted as function application: any expression that is not a numeric
-literal, when immediately followed by a parenthetical, is interpreted as a function applied to
-the values in parentheses (see [Functions](@ref) for more about functions). Thus, in both of these
-cases, an error occurs since the left-hand value is not a function.
+Ambas expresiones se interpretan como la aplicación de una función: cualquier expresión que no sea un literal numérico, inmediatamente seguida de una entre paréntesis, se interpreta como una función aplicada a los valores entre paréntesis (ver [Functions](@ref) para más información sobre las funciones). Por lo tanto, en ambos casos, se produce un error, ya que el valor de la izquierda no es una función.
 
-The above syntactic enhancements significantly reduce the visual noise incurred when writing common
-mathematical formulae. Note that no whitespace may come between a numeric literal coefficient
-and the identifier or parenthesized expression which it multiplies.
+Las mejoras sintácticas anteriores reducen significativamente el ruido visual producido al escribir fórmulas matemáticas comunes. Obsérvese que ningún espacio en blanco puede encontrarse entre un coeficiente literal numérico y el identificador o la expresión entre paréntesis que multiplica.
 
-### Syntax Conflicts
+### Conflictos de Sintaxis
 
-Juxtaposed literal coefficient syntax may conflict with two numeric literal syntaxes: hexadecimal
-integer literals and engineering notation for floating-point literals. Here are some situations
-where syntactic conflicts arise:
 
-  * The hexadecimal integer literal expression `0xff` could be interpreted as the numeric literal
-    `0` multiplied by the variable `xff`.
-  * The floating-point literal expression `1e10` could be interpreted as the numeric literal `1` multiplied
-    by the variable `e10`, and similarly with the equivalent `E` form.
+La sintaxis de los coeficientes literales yuxtapuestos puede entrar en conflicto con dos sintaxis numéricas literales: literales enteros hexadecimales y notación ingenieril para literales de punto flotante. Aquí hay algunas situaciones donde surgen conflictos sintácticos:
 
-In both cases, we resolve the ambiguity in favor of interpretation as a numeric literals:
+* La expresión literal de enteros hexadecimales `0xff` podría interpretarse como el literal numérico `0` multiplicado por la variable `xff`.
+* La expresión literal de punto flotante `1e10` podría interpretarse como el literal numérico `1` multiplicado por la variable `e10`, e igualmente con la forma `E` equivalente
 
-  * Expressions starting with `0x` are always hexadecimal literals.
-  * Expressions starting with a numeric literal followed by `e` or `E` are always floating-point literals.
+En ambos casos, resolvemos la ambigüedad a favor de la interpretación como literales numéricos:
 
-## Literal zero and one
+* Las expresiones que comienzan con `0x` siempre son literales hexadecimales.
+* Las expresiones que empiezan con un literal numérico seguido por e o E siempre son literales de coma flotante.
 
-Julia provides functions which return literal 0 and 1 corresponding to a specified type or the
-type of a given variable.
+## Literales cero and uno
 
-| Function          | Description                                      |
-|:----------------- |:------------------------------------------------ |
-| [`zero(x)`](@ref) | Literal zero of type `x` or type of variable `x` |
-| [`one(x)`](@ref)  | Literal one of type `x` or type of variable `x`  |
+Julia proporciona funciones que devuelven los literales `0` y `1` correspondientes a un tipo especificado o al tipo de una variable dada.
 
-These functions are useful in [Numeric Comparisons](@ref) to avoid overhead from unnecessary
-[type conversion](@ref conversion-and-promotion).
+| Function          | Description                                            |
+|:----------------- |:------------------------------------------------------ |
+| [`zero(x)`](@ref) | Literal cero del tipo `x` o del tipo de la variable `x`|
+| [`one(x)`](@ref)  | Literal uno del tipo `x` o del tipo de la variable `x` |
 
-Examples:
+Estas funciones son útiles en [Comparaciones Numéricas](@ref) para evitar la sobrecarga de una [conversión de tipo](@ref conversion-and-promotion) innecesaria.
+
+Ejemplos:
 
 ```jldoctest
 julia> zero(Float32)
