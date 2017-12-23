@@ -1,4 +1,4 @@
-# Essentials
+# [Essentials](@id essentials)
 
 ## Introduction
 

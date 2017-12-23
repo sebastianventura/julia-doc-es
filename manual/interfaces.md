@@ -1,4 +1,4 @@
-# Interfaces
+# [Interfaces](@id interfaces)
 
 A lot of the power and extensibility in Julia comes from a collection of informal interfaces.
  By extending a few specific methods to work for a custom type, objects of that type not only

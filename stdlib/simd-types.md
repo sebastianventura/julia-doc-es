@@ -1,4 +1,4 @@
-# SIMD Support
+# [SIMD Support](@id simd-support)
 
 Type `VecElement{T}` is intended for building libraries of SIMD operations. Practical use of it
 requires using `llvmcall`. The type is defined as:

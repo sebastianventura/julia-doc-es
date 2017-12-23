@@ -1,4 +1,4 @@
-# Dynamic Linker
+# [Dynamic Linker](@id dynamic-linker)
 
 The names in `Base.Libdl` are not exported and need to be called e.g. as `Libdl.dlopen()`.
 

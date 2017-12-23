@@ -1,4 +1,4 @@
-# High-level Overview of the Native-Code Generation Process
+# [High-level Overview of the Native-Code Generation Process](@id compiler)
 
 ## Representation of Pointers
 

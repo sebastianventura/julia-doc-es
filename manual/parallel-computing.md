@@ -1,4 +1,4 @@
-# Parallel Computing
+# [Parallel Computing](@id parallel-computing)
 
 Most modern computers possess more than one CPU, and several computers can be combined together
 in a cluster. Harnessing the power of these multiple CPUs allows many computations to be completed

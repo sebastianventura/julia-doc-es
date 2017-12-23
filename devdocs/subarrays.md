@@ -1,4 +1,4 @@
-# SubArrays
+# [SubArrays](@id subarrays)
 
 Julia's `SubArray` type is a container encoding a "view" of a parent [`AbstractArray`](@ref).  This page
 documents some of the design principles and implementation of `SubArray`s.

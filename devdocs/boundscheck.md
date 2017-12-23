@@ -1,4 +1,4 @@
-# Bounds checking
+# [Bounds checking](@id boundscheck)
 
 Like many modern programming languages, Julia uses bounds checking to ensure program safety when
 accessing arrays. In tight inner loops or other performance critical situations, you may wish

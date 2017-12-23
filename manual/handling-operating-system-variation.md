@@ -1,4 +1,4 @@
-# Handling Operating System Variation
+# [Handling Operating System Variation](@id handling-operating-system-variation)
 
 When dealing with platform libraries, it is often necessary to provide special cases for various
 platforms. The variable `Sys.KERNEL` can be used to write these special cases. There are several

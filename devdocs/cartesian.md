@@ -1,4 +1,4 @@
-# Base.Cartesian
+# [Base.Cartesian](@id cartesian)
 
 The (non-exported) Cartesian module provides macros that facilitate writing multidimensional algorithms.
 It is hoped that Cartesian will not, in the long term, be necessary; however, at present it is

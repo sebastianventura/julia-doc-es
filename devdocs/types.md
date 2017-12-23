@@ -1,7 +1,7 @@
-# More about types
+# [More about types](@id types)
 
 If you've used Julia for a while, you understand the fundamental role that types play.  Here we
-try to get under the hood, focusing particularly on [Parametric Types](@ref).
+try to get under the hood, focusing particularly on [Parametric Types](@ref parametric-types).
 
 ## Types and sets (and `Any` and `Union{}`/`Bottom`)
 
@@ -456,7 +456,7 @@ We have not yet worked out a complete algorithm for this.
 Most operations for dealing with types are found in the files `jltypes.c` and `subtype.c`.
 A good way to start is to watch subtyping in action.
 Build Julia with `make debug` and fire up Julia within a debugger.
-[gdb debugging tips](@ref) has some tips which may be useful.
+[gdb debugging tips](@ref debuggingtips) has some tips which may be useful.
 
 Because the subtyping code is used heavily in the REPL itself--and hence breakpoints in this
 code get triggered often--it will be easiest if you make the following definition:

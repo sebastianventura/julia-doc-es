@@ -137,7 +137,7 @@ Float32[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 
 ### Expresiones Generador
 
-Las comprensiones también se pueden escribir sin los corchetes que las encierran, produciendo un objeto conocido como **generador**. Este objeto puede ser iterado para producir valores bajo demanda, en lugar de reservar espacio para un array y almacenarlos en él de antemano (véase [Iteración](@ref)). Por ejemplo, la siguiente expresión suma una serie sin asignar memoria:
+Las comprensiones también se pueden escribir sin los corchetes que las encierran, produciendo un objeto conocido como **generador**. Este objeto puede ser iterado para producir valores bajo demanda, en lugar de reservar espacio para un array y almacenarlos en él de antemano (véase [Iteración](@ref man-interface-iteration)). Por ejemplo, la siguiente expresión suma una serie sin asignar memoria:
 
 ```jldoctest
 julia> sum(1/n^2 for n=1:1000)
@@ -302,7 +302,7 @@ julia> A[CartesianIndex(3, 2, 1)] == A[3, 2, 1] == 7
 true
 ```
 
-Considerado solo, esto puede parecer relativamente trivial; `CartesianIndex` simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen `CartesianIndex`es, esto puede conducir directamente a un código muy elegante y eficiente. Ver [Iteración](@ref) a continuación, y para algunos ejemplos más avanzados, ver [esta publicación en el blog sobre algoritmos multidimensionales e iteración](https://julialang.org/blog/2016/02/iteration).
+Considerado solo, esto puede parecer relativamente trivial; `CartesianIndex` simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen `CartesianIndex`es, esto puede conducir directamente a un código muy elegante y eficiente. Ver [Iteración](@ref man-interface-interation) a continuación, y para algunos ejemplos más avanzados, ver [esta publicación en el blog sobre algoritmos multidimensionales e iteración](https://julialang.org/blog/2016/02/iteration).
 
 Los *arrays* de `CartesianIndex{N}` también sestán soportados. Representan una colección de índices escalares que abarcan   `N` dimensiones cada uno, lo que permite una forma de indexación que a veces se denomina *indexación puntual*. Por ejemplo, permite acceder a los elementos diagonales desde la primera "página" de 'A' desde arriba:
 
@@ -436,7 +436,7 @@ Los siguientes operadores están soportados para arrays:
 
 La mayoría de los operadores aritméticos binarios enumerados anteriormente también funcionan elemento a elemento cuando un argumento es escalar: `-`, `+`, y `*`cuando cualquiera de los argumentos es escalar, y `/` y `\` cuando el denominador es escalar. Por ejemplo, `[1, 2] + 3 == [4, 5]` y `[6, 4] / 2 == [3, 2]`.
 
-Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia [proporciona la sintaxis punto](@ref man-vectorized) `f.(args ...)`, por ejemplo, `sin.(x)` o `min.(x, y)`, para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una [Retransmisión (*broadcasting*)](@ref)); estos tienen la ventaja adicional de
+Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia [proporciona la sintaxis punto](@ref man-vectorized) `f.(args ...)`, por ejemplo, `sin.(x)` o `min.(x, y)`, para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una [Retransmisión (*broadcasting*)](@ref Broadcasting)); estos tienen la ventaja adicional de
 "fusión" en un solo bucle cuando se combina con otras llamadas de puntos, por ejemplo, `sin.(cos.(x))`
 
 También, *cada* operador binario admite una [versión de punto](@ref man-dot-operators) que se puede aplicar a matrices (y combinaciones de matrices y escalares) en tales [operaciones de retransmisión fusionadas](@ref man-vectorized), por ejemplo, `z .== sin.(x. * y)`.

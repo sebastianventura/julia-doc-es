@@ -1,6 +1,6 @@
-# System Image Building
+# [System Image Building](@id sysimg)
 
-## Building the Julia system image
+## [Building the Julia system image](@id building-julia-system-image)
 
 Julia ships with a preparsed system image containing the contents of the `Base` module, named
 `sys.ji`.  This file is also precompiled into a shared library called `sys.{so,dll,dylib}` on

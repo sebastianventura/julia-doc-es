@@ -28,7 +28,7 @@
   * [Handling Operating System Variation](@ref)
   * [Environment Variables](@ref)
   * [Interacting With Julia](@ref)
-  * [Embedding Julia](@ref)
+  * [Embedding Julia](@ref embedding)
   * [Packages](@ref)
   * [Package Development](@ref)
   * [Profiling](@ref)

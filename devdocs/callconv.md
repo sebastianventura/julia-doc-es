@@ -1,4 +1,4 @@
-# Calling Conventions
+# [Calling Conventions](@id callconv)
 
 Julia uses three calling conventions for four distinct purposes:
 

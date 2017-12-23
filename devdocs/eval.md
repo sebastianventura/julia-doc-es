@@ -1,4 +1,4 @@
-# Eval of Julia code
+# [Eval of Julia code](@id eval)
 
 One of the hardest parts about learning how the Julia Language runs code is learning how all of
 the pieces work together to execute a block of code.

@@ -1,4 +1,4 @@
-# Frequently Asked Questions
+# [Frequently Asked Questions](@id faq)
 
 ## Sessions and the REPL
 
@@ -577,7 +577,7 @@ use `importall`, then you'll replace the other module's implementation of `bar(s
 with your new implementation, which could easily do something completely different (and break
 all/many future usages of the other functions in module Foo that depend on calling bar).
 
-## Nothingness and missing values
+## [Nothingness and missing values](@id nothingness-and-missing-values)
 
 ### How does "null" or "nothingness" work in Julia?
 

@@ -1,4 +1,4 @@
-# Linear algebra
+# [Linear algebra](@id linear-algebra)
 
 In addition to (and as part of) its support for multi-dimensional arrays, Julia provides native implementations
 of many common and useful linear algebra operations. Basic operations, such as [`trace`](@ref), [`det`](@ref),

@@ -1,4 +1,4 @@
-# Initialization of the Julia runtime
+# [Initialization of the Julia runtime](@id init)
 
 How does the Julia runtime execute `julia -e 'println("Hello World!")'` ?
 
@@ -8,7 +8,7 @@ Execution starts at [`main()` in `ui/repl.c`](https://github.com/JuliaLang/julia
 
 `main()` calls [`libsupport_init()`](https://github.com/JuliaLang/julia/blob/master/src/support/libsupportinit.c)
 to set the C library locale and to initialize the "ios" library (see [`ios_init_stdstreams()`](https://github.com/JuliaLang/julia/blob/master/src/support/ios.c)
-and [Legacy `ios.c` library](@ref)).
+and [Legacy `ios.c` library](@ref legacy-ios-library)).
 
 Next [`parse_opts()`](https://github.com/JuliaLang/julia/blob/master/ui/repl.c) is called to process
 command line options. Note that `parse_opts()` only deals with options that affect code generation
@@ -27,7 +27,7 @@ by `main()` and calls [`_julia_init()` in `init.c`](https://github.com/JuliaLang
 to zero the signal handler mask.
 
 [`jl_resolve_sysimg_location()`](https://github.com/JuliaLang/julia/blob/master/src/init.c) searches
-configured paths for the base system image. See [Building the Julia system image](@ref).
+configured paths for the base system image. See [Building the Julia system image](@ref building-julia-system-image).
 
 [`jl_gc_init()`](https://github.com/JuliaLang/julia/blob/master/src/gc.c) sets up allocation pools
 and lists for weak refs, preserved values and finalization.
@@ -129,14 +129,14 @@ and `main()` calls `true_main(argc, (char**)argv)`.
 
 !!! sidebar "sysimg"
     If there is a sysimg file, it contains a pre-cooked image of the `Core` and `Main` modules (and
-    whatever else is created by `boot.jl`). See [Building the Julia system image](@ref).
+    whatever else is created by `boot.jl`). See [Building the Julia system image](@ref building-julia-system-image).
 
     [`jl_restore_system_image()`](https://github.com/JuliaLang/julia/blob/master/src/dump.c) deserializes
     the saved sysimg into the current Julia runtime environment and initialization continues after
     `jl_init_box_caches()` below...
 
     Note: [`jl_restore_system_image()` (and `dump.c` in general)](https://github.com/JuliaLang/julia/blob/master/src/dump.c)
-    uses the [Legacy `ios.c` library](@ref).
+    uses the [Legacy `ios.c` library](@ref legacy-ios-library).
 
 ## true_main()
 
@@ -176,7 +176,7 @@ and [`Base.print()`](@ref) before arriving at [`write(s::IO, a::Array{T}) where 
  which does `ccall(jl_uv_write())`.
 
 [`jl_uv_write()`](https://github.com/JuliaLang/julia/blob/master/src/jl_uv.c) calls `uv_write()`
-to write "Hello World!" to `JL_STDOUT`. See [Libuv wrappers for stdio](@ref).:
+to write "Hello World!" to `JL_STDOUT`. See [Libuv wrappers for stdio](@ref libuv-wrappers-stdio).:
 
 ```
 Hello World!

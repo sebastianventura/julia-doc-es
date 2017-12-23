@@ -1,4 +1,4 @@
-# Noteworthy Differences from other Languages
+# [Noteworthy Differences from other Languages](@id noteworthy-differences)
 
 ## Noteworthy differences from MATLAB
 

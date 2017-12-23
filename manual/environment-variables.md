@@ -1,4 +1,4 @@
-# Environment Variables
+# [Environment Variables](@id environment-variables)
 
 Julia may be configured with a number of environment variables, either in the
 usual way of the operating system, or in a portable way from within Julia.

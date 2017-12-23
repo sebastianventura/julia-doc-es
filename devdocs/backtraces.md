@@ -1,4 +1,4 @@
-# Reporting and analyzing crashes (segfaults)
+# [Reporting and analyzing crashes (segfaults)](@id backtraces)
 
 So you managed to break Julia.  Congratulations!  Collected here are some general procedures you
 can undergo for common symptoms encountered when something goes awry.  Including the information
@@ -8,9 +8,9 @@ to figure out why your script is running slower than expected.
 If you've been directed to this page, find the symptom that best matches what you're experiencing
 and follow the instructions to generate the debugging information requested.  Table of symptoms:
 
-  * [Segfaults during bootstrap (`sysimg.jl`)](@ref)
-  * [Segfaults when running a script](@ref)
-  * [Errors during Julia startup](@ref)
+  * [Segfaults during bootstrap (`sysimg.jl`)](@ref segfaults-bootstrap)
+  * [Segfaults when running a script](@ref segfaults-script)
+  * [Errors during Julia startup](@ref errors-startup)
 
 ## [Version/Environment info](@id dev-version-info)
 
@@ -22,7 +22,7 @@ first starts up, a header is printed out with a version number and date.  If you
 versioninfo()
 ```
 
-## Segfaults during bootstrap (`sysimg.jl`)
+## [Segfaults during bootstrap (`sysimg.jl`)](@id segfaults-bootstrap)
 
 Segfaults toward the end of the `make` process of building Julia are a common symptom of something
 going wrong while Julia is preparsing the corpus of code in the `base/` folder.  Many factors
@@ -52,9 +52,9 @@ the full backtrace.  Create a [gist](https://gist.github.com) with the backtrace
 and any other pertinent information you can think of and open a new [issue](https://github.com/JuliaLang/julia/issues?q=is%3Aopen)
 on Github with a link to the gist.
 
-## Segfaults when running a script
+## [Segfaults when running a script](@id segfaults-script)
 
-The procedure is very similar to [Segfaults during bootstrap (`sysimg.jl`)](@ref).  Create a debug
+The procedure is very similar to [Segfaults during bootstrap (`sysimg.jl`)](@ref segfaults-bootstrap).  Create a debug
 build of Julia, and run your script inside of a debugged Julia process:
 
 ```
@@ -77,7 +77,7 @@ Create a [gist](https://gist.github.com) with the backtrace, the [version info](
 other pertinent information you can think of and open a new [issue](https://github.com/JuliaLang/julia/issues?q=is%3Aopen)
 on Github with a link to the gist.
 
-## Errors during Julia startup
+## [Errors during Julia startup](@id errors-startup)
 
 Occasionally errors occur during Julia's startup process (especially when using binary distributions,
 as opposed to compiling from source) such as the following:

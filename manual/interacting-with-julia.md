@@ -1,4 +1,4 @@
-# Interacting With Julia
+# [Interacting With Julia](@id interacting-with-julia)
 
 Julia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into
 the `julia` executable. In addition to allowing quick and easy evaluation of Julia statements,
@@ -254,7 +254,7 @@ julia> α="\alpha[TAB]"   # LaTeX completion also works in strings
 julia> α="α"
 ```
 
-A full list of tab-completions can be found in the [Unicode Input](@ref) section of the manual.
+A full list of tab-completions can be found in the [Unicode Input](@ref unicode-input) section of the manual.
 
 Completion of paths works for strings and julia's shell mode:
 

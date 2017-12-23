@@ -1,4 +1,4 @@
-# Julia Functions
+# [Julia Functions](@id functions)
 
 This document will explain how functions, method definitions, and method tables work.
 

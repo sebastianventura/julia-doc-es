@@ -1,4 +1,4 @@
-# Talking to the compiler (the `:meta` mechanism)
+# [Talking to the compiler (the `:meta` mechanism)](@id meta)
 
 In some circumstances, one might wish to provide hints or instructions that a given block of code
 has special properties: you might always want to inline it, or you might want to turn on special

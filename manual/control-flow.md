@@ -1,4 +1,4 @@
-# Control Flow
+# [Control Flow](@id control-flow)
 
 Julia provides a variety of control flow constructs:
 

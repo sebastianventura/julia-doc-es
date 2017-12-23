@@ -1,4 +1,4 @@
-# Variables
+# [Variables](@id variables)
 
 Una variable en Julia es un nombre asociado a un valor. Esto es útil cuando pretendemos almacenar un valor (como el que obtenemos después de un cálculo) para un uso posterior. Por ejemplo:
 

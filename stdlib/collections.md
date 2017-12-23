@@ -1,4 +1,4 @@
-# Collections and Data Structures
+# [Collections and Data Structures](@id collections)
 
 ## [Iteration](@id lib-collections-iteration)
 

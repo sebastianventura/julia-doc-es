@@ -1,4 +1,4 @@
-# Base.LibGit2
+# [Base.LibGit2](@id libgit2)
 
 The LibGit2 module provides bindings to [libgit2](https://libgit2.github.com/), a portable C library that
 implements core functionality for the [Git](https://git-scm.com/) version control system.

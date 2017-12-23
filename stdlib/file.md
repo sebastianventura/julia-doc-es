@@ -1,4 +1,4 @@
-# Filesystem
+# [Filesystem](@id filesystem)
 
 ```@docs
 Base.Filesystem.pwd

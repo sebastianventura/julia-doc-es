@@ -1,4 +1,4 @@
-# Julia ASTs
+# [Julia ASTs](@id ast)
 
 Julia has two representations of code. First there is a surface syntax AST returned by the parser
 (e.g. the [`parse()`](@ref) function), and manipulated by macros. It is a structured representation
@@ -232,7 +232,7 @@ A unique'd container describing the shared metadata for a single method.
 
 ### MethodInstance
 
-A unique'd container describing a single callable signature for a Method. See especially [Proper maintenance and care of multi-threading locks](@ref)
+A unique'd container describing a single callable signature for a Method. See especially [Proper maintenance and care of multi-threading locks](@ref locks)
 for important details on how to modify these fields safely.
 
   * `specTypes`

@@ -1,4 +1,4 @@
-# Tasks and Parallel Computing
+# [Tasks and Parallel Computing](@id tasks-and-parallel-computing)
 
 ## Tasks
 

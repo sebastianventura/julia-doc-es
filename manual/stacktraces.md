@@ -1,4 +1,4 @@
-# Stack Traces
+# [Stack Traces](@id stacktraces)
 
 The `StackTraces` module provides simple stack traces that are both human readable and
 easy to use programmatically.

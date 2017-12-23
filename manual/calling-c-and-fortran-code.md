@@ -1,4 +1,4 @@
-# Llamando a código C y Fortran
+# [Llamando a código C y Fortran](@id calling-c-and-fortran-code)
 
 Aunque la mayoría del código se puede escribir en Julia, hay muchas bibliotecas maduras de alta calidad para computación numérica ya escritas en C y Fortran. Para permitir el uso fácil de este código existente, Julia hace que sea sencillo y eficiente llamar a las funciones C y Fortran. Julia tiene una filosofía de "no repetitivo": las funciones se pueden llamar directamente desde Julia sin ningún código de "pegamento", generación de código o compilación, incluso desde el aviso interactivo. Esto se logra haciendo una llamada apropiada con la sintaxis [`ccall`](@ref), que se parece a una llamada de función ordinaria.
 

@@ -1,6 +1,6 @@
-# printf() and stdio in the Julia runtime
+# [printf() and stdio in the Julia runtime](@id stdio)
 
-## Libuv wrappers for stdio
+## [Libuv wrappers for stdio](@id libuv-wrappers-stdio)
 
 `julia.h` defines [libuv](http://docs.libuv.org) wrappers for the `stdio.h` streams:
 
@@ -74,7 +74,7 @@ In `jl_uv.c` the `jl_uv_puts()` function checks its `uv_stream_t* stream` argume
 This allows for uniform use of `jl_printf()` throughout the runtime regardless of whether or not
 any particular piece of code is reachable before initialization is complete.
 
-## Legacy `ios.c` library
+## [Legacy `ios.c` library](@id legay-ios-library)
 
 The `src/support/ios.c` library is inherited from [femtolisp](https://github.com/JeffBezanson/femtolisp).
 It provides cross-platform buffered file IO and in-memory temporary buffers.

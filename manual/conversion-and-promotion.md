@@ -1,8 +1,8 @@
 # [Conversion and Promotion](@id conversion-and-promotion)
 
 Julia has a system for promoting arguments of mathematical operators to a common type, which has
-been mentioned in various other sections, including [Integers and Floating-Point Numbers](@ref),
-[Mathematical Operations and Elementary Functions](@ref), [Types](@ref man-types), and [Methods](@ref).
+been mentioned in various other sections, including [Integers and Floating-Point Numbers](@ref integers-and-floating-point-numbers),
+[Mathematical Operations and Elementary Functions](@ref mathematical-operations), [Types](@ref man-types), and [Methods](@ref methods).
 In this section, we explain how this promotion system works, as well as how to extend it to new
 types and apply it to functions besides built-in mathematical operators. Traditionally, programming
 languages fall into two camps with respect to promotion of arithmetic arguments:

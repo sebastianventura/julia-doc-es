@@ -1,4 +1,4 @@
-# Running External Programs
+# [Running External Programs](@id running-external-programs)
 
 Julia borrows backtick notation for commands from the shell, Perl, and Ruby. However, in Julia,
 writing

@@ -1,4 +1,4 @@
-# Working with LLVM
+# [Working with LLVM](@id llvm)
 
 This is not a replacement for the LLVM documentation, but a collection of tips for working on
 LLVM for Julia.

@@ -1,4 +1,4 @@
-# C Standard Library
+# [C Standard Library](@id libc)
 
 ```@docs
 Base.Libc.malloc

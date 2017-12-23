@@ -1,4 +1,4 @@
-# Sanitizer support
+# [Sanitizer support](@id sanitizers)
 
 ## General considerations
 
