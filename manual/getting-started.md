@@ -1,6 +1,6 @@
 # [Empezando](@id getting-started)
 
-La instalación de Julia es sencilla, ya sea utilizando binarios precompilados o compilando desde la fuente. Descargue e instale Julia siguiendo las instrucciones en [https://julialang.org/downloads/](https://julialang.org/downloads/).
+La instalación de Julia es sencilla, ya sea utilizando binarios precompilados o compilando desde la fuente. Descargue e instale Julia siguiendo las instrucciones disponibles en [https://julialang.org/downloads/](https://julialang.org/downloads/).
 
 La forma más fácil de aprender y experimentar con Julia es iniciando una sesión interactiva (también conocida como *read-eval-print loop* o "REPL") haciendo doble clic en el ejecutable de Julia o ejecutando `julia` desde la línea de mandatos:
 
