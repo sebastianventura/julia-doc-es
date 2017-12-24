@@ -1,6 +1,6 @@
 # [Números enteros y en punto flotante](@id integers-and-floating-point-numbers)
 
-Los valores enteros y punto flotante son los bloques constructivos básicos de la aritmética y la computación. Las representaciones construidas para estos valores son denominadas *tipos primitivos*, mientras que las reprentacionesde números enteros y en punto flotante como valores inmediatos en código se conocen como *literales numéricos*. Por ejemplo, `1` es un literal entero, mientras que `1.0` es un literal en punto flotante; sus representaciones binarias en memoria como objetos son los tipos primitivos.
+Los valores enteros y punto flotante son los bloques constructivos básicos de la aritmética y la computación. Las representaciones predefinidas para estos valores se denominan *tipos primitivos*, mientras que las reprentaciones de números enteros y en punto flotante como valores inmediatos en código se conocen como *literales numéricos*. Por ejemplo, `1` es un literal entero, mientras que `1.0` es un literal en punto flotante; sus representaciones binarias en memoria como objetos son los tipos primitivos.
 
 Julia proporciona un amplio rango de tipos primitivos numéricos, y un complemento complemento de operadores aritméticos y de bits así como funciones matemáticas estándar definidas sobre ellos. Los operadores establecen una correspondencia enre los tipos numéricos y las operaciones que son soportadas de forma nativa sobre los ordenadores modernos, permitiendo a Julia sacar plena ventaja de los recursos computacionales. Además, Julia proporciona soporte software para *aritmética de precisión arbitraria* que puede manejar operaciones sobre valores numéricos que no puede ser representada de forma efectiva en representaciones hardware nativas, pero al coste de un rendimiento relativamente menor.
 
@@ -44,7 +44,7 @@ julia> 1234
 1234
 ```
 
-El tipo por defecto para un literal entero depende de su el sistema objetivo tiene una aquitectura de 32 o de 64 bits:
+El tipo por defecto para un literal entero depende de si el sistema de trabajo tiene una aquitectura de 32 o de 64 bits:
 
 ```julia-repl
 # 32-bit system:
@@ -56,7 +56,7 @@ julia> typeof(1)
 Int64
 ```
 
-La variable interna de Julia [`Sys.WORD_SIZE`](@ref) indica si el sistema objetivo es de 32 bits o de 64 bits:
+La variable interna de Julia [`Sys.WORD_SIZE`](@ref) indica si el sistema en el que trabajamos es de 32 bits o de 64 bits:
 
 ```julia-repl
 # 32-bit system:
@@ -84,7 +84,7 @@ julia> UInt
 UInt64
 ```
 
-Los enteros mayores que no pueden ser representados usando sólo 32 bits pero pueden ser representados en 64 bits se crean como enteros de 64 bits, independientemente del tipo que tenga el sistema por defecto:
+Los literales enteros mayores que no pueden ser representados usando sólo 32 bits pero pueden ser representados en 64 bits se crean como enteros de 64 bits, independientemente del tipo que tenga el sistema por defecto:
 
 ```jldoctest
 # 32-bit or 64-bit system:
@@ -92,7 +92,7 @@ julia> typeof(3000000000)
 Int64
 ```
 
-Los enteros sin signo son introducidos y mostrados usando el prefijo `0x` y los dígitos hexadecimales `0-9a-f` (los dígitos capitalizados `A-F` también funcionan para la entrada). El tamaño de un valor sin signo está determinado por el número de dígitos hexadecimales usados:
+Los enteros sin signo se introducen y se muestran usando el prefijo `0x` y los dígitos hexadecimales `0-9a-f` (los dígitos capitalizados `A-F` también funcionan para la entrada). El tamaño de un valor sin signo está determinado por el número de dígitos hexadecimales usados:
 
 ```jldoctest
 julia> 0x1
@@ -122,7 +122,7 @@ UInt64
 
 Este comportamiento está basado en la observación de que cuando uno usa literales hexadecimales sin signo para valores enteros, se los suele utilizar para representar una secuencia de bytes numéricos fijos en lugar de un valor entero.
 
-Recuerde que la variable [`ans`](@ref) se establece en el valor de la última expresión evaluada en una sesión interactiva. Esto no ocurre cuando el código Julia se ejecuta de otras maneras.
+Recuerde que la variable [`ans`](@ref) contiene el valor de la última expresión evaluada en una sesión interactiva. Esto no ocurre cuando el código Julia se ejecuta de otra forma.
 
 Los literales binarios y octales también están soportados:
 
@@ -161,7 +161,7 @@ julia> for T in [Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt12
 UInt128: [0,340282366920938463463374607431768211455]
 ```
 
-Los valores devueltos por [`typemin()`](@ref) y [`typemax()`](@ref) siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo [blucles for](@ref man-loops),
+Los valores devueltos por [`typemin()`](@ref) y [`typemax()`](@ref) siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo [bucles for](@ref man-loops),
 [Cadenas](@ref man-strings), e [Interpolación](@ref), pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)
 
 ### Comportamiento ante el Desbordamiento
@@ -183,7 +183,7 @@ Así, la aritmética con enteros de Julia es en realidad una forma de [aritméti
 
 ### Errores de división
 
-La división entera (la función `div`) tiene dos casos excepcionales: dividir por cero, y dividir el número  negativo más bajo  ([`typemin()`](@ref)) por -1. Ambos casos lanzan un [`DivideError`](@ref). El resto y las funciones de módulo (`rem` y `mod`) lanzan un  [`DivideError`](@ref) cuando su segundo argumento es cero.
+La división entera (la función `div`) tiene dos casos excepcionales: división por cero, y dividir el número  negativo más bajo  ([`typemin()`](@ref)) por -1. Ambos casos lanzan un [`DivideError`](@ref). El resto y las funciones de módulo (`rem` y `mod`) lanzan un  [`DivideError`](@ref) cuando su segundo argumento es cero.
 
 ## Números en Punto Flotante
 
@@ -252,7 +252,7 @@ julia> typeof(ans)
 Float64
 ```
 
-También esta soportados los números en punto flotante de media precisión ([`Float16`](@ref)), pero sólo como un formato de almacenamiento. En los cálculos son convertidos a [`Float32`](@ref).
+También esta soportados los números en punto flotante de media precisión ([`Float16`](@ref)), pero ellos están implementados en software y usan [`Float32`](@ref) para los cálculos.
 
 ```jldoctest
 julia> sizeof(Float16(4.))
@@ -291,11 +291,11 @@ con ningún punto en la línea de números reales:
 
 | `Float16` | `Float32` | `Float64` | Name              | Description                                                     |
 |:--------- |:--------- |:--------- |:----------------- |:--------------------------------------------------------------- |
-| `Inf16`   | `Inf32`   | `Inf`     | positive infinity | a value greater than all finite floating-point values           |
-| `-Inf16`  | `-Inf32`  | `-Inf`    | negative infinity | a value less than all finite floating-point values              |
-| `NaN16`   | `NaN32`   | `NaN`     | not a number      | a value not `==` to any floating-point value (including itself) |
+| `Inf16`   | `Inf32`   | `Inf`     | Infinito positivo | Un valor mayor que todos los valores finitos de punto flotante  |
+| `-Inf16`  | `-Inf32`  | `-Inf`    | Infinito negativo | Un valor menos que todos los valores finitos de punto flotante  |
+| `NaN16`   | `NaN32`   | `NaN`     | *not a number*    | Un valor no `==` a otro valor en punto flotante (incluido el mismo) |
 
-Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea [Comparaciones Numéricas](@ref). Mediante [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008), estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:
+Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea [Comparaciones Numéricas](@ref). Mediante el [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008), estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:
 
 
 ```jldoctest
@@ -351,7 +351,7 @@ julia> (typemin(Float64),typemax(Float64))
 
 ### Epsilon de máquina
 
-La mayoría de los números reales no pueden representarse exactamente con números de coma flotante, por lo que para muchos propósitos es importante conocer la distancia entre dos números de punto flotante representables adyacentes, que a menudo se conoce como [epsilon de máquina](https://en.wikipedia.org/wiki/Machine_epsilon).
+La mayoría de los números reales no pueden representarse exactamente con números de coma flotante, por lo que para muchos propósitos es importante conocer la distancia entre dos números de punto flotante representables adyacentes, lo que a menudo se conoce como [epsilon de máquina](https://en.wikipedia.org/wiki/Machine_epsilon).
 
 Julia proporciona [`eps()`](@ref), que da la distancia entre 1,0 y el siguiente valor de punto flotante representable más grande:
 
@@ -445,13 +445,10 @@ siguientes referencias:
   * La guía definitiva para la aritmética de coma flotante es el estándar [IEEE 754-2008 (http://standards.ieee.org/findstds/standard/754-2008.html); Sin embargo, no está disponible 
   en línea gratis.
   * Para una presentación breve pero lúcida de cómo los números de punto flotante están 
-  representados, vea el [artículo de John D. Cook](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/) sobre el tema, así como su [introduction](https://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/)
-    a algunas de las cuestiones que surgen de cómo esta representación difiere en el comportamiento de la abstracción idealizada de números reales.
-    abstraction of real numbers.
+  representados, vea el [artículo de John D. Cook](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/) sobre el tema, así como su [introducción](https://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/) a algunas de las cuestiones que surgen de cómo esta representación difiere en el comportamiento de la abstracción idealizada de números reales.
   * También se recomienda la serie de [publicaciones de Bruce Dawson sobre números en punto flotante](https://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/).
-  * Para un excelente y profundo análisis de los números de coma flotante y los problemas de precisión numérica encontrados al calcular con ellos, vea el artículo de David Goldberg [What Every Computer Scientist Should Know About Floating-Point Arithmetic](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.22.6768&rep=rep1&type=pdf).
-  * Para una documentación aún más extensa de la historia de, la razón y las cuestiones con los números de punto flotante, así como la discusión de muchos otros temas en la computación numérica, ver los [escritos recolectados](https://people.eecs.berkeley.edu/~wkahan/)
-    de [William Kahan](https://en.wikipedia.org/wiki/William_Kahan), comúnmente conocido como el "Padre de punto flotante". De interés particular puede ser [An Interview with the Old Man of Floating-Point](https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html).
+  * Para un excelente y profundo análisis de los números de punto flotante y los problemas de precisión numérica encontrados al calcular con ellos, vea el artículo de David Goldberg [What Every Computer Scientist Should Know About Floating-Point Arithmetic](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.22.6768&rep=rep1&type=pdf).
+  * Para una documentación aún más extensa de la historia de, la razón y las cuestiones con los números de punto flotante, así como la discusión de muchos otros temas en la computación numérica, ver los [escritos recolectados](https://people.eecs.berkeley.edu/~wkahan/) de [William Kahan](https://en.wikipedia.org/wiki/William_Kahan), comúnmente conocido como el "padre de punto flotante". De interés particular puede ser [An Interview with the Old Man of Floating-Point](https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html).
     
 ## Aritmética de Precisión Arbitraria
 
@@ -571,12 +568,11 @@ julia> x(x+1)
 ERROR: MethodError: objects of type Int64 are not callable
 ```
 
-Ambas expresiones se interpretan como la aplicación de una función: cualquier expresión que no sea un literal numérico, inmediatamente seguida de una entre paréntesis, se interpreta como una función aplicada a los valores entre paréntesis (ver [Functions](@ref) para más información sobre las funciones). Por lo tanto, en ambos casos, se produce un error, ya que el valor de la izquierda no es una función.
+Ambas expresiones se interpretan como la aplicación de una función: cualquier expresión que no sea un literal numérico, inmediatamente seguida de una entre paréntesis, se interpreta como una función aplicada a los valores entre paréntesis (ver [Funciones](@ref functions) para más información sobre las funciones). Por lo tanto, en ambos casos, se produce un error, ya que el valor de la izquierda no es una función.
 
 Las mejoras sintácticas anteriores reducen significativamente el ruido visual producido al escribir fórmulas matemáticas comunes. Obsérvese que ningún espacio en blanco puede encontrarse entre un coeficiente literal numérico y el identificador o la expresión entre paréntesis que multiplica.
 
 ### Conflictos de Sintaxis
-
 
 La sintaxis de los coeficientes literales yuxtapuestos puede entrar en conflicto con dos sintaxis numéricas literales: literales enteros hexadecimales y notación ingenieril para literales de punto flotante. Aquí hay algunas situaciones donde surgen conflictos sintácticos:
 
@@ -597,7 +593,7 @@ Julia proporciona funciones que devuelven los literales `0` y `1` correspondient
 | [`zero(x)`](@ref) | Literal cero del tipo `x` o del tipo de la variable `x`|
 | [`one(x)`](@ref)  | Literal uno del tipo `x` o del tipo de la variable `x` |
 
-Estas funciones son útiles en [Comparaciones Numéricas](@ref) para evitar la sobrecarga de una [conversión de tipo](@ref conversion-and-promotion) innecesaria.
+Estas funciones son útiles en [comparaciones numéricas](@ref numerical-comparisons) para evitar la sobrecarga de una [conversión de tipo](@ref conversion-and-promotion) innecesaria.
 
 Ejemplos:
 
