@@ -1,6 +1,6 @@
 # [Base.Cartesian](@id cartesian)
 
-El módulo `Cartesian` (no exportado) proporciona macros que facilitan escribir algoritmos multidimnesionales. Es deseable que, a largo plazo, este módulo `Cartesian` no sea necesario; sin embargo, en la actualidad es una de las pocas formas de escribir código multidimensional compacto y con rendimiento.
+El módulo `Cartesian` (no exportado) proporciona macros que facilitan escribir algoritmos multidimensionales. Es deseable que, a largo plazo, este módulo `Cartesian` no sea necesario; sin embargo, en la actualidad es una de las pocas formas de escribir código multidimensional compacto y con rendimiento.
 
 ## Principios de uso
 
@@ -30,13 +30,10 @@ En general, `Cartesian` permitirá escribir código que contiene elementos repet
 
 La sintaxis básica de `@nloops` es la siguiente:
 
-  * The first argument must be an integer (*not* a variable) specifying the number of loops.
-  * The second argument is the symbol-prefix used for the iterator variable. Here we used `i`, and
-    variables `i_1, i_2, i_3` were generated.
-  * The third argument specifies the range for each iterator variable. If you use a variable (symbol)
-    here, it's taken as `1:size(A,dim)`. More flexibly, you can use the anonymous-function expression
-    syntax described below.
-  * The last argument is the body of the loop. Here, that's what appears between the `begin...end`.
+  * El primer argumento debe ser un entero (*no* una variable) que especifica el número de bucles.
+  * El segundo argumento es el prefijo simbólico que se utilizará para la variable iteradora. De este modo, en el ejemplo anterior usamos `i`, y se generaron las variables  `i_1, i_2, i_3`.
+  * El tercer argumento especifica el rango para cada variable iteradora. Si se usa una variable (símbolo) aquí, es considerado como `1:size(A,dim)`. De forma más flexible, se puede usar la sintaxis de expresiones basadas en funciones anónimas que se decribe más adelante.
+  * El último argumento es el cuerpo del bucle. En el ejemplo anterior, lo que aparece entre `begin...end`.
 
 There are some additional features of `@nloops` described in the [reference section](@ref dev-cartesian-reference).
 
@@ -122,9 +119,9 @@ s_3 = s_2 * size(A, 2)
 s_4 = s_3 * size(A, 3)
 ```
 
-Anonymous-function expressions have many uses in practice.
+Las expresiones función anónima tienen muchos usos en la práctica.
 
-#### [Macro reference](@id dev-cartesian-reference)
+#### [Referencia de las Macros](@id dev-cartesian-reference)
 
 ```@docs
 Base.Cartesian.@nloops
