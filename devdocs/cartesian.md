@@ -1,12 +1,10 @@
 # [Base.Cartesian](@id cartesian)
 
-The (non-exported) Cartesian module provides macros that facilitate writing multidimensional algorithms.
-It is hoped that Cartesian will not, in the long term, be necessary; however, at present it is
-one of the few ways to write compact and performant multidimensional code.
+El módulo `Cartesian` (no exportado) proporciona macros que facilitan escribir algoritmos multidimnesionales. Es deseable que, a largo plazo, este módulo `Cartesian` no sea necesario; sin embargo, en la actualidad es una de las pocas formas de escribir código multidimensional compacto y con rendimiento.
 
-## Principles of usage
+## Principios de uso
 
-A simple example of usage is:
+Un emeplo de uso simple podría ser:
 
 ```julia
 @nloops 3 i A begin
@@ -14,7 +12,7 @@ A simple example of usage is:
 end
 ```
 
-which generates the following code:
+que genera el siguiente código:
 
 ```julia
 for i_3 = 1:size(A,3)
@@ -26,14 +24,11 @@ for i_3 = 1:size(A,3)
 end
 ```
 
-In general, Cartesian allows you to write generic code that contains repetitive elements, like
-the nested loops in this example.  Other applications include repeated expressions (e.g., loop
-unwinding) or creating function calls with variable numbers of arguments without using the "splat"
-construct (`i...`).
+En general, `Cartesian` permitirá escribir código que contiene elementos repetitivos, como los bucles anidados de este ejemplo. Otras aplicaciones incluyen expresiones repetidas (por ejemplo, desenrollado de bucles) o crear llamadas a función con números variables de argumentos sin usar la construcción "*splat*" (`i...`).
 
-## Basic syntax
+## Sintaxis Básica
 
-The (basic) syntax of `@nloops` is as follows:
+La sintaxis básica de `@nloops` es la siguiente:
 
   * The first argument must be an integer (*not* a variable) specifying the number of loops.
   * The second argument is the symbol-prefix used for the iterator variable. Here we used `i`, and
