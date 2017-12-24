@@ -49,7 +49,7 @@ julia> 안녕하세요 = "Hello"
 "Hello"
 ```
 
-En el REPL y otros entornos de edición Julia se pueden introducir símbolos matemáticos Unicode usando la notación de *Latex* precedido de backslash y seguido de un tabulador. Por ejemplo, podemos crear el nombre de variable `δ` tecleando `\delta`-*tab*, o incluso `α̂₂` by `\alpha`-*tab*-`\hat`- *tab*-`\_2`-*tab*. (Si encuentras un símbolo en algun sitio, como por ejemplo en el código de alguien, y no sabes como escribirlo, el REPL te ayudará: solamente teclea `?` y luego pega el símbolo.)
+En el REPL y otros entornos de edición Julia se pueden introducir símbolos matemáticos Unicode usando la notación de *Latex* precedido de backslash y seguido de un tabulador. Por ejemplo, podemos crear el nombre de variable `δ` tecleando `\delta`-*tab*, o incluso el nombre `α̂₂` tecleando `\alpha`-*tab*-`\hat`- *tab*-`\_2`-*tab*. (Si encuentras un símbolo en algun sitio, como por ejemplo en el código de alguien, y no sabes como escribirlo, el REPL te ayudará: solamente teclea `?` y luego pega el símbolo.)
 
 Julia también permite redefinir constantes predefinidas su fuera necesario:
 
@@ -77,7 +77,7 @@ Sin embargo, esto no se recomienta para evitar una potencial confusión.
 ## Nombres de Variables Permitidos
 
 Los nombres de variable deben comenzar con una letra (`A`-`Z` o `a`-`z`), símblo de subrayado, o un subconjunto de puntos Unicode mayores que `00A0`. En particular, se permiten las [categorías de caracteres Unicode](http://www.fileformat.info/info/unicode/category/index.htm) Lu/Ll/Lt/Lm/Lo/Nl (letras), Sc/So (monedas y otros símbolos), y otros pocos caracteres (por ejemplo, un subconjunto de los símbolos matemáticos Sm). Entre los caracteres subsecuentes se pueden también incluir `!` y los dígitos (`0`-`9` y otros caracteres en las categorías Nd/No), así como otros puntos de código Unicode: diacríticas y otras marcas de modificación (categorías Mn/Mc/Me/Sk), algunos conectores de puntuación (category Pc), 
-primos, and otros pocos caracteres.
+primos, y otros cuantos caracteres.
 
 Los operadores como `+` son también identificadores válidos, pero son analizados sintácticamente de un modo especial. En algunos contextos, los operadores pueden ser usados justo como variables; por ejemplo `(+)` se refiere a la función de suma, y `(+) = f` la reasignará. La mayoría de los operadores infijos Unicode (en la categoría Sm), tal como `⊕`, son analizados como operadores infijos y están disponibles para métodos definidos por el usuario (por ejemplo, podemos usar `const ⊗ = kron` para definir `⊗` como un operador infijo producto de Kronecker).
 
@@ -91,7 +91,7 @@ julia> try = "No"
 ERROR: syntax: unexpected "="
 ```
 
-Algunos caracteres Unicode son considerados equivalentes en identificadores. Las disitntas formas de entrar caracteres que combinan Unicode (por ejemplo, acentos) son tratadas como equivalentes (específicamente los identificadores Julia son normalizados NFC). Los caracteres Unicode `ɛ` (U+025B: Latin small letter open e) y `µ` (U+00B5: micro sign) son tratadas como las letras griegas correspondientes, debido que las primeras son más fácilmente accesibles via alguos métodos de entrada.
+Algunos caracteres Unicode son considerados equivalentes en identificadores. Las distintas formas de introducir caracteres que combinan en Unicode (por ejemplo, acentos) son tratadas como equivalentes (específicamente los identificadores Julia son normalizados NFC). Los caracteres Unicode `ɛ` (U+025B: Latin small letter open e) y `µ` (U+00B5: micro sign) son tratados como las letras griegas correspondientes, debido que las primeras son más fácilmente accesibles via alguos métodos de entrada.
 
 ## Convenciones de Estilo
 
