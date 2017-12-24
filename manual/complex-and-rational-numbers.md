@@ -1,24 +1,18 @@
-# [Complex and Rational Numbers](@id complex-and-rational-numbers)
+# [Números Racionales y Complejos](@id complex-and-rational-numbers)
 
-Julia ships with predefined types representing both complex and rational numbers, and supports
-all standard [Mathematical Operations and Elementary Functions](@ref) on them. [Conversion and Promotion](@ref conversion-and-promotion) are defined
-so that operations on any combination of predefined numeric types, whether primitive or composite,
-behave as expected.
+Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las [Operaciones Matemáticas y Funciones Elementales](@ref mathematical-operations) estándar sobre ellos. Se han definido [conversiones y promociones](conversion-and-promotion) de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.
 
-## Complex Numbers
+como se esperaba.
+## [Números Complejos](@id complex-numbers)
 
-The global constant [`im`](@ref) is bound to the complex number *i*, representing the principal
-square root of -1. It was deemed harmful to co-opt the name `i` for a global constant, since it
-is such a popular index variable name. Since Julia allows numeric literals to be [juxtaposed with identifiers as coefficients](@ref man-numeric-literal-coefficients),
-this binding suffices to provide convenient syntax for complex numbers, similar to the traditional
-mathematical notation:
+La constante global [`im`](@ref) está ligada al número complejo *i*, que representa la raíz cuadrada principal de -1. Se consideró nocivo para co-optar el nombre `i` para una constante global, ya que es un nombre de variable de índice popular. Como Julia permite que los literales numéricos se [yuxtapongan con identificadores como coeficientes](@ref man-numeric-literal-coefficients), esta unión es suficiente para proporcionar sintaxis conveniente para números complejos, similar a la notación matemática tradicional:
 
 ```jldoctest
 julia> 1 + 2im
 1 + 2im
 ```
 
-You can perform all the standard arithmetic operations with complex numbers:
+Podemos realizar todas las operaciones aritméticas estándar con los números complejos:
 
 ```jldoctest
 julia> (1 + 2im)*(2 - 3im)
@@ -52,7 +46,7 @@ julia> 3(2 - 5im)^-1.0
 0.20689655172413796 + 0.5172413793103449im
 ```
 
-The promotion mechanism ensures that combinations of operands of different types just work:
+El mecanismo de promoción asegura qur las combinaciones de operandos de distintos tipos funcionarán:
 
 ```jldoctest
 julia> 2(1 - 1im)
@@ -83,10 +77,9 @@ julia> 1 + 3/4im
 1.0 - 0.75im
 ```
 
-Note that `3/4im == 3/(4*im) == -(3/4*im)`, since a literal coefficient binds more tightly than
-division.
+Nótese que `3/4im == 3/(4*im) == -(3/4*im)`, ya que un coeficiente literal se enlaza más fuerte que la división.
 
-Standard functions to manipulate complex values are provided:
+También se proporcionan las funciones estándar para manipular valores complejos:
 
 ```jldoctest
 julia> z = 1 + 2im
@@ -111,11 +104,7 @@ julia> angle(1 + 2im) # phase angle in radians
 1.1071487177940904
 ```
 
-As usual, the absolute value ([`abs()`](@ref)) of a complex number is its distance from zero.
-[`abs2()`](@ref) gives the square of the absolute value, and is of particular use for complex
-numbers where it avoids taking a square root. [`angle()`](@ref) returns the phase angle in radians
-(also known as the *argument* or *arg* function). The full gamut of other [Elementary Functions](@ref)
-is also defined for complex numbers:
+Como de costumbre, el valor absoluto ([`abs()`](@ref)) de un número complejo es su distancia a cero. [`abs2()`](@ref) da el cuadrado del valor absoluto, y es de uso particular para los números complejos donde se evita tomar una raíz cuadrada. [`angle()`](@ref) devuelve el ángulo de fase en radianes (también conocido como *argumento* o función *arg*). La gama completa de otras [funciones elementales](@ref elementary-functions) está también definida para los números complejos:
 
 ```jldoctest
 julia> sqrt(1im)
@@ -134,9 +123,7 @@ julia> sinh(1 + 2im)
 -0.4890562590412937 + 1.4031192506220405im
 ```
 
-Note that mathematical functions typically return real values when applied to real numbers and
-complex values when applied to complex numbers. For example, [`sqrt()`](@ref) behaves differently
-when applied to `-1` versus `-1 + 0im` even though `-1 == -1 + 0im`:
+Tenga en cuenta que las funciones matemáticas normalmente devuelven valores reales cuando se aplican a números reales y valores complejos cuando se aplican a números complejos. Por ejemplo, [`sqrt()`](@ref) se comporta de forma diferente cuando se aplica a `-1` que cuanso se aplica sobre `-1 + 0im`, aunque `-1 == -1 + 0im`:
 
 ```jldoctest
 julia> sqrt(-1)
@@ -149,26 +136,23 @@ julia> sqrt(-1 + 0im)
 0.0 + 1.0im
 ```
 
-The [literal numeric coefficient notation](@ref man-numeric-literal-coefficients) does not work when constructing a complex number
-from variables. Instead, the multiplication must be explicitly written out:
+La [notación de coeficiente numérico literal](@ref man-numeric-literal-coefficients) no funciona cuando se construye un número complejo a partir de variables. En su lugar, la multiplicación debe expresarse explícitamente:
 
 ```jldoctest
 julia> a = 1; b = 2; a + b*im
 1 + 2im
 ```
 
-However, this is *not* recommended; Use the [`complex()`](@ref) function instead to construct
-a complex value directly from its real and imaginary parts:
+Sin embargo, esto no es lo recomendable; En su lugar, utilice la función [`complex()`](@ref) para construir un valor complejo directamente de sus partes real e imaginaria:
 
 ```jldoctest
 julia> a = 1; b = 2; complex(a, b)
 1 + 2im
 ```
 
-This construction avoids the multiplication and addition operations.
+Esta construcción evita las operaciones de multiplicación y adición.
 
-[`Inf`](@ref) and [`NaN`](@ref) propagate through complex numbers in the real and imaginary parts
-of a complex number as described in the [Special floating-point values](@ref) section:
+[`Inf`](@ref) y [`NaN`](@ref) se propagan a través de números complejos en las partes real e imaginaria de un número complejo como se describe en la sección [valores especiales en punto flotante](@ref) section:
 
 ```jldoctest
 julia> 1 + Inf*im
@@ -178,18 +162,16 @@ julia> 1 + NaN*im
 1.0 + NaN*im
 ```
 
-## Rational Numbers
+## [Números Racionales](@id rational-numbers)
 
-Julia has a rational number type to represent exact ratios of integers. Rationals are constructed
-using the [`//`](@ref) operator:
+Julia tiene un tipo numérico racional para representar razones exactas de enteros. Los racionales se construyen usando el operador [`//`](@ref):
 
 ```jldoctest
 julia> 2//3
 2//3
 ```
 
-If the numerator and denominator of a rational have common factors, they are reduced to lowest
-terms such that the denominator is non-negative:
+Si el numerador y el denominador de un racional tienen factores comunes, ellos son reducidos a los términos mínimos tales que el denominador sea no negativo:
 
 ```jldoctest
 julia> 6//9
@@ -205,10 +187,7 @@ julia> -4//-12
 1//3
 ```
 
-This normalized form for a ratio of integers is unique, so equality of rational values can be
-tested by checking for equality of the numerator and denominator. The standardized numerator and
-denominator of a rational value can be extracted using the [`numerator()`](@ref) and [`denominator()`](@ref)
-functions:
+Esta forma normalizada para una razón de enteros es única, por lo que la igualdad de valores racionales puede ser testada comprobando la igualdad del numerador y el denominador. El numerador estandarizado y el denominador de un valor racional pueden ser extraídos usando las funciones [`numerator()`](@ref) y [`denominator()`](@ref):
 
 ```jldoctest
 julia> numerator(2//3)
@@ -218,8 +197,7 @@ julia> denominator(2//3)
 3
 ```
 
-Direct comparison of the numerator and denominator is generally not necessary, since the standard
-arithmetic and comparison operations are defined for rational values:
+La comparación directa de numerador y denominador no suele ser necesaria, ya que la aritmetica  estándar y las operaciones de comparación están definidas para los valores racionales:
 
 ```jldoctest
 julia> 2//3 == 6//9
@@ -247,15 +225,14 @@ julia> 6//5 / 10//7
 21//25
 ```
 
-Rationals can be easily converted to floating-point numbers:
+Los racionales pueden convertirse fácilmente en número en punto flotante:
 
 ```jldoctest
 julia> float(3//4)
 0.75
 ```
 
-Conversion from rational to floating-point respects the following identity for any integral values
-of `a` and `b`, with the exception of the case `a == 0` and `b == 0`:
+La conversión de racional a punto flotante respeta la siguiente identidad para dos valores enteros cualesquiera `a` y `b`, con las excepciones de los casos `a == 0` and `b == 0`:
 
 ```jldoctest
 julia> a = 1; b = 2;
@@ -264,7 +241,7 @@ julia> isequal(float(a//b), a/b)
 true
 ```
 
-Constructing infinite rational values is acceptable:
+Construir valores racionales infinitos es aceptable:
 
 ```jldoctest
 julia> 5//0
@@ -277,7 +254,7 @@ julia> typeof(ans)
 Rational{Int64}
 ```
 
-Trying to construct a [`NaN`](@ref) rational value, however, is not:
+Sin embargo, no lo es tratar de construir un valor NaN [`NaN`](@ref) racional:
 
 ```jldoctest
 julia> 0//0
@@ -287,7 +264,7 @@ Stacktrace:
  [2] //(::Int64, ::Int64) at ./rational.jl:40
 ```
 
-As usual, the promotion system makes interactions with other numeric types effortless:
+Como es natural, el sistema de promoción hace que las interacciones con otros tipos numéricos se hagan sin esfuerzo alguno:
 
 ```jldoctest
 julia> 3//5 + 1
