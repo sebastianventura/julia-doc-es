@@ -1,37 +1,33 @@
 # [Mathematical Operations and Elementary Functions](@id mathematical-operations)
 
-Julia provides a complete collection of basic arithmetic and bitwise operators across all of its
-numeric primitive types, as well as providing portable, efficient implementations of a comprehensive
-collection of standard mathematical functions.
+Julia proporciona una colección completa de operadores aritméticos básicos y de operadores de bits para todos sus tipos numéricos primitivos, así como implementaciones portables y eficientes de una colección comprensiva de funciones matemática estándar.
 
-## Arithmetic Operators
+## [Operadores Aritméticos](@id arithmetic-operators)
 
-The following [arithmetic operators](https://en.wikipedia.org/wiki/Arithmetic#Arithmetic_operations)
-are supported on all primitive numeric types:
+Los siguientes [operadores aritméticos](https://en.wikipedia.org/wiki/Arithmetic#Arithmetic_operations)
+están soportados sobre todos los tipos primitivos:
 
-| Expression | Name           | Description                            |
-|:---------- |:-------------- |:-------------------------------------- |
-| `+x`       | unary plus     | the identity operation                 |
-| `-x`       | unary minus    | maps values to their additive inverses |
-| `x + y`    | binary plus    | performs addition                      |
-| `x - y`    | binary minus   | performs subtraction                   |
-| `x * y`    | times          | performs multiplication                |
-| `x / y`    | divide         | performs division                      |
-| `x \ y`    | inverse divide | equivalent to `y / x`                  |
-| `x ^ y`    | power          | raises `x` to the `y`th power          |
-| `x % y`    | remainder      | equivalent to `rem(x,y)`               |
+| Expression | Name             | Description                            |
+|:---------- |:---------------- |:-------------------------------------- |
+| `+x`       | más unario       | Operación identidad                    |
+| `-x`       | menos unario     | Inverso matemático de un número        |
+| `x + y`    | suma binaria     | suma                                   |
+| `x - y`    | menos binario    | resta                                  |
+| `x * y`    | producto         | multiplicación                         |
+| `x / y`    | división         | división                               |
+| `x \ y`    | división inversa | Equivalente a `y / x`                  |
+| `x ^ y`    | potencia         | eleva `x` a la `y`-ésima potencia      |
+| `x % y`    | resto            | Equivalente a `rem(x,y)`               |
 
-as well as the negation on [`Bool`](@ref) types:
+así como la negación sobre tipos [`Bool`](@ref):
 
-| Expression | Name     | Description                              |
-|:---------- |:-------- |:---------------------------------------- |
-| `!x`       | negation | changes `true` to `false` and vice versa |
+| Expression | Name     | Description                         |
+|:---------- |:-------- |:----------------------------------- |
+| `!x`       | negación | Cambia `true` a `false` y viceversa |
 
-Julia's promotion system makes arithmetic operations on mixtures of argument types "just work"
-naturally and automatically. See [Conversion and Promotion](@ref conversion-and-promotion) for details of the promotion
-system.
+El sistema de promoción de Julia hace que las operaciones aritméticas sobre mezclas de tipos de argumentos funcione de forma natural y automáticamente. Ver [Conversión y Promoción](@ref conversion-and-promotion) para los detalles del sistema de promoción.
 
-Here are some simple examples using arithmetic operators:
+He aquí algunos ejemplos simples de usar operadores aritméticos:
 
 ```jldoctest
 julia> 1 + 2 + 3
@@ -44,26 +40,23 @@ julia> 3*2/12
 0.5
 ```
 
-(By convention, we tend to space operators more tightly if they get applied before other nearby
-operators. For instance, we would generally write `-x + 2` to reflect that first `x` gets negated,
-and then `2` is added to that result.)
+(Por convención, tendemos a separar con menos distancia los operadores cuando se aplican antes de otros operadores cercanos. Por ejemplo, generalmente escribimos `-x + 2` para reflejar que `x` primero se niega y, a continuación, `2` se agrega a ese resultado.)
 
-## Bitwise Operators
+## [Operadores bit a bit](@id bitwise-operators)
 
-The following [bitwise operators](https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators)
-are supported on all primitive integer types:
+Los siguientes [operadores bit a bit](https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators) son soportados sobre todos los tipos enteros primitivos:
 
-| Expression | Name                                                                     |
-|:---------- |:------------------------------------------------------------------------ |
-| `~x`       | bitwise not                                                              |
-| `x & y`    | bitwise and                                                              |
-| `x \| y`   | bitwise or                                                               |
-| `x ⊻ y`    | bitwise xor (exclusive or)                                               |
-| `x >>> y`  | [logical shift](https://en.wikipedia.org/wiki/Logical_shift) right       |
-| `x >> y`   | [arithmetic shift](https://en.wikipedia.org/wiki/Arithmetic_shift) right |
-| `x << y`   | logical/arithmetic shift left                                            |
+| Expression | Name                                                                                         |
+|:---------- |:-------------------------------------------------------------------------------------------- |
+| `~x`       | Negación bit a bit                                                                           |
+| `x & y`    | Conjunción (*and*) bit a bit                                                                 |
+| `x \| y`   | Disyunción (*or*) bit a bit                                                                  |
+| `x ⊻ y`    | *Or* exclusivo bit a bit (*xor*)                                                             |
+| `x >>> y`  | [Desplazamiento lógico](https://en.wikipedia.org/wiki/Logical_shift) hacia la derecha        |
+| `x >> y`   | [Desplazamiento aritmético](https://en.wikipedia.org/wiki/Arithmetic_shift) hacia la derecha |
+| `x << y`   | Desplazamiento hacia la izquierda lógico/aritmético                                          |
 
-Here are some examples with bitwise operators:
+He aquí algunos ejemplos de uso de operadores bit a bit:
 
 ```jldoctest
 julia> ~123
@@ -88,12 +81,9 @@ julia> ~UInt8(123)
 0x84
 ```
 
-## Updating operators
+## Operaciones de actualización
 
-Every binary arithmetic and bitwise operator also has an updating version that assigns the result
-of the operation back into its left operand. The updating version of the binary operator is formed
-by placing a `=` immediately after the operator. For example, writing `x += 3` is equivalent to
-writing `x = x + 3`:
+Cada operador binario aritmético y bit a bit también tiene una versión de actualización que asigna el resultado de la operación de nuevo a su operando izquierdo. La versión de actualización del operador binario se forma colocando a = inmediatamente después del operador. Por ejemplo, escribir `x += 3` es equivalente a escribir `x = x + 3`:
 
 ```jldoctest
 julia> x = 1
@@ -106,15 +96,15 @@ julia> x
 4
 ```
 
-The updating versions of all the binary arithmetic and bitwise operators are:
+Las versiones de actualización de todos los operadores binarios, aritméticos de bits son:
 
 ```
 +=  -=  *=  /=  \=  ÷=  %=  ^=  &=  |=  ⊻=  >>>=  >>=  <<=
 ```
 
 !!! note
-    An updating operator rebinds the variable on the left-hand side. As a result, the type of the
-    variable may change.
+    Un operador de actualización reasigna la variable sobre la parte izquierda de la ecuación. Como 
+    resultado, el tipo de la variable puede cambiar:
 
     ```jldoctest
     julia> x = 0x01; typeof(x)
@@ -127,17 +117,9 @@ The updating versions of all the binary arithmetic and bitwise operators are:
     Int64
     ```
 
-## [Vectorized "dot" operators](@id man-dot-operators)
+## [Operadores vectorizados con "punto"](@id man-dot-operators)
 
-For *every* binary operation like `^`, there is a corresponding
-"dot" operation `.^` that is *automatically* defined
-to perform `^` element-by-element on arrays. For example,
-`[1,2,3] ^ 3` is not defined, since there is no standard
-mathematical meaning to "cubing" an array, but `[1,2,3] .^ 3`
-is defined as computing the elementwise
-(or "vectorized") result `[1^3, 2^3, 3^3]`.  Similarly for unary
-operators like `!` or `√`, there is a corresponding `.√` that
-applies the operator elementwise.
+Para cada operación binaria como `^` hay su correspondiente operación "con punto" `.^` que se define *automáticamente* para realizar la operación `^` elemento a elemento sobre arrays. Por ejemplo, la operación `[1, 2, 3]^3` no está definidia, porque no hay un significado matemático estándar para calcular el cubo de un array, pero `[1, 2, 3].^3` si lo está como el cálculo de la operación cubo elemento a elemento (o vectorizada) `[1^3, 2^3, 3^3]`. Lo mismo puede decirse para operadores unarios tales como `!` o `√`, que existe el correspondiente operador vectorizado `.√` que aplica el operador elemento a elemento.
 
 ```jldoctest
 julia> [1,2,3] .^ 3
@@ -147,42 +129,28 @@ julia> [1,2,3] .^ 3
  27
 ```
 
-More specifically, `a .^ b` is parsed as the ["dot" call](@ref man-vectorized)
-`(^).(a,b)`, which performs a [broadcast](@ref Broadcasting) operation:
-it can combine arrays and scalars, arrays of the same size (performing
-the operation elementwise), and even arrays of different shapes (e.g.
-combining row and column vectors to produce a matrix). Moreover, like
-all vectorized "dot calls," these "dot operators" are
-*fusing*. For example, if you compute `2 .* A.^2 .+ sin.(A)` (or
-equivalently `@. 2A^2 + sin(A)`, using the [`@.`](@ref @__dot__) macro) for
-an array `A`, it performs a *single* loop over `A`, computing `2a^2 + sin(a)`
-for each element of `A`. In particular, nested dot calls like `f.(g.(x))`
-are fused, and "adjacent" binary operators like `x .+ 3 .* x.^2` are
-equivalent to nested dot calls `(+).(x, (*).(3, (^).(x, 2)))`.
+Más específicamente, `a .^ b` es analizado como la [llamada punto](@ref man-vectorized) `(^).(a,b)`, que realiza una operación de [retransmisión (*broadcast*)](@ref Broadcasting): ella puede combinar arrays y escalares, arrays del mismo tamaño (realizando la operación elemento a elemento), o incluso arrays de diferentes formas (por ejemplo, combinar vectores fila y columna para producir una matriz). Además, como todas las "llamadas punto", estos "operadores punto" están *fusionados*. Por ejemplo, si calculamos `2 .* A.^2 .+ sin.(A)` (o, equivalentemente `@. 2A^2 + sin(A)`, usando la macro [`@.`](@ref @__dot__)) para un array `A`, se realiza un *único* bucle sobre `A`, computando `2a^2 + sin(a)` para cada elemento de `A`. En particular, las llamadas vectorizadas anidadas como `f.(g.(x))` están *fusionadas*, y los operadores binarios adyacentes como `x .+ 3 .* x.^2` son equivalentes a llamadas vectorizadas anidadas `(+).(x, (*).(3, (^).(x, 2)))`.
 
-Furthermore, "dotted" updating operators like `a .+= b` (or `@. a += b`) are parsed
-as `a .= a .+ b`, where `.=` is a fused *in-place* assignment operation
-(see the [dot syntax documentation](@ref man-vectorized)).
+Además, los operadores de actualización "vectorizados" como `a .+= b` (o `@. a += b`) son transformados en `a .= a .+ b`, donde `.=` es un operador de asignación *fusionado* *in-place* (ver la [documentación de la sintaxis vectorizada](@ref man-vectorized)).
 
-Note the dot syntax is also applicable to user-defined operators.
-For example, if you define `⊗(A,B) = kron(A,B)` to give a convenient
-infix syntax `A ⊗ B` for Kronecker products ([`kron`](@ref)), then
-`[A,B] .⊗ [C,D]` will compute `[A⊗C, B⊗D]` with no additional coding.
+Nótese que la sintaxis de punto es también aplicable a operadores definidos por el usuario. Por ejemplo, si definimos el operador `⊗(A,B) = kron(A,B)` para dar una sintaxis infija `A ⊗ B` al producto de Kronecker ([`kron`](@ref)), entonces
+`[A,B] .⊗ [C,D]` calculará  `[A⊗C, B⊗D]` sin ninguna codificación adicional.
 
-## Numeric Comparisons
+## [Comparaciones Numéricas](@id numeric-comparisons)
 
-Standard comparison operations are defined for all the primitive numeric types:
+Los operadores de comparación estándar están definidos para todos los tipos numéricos primitivos:
 
-| Operator                     | Name                     |
+| Operador                     | Nombre                     |
 |:---------------------------- |:------------------------ |
-| [`==`](@ref)                 | equality                 |
-| [`!=`](@ref), [`≠`](@ref !=) | inequality               |
-| [`<`](@ref)                  | less than                |
-| [`<=`](@ref), [`≤`](@ref <=) | less than or equal to    |
-| [`>`](@ref)                  | greater than             |
-| [`>=`](@ref), [`≥`](@ref >=) | greater than or equal to |
+| [`==`](@ref)                 | Igualdad                 |
+| [`!=`](@ref), [`≠`](@ref !=) | Desigualdad              |
+| [`<`](@ref)                  | Menor que                |
+| [`<=`](@ref), [`≤`](@ref <=) | Menor o igual que        |
+| [`>`](@ref)                  | Mayor que                |
+| [`>=`](@ref), [`≥`](@ref >=) | Mayor o igual que        |
 
-Here are some simple examples:
+He aquí algunos ejemplos:
+
 
 ```jldoctest
 julia> 1 == 1
@@ -219,16 +187,15 @@ julia> 3 < -0.5
 false
 ```
 
-Integers are compared in the standard manner -- by comparison of bits. Floating-point numbers
-are compared according to the [IEEE 754 standard](https://en.wikipedia.org/wiki/IEEE_754-2008):
+Los enteros se comparan de un modo estándar, mediante comparación de bits. Los números de punto flotante se comparan de acuerdo al [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008):
 
-  * Finite numbers are ordered in the usual manner.
-  * Positive zero is equal but not greater than negative zero.
-  * `Inf` is equal to itself and greater than everything else except `NaN`.
-  * `-Inf` is equal to itself and less then everything else except `NaN`.
-  * `NaN` is not equal to, not less than, and not greater than anything, including itself.
+* Los números finitos son ordenados del modo habitual.
+* El cero positivo es igual pero no mayor que el cero negativo.
+* `Inf` es igual a si mismo y mayor que todo excepto `NaN`
+* `-Inf` es igual a si mismo y menor que todo excepto `NaN`
+* `NaN` no es igual, mayor o menor a nadie, excepto a sí mismo.
 
-The last point is potentially surprising and thus worth noting:
+Este último punto es potencialmente sorprendente y, por tanto, vale la pena señalar que:
 
 ```jldoctest
 julia> NaN == NaN
@@ -244,24 +211,23 @@ julia> NaN > NaN
 false
 ```
 
-and can cause especial headaches with [Arrays](@ref):
+y puede causar dolores de cabeza especiales con [Arrays](@ref):
 
 ```jldoctest
 julia> [1 NaN] == [1 NaN]
 false
 ```
 
-Julia provides additional functions to test numbers for special values, which can be useful in
-situations like hash key comparisons:
+Julia proporciona funciones adicionales para comprobar números para valores especiales, lo cuál pueden ser útil en situaciones como las comparaciones de claves hash:
 
 | Function                | Tests if                  |
 |:----------------------- |:------------------------- |
-| [`isequal(x, y)`](@ref) | `x` and `y` are identical |
-| [`isfinite(x)`](@ref)   | `x` is a finite number    |
-| [`isinf(x)`](@ref)      | `x` is infinite           |
-| [`isnan(x)`](@ref)      | `x` is not a number       |
+| [`isequal(x, y)`](@ref) | `x` e `y` son idénticos   |
+| [`isfinite(x)`](@ref)   | `x` es un número finito   |
+| [`isinf(x)`](@ref)      | `x` es infinito           |
+| [`isnan(x)`](@ref)      | `x` no es un número       |
 
-[`isequal()`](@ref) considers `NaN`s equal to each other:
+[`isequal()`](@ref) considera los `NaN`s iguales entre sí:
 
 ```jldoctest
 julia> isequal(NaN, NaN)
@@ -274,7 +240,7 @@ julia> isequal(NaN, NaN32)
 true
 ```
 
-`isequal()` can also be used to distinguish signed zeros:
+`isequal()` también puede usarse para distinguir los ceros con signo:
 
 ```jldoctest
 julia> -0.0 == 0.0
@@ -284,30 +250,22 @@ julia> isequal(-0.0, 0.0)
 false
 ```
 
-Mixed-type comparisons between signed integers, unsigned integers, and floats can be tricky. A
-great deal of care has been taken to ensure that Julia does them correctly.
+Las comparaciones de tipos mezclados entre enteros con signo, enteros sin signo y valores en punto flotante pueden ser complicadas. Se ha tomado mucho cuidado para asegurarse de que Julia las realiza correctamente.
 
-For other types, `isequal()` defaults to calling [`==()`](@ref), so if you want to define
-equality for your own types then you only need to add a [`==()`](@ref) method.  If you define
-your own equality function, you should probably define a corresponding [`hash()`](@ref) method
-to ensure that `isequal(x,y)` implies `hash(x) == hash(y)`.
+Para otros tipos, `isequal()` llama por defecto a [`==()`](@ref), así que si uno quiere definir la igualdad para sus propios tipos, solo tiene que agregar un método [`==()`](@ref).  Si uno define suu propia función de igualdad, probablemente deba definir un método [`hash()`](@ref) correspondiente para asegurar de que `isequal(x,y)` implica `hash(x) == hash(y)`.
 
-### Chaining comparisons
+### [Comparaciones Encadenadas](@id chaining-comparisons)
 
-Unlike most languages, with the [notable exception of Python](https://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators),
-comparisons can be arbitrarily chained:
+A diferencia de la mayoría de los idiomas, [con la notable excepción de Python](https://en.wikipedia.org/wiki/Python_syntax_and_semantics#Comparison_operators), las comparaciones pueden encadenarse arbitrariamente:
 
 ```jldoctest
 julia> 1 < 2 <= 2 < 3 == 3 > 2 >= 1 == 1 < 3 != 5
 true
 ```
 
-Chaining comparisons is often quite convenient in numerical code. Chained comparisons use the
-`&&` operator for scalar comparisons, and the [`&`](@ref) operator for elementwise comparisons,
-which allows them to work on arrays. For example, `0 .< A .< 1` gives a boolean array whose entries
-are true where the corresponding elements of `A` are between 0 and 1.
+El encadenamiento de comparaciones suele ser bastante conveniente en el código numérico. Las comparaciones encadenadas utilizan el operador `&&` para comparaciones escalares y el operador [`&`](@ref) para comparaciones elemento a elemento, lo que les permite trabajar sobre arrays. Por ejemplo, `0 .< A .< 1` da un array booleano cuyas entradas son `true` en posiciones en las que los elementos correspondientes de A están entre 0 y 1.
 
-Note the evaluation behavior of chained comparisons:
+Nótese el comportamiento de evaluación de las comparaciones encadenadas:
 
 ```jldoctest
 julia> v(x) = (println(x); x)
@@ -325,44 +283,36 @@ julia> v(1) > v(2) <= v(3)
 false
 ```
 
-The middle expression is only evaluated once, rather than twice as it would be if the expression
-were written as `v(1) < v(2) && v(2) <= v(3)`. However, the order of evaluations in a chained
-comparison is undefined. It is strongly recommended not to use expressions with side effects (such
-as printing) in chained comparisons. If side effects are required, the short-circuit `&&` operator
-should be used explicitly (see [Short-Circuit Evaluation](@ref)).
+La expresión del medio sólo se evalúa una vez, en lugar de dos veces como lo sería si la expresión se escribiera como `v(1) < v(2) && v(2) <= v(3)`. Sin embargo, el orden de las evaluaciones en una comparación encadenada no está definido. Se recomienda encarecidamente no utilizar expresiones que puedan tener efectos secundarios (como la impresión) en comparaciones encadenadas. Si se requieren efectos secundarios, se debe utilizar explícitamente el operador de cortocircuito `&&` (ver [Evaluación en cortocircuito](@ref short-circuit-evaluation)).
 
-### Elementary Functions
+### [Funciones Elementales](@id elementary-functions)
 
-Julia provides a comprehensive collection of mathematical functions and operators. These mathematical
-operations are defined over as broad a class of numerical values as permit sensible definitions,
-including integers, floating-point numbers, rationals, and complex numbers,
-wherever such definitions make sense.
+Julia proporciona una colección completa de funciones matemáticas y operadores. Estas operaciones matemáticas se definen sobre una clase de valores numéricos suficientemente amplia como para permitir definiciones apropiadas para enteros, números de punto flotante, racionales y complejos, dondequiera que tales definiciones tengan sentido.
 
-Moreover, these functions (like any Julia function) can be applied in "vectorized" fashion to
-arrays and other collections with the [dot syntax](@ref man-vectorized) `f.(A)`,
-e.g. `sin.(A)` will compute the sine of each element of an array `A`.
+Además, estas funciones (como cualquier función de Julia) se pueden aplicar de manera "vectorizada" a matrices y otras colecciones con la [sintaxis vectorizada](@ref man-vectorized) `f.(A)`, por ejemplo, sin.(A) calculará el seno de cada elemento de una matriz `A`. 
 
-## Operator Precedence
+
+## [Precedencia de Operadores](@id operator-precedence)
 
 Julia applies the following order of operations, from highest precedence to lowest:
 
-| Category       | Operators                                                                                         |
+| Categorí       | Operadores                                                                                        |
 |:-------------- |:------------------------------------------------------------------------------------------------- |
-| Syntax         | `.` followed by `::`                                                                              |
+| Syntax         | `.` seguido por `::`                                                                              |
 | Exponentiation | `^`                                                                                               |
 | Fractions      | `//`                                                                                              |
 | Multiplication | `* / % & \`                                                                                       |
 | Bitshifts      | `<< >> >>>`                                                                                       |
 | Addition       | `+ - \| ⊻`                                                                                        |
-| Syntax         | `: ..` followed by `\|>`                                                                          |
+| Syntax         | `: ..` seguido por `\|>`                                                                          |
 | Comparisons    | `> < >= <= == === != !== <:`                                                                      |
-| Control flow   | `&&` followed by `\|\|` followed by `?`                                                           |
+| Control flow   | `&&` seguido por `\|\|` seguido por `?`                                                           |
 | Assignments    | `= += -= *= /= //= \= ^= ÷= %= \|= &= ⊻= <<= >>= >>>=`                                            |
 
-For a complete list of *every* Julia operator's precedence, see the top of this file:
+Para una lista completa de cada una de las precedencias de operadores de Julia, consultar el fichero
 [`src/julia-parser.scm`](https://github.com/JuliaLang/julia/blob/master/src/julia-parser.scm)
 
-You can also find the numerical precedence for any given operator via the built-in function `Base.operator_precedence`, where higher numbers take precedence:
+También puede encontrarse la precedencia numérica pra cualquier operación dada mediante la función intrínseca `Base.operator_precedence` donde el número mayor corresponde a la operación con mayor precedencia.
 
 ```jldoctest
 julia> Base.operator_precedence(:+), Base.operator_precedence(:*), Base.operator_precedence(:.)
@@ -372,23 +322,18 @@ julia> Base.operator_precedence(:+=), Base.operator_precedence(:(=))  # (Note th
 (1, 1)
 ```
 
-## Numerical Conversions
+## [Conversiones Numéricas](@id numerical-conversions)
 
-Julia supports three forms of numerical conversion, which differ in their handling of inexact
-conversions.
+Julia soporta tres formas de conversión numérica, que difieren en su manejo de las conversiones inexactas.
 
-  * The notation `T(x)` or `convert(T,x)` converts `x` to a value of type `T`.
+  * La notación `T(x)` o `convert(T,x)` convierte `x` a un valor de tipo `T`.
 
-      * If `T` is a floating-point type, the result is the nearest representable value, which could be
-        positive or negative infinity.
-      * If `T` is an integer type, an `InexactError` is raised if `x` is not representable by `T`.
-  * `x % T` converts an integer `x` to a value of integer type `T` congruent to `x` modulo `2^n`,
-    where `n` is the number of bits in `T`. In other words, the binary representation is truncated
-    to fit.
-  * The [Rounding functions](@ref) take a type `T` as an optional argument. For example, `round(Int,x)`
-    is a shorthand for `Int(round(x))`.
+      * Si `T` es un tipo en punto flotante, el resultado es el valor más cercano representable, que podría ser infinito positivo o negativo.
+      * Si `T` es un tipo entero, se lanzará un `InexactError` si `x`no es representable por `T`.
+  *  `x % T`convierte un entero `x` a un valor de un tipo entero `T` congruente a `x` modulo `2^n`, donde `n` es el número de bits en `T`. En otras palabras, la representación binaria es truncada para ajustarse.
+  * Las [Funciones de Redondeo](@ref rounding-functions) toman un tipo `T` como argumento opcional. Por ejemplo, `round(Int,x)` es una abreviatura de `Int(round(x))`.
 
-The following examples show the different forms.
+Los siguientes ejemplos muestran las siguientes formas:
 
 ```jldoctest
 julia> Int8(127)
@@ -430,73 +375,72 @@ Stacktrace:
  [2] round(::Type{Int8}, ::Float64) at ./float.jl:337
 ```
 
-See [Conversion and Promotion](@ref conversion-and-promotion) for how to define your own conversions and promotions.
+Ver [Conversión y Promoción](@ref conversion-and-promotion) para ver cómo definir tus propias conversiones y promociones.
 
-### Rounding functions
+### [Funciones de Redondeo](@id rounding-functions)
 
-| Function              | Description                      | Return type |
-|:--------------------- |:-------------------------------- |:----------- |
-| [`round(x)`](@ref)    | round `x` to the nearest integer | `typeof(x)` |
-| [`round(T, x)`](@ref) | round `x` to the nearest integer | `T`         |
-| [`floor(x)`](@ref)    | round `x` towards `-Inf`         | `typeof(x)` |
-| [`floor(T, x)`](@ref) | round `x` towards `-Inf`         | `T`         |
-| [`ceil(x)`](@ref)     | round `x` towards `+Inf`         | `typeof(x)` |
-| [`ceil(T, x)`](@ref)  | round `x` towards `+Inf`         | `T`         |
-| [`trunc(x)`](@ref)    | round `x` towards zero           | `typeof(x)` |
-| [`trunc(T, x)`](@ref) | round `x` towards zero           | `T`         |
+| Función               | Descripción                        | Tipo devuelto |
+|:--------------------- |:---------------------------------- |:------------- |
+| [`round(x)`](@ref)    | Redondea `x` al entero más cercano | `typeof(x)`   |
+| [`round(T, x)`](@ref) | Redondea `x` al entero más cercano | `T`           |
+| [`floor(x)`](@ref)    | Redondea `x` hacia `-Inf`          | `typeof(x)`   |
+| [`floor(T, x)`](@ref) | Redondea `x` hacia `-Inf`          | `T`           |
+| [`ceil(x)`](@ref)     | Redondea `x` hacia `+Inf`          | `typeof(x)`   |
+| [`ceil(T, x)`](@ref)  | Redondea `x` hacia `+Inf`          | `T`           |
+| [`trunc(x)`](@ref)    | Redondea `x` hacia cero            | `typeof(x)`   |
+| [`trunc(T, x)`](@ref) | Redondea `x` hacia cero            | `T`           |
 
-### Division functions
+### [Funciones de División](@id division-functions)
 
-| Function              | Description                                                                                               |
-|:--------------------- |:--------------------------------------------------------------------------------------------------------- |
-| [`div(x,y)`](@ref)    | truncated division; quotient rounded towards zero                                                         |
-| [`fld(x,y)`](@ref)    | floored division; quotient rounded towards `-Inf`                                                         |
-| [`cld(x,y)`](@ref)    | ceiling division; quotient rounded towards `+Inf`                                                         |
-| [`rem(x,y)`](@ref)    | remainder; satisfies `x == div(x,y)*y + rem(x,y)`; sign matches `x`                                       |
-| [`mod(x,y)`](@ref)    | modulus; satisfies `x == fld(x,y)*y + mod(x,y)`; sign matches `y`                                         |
-| [`mod1(x,y)`](@ref)   | `mod()` with offset 1; returns `r∈(0,y]` for `y>0` or `r∈[y,0)` for `y<0`, where `mod(r, y) == mod(x, y)` |
-| [`mod2pi(x)`](@ref)   | modulus with respect to 2pi;  `0 <= mod2pi(x)    < 2pi`                                                   |
-| [`divrem(x,y)`](@ref) | returns `(div(x,y),rem(x,y))`                                                                             |
-| [`fldmod(x,y)`](@ref) | returns `(fld(x,y),mod(x,y))`                                                                             |
-| [`gcd(x,y...)`](@ref) | greatest positive common divisor of `x`, `y`,...                                                          |
-| [`lcm(x,y...)`](@ref) | least positive common multiple of `x`, `y`,...                                                            |
+| Función               | Descripción                                                                                        |
+|:--------------------- |:-------------------------------------------------------------------------------------------------- |
+| [`div(x,y)`](@ref)    | División truncada; cociente redondeado hacia cero                                                  |
+| [`fld(x,y)`](@ref)    | División *floored*; cociente redondeado hacia `-Inf`                                               |
+| [`cld(x,y)`](@ref)    | División *ceiling*; cociente redondeado hacia `+Inf`                                               |
+| [`rem(x,y)`](@ref)    | Resto; satisface `x == div(x,y)*y + rem(x,y)`; el signo se corresponde con el de `x`               |
+| [`mod(x,y)`](@ref)    | Módulo; satisface `x == fld(x,y)*y + mod(x,y)`; el signo se corresponde con el de `y`              |
+| [`mod1(x,y)`](@ref)   | Módulo con un desplazamiento de 1; devuelve `r∈(0,y]` para `y>0` o `r∈[y,0)` para `y<0`, donde `mod(r, y) == mod(x, y)` |
+| [`mod2pi(x)`](@ref)   | Módulo con respecto a 2pi; `0 <= mod2pi(x)  < 2pi`                                                 |
+| [`divrem(x,y)`](@ref) | Devuelve `(div(x,y),rem(x,y))`                                                                     |
+| [`fldmod(x,y)`](@ref) | Devuelve `(fld(x,y),mod(x,y))`                                                                     |
+| [`gcd(x,y...)`](@ref) | Máximo común divisor positivo de `x`, `y`,...                                                      |
+| [`lcm(x,y...)`](@ref) | Mínimo común múltiplo positivo de `x`, `y`,...                                                     |
 
-### Sign and absolute value functions
+### [Funciones de signo y valor absoluto](@id sign-and-absolute-value-functions)
 
-| Function                | Description                                                |
-|:----------------------- |:---------------------------------------------------------- |
-| [`abs(x)`](@ref)        | a positive value with the magnitude of `x`                 |
-| [`abs2(x)`](@ref)       | the squared magnitude of `x`                               |
-| [`sign(x)`](@ref)       | indicates the sign of `x`, returning -1, 0, or +1          |
-| [`signbit(x)`](@ref)    | indicates whether the sign bit is on (true) or off (false) |
-| [`copysign(x,y)`](@ref) | a value with the magnitude of `x` and the sign of `y`      |
-| [`flipsign(x,y)`](@ref) | a value with the magnitude of `x` and the sign of `x*y`    |
+| Función                 | Descripción                                                                 |
+|:----------------------- |:--------------------------------------------------------------------------- |
+| [`abs(x)`](@ref)        | Un valor positivo con la magnitud de `x`                                    |
+| [`abs2(x)`](@ref)       | El cuadrado de la magnitud de `x`                                           |
+| [`sign(x)`](@ref)       | Indica el signo de `x`, devolviendo -1, 0, o +1                             |
+| [`signbit(x)`](@ref)    | Indica que si el bit de signo está en **on** (`true`) o en **off** (`false`)|
+| [`copysign(x,y)`](@ref) | Indica un valor con la magnitud de `x` y el signo de `y`                    |
+| [`flipsign(x,y)`](@ref) | Indica un valor con la magnitud de `x` y el signo de `x*y`                  |
 
-### Powers, logs and roots
+### [Potencias, logaritmos y raíces](@id powers-logs-and-roots)
 
-| Function                 | Description                                                                |
+| Función                  | Descripción                                                                |
 |:------------------------ |:-------------------------------------------------------------------------- |
-| [`sqrt(x)`](@ref), `√x`  | square root of `x`                                                         |
-| [`cbrt(x)`](@ref), `∛x`  | cube root of `x`                                                           |
-| [`hypot(x,y)`](@ref)     | hypotenuse of right-angled triangle with other sides of length `x` and `y` |
-| [`exp(x)`](@ref)         | natural exponential function at `x`                                        |
-| [`expm1(x)`](@ref)       | accurate `exp(x)-1` for `x` near zero                                      |
-| [`ldexp(x,n)`](@ref)     | `x*2^n` computed efficiently for integer values of `n`                     |
-| [`log(x)`](@ref)         | natural logarithm of `x`                                                   |
-| [`log(b,x)`](@ref)       | base `b` logarithm of `x`                                                  |
-| [`log2(x)`](@ref)        | base 2 logarithm of `x`                                                    |
-| [`log10(x)`](@ref)       | base 10 logarithm of `x`                                                   |
-| [`log1p(x)`](@ref)       | accurate `log(1+x)` for `x` near zero                                      |
-| [`exponent(x)`](@ref)    | binary exponent of `x`                                                     |
-| [`significand(x)`](@ref) | binary significand (a.k.a. mantissa) of a floating-point number `x`        |
+| [`sqrt(x)`](@ref), `√x`  | Raíz cuadrada de `x`                                                       |
+| [`cbrt(x)`](@ref), `∛x`  | Raíz cúbica de `x`                                                         |
+| [`hypot(x,y)`](@ref)     | Hipotenusa del triángulo rectángulo cuyos catetos son de longitudes `x` e `y` |
+| [`exp(x)`](@ref)         | Función exponencial natural sobre `x`                                      |
+| [`expm1(x)`](@ref)       | Valor exacto de `exp(x)-1` para  `x` cercano a zero                        |
+| [`ldexp(x,n)`](@ref)     | `x*2^n` calculado eficientemente para valores enteros de `n`               |
+| [`log(x)`](@ref)         | Logaritmo neperiano de `x`                                                 |
+| [`log(b,x)`](@ref)       | Logaritmo en base `b` de `x`                                               |
+| [`log2(x)`](@ref)        | Logaritmo en base 2 de `x`                                                 |
+| [`log10(x)`](@ref)       | Logaritmo decimal de `x`                                                   |
+| [`log1p(x)`](@ref)       | Valor exacto de `log(1+x)` para `x` cercano a cero                         |
+| [`exponent(x)`](@ref)    | Exponente binario de  `x`                                                  |
+| [`significand(x)`](@ref) | Significando binario (alias *mantisa*) de un número en punto flotante `x`  |
 
-For an overview of why functions like [`hypot()`](@ref), [`expm1()`](@ref), and [`log1p()`](@ref)
-are necessary and useful, see John D. Cook's excellent pair of blog posts on the subject: [expm1, log1p, erfc](https://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/),
-and [hypot](https://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/).
+Para una explicación de por qué son necesarias funciones como [`hypot()`](@ref), [`expm1()`](@ref), and [`log1p()`](@ref), véase el excelente par de artículos en el blog de John D. Cook's sobre el tema: [expm1, log1p, erfc](https://www.johndcook.com/blog/2010/06/07/math-library-functions-that-seem-unnecessary/),
+e [hypot](https://www.johndcook.com/blog/2010/06/02/whats-so-hard-about-finding-a-hypotenuse/).
 
-### Trigonometric and hyperbolic functions
+### [Funciones Trigonométricas e Hiperbólicas](@id trigonometric-and-hyperbolic-functions)
 
-All the standard trigonometric and hyperbolic functions are also defined:
+Todas las funciones trigonométricas e hiperbólicas estándar están también definidas:
 
 ```
 sin    cos    tan    cot    sec    csc
@@ -506,28 +450,24 @@ asinh  acosh  atanh  acoth  asech  acsch
 sinc   cosc   atan2
 ```
 
-These are all single-argument functions, with the exception of [atan2](https://en.wikipedia.org/wiki/Atan2),
-which gives the angle in [radians](https://en.wikipedia.org/wiki/Radian) between the *x*-axis
-and the point specified by its arguments, interpreted as *x* and *y* coordinates.
+Son todas funciones de un solo argumento, con la excepción de  [atan2](https://en.wikipedia.org/wiki/Atan2),
+que da el ángulo en [radians](https://en.wikipedia.org/wiki/Radian) entre el eje *x* y el punto especificado por sus argumentos, interpretado como sus coordenadas *x* e *y*.
 
-Additionally, [`sinpi(x)`](@ref) and [`cospi(x)`](@ref) are provided for more accurate computations
-of [`sin(pi*x)`](@ref) and [`cos(pi*x)`](@ref) respectively.
+Adicionalmente, se proporcionan [`sinpi(x)`](@ref) e [`cospi(x)`](@ref) para cálculos más exactos de [`sin(pi*x)`](@ref) y [`cos(pi*x)`](@ref) respectivamente.
 
-In order to compute trigonometric functions with degrees instead of radians, suffix the function
-with `d`. For example, [`sind(x)`](@ref) computes the sine of `x` where `x` is specified in degrees.
-The complete list of trigonometric functions with degree variants is:
+Para computar funciones trigonométricas con grados en lugar de con rdianes, añada al nombre de la función el sufijo `d`. Por ejemplo, [`sind(x)`](@ref) calcula el seno de `x`, donde `x` se especifica en grados. La lista completa de funciones trigonométricas con variantes grados es:
 
 ```
 sind   cosd   tand   cotd   secd   cscd
 asind  acosd  atand  acotd  asecd  acscd
 ```
 
-### Special functions
+### [Funciones Especiales](@id special-functions)
 
-| Function                                                      | Description                                                                                                                                                     |
-|:------------------------------------------------------------- |:--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`gamma(x)`](@ref)                                            | [gamma function](https://en.wikipedia.org/wiki/Gamma_function) at `x`                                                                                           |
-| [`lgamma(x)`](@ref)                                           | accurate `log(gamma(x))` for large `x`                                                                                                                          |
-| [`lfact(x)`](@ref)                                            | accurate `log(factorial(x))` for large `x`; same as `lgamma(x+1)` for `x > 1`, zero otherwise                                                                   |
-| [`beta(x,y)`](@ref)                                           | [beta function](https://en.wikipedia.org/wiki/Beta_function) at `x,y`                                                                                           |
-| [`lbeta(x,y)`](@ref)                                          | accurate `log(beta(x,y))` for large `x` or `y`                                                                                                                  |
+| Función              | Descripción                        |
+|:-------------------- |:---------------------------------- |
+| [`gamma(x)`](@ref)   | [Función gamma](https://en.wikipedia.org/wiki/Gamma_function) en `x` |
+| [`lgamma(x)`](@ref)  | Valor exacto de `log(gamma(x))` para valores grandes de `x`          |
+| [`lfact(x)`](@ref)   | Valor exacto de  `log(factorial(x))` para valores grandes de  `x`; igual que `lgamma(x+1)` para `x > 1`, cero en otros caso            |
+| [`beta(x,y)`](@ref)  | [Función beta](https://en.wikipedia.org/wiki/Beta_function) en `x,y` |
+| [`lbeta(x,y)`](@ref) | Valor exacto de  `log(beta(x,y))` para valores grandes de `x` o `y`  |
