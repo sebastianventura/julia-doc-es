@@ -38,8 +38,8 @@ Para ejecutar código en un archivo de forma no interactiva, puede darlo como el
 $ julia script.jl arg1 arg2...
 ```
 
-Como indica el ejemplo, los siguientes argumentos de línea de órdenes de Julia se toman como argumentos de 
-línea de comandos al programa `script.jl` del programa, pasado a través de la constante global `ARGS`. El 
+Como indica el ejemplo, los siguientes argumentos de línea de mandatos de Julia se toman como argumentos de 
+línea de mandatos al programa `script.jl` del programa, pasados a través de la constante global `ARGS`. El 
 nombre del propio *script* se pasa como la variable global `PROGRAM_FILE`. Tenga en cuenta que `ARGS` 
 también se establece cuando se da el código de script usando la opción `-e` en la línea de órdenes (vea 
 la salida de ayuda de `julia` más abajo) pero `PROGRAM_FILE` estará vacío. Por ejemplo, para imprimir 
