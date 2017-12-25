@@ -145,15 +145,15 @@ entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantiza
 
 * Note que la función `Base.reindex` es agnóstica a los tipos de los índices de entrada; ella simplemente
   determina como y donde deberían reindexarse los indices almacenados. Ella no solo soporta indices enteros,
-    sino que también soporta indexación no escalar. Esto significa que las vistas de vistas no necesitan dos 
-    niveles de indirección; ellas pueden simplemente recomputar los índices en el array padre original.  
+  sino que también soporta indexación no escalar. Esto significa que las vistas de vistas no necesitan dos 
+  niveles de indirección; ellas pueden simplemente recomputar los índices en el array padre original.  
 * Es de esperar que a estas alturas esté bastante claro que soportar rebanadas en arrays significa que la
   dimensionalidad, dada por el parámetro `N`, no es necesariamente igual a la dimensionalidad del array padre
   o la longitud de la tupla `indexes`. Tampoco los índices proporcionados por el usuario se alinean necesariamente
   con las entradas en la tupla `indexes` (por ejemplo, el segundo índice proporcionado por el usuario puede
   corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla `indexes`).
-    
-  Lo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de 
+  
+  Lo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de 
   índices efectivos en la tupla `indexes`. Algunos ejemplos:
 
   ```julia
@@ -161,6 +161,7 @@ entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantiza
   S = view(A, 2:7)         # A 1d view created by linear indexing
   S = view(A, :, :, 1:1)   # Appending extra indices is supported
   ```
+  
   Ingenuamente, uno pensaría que podría simplemente establecer `S.parent = A` y` S.indexes = (:,:, 1: 1)`, 
   pero el hecho de soportar esto complica dramáticamente el proceso de reindexación, especialmente para 
   vistas de vistas. No solo se necesita despachar los tipos de los índices almacenados, sino que se debe 
