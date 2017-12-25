@@ -1,7 +1,6 @@
 # [SubArrays](@id subarrays)
 
-Julia's `SubArray` type is a container encoding a "view" of a parent [`AbstractArray`](@ref).  This page
-documents some of the design principles and implementation of `SubArray`s.
+El tipo `SubArray` de Julia es un contenedor que codifica una "vista" de un [`AbstractArray`](@ref) padre.  Esta pagina documenta algunos de los principios de diseño e implementación de `SubArray`.
 
 ## Indexing: cartesian vs. linear indexing
 
