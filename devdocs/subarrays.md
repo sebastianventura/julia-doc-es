@@ -143,59 +143,57 @@ entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantiza
 
 ### Unos pocos detalles
 
-  * Note que la función `Base.reindex` es agnóstica a los tipos de los índices de entrada; ella simplemente
-    determina como y donde deberían reindexarse los indices almacenados. Ella no solo soporta indices enteros,
+* Note que la función `Base.reindex` es agnóstica a los tipos de los índices de entrada; ella simplemente
+  determina como y donde deberían reindexarse los indices almacenados. Ella no solo soporta indices enteros,
     sino que también soporta indexación no escalar. Esto significa que las vistas de vistas no necesitan dos 
     niveles de indirección; ellas pueden simplemente recomputar los índices en el array padre original.  
-  * Es de esperar que a estas alturas esté bastante claro que soportar rebanadas en arrays significa que la 
-    dimensionalidad, dada por el parámetro `N`, no es necesariamente igual a la dimensionalidad del array padre
-    o la longitud de la tupla `indexes`. Tampoco los índices proporcionados por el usuario se alinean necesariamente 
-    con las entradas en la tupla `indexes` (por ejemplo, el segundo índice proporcionado por el usuario puede 
-    corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla` indexes`).
+* Es de esperar que a estas alturas esté bastante claro que soportar rebanadas en arrays significa que la
+  dimensionalidad, dada por el parámetro `N`, no es necesariamente igual a la dimensionalidad del array padre
+  o la longitud de la tupla `indexes`. Tampoco los índices proporcionados por el usuario se alinean necesariamente
+  con las entradas en la tupla `indexes` (por ejemplo, el segundo índice proporcionado por el usuario puede
+  corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla` indexes`).
     
-    Lo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de 
-    índices efectivos en la tupla `indexes`. Algunos ejemplos:
+  Lo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de 
+  índices efectivos en la tupla `indexes`. Algunos ejemplos:
 
-    ```julia
-    A = reshape(1:35, 5, 7) # A 2d parent Array
-    S = view(A, 2:7)         # A 1d view created by linear indexing
-    S = view(A, :, :, 1:1)   # Appending extra indices is supported
-    ```
-    
-    
-    Ingenuamente, uno pensaría que podría simplemente establecer `S.parent = A` y` S.indexes = (:,:, 1: 1)`, 
-    pero el hecho de soportar esto complica dramáticamente el proceso de reindexación, especialmente para 
-    vistas de vistas. No solo se necesita despachar los tipos de los índices almacenados, sino que se debe 
-    examinar si un índice dado es el último y "fusionar" los índices almacenados restantes. Esto no es una 
-    tarea fácil, y aún peor: es lenta ya que depende implícitamente de la indexación lineal.
+  ```julia
+  A = reshape(1:35, 5, 7) # A 2d parent Array
+  S = view(A, 2:7)         # A 1d view created by linear indexing
+  S = view(A, :, :, 1:1)   # Appending extra indices is supported
+  ```
+  Ingenuamente, uno pensaría que podría simplemente establecer `S.parent = A` y` S.indexes = (:,:, 1: 1)`, 
+  pero el hecho de soportar esto complica dramáticamente el proceso de reindexación, especialmente para 
+  vistas de vistas. No solo se necesita despachar los tipos de los índices almacenados, sino que se debe 
+  examinar si un índice dado es el último y "fusionar" los índices almacenados restantes. Esto no es una 
+  tarea fácil, y aún peor: es lenta ya que depende implícitamente de la indexación lineal.
+  
+  Afortunadamente, este es precisamente el cálculo que 'ReshapedArray' realiza, y lo hace linealmente si
+  es posible. En consecuencia, `view` asegura que el array padre es la dimensionalidad adecuada para los 
+  índices dados mediante reformateo (*reshaping*) si es necesario. El constructor interno `SubArray` 
+  asegura que este invariante esté satisfecha.
+* `CartesianIndex` y sus matrices retuercen de una forma desagradable el esquema `reindex`. Recuerde 
+  que `reindex` simplemente despacha sobre el tipo de índices almacenados para determinar cuántos 
+  índices pasados deberían usarse y a dónde deberían ir. Pero con `CartesianIndex`, ya no hay una 
+  correspondencia uno a uno entre la cantidad de argumentos pasados y la cantidad de dimensiones en 
+  las que indexan. Si volvemos al ejemplo anterior de `Base.reindex(S1, S1.indexes, (i, j))`, puede 
+  ver que la expansión es incorrecta para `i, j = CartesianIndex (), CartesianIndex (2,1 )`. Él 
+  debería *salta* el `CartesianIndex()` por completo y devolver:
 
-    Afortunadamente, este es precisamente el cálculo que 'ReshapedArray' realiza, y lo hace linealmente si
-    es posible. En consecuencia, `view` asegura que el array padre es la dimensionalidad adecuada para los 
-    índices dados mediante reformateo (*reshaping*) si es necesario. El constructor interno `SubArray` 
-    asegura que este invariante esté satisfecha.
-  * `CartesianIndex` y sus matrices retuercen de una forma desagradable el esquema `reindex`. Recuerde 
-    que `reindex` simplemente despacha sobre el tipo de índices almacenados para determinar cuántos 
-    índices pasados deberían usarse y a dónde deberían ir. Pero con `CartesianIndex`, ya no hay una 
-    correspondencia uno a uno entre la cantidad de argumentos pasados y la cantidad de dimensiones en 
-    las que indexan. Si volvemos al ejemplo anterior de `Base.reindex(S1, S1.indexes, (i, j))`, puede 
-    ver que la expansión es incorrecta para `i, j = CartesianIndex (), CartesianIndex (2,1 )`. Él 
-    debería *salta* el `CartesianIndex()` por completo y devolver:
+  ```julia
+  (CartesianIndex(2,1)[1], S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)[2]])
+  ```
 
-    ```julia
-    (CartesianIndex(2,1)[1], S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)[2]])
-    ```
+  Y si embargo, lo que devuelve es:
 
-    Y si embargo, lo que devuelve es:
+  ```julia
+  (CartesianIndex(), S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)])
+  ```
 
-    ```julia
-    (CartesianIndex(), S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)])
-    ```
-
-    Hacer esto correctamente requeriría el envío *combinado* en los índices almacenados y pasados en 
-    todas las combinaciones de dimensionalidades de una manera intratable. Como tal, `reindex` nunca 
-    debe invocarse con índices `CartesianIndex`. Afortunadamente, el caso escalar se maneja fácilmente 
-    aplanando primero los argumentos `CartesianIndex` a enteros simples. Sin embargo, las matrices de 
-    `CartesianIndex` no se pueden dividir en piezas ortogonales tan fácilmente. Antes de intentar usar 
-    `reindex`,`view` debe garantizar que no haya matrices de `CartesianIndex` en la lista de argumentos. 
-    Si los hay, simplemente puede "puntualizar" evitando por completo el cálculo de 'reindex', construyendo 
-    un `SubArray` anidado con dos niveles de indirección en su lugar.
+  Hacer esto correctamente requeriría el envío *combinado* en los índices almacenados y pasados en 
+  todas las combinaciones de dimensionalidades de una manera intratable. Como tal, `reindex` nunca 
+  debe invocarse con índices `CartesianIndex`. Afortunadamente, el caso escalar se maneja fácilmente 
+  aplanando primero los argumentos `CartesianIndex` a enteros simples. Sin embargo, las matrices de 
+  `CartesianIndex` no se pueden dividir en piezas ortogonales tan fácilmente. Antes de intentar usar 
+  `reindex`,`view` debe garantizar que no haya matrices de `CartesianIndex` en la lista de argumentos. 
+  Si los hay, simplemente puede "puntualizar" evitando por completo el cálculo de 'reindex', construyendo 
+  un `SubArray` anidado con dos niveles de indirección en su lugar.
