@@ -2,57 +2,34 @@
 
 El tipo `SubArray` de Julia es un contenedor que codifica una "vista" de un [`AbstractArray`](@ref) padre.  Esta pagina documenta algunos de los principios de diseño e implementación de `SubArray`.
 
-## Indexing: cartesian vs. linear indexing
+## Indexación: indexación cartesiana vs. lineal
 
-Broadly speaking, there are two main ways to access data in an array. The first, often called
-cartesian indexing, uses `N` indexes for an `N` -dimensional `AbstractArray`.  For example, a
-matrix `A` (2-dimensional) can be indexed in cartesian style as `A[i,j]`.  The second indexing
-method, referred to as linear indexing, uses a single index even for higher-dimensional objects.
- For example, if `A = reshape(1:12, 3, 4)`, then the expression `A[5]` returns the value 5.  Julia
-allows you to combine these styles of indexing: for example, a 3d array `A3` can be indexed as
-`A3[i,j]`, in which case `i` is interpreted as a cartesian index for the first dimension, and
-`j` is a linear index over dimensions 2 and 3.
+Ampliamente hablando, hay dos formas principales de acceder a los datos en un array. La primera, frecuentemente llamada indexación cartesiana, usa `N` índices para un `AbstractArray` `N` -dimensional. Por ejemlo, una matriz `A` (bidimensional) puede ser indexada en estilo cartesiano como `A[i,j]`. El segundo método de indexación, denominado indexación lineal, usa un solo índice incluso para objetos de mayor dimensión. Por ejemplo si `A = reshape(1:12, 3, 4)`, la expresión `A[5]` devuelve el valor 5. Julia nos permite combinar estos estilos de indexación: por ejemplo, un array 3d `A3` puede ser indexado como `A3[i,j]`, en cuyo caso `i` es interpretado como un índice cartesiano para la primera dimensión, y `j` es un índice lineal sobre las dimensiones 2 y 3.
 
-For `Array`s, linear indexing appeals to the underlying storage format: an array is laid out as
-a contiguous block of memory, and hence the linear index is just the offset (+1) of the corresponding
-entry relative to the beginning of the array.  However, this is not true for many other `AbstractArray`
-types: examples include [`SparseMatrixCSC`](@ref), arrays that require some kind of
-computation (such as interpolation), and the type under discussion here, `SubArray`.
-For these types, the underlying information is more naturally described in terms of
-cartesian indexes.
+Para los `Array`s, la indexación lineal apela al formato subyacente de almacenamiento: un array se presenta como un bloque contiguo de memoria, y por tanto el índice lineal es justo el desplazamiento (+1) de la correspondiente entrada relativa al principio del array. Sin embargo, esto no es cierto para muchos otros tipos `AbstractArray`: ejemplos de ello incluyen [`SparseMatrixCSC`](@ref), unos arrays que requieren alguna clase de cálculo (tal como interpolación), y el tipo bajo discusión aquí, `SubArray`. Para estos tipos, la información subyacente es descrita más naturalmente en términos de índices cartesianos. 
 
-You can manually convert from a cartesian index to a linear index with `sub2ind`, and vice versa
-using `ind2sub`.  `getindex` and `setindex!` functions for `AbstractArray` types may include similar
-operations.
+Uno puede convertir manualmente un índice cartesiano a uno lineal con `sub2ind`, y viceversa usando ìnd2sub`. Las funciones `getindex` and `setindex!` de los tipos `AbstractArray` puden incluir operaciones similares.
 
-While converting from a cartesian index to a linear index is fast (it's just multiplication and
-addition), converting from a linear index to a cartesian index is very slow: it relies on the
-`div` operation, which is one of the slowest low-level operations you can perform with a CPU.
- For this reason, any code that deals with `AbstractArray` types is best designed in terms of
-cartesian, rather than linear, indexing.
+Aunque convertir de un índice cartesiano a uno lineal es rápido (es justo una multiplicación y una suma), convertir de un índice lineal a uno cartesiano es muy lento: se basa en la operación `div`, que es una de las operacions de bajo nivel más lentas que uno puede realizar con una CPU. Por esta razón, cualquier código que trate con tipos `AbstractArray` está mejor diseñado en términos de indexación cartesiana en lugar de lineal.
 
-## Index replacement
+## Reemplazo de Índices
 
-Consider making 2d slices of a 3d array:
+Considere hacer rebanadas bidimensionales de un array tridimensional:
 
 ```julia
 S1 = view(A, :, 5, 2:6)
 S2 = view(A, 5, :, 2:6)
 ```
 
-`view` drops "singleton" dimensions (ones that are specified by an `Int`), so both `S1` and `S2`
-are two-dimensional `SubArray`s. Consequently, the natural way to index these is with `S1[i,j]`.
- To extract the value from the parent array `A`, the natural approach is to replace `S1[i,j]`
-with `A[i,5,(2:6)[j]]` and `S2[i,j]` with `A[5,i,(2:6)[j]]`.
+`view` elimina las dimensiones "singleton" (las que están especificadas por un `Int`), por lo que tanto `S1` como `S2` son `SubArray`s bidimensionales. En consecuencia, el camino natural para indexar esto es con `S1[i,j]`. Para extraer el valor del array padre `A`, el enfoque natural es reemplazar `S1[i,j]` con `A[i,5,(2:6)[j]]` y `S2[i,j]` con `A[5,i,(2:6)[j]]`.
 
-The key feature of the design of SubArrays is that this index replacement can be performed without
-any runtime overhead.
+La característica clave del diseño de SubArrays es que este reemplazo de índices puede realizarse sin ninguna sobrecarga en tiempo de ejecución.
 
-## SubArray design
+## Diseño de SubArray's
 
-### Type parameters and fields
+### Parámetros de Tipo y Campos
 
-The strategy adopted is first and foremost expressed in the definition of the type:
+La estrategia adoptada está expresada en la definición del tipo:
 
 ```julia
 struct SubArray{T,N,P,I,L} <: AbstractArray{T,N}
@@ -64,30 +41,20 @@ struct SubArray{T,N,P,I,L} <: AbstractArray{T,N}
 end
 ```
 
-`SubArray` has 5 type parameters.  The first two are the standard element type and dimensionality.
- The next is the type of the parent `AbstractArray`.  The most heavily-used is the fourth parameter,
-a `Tuple` of the types of the indices for each dimension. The final one, `L`, is only provided
-as a convenience for dispatch; it's a boolean that represents whether the index types support
-fast linear indexing. More on that later.
+`SubArray` tiene cinco parámetros de tipo. Los dos primeros son el tipo de elemento estándar y la dimensionalidad. La siguiente es el tipo del `AbstractArray` padre. El usado más intensamente es el cuarto parámetro, una `Tuple` de los tipos de los índices para cada dimensión. El final, `L`,  es sólo proporcionado como una conveniencia para el despacho; es un valor booleano que representa si los tipos del índice soportan indexacion lineal rápida. Más sobre este tema después.  
 
-If in our example above `A` is a `Array{Float64, 3}`, our `S1` case above would be a `SubArray{Int64,2,Array{Int64,3},Tuple{Colon,Int64,UnitRange{Int64}},false}`.
-Note in particular the tuple parameter, which stores the types of the indices used to create
-`S1`.  Likewise,
+Si en nuestro ejemplo de arriba `A` es un `Array{Float64, 3}`, nuestro caso `S1` sería un  `SubArray{Int64,2,Array{Int64,3},Tuple{Colon,Int64,UnitRange{Int64}},false}`. Note en particular el parámetro tupla, que almacena los tipos de los índices usados para crear `S1`.  Igualmente,
 
 ```julia-repl
 julia> S1.indexes
 (Colon(),5,2:6)
 ```
 
-Storing these values allows index replacement, and having the types encoded as parameters allows
-one to dispatch to efficient algorithms.
+Almacenar estos valores permite el reemplzao de índices, y tener los tipos codificados como parámetros permite a uno despachar a eficientes algoritmos.
 
-### Index translation
+### Traducción de Índices
 
-Performing index translation requires that you do different things for different concrete `SubArray`
-types.  For example, for `S1`, one needs to apply the `i,j` indices to the first and third dimensions
-of the parent array, whereas for `S2` one needs to apply them to the second and third.  The simplest
-approach to indexing would be to do the type-analysis at runtime:
+Realizar la traducción de índices requiere que uno haga diferentes cosas para diferentes tipos concretos de `SubArray`. Por ejemplo, para `S1` uno necesita aplicar los índices `i,j` a las dimensiones primera y tercera del array padre, mientras que para `S2` uno necesita aplicarlas a la segunda y la tercera. El enfoque más sencillo a indexar sería hacer el análisis de tipos en tiempo de ejecución:
 
 ```julia
 parentindexes = Array{Any}(0)
@@ -109,33 +76,23 @@ end
 S.parent[parentindexes...]
 ```
 
-Unfortunately, this would be disastrous in terms of performance: each element access would allocate
-memory, and involves the running of a lot of poorly-typed code.
+Desgraciadamente, esto sería desastroso en términos de rendimiento: cada acceso a elemento asignaría memoria, e implicaría la ejecución de un montón de código pobremente tipado.
 
-The better approach is to dispatch to specific methods to handle each type of stored index. That's
-what `reindex` does: it dispatches on the type of the first stored index and consumes the appropriate
-number of input indices, and then it recurses on the remaining indices. In the case of `S1`, this
-expands to
+El mejor enfoque es despachar a métodos específicos para manejar cada tipo de índice almacenado. Esto es lo que hace `reindex`: él despacha sobre el tipo del primer índice almacenado y consume el número apropiado de índices de entrada, y entonces recurre sobre los índices restantes. En el caso de `S1`, esto expande a
 
 ```julia
 Base.reindex(S1, S1.indexes, (i, j)) == (i, S1.indexes[2], S1.indexes[3][j])
 ```
 
-for any pair of indices `(i,j)` (except `CartesianIndex`s and arrays thereof, see below).
+para cualquier par de índices `(i,j)` (excepto `CartesianIndex`s and arrays de este tipo, ver abajo).
 
-This is the core of a `SubArray`; indexing methods depend upon `reindex` to do this index translation.
-Sometimes, though, we can avoid the indirection and make it even faster.
+Este es el núcleo de un `SubArray`; los métodos de indexación se basan en `reindex` para hacer esta traducción de índices. Sin embargo, algunas veces, podemos evitar la indirección y hacerlo incluso más rápido.
 
-### Linear indexing
+### Indexación Lineal
 
-Linear indexing can be implemented efficiently when the entire array has a single stride that
-separates successive elements, starting from some offset. This means that we can pre-compute these
-values and represent linear indexing simply as an addition and multiplication, avoiding the indirection
-of `reindex` and (more importantly) the slow computation of the cartesian coordinates entirely.
+La indexación lineal puede implementarse de forma eficiente cuando el array completo tiene un solo paso que separe elementos sucesivos, empezando desde cierto desplazamiento. Esto significa que nosotros pre-computamos estos valores y representamos la indexación lineal simplemente como una adición y multiplicación, evitando la indirección de `reindex` y (lo que es más importante) la computación lenta de las coordenadas cartesianas por completo.
 
-For `SubArray` types, the availability of efficient linear indexing is based purely on the types
-of the indices, and does not depend on values like the size of the parent array. You can ask whether
-a given set of indices supports fast linear indexing with the internal `Base.viewindexing` function:
+Para los tipos `SubArray`, la disponibilidad de una indexación lineal eficiente está basada puramente en los tipos de los índices, y no depende de valores como el tamaño de array padre. Uno puede preguntar si un cnjunto de índices dado soporta indexación lineal rápida con la función interna `Base.viewindexing`:
 
 ```julia-repl
 julia> Base.viewindexing(S1.indexes)
@@ -145,12 +102,9 @@ julia> Base.viewindexing(S2.indexes)
 IndexLinear()
 ```
 
-This is computed during construction of the `SubArray` and stored in the `L` type parameter as
-a boolean that encodes fast linear indexing support. While not strictly necessary, it means that
-we can define dispatch directly on `SubArray{T,N,A,I,true}` without any intermediaries.
+Esto se calcula durante la construcción del `SubArray` y se almacena en el parámetro de tipo `L` como un boolean que codifica soporte de indexación lineal rápido. Aunque n oes estrictamente necesario, esto significa qeu podemos definir despacho directamente sobre `SubArray{T,N,A,I,true}` sin intermediarios.
 
-Since this computation doesn't depend on runtime values, it can miss some cases in which the stride
-happens to be uniform:
+Como esta computación no depende de valores en tiempo de ejecución, puede perder algunos casos en los que el paso sea uniforme:
 
 ```jldoctest
 julia> A = reshape(1:4*2, 4, 2)
@@ -167,9 +121,7 @@ julia> diff(A[2:2:4,:][:])
  2
 ```
 
-A view constructed as `view(A, 2:2:4, :)` happens to have uniform stride, and therefore linear
-indexing indeed could be performed efficiently.  However, success in this case depends on the
-size of the array: if the first dimension instead were odd,
+Una vista construída como `view(A, 2:2:4, :)` tiene un paso uniforme y, por tanto la indexación lineal podría llevarse a cabo eficientemente. Sin embargo, el éxito en este caso depende del tamaño del array: Si, a diferencia del caso anterior, la primera dimensión fuera impar,
 
 ```jldoctest
 julia> A = reshape(1:5*2, 5, 2)
@@ -187,9 +139,7 @@ julia> diff(A[2:2:4,:][:])
  2
 ```
 
-then `A[2:2:4,:]` does not have uniform stride, so we cannot guarantee efficient linear indexing.
- Since we have to base this decision based purely on types encoded in the parameters of the `SubArray`,
-`S = view(A, 2:2:4, :)` cannot implement efficient linear indexing.
+entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantizar indexación lineal eficiente. Como tenemos que basar esta decisión puramente en los tipos codificados en los parámetros del `SubArray`, `S = view(A, 2:2:4, :)` no puede implementar una indexación lienal eficiente.
 
 ### A few details
 
