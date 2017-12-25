@@ -151,7 +151,7 @@ entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantiza
   dimensionalidad, dada por el parámetro `N`, no es necesariamente igual a la dimensionalidad del array padre
   o la longitud de la tupla `indexes`. Tampoco los índices proporcionados por el usuario se alinean necesariamente
   con las entradas en la tupla `indexes` (por ejemplo, el segundo índice proporcionado por el usuario puede
-  corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla` indexes`).
+  corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla `indexes`).
     
   Lo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de 
   índices efectivos en la tupla `indexes`. Algunos ejemplos:
