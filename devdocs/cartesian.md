@@ -4,7 +4,7 @@ El módulo `Cartesian` (no exportado) proporciona macros que facilitan escribir 
 
 ## Principios de uso
 
-Un emeplo de uso simple podría ser:
+Un ejemplo de uso simple podría ser:
 
 ```julia
 @nloops 3 i A begin
@@ -35,15 +35,11 @@ La sintaxis básica de `@nloops` es la siguiente:
   * El tercer argumento especifica el rango para cada variable iteradora. Si se usa una variable (símbolo) aquí, es considerado como `1:size(A,dim)`. De forma más flexible, se puede usar la sintaxis de expresiones basadas en funciones anónimas que se decribe más adelante.
   * El último argumento es el cuerpo del bucle. En el ejemplo anterior, lo que aparece entre `begin...end`.
 
-There are some additional features of `@nloops` described in the [reference section](@ref dev-cartesian-reference).
+Hay otras características adicionales de `@nloops` descritas en la [sección de referencia](@ref dev-cartesian-reference).
 
-`@nref` follows a similar pattern, generating `A[i_1,i_2,i_3]` from `@nref 3 A i`. The general
-practice is to read from left to right, which is why `@nloops` is `@nloops 3 i A expr` (as in
-`for i_2 = 1:size(A,2)`, where `i_2` is to the left and the range is to the right) whereas `@nref`
-is `@nref 3 A i` (as in `A[i_1,i_2,i_3]`, where the array comes first).
+`@nref` sigue un patrn similar, generando `A[i_1,i_2,i_3]` a partir de `@nref 3 A i`. La práctica general es leer de izquierda a derecha, por lo que `@nloops` es `@nloops 3 i A expr` (como en el bucle `for i_2 = 1:size(A,2)`, donde `i_2` está a la izquierda y el rango a la derecha) mientras que `@nref` es `@nref 3 A i` (como en `A[i_1,i_2,i_3]`, donde el array va primero).
 
-If you're developing code with Cartesian, you may find that debugging is easier when you examine
-the generated code, using `macroexpand`:
+Si ests desarrollando código con Cartesian, puedes encontrar que depurar es más sencillo cuando examinas el código generado, usando `macroexpand`:
 
 ```@meta
 DocTestSetup = quote
@@ -60,15 +56,11 @@ julia> macroexpand(:(@nref 2 A i))
 DocTestSetup = nothing
 ```
 
-### Supplying the number of expressions
+### Proporcionando el número de expresiones
 
-The first argument to both of these macros is the number of expressions, which must be an integer.
-When you're writing a function that you intend to work in multiple dimensions, this may not be
-something you want to hard-code. If you're writing code that you need to work with older Julia
-versions, currently you should use the `@ngenerate` macro described in [an older version of this documentation](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
+El primer argumentos de estas dos macros es el número de expresiones, que debe ser un entero. Cuando estás escribiendo una funcin que pretendes que trabaje en múltiples dimensiones, esto puede no ser algo que desees codificar. Si estás escribiendo código que necesitas que trabaje con versiones antiguas de Julia, deberías usar la macro `@ngenerate` descrita en [una versión más antigua de esta documentación](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
 
-Starting in Julia 0.4-pre, the recommended approach is to use a `@generated function`.  Here's
-an example:
+Empezando en Julia 0.4-pre, el enfoque recomendado es usar una `@generated function`.  He aquí un ejemplo:
 
 ```julia
 @generated function mysum(A::Array{T,N}) where {T,N}
@@ -82,35 +74,31 @@ an example:
 end
 ```
 
-Naturally, you can also prepare expressions or perform calculations before the `quote` block.
+Naturalmente, también podemos preparar expresiones o realizar cálculos antes del bloque `quote`.
 
-### Anonymous-function expressions as macro arguments
+### Expresiones función anónima como argumentos de macros
 
-Perhaps the single most powerful feature in `Cartesian` is the ability to supply anonymous-function
-expressions that get evaluated at parsing time.  Let's consider a simple example:
+Quizás la característica más potente de `Cartesian` es la capacidad de proporcionar expresiones función-anónima que son evaluadas en tiempo de análisis sintáctico. Consideremos un ejemplo sencillo:
 
 ```julia
 @nexprs 2 j->(i_j = 1)
 ```
 
-`@nexprs` generates `n` expressions that follow a pattern. This code would generate the following
-statements:
+`@nexprs` genera `n` expresiones que siguen un patrón. Este código generaría las siguientes instrucciones:
 
 ```julia
 i_1 = 1
 i_2 = 1
 ```
 
-In each generated statement, an "isolated" `j` (the variable of the anonymous function) gets replaced
-by values in the range `1:2`. Generally speaking, Cartesian employs a LaTeX-like syntax.  This
-allows you to do math on the index `j`.  Here's an example computing the strides of an array:
+En cada instrucción generada un `j` aislado (la variable de la función anónima) es reemplazada por valores en el rango `1:2`. Hablando de forma general, Cartesian emplea una sintaxis parecida a LaTeX. Esto te permite hacer operaciones sobre el índice `j`.  He aquí un ejemplo que calcula los pasos de un array:
 
 ```julia
 s_1 = 1
 @nexprs 3 j->(s_{j+1} = s_j * size(A, j))
 ```
 
-would generate expressions
+generará las expresiones
 
 ```julia
 s_1 = 1
