@@ -1,36 +1,24 @@
-# [Using Valgrind with Julia](@id valgrind)
+# [Usando Valgrind con Julia](@id valgrind)
 
-[Valgrind](http://valgrind.org/) is a tool for memory debugging, memory leak detection, and profiling.
- This section describes things to keep in mind when using Valgrind to debug memory issues with
-Julia.
+[Valgrind](http://valgrind.org/) es una herramienta para deputación de memoria, deteccin de fallos de página y creación de perfiles. Esta sección describe cosas a tner en cuenta cuando se usa Valgrind para depurar cuestiones de memoria con Julia.
 
-## General considerations
+## Consideraciones Generales
 
-By default, Valgrind assumes that there is no self modifying code in the programs it runs.  This
-assumption works fine in most instances but fails miserably for a just-in-time compiler like
-`julia`.  For this reason it is crucial to pass `--smc-check=all-non-file` to `valgrind`, else
-code may crash or behave unexpectedly (often in subtle ways).
+Por defecto, Valgrind asume que no hay código automodificador en el programa que está ejecutando. Esta suposición trabaja bien en la mayoría de las instancias, pero falla miserablemente para un compilador JIT como `julia`. Por esta razón es crucial pasar `--smc-check=all-non-file` a `valgrind`, si no el código puede bloquearse o comportarse de forma inesperada (frecuentemente de una forma sutil).
 
-In some cases, to better detect memory errors using Valgrind it can help to compile `julia` with
-memory pools disabled.  The compile-time flag `MEMDEBUG` disables memory pools in Julia, and
-`MEMDEBUG2` disables memory pools in FemtoLisp.  To build `julia` with both flags, add the following
-line to `Make.user`:
+En algunos casos, para detectar mejor errores de memoria usando Valgrind puede ayudar compilar `julia` con los *pools* de memoria dehabilitados. El flag de tiempo de compilación `MEMDEBUG` desabilita los *pools* de memoria en Julia y el flag `MEMDEBUG2` deshabilita los pools de memoria en FemtoLisp. Para construir `julia` con ambos flags, añada la siguiente línea a `Make.user`:
 
 ```julia
 CFLAGS = -DMEMDEBUG -DMEMDEBUG2
 ```
 
-Another thing to note: if your program uses multiple workers processes, it is likely that you
-want all such worker processes to run under Valgrind, not just the parent process.  To do this,
-pass `--trace-children=yes` to `valgrind`.
+Otra cosa a notar: si nuestros programa usa múltiples procesos workers, es probable que queramos que todos esos procesos worker se ejecuten bajo Valgrind, no sólo bajo el proceso padre. Para hacer esto, pasaremos `--trace-children=yes` a `valgrind`.
 
-## Suppressions
+## Supresiones
 
-Valgrind will typically display spurious warnings as it runs.  To reduce the number of such warnings,
-it helps to provide a [suppressions file](http://valgrind.org/docs/manual/manual-core.html#manual-core.suppress)
-to Valgrind.  A sample suppressions file is included in the Julia source distribution at `contrib/valgrind-julia.supp`.
+Valgrind tipicamente mostrará avisos falsos mientras se ejecuta. Para reducir el número de tales avisos, ayuda proporcionar un [fichero supresiones](http://valgrind.org/docs/manual/manual-core.html#manual-core.suppress) a Valgrind. Un fichero supresiones de ejemplo se incluye en la distribución fuente de Julia en `contrib/valgrind-julia.supp`.
 
-The suppressions file can be used from the `julia/` source directory as follows:
+El fichero de supresiones puede ser usado desde el directorio fuente `julia/` de la siguiente manera:
 
 ```
 $ valgrind --smc-check=all-non-file --suppressions=contrib/valgrind-julia.supp ./julia progname.jl
