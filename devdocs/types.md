@@ -1,27 +1,16 @@
-# [More about types](@id types)
+# [Más sobre tipos](@id types)
 
-If you've used Julia for a while, you understand the fundamental role that types play.  Here we
-try to get under the hood, focusing particularly on [Parametric Types](@ref parametric-types).
+Si ha usado Julia durante un tiempo, comprenderá el papel fundamental que juegan los tipos. Aquí intentamos meternos debajo del capó, centrándonos fundamentalmente en los [Tipos Paramétricos](@ref parametric-types).
 
-## Types and sets (and `Any` and `Union{}`/`Bottom`)
+## Tipos y conjuntos (y `Any` y `Union{}`/`Bottom`)
 
-It's perhaps easiest to conceive of Julia's type system in terms of sets. While programs manipulate
-individual values, a type refers to a set of values. This is not the same thing as a collection;
-for example a `Set` of values is itself a single `Set` value.
-Rather, a type describes a set of *possible* values, expressing uncertainty about which value we
-have.
+Tal vez sea ms sencillo concebir el sistema de tipos de Julia en términos de conjuntos. Aunque los programas pueden manipular los valores individuales, un tipo se refiere a un conjunto de valores. Esto no es la misma cosa que una colección; por ejemplo, un `Set` de valores es en sí mismo un solo valor de tipo `Set`. En lugar de ello, un tipo describe un conjunto de  *posible* valores, expresando incertidumbre sobre qué valor tenemos.
 
-A *concrete* type `T` describes the set of values whose direct tag, as returned by the `typeof`
-function, is `T`. An *abstract* type describes some possibly-larger set of values.
+Un tipo *concreto* `T` describe el conjunto de valores cuya etiqueta directa, tal y como es obtenida por la función `typeof` es `T`. Un tipo *abstracto* describe un conjunto de valores posiblemente más grande.
 
-`Any` describes the entire universe of possible values. [`Integer`](@ref) is a subset of
-`Any` that includes `Int`, [`Int8`](@ref), and other concrete types.
-Internally, Julia also makes heavy use of another type known as `Bottom`, which can also be written
-as `Union{}`. This corresponds to the empty set.
+`Any` describe el universo completo de valores posibles. [`Integer`](@ref) es un subconjunto de `Any` que incluye `Int`, [`Int8`](@ref), y otros tipos concretos. Internamente, Julia también hace un uso intensivo de otro tipo conocido como  `Bottom`, que puede también ser escrito como `Union{}`. Esto corresponde al conjunto vacío.
 
-Julia's types support the standard operations of set theory: you can ask whether `T1` is a "subset"
-(subtype) of `T2` with `T1 <: T2`. Likewise, you intersect two types using `typeintersect`, take
-their union with `Union`, and compute a type that contains their union with `typejoin`:
+Los tipos de Julia soportan las operaciones estándar de la teora de conjuntos: uno puede preguntar si `T1` es un "subconjunto" de `T2` con `T1 <: T2`. Análogamente, uno intersecta dos tipos usando `typeintersect`, realiza su unión con `Union`, y calcula un tipo que contiene su unión con `typejoin`:
 
 ```jldoctest
 julia> typeintersect(Int, Float64)
