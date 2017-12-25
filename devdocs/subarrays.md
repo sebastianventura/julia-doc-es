@@ -161,7 +161,8 @@ entonces `A[2:2:4,:]` no tiene un paso uniforme, por lo que no podemos garantiza
     S = view(A, 2:7)         # A 1d view created by linear indexing
     S = view(A, :, :, 1:1)   # Appending extra indices is supported
     ```
-
+    
+    
     Ingenuamente, uno pensaría que podría simplemente establecer `S.parent = A` y` S.indexes = (:,:, 1: 1)`, 
     pero el hecho de soportar esto complica dramáticamente el proceso de reindexación, especialmente para 
     vistas de vistas. No solo se necesita despachar los tipos de los índices almacenados, sino que se debe 
