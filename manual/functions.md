@@ -129,7 +129,7 @@ since it is the last expression.
 
 In Julia, most operators are just functions with support for special syntax. (The exceptions are
 operators with special evaluation semantics like `&&` and `||`. These operators cannot be functions
-since [Short-Circuit Evaluation](@ref) requires that their operands are not evaluated before evaluation
+since [Short-Circuit Evaluation](@ref short-circuit-evaluation) requires that their operands are not evaluated before evaluation
 of the operator.) Accordingly, you can also apply them using parenthesized argument lists, just
 as you would any other function:
 

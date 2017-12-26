@@ -4,7 +4,7 @@ Julia provides a variety of control flow constructs:
 
   * [Compound Expressions](@ref man-compound-expressions): `begin` and `(;)`.
   * [Conditional Evaluation](@ref man-conditional-evaluation): `if`-`elseif`-`else` and `?:` (ternary operator).
-  * [Short-Circuit Evaluation](@ref): `&&`, `||` and chained comparisons.
+  * [Short-Circuit Evaluation](@ref short-circuit-evaluation): `&&`, `||` and chained comparisons.
   * [Repeated Evaluation: Loops](@ref man-loops): `while` and `for`.
   * [Exception Handling](@ref): `try`-`catch`, [`error()`](@ref) and [`throw()`](@ref).
   * [Tasks (aka Coroutines)](@ref man-tasks): [`yieldto()`](@ref).
