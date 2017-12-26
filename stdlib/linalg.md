@@ -1,4 +1,4 @@
-# [Linear Algebra](@id linear-algebra)
+# [Linear Algebra](@id lib-linear-algebra)
 
 ## Standard Functions
 

@@ -162,7 +162,7 @@ UInt128: [0,340282366920938463463374607431768211455]
 ```
 
 Los valores devueltos por [`typemin()`](@ref) y [`typemax()`](@ref) siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo [bucles for](@ref man-loops),
-[Cadenas](@ref man-strings), e [Interpolación](@ref), pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)
+[Cadenas](@ref man-strings), e [Interpolación](@ref string-interpolation), pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)
 
 ### Comportamiento ante el Desbordamiento
 
@@ -295,7 +295,7 @@ con ningún punto en la línea de números reales:
 | `-Inf16`  | `-Inf32`  | `-Inf`    | Infinito negativo | Un valor menos que todos los valores finitos de punto flotante  |
 | `NaN16`   | `NaN32`   | `NaN`     | *not a number*    | Un valor no `==` a otro valor en punto flotante (incluido el mismo) |
 
-Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea [Comparaciones Numéricas](@ref). Mediante el [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008), estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:
+Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea [Comparaciones Numéricas](@ref numeric-comparisons). Mediante el [estándar IEEE 754](https://en.wikipedia.org/wiki/IEEE_754-2008), estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:
 
 
 ```jldoctest
@@ -593,7 +593,7 @@ Julia proporciona funciones que devuelven los literales `0` y `1` correspondient
 | [`zero(x)`](@ref) | Literal cero del tipo `x` o del tipo de la variable `x`|
 | [`one(x)`](@ref)  | Literal uno del tipo `x` o del tipo de la variable `x` |
 
-Estas funciones son útiles en [comparaciones numéricas](@ref numerical-comparisons) para evitar la sobrecarga de una [conversión de tipo](@ref conversion-and-promotion) innecesaria.
+Estas funciones son útiles en [comparaciones numéricas](@ref numeric-comparisons) para evitar la sobrecarga de una [conversión de tipo](@ref conversion-and-promotion) innecesaria.
 
 Ejemplos:
 

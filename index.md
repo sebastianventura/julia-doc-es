@@ -50,7 +50,7 @@
   * [Strings](@ref lib-strings)
   * [Arrays](@ref lib-arrays)
   * [Tasks and Parallel Computing](@ref tasks-and-parallel-computing)
-  * [Linear Algebra](@ref linear-algebra)
+  * [Linear Algebra](@ref lib-linear-algebra)
   * [Constants](@ref lib-constants)
   * [Filesystem](@ref filesystem)
   * [I/O and Network](@ref io-network)

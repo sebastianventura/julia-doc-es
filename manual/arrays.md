@@ -302,7 +302,7 @@ julia> A[CartesianIndex(3, 2, 1)] == A[3, 2, 1] == 7
 true
 ```
 
-Considerado solo, esto puede parecer relativamente trivial; `CartesianIndex` simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen `CartesianIndex`es, esto puede conducir directamente a un código muy elegante y eficiente. Ver [Iteración](@ref man-interface-interation) a continuación, y para algunos ejemplos más avanzados, ver [esta publicación en el blog sobre algoritmos multidimensionales e iteración](https://julialang.org/blog/2016/02/iteration).
+Considerado solo, esto puede parecer relativamente trivial; `CartesianIndex` simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen `CartesianIndex`es, esto puede conducir directamente a un código muy elegante y eficiente. Ver [Iteración](@ref man-interface-iteration) a continuación, y para algunos ejemplos más avanzados, ver [esta publicación en el blog sobre algoritmos multidimensionales e iteración](https://julialang.org/blog/2016/02/iteration).
 
 Los *arrays* de `CartesianIndex{N}` también sestán soportados. Representan una colección de índices escalares que abarcan   `N` dimensiones cada uno, lo que permite una forma de indexación que a veces se denomina *indexación puntual*. Por ejemplo, permite acceder a los elementos diagonales desde la primera "página" de 'A' desde arriba:
 
@@ -436,7 +436,7 @@ Los siguientes operadores están soportados para arrays:
 
 La mayoría de los operadores aritméticos binarios enumerados anteriormente también funcionan elemento a elemento cuando un argumento es escalar: `-`, `+`, y `*`cuando cualquiera de los argumentos es escalar, y `/` y `\` cuando el denominador es escalar. Por ejemplo, `[1, 2] + 3 == [4, 5]` y `[6, 4] / 2 == [3, 2]`.
 
-Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia [proporciona la sintaxis punto](@ref man-vectorized) `f.(args ...)`, por ejemplo, `sin.(x)` o `min.(x, y)`, para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una [Retransmisión (*broadcasting*)](@ref Broadcasting)); estos tienen la ventaja adicional de
+Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia [proporciona la sintaxis punto](@ref man-vectorized) `f.(args ...)`, por ejemplo, `sin.(x)` o `min.(x, y)`, para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una [Retransmisión (*broadcasting*)](@ref broadcasting)); estos tienen la ventaja adicional de
 "fusión" en un solo bucle cuando se combina con otras llamadas de puntos, por ejemplo, `sin.(cos.(x))`
 
 También, *cada* operador binario admite una [versión de punto](@ref man-dot-operators) que se puede aplicar a matrices (y combinaciones de matrices y escalares) en tales [operaciones de retransmisión fusionadas](@ref man-vectorized), por ejemplo, `z .== sin.(x. * y)`.
@@ -445,7 +445,7 @@ Tenga en cuenta que las comparaciones como `==` operan en arrays completos, dand
 
 También note la diferencia entre `max.(a, b)`, que retransmitir [`max()`](@ref) elemento a elemento sobre `a` y` b`, y `maximum(a)`, que encuentra el mayor valor dentro de `a`. La misma relación se cumple para `min.(A, b)` y `minimum(a)`.
 
-### Retransmisión
+### [Retransmisión](@id broadcasting)
 
 A veces es útil realizar operaciones binarias elemento por elemento en matrices de diferentes tamaños, como agregar un vector a cada columna de una matriz. Una forma ineficiente de hacer esto sería replicar el vector al tamaño de la matriz:
 

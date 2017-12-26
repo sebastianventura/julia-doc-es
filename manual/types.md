@@ -401,7 +401,7 @@ The `===` function confirms that the "two" constructed instances of `NoFields` a
 and the same. Singleton types are described in further detail [below](@ref man-singleton-types).
 
 There is much more to say about how instances of composite types are created, but that discussion
-depends on both [Parametric Types](@ref) and on [Methods](@ref), and is sufficiently important
+depends on both [Parametric Types](@ref parametric-types) and on [Methods](@ref methods), and is sufficiently important
 to be addressed in its own section: [Constructors](@ref man-constructors).
 
 ## Mutable Composite Types

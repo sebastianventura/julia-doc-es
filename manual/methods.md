@@ -361,7 +361,7 @@ julia> mytypeof(1.0)
 Float64
 ```
 
-Just as you can put subtype constraints on type parameters in type declarations (see [Parametric Types](@ref)),
+Just as you can put subtype constraints on type parameters in type declarations (see [Parametric Types](@ref parametric-types)),
 you can also constrain type parameters of methods:
 
 ```jldoctest

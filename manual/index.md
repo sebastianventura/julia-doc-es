@@ -27,7 +27,7 @@
   * [Calling C and Fortran Code](@ref)
   * [Handling Operating System Variation](@ref)
   * [Environment Variables](@ref)
-  * [Interacting With Julia](@ref)
+  * [Interacting With Julia](@ref interacting-with-julia)
   * [Embedding Julia](@ref embedding)
   * [Packages](@ref)
   * [Package Development](@ref)

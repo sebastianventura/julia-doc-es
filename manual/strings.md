@@ -538,7 +538,7 @@ provides [non-standard string literals](@ref). A non-standard string literal loo
 double-quoted string literal, but is immediately prefixed by an identifier, and doesn't behave
 quite like a normal string literal.  Regular expressions, byte array literals and version number
 literals, as described below, are some examples of non-standard string literals. Other examples
-are given in the [Metaprogramming](@ref) section.
+are given in the [Metaprogramming](@ref metaprogramming) section.
 
 ## Regular Expressions
 

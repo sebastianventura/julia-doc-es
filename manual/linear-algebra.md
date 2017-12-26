@@ -213,7 +213,7 @@ compute the factorization of a matrix into a product of matrices, and are one of
 in linear algebra.
 
 The following table summarizes the types of matrix factorizations that have been implemented in
-Julia. Details of their associated methods can be found in the [Linear Algebra](@ref) section
+Julia. Details of their associated methods can be found in the [Linear Algebra](@ref lib-linear-algebra) section
 of the standard library documentation.
 
 | Type              | Description                                                                                                    |

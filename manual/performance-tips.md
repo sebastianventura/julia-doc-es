@@ -110,7 +110,7 @@ its algorithmic aspects (see [Pre-allocating outputs](@ref)).
 Julia and its package ecosystem includes tools that may help you diagnose problems and improve
 the performance of your code:
 
-  * [Profiling](@ref) allows you to measure the performance of your running code and identify lines
+  * [Profiling](@ref profiling) allows you to measure the performance of your running code and identify lines
     that serve as bottlenecks.  For complex projects, the [ProfileView](https://github.com/timholy/ProfileView.jl)
     package can help you visualize your profiling results.
   * Unexpectedly-large memory allocations--as reported by [`@time`](@ref), [`@allocated`](@ref), or
@@ -148,7 +148,7 @@ a = Float64[] # typeof(a) = Array{Float64,1}
 
 which will create a contiguous block of 64-bit floating-point values that can be manipulated efficiently.
 
-See also the discussion under [Parametric Types](@ref).
+See also the discussion under [Parametric Types](@ref parametric-types).
 
 ## Type declarations
 

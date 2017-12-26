@@ -561,7 +561,7 @@ end
 Here, [`open()`](@ref) first opens the file for writing and then passes the resulting output stream
 to the anonymous function you defined in the `do ... end` block. After your function exits, [`open()`](@ref)
 will make sure that the stream is properly closed, regardless of whether your function exited
-normally or threw an exception. (The `try/finally` construct will be described in [Control Flow](@ref).)
+normally or threw an exception. (The `try/finally` construct will be described in [Control Flow](@ref control-flow).)
 
 With the `do` block syntax, it helps to check the documentation or implementation to know how
 the arguments of the user function are initialized.
@@ -598,7 +598,7 @@ which functions you want to vectorize.
 
 More generally, `f.(args...)` is actually equivalent to `broadcast(f, args...)`, which allows
 you to operate on multiple arrays (even of different shapes), or a mix of arrays and scalars (see
-[Broadcasting](@ref)). For example, if you have `f(x,y) = 3x + 4y`, then `f.(pi,A)` will return
+[Broadcasting](@ref broadcasting)). For example, if you have `f(x,y) = 3x + 4y`, then `f.(pi,A)` will return
 a new array consisting of `f(pi,a)` for each `a` in `A`, and `f.(vector1,vector2)` will return
 a new vector consisting of `f(vector1[i],vector2[i])` for each index `i` (throwing an exception
 if the vectors have different length).
@@ -671,4 +671,4 @@ We should mention here that this is far from a complete picture of defining func
 a sophisticated type system and allows multiple dispatch on argument types. None of the examples
 given here provide any type annotations on their arguments, meaning that they are applicable to
 all types of arguments. The type system is described in [Types](@ref man-types) and defining a function
-in terms of methods chosen by multiple dispatch on run-time argument types is described in [Methods](@ref).
+in terms of methods chosen by multiple dispatch on run-time argument types is described in [Methods](@ref methods).
