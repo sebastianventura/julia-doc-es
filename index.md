@@ -73,7 +73,7 @@
   * Documentation of Julia's Internals
       * [Initialization of the Julia runtime](@ref init)
       * [Julia ASTs](@ref ast)
-      * [More about types](@ref)
+      * [More about types](@ref types)
       * [Memory layout of Julia Objects](@ref object)
       * [Eval of Julia code](@ref eval)
       * [Calling Conventions](@ref callconv)

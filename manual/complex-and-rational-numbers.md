@@ -152,7 +152,7 @@ julia> a = 1; b = 2; complex(a, b)
 
 Esta construcción evita las operaciones de multiplicación y adición.
 
-[`Inf`](@ref) y [`NaN`](@ref) se propagan a través de números complejos en las partes real e imaginaria de un número complejo como se describe en la sección [valores especiales en punto flotante](@ref) section:
+[`Inf`](@ref) y [`NaN`](@ref) se propagan a través de números complejos en las partes real e imaginaria de un número complejo como se describe en la sección [valores especiales en punto flotante](@ref special-floating-point-values) section:
 
 ```jldoctest
 julia> 1 + Inf*im

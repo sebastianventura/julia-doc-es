@@ -284,7 +284,7 @@ julia> bits(-0.0)
 "1000000000000000000000000000000000000000000000000000000000000000"
 ```
 
-### Valores especiales en punto flotante
+### [Valores especiales en punto flotante](@id special-floating-point-values)
 
 Hay tres valores especificados en el estándar de punto flotante para valores que no se corresponden 
 con ningún punto en la línea de números reales:
