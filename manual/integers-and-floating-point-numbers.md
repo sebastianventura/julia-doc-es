@@ -30,7 +30,7 @@ Los tipos primitivos de Julia son los siguientes:
 | [`Float32`](@ref) | [sencilla](https://en.wikipedia.org/wiki/Single_precision_floating-point_format) | 32             |
 | [`Float64`](@ref) | [doble](https://en.wikipedia.org/wiki/Double_precision_floating-point_format)    | 64             |
 
-Adicionalmente, se ha construído un soporte completo para [Números Complejos y Racionales](@ref) encima de estos tipos primitivos. Todos los tipos primitivos interoperan de forma natural sin tener que realizar conversiones específicas, gracias a un [sistema de promoción de tipos](@ref conversion-and-promotion) flexible y extensible por el usuario.
+Adicionalmente, se ha construído un soporte completo para [Números Complejos y Racionales](@ref complex-and-rational-numbers) encima de estos tipos primitivos. Todos los tipos primitivos interoperan de forma natural sin tener que realizar conversiones específicas, gracias a un [sistema de promoción de tipos](@ref conversion-and-promotion) flexible y extensible por el usuario.
 
 ## Enteros
 

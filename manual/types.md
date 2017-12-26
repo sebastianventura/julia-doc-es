@@ -13,7 +13,7 @@ Julia's type system is dynamic, but gains some of the advantages of static type 
 it possible to indicate that certain values are of specific types. This can be of great assistance
 in generating efficient code, but even more significantly, it allows method dispatch on the types
 of function arguments to be deeply integrated with the language. Method dispatch is explored in
-detail in [Methods](@ref), but is rooted in the type system presented here.
+detail in [Methods](@ref methods), but is rooted in the type system presented here.
 
 The default behavior in Julia when types are omitted is to allow values to be of any type. Thus,
 one can write many useful Julia programs without ever explicitly using types. When additional
@@ -132,7 +132,7 @@ abstract types even though they have no instantiation because they are the backb
 system: they form the conceptual hierarchy which makes Julia's type system more than just a collection
 of object implementations.
 
-Recall that in [Integers and Floating-Point Numbers](@ref), we introduced a variety of concrete
+Recall that in [Integers and Floating-Point Numbers](@ref integers-and-floating-point-numbers), we introduced a variety of concrete
 types of numeric values: [`Int8`](@ref), [`UInt8`](@ref), [`Int16`](@ref), [`UInt16`](@ref),
 [`Int32`](@ref), [`UInt32`](@ref), [`Int64`](@ref), [`UInt64`](@ref), [`Int128`](@ref),
 [`UInt128`](@ref), [`Float16`](@ref), [`Float32`](@ref), and [`Float64`](@ref). Although
@@ -209,7 +209,7 @@ end
 
 The first thing to note is that the above argument declarations are equivalent to `x::Any` and
 `y::Any`. When this function is invoked, say as `myplus(2,5)`, the dispatcher chooses the most
-specific method named `myplus` that matches the given arguments. (See [Methods](@ref) for more
+specific method named `myplus` that matches the given arguments. (See [Methods](@ref methods) for more
 information on multiple dispatch.)
 
 Assuming no method more specific than the above is found, Julia next internally defines and compiles
@@ -302,7 +302,7 @@ such as integers and floating-point values, are not objects, while instances of 
 types are true objects with associated methods. In Julia, all values are objects, but functions
 are not bundled with the objects they operate on. This is necessary since Julia chooses which
 method of a function to use by multiple dispatch, meaning that the types of *all* of a function's
-arguments are considered when selecting a method, rather than just the first one (see [Methods](@ref)
+arguments are considered when selecting a method, rather than just the first one (see [Methods](@ref methods)
 for more information on methods and dispatch). Thus, it would be inappropriate for functions to
 "belong" to only their first argument. Organizing methods into function objects rather than having
 named bags of methods "inside" each object ends up being a highly beneficial aspect of the language
@@ -624,7 +624,7 @@ end
 (Equivalently, one could define `function norm{T<:Real}(p::Point{T})` or
 `function norm(p::Point{T} where T<:Real)`; see [UnionAll Types](@ref).)
 
-More examples will be discussed later in [Methods](@ref).
+More examples will be discussed later in [Methods](@ref methods).
 
 How does one construct a `Point` object? It is possible to define custom constructors for composite
 types, which will be discussed in detail in [Constructors](@ref man-constructors), but in the absence of any special
@@ -781,7 +781,7 @@ Now both `Point{Float64}` and `DiagPoint{Float64}` are implementations of the `P
 abstraction, and similarly for every other possible choice of type `T`. This allows programming
 to a common interface shared by all `Pointy` objects, implemented for both `Point` and `DiagPoint`.
 This cannot be fully demonstrated, however, until we have introduced methods and dispatch in the
-next section, [Methods](@ref).
+next section, [Methods](@ref methods).
 
 There are situations where it may not make sense for type parameters to range freely over all
 possible types. In such situations, one can constrain the range of `T` like so:
@@ -1193,7 +1193,7 @@ the field values, as e.g. `Polar{Float64}(3.0,4.0)`.
 
 If we want it to display instead as `3.0 * exp(4.0im)`, we would define the following method to
 print the object to a given output object `io` (representing a file, terminal, buffer, etcetera;
-see [Networking and Streams](@ref)):
+see [Networking and Streams](@ref networking-and-streams)):
 
 ```jldoctest polartype
 julia> Base.show(io::IO, z::Polar) = print(io, z.r, " * exp(", z.Θ, "im)")

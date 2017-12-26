@@ -95,7 +95,7 @@ julia> Int8[[1 2] [3 4]]
  1  2  3  4
 ```
 
-### Comprensiones
+### [Comprensiones](@id comprehensions)
 
 Las comprensiones proporcionan una forma general y potente de construir arrays. Su sintaxis es similar a la notación de construcción de conjuntos en matemáticas:
 

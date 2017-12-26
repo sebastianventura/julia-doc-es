@@ -1,4 +1,4 @@
-# [StackTraces](@id stacktraces)
+# [StackTraces](@id lib-stacktraces)
 
 ```@docs
 Base.StackTraces.StackFrame

@@ -243,7 +243,7 @@ no
 "no"
 ```
 
-## Short-Circuit Evaluation
+## [Short-Circuit Evaluation](@id short-circuit-evaluation)
 
 Short-circuit evaluation is quite similar to conditional evaluation. The behavior is found in
 most imperative programming languages having the `&&` and `||` boolean operators: in a series
@@ -334,7 +334,7 @@ Stacktrace:
 ```
 
 Boolean operations *without* short-circuit evaluation can be done with the bitwise boolean operators
-introduced in [Mathematical Operations and Elementary Functions](@ref): `&` and `|`. These are
+introduced in [Mathematical Operations and Elementary Functions](@ref mathematical-operations): `&` and `|`. These are
 normal functions, which happen to support infix operator syntax, but always evaluate their arguments:
 
 ```jldoctest tandf
@@ -923,7 +923,7 @@ can be used in conjunction with [`Task()`](@ref) and [`Channel()`](@ref)
 constructors to explicitly link a set of channels with a set of producer/consumer tasks.
 
 Note that currently Julia tasks are not scheduled to run on separate CPU cores.
-True kernel threads are discussed under the topic of [Parallel Computing](@ref).
+True kernel threads are discussed under the topic of [Parallel Computing](@ref parallel-computing).
 
 ### Core task operations
 
@@ -972,7 +972,7 @@ allows you to manage tasks manually using [`yieldto()`](@ref) if you wish. Howev
 a task waits for an event, it still gets restarted automatically when the event happens, as you
 would expect. It is also possible to make the scheduler run a task whenever it can, without necessarily
 waiting for any events. This is done by calling [`schedule()`](@ref), or using the [`@schedule`](@ref)
-or [`@async`](@ref) macros (see [Parallel Computing](@ref) for more details).
+or [`@async`](@ref) macros (see [Parallel Computing](@ref parallel-computing) for more details).
 
 ### Task states
 

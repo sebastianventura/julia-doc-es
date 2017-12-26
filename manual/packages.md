@@ -434,7 +434,7 @@ was initialized with. If you want to change branches, you will need to either mo
 file directly (be careful!) or remove the `vX.Y` directory and re-initialize your METADATA repository
 using the `Pkg.init` command.
 
-# Package Development
+# [Package Development](@id package-development)
 
 Julia's package manager is designed so that when you have a package installed, you are already
 in a position to look at its source code and full development history. You are also able to make

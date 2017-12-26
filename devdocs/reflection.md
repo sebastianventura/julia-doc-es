@@ -1,4 +1,4 @@
-# [Reflection and introspection](@id reflection)
+# [Reflection and introspection](@id reflection-and-introspection)
 
 Julia provides a variety of runtime reflection capabilities.
 
