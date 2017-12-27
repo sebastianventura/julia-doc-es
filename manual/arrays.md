@@ -476,7 +476,7 @@ julia> broadcast(+, a, b)
  1.73659  0.873631
 ```
 
-[Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función `broadcast!()` para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y `broadcast_setindex! ()` que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ ref man-dot-operators) en una sola llamada `broadcast`.
+[Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función `broadcast!()` para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y `broadcast_setindex! ()` que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ref man-dot-operators) en una sola llamada `broadcast`.
 
 Además, `broadcast ()` no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
 
@@ -690,7 +690,7 @@ Las operaciones aritméticas en matrices *sparse* también funcionan como lo hac
 
 La siguiente tabla proporciona una correspondencia entre los métodos incorporados en matrices *sparse* y sus métodos correspondientes en tipos de matrices densas. En general, los métodos que generan matrices *sparse* difieren de sus contrapartes densas en que la matriz resultante sigue el mismo patrón de dispersión que una matriz *sparse* dada `S`, o que la matriz *sparse* resultante tiene densidad `d`, es decir, cada elemento de matriz tiene una probabilidad `d` de ser diferente de cero.
 
-Los detalles se pueden encontrar en la sección [Vectores y Matrices *Sparse*](@ ref stdlib-sparse-arrays) de la referencia de biblioteca estándar.
+Los detalles se pueden encontrar en la sección [Vectores y Matrices *Sparse*](@ref stdlib-sparse-arrays) de la referencia de biblioteca estándar.
 
 
 | Sparse                     | Dense                  | Description                                                                                                                                                           |

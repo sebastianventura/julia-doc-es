@@ -1,6 +1,6 @@
 # [Números Racionales y Complejos](@id complex-and-rational-numbers)
 
-Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las [Operaciones Matemáticas y Funciones Elementales](@ref mathematical-operations) estándar sobre ellos. Se han definido [conversiones y promociones](conversion-and-promotion) de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.
+Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las [Operaciones Matemáticas y Funciones Elementales](@ref mathematical-operations) estándar sobre ellos. Se han definido [conversiones y promociones](@ref conversion-and-promotion) de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.
 
 como se esperaba.
 ## [Números Complejos](@id complex-numbers)
