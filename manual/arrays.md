@@ -478,7 +478,7 @@ julia> broadcast(+, a, b)
 
 [Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función `broadcast!()` para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y `broadcast_setindex! ()` que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ ref man-dot-operators) en una sola llamada `broadcast`.
 
-Además, [`broadcast ()`] (@ref) no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
+Además, `broadcast ()` no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
 
 ```jldoctest
 julia> convert.(Float32, [1, 2])
