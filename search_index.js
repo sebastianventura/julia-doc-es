@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Manual",
     "category": "section",
-    "text": "Introduction\nGetting Started\nVariables\nIntegers and Floating-Point Numbers\nMathematical Operations and Elementary Functions\nComplex and Rational Numbers\nStrings\nFunctions\nControl Flow\nScope of Variables\nTypes\nMethods\nConstructors\nConversion and Promotion\nInterfaces\nModules\nDocumentation\nMetaprogramming\nMulti-dimensional Arrays\nLinear Algebra\nNetworking and Streams\nParallel Computing\nDate and DateTime\nRunning External Programs\nCalling C and Fortran Code\nHandling Operating System Variation\nEnvironment Variables\nInteracting With Julia\nEmbedding Julia\nPackages\nProfiling\nStack Traces\nPerformance Tips\nWorkflow Tips\nStyle Guide\nFrequently Asked Questions\nNoteworthy Differences from other Languages\nUnicode Input"
+    "text": "Introducción\nEmpezando\nVariables\nIntegers and Floating-Point Numbers\nMathematical Operations and Elementary Functions\nComplex and Rational Numbers\nStrings\nFunctions\nControl Flow\nScope of Variables\nTypes\nMethods\nConstructors\nConversion and Promotion\nInterfaces\nModules\nDocumentation\nMetaprogramming\nMulti-dimensional Arrays\nLinear Algebra\nNetworking and Streams\nParallel Computing\nDate and DateTime\nRunning External Programs\nCalling C and Fortran Code\nHandling Operating System Variation\nEnvironment Variables\nInteracting With Julia\nEmbedding Julia\nPackages\nProfiling\nStack Traces\nPerformance Tips\nWorkflow Tips\nStyle Guide\nFrequently Asked Questions\nNoteworthy Differences from other Languages\nUnicode Input"
 },
 
 {
@@ -42,42 +42,42 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/introduction.html#",
-    "page": "Introduction",
-    "title": "Introduction",
+    "page": "Introducción",
+    "title": "Introducción",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "manual/introduction.html#man-introduction-1",
-    "page": "Introduction",
-    "title": "Introduction",
+    "page": "Introducción",
+    "title": "Introducción",
     "category": "section",
-    "text": "Scientific computing has traditionally required the highest performance, yet domain experts have largely moved to slower dynamic languages for daily work. We believe there are many good reasons to prefer dynamic languages for these applications, and we do not expect their use to diminish. Fortunately, modern language design and compiler techniques make it possible to mostly eliminate the performance trade-off and provide a single environment productive enough for prototyping and efficient enough for deploying performance-intensive applications. The Julia programming language fills this role: it is a flexible dynamic language, appropriate for scientific and numerical computing, with performance comparable to traditional statically-typed languages.Because Julia's compiler is different from the interpreters used for languages like Python or R, you may find that Julia's performance is unintuitive at first. If you find that something is slow, we highly recommend reading through the Performance Tips section before trying anything else. Once you understand how Julia works, it's easy to write code that's nearly as fast as C.Julia features optional typing, multiple dispatch, and good performance, achieved using type inference and just-in-time (JIT) compilation, implemented using LLVM. It is multi-paradigm, combining features of imperative, functional, and object-oriented programming. Julia provides ease and expressiveness for high-level numerical computing, in the same way as languages such as R, MATLAB, and Python, but also supports general programming. To achieve this, Julia builds upon the lineage of mathematical programming languages, but also borrows much from popular dynamic languages, including Lisp, Perl, Python, Lua, and Ruby.The most significant departures of Julia from typical dynamic languages are:The core language imposes very little; the standard library is written in Julia itself, including primitive operations like integer arithmetic\nA rich language of types for constructing and describing objects, that can also optionally be used to make type declarations\nThe ability to define function behavior across many combinations of argument types via multiple dispatch\nAutomatic generation of efficient, specialized code for different argument types\nGood performance, approaching that of statically-compiled languages like CAlthough one sometimes speaks of dynamic languages as being \"typeless\", they are definitely not: every object, whether primitive or user-defined, has a type. The lack of type declarations in most dynamic languages, however, means that one cannot instruct the compiler about the types of values, and often cannot explicitly talk about types at all. In static languages, on the other hand, while one can – and usually must – annotate types for the compiler, types exist only at compile time and cannot be manipulated or expressed at run time. In Julia, types are themselves run-time objects, and can also be used to convey information to the compiler.While the casual programmer need not explicitly use types or multiple dispatch, they are the core unifying features of Julia: functions are defined on different combinations of argument types, and applied by dispatching to the most specific matching definition. This model is a good fit for mathematical programming, where it is unnatural for the first argument to \"own\" an operation as in traditional object-oriented dispatch. Operators are just functions with special notation – to extend addition to new user-defined data types, you define new methods for the + function. Existing code then seamlessly applies to the new data types.Partly because of run-time type inference (augmented by optional type annotations), and partly because of a strong focus on performance from the inception of the project, Julia's computational efficiency exceeds that of other dynamic languages, and even rivals that of statically-compiled languages. For large scale numerical problems, speed always has been, continues to be, and probably always will be crucial: the amount of data being processed has easily kept pace with Moore's Law over the past decades.Julia aims to create an unprecedented combination of ease-of-use, power, and efficiency in a single language. In addition to the above, some advantages of Julia over comparable systems include:Free and open source (MIT licensed)\nUser-defined types are as fast and compact as built-ins\nNo need to vectorize code for performance; devectorized code is fast\nDesigned for parallelism and distributed computation\nLightweight \"green\" threading (coroutines)\nUnobtrusive yet powerful type system\nElegant and extensible conversions and promotions for numeric and other types\nEfficient support for Unicode, including but not limited to UTF-8\nCall C functions directly (no wrappers or special APIs needed)\nPowerful shell-like capabilities for managing other processes\nLisp-like macros and other metaprogramming facilities"
+    "text": "La computación científica ha requerido tradicionalmente el máximo rendimiento, aunque los expertos de los distintos dominios se hayan movido en gran parte a los lenguajes dinámicos, más lentos, para el trabajo diario. Creemos que hay muchas buenas razones para preferir lenguajes dinámicos para estas aplicaciones, y no esperamos que su uso disminuya. Afortunadamente, el diseño de lenguajes y las técnicas de compilación modernos permiten casi eliminar el compromiso del rendimiento y proporcionar un solo entorno suficientemente productivo para la creación de prototipos y suficientemente eficiente para implementar aplicaciones de alto rendimiento. El lenguaje de programación de Julia cumple este papel: es un lenguaje dinámico y flexible, apropiado para la computación científica y numérica, con un rendimiento comparable al de los lenguajes tradicionales de tipo estático.Debido a que el compilador de Julia es diferente de los intérpretes utilizados para lenguajes como Python o R, podría parecer al principio que el rendimiento de Julia no es intuitivo. Si encuentra que algo es lento, le recomendamos que lea la sección Consejos de Rendimiento antes de intentar otra cosa. Una vez que entienda cómo funciona Julia, será fácil escribir código casi tan rápido como el código C.Julia ofrece tipado opcional, despacho múltiple, y buen desempeño, logrado usando inferencia de tipos y compilación just-in-time (JIT), implementada usando LLVM. Es multi-paradigma, combinando características de programación imperativa, funcional y orientada a objetos. Julia proporciona facilidad y expresividad para la computación numérica de alto nivel, de la misma manera que idiomas como R, MATLAB y Python, pero también soporta la programación general. Para conseguirlo, Julia se basa en el linaje de los lenguajes de programación matemáticos, pero también toma prestado mucho de los lenguajes dinámicos populares, incluyendo Lisp, Perl, Python, Lua, y Ruby.Las diferencias más significativas de Julia de los lenguajes dinámicos típicos son:El lenguaje básico impone muy poco; La biblioteca estándar se ha escrito en el propio Julia, incluyendo operaciones primitivas como la aritmética entera.\nUn lenguaje enriquecido de tipos para construir y describir objetos, que también se puede utilizar opcionalmente para hacer declaraciones de tipo.\nLa capacidad de definir el comportamiento de la función a través de muchas combinaciones de tipos de argumentos mediante el despacho múltiple.\nGeneración automática de código eficiente y especializado para diferentes tipos de argumentos.\nBuen rendimiento, aproximándose al de los lenguajes compilados estáticamente como C.Aunque a veces se dice de los lenguajes dinámicos que son lenguajes \"sin tipo\", ésto no es cierto en absoluto: cada objeto, ya sea primitivo o definido por el usuario, tiene un tipo. La falta de declaraciones de tipos en la mayoría de los lenguajes dinámicos, sin embargo, significa que uno no puede instruir al compilador acerca de los tipos de valores y, a menudo, no puede hablar explícitamente de tipos en absoluto. En lenguajes estáticos, por otro lado, aunque uno puede -y normalmente debe- anotar tipos para el compilador, los tipos sólo existen en tiempo de compilación y no pueden ser manipulados o expresados en tiempo de ejecución. En Julia, los tipos son objetos en tiempo de ejecución y también se pueden utilizar para transmitir información al compilador.Aunque el programador casual no necesita usar explícitamente los tipos o el despacho múltiple, ellas son las características centrales unificadoras de Julia: las funciones se definen en diferentes combinaciones de tipos de argumentos y se aplican despachando a la definición concordante más específica. Este modelo se ajusta bien a la programación matemática, donde no es natural que el primer argumento \"posea\" una operación como en la programación orientada a objetos tradicional. Los operadores son sólo funciones con notación especial - para ampliar la adición a nuevos tipos de datos definidos por el usuario, se definen nuevos métodos para la función +. El código existente se aplica sin problemas a los nuevos tipos de datos.En parte debido a la inferencia de tipo en tiempo de ejecución (aumentada por anotaciones de tipos opcionales), y en parte debido a enfoque muy basado en el rendimiento desde el inicio del proyecto, la eficiencia computacional de Julia supera la de otros lenguajes dinámicos e incluso rivaliza con la de lenguajes de compilación estática. Para los problemas numéricos a gran escala, la velocidad siempre ha sido, continúa siendo, y probablemente siempre será crucial: la cantidad de datos procesados se ha mantenido fácilmente al ritmo de la Ley de Moore durante las últimas décadas.Julia tiene como objetivo crear una combinación sin precedentes de facilidad de uso, potencia y eficiencia en un solo lenguaje de programación. Además de lo anterior, algunas ventajas de Julia sobre sistemas comparables son:Libre y de código abierto (con licencia MIT)\nLos tipos definidos por el usuario son tan rápidos y compactos como los predefinidos.\nNo hay necesidad de vectorizar código para el rendimiento; el código devectorizado es rápido\nDiseñado para el paralelismo y la computación distribuida.\nHilos \"verdes\" de peso ligero (coroutinas).\nSistema de tipos discreto pero potente.\nConversiones y promociones elegantes y extensibles para números y otros tipos.\nSoporte eficiente para Unicode, incluyendo pero no limitado a UTF-8Llamada a las funciones C directamente (no se necesitan envolturas o API especiales).\nPoderosas capacidades tipo shell para administrar otros procesos.\nMacros similares a Lisp y otras instalaciones de metaprogramación."
 },
 
 {
     "location": "manual/getting-started.html#",
-    "page": "Getting Started",
-    "title": "Getting Started",
+    "page": "Empezando",
+    "title": "Empezando",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "manual/getting-started.html#Getting-Started-1",
-    "page": "Getting Started",
-    "title": "Getting Started",
+    "location": "manual/getting-started.html#getting-started-1",
+    "page": "Empezando",
+    "title": "Empezando",
     "category": "section",
-    "text": "Julia installation is straightforward, whether using precompiled binaries or compiling from source. Download and install Julia by following the instructions at https://julialang.org/downloads/.The easiest way to learn and experiment with Julia is by starting an interactive session (also known as a read-eval-print loop or \"repl\") by double-clicking the Julia executable or running julia from the command line:$ julia\n               _\n   _       _ _(_)_     |  A fresh approach to technical computing\n  (_)     | (_) (_)    |  Documentation: https://docs.julialang.org\n   _ _   _| |_  __ _   |  Type \"?help\" for help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 0.5.0-dev+2440 (2016-02-01 02:22 UTC)\n _/ |\\__'_|_|_|\\__'_|  |  Commit 2bb94d6 (11 days old master)\n|__/                   |  x86_64-apple-darwin13.1.0\n\njulia> 1 + 2\n3\n\njulia> ans\n3To exit the interactive session, type ^D – the control key together with the d key or type quit(). When run in interactive mode, julia displays a banner and prompts the user for input. Once the user has entered a complete expression, such as 1 + 2, and hits enter, the interactive session evaluates the expression and shows its value. If an expression is entered into an interactive session with a trailing semicolon, its value is not shown. The variable ans is bound to the value of the last evaluated expression whether it is shown or not. The ans variable is only bound in interactive sessions, not when Julia code is run in other ways.To evaluate expressions written in a source file file.jl, write include(\"file.jl\").To run code in a file non-interactively, you can give it as the first argument to the julia command:$ julia script.jl arg1 arg2...As the example implies, the following command-line arguments to julia are taken as command-line arguments to the program script.jl, passed in the global constant ARGS. The name of the script itself is passed in as the global PROGRAM_FILE. Note that ARGS is also set when script code is given using the -e option on the command line (see the julia help output below) but PROGRAM_FILE will be empty. For example, to just print the arguments given to a script, you could do this:$ julia -e 'println(PROGRAM_FILE); for x in ARGS; println(x); end' foo bar\n\nfoo\nbarOr you could put that code into a script and run it:$ echo 'println(PROGRAM_FILE); for x in ARGS; println(x); end' > script.jl\n$ julia script.jl foo bar\nscript.jl\nfoo\nbarThe -- delimiter can be used to separate command-line args to the scriptfile from args to Julia:$ julia --color=yes -O -- foo.jl arg1 arg2..Julia can be started in parallel mode with either the -p or the --machinefile options. -p n will launch an additional n worker processes, while --machinefile file will launch a worker for each line in file file. The machines defined in file must be accessible via a passwordless ssh login, with Julia installed at the same location as the current host. Each machine definition takes the form [count*][user@]host[:port] [bind_addr[:port]] . user defaults to current user, port to the standard ssh port. count is the number of workers to spawn on the node, and defaults to 1. The optional bind-to bind_addr[:port] specifies the ip-address and port that other workers should use to connect to this worker.If you have code that you want executed whenever Julia is run, you can put it in ~/.juliarc.jl:$ echo 'println(\"Greetings! 你好! 안녕하세요?\")' > ~/.juliarc.jl\n$ julia\nGreetings! 你好! 안녕하세요?\n\n...There are various ways to run Julia code and provide options, similar to those available for the perl and ruby programs:julia [switches] -- [programfile] [args...]\n -v, --version             Display version information\n -h, --help                Print this message\n\n -J, --sysimage <file>     Start up with the given system image file\n --precompiled={yes|no}    Use precompiled code from system image if available\n --compilecache={yes|no}   Enable/disable incremental precompilation of modules\n -H, --home <dir>          Set location of `julia` executable\n --startup-file={yes|no}   Load ~/.juliarc.jl\n --handle-signals={yes|no} Enable or disable Julia's default signal handlers\n\n -e, --eval <expr>         Evaluate <expr>\n -E, --print <expr>        Evaluate and show <expr>\n -L, --load <file>         Load <file> immediately on all processors\n\n -p, --procs {N|auto}      Integer value N launches N additional local worker processes\n                           \"auto\" launches as many workers as the number of local cores\n --machinefile <file>      Run processes on hosts listed in <file>\n\n -i                        Interactive mode; REPL runs and isinteractive() is true\n -q, --quiet               Quiet startup (no banner)\n --color={yes|no}          Enable or disable color text\n --history-file={yes|no}   Load or save history\n\n --compile={yes|no|all|min}Enable or disable JIT compiler, or request exhaustive compilation\n -C, --cpu-target <target> Limit usage of cpu features up to <target>\n -O, --optimize={0,1,2,3}  Set the optimization level (default is 2 if unspecified or 3 if specified as -O)\n -g, -g <level>            Enable / Set the level of debug info generation (default is 1 if unspecified or 2 if specified as -g)\n --inline={yes|no}         Control whether inlining is permitted (overrides functions declared as @inline)\n --check-bounds={yes|no}   Emit bounds checks always or never (ignoring declarations)\n --math-mode={ieee,fast}   Disallow or enable unsafe floating point optimizations (overrides @fastmath declaration)\n\n --depwarn={yes|no|error}  Enable or disable syntax and method deprecation warnings (\"error\" turns warnings into errors)\n\n --output-o name           Generate an object file (including system image data)\n --output-ji name          Generate a system image data file (.ji)\n --output-bc name          Generate LLVM bitcode (.bc)\n --output-incremental=no   Generate an incremental output file (rather than complete)\n\n --code-coverage={none|user|all}, --code-coverage\n                           Count executions of source lines (omitting setting is equivalent to \"user\")\n --track-allocation={none|user|all}, --track-allocation\n                           Count bytes allocated by each source line"
+    "text": "La instalación de Julia es sencilla, ya sea utilizando binarios precompilados o compilando desde la fuente. Descargue e instale Julia siguiendo las instrucciones disponibles en https://julialang.org/downloads/.La forma más fácil de aprender y experimentar con Julia es iniciando una sesión interactiva (también conocida como read-eval-print loop o \"REPL\") haciendo doble clic en el ejecutable de Julia o ejecutando julia desde la línea de mandatos:$ julia\n               _\n   _       _ _(_)_     |  A fresh approach to technical computing\n  (_)     | (_) (_)    |  Documentation: https://docs.julialang.org\n   _ _   _| |_  __ _   |  Type \"?help\" for help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 0.5.0-dev+2440 (2016-02-01 02:22 UTC)\n _/ |\\__'_|_|_|\\__'_|  |  Commit 2bb94d6 (11 days old master)\n|__/                   |  x86_64-apple-darwin13.1.0\n\njulia> 1 + 2\n3\n\njulia> ans\n3Para salir de la sesión interactiva, escriba ^D (la tecla de control junto con la tecla D) o escriba quit(). Cuando se ejecuta en modo interactivo, Julia muestra un banner y solicita al usuario la entrada.  Una vez que el usuario ha introducido una expresión completa, como 1 + 2, y pulsa Enter, la sesión  interactiva evalúa la expresión y muestra su valor. Si se introduce una expresión en una sesión interactiva  con un punto y coma al final, no se muestra su valor. La variable ans está enlazada al valor de la última  expresión evaluada, sea mostrada o no. La variable ans sólo está enlazada a las sesiones interactivas,  no cuando el código Julia se ejecuta de otras maneras.Para evaluar expresiones escritas en un archivo de origen file.jl, escriba include (\"file.jl\").Para ejecutar código en un archivo de forma no interactiva, puede darlo como el primer argumento al mandato Julia:$ julia script.jl arg1 arg2...Como indica el ejemplo, los siguientes argumentos de línea de mandatos de Julia se toman como argumentos de  línea de mandatos al programa script.jl del programa, pasados a través de la constante global ARGS. El  nombre del propio script se pasa como la variable global PROGRAM_FILE. Tenga en cuenta que ARGS  también se establece cuando se da el código de script usando la opción -e en la línea de órdenes (vea  la salida de ayuda de julia más abajo) pero PROGRAM_FILE estará vacío. Por ejemplo, para imprimir  los argumentos que se le dan a un script, puede hacer esto:$ julia -e 'println(PROGRAM_FILE); for x in ARGS; println(x); end' foo bar\n\nfoo\nbarO puede poner ese código en un script y ejecutarlo:$ echo 'println(PROGRAM_FILE); for x in ARGS; println(x); end' > script.jl\n$ julia script.jl foo bar\nscript.jl\nfoo\nbarEl delimitador -- puede usarse para separar argumentos en línea de mandatos al fichero del  script a los argumentos de Julia:$ julia --color=yes -O -- foo.jl arg1 arg2..Julia se puede iniciar en modo paralelo con las opciones -p o --machinefile. -p n pondrá en marcha un n procesos worker adicionales, mientras que --machinefile archivo iniciará un worker para cada línea en el archivo de archivo. Las máquinas definidas en el archivo deben ser accesibles a través de un login ssh sin contraseña, con Julia instalado en la misma ubicación que el host actual. Cada definición de máquina toma la forma [count *] [user @] host [: port] [bind_addr [: port]]. El valor por defecto de user es el usuario actual, y el de port el puerto ssh estándar. Las variables opcionales bind_to bind_addr [: port] especifican la dirección IP y el puerto que otros workers deberían usar para conectarse a este worker.Si tiene código que desea ejecutar cada vez que Julia se inicia, puede ponerlo en ~/.juliarc.jl:$ echo 'println(\"Greetings! 你好! 안녕하세요?\")' > ~/.juliarc.jl\n$ julia\nGreetings! 你好! 안녕하세요?\n\n...Hay varias formas de ejecutar el código Julia y proporcionar opciones, similares a las disponibles para los programas perl y `ruby:julia [switches] -- [programfile] [args...]\n -v, --version             Display version information\n -h, --help                Print this message\n\n -J, --sysimage <file>     Start up with the given system image file\n --precompiled={yes|no}    Use precompiled code from system image if available\n --compilecache={yes|no}   Enable/disable incremental precompilation of modules\n -H, --home <dir>          Set location of `julia` executable\n --startup-file={yes|no}   Load ~/.juliarc.jl\n --handle-signals={yes|no} Enable or disable Julia's default signal handlers\n\n -e, --eval <expr>         Evaluate <expr>\n -E, --print <expr>        Evaluate and show <expr>\n -L, --load <file>         Load <file> immediately on all processors\n\n -p, --procs {N|auto}      Integer value N launches N additional local worker processes\n                           \"auto\" launches as many workers as the number of local cores\n --machinefile <file>      Run processes on hosts listed in <file>\n\n -i                        Interactive mode; REPL runs and isinteractive() is true\n -q, --quiet               Quiet startup (no banner)\n --color={yes|no}          Enable or disable color text\n --history-file={yes|no}   Load or save history\n\n --compile={yes|no|all|min}Enable or disable JIT compiler, or request exhaustive compilation\n -C, --cpu-target <target> Limit usage of cpu features up to <target>\n -O, --optimize={0,1,2,3}  Set the optimization level (default is 2 if unspecified or 3 if specified as -O)\n -g, -g <level>            Enable / Set the level of debug info generation (default is 1 if unspecified or 2 if specified as -g)\n --inline={yes|no}         Control whether inlining is permitted (overrides functions declared as @inline)\n --check-bounds={yes|no}   Emit bounds checks always or never (ignoring declarations)\n --math-mode={ieee,fast}   Disallow or enable unsafe floating point optimizations (overrides @fastmath declaration)\n\n --depwarn={yes|no|error}  Enable or disable syntax and method deprecation warnings (\"error\" turns warnings into errors)\n\n --output-o name           Generate an object file (including system image data)\n --output-ji name          Generate a system image data file (.ji)\n --output-bc name          Generate LLVM bitcode (.bc)\n --output-incremental=no   Generate an incremental output file (rather than complete)\n\n --code-coverage={none|user|all}, --code-coverage\n                           Count executions of source lines (omitting setting is equivalent to \"user\")\n --track-allocation={none|user|all}, --track-allocation\n                           Count bytes allocated by each source line"
 },
 
 {
     "location": "manual/getting-started.html#Resources-1",
-    "page": "Getting Started",
+    "page": "Empezando",
     "title": "Resources",
     "category": "section",
-    "text": "In addition to this manual, there are various other resources that may help new users get started with Julia:Julia and IJulia cheatsheet\nLearn Julia in a few minutes\nLearn Julia the Hard Way\nJulia by Example\nHands-on Julia\nTutorial for Homer Reid's numerical analysis class\nAn introductory presentation\nVideos from the Julia tutorial at MIT\nYouTube videos from the JuliaCons"
+    "text": "Además de este manual, hay otros recursos que pueden ayudar a los usuarios nuevos cuanto empiezan con Julia:Julia and IJulia cheatsheet\nLearn Julia in a few minutes\nLearn Julia the Hard Way\nJulia by Example\nHands-on Julia\nTutorial for Homer Reid's numerical analysis class\nAn introductory presentation\nVideos from the Julia tutorial at MIT\nYouTube videos from the JuliaCons"
 },
 
 {
@@ -89,147 +89,147 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/variables.html#Variables-1",
+    "location": "manual/variables.html#variables-1",
     "page": "Variables",
     "title": "Variables",
     "category": "section",
-    "text": "A variable, in Julia, is a name associated (or bound) to a value. It's useful when you want to store a value (that you obtained after some math, for example) for later use. For example:# Assign the value 10 to the variable x\njulia> x = 10\n10\n\n# Doing math with x's value\njulia> x + 1\n11\n\n# Reassign x's value\njulia> x = 1 + 1\n2\n\n# You can assign values of other types, like strings of text\njulia> x = \"Hello World!\"\n\"Hello World!\"Julia provides an extremely flexible system for naming variables. Variable names are case-sensitive, and have no semantic meaning (that is, the language will not treat variables differently based on their names).julia> x = 1.0\n1.0\n\njulia> y = -3\n-3\n\njulia> Z = \"My string\"\n\"My string\"\n\njulia> customary_phrase = \"Hello world!\"\n\"Hello world!\"\n\njulia> UniversalDeclarationOfHumanRightsStart = \"人人生而自由，在尊严和权利上一律平等。\"\n\"人人生而自由，在尊严和权利上一律平等。\"Unicode names (in UTF-8 encoding) are allowed:julia> δ = 0.00001\n1.0e-5\n\njulia> 안녕하세요 = \"Hello\"\n\"Hello\"In the Julia REPL and several other Julia editing environments, you can type many Unicode math symbols by typing the backslashed LaTeX symbol name followed by tab. For example, the variable name δ can be entered by typing \\delta-tab, or even α̂₂ by \\alpha-tab-\\hat- tab-\\_2-tab. (If you find a symbol somewhere, e.g. in someone else's code, that you don't know how to type, the REPL help will tell you: just type ? and then paste the symbol.)Julia will even let you redefine built-in constants and functions if needed:julia> pi\nπ = 3.1415926535897...\n\njulia> pi = 3\nWARNING: imported binding for pi overwritten in module Main\n3\n\njulia> pi\n3\n\njulia> sqrt(100)\n10.0\n\njulia> sqrt = 4\nWARNING: imported binding for sqrt overwritten in module Main\n4However, this is obviously not recommended to avoid potential confusion."
+    "text": "Una variable en Julia es un nombre asociado a un valor. Esto es útil cuando pretendemos almacenar un valor (como el que obtenemos después de un cálculo) para un uso posterior. Por ejemplo:# Assign the value 10 to the variable x\njulia> x = 10\n10\n\n# Doing math with x's value\njulia> x + 1\n11\n\n# Reassign x's value\njulia> x = 1 + 1\n2\n\n# You can assign values of other types, like strings of text\njulia> x = \"Hello World!\"\n\"Hello World!\"Julia proporciona un sistema muy flexible para nombrar las variables. Los nombres de variable son sensibles a las mayúsculas, y no tienen significado semántico (es decir, que el lenguaje no trata de modo distinto  a las variables basándose en sus nombres).julia> x = 1.0\n1.0\n\njulia> y = -3\n-3\n\njulia> Z = \"My string\"\n\"My string\"\n\njulia> customary_phrase = \"Hello world!\"\n\"Hello world!\"\n\njulia> UniversalDeclarationOfHumanRightsStart = \"人人生而自由，在尊严和权利上一律平等。\"\n\"人人生而自由，在尊严和权利上一律平等。\"Los nombres Unicode (usando codificación UTF-8) están permitidos:julia> δ = 0.00001\n1.0e-5\n\njulia> 안녕하세요 = \"Hello\"\n\"Hello\"En el REPL y otros entornos de edición Julia se pueden introducir símbolos matemáticos Unicode usando la notación de Latex precedido de backslash y seguido de un tabulador. Por ejemplo, podemos crear el nombre de variable δ tecleando \\delta-tab, o incluso el nombre α̂₂ tecleando \\alpha-tab-\\hat- tab-\\_2-tab. (Si encuentras un símbolo en algun sitio, como por ejemplo en el código de alguien, y no sabes como escribirlo, el REPL te ayudará: solamente teclea ? y luego pega el símbolo.)Julia también permite redefinir constantes predefinidas su fuera necesario:julia> pi\nπ = 3.1415926535897...\n\njulia> pi = 3\nWARNING: imported binding for pi overwritten in module Main\n3\n\njulia> pi\n3\n\njulia> sqrt(100)\n10.0\n\njulia> sqrt = 4\nWARNING: imported binding for sqrt overwritten in module Main\n4Sin embargo, esto no se recomienta para evitar una potencial confusión."
 },
 
 {
-    "location": "manual/variables.html#Allowed-Variable-Names-1",
+    "location": "manual/variables.html#Nombres-de-Variables-Permitidos-1",
     "page": "Variables",
-    "title": "Allowed Variable Names",
+    "title": "Nombres de Variables Permitidos",
     "category": "section",
-    "text": "Variable names must begin with a letter (A-Z or a-z), underscore, or a subset of Unicode code points greater than 00A0; in particular, Unicode character categories Lu/Ll/Lt/Lm/Lo/Nl (letters), Sc/So (currency and other symbols), and a few other letter-like characters (e.g. a subset of the Sm math symbols) are allowed. Subsequent characters may also include ! and digits (0-9 and other characters in categories Nd/No), as well as other Unicode code points: diacritics and other modifying marks (categories Mn/Mc/Me/Sk), some punctuation connectors (category Pc), primes, and a few other characters.Operators like + are also valid identifiers, but are parsed specially. In some contexts, operators can be used just like variables; for example (+) refers to the addition function, and (+) = f will reassign it. Most of the Unicode infix operators (in category Sm), such as ⊕, are parsed as infix operators and are available for user-defined methods (e.g. you can use const ⊗ = kron to define ⊗ as an infix Kronecker product).The only explicitly disallowed names for variables are the names of built-in statements:julia> else = false\nERROR: syntax: unexpected \"else\"\n\njulia> try = \"No\"\nERROR: syntax: unexpected \"=\"Some Unicode characters are considered to be equivalent in identifiers. Different ways of entering Unicode combining characters (e.g., accents) are treated as equivalent (specifically, Julia identifiers are NFC-normalized). The Unicode characters ɛ (U+025B: Latin small letter open e) and µ (U+00B5: micro sign) are treated as equivalent to the corresponding Greek letters, because the former are easily accessible via some input methods."
+    "text": "Los nombres de variable deben comenzar con una letra (A-Z o a-z), símblo de subrayado, o un subconjunto de puntos Unicode mayores que 00A0. En particular, se permiten las categorías de caracteres Unicode Lu/Ll/Lt/Lm/Lo/Nl (letras), Sc/So (monedas y otros símbolos), y otros pocos caracteres (por ejemplo, un subconjunto de los símbolos matemáticos Sm). Entre los caracteres subsecuentes se pueden también incluir ! y los dígitos (0-9 y otros caracteres en las categorías Nd/No), así como otros puntos de código Unicode: diacríticas y otras marcas de modificación (categorías Mn/Mc/Me/Sk), algunos conectores de puntuación (category Pc),  primos, y otros cuantos caracteres.Los operadores como + son también identificadores válidos, pero son analizados sintácticamente de un modo especial. En algunos contextos, los operadores pueden ser usados justo como variables; por ejemplo (+) se refiere a la función de suma, y (+) = f la reasignará. La mayoría de los operadores infijos Unicode (en la categoría Sm), tal como ⊕, son analizados como operadores infijos y están disponibles para métodos definidos por el usuario (por ejemplo, podemos usar const ⊗ = kron para definir ⊗ como un operador infijo producto de Kronecker).Los únicos nombres específicamente prohibidos para nombres de variables son los nombres de las instrucciones predefinidas:julia> else = false\nERROR: syntax: unexpected \"else\"\n\njulia> try = \"No\"\nERROR: syntax: unexpected \"=\"Algunos caracteres Unicode son considerados equivalentes en identificadores. Las distintas formas de introducir caracteres que combinan en Unicode (por ejemplo, acentos) son tratadas como equivalentes (específicamente los identificadores Julia son normalizados NFC). Los caracteres Unicode ɛ (U+025B: Latin small letter open e) y µ (U+00B5: micro sign) son tratados como las letras griegas correspondientes, debido que las primeras son más fácilmente accesibles via alguos métodos de entrada."
 },
 
 {
-    "location": "manual/variables.html#Stylistic-Conventions-1",
+    "location": "manual/variables.html#Convenciones-de-Estilo-1",
     "page": "Variables",
-    "title": "Stylistic Conventions",
+    "title": "Convenciones de Estilo",
     "category": "section",
-    "text": "While Julia imposes few restrictions on valid names, it has become useful to adopt the following conventions:Names of variables are in lower case.\nWord separation can be indicated by underscores ('_'), but use of underscores is discouraged unless the name would be hard to read otherwise.\nNames of Types and Modules begin with a capital letter and word separation is shown with upper camel case instead of underscores.\nNames of functions and macros are in lower case, without underscores.\nFunctions that write to their arguments have names that end in !. These are sometimes called \"mutating\" or \"in-place\" functions because they are intended to produce changes in their arguments after the function is called, not just return a value.For more information about stylistic conventions, see the Style Guide."
+    "text": "Aunque Julia impone pocas restricciones a los nombres válidos, se ha vuelto útil adoptar las  siguientes convenciones:Los nombres de variable van en minúsculas.\nLa separación enre palabras puede indicarse mediante el símbolo de guión bajo, aunque se desaconseja  su uso a menos que los símbolos sean difíciles de leer.\nLos nombres de tipos y módulos comienzan con mayúscula y la separación entre palabras se representa  con el formato camel case.\nLos nombres de funciones y macros van en minúscula, sin símbolos de guión bajo.\nLas funciones que escriben en sus argumentos tienen nombres que finalizan con el símbolo de admiración !. Estas suelen ser llamadas funciones \"mutadoras\" o funciones \"in-place\" debido a que pretenden producir  cambios en sus argumentos después de que la función sea invocada, no solo devolver un valor.Para más información sobre convenciones de estilo, ver la Guía de Estilo."
 },
 
 {
     "location": "manual/integers-and-floating-point-numbers.html#",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Integers and Floating-Point Numbers",
+    "page": "Números enteros y en punto flotante",
+    "title": "Números enteros y en punto flotante",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Integers-and-Floating-Point-Numbers-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Integers and Floating-Point Numbers",
+    "location": "manual/integers-and-floating-point-numbers.html#integers-and-floating-point-numbers-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Números enteros y en punto flotante",
     "category": "section",
-    "text": "Integers and floating-point values are the basic building blocks of arithmetic and computation. Built-in representations of such values are called numeric primitives, while representations of integers and floating-point numbers as immediate values in code are known as numeric literals. For example, 1 is an integer literal, while 1.0 is a floating-point literal; their binary in-memory representations as objects are numeric primitives.Julia provides a broad range of primitive numeric types, and a full complement of arithmetic and bitwise operators as well as standard mathematical functions are defined over them. These map directly onto numeric types and operations that are natively supported on modern computers, thus allowing Julia to take full advantage of computational resources. Additionally, Julia provides software support for Arbitrary Precision Arithmetic, which can handle operations on numeric values that cannot be represented effectively in native hardware representations, but at the cost of relatively slower performance.The following are Julia's primitive numeric types:Integer types:Type Signed? Number of bits Smallest value Largest value\nInt8 ✓ 8 -2^7 2^7 - 1\nUInt8   8 0 2^8 - 1\nInt16 ✓ 16 -2^15 2^15 - 1\nUInt16   16 0 2^16 - 1\nInt32 ✓ 32 -2^31 2^31 - 1\nUInt32   32 0 2^32 - 1\nInt64 ✓ 64 -2^63 2^63 - 1\nUInt64   64 0 2^64 - 1\nInt128 ✓ 128 -2^127 2^127 - 1\nUInt128   128 0 2^128 - 1\nBool N/A 8 false (0) true (1)Floating-point types:Type Precision Number of bits\nFloat16 half 16\nFloat32 single 32\nFloat64 double 64Additionally, full support for Complex and Rational Numbers is built on top of these primitive numeric types. All numeric types interoperate naturally without explicit casting, thanks to a flexible, user-extensible type promotion system."
+    "text": "Los valores enteros y punto flotante son los bloques constructivos básicos de la aritmética y la computación. Las representaciones predefinidas para estos valores se denominan tipos primitivos, mientras que las reprentaciones de números enteros y en punto flotante como valores inmediatos en código se conocen como literales numéricos. Por ejemplo, 1 es un literal entero, mientras que 1.0 es un literal en punto flotante; sus representaciones binarias en memoria como objetos son los tipos primitivos.Julia proporciona un amplio rango de tipos primitivos numéricos, y un complemento complemento de operadores aritméticos y de bits así como funciones matemáticas estándar definidas sobre ellos. Los operadores establecen una correspondencia enre los tipos numéricos y las operaciones que son soportadas de forma nativa sobre los ordenadores modernos, permitiendo a Julia sacar plena ventaja de los recursos computacionales. Además, Julia proporciona soporte software para aritmética de precisión arbitraria que puede manejar operaciones sobre valores numéricos que no puede ser representada de forma efectiva en representaciones hardware nativas, pero al coste de un rendimiento relativamente menor.Los tipos primitivos de Julia son los siguientes:Tipos enteros:Tipo             Signo? Número de bits Valor más pequeño Valor más grande\nInt8 ✓ 8 -2^7 2^7 - 1\nUInt8   8 0 2^8 - 1\nInt16 ✓ 16 -2^15 2^15 - 1\nUInt16   16 0 2^16 - 1\nInt32 ✓ 32 -2^31 2^31 - 1\nUInt32   32 0 2^32 - 1\nInt64 ✓ 64 -2^63 2^63 - 1\nUInt64   64 0 2^64 - 1\nInt128 ✓ 128 -2^127 2^127 - 1\nUInt128   128 0 2^128 - 1\nBool N/A 8 false (0) true (1)Tipos en punto flotante:Tipo             Precisión                                                                       Número de bits\nFloat16 media 16\nFloat32 sencilla 32\nFloat64 doble 64Adicionalmente, se ha construído un soporte completo para Números Complejos y Racionales encima de estos tipos primitivos. Todos los tipos primitivos interoperan de forma natural sin tener que realizar conversiones específicas, gracias a un sistema de promoción de tipos flexible y extensible por el usuario."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Integers-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Integers",
+    "location": "manual/integers-and-floating-point-numbers.html#Enteros-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Enteros",
     "category": "section",
-    "text": "Literal integers are represented in the standard manner:julia> 1\n1\n\njulia> 1234\n1234The default type for an integer literal depends on whether the target system has a 32-bit architecture or a 64-bit architecture:# 32-bit system:\njulia> typeof(1)\nInt32\n\n# 64-bit system:\njulia> typeof(1)\nInt64The Julia internal variable Sys.WORD_SIZE indicates whether the target system is 32-bit or 64-bit:# 32-bit system:\njulia> Sys.WORD_SIZE\n32\n\n# 64-bit system:\njulia> Sys.WORD_SIZE\n64Julia also defines the types Int and UInt, which are aliases for the system's signed and unsigned native integer types respectively:# 32-bit system:\njulia> Int\nInt32\njulia> UInt\nUInt32\n\n# 64-bit system:\njulia> Int\nInt64\njulia> UInt\nUInt64Larger integer literals that cannot be represented using only 32 bits but can be represented in 64 bits always create 64-bit integers, regardless of the system type:# 32-bit or 64-bit system:\njulia> typeof(3000000000)\nInt64Unsigned integers are input and output using the 0x prefix and hexadecimal (base 16) digits 0-9a-f (the capitalized digits A-F also work for input). The size of the unsigned value is determined by the number of hex digits used:julia> 0x1\n0x01\n\njulia> typeof(ans)\nUInt8\n\njulia> 0x123\n0x0123\n\njulia> typeof(ans)\nUInt16\n\njulia> 0x1234567\n0x01234567\n\njulia> typeof(ans)\nUInt32\n\njulia> 0x123456789abcdef\n0x0123456789abcdef\n\njulia> typeof(ans)\nUInt64This behavior is based on the observation that when one uses unsigned hex literals for integer values, one typically is using them to represent a fixed numeric byte sequence, rather than just an integer value.Recall that the variable ans is set to the value of the last expression evaluated in an interactive session. This does not occur when Julia code is run in other ways.Binary and octal literals are also supported:julia> 0b10\n0x02\n\njulia> typeof(ans)\nUInt8\n\njulia> 0o10\n0x08\n\njulia> typeof(ans)\nUInt8The minimum and maximum representable values of primitive numeric types such as integers are given by the typemin() and typemax() functions:julia> (typemin(Int32), typemax(Int32))\n(-2147483648, 2147483647)\n\njulia> for T in [Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128]\n           println(\"$(lpad(T,7)): [$(typemin(T)),$(typemax(T))]\")\n       end\n   Int8: [-128,127]\n  Int16: [-32768,32767]\n  Int32: [-2147483648,2147483647]\n  Int64: [-9223372036854775808,9223372036854775807]\n Int128: [-170141183460469231731687303715884105728,170141183460469231731687303715884105727]\n  UInt8: [0,255]\n UInt16: [0,65535]\n UInt32: [0,4294967295]\n UInt64: [0,18446744073709551615]\nUInt128: [0,340282366920938463463374607431768211455]The values returned by typemin() and typemax() are always of the given argument type. (The above expression uses several features we have yet to introduce, including for loops, Strings, and Interpolation, but should be easy enough to understand for users with some existing programming experience.)"
+    "text": "Los literales enteros se representan del modo estándar:julia> 1\n1\n\njulia> 1234\n1234El tipo por defecto para un literal entero depende de si el sistema de trabajo tiene una aquitectura de 32 o de 64 bits:# 32-bit system:\njulia> typeof(1)\nInt32\n\n# 64-bit system:\njulia> typeof(1)\nInt64La variable interna de Julia Sys.WORD_SIZE indica si el sistema en el que trabajamos es de 32 bits o de 64 bits:# 32-bit system:\njulia> Sys.WORD_SIZE\n32\n\n# 64-bit system:\njulia> Sys.WORD_SIZE\n64Julia también define los tipos Int y UInt, que son aliases para los tipos enteros nativos del sistema con y sin signo:# 32-bit system:\njulia> Int\nInt32\njulia> UInt\nUInt32\n\n# 64-bit system:\njulia> Int\nInt64\njulia> UInt\nUInt64Los literales enteros mayores que no pueden ser representados usando sólo 32 bits pero pueden ser representados en 64 bits se crean como enteros de 64 bits, independientemente del tipo que tenga el sistema por defecto:# 32-bit or 64-bit system:\njulia> typeof(3000000000)\nInt64Los enteros sin signo se introducen y se muestran usando el prefijo 0x y los dígitos hexadecimales 0-9a-f (los dígitos capitalizados A-F también funcionan para la entrada). El tamaño de un valor sin signo está determinado por el número de dígitos hexadecimales usados:julia> 0x1\n0x01\n\njulia> typeof(ans)\nUInt8\n\njulia> 0x123\n0x0123\n\njulia> typeof(ans)\nUInt16\n\njulia> 0x1234567\n0x01234567\n\njulia> typeof(ans)\nUInt32\n\njulia> 0x123456789abcdef\n0x0123456789abcdef\n\njulia> typeof(ans)\nUInt64Este comportamiento está basado en la observación de que cuando uno usa literales hexadecimales sin signo para valores enteros, se los suele utilizar para representar una secuencia de bytes numéricos fijos en lugar de un valor entero.Recuerde que la variable ans contiene el valor de la última expresión evaluada en una sesión interactiva. Esto no ocurre cuando el código Julia se ejecuta de otra forma.Los literales binarios y octales también están soportados:julia> 0b10\n0x02\n\njulia> typeof(ans)\nUInt8\n\njulia> 0o10\n0x08\n\njulia> typeof(ans)\nUInt8Los valores máximo y mínimo de tipos primitivos numéricos representables como enteros vienen dados por las funciones  typemin() y typemax():julia> (typemin(Int32), typemax(Int32))\n(-2147483648, 2147483647)\n\njulia> for T in [Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128]\n           println(\"$(lpad(T,7)): [$(typemin(T)),$(typemax(T))]\")\n       end\n   Int8: [-128,127]\n  Int16: [-32768,32767]\n  Int32: [-2147483648,2147483647]\n  Int64: [-9223372036854775808,9223372036854775807]\n Int128: [-170141183460469231731687303715884105728,170141183460469231731687303715884105727]\n  UInt8: [0,255]\n UInt16: [0,65535]\n UInt32: [0,4294967295]\n UInt64: [0,18446744073709551615]\nUInt128: [0,340282366920938463463374607431768211455]Los valores devueltos por typemin() y typemax() siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo bucles for, Cadenas, e Interpolación, pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)"
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Overflow-behavior-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Overflow behavior",
+    "location": "manual/integers-and-floating-point-numbers.html#Comportamiento-ante-el-Desbordamiento-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Comportamiento ante el Desbordamiento",
     "category": "section",
-    "text": "In Julia, exceeding the maximum representable value of a given type results in a wraparound behavior:julia> x = typemax(Int64)\n9223372036854775807\n\njulia> x + 1\n-9223372036854775808\n\njulia> x + 1 == typemin(Int64)\ntrueThus, arithmetic with Julia integers is actually a form of modular arithmetic. This reflects the characteristics of the underlying arithmetic of integers as implemented on modern computers. In applications where overflow is possible, explicit checking for wraparound produced by overflow is essential; otherwise, the BigInt type in Arbitrary Precision Arithmetic is recommended instead."
+    "text": "En Julia, superar el valor máximo representable de un tipo dado da como resultado un comportamiento envolvente:julia> x = typemax(Int64)\n9223372036854775807\n\njulia> x + 1\n-9223372036854775808\n\njulia> x + 1 == typemin(Int64)\ntrueAsí, la aritmética con enteros de Julia es en realidad una forma de aritmética modular. Esto refleja las características de la aritmética subyacente de números enteros tal como se implementa en las computadoras modernas. En aplicaciones donde es posible el desbordamiento, es esencial comprobar explícitamente el envolvente producido por el desbordamiento. De lo contrario, se recomienda el tipo BigInt en Aritmética de Precisión Arbitraria."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Division-errors-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Division errors",
+    "location": "manual/integers-and-floating-point-numbers.html#Errores-de-división-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Errores de división",
     "category": "section",
-    "text": "Integer division (the div function) has two exceptional cases: dividing by zero, and dividing the lowest negative number (typemin()) by -1. Both of these cases throw a DivideError. The remainder and modulus functions (rem and mod) throw a DivideError when their second argument is zero."
+    "text": "La división entera (la función div) tiene dos casos excepcionales: división por cero, y dividir el número  negativo más bajo  (typemin()) por -1. Ambos casos lanzan un DivideError. El resto y las funciones de módulo (rem y mod) lanzan un  DivideError cuando su segundo argumento es cero."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Floating-Point-Numbers-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Floating-Point Numbers",
+    "location": "manual/integers-and-floating-point-numbers.html#Números-en-Punto-Flotante-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Números en Punto Flotante",
     "category": "section",
-    "text": "Literal floating-point numbers are represented in the standard formats:julia> 1.0\n1.0\n\njulia> 1.\n1.0\n\njulia> 0.5\n0.5\n\njulia> .5\n0.5\n\njulia> -1.23\n-1.23\n\njulia> 1e10\n1.0e10\n\njulia> 2.5e-4\n0.00025The above results are all Float64 values. Literal Float32 values can be entered by writing an f in place of e:julia> 0.5f0\n0.5f0\n\njulia> typeof(ans)\nFloat32\n\njulia> 2.5f-4\n0.00025f0Values can be converted to Float32 easily:julia> Float32(-1.5)\n-1.5f0\n\njulia> typeof(ans)\nFloat32Hexadecimal floating-point literals are also valid, but only as Float64 values:julia> 0x1p0\n1.0\n\njulia> 0x1.8p3\n12.0\n\njulia> 0x.4p-1\n0.125\n\njulia> typeof(ans)\nFloat64Half-precision floating-point numbers are also supported (Float16), but they are implemented in software and use Float32 for calculations.julia> sizeof(Float16(4.))\n2\n\njulia> 2*Float16(4.)\nFloat16(8.0)The underscore _ can be used as digit separator:julia> 10_000, 0.000_000_005, 0xdead_beef, 0b1011_0010\n(10000, 5.0e-9, 0xdeadbeef, 0xb2)"
+    "text": "Los literales de números en punto flotante son representados en las formas estándar:julia> 1.0\n1.0\n\njulia> 1.\n1.0\n\njulia> 0.5\n0.5\n\njulia> .5\n0.5\n\njulia> -1.23\n-1.23\n\njulia> 1e10\n1.0e10\n\njulia> 2.5e-4\n0.00025Los resultados anteriores son todos valores Float64. Los valores literales Float32 pueden introducirse escribiendo f en lugar de e:julia> 0.5f0\n0.5f0\n\njulia> typeof(ans)\nFloat32\n\njulia> 2.5f-4\n0.00025f0Los valores pueden ser convertidos a Float32 fácilmente:julia> Float32(-1.5)\n-1.5f0\n\njulia> typeof(ans)\nFloat32También son válidos los literales de punto flotante en formato hexadecimal, pero sólo como valores Float64:julia> 0x1p0\n1.0\n\njulia> 0x1.8p3\n12.0\n\njulia> 0x.4p-1\n0.125\n\njulia> typeof(ans)\nFloat64También esta soportados los números en punto flotante de media precisión (Float16), pero ellos están implementados en software y usan Float32 para los cálculos.julia> sizeof(Float16(4.))\n2\n\njulia> 2*Float16(4.)\nFloat16(8.0)El guión bajo (underscore) puede usarse como separador de dígitos:julia> 10_000, 0.000_000_005, 0xdead_beef, 0b1011_0010\n(10000, 5.0e-9, 0xdeadbeef, 0xb2)"
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Floating-point-zero-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Floating-point zero",
+    "location": "manual/integers-and-floating-point-numbers.html#Cero-en-punto-flotante-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Cero en punto flotante",
     "category": "section",
-    "text": "Floating-point numbers have two zeros, positive zero and negative zero. They are equal to each other but have different binary representations, as can be seen using the bits function: :julia> 0.0 == -0.0\ntrue\n\njulia> bits(0.0)\n\"0000000000000000000000000000000000000000000000000000000000000000\"\n\njulia> bits(-0.0)\n\"1000000000000000000000000000000000000000000000000000000000000000\""
+    "text": "Los números en punto flotante tienen dos ceros, positivo y negativo. Ellos son iguales entre sí, pero tienen distintas representaciones, como puede verse si usamos la función bits:julia> 0.0 == -0.0\ntrue\n\njulia> bits(0.0)\n\"0000000000000000000000000000000000000000000000000000000000000000\"\n\njulia> bits(-0.0)\n\"1000000000000000000000000000000000000000000000000000000000000000\""
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Special-floating-point-values-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Special floating-point values",
+    "location": "manual/integers-and-floating-point-numbers.html#special-floating-point-values-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Valores especiales en punto flotante",
     "category": "section",
-    "text": "There are three specified standard floating-point values that do not correspond to any point on the real number line:Float16 Float32 Float64 Name Description\nInf16 Inf32 Inf positive infinity a value greater than all finite floating-point values\n-Inf16 -Inf32 -Inf negative infinity a value less than all finite floating-point values\nNaN16 NaN32 NaN not a number a value not == to any floating-point value (including itself)For further discussion of how these non-finite floating-point values are ordered with respect to each other and other floats, see Numeric Comparisons. By the IEEE 754 standard, these floating-point values are the results of certain arithmetic operations:julia> 1/Inf\n0.0\n\njulia> 1/0\nInf\n\njulia> -5/0\n-Inf\n\njulia> 0.000001/0\nInf\n\njulia> 0/0\nNaN\n\njulia> 500 + Inf\nInf\n\njulia> 500 - Inf\n-Inf\n\njulia> Inf + Inf\nInf\n\njulia> Inf - Inf\nNaN\n\njulia> Inf * Inf\nInf\n\njulia> Inf / Inf\nNaN\n\njulia> 0 * Inf\nNaNThe typemin() and typemax() functions also apply to floating-point types:julia> (typemin(Float16),typemax(Float16))\n(-Inf16, Inf16)\n\njulia> (typemin(Float32),typemax(Float32))\n(-Inf32, Inf32)\n\njulia> (typemin(Float64),typemax(Float64))\n(-Inf, Inf)"
+    "text": "Hay tres valores especificados en el estándar de punto flotante para valores que no se corresponden  con ningún punto en la línea de números reales:Float16 Float32 Float64 Name Description\nInf16 Inf32 Inf Infinito positivo Un valor mayor que todos los valores finitos de punto flotante\n-Inf16 -Inf32 -Inf Infinito negativo Un valor menos que todos los valores finitos de punto flotante\nNaN16   NaN32   NaN     not a number   Un valor no == a otro valor en punto flotante (incluido el mismo)Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea Comparaciones Numéricas. Mediante el estándar IEEE 754, estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:julia> 1/Inf\n0.0\n\njulia> 1/0\nInf\n\njulia> -5/0\n-Inf\n\njulia> 0.000001/0\nInf\n\njulia> 0/0\nNaN\n\njulia> 500 + Inf\nInf\n\njulia> 500 - Inf\n-Inf\n\njulia> Inf + Inf\nInf\n\njulia> Inf - Inf\nNaN\n\njulia> Inf * Inf\nInf\n\njulia> Inf / Inf\nNaN\n\njulia> 0 * Inf\nNaNLas funciones typemin() y typemax() también se aplican a los tipos en punto flotante:julia> (typemin(Float16),typemax(Float16))\n(-Inf16, Inf16)\n\njulia> (typemin(Float32),typemax(Float32))\n(-Inf32, Inf32)\n\njulia> (typemin(Float64),typemax(Float64))\n(-Inf, Inf)"
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Machine-epsilon-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Machine epsilon",
+    "location": "manual/integers-and-floating-point-numbers.html#Epsilon-de-máquina-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Epsilon de máquina",
     "category": "section",
-    "text": "Most real numbers cannot be represented exactly with floating-point numbers, and so for many purposes it is important to know the distance between two adjacent representable floating-point numbers, which is often known as machine epsilon.Julia provides eps(), which gives the distance between 1.0 and the next larger representable floating-point value:julia> eps(Float32)\n1.1920929f-7\n\njulia> eps(Float64)\n2.220446049250313e-16\n\njulia> eps() # same as eps(Float64)\n2.220446049250313e-16These values are 2.0^-23 and 2.0^-52 as Float32 and Float64 values, respectively. The eps() function can also take a floating-point value as an argument, and gives the absolute difference between that value and the next representable floating point value. That is, eps(x) yields a value of the same type as x such that x + eps(x) is the next representable floating-point value larger than x:julia> eps(1.0)\n2.220446049250313e-16\n\njulia> eps(1000.)\n1.1368683772161603e-13\n\njulia> eps(1e-27)\n1.793662034335766e-43\n\njulia> eps(0.0)\n5.0e-324The distance between two adjacent representable floating-point numbers is not constant, but is smaller for smaller values and larger for larger values. In other words, the representable floating-point numbers are densest in the real number line near zero, and grow sparser exponentially as one moves farther away from zero. By definition, eps(1.0) is the same as eps(Float64) since 1.0 is a 64-bit floating-point value.Julia also provides the nextfloat() and prevfloat() functions which return the next largest or smallest representable floating-point number to the argument respectively:julia> x = 1.25f0\n1.25f0\n\njulia> nextfloat(x)\n1.2500001f0\n\njulia> prevfloat(x)\n1.2499999f0\n\njulia> bits(prevfloat(x))\n\"00111111100111111111111111111111\"\n\njulia> bits(x)\n\"00111111101000000000000000000000\"\n\njulia> bits(nextfloat(x))\n\"00111111101000000000000000000001\"This example highlights the general principle that the adjacent representable floating-point numbers also have adjacent binary integer representations."
+    "text": "La mayoría de los números reales no pueden representarse exactamente con números de coma flotante, por lo que para muchos propósitos es importante conocer la distancia entre dos números de punto flotante representables adyacentes, lo que a menudo se conoce como epsilon de máquina.Julia proporciona eps(), que da la distancia entre 1,0 y el siguiente valor de punto flotante representable más grande:julia> eps(Float32)\n1.1920929f-7\n\njulia> eps(Float64)\n2.220446049250313e-16\n\njulia> eps() # same as eps(Float64)\n2.220446049250313e-16Estos valores son 2.0^-23 y 2.0^-52 como valores Float32 y Float64, respectivamente. La función eps() también puede tomar un valor de punto flotante como un argumento y da la diferencia absoluta entre ese valor y el siguiente valor de punto flotante representable. Es decir, eps(x) produce un valor del mismo tipo que x tal que x + eps(x) es el siguiente valor de punto flotante representable mayor que x:julia> eps(1.0)\n2.220446049250313e-16\n\njulia> eps(1000.)\n1.1368683772161603e-13\n\njulia> eps(1e-27)\n1.793662034335766e-43\n\njulia> eps(0.0)\n5.0e-324La distancia entre dos números de punto flotante representables adyacentes no es constante, pero es menor para valores más pequeños y mayor para valores mayores. En otras palabras, los números de punto flotante representables son más densos en la línea de números reales cerca de cero, y crecen exponencialmente dispersos a medida que uno se aleja de cero. Por definición, eps(1.0) es el mismo que eps(Float64) ya que 1.0 es un valor de coma flotante de 64 bits.Julia también proporciona las funciones nextfloat() y prevfloat() que devuelven el siguiente número de punto flotante representable más grande o más pequeño al argumento, respectivamente:julia> x = 1.25f0\n1.25f0\n\njulia> nextfloat(x)\n1.2500001f0\n\njulia> prevfloat(x)\n1.2499999f0\n\njulia> bits(prevfloat(x))\n\"00111111100111111111111111111111\"\n\njulia> bits(x)\n\"00111111101000000000000000000000\"\n\njulia> bits(nextfloat(x))\n\"00111111101000000000000000000001\"Este ejemplo resalta el principio general de que los números de punto flotante representables adyacentes también tienen representaciones binarias enteras adyacentes."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Rounding-modes-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Rounding modes",
+    "location": "manual/integers-and-floating-point-numbers.html#Modos-de-Redondeo-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Modos de Redondeo",
     "category": "section",
-    "text": "If a number doesn't have an exact floating-point representation, it must be rounded to an appropriate representable value, however, if wanted, the manner in which this rounding is done can be changed according to the rounding modes presented in the IEEE 754 standard.julia> x = 1.1; y = 0.1;\n\njulia> x + y\n1.2000000000000002\n\njulia> setrounding(Float64,RoundDown) do\n           x + y\n       end\n1.2The default mode used is always RoundNearest, which rounds to the nearest representable value, with ties rounded towards the nearest value with an even least significant bit.warning: Warning\nRounding is generally only correct for basic arithmetic functions (+(), -(), *(), /() and sqrt()) and type conversion operations. Many other functions assume the default RoundNearest mode is set, and can give erroneous results when operating under other rounding modes."
+    "text": "Si un número no tiene una representación de punto flotante exacta, debe redondearse a un valor representable apropiado. Sin embargo, si se desea, la forma en que se realiza este redondeo puede cambiarse de acuerdo con los modos de redondeo presentados en el estándar IEEE 754.julia> x = 1.1; y = 0.1;\n\njulia> x + y\n1.2000000000000002\n\njulia> setrounding(Float64,RoundDown) do\n           x + y\n       end\n1.2El modo predeterminado utilizado siempre es RoundNearest, , que redondea al valor representable  más cercano, con arcos redondeados hacia el valor más cercano con un bit menos significativo.warning: Warning\nEl redondeo generalmente sólo es correcto para las funciones aritméticas básicas (+(),  -(), *(), /() and sqrt()) y las operaciones de conversión  de tipos. Muchas otras funciones asumen que el modo por defecto RoundNearest está  establecido y pueden dar resultados erróneos al operar bajo otros modos de redondeo."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Background-and-References-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Background and References",
+    "location": "manual/integers-and-floating-point-numbers.html#Antecedentes-y-referencias-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Antecedentes y referencias",
     "category": "section",
-    "text": "Floating-point arithmetic entails many subtleties which can be surprising to users who are unfamiliar with the low-level implementation details. However, these subtleties are described in detail in most books on scientific computation, and also in the following references:The definitive guide to floating point arithmetic is the IEEE 754-2008 Standard; however, it is not available for free online.\nFor a brief but lucid presentation of how floating-point numbers are represented, see John D. Cook's article on the subject as well as his introduction to some of the issues arising from how this representation differs in behavior from the idealized abstraction of real numbers.\nAlso recommended is Bruce Dawson's series of blog posts on floating-point numbers.\nFor an excellent, in-depth discussion of floating-point numbers and issues of numerical accuracy encountered when computing with them, see David Goldberg's paper What Every Computer Scientist Should Know About Floating-Point Arithmetic.\nFor even more extensive documentation of the history of, rationale for, and issues with floating-point numbers, as well as discussion of many other topics in numerical computing, see the collected writings of William Kahan, commonly known as the \"Father of Floating-Point\". Of particular interest may be An Interview with the Old Man of Floating-Point."
+    "text": "La aritmética de punto flotante supone muchas sutilezas que pueden sorprender a los usuarios que no  están familiarizados con los detalles de implementación de bajo nivel. Sin embargo, estas sutilezas  se describen en detalle en la mayoría de los libros sobre computación científica, y también en las  siguientes referencias:La guía definitiva para la aritmética de coma flotante es el estándar [IEEE 754-2008 (http://standards.ieee.org/findstds/standard/754-2008.html); Sin embargo, no está disponible en línea gratis.Para una presentación breve pero lúcida de cómo los números de punto flotante están  representados, vea el artículo de John D. Cook sobre el tema, así como su introducción a algunas de las cuestiones que surgen de cómo esta representación difiere en el comportamiento de la abstracción idealizada de números reales.   * También se recomienda la serie de publicaciones de Bruce Dawson sobre números en punto flotante.Para un excelente y profundo análisis de los números de punto flotante y los problemas de precisión numérica encontrados al calcular con ellos, vea el artículo de David Goldberg What Every Computer Scientist Should Know About Floating-Point Arithmetic.\nPara una documentación aún más extensa de la historia de, la razón y las cuestiones con los números de punto flotante, así como la discusión de muchos otros temas en la computación numérica, ver los escritos recolectados de William Kahan, comúnmente conocido como el \"padre de punto flotante\". De interés particular puede ser An Interview with the Old Man of Floating-Point."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Arbitrary-Precision-Arithmetic-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Arbitrary Precision Arithmetic",
+    "location": "manual/integers-and-floating-point-numbers.html#Aritmética-de-Precisión-Arbitraria-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Aritmética de Precisión Arbitraria",
     "category": "section",
-    "text": "To allow computations with arbitrary-precision integers and floating point numbers, Julia wraps the GNU Multiple Precision Arithmetic Library (GMP) and the GNU MPFR Library, respectively. The BigInt and BigFloat types are available in Julia for arbitrary precision integer and floating point numbers respectively.Constructors exist to create these types from primitive numerical types, and parse() can be used to construct them from AbstractStrings.  Once created, they participate in arithmetic with all other numeric types thanks to Julia's type promotion and conversion mechanism:julia> BigInt(typemax(Int64)) + 1\n9223372036854775808\n\njulia> parse(BigInt, \"123456789012345678901234567890\") + 1\n123456789012345678901234567891\n\njulia> parse(BigFloat, \"1.23456789012345678901\")\n1.234567890123456789010000000000000000000000000000000000000000000000000000000004\n\njulia> BigFloat(2.0^66) / 3\n2.459565876494606882133333333333333333333333333333333333333333333333333333333344e+19\n\njulia> factorial(BigInt(40))\n815915283247897734345611269596115894272000000000However, type promotion between the primitive types above and BigInt/BigFloat is not automatic and must be explicitly stated.julia> x = typemin(Int64)\n-9223372036854775808\n\njulia> x = x - 1\n9223372036854775807\n\njulia> typeof(x)\nInt64\n\njulia> y = BigInt(typemin(Int64))\n-9223372036854775808\n\njulia> y = y - 1\n-9223372036854775809\n\njulia> typeof(y)\nBigIntThe default precision (in number of bits of the significand) and rounding mode of BigFloat operations can be changed globally by calling setprecision() and setrounding(), and all further calculations will take these changes in account.  Alternatively, the precision or the rounding can be changed only within the execution of a particular block of code by using the same functions with a do block:julia> setrounding(BigFloat, RoundUp) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.100000000000000000000000000000000000000000000000000000000000000000000000000003\n\njulia> setrounding(BigFloat, RoundDown) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.099999999999999999999999999999999999999999999999999999999999999999999999999986\n\njulia> setprecision(40) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.1000000000004"
+    "text": "Para permitir cálculos con enteros y números de coma flotante de precisión arbitraria, Julia envuelve la Biblioteca Aritmética de Precisión Múltiple GNU (GMP) y la biblioteca GNU MPFR, respectivamente. Los tipos BigInt y BigFloat están disponibles en Julia para números enteros de precisión arbitraria y números de coma flotante, respectivamente.Existen constructores para crear estos tipos de tipos numéricos primitivos, y podemos también utilizar parse() para construirlos a partir de AbstractStrings.  Una vez creados, participan en la aritmética con todos los demás tipos numéricos gracias al mecanismo de promotion y conversion de tipos de Julia:julia> BigInt(typemax(Int64)) + 1\n9223372036854775808\n\njulia> parse(BigInt, \"123456789012345678901234567890\") + 1\n123456789012345678901234567891\n\njulia> parse(BigFloat, \"1.23456789012345678901\")\n1.234567890123456789010000000000000000000000000000000000000000000000000000000004\n\njulia> BigFloat(2.0^66) / 3\n2.459565876494606882133333333333333333333333333333333333333333333333333333333344e+19\n\njulia> factorial(BigInt(40))\n815915283247897734345611269596115894272000000000Sin embargo, la promoción de tipos entre los tipos primitivos ya vistos y BigInt/BigFloat no es automática y debe ser establecida explícitamente: julia> x = typemin(Int64)\n-9223372036854775808\n\njulia> x = x - 1\n9223372036854775807\n\njulia> typeof(x)\nInt64\n\njulia> y = BigInt(typemin(Int64))\n-9223372036854775808\n\njulia> y = y - 1\n-9223372036854775809\n\njulia> typeof(y)\nBigIntLa precisión predeterminada (en número de bits del significado) y el modo de redondeo de las operaciones de BigFloat pueden cambiarse globalmente llamando setprecision() and setrounding(), y todos los cálculos adicionales tomarán en cuenta estos cambios. Alternativamente, la precisión o el redondeo se puede cambiar dentro sólo de la ejecución de un bloque particular de código utilizando las mismas funciones dentro de un bloque do:julia> setrounding(BigFloat, RoundUp) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.100000000000000000000000000000000000000000000000000000000000000000000000000003\n\njulia> setrounding(BigFloat, RoundDown) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.099999999999999999999999999999999999999999999999999999999999999999999999999986\n\njulia> setprecision(40) do\n           BigFloat(1) + parse(BigFloat, \"0.1\")\n       end\n1.1000000000004"
 },
 
 {
     "location": "manual/integers-and-floating-point-numbers.html#man-numeric-literal-coefficients-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Numeric Literal Coefficients",
+    "page": "Números enteros y en punto flotante",
+    "title": "Coeficientes Literales Numéricos",
     "category": "section",
-    "text": "To make common numeric formulas and expressions clearer, Julia allows variables to be immediately preceded by a numeric literal, implying multiplication. This makes writing polynomial expressions much cleaner:julia> x = 3\n3\n\njulia> 2x^2 - 3x + 1\n10\n\njulia> 1.5x^2 - .5x + 1\n13.0It also makes writing exponential functions more elegant:julia> 2^2x\n64The precedence of numeric literal coefficients is the same as that of unary operators such as negation. So 2^3x is parsed as 2^(3x), and 2x^3 is parsed as 2*(x^3).Numeric literals also work as coefficients to parenthesized expressions:julia> 2(x-1)^2 - 3(x-1) + 1\n3note: Note\nThe precedence of numeric literal coefficients used for implicit multiplication is higher than other binary operators such as multiplication (*), and division (/, \\, and //).  This means, for example, that 1 / 2im equals -0.5im and 6 // 2(2 + 1) equals 1 // 1.Additionally, parenthesized expressions can be used as coefficients to variables, implying multiplication of the expression by the variable:julia> (x-1)x\n6Neither juxtaposition of two parenthesized expressions, nor placing a variable before a parenthesized expression, however, can be used to imply multiplication:julia> (x-1)(x+1)\nERROR: MethodError: objects of type Int64 are not callable\n\njulia> x(x+1)\nERROR: MethodError: objects of type Int64 are not callableBoth expressions are interpreted as function application: any expression that is not a numeric literal, when immediately followed by a parenthetical, is interpreted as a function applied to the values in parentheses (see Functions for more about functions). Thus, in both of these cases, an error occurs since the left-hand value is not a function.The above syntactic enhancements significantly reduce the visual noise incurred when writing common mathematical formulae. Note that no whitespace may come between a numeric literal coefficient and the identifier or parenthesized expression which it multiplies."
+    "text": "Para hacer más claras fórmulas numéricas y expresiones, Julia permite que las variables sean precedidas inmediatamente por un literal numérico, implicando la multiplicación. Esto hace que la escritura de las expresiones polinómicas sea mucho más limpias:julia> x = 3\n3\n\njulia> 2x^2 - 3x + 1\n10\n\njulia> 1.5x^2 - .5x + 1\n13.0También hace que escribir funciones exponenciales sea más elegante:julia> 2^2x\n64La precedencia de los coeficientes literales numéricos es la misma que la de los operadores unarios como la negación. Así que 2^3x se analiza como 2^(3x), y 2x^3 se analiza como 2*(x ^ 3).Los literales numéricos también funcionan como coeficientes de las expresiones entre paréntesis:julia> 2(x-1)^2 - 3(x-1) + 1\n3note: Note\n   La precedencia de coeficientes literales numéricos usada para multiplicación      implícita es mayor que otros operadores binarios tales como la multiplicación     (*), y división (/, \\, and //).  Esto significa, por ejemplo, que      1 / 2im es igual a -0.5im y 6 // 2(2 + 1) es igual a 1 // 1.Además, las expresiones entre paréntesis se pueden utilizar como coeficientes a las variables, lo que implica la multiplicación de la expresión por la variable:julia> (x-1)x\n6Sin embargo, ni la yuxtaposición de dos expresiones entre paréntesis, ni la colocación de una variable antes de una expresión entre paréntesis puede ser usada para implicar multiplicación:julia> (x-1)(x+1)\nERROR: MethodError: objects of type Int64 are not callable\n\njulia> x(x+1)\nERROR: MethodError: objects of type Int64 are not callableAmbas expresiones se interpretan como la aplicación de una función: cualquier expresión que no sea un literal numérico, inmediatamente seguida de una entre paréntesis, se interpreta como una función aplicada a los valores entre paréntesis (ver Funciones para más información sobre las funciones). Por lo tanto, en ambos casos, se produce un error, ya que el valor de la izquierda no es una función.Las mejoras sintácticas anteriores reducen significativamente el ruido visual producido al escribir fórmulas matemáticas comunes. Obsérvese que ningún espacio en blanco puede encontrarse entre un coeficiente literal numérico y el identificador o la expresión entre paréntesis que multiplica."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Syntax-Conflicts-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Syntax Conflicts",
+    "location": "manual/integers-and-floating-point-numbers.html#Conflictos-de-Sintaxis-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Conflictos de Sintaxis",
     "category": "section",
-    "text": "Juxtaposed literal coefficient syntax may conflict with two numeric literal syntaxes: hexadecimal integer literals and engineering notation for floating-point literals. Here are some situations where syntactic conflicts arise:The hexadecimal integer literal expression 0xff could be interpreted as the numeric literal 0 multiplied by the variable xff.\nThe floating-point literal expression 1e10 could be interpreted as the numeric literal 1 multiplied by the variable e10, and similarly with the equivalent E form.In both cases, we resolve the ambiguity in favor of interpretation as a numeric literals:Expressions starting with 0x are always hexadecimal literals.\nExpressions starting with a numeric literal followed by e or E are always floating-point literals."
+    "text": "La sintaxis de los coeficientes literales yuxtapuestos puede entrar en conflicto con dos sintaxis numéricas literales: literales enteros hexadecimales y notación ingenieril para literales de punto flotante. Aquí hay algunas situaciones donde surgen conflictos sintácticos:La expresión literal de enteros hexadecimales 0xff podría interpretarse como el literal numérico 0 multiplicado por la variable xff.\nLa expresión literal de punto flotante 1e10 podría interpretarse como el literal numérico 1 multiplicado por la variable e10, e igualmente con la forma E equivalenteEn ambos casos, resolvemos la ambigüedad a favor de la interpretación como literales numéricos:Las expresiones que comienzan con 0x siempre son literales hexadecimales.\nLas expresiones que empiezan con un literal numérico seguido por e o E siempre son literales de coma flotante."
 },
 
 {
-    "location": "manual/integers-and-floating-point-numbers.html#Literal-zero-and-one-1",
-    "page": "Integers and Floating-Point Numbers",
-    "title": "Literal zero and one",
+    "location": "manual/integers-and-floating-point-numbers.html#Literales-cero-and-uno-1",
+    "page": "Números enteros y en punto flotante",
+    "title": "Literales cero and uno",
     "category": "section",
-    "text": "Julia provides functions which return literal 0 and 1 corresponding to a specified type or the type of a given variable.Function Description\nzero(x) Literal zero of type x or type of variable x\none(x) Literal one of type x or type of variable xThese functions are useful in Numeric Comparisons to avoid overhead from unnecessary type conversion.Examples:julia> zero(Float32)\n0.0f0\n\njulia> zero(1.0)\n0.0\n\njulia> one(Int32)\n1\n\njulia> one(BigFloat)\n1.000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    "text": "Julia proporciona funciones que devuelven los literales 0 y 1 correspondientes a un tipo especificado o al tipo de una variable dada.Function Description\nzero(x) Literal cero del tipo x o del tipo de la variable x\none(x) Literal uno del tipo x o del tipo de la variable xEstas funciones son útiles en comparaciones numéricas para evitar la sobrecarga de una conversión de tipo innecesaria.Ejemplos:julia> zero(Float32)\n0.0f0\n\njulia> zero(1.0)\n0.0\n\njulia> one(Int32)\n1\n\njulia> one(BigFloat)\n1.000000000000000000000000000000000000000000000000000000000000000000000000000000"
 },
 
 {
@@ -241,163 +241,163 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/mathematical-operations.html#Mathematical-Operations-and-Elementary-Functions-1",
+    "location": "manual/mathematical-operations.html#mathematical-operations-1",
     "page": "Mathematical Operations and Elementary Functions",
     "title": "Mathematical Operations and Elementary Functions",
     "category": "section",
-    "text": "Julia provides a complete collection of basic arithmetic and bitwise operators across all of its numeric primitive types, as well as providing portable, efficient implementations of a comprehensive collection of standard mathematical functions."
+    "text": "Julia proporciona una colección completa de operadores aritméticos básicos y de operadores de bits para todos sus tipos numéricos primitivos, así como implementaciones portables y eficientes de una colección comprensiva de funciones matemática estándar."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Arithmetic-Operators-1",
+    "location": "manual/mathematical-operations.html#arithmetic-operators-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Arithmetic Operators",
+    "title": "Operadores Aritméticos",
     "category": "section",
-    "text": "The following arithmetic operators are supported on all primitive numeric types:Expression Name Description\n+x unary plus the identity operation\n-x unary minus maps values to their additive inverses\nx + y binary plus performs addition\nx - y binary minus performs subtraction\nx * y times performs multiplication\nx / y divide performs division\nx \\ y inverse divide equivalent to y / x\nx ^ y power raises x to the yth power\nx % y remainder equivalent to rem(x,y)as well as the negation on Bool types:Expression Name Description\n!x negation changes true to false and vice versaJulia's promotion system makes arithmetic operations on mixtures of argument types \"just work\" naturally and automatically. See Conversion and Promotion for details of the promotion system.Here are some simple examples using arithmetic operators:julia> 1 + 2 + 3\n6\n\njulia> 1 - 2\n-1\n\njulia> 3*2/12\n0.5(By convention, we tend to space operators more tightly if they get applied before other nearby operators. For instance, we would generally write -x + 2 to reflect that first x gets negated, and then 2 is added to that result.)"
+    "text": "Los siguientes operadores aritméticos están soportados sobre todos los tipos primitivos:Expression Name Description\n+x       más unario       Operación identidad                   \n-x       menos unario     Inverso matemático de un número\nx + y suma binaria suma\nx - y menos binario resta\nx * y   producto         multiplicación              \nx / y   división         división                    \nx \\ y   división inversa Equivalente a y / x                \nx ^ y   potencia         eleva x a la y-ésima potencia\nx % y resto Equivalente a rem(x,y)así como la negación sobre tipos Bool:Expression Name Description\n!x       negación Cambia true a false y viceversaEl sistema de promoción de Julia hace que las operaciones aritméticas sobre mezclas de tipos de argumentos funcione de forma natural y automáticamente. Ver Conversión y Promoción para los detalles del sistema de promoción.He aquí algunos ejemplos simples de usar operadores aritméticos:julia> 1 + 2 + 3\n6\n\njulia> 1 - 2\n-1\n\njulia> 3*2/12\n0.5(Por convención, tendemos a separar con menos distancia los operadores cuando se aplican antes de otros operadores cercanos. Por ejemplo, generalmente escribimos -x + 2 para reflejar que x primero se niega y, a continuación, 2 se agrega a ese resultado.)"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Bitwise-Operators-1",
+    "location": "manual/mathematical-operations.html#bitwise-operators-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Bitwise Operators",
+    "title": "Operadores bit a bit",
     "category": "section",
-    "text": "The following bitwise operators are supported on all primitive integer types:Expression Name\n~x bitwise not\nx & y bitwise and\nx | y bitwise or\nx ⊻ y bitwise xor (exclusive or)\nx >>> y logical shift right\nx >> y arithmetic shift right\nx << y logical/arithmetic shift leftHere are some examples with bitwise operators:julia> ~123\n-124\n\njulia> 123 & 234\n106\n\njulia> 123 | 234\n251\n\njulia> 123 ⊻ 234\n145\n\njulia> xor(123, 234)\n145\n\njulia> ~UInt32(123)\n0xffffff84\n\njulia> ~UInt8(123)\n0x84"
+    "text": "Los siguientes operadores bit a bit son soportados sobre todos los tipos enteros primitivos:Expression Name\n~x       Negación bit a bit                                                    \nx & y   Conjunción (and) bit a bit                                          \nx | y   Disyunción (or) bit a bit                                             \nx ⊻ y Or exclusivo bit a bit (xor)\nx >>> y Desplazamiento lógico hacia la derecha      \nx >> y   Desplazamiento aritmético hacia la derecha\nx << y   Desplazamiento hacia la izquierda lógico/aritmético                                        He aquí algunos ejemplos de uso de operadores bit a bit:julia> ~123\n-124\n\njulia> 123 & 234\n106\n\njulia> 123 | 234\n251\n\njulia> 123 ⊻ 234\n145\n\njulia> xor(123, 234)\n145\n\njulia> ~UInt32(123)\n0xffffff84\n\njulia> ~UInt8(123)\n0x84"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Updating-operators-1",
+    "location": "manual/mathematical-operations.html#Operaciones-de-actualización-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Updating operators",
+    "title": "Operaciones de actualización",
     "category": "section",
-    "text": "Every binary arithmetic and bitwise operator also has an updating version that assigns the result of the operation back into its left operand. The updating version of the binary operator is formed by placing a = immediately after the operator. For example, writing x += 3 is equivalent to writing x = x + 3:julia> x = 1\n1\n\njulia> x += 3\n4\n\njulia> x\n4The updating versions of all the binary arithmetic and bitwise operators are:+=  -=  *=  /=  \\=  ÷=  %=  ^=  &=  |=  ⊻=  >>>=  >>=  <<=note: Note\nAn updating operator rebinds the variable on the left-hand side. As a result, the type of the variable may change.julia> x = 0x01; typeof(x)\nUInt8\n\njulia> x *= 2 # Same as x = x * 2\n2\n\njulia> typeof(x)\nInt64"
+    "text": "Cada operador binario aritmético y bit a bit también tiene una versión de actualización que asigna el resultado de la operación de nuevo a su operando izquierdo. La versión de actualización del operador binario se forma colocando a = inmediatamente después del operador. Por ejemplo, escribir x += 3 es equivalente a escribir x = x + 3:julia> x = 1\n1\n\njulia> x += 3\n4\n\njulia> x\n4Las versiones de actualización de todos los operadores binarios, aritméticos de bits son:+=  -=  *=  /=  \\=  ÷=  %=  ^=  &=  |=  ⊻=  >>>=  >>=  <<=note: Note\nUn operador de actualización reasigna la variable sobre la parte izquierda de la ecuación. Como  resultado, el tipo de la variable puede cambiar:julia> x = 0x01; typeof(x)\nUInt8\n\njulia> x *= 2 # Same as x = x * 2\n2\n\njulia> typeof(x)\nInt64"
 },
 
 {
     "location": "manual/mathematical-operations.html#man-dot-operators-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Vectorized \"dot\" operators",
+    "title": "Operadores vectorizados con \"punto\"",
     "category": "section",
-    "text": "For every binary operation like ^, there is a corresponding \"dot\" operation .^ that is automatically defined to perform ^ element-by-element on arrays. For example, [1,2,3] ^ 3 is not defined, since there is no standard mathematical meaning to \"cubing\" an array, but [1,2,3] .^ 3 is defined as computing the elementwise (or \"vectorized\") result [1^3, 2^3, 3^3].  Similarly for unary operators like ! or √, there is a corresponding .√ that applies the operator elementwise.julia> [1,2,3] .^ 3\n3-element Array{Int64,1}:\n  1\n  8\n 27More specifically, a .^ b is parsed as the \"dot\" call (^).(a,b), which performs a broadcast operation: it can combine arrays and scalars, arrays of the same size (performing the operation elementwise), and even arrays of different shapes (e.g. combining row and column vectors to produce a matrix). Moreover, like all vectorized \"dot calls,\" these \"dot operators\" are fusing. For example, if you compute 2 .* A.^2 .+ sin.(A) (or equivalently @. 2A^2 + sin(A), using the @. macro) for an array A, it performs a single loop over A, computing 2a^2 + sin(a) for each element of A. In particular, nested dot calls like f.(g.(x)) are fused, and \"adjacent\" binary operators like x .+ 3 .* x.^2 are equivalent to nested dot calls (+).(x, (*).(3, (^).(x, 2))).Furthermore, \"dotted\" updating operators like a .+= b (or @. a += b) are parsed as a .= a .+ b, where .= is a fused in-place assignment operation (see the dot syntax documentation).Note the dot syntax is also applicable to user-defined operators. For example, if you define ⊗(A,B) = kron(A,B) to give a convenient infix syntax A ⊗ B for Kronecker products (kron), then [A,B] .⊗ [C,D] will compute [A⊗C, B⊗D] with no additional coding."
+    "text": "Para cada operación binaria como ^ hay su correspondiente operación \"con punto\" .^ que se define automáticamente para realizar la operación ^ elemento a elemento sobre arrays. Por ejemplo, la operación [1, 2, 3]^3 no está definidia, porque no hay un significado matemático estándar para calcular el cubo de un array, pero [1, 2, 3].^3 si lo está como el cálculo de la operación cubo elemento a elemento (o vectorizada) [1^3, 2^3, 3^3]. Lo mismo puede decirse para operadores unarios tales como ! o √, que existe el correspondiente operador vectorizado .√ que aplica el operador elemento a elemento.julia> [1,2,3] .^ 3\n3-element Array{Int64,1}:\n  1\n  8\n 27Más específicamente, a .^ b es analizado como la llamada punto (^).(a,b), que realiza una operación de retransmisión (broadcast): ella puede combinar arrays y escalares, arrays del mismo tamaño (realizando la operación elemento a elemento), o incluso arrays de diferentes formas (por ejemplo, combinar vectores fila y columna para producir una matriz). Además, como todas las \"llamadas punto\", estos \"operadores punto\" están fusionados. Por ejemplo, si calculamos 2 .* A.^2 .+ sin.(A) (o, equivalentemente @. 2A^2 + sin(A), usando la macro @.) para un array A, se realiza un único bucle sobre A, computando 2a^2 + sin(a) para cada elemento de A. En particular, las llamadas vectorizadas anidadas como f.(g.(x)) están fusionadas, y los operadores binarios adyacentes como x .+ 3 .* x.^2 son equivalentes a llamadas vectorizadas anidadas (+).(x, (*).(3, (^).(x, 2))).Además, los operadores de actualización \"vectorizados\" como a .+= b (o @. a += b) son transformados en a .= a .+ b, donde .= es un operador de asignación fusionado in-place (ver la documentación de la sintaxis vectorizada).Nótese que la sintaxis de punto es también aplicable a operadores definidos por el usuario. Por ejemplo, si definimos el operador ⊗(A,B) = kron(A,B) para dar una sintaxis infija A ⊗ B al producto de Kronecker (kron), entonces [A,B] .⊗ [C,D] calculará  [A⊗C, B⊗D] sin ninguna codificación adicional."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Numeric-Comparisons-1",
+    "location": "manual/mathematical-operations.html#numeric-comparisons-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Numeric Comparisons",
+    "title": "Comparaciones Numéricas",
     "category": "section",
-    "text": "Standard comparison operations are defined for all the primitive numeric types:Operator Name\n== equality\n!=, ≠ inequality\n< less than\n<=, ≤ less than or equal to\n> greater than\n>=, ≥ greater than or equal toHere are some simple examples:julia> 1 == 1\ntrue\n\njulia> 1 == 2\nfalse\n\njulia> 1 != 2\ntrue\n\njulia> 1 == 1.0\ntrue\n\njulia> 1 < 2\ntrue\n\njulia> 1.0 > 3\nfalse\n\njulia> 1 >= 1.0\ntrue\n\njulia> -1 <= 1\ntrue\n\njulia> -1 <= -1\ntrue\n\njulia> -1 <= -2\nfalse\n\njulia> 3 < -0.5\nfalseIntegers are compared in the standard manner – by comparison of bits. Floating-point numbers are compared according to the IEEE 754 standard:Finite numbers are ordered in the usual manner.\nPositive zero is equal but not greater than negative zero.\nInf is equal to itself and greater than everything else except NaN.\n-Inf is equal to itself and less then everything else except NaN.\nNaN is not equal to, not less than, and not greater than anything, including itself.The last point is potentially surprising and thus worth noting:julia> NaN == NaN\nfalse\n\njulia> NaN != NaN\ntrue\n\njulia> NaN < NaN\nfalse\n\njulia> NaN > NaN\nfalseand can cause especial headaches with Arrays:julia> [1 NaN] == [1 NaN]\nfalseJulia provides additional functions to test numbers for special values, which can be useful in situations like hash key comparisons:Function Tests if\nisequal(x, y) x and y are identical\nisfinite(x) x is a finite number\nisinf(x) x is infinite\nisnan(x) x is not a numberisequal() considers NaNs equal to each other:julia> isequal(NaN, NaN)\ntrue\n\njulia> isequal([1 NaN], [1 NaN])\ntrue\n\njulia> isequal(NaN, NaN32)\ntrueisequal() can also be used to distinguish signed zeros:julia> -0.0 == 0.0\ntrue\n\njulia> isequal(-0.0, 0.0)\nfalseMixed-type comparisons between signed integers, unsigned integers, and floats can be tricky. A great deal of care has been taken to ensure that Julia does them correctly.For other types, isequal() defaults to calling ==(), so if you want to define equality for your own types then you only need to add a ==() method.  If you define your own equality function, you should probably define a corresponding hash() method to ensure that isequal(x,y) implies hash(x) == hash(y)."
+    "text": "Los operadores de comparación estándar están definidos para todos los tipos numéricos primitivos:Operador Nombre\n== Igualdad\n!=, ≠ Desigualdad\n< Menor que\n<=, ≤ Menor o igual que\n> Mayor que\n>=, ≥ Mayor o igual queHe aquí algunos ejemplos:julia> 1 == 1\ntrue\n\njulia> 1 == 2\nfalse\n\njulia> 1 != 2\ntrue\n\njulia> 1 == 1.0\ntrue\n\njulia> 1 < 2\ntrue\n\njulia> 1.0 > 3\nfalse\n\njulia> 1 >= 1.0\ntrue\n\njulia> -1 <= 1\ntrue\n\njulia> -1 <= -1\ntrue\n\njulia> -1 <= -2\nfalse\n\njulia> 3 < -0.5\nfalseLos enteros se comparan de un modo estándar, mediante comparación de bits. Los números de punto flotante se comparan de acuerdo al estándar IEEE 754:Los números finitos son ordenados del modo habitual.\nEl cero positivo es igual pero no mayor que el cero negativo.\nInf es igual a si mismo y mayor que todo excepto NaN\n-Inf es igual a si mismo y menor que todo excepto NaN\nNaN no es igual, mayor o menor a nadie, excepto a sí mismo.Este último punto es potencialmente sorprendente y, por tanto, vale la pena señalar que:julia> NaN == NaN\nfalse\n\njulia> NaN != NaN\ntrue\n\njulia> NaN < NaN\nfalse\n\njulia> NaN > NaN\nfalsey puede causar dolores de cabeza especiales con Arrays:julia> [1 NaN] == [1 NaN]\nfalseJulia proporciona funciones adicionales para comprobar números para valores especiales, lo cuál pueden ser útil en situaciones como las comparaciones de claves hash:Function Tests if\nisequal(x, y) x e y son idénticos\nisfinite(x)   x es un número finito\nisinf(x) x es infinito\nisnan(x)     x no es un númeroisequal() considera los NaNs iguales entre sí:julia> isequal(NaN, NaN)\ntrue\n\njulia> isequal([1 NaN], [1 NaN])\ntrue\n\njulia> isequal(NaN, NaN32)\ntrueisequal() también puede usarse para distinguir los ceros con signo:julia> -0.0 == 0.0\ntrue\n\njulia> isequal(-0.0, 0.0)\nfalseLas comparaciones de tipos mezclados entre enteros con signo, enteros sin signo y valores en punto flotante pueden ser complicadas. Se ha tomado mucho cuidado para asegurarse de que Julia las realiza correctamente.Para otros tipos, isequal() llama por defecto a ==(), así que si uno quiere definir la igualdad para sus propios tipos, solo tiene que agregar un método ==().  Si uno define suu propia función de igualdad, probablemente deba definir un método hash() correspondiente para asegurar de que isequal(x,y) implica hash(x) == hash(y)."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Chaining-comparisons-1",
+    "location": "manual/mathematical-operations.html#chaining-comparisons-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Chaining comparisons",
+    "title": "Comparaciones Encadenadas",
     "category": "section",
-    "text": "Unlike most languages, with the notable exception of Python, comparisons can be arbitrarily chained:julia> 1 < 2 <= 2 < 3 == 3 > 2 >= 1 == 1 < 3 != 5\ntrueChaining comparisons is often quite convenient in numerical code. Chained comparisons use the && operator for scalar comparisons, and the & operator for elementwise comparisons, which allows them to work on arrays. For example, 0 .< A .< 1 gives a boolean array whose entries are true where the corresponding elements of A are between 0 and 1.Note the evaluation behavior of chained comparisons:julia> v(x) = (println(x); x)\nv (generic function with 1 method)\n\njulia> v(1) < v(2) <= v(3)\n2\n1\n3\ntrue\n\njulia> v(1) > v(2) <= v(3)\n2\n1\nfalseThe middle expression is only evaluated once, rather than twice as it would be if the expression were written as v(1) < v(2) && v(2) <= v(3). However, the order of evaluations in a chained comparison is undefined. It is strongly recommended not to use expressions with side effects (such as printing) in chained comparisons. If side effects are required, the short-circuit && operator should be used explicitly (see Short-Circuit Evaluation)."
+    "text": "A diferencia de la mayoría de los idiomas, con la notable excepción de Python, las comparaciones pueden encadenarse arbitrariamente:julia> 1 < 2 <= 2 < 3 == 3 > 2 >= 1 == 1 < 3 != 5\ntrueEl encadenamiento de comparaciones suele ser bastante conveniente en el código numérico. Las comparaciones encadenadas utilizan el operador && para comparaciones escalares y el operador & para comparaciones elemento a elemento, lo que les permite trabajar sobre arrays. Por ejemplo, 0 .< A .< 1 da un array booleano cuyas entradas son true en posiciones en las que los elementos correspondientes de A están entre 0 y 1.Nótese el comportamiento de evaluación de las comparaciones encadenadas:julia> v(x) = (println(x); x)\nv (generic function with 1 method)\n\njulia> v(1) < v(2) <= v(3)\n2\n1\n3\ntrue\n\njulia> v(1) > v(2) <= v(3)\n2\n1\nfalseLa expresión del medio sólo se evalúa una vez, en lugar de dos veces como lo sería si la expresión se escribiera como v(1) < v(2) && v(2) <= v(3). Sin embargo, el orden de las evaluaciones en una comparación encadenada no está definido. Se recomienda encarecidamente no utilizar expresiones que puedan tener efectos secundarios (como la impresión) en comparaciones encadenadas. Si se requieren efectos secundarios, se debe utilizar explícitamente el operador de cortocircuito && (ver Evaluación en cortocircuito)."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Elementary-Functions-1",
+    "location": "manual/mathematical-operations.html#elementary-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Elementary Functions",
+    "title": "Funciones Elementales",
     "category": "section",
-    "text": "Julia provides a comprehensive collection of mathematical functions and operators. These mathematical operations are defined over as broad a class of numerical values as permit sensible definitions, including integers, floating-point numbers, rationals, and complex numbers, wherever such definitions make sense.Moreover, these functions (like any Julia function) can be applied in \"vectorized\" fashion to arrays and other collections with the dot syntax f.(A), e.g. sin.(A) will compute the sine of each element of an array A."
+    "text": "Julia proporciona una colección completa de funciones matemáticas y operadores. Estas operaciones matemáticas se definen sobre una clase de valores numéricos suficientemente amplia como para permitir definiciones apropiadas para enteros, números de punto flotante, racionales y complejos, dondequiera que tales definiciones tengan sentido.Además, estas funciones (como cualquier función de Julia) se pueden aplicar de manera \"vectorizada\" a matrices y otras colecciones con la sintaxis vectorizada f.(A), por ejemplo, sin.(A) calculará el seno de cada elemento de una matriz A. "
 },
 
 {
-    "location": "manual/mathematical-operations.html#Operator-Precedence-1",
+    "location": "manual/mathematical-operations.html#operator-precedence-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Operator Precedence",
+    "title": "Precedencia de Operadores",
     "category": "section",
-    "text": "Julia applies the following order of operations, from highest precedence to lowest:Category Operators\nSyntax . followed by ::\nExponentiation ^\nFractions //\nMultiplication * / % & \\\nBitshifts << >> >>>\nAddition + - | ⊻\nSyntax : .. followed by |>\nComparisons > < >= <= == === != !== <:\nControl flow && followed by || followed by ?\nAssignments = += -= *= /= //= \\= ^= ÷= %= |= &= ⊻= <<= >>= >>>=For a complete list of every Julia operator's precedence, see the top of this file: src/julia-parser.scmYou can also find the numerical precedence for any given operator via the built-in function Base.operator_precedence, where higher numbers take precedence:julia> Base.operator_precedence(:+), Base.operator_precedence(:*), Base.operator_precedence(:.)\n(9, 11, 15)\n\njulia> Base.operator_precedence(:+=), Base.operator_precedence(:(=))  # (Note the necessary parens on `:(=)`)\n(1, 1)"
+    "text": "Julia applies the following order of operations, from highest precedence to lowest:Categorí       Operadores                                                                                       \nSyntax . seguido por ::\nExponentiation ^\nFractions //\nMultiplication * / % & \\\nBitshifts << >> >>>\nAddition + - | ⊻\nSyntax : .. seguido por |>\nComparisons > < >= <= == === != !== <:\nControl flow && seguido por || seguido por ?\nAssignments = += -= *= /= //= \\= ^= ÷= %= |= &= ⊻= <<= >>= >>>=Para una lista completa de cada una de las precedencias de operadores de Julia, consultar el fichero src/julia-parser.scmTambién puede encontrarse la precedencia numérica pra cualquier operación dada mediante la función intrínseca Base.operator_precedence donde el número mayor corresponde a la operación con mayor precedencia.julia> Base.operator_precedence(:+), Base.operator_precedence(:*), Base.operator_precedence(:.)\n(9, 11, 15)\n\njulia> Base.operator_precedence(:+=), Base.operator_precedence(:(=))  # (Note the necessary parens on `:(=)`)\n(1, 1)"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Numerical-Conversions-1",
+    "location": "manual/mathematical-operations.html#numerical-conversions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Numerical Conversions",
+    "title": "Conversiones Numéricas",
     "category": "section",
-    "text": "Julia supports three forms of numerical conversion, which differ in their handling of inexact conversions.The notation T(x) or convert(T,x) converts x to a value of type T.\nIf T is a floating-point type, the result is the nearest representable value, which could be positive or negative infinity.\nIf T is an integer type, an InexactError is raised if x is not representable by T.\nx % T converts an integer x to a value of integer type T congruent to x modulo 2^n, where n is the number of bits in T. In other words, the binary representation is truncated to fit.\nThe Rounding functions take a type T as an optional argument. For example, round(Int,x) is a shorthand for Int(round(x)).The following examples show the different forms.julia> Int8(127)\n127\n\njulia> Int8(128)\nERROR: InexactError()\nStacktrace:\n [1] Int8(::Int64) at ./sysimg.jl:77\n\njulia> Int8(127.0)\n127\n\njulia> Int8(3.14)\nERROR: InexactError()\nStacktrace:\n [1] convert(::Type{Int8}, ::Float64) at ./float.jl:658\n [2] Int8(::Float64) at ./sysimg.jl:77\n\njulia> Int8(128.0)\nERROR: InexactError()\nStacktrace:\n [1] convert(::Type{Int8}, ::Float64) at ./float.jl:658\n [2] Int8(::Float64) at ./sysimg.jl:77\n\njulia> 127 % Int8\n127\n\njulia> 128 % Int8\n-128\n\njulia> round(Int8,127.4)\n127\n\njulia> round(Int8,127.6)\nERROR: InexactError()\nStacktrace:\n [1] trunc(::Type{Int8}, ::Float64) at ./float.jl:651\n [2] round(::Type{Int8}, ::Float64) at ./float.jl:337See Conversion and Promotion for how to define your own conversions and promotions."
+    "text": "Julia soporta tres formas de conversión numérica, que difieren en su manejo de las conversiones inexactas.La notación T(x) o convert(T,x) convierte x a un valor de tipo T.\nSi T es un tipo en punto flotante, el resultado es el valor más cercano representable, que podría ser infinito positivo o negativo.\nSi T es un tipo entero, se lanzará un InexactError si xno es representable por T.\nx % Tconvierte un entero x a un valor de un tipo entero T congruente a x modulo 2^n, donde n es el número de bits en T. En otras palabras, la representación binaria es truncada para ajustarse.\nLas Funciones de Redondeo toman un tipo T como argumento opcional. Por ejemplo, round(Int,x) es una abreviatura de Int(round(x)).Los siguientes ejemplos muestran las siguientes formas:julia> Int8(127)\n127\n\njulia> Int8(128)\nERROR: InexactError()\nStacktrace:\n [1] Int8(::Int64) at ./sysimg.jl:77\n\njulia> Int8(127.0)\n127\n\njulia> Int8(3.14)\nERROR: InexactError()\nStacktrace:\n [1] convert(::Type{Int8}, ::Float64) at ./float.jl:658\n [2] Int8(::Float64) at ./sysimg.jl:77\n\njulia> Int8(128.0)\nERROR: InexactError()\nStacktrace:\n [1] convert(::Type{Int8}, ::Float64) at ./float.jl:658\n [2] Int8(::Float64) at ./sysimg.jl:77\n\njulia> 127 % Int8\n127\n\njulia> 128 % Int8\n-128\n\njulia> round(Int8,127.4)\n127\n\njulia> round(Int8,127.6)\nERROR: InexactError()\nStacktrace:\n [1] trunc(::Type{Int8}, ::Float64) at ./float.jl:651\n [2] round(::Type{Int8}, ::Float64) at ./float.jl:337Ver Conversión y Promoción para ver cómo definir tus propias conversiones y promociones."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Rounding-functions-1",
+    "location": "manual/mathematical-operations.html#rounding-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Rounding functions",
+    "title": "Funciones de Redondeo",
     "category": "section",
-    "text": "Function Description Return type\nround(x) round x to the nearest integer typeof(x)\nround(T, x) round x to the nearest integer T\nfloor(x) round x towards -Inf typeof(x)\nfloor(T, x) round x towards -Inf T\nceil(x) round x towards +Inf typeof(x)\nceil(T, x) round x towards +Inf T\ntrunc(x) round x towards zero typeof(x)\ntrunc(T, x) round x towards zero T"
+    "text": "Función              Descripción                       Tipo devuelto\nround(x) Redondea x al entero más cercano typeof(x)\nround(T, x) Redondea x al entero más cercano T\nfloor(x) Redondea x hacia -Inf typeof(x)\nfloor(T, x) Redondea x hacia -Inf T\nceil(x) Redondea x hacia +Inf typeof(x)\nceil(T, x) Redondea x hacia +Inf T\ntrunc(x) Redondea x hacia cero typeof(x)\ntrunc(T, x) Redondea x hacia cero T"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Division-functions-1",
+    "location": "manual/mathematical-operations.html#division-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Division functions",
+    "title": "Funciones de División",
     "category": "section",
-    "text": "Function Description\ndiv(x,y) truncated division; quotient rounded towards zero\nfld(x,y) floored division; quotient rounded towards -Inf\ncld(x,y) ceiling division; quotient rounded towards +Inf\nrem(x,y) remainder; satisfies x == div(x,y)*y + rem(x,y); sign matches x\nmod(x,y) modulus; satisfies x == fld(x,y)*y + mod(x,y); sign matches y\nmod1(x,y) mod() with offset 1; returns r∈(0,y] for y>0 or r∈[y,0) for y<0, where mod(r, y) == mod(x, y)\nmod2pi(x) modulus with respect to 2pi;  0 <= mod2pi(x)    < 2pi\ndivrem(x,y) returns (div(x,y),rem(x,y))\nfldmod(x,y) returns (fld(x,y),mod(x,y))\ngcd(x,y...) greatest positive common divisor of x, y,...\nlcm(x,y...) least positive common multiple of x, y,..."
+    "text": "Función              Descripción                                                                                       \ndiv(x,y) División truncada; cociente redondeado hacia cero\nfld(x,y) División floored; cociente redondeado hacia -Inf\ncld(x,y) División ceiling; cociente redondeado hacia +Inf\nrem(x,y)   Resto; satisface x == div(x,y)*y + rem(x,y); el signo se corresponde con el de x              \nmod(x,y) Módulo; satisface x == fld(x,y)*y + mod(x,y); el signo se corresponde con el de y\nmod1(x,y) Módulo con un desplazamiento de 1; devuelve r∈(0,y] para y>0 o r∈[y,0) para y<0, donde mod(r, y) == mod(x, y)\nmod2pi(x) Módulo con respecto a 2pi; 0 <= mod2pi(x)  < 2pi\ndivrem(x,y) Devuelve (div(x,y),rem(x,y))\nfldmod(x,y) Devuelve (fld(x,y),mod(x,y))\ngcd(x,y...) Máximo común divisor positivo de x, y,...\nlcm(x,y...) Mínimo común múltiplo positivo de x, y,..."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Sign-and-absolute-value-functions-1",
+    "location": "manual/mathematical-operations.html#sign-and-absolute-value-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Sign and absolute value functions",
+    "title": "Funciones de signo y valor absoluto",
     "category": "section",
-    "text": "Function Description\nabs(x) a positive value with the magnitude of x\nabs2(x) the squared magnitude of x\nsign(x) indicates the sign of x, returning -1, 0, or +1\nsignbit(x) indicates whether the sign bit is on (true) or off (false)\ncopysign(x,y) a value with the magnitude of x and the sign of y\nflipsign(x,y) a value with the magnitude of x and the sign of x*y"
+    "text": "Función                Descripción                                              \nabs(x) Un valor positivo con la magnitud de x\nabs2(x) El cuadrado de la magnitud de x\nsign(x) Indica el signo de x, devolviendo -1, 0, o +1\nsignbit(x) Indica que si el bit de signo está en on (true) o en off (false)\ncopysign(x,y) Indica un valor con la magnitud de x y el signo de y  \nflipsign(x,y) Indica un valor con la magnitud de x y el signo de x*y"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Powers,-logs-and-roots-1",
+    "location": "manual/mathematical-operations.html#powers-logs-and-roots-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Powers, logs and roots",
+    "title": "Potencias, logaritmos y raíces",
     "category": "section",
-    "text": "Function Description\nsqrt(x), √x square root of x\ncbrt(x), ∛x cube root of x\nhypot(x,y) hypotenuse of right-angled triangle with other sides of length x and y\nexp(x) natural exponential function at x\nexpm1(x) accurate exp(x)-1 for x near zero\nldexp(x,n) x*2^n computed efficiently for integer values of n\nlog(x) natural logarithm of x\nlog(b,x) base b logarithm of x\nlog2(x) base 2 logarithm of x\nlog10(x) base 10 logarithm of x\nlog1p(x) accurate log(1+x) for x near zero\nexponent(x) binary exponent of x\nsignificand(x) binary significand (a.k.a. mantissa) of a floating-point number xFor an overview of why functions like hypot(), expm1(), and log1p() are necessary and useful, see John D. Cook's excellent pair of blog posts on the subject: expm1, log1p, erfc, and hypot."
+    "text": "Función Descripción\nsqrt(x), √x Raíz cuadrada de x                                                     \ncbrt(x), ∛x Raíz cúbica de x                                                        \nhypot(x,y) Hipotenusa del triángulo rectángulo cuyos catetos son de longitudes x e y\nexp(x)         Función exponencial natural sobre x                                    \nexpm1(x) Valor exacto de exp(x)-1 para  x cercano a zero\nldexp(x,n) x*2^n calculado eficientemente para valores enteros de n\nlog(x) Logaritmo neperiano de x\nlog(b,x) Logaritmo en base b de x\nlog2(x) Logaritmo en base 2 de x\nlog10(x) Logaritmo decimal de x\nlog1p(x) Valor exacto de log(1+x) para x cercano a cero\nexponent(x) Exponente binario de  x\nsignificand(x) Significando binario (alias mantisa) de un número en punto flotante xPara una explicación de por qué son necesarias funciones como hypot(), expm1(), and log1p(), véase el excelente par de artículos en el blog de John D. Cook's sobre el tema: expm1, log1p, erfc, e hypot."
 },
 
 {
-    "location": "manual/mathematical-operations.html#Trigonometric-and-hyperbolic-functions-1",
+    "location": "manual/mathematical-operations.html#trigonometric-and-hyperbolic-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Trigonometric and hyperbolic functions",
+    "title": "Funciones Trigonométricas e Hiperbólicas",
     "category": "section",
-    "text": "All the standard trigonometric and hyperbolic functions are also defined:sin    cos    tan    cot    sec    csc\nsinh   cosh   tanh   coth   sech   csch\nasin   acos   atan   acot   asec   acsc\nasinh  acosh  atanh  acoth  asech  acsch\nsinc   cosc   atan2These are all single-argument functions, with the exception of atan2, which gives the angle in radians between the x-axis and the point specified by its arguments, interpreted as x and y coordinates.Additionally, sinpi(x) and cospi(x) are provided for more accurate computations of sin(pi*x) and cos(pi*x) respectively.In order to compute trigonometric functions with degrees instead of radians, suffix the function with d. For example, sind(x) computes the sine of x where x is specified in degrees. The complete list of trigonometric functions with degree variants is:sind   cosd   tand   cotd   secd   cscd\nasind  acosd  atand  acotd  asecd  acscd"
+    "text": "Todas las funciones trigonométricas e hiperbólicas estándar están también definidas:sin    cos    tan    cot    sec    csc\nsinh   cosh   tanh   coth   sech   csch\nasin   acos   atan   acot   asec   acsc\nasinh  acosh  atanh  acoth  asech  acsch\nsinc   cosc   atan2Son todas funciones de un solo argumento, con la excepción de  atan2, que da el ángulo en radians entre el eje x y el punto especificado por sus argumentos, interpretado como sus coordenadas x e y.Adicionalmente, se proporcionan sinpi(x) e cospi(x) para cálculos más exactos de sin(pi*x) y cos(pi*x) respectivamente.Para computar funciones trigonométricas con grados en lugar de con rdianes, añada al nombre de la función el sufijo d. Por ejemplo, sind(x) calcula el seno de x, donde x se especifica en grados. La lista completa de funciones trigonométricas con variantes grados es:sind   cosd   tand   cotd   secd   cscd\nasind  acosd  atand  acotd  asecd  acscd"
 },
 
 {
-    "location": "manual/mathematical-operations.html#Special-functions-1",
+    "location": "manual/mathematical-operations.html#special-functions-1",
     "page": "Mathematical Operations and Elementary Functions",
-    "title": "Special functions",
+    "title": "Funciones Especiales",
     "category": "section",
-    "text": "Function Description\ngamma(x) gamma function at x\nlgamma(x) accurate log(gamma(x)) for large x\nlfact(x) accurate log(factorial(x)) for large x; same as lgamma(x+1) for x > 1, zero otherwise\nbeta(x,y) beta function at x,y\nlbeta(x,y) accurate log(beta(x,y)) for large x or y"
+    "text": "Función               Descripción\ngamma(x)   Función gamma en x\nlgamma(x) Valor exacto de log(gamma(x)) para valores grandes de x\nlfact(x) Valor exacto de  log(factorial(x)) para valores grandes de  x; igual que lgamma(x+1) para x > 1, cero en otros caso\nbeta(x,y)   Función beta en x,y\nlbeta(x,y) Valor exacto de  log(beta(x,y)) para valores grandes de x o y"
 },
 
 {
     "location": "manual/complex-and-rational-numbers.html#",
-    "page": "Complex and Rational Numbers",
-    "title": "Complex and Rational Numbers",
+    "page": "Números Racionales y Complejos",
+    "title": "Números Racionales y Complejos",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "manual/complex-and-rational-numbers.html#Complex-and-Rational-Numbers-1",
-    "page": "Complex and Rational Numbers",
-    "title": "Complex and Rational Numbers",
+    "location": "manual/complex-and-rational-numbers.html#complex-and-rational-numbers-1",
+    "page": "Números Racionales y Complejos",
+    "title": "Números Racionales y Complejos",
     "category": "section",
-    "text": "Julia ships with predefined types representing both complex and rational numbers, and supports all standard Mathematical Operations and Elementary Functions on them. Conversion and Promotion are defined so that operations on any combination of predefined numeric types, whether primitive or composite, behave as expected."
+    "text": "Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las Operaciones Matemáticas y Funciones Elementales estándar sobre ellos. Se han definido conversiones y promociones de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.como se esperaba."
 },
 
 {
-    "location": "manual/complex-and-rational-numbers.html#Complex-Numbers-1",
-    "page": "Complex and Rational Numbers",
-    "title": "Complex Numbers",
+    "location": "manual/complex-and-rational-numbers.html#complex-numbers-1",
+    "page": "Números Racionales y Complejos",
+    "title": "Números Complejos",
     "category": "section",
-    "text": "The global constant im is bound to the complex number i, representing the principal square root of -1. It was deemed harmful to co-opt the name i for a global constant, since it is such a popular index variable name. Since Julia allows numeric literals to be juxtaposed with identifiers as coefficients, this binding suffices to provide convenient syntax for complex numbers, similar to the traditional mathematical notation:julia> 1 + 2im\n1 + 2imYou can perform all the standard arithmetic operations with complex numbers:julia> (1 + 2im)*(2 - 3im)\n8 + 1im\n\njulia> (1 + 2im)/(1 - 2im)\n-0.6 + 0.8im\n\njulia> (1 + 2im) + (1 - 2im)\n2 + 0im\n\njulia> (-3 + 2im) - (5 - 1im)\n-8 + 3im\n\njulia> (-1 + 2im)^2\n-3 - 4im\n\njulia> (-1 + 2im)^2.5\n2.7296244647840084 - 6.960664459571898im\n\njulia> (-1 + 2im)^(1 + 1im)\n-0.27910381075826657 + 0.08708053414102428im\n\njulia> 3(2 - 5im)\n6 - 15im\n\njulia> 3(2 - 5im)^2\n-63 - 60im\n\njulia> 3(2 - 5im)^-1.0\n0.20689655172413796 + 0.5172413793103449imThe promotion mechanism ensures that combinations of operands of different types just work:julia> 2(1 - 1im)\n2 - 2im\n\njulia> (2 + 3im) - 1\n1 + 3im\n\njulia> (1 + 2im) + 0.5\n1.5 + 2.0im\n\njulia> (2 + 3im) - 0.5im\n2.0 + 2.5im\n\njulia> 0.75(1 + 2im)\n0.75 + 1.5im\n\njulia> (2 + 3im) / 2\n1.0 + 1.5im\n\njulia> (1 - 3im) / (2 + 2im)\n-0.5 - 1.0im\n\njulia> 2im^2\n-2 + 0im\n\njulia> 1 + 3/4im\n1.0 - 0.75imNote that 3/4im == 3/(4*im) == -(3/4*im), since a literal coefficient binds more tightly than division.Standard functions to manipulate complex values are provided:julia> z = 1 + 2im\n1 + 2im\n\njulia> real(1 + 2im) # real part of z\n1\n\njulia> imag(1 + 2im) # imaginary part of z\n2\n\njulia> conj(1 + 2im) # complex conjugate of z\n1 - 2im\n\njulia> abs(1 + 2im) # absolute value of z\n2.23606797749979\n\njulia> abs2(1 + 2im) # squared absolute value\n5\n\njulia> angle(1 + 2im) # phase angle in radians\n1.1071487177940904As usual, the absolute value (abs()) of a complex number is its distance from zero. abs2() gives the square of the absolute value, and is of particular use for complex numbers where it avoids taking a square root. angle() returns the phase angle in radians (also known as the argument or arg function). The full gamut of other Elementary Functions is also defined for complex numbers:julia> sqrt(1im)\n0.7071067811865476 + 0.7071067811865475im\n\njulia> sqrt(1 + 2im)\n1.272019649514069 + 0.7861513777574233im\n\njulia> cos(1 + 2im)\n2.0327230070196656 - 3.0518977991518im\n\njulia> exp(1 + 2im)\n-1.1312043837568135 + 2.4717266720048188im\n\njulia> sinh(1 + 2im)\n-0.4890562590412937 + 1.4031192506220405imNote that mathematical functions typically return real values when applied to real numbers and complex values when applied to complex numbers. For example, sqrt() behaves differently when applied to -1 versus -1 + 0im even though -1 == -1 + 0im:julia> sqrt(-1)\nERROR: DomainError:\nsqrt will only return a complex result if called with a complex argument. Try sqrt(complex(x)).\nStacktrace:\n [1] sqrt(::Int64) at ./math.jl:434\n\njulia> sqrt(-1 + 0im)\n0.0 + 1.0imThe literal numeric coefficient notation does not work when constructing a complex number from variables. Instead, the multiplication must be explicitly written out:julia> a = 1; b = 2; a + b*im\n1 + 2imHowever, this is not recommended; Use the complex() function instead to construct a complex value directly from its real and imaginary parts:julia> a = 1; b = 2; complex(a, b)\n1 + 2imThis construction avoids the multiplication and addition operations.Inf and NaN propagate through complex numbers in the real and imaginary parts of a complex number as described in the Special floating-point values section:julia> 1 + Inf*im\n1.0 + Inf*im\n\njulia> 1 + NaN*im\n1.0 + NaN*im"
+    "text": "La constante global im está ligada al número complejo i, que representa la raíz cuadrada principal de -1. Se consideró nocivo para co-optar el nombre i para una constante global, ya que es un nombre de variable de índice popular. Como Julia permite que los literales numéricos se yuxtapongan con identificadores como coeficientes, esta unión es suficiente para proporcionar sintaxis conveniente para números complejos, similar a la notación matemática tradicional:julia> 1 + 2im\n1 + 2imPodemos realizar todas las operaciones aritméticas estándar con los números complejos:julia> (1 + 2im)*(2 - 3im)\n8 + 1im\n\njulia> (1 + 2im)/(1 - 2im)\n-0.6 + 0.8im\n\njulia> (1 + 2im) + (1 - 2im)\n2 + 0im\n\njulia> (-3 + 2im) - (5 - 1im)\n-8 + 3im\n\njulia> (-1 + 2im)^2\n-3 - 4im\n\njulia> (-1 + 2im)^2.5\n2.7296244647840084 - 6.960664459571898im\n\njulia> (-1 + 2im)^(1 + 1im)\n-0.27910381075826657 + 0.08708053414102428im\n\njulia> 3(2 - 5im)\n6 - 15im\n\njulia> 3(2 - 5im)^2\n-63 - 60im\n\njulia> 3(2 - 5im)^-1.0\n0.20689655172413796 + 0.5172413793103449imEl mecanismo de promoción asegura qur las combinaciones de operandos de distintos tipos funcionarán:julia> 2(1 - 1im)\n2 - 2im\n\njulia> (2 + 3im) - 1\n1 + 3im\n\njulia> (1 + 2im) + 0.5\n1.5 + 2.0im\n\njulia> (2 + 3im) - 0.5im\n2.0 + 2.5im\n\njulia> 0.75(1 + 2im)\n0.75 + 1.5im\n\njulia> (2 + 3im) / 2\n1.0 + 1.5im\n\njulia> (1 - 3im) / (2 + 2im)\n-0.5 - 1.0im\n\njulia> 2im^2\n-2 + 0im\n\njulia> 1 + 3/4im\n1.0 - 0.75imNótese que 3/4im == 3/(4*im) == -(3/4*im), ya que un coeficiente literal se enlaza más fuerte que la división.También se proporcionan las funciones estándar para manipular valores complejos:julia> z = 1 + 2im\n1 + 2im\n\njulia> real(1 + 2im) # real part of z\n1\n\njulia> imag(1 + 2im) # imaginary part of z\n2\n\njulia> conj(1 + 2im) # complex conjugate of z\n1 - 2im\n\njulia> abs(1 + 2im) # absolute value of z\n2.23606797749979\n\njulia> abs2(1 + 2im) # squared absolute value\n5\n\njulia> angle(1 + 2im) # phase angle in radians\n1.1071487177940904Como de costumbre, el valor absoluto (abs()) de un número complejo es su distancia a cero. abs2() da el cuadrado del valor absoluto, y es de uso particular para los números complejos donde se evita tomar una raíz cuadrada. angle() devuelve el ángulo de fase en radianes (también conocido como argumento o función arg). La gama completa de otras funciones elementales está también definida para los números complejos:julia> sqrt(1im)\n0.7071067811865476 + 0.7071067811865475im\n\njulia> sqrt(1 + 2im)\n1.272019649514069 + 0.7861513777574233im\n\njulia> cos(1 + 2im)\n2.0327230070196656 - 3.0518977991518im\n\njulia> exp(1 + 2im)\n-1.1312043837568135 + 2.4717266720048188im\n\njulia> sinh(1 + 2im)\n-0.4890562590412937 + 1.4031192506220405imTenga en cuenta que las funciones matemáticas normalmente devuelven valores reales cuando se aplican a números reales y valores complejos cuando se aplican a números complejos. Por ejemplo, sqrt() se comporta de forma diferente cuando se aplica a -1 que cuanso se aplica sobre -1 + 0im, aunque -1 == -1 + 0im:julia> sqrt(-1)\nERROR: DomainError:\nsqrt will only return a complex result if called with a complex argument. Try sqrt(complex(x)).\nStacktrace:\n [1] sqrt(::Int64) at ./math.jl:434\n\njulia> sqrt(-1 + 0im)\n0.0 + 1.0imLa notación de coeficiente numérico literal no funciona cuando se construye un número complejo a partir de variables. En su lugar, la multiplicación debe expresarse explícitamente:julia> a = 1; b = 2; a + b*im\n1 + 2imSin embargo, esto no es lo recomendable; En su lugar, utilice la función complex() para construir un valor complejo directamente de sus partes real e imaginaria:julia> a = 1; b = 2; complex(a, b)\n1 + 2imEsta construcción evita las operaciones de multiplicación y adición.Inf y NaN se propagan a través de números complejos en las partes real e imaginaria de un número complejo como se describe en la sección valores especiales en punto flotante section:julia> 1 + Inf*im\n1.0 + Inf*im\n\njulia> 1 + NaN*im\n1.0 + NaN*im"
 },
 
 {
-    "location": "manual/complex-and-rational-numbers.html#Rational-Numbers-1",
-    "page": "Complex and Rational Numbers",
-    "title": "Rational Numbers",
+    "location": "manual/complex-and-rational-numbers.html#rational-numbers-1",
+    "page": "Números Racionales y Complejos",
+    "title": "Números Racionales",
     "category": "section",
-    "text": "Julia has a rational number type to represent exact ratios of integers. Rationals are constructed using the // operator:julia> 2//3\n2//3If the numerator and denominator of a rational have common factors, they are reduced to lowest terms such that the denominator is non-negative:julia> 6//9\n2//3\n\njulia> -4//8\n-1//2\n\njulia> 5//-15\n-1//3\n\njulia> -4//-12\n1//3This normalized form for a ratio of integers is unique, so equality of rational values can be tested by checking for equality of the numerator and denominator. The standardized numerator and denominator of a rational value can be extracted using the numerator() and denominator() functions:julia> numerator(2//3)\n2\n\njulia> denominator(2//3)\n3Direct comparison of the numerator and denominator is generally not necessary, since the standard arithmetic and comparison operations are defined for rational values:julia> 2//3 == 6//9\ntrue\n\njulia> 2//3 == 9//27\nfalse\n\njulia> 3//7 < 1//2\ntrue\n\njulia> 3//4 > 2//3\ntrue\n\njulia> 2//4 + 1//6\n2//3\n\njulia> 5//12 - 1//4\n1//6\n\njulia> 5//8 * 3//12\n5//32\n\njulia> 6//5 / 10//7\n21//25Rationals can be easily converted to floating-point numbers:julia> float(3//4)\n0.75Conversion from rational to floating-point respects the following identity for any integral values of a and b, with the exception of the case a == 0 and b == 0:julia> a = 1; b = 2;\n\njulia> isequal(float(a//b), a/b)\ntrueConstructing infinite rational values is acceptable:julia> 5//0\n1//0\n\njulia> -3//0\n-1//0\n\njulia> typeof(ans)\nRational{Int64}Trying to construct a NaN rational value, however, is not:julia> 0//0\nERROR: ArgumentError: invalid rational: zero(Int64)//zero(Int64)\nStacktrace:\n [1] Rational{Int64}(::Int64, ::Int64) at ./rational.jl:13\n [2] //(::Int64, ::Int64) at ./rational.jl:40As usual, the promotion system makes interactions with other numeric types effortless:julia> 3//5 + 1\n8//5\n\njulia> 3//5 - 0.5\n0.09999999999999998\n\njulia> 2//7 * (1 + 2im)\n2//7 + 4//7*im\n\njulia> 2//7 * (1.5 + 2im)\n0.42857142857142855 + 0.5714285714285714im\n\njulia> 3//2 / (1 + 2im)\n3//10 - 3//5*im\n\njulia> 1//2 + 2im\n1//2 + 2//1*im\n\njulia> 1 + 2//3im\n1//1 - 2//3*im\n\njulia> 0.5 == 1//2\ntrue\n\njulia> 0.33 == 1//3\nfalse\n\njulia> 0.33 < 1//3\ntrue\n\njulia> 1//3 - 0.33\n0.0033333333333332993"
+    "text": "Julia tiene un tipo numérico racional para representar razones exactas de enteros. Los racionales se construyen usando el operador //:julia> 2//3\n2//3Si el numerador y el denominador de un racional tienen factores comunes, ellos son reducidos a los términos mínimos tales que el denominador sea no negativo:julia> 6//9\n2//3\n\njulia> -4//8\n-1//2\n\njulia> 5//-15\n-1//3\n\njulia> -4//-12\n1//3Esta forma normalizada para una razón de enteros es única, por lo que la igualdad de valores racionales puede ser testada comprobando la igualdad del numerador y el denominador. El numerador estandarizado y el denominador de un valor racional pueden ser extraídos usando las funciones numerator() y denominator():julia> numerator(2//3)\n2\n\njulia> denominator(2//3)\n3La comparación directa de numerador y denominador no suele ser necesaria, ya que la aritmetica  estándar y las operaciones de comparación están definidas para los valores racionales:julia> 2//3 == 6//9\ntrue\n\njulia> 2//3 == 9//27\nfalse\n\njulia> 3//7 < 1//2\ntrue\n\njulia> 3//4 > 2//3\ntrue\n\njulia> 2//4 + 1//6\n2//3\n\njulia> 5//12 - 1//4\n1//6\n\njulia> 5//8 * 3//12\n5//32\n\njulia> 6//5 / 10//7\n21//25Los racionales pueden convertirse fácilmente en número en punto flotante:julia> float(3//4)\n0.75La conversión de racional a punto flotante respeta la siguiente identidad para dos valores enteros cualesquiera a y b, con las excepciones de los casos a == 0 and b == 0:julia> a = 1; b = 2;\n\njulia> isequal(float(a//b), a/b)\ntrueConstruir valores racionales infinitos es aceptable:julia> 5//0\n1//0\n\njulia> -3//0\n-1//0\n\njulia> typeof(ans)\nRational{Int64}Sin embargo, no lo es tratar de construir un valor NaN NaN racional:julia> 0//0\nERROR: ArgumentError: invalid rational: zero(Int64)//zero(Int64)\nStacktrace:\n [1] Rational{Int64}(::Int64, ::Int64) at ./rational.jl:13\n [2] //(::Int64, ::Int64) at ./rational.jl:40Como es natural, el sistema de promoción hace que las interacciones con otros tipos numéricos se hagan sin esfuerzo alguno:julia> 3//5 + 1\n8//5\n\njulia> 3//5 - 0.5\n0.09999999999999998\n\njulia> 2//7 * (1 + 2im)\n2//7 + 4//7*im\n\njulia> 2//7 * (1.5 + 2im)\n0.42857142857142855 + 0.5714285714285714im\n\njulia> 3//2 / (1 + 2im)\n3//10 - 3//5*im\n\njulia> 1//2 + 2im\n1//2 + 2//1*im\n\njulia> 1 + 2//3im\n1//1 - 2//3*im\n\njulia> 0.5 == 1//2\ntrue\n\njulia> 0.33 == 1//3\nfalse\n\njulia> 0.33 < 1//3\ntrue\n\njulia> 1//3 - 0.33\n0.0033333333333332993"
 },
 
 {
@@ -413,15 +413,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Strings",
     "title": "Strings",
     "category": "section",
-    "text": "Strings are finite sequences of characters. Of course, the real trouble comes when one asks what a character is. The characters that English speakers are familiar with are the letters A, B, C, etc., together with numerals and common punctuation symbols. These characters are standardized together with a mapping to integer values between 0 and 127 by the ASCII standard. There are, of course, many other characters used in non-English languages, including variants of the ASCII characters with accents and other modifications, related scripts such as Cyrillic and Greek, and scripts completely unrelated to ASCII and English, including Arabic, Chinese, Hebrew, Hindi, Japanese, and Korean. The Unicode standard tackles the complexities of what exactly a character is, and is generally accepted as the definitive standard addressing this problem. Depending on your needs, you can either ignore these complexities entirely and just pretend that only ASCII characters exist, or you can write code that can handle any of the characters or encodings that one may encounter when handling non-ASCII text. Julia makes dealing with plain ASCII text simple and efficient, and handling Unicode is as simple and efficient as possible. In particular, you can write C-style string code to process ASCII strings, and they will work as expected, both in terms of performance and semantics. If such code encounters non-ASCII text, it will gracefully fail with a clear error message, rather than silently introducing corrupt results. When this happens, modifying the code to handle non-ASCII data is straightforward.There are a few noteworthy high-level features about Julia's strings:The built-in concrete type used for strings (and string literals) in Julia is String. This supports the full range of Unicode characters via the UTF-8 encoding. (A transcode() function is provided to convert to/from other Unicode encodings.)\nAll string types are subtypes of the abstract type AbstractString, and external packages define additional AbstractString subtypes (e.g. for other encodings).  If you define a function expecting a string argument, you should declare the type as AbstractString in order to accept any string type.\nLike C and Java, but unlike most dynamic languages, Julia has a first-class type representing a single character, called Char. This is just a special kind of 32-bit primitive type whose numeric value represents a Unicode code point.\nAs in Java, strings are immutable: the value of an AbstractString object cannot be changed. To construct a different string value, you construct a new string from parts of other strings.\nConceptually, a string is a partial function from indices to characters: for some index values, no character value is returned, and instead an exception is thrown. This allows for efficient indexing into strings by the byte index of an encoded representation rather than by a character index, which cannot be implemented both efficiently and simply for variable-width encodings of Unicode strings."
+    "text": "Las cadenas son secuencias finitas de caracteres. Por supuesto, el verdadero problema viene cuando uno se pregunta qué es un carácter. Los caracteres con los que están familiarizados con los hablantes de inglés son las letras A, B, C, etc., junto con los números y los símbolos de puntuación comunes. Estos caracteres se estandarizan junto con una correspondencia a valores enteros entre 0 y 127 a través del estándar ASCII. Hay, por supuesto, muchos otros caracteres utilizados en lenguas no  inglesas, incluyendo variantes de los caracteres ASCII con acentos y otras modificaciones, escrituras relacionadas como cirílico y griego, y escrituras no relacionadas en abosluto con ASCII o inglés, entre los que se incluyen árabe, chino, Hebreo, hindi, japonés y coreano. El estándar Unicode aborda las complejidades de lo que es exactamente un carácter, y es generalmente aceptado como el estándar definitivo que aborda este problema. Dependiendo de tus necesidades, puedes ignorar estas complejidades por completo y fingir que sólo existen caracteres ASCII, o puedes escribir código que pueda manejar cualquiera de los caracteres o codificaciones que se pueden encontrar al manejar texto no ASCII. Julia hace que el manejo de texto ASCII sencillo sea simple y eficiente, y el manejo de Unicode tan simple y eficiente como sea posible. En particular, puedes escribir código de cadenas con estilo C para procesar cadenas ASCII y funcionarán como se esperaba, tanto en términos de rendimiento como de semántica. Si dicho código encuentra texto no ASCII, fallará  graciosamente con un mensaje de error claro, en lugar de introducir en silencio resultados corruptos. Cuando esto sucede, modificar el código para manejar datos no ASCII es sencillo.Hay algunas características destacadas de alto nivel sobre las cadenas de caracteres en Julia:El tipo de concreto incorporado utilizado para cadenas (y literales de cadena) en Julia es String. Esto soporta el rango completo de caracteres  Unicode a través de  la codificación UTF-8. (se proporciona una función transcode()   para convertir a/desde otras codificaciones Unicode).\nTodos los tipos de cadenas son subtipos del tipo abstracto AbstractString y los paquetes  externos definen subtipos AbstractString adicionales (por ejemplo, para otras codificaciones).  Si define una función que espera un argumento de cadena, debe declarar el tipo como  AbstractString para aceptar cualquier tipo de cadena.\nComo C y Java, pero a diferencia de la mayoría de los lenguajes dinámicos, Julia tiene un tipo  de primera clase que representa un solo carácter, llamado Char. Esto es sólo un tipo especial  de bits de 32 bits cuyo valor numérico representa un punto de código Unicode.\nComo en Java, las cadenas son inmutables: el valor de un objeto AbstractString no se puede  cambiar. Para construir un valor de cadena diferente, se construye una nueva cadena de partes  de otras cadenas.\nConceptualmente, una cadena es una función parcial de índices a caracteres: para algunos  valores de índice, no se devuelve ningún valor de carácter y, en su lugar, se genera una  excepción. Esto permite una indexación eficiente en cadenas por el índice de bytes de una  representación codificada en lugar de por un índice de caracteres, que no se puede implementar  de manera eficiente y sencilla para encodificaciones de anchura variable de cadenas Unicode."
 },
 
 {
     "location": "manual/strings.html#man-characters-1",
     "page": "Strings",
-    "title": "Characters",
+    "title": "Caracteres",
     "category": "section",
-    "text": "A Char value represents a single character: it is just a 32-bit primitive type with a special literal representation and appropriate arithmetic behaviors, whose numeric value is interpreted as a Unicode code point. Here is how Char values are input and shown:julia> 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> typeof(ans)\nCharYou can convert a Char to its integer value, i.e. code point, easily:julia> Int('x')\n120\n\njulia> typeof(ans)\nInt64On 32-bit architectures, typeof(ans) will be Int32. You can convert an integer value back to a Char just as easily:julia> Char(120)\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)Not all integer values are valid Unicode code points, but for performance, the Char() conversion does not check that every character value is valid. If you want to check that each converted value is a valid code point, use the isvalid() function:julia> Char(0x110000)\n'\\U110000': Unicode U+110000 (category Cn: Other, not assigned)\n\njulia> isvalid(Char, 0x110000)\nfalseAs of this writing, the valid Unicode code points are U+00 through U+d7ff and U+e000 through U+10ffff. These have not all been assigned intelligible meanings yet, nor are they necessarily interpretable by applications, but all of these values are considered to be valid Unicode characters.You can input any Unicode character in single quotes using \\u followed by up to four hexadecimal digits or \\U followed by up to eight hexadecimal digits (the longest valid value only requires six):julia> '\\u0'\n'\\0': ASCII/Unicode U+0000 (category Cc: Other, control)\n\njulia> '\\u78'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> '\\u2200'\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> '\\U10ffff'\n'\\U10ffff': Unicode U+10ffff (category Cn: Other, not assigned)Julia uses your system's locale and language settings to determine which characters can be printed as-is and which must be output using the generic, escaped \\u or \\U input forms. In addition to these Unicode escape forms, all of C's traditional escaped input forms can also be used:julia> Int('\\0')\n0\n\njulia> Int('\\t')\n9\n\njulia> Int('\\n')\n10\n\njulia> Int('\\e')\n27\n\njulia> Int('\\x7f')\n127\n\njulia> Int('\\177')\n127\n\njulia> Int('\\xff')\n255You can do comparisons and a limited amount of arithmetic with Char values:julia> 'A' < 'a'\ntrue\n\njulia> 'A' <= 'a' <= 'Z'\nfalse\n\njulia> 'A' <= 'X' <= 'Z'\ntrue\n\njulia> 'x' - 'a'\n23\n\njulia> 'A' + 1\n'B': ASCII/Unicode U+0042 (category Lu: Letter, uppercase)"
+    "text": "Un valor Char representa un solo carácter: es sólo un bitstype de 32 bits con una representación literal especial y comportamientos aritméticos apropiados, cuyo valor numérico se interpreta como un punto de código Unicode. Aquí se muestra cómo se introducen y se muestran los valores Char:julia> 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> typeof(ans)\nCharYou can convert a Char to its integer value, i.e. code point, easily:julia> Int('x')\n120\n\njulia> typeof(ans)\nInt64On 32-bit architectures, typeof(ans) will be Int32. You can convert an integer value back to a Char just as easily:julia> Char(120)\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)Not all integer values are valid Unicode code points, but for performance, the Char() conversion does not check that every character value is valid. If you want to check that each converted value is a valid code point, use the isvalid() function:julia> Char(0x110000)\n'\\U110000': Unicode U+110000 (category Cn: Other, not assigned)\n\njulia> isvalid(Char, 0x110000)\nfalseAs of this writing, the valid Unicode code points are U+00 through U+d7ff and U+e000 through U+10ffff. These have not all been assigned intelligible meanings yet, nor are they necessarily interpretable by applications, but all of these values are considered to be valid Unicode characters.You can input any Unicode character in single quotes using \\u followed by up to four hexadecimal digits or \\U followed by up to eight hexadecimal digits (the longest valid value only requires six):julia> '\\u0'\n'\\0': ASCII/Unicode U+0000 (category Cc: Other, control)\n\njulia> '\\u78'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> '\\u2200'\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> '\\U10ffff'\n'\\U10ffff': Unicode U+10ffff (category Cn: Other, not assigned)Julia uses your system's locale and language settings to determine which characters can be printed as-is and which must be output using the generic, escaped \\u or \\U input forms. In addition to these Unicode escape forms, all of C's traditional escaped input forms can also be used:julia> Int('\\0')\n0\n\njulia> Int('\\t')\n9\n\njulia> Int('\\n')\n10\n\njulia> Int('\\e')\n27\n\njulia> Int('\\x7f')\n127\n\njulia> Int('\\177')\n127\n\njulia> Int('\\xff')\n255You can do comparisons and a limited amount of arithmetic with Char values:julia> 'A' < 'a'\ntrue\n\njulia> 'A' <= 'a' <= 'Z'\nfalse\n\njulia> 'A' <= 'X' <= 'Z'\ntrue\n\njulia> 'x' - 'a'\n23\n\njulia> 'A' + 1\n'B': ASCII/Unicode U+0042 (category Lu: Letter, uppercase)"
 },
 
 {
@@ -641,7 +641,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/control-flow.html#Control-Flow-1",
+    "location": "manual/control-flow.html#control-flow-1",
     "page": "Control Flow",
     "title": "Control Flow",
     "category": "section",
@@ -665,7 +665,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/control-flow.html#Short-Circuit-Evaluation-1",
+    "location": "manual/control-flow.html#short-circuit-evaluation-1",
     "page": "Control Flow",
     "title": "Short-Circuit Evaluation",
     "category": "section",
@@ -921,7 +921,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/types.html#Parametric-Types-1",
+    "location": "manual/types.html#parametric-types-1",
     "page": "Types",
     "title": "Parametric Types",
     "category": "section",
@@ -1065,7 +1065,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/methods.html#Methods-1",
+    "location": "manual/methods.html#methods-1",
     "page": "Methods",
     "title": "Methods",
     "category": "section",
@@ -1329,7 +1329,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/interfaces.html#Interfaces-1",
+    "location": "manual/interfaces.html#interfaces-1",
     "page": "Interfaces",
     "title": "Interfaces",
     "category": "section",
@@ -1449,7 +1449,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/documentation.html#Documentation-1",
+    "location": "manual/documentation.html#documentation-1",
     "page": "Documentation",
     "title": "Documentation",
     "category": "section",
@@ -1737,7 +1737,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/metaprogramming.html#Metaprogramming-1",
+    "location": "manual/metaprogramming.html#metaprogramming-1",
     "page": "Metaprogramming",
     "title": "Metaprogramming",
     "category": "section",
@@ -1882,202 +1882,202 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/arrays.html#",
-    "page": "Multi-dimensional Arrays",
-    "title": "Multi-dimensional Arrays",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Arrays Multi-dimensionales",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "manual/arrays.html#man-multi-dim-arrays-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Multi-dimensional Arrays",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Arrays Multi-dimensionales",
     "category": "section",
-    "text": "Julia, like most technical computing languages, provides a first-class array implementation. Most technical computing languages pay a lot of attention to their array implementation at the expense of other containers. Julia does not treat arrays in any special way. The array library is implemented almost completely in Julia itself, and derives its performance from the compiler, just like any other code written in Julia. As such, it's also possible to define custom array types by inheriting from AbstractArray. See the manual section on the AbstractArray interface for more details on implementing a custom array type.An array is a collection of objects stored in a multi-dimensional grid. In the most general case, an array may contain objects of type Any. For most computational purposes, arrays should contain objects of a more specific type, such as Float64 or Int32.In general, unlike many other technical computing languages, Julia does not expect programs to be written in a vectorized style for performance. Julia's compiler uses type inference and generates optimized code for scalar array indexing, allowing programs to be written in a style that is convenient and readable, without sacrificing performance, and using less memory at times.In Julia, all arguments to functions are passed by reference. Some technical computing languages pass arrays by value, and this is convenient in many cases. In Julia, modifications made to input arrays within a function will be visible in the parent function. The entire Julia array library ensures that inputs are not modified by library functions. User code, if it needs to exhibit similar behavior, should take care to create a copy of inputs that it may modify."
+    "text": "Julia, como la mayoría de los lenguajes informáticos técnicos, proporciona una implementación de los arrays de primera clase. La mayoría de los lenguajes informáticos técnicos prestan mucha atención a su implementación de arrays a expensas de otros contenedores. Julia no trata los arrays de manera especial. La biblioteca de arrays se ha implementado casi completamente en el propio lenguaje Julia, y deriva su rendimiento del compilador, al igual que cualquier otro código escrito en Julia. Como tal, es también posible definir tipos de arrays personalizados heredando de AbstractArray. Consulte la sección de manual en la interfaz AbstractArray para ms detalles sobre implementar un tipo array personalizado.Un array es una colección de objetos almacenados en una cuadrícula multidimensional. En el caso más general, un array puede contener objetos de tipo Any. Para la mayoría de los propósitos computacionales, los arrays deben contener objetos de un tipo más específico, como  Float64 o Int32.En general, a diferencia de muchos otros lenguajes informáticos técnicos, Julia no espera que los programas se escriban en un estilo vectorizado para el rendimiento. El compilador de Julia utiliza la inferencia de tipos y genera código optimizado para la indexación escalar de arrays, permitiendo que los programas se escriban en un estilo que sea conveniente y legible, sin sacrificar el rendimiento y utilizando menos memoria a veces.En Julia, todos los argumentos a las funciones se pasan por referencia. Algunos lenguajes informáticos técnicos pasan los arrays por valor, y esto es conveniente en muchos casos. En Julia, las modificaciones hechas a los arrays de entrada dentro de una función serán visibles en la función principal. Toda la biblioteca de arrays de Julia garantiza que las entradas no sean modificadas por las funciones de biblioteca. El código de usuario, si necesita mostrar un comportamiento similar, debe tener cuidado de crear una copia de las entradas que puede modificar."
 },
 
 {
     "location": "manual/arrays.html#Arrays-1",
-    "page": "Multi-dimensional Arrays",
+    "page": "Arrays Multi-dimensionales",
     "title": "Arrays",
     "category": "section",
     "text": ""
 },
 
 {
-    "location": "manual/arrays.html#Basic-Functions-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Basic Functions",
+    "location": "manual/arrays.html#Funciones-Básicas-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Funciones Básicas",
     "category": "section",
-    "text": "Function Description\neltype(A) the type of the elements contained in A\nlength(A) the number of elements in A\nndims(A) the number of dimensions of A\nsize(A) a tuple containing the dimensions of A\nsize(A,n) the size of A along dimension n\nindices(A) a tuple containing the valid indices of A\nindices(A,n) a range expressing the valid indices along dimension n\neachindex(A) an efficient iterator for visiting each position in A\nstride(A,k) the stride (linear index distance between adjacent elements) along dimension k\nstrides(A) a tuple of the strides in each dimension"
+    "text": "Function Description\neltype(A) Tipo de los elementos contenidos en A\nlength(A) Número de elementos en A\nndims(A) Número de dimensiones de A\nsize(A) Una tupla que contien las dimensiones de A\nsize(A,n) El tamaño de A a lo largo de una dimensión particular n\nindices(A) Una tupla que contiene los índices válidos de A\nindices(A,n) Un rango expresando los úndices válidos a lo largo de la dimensión n          \neachindex(A) Un iterador eficiente para visitar cada posición en A\nstride(A,k) La zancada (stride, distancia de índice lineal entre elementos adyacentes) a lo largo de la dimensión k.\nstrides(A) Una tupla de las zancadas en cada dimensión"
 },
 
 {
-    "location": "manual/arrays.html#Construction-and-Initialization-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Construction and Initialization",
+    "location": "manual/arrays.html#Construcción-e-Inicialización-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Construcción e Inicialización",
     "category": "section",
-    "text": "Many functions for constructing and initializing arrays are provided. In the following list of such functions, calls with a dims... argument can either take a single tuple of dimension sizes or a series of dimension sizes passed as a variable number of arguments. Most of these functions also accept a first input T, which is the element type of the array. If the type T is omitted it will default to Float64.Function Description\nArray{T}(dims...) an uninitialized dense Array\nzeros(T, dims...) an Array of all zeros\nzeros(A) an array of all zeros with the same type, element type and shape as A\nones(T, dims...) an Array of all ones\nones(A) an array of all ones with the same type, element type and shape as A\ntrues(dims...) a BitArray with all values true\ntrues(A) a BitArray with all values true and the same shape as A\nfalses(dims...) a BitArray with all values false\nfalses(A) a BitArray with all values false and the same shape as A\nreshape(A, dims...) an array containing the same data as A, but with different dimensions\ncopy(A) copy A\ndeepcopy(A) copy A, recursively copying its elements\nsimilar(A, T, dims...) an uninitialized array of the same type as A (dense, sparse, etc.), but with the specified element type and dimensions. The second and third arguments are both optional, defaulting to the element type and dimensions of A if omitted.\nreinterpret(T, A) an array with the same binary data as A, but with element type T\nrand(T, dims...) an Array with random, iid [1] and uniformly distributed values in the half-open interval 0 1)\nrandn(T, dims...) an Array with random, iid and standard normally distributed values\neye(T, n) n-by-n identity matrix\neye(T, m, n) m-by-n identity matrix\nlinspace(start, stop, n) range of n linearly spaced elements from start to stop\nfill!(A, x) fill the array A with the value x\nfill(x, dims...) an Array filled with the value x[1]: iid, independently and identically distributed.The syntax [A, B, C, ...] constructs a 1-d array (vector) of its arguments. If all arguments have a common promotion type then they get converted to that type using convert()."
+    "text": "Existen muchas funciones para construir e inicializar matrices. En la siguiente lista de tales funciones, las llamadas con un argumento dims... pueden tomar una sola tupla de tamaños de dimensión o una serie de tamaños de dimensión pasados como un número variable de argumentos. Muchas de estas funciones también aceptan un primea entrada T, que es el tipo de los elementos del array. Si este tipo es omitido se asumirá como tipo por defecto por defecto Float64.Function Description\nArray{T}(dims...) an uninitialized dense Array\nzeros(T, dims...) an Array of all zeros\nzeros(A) an array of all zeros with the same type, element type and shape as A\nones(T, dims...) an Array of all ones\nones(A) an array of all ones with the same type, element type and shape as A\ntrues(dims...) a BitArray with all values true\ntrues(A) a BitArray with all values true and the same shape as A\nfalses(dims...) a BitArray with all values false\nfalses(A) a BitArray with all values false and the same shape as A\nreshape(A, dims...) an array containing the same data as A, but with different dimensions\ncopy(A) copy A\ndeepcopy(A) copy A, recursively copying its elements\nsimilar(A, T, dims...) an uninitialized array of the same type as A (dense, sparse, etc.), but with the specified element type and dimensions. The second and third arguments are both optional, defaulting to the element type and dimensions of A if omitted.\nreinterpret(T, A) an array with the same binary data as A, but with element type T\nrand(T, dims...) an Array with random, iid [1] and uniformly distributed values in the half-open interval 0 1)\nrandn(T, dims...) an Array with random, iid and standard normally distributed values\neye(T, n) n-by-n identity matrix\neye(T, m, n) m-by-n identity matrix\nlinspace(start, stop, n) range of n linearly spaced elements from start to stop\nfill!(A, x) fill the array A with the value x\nfill(x, dims...) an Array filled with the value x[1]: iid, independently and identically distributed.La sintaxis [A, B, C, ...] construye un array 1-dimensional (vector) a partir de sus argumentos. Si todos los argumentos tienen un tipo de promocion comun entonces ellos son convertidos a este tipo usando convert()."
 },
 
 {
-    "location": "manual/arrays.html#Concatenation-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Concatenation",
+    "location": "manual/arrays.html#Concatenación-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Concatenación",
     "category": "section",
-    "text": "Arrays can be constructed and also concatenated using the following functions:Function Description\ncat(k, A...) concatenate input n-d arrays along the dimension k\nvcat(A...) shorthand for cat(1, A...)\nhcat(A...) shorthand for cat(2, A...)Scalar values passed to these functions are treated as 1-element arrays.The concatenation functions are used so often that they have special syntax:Expression Calls\n[A; B; C; ...] vcat()\n[A B C ...] hcat()\n[A B; C D; ...] hvcat()hvcat() concatenates in both dimension 1 (with semicolons) and dimension 2 (with spaces)."
+    "text": "Los arrays pueden ser construídos y también concatenados usando las siguientes funciones:Function Description\ncat(k, A...) concatena n-d arrays a lo largo de la dimensión k\nvcat(A...) abreviatura para cat(1, A...)\nhcat(A...) abreviatura para cat(2, A...)Los valores escalares pasados a estas funciones son tratados como arrays de 1 elemento.Las funciones de concatenación se usan tan frecuentemente que tiene una sintaxis especial:Expression Calls\n[A; B; C; ...] vcat()\n[A B C ...] hcat()\n[A B; C D; ...] hvcat()hvcat() concatena tanto en la dimensión 1 (con puntos y coma) como en la dos (con espacios)."
 },
 
 {
-    "location": "manual/arrays.html#Typed-array-initializers-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Typed array initializers",
+    "location": "manual/arrays.html#Inicializadores-de-Array-Tipados-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Inicializadores de Array Tipados",
     "category": "section",
-    "text": "An array with a specific element type can be constructed using the syntax T[A, B, C, ...]. This will construct a 1-d array with element type T, initialized to contain elements A, B, C, etc. For example Any[x, y, z] constructs a heterogeneous array that can contain any values.Concatenation syntax can similarly be prefixed with a type to specify the element type of the result.julia> [[1 2] [3 4]]\n1×4 Array{Int64,2}:\n 1  2  3  4\n\njulia> Int8[[1 2] [3 4]]\n1×4 Array{Int8,2}:\n 1  2  3  4"
+    "text": "Se puede construir una matriz con un tipo de elemento específico utilizando la sintaxis T[A, B, C, ...]. Esto construirá un array 1-d con el tipo de elemento T, inicializado para contener los elementos A, B, C, etc. Por ejemplo, Any [x, y, z] construye un array heterogéneo que puede contener cualquier valor.La sintaxis de concatenación puede ser prefijada de forma similar con un tipo para especificar el tipo de elemento del resultado.julia> [[1 2] [3 4]]\n1×4 Array{Int64,2}:\n 1  2  3  4\n\njulia> Int8[[1 2] [3 4]]\n1×4 Array{Int8,2}:\n 1  2  3  4"
 },
 
 {
-    "location": "manual/arrays.html#Comprehensions-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Comprehensions",
+    "location": "manual/arrays.html#comprehensions-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Comprensiones",
     "category": "section",
-    "text": "Comprehensions provide a general and powerful way to construct arrays. Comprehension syntax is similar to set construction notation in mathematics:A = [ F(x,y,...) for x=rx, y=ry, ... ]The meaning of this form is that F(x,y,...) is evaluated with the variables x, y, etc. taking on each value in their given list of values. Values can be specified as any iterable object, but will commonly be ranges like 1:n or 2:(n-1), or explicit arrays of values like [1.2, 3.4, 5.7]. The result is an N-d dense array with dimensions that are the concatenation of the dimensions of the variable ranges rx, ry, etc. and each F(x,y,...) evaluation returns a scalar.The following example computes a weighted average of the current element and its left and right neighbor along a 1-d grid. :julia> x = rand(8)\n8-element Array{Float64,1}:\n 0.843025\n 0.869052\n 0.365105\n 0.699456\n 0.977653\n 0.994953\n 0.41084\n 0.809411\n\njulia> [ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]\n6-element Array{Float64,1}:\n 0.736559\n 0.57468\n 0.685417\n 0.912429\n 0.8446\n 0.656511The resulting array type depends on the types of the computed elements. In order to control the type explicitly, a type can be prepended to the comprehension. For example, we could have requested the result in single precision by writing:Float32[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]"
+    "text": "Las comprensiones proporcionan una forma general y potente de construir arrays. Su sintaxis es similar a la notación de construcción de conjuntos en matemáticas:A = [ F(x,y,...) for x=rx, y=ry, ... ]El significado de esta forma es que F(x, y, ...) es evaluado para las variables x, y, etc. tomando cada valor de la lista de valores proporcionada. Los valores se pueden especificar mediante cualquier objeto iterable, pero comúnmente serán rangos como 1:n o 2:(n-1), o arrays de valores explícitos como [1.2, 3.4, 5.7]. El resultado es una matriz N-d densa con dimensiones que son la concatenación de las dimensiones de los rangos de las variables rx, ry, etc. y donde cada evaluación F(x, y, ...) devuelve un escalar.El siguiente ejemplo calcula la media ponderada del elemento actual y su vecino izquierdo y derecho a lo largo de una rejilla unidimensional:julia> x = rand(8)\n8-element Array{Float64,1}:\n 0.843025\n 0.869052\n 0.365105\n 0.699456\n 0.977653\n 0.994953\n 0.41084\n 0.809411\n\njulia> [ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]\n6-element Array{Float64,1}:\n 0.736559\n 0.57468\n 0.685417\n 0.912429\n 0.8446\n 0.656511El tipo del array resultante depende de los tipos de los elementos calculados. Para controlar el tipo explícitamente, un tipo puede ser precedido a la comprensión. Por ejemplo, podríamos haber solicitado el resultado en precisión simple escribiendo:Float32[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]"
 },
 
 {
-    "location": "manual/arrays.html#Generator-Expressions-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Generator Expressions",
+    "location": "manual/arrays.html#Expresiones-Generador-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Expresiones Generador",
     "category": "section",
-    "text": "Comprehensions can also be written without the enclosing square brackets, producing an object known as a generator. This object can be iterated to produce values on demand, instead of allocating an array and storing them in advance (see Iteration). For example, the following expression sums a series without allocating memory:julia> sum(1/n^2 for n=1:1000)\n1.6439345666815615When writing a generator expression with multiple dimensions inside an argument list, parentheses are needed to separate the generator from subsequent arguments:julia> map(tuple, 1/(i+j) for i=1:2, j=1:2, [1:4;])\nERROR: syntax: invalid iteration specificationAll comma-separated expressions after for are interpreted as ranges. Adding parentheses lets us add a third argument to map:julia> map(tuple, (1/(i+j) for i=1:2, j=1:2), [1 3; 2 4])\n2×2 Array{Tuple{Float64,Int64},2}:\n (0.5, 1)       (0.333333, 3)\n (0.333333, 2)  (0.25, 4)Ranges in generators and comprehensions can depend on previous ranges by writing multiple for keywords:julia> [(i,j) for i=1:3 for j=1:i]\n6-element Array{Tuple{Int64,Int64},1}:\n (1, 1)\n (2, 1)\n (2, 2)\n (3, 1)\n (3, 2)\n (3, 3)In such cases, the result is always 1-d.Generated values can be filtered using the if keyword:julia> [(i,j) for i=1:3 for j=1:i if i+j == 4]\n2-element Array{Tuple{Int64,Int64},1}:\n (2, 2)\n (3, 1)"
+    "text": "Las comprensiones también se pueden escribir sin los corchetes que las encierran, produciendo un objeto conocido como generador. Este objeto puede ser iterado para producir valores bajo demanda, en lugar de reservar espacio para un array y almacenarlos en él de antemano (véase Iteración). Por ejemplo, la siguiente expresión suma una serie sin asignar memoria:julia> sum(1/n^2 for n=1:1000)\n1.6439345666815615Cuando se escribe una expresión generador con múltiples dimensiones dentro de una lista de argumentos, se necesitan paréntesis para separar el generador de argumentos posteriores:julia> map(tuple, 1/(i+j) for i=1:2, j=1:2, [1:4;])\nERROR: syntax: invalid iteration specificationTodas las expresiones separadas por comas después del for se interpretan como rangos. Añadir paréntesis permite añadir un tercer argumento a map:julia> map(tuple, (1/(i+j) for i=1:2, j=1:2), [1 3; 2 4])\n2×2 Array{Tuple{Float64,Int64},2}:\n (0.5, 1)       (0.333333, 3)\n (0.333333, 2)  (0.25, 4)Los rangos en generadores y comprensiones pueden depender de rangos anteriores escribiendo varias palabras clave for:julia> [(i,j) for i=1:3 for j=1:i]\n6-element Array{Tuple{Int64,Int64},1}:\n (1, 1)\n (2, 1)\n (2, 2)\n (3, 1)\n (3, 2)\n (3, 3)En tales casos, el resultado es siempre unidimensional.Los valores generados se pueden filtrar usando la palabra clave if:julia> [(i,j) for i=1:3 for j=1:i if i+j == 4]\n2-element Array{Tuple{Int64,Int64},1}:\n (2, 2)\n (3, 1)"
 },
 
 {
     "location": "manual/arrays.html#man-array-indexing-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Indexing",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Indexación",
     "category": "section",
-    "text": "The general syntax for indexing into an n-dimensional array A is:X = A[I_1, I_2, ..., I_n]where each I_k may be a scalar integer, an array of integers, or any other supported index. This includes Colon (:) to select all indices within the entire dimension, ranges of the form a:c or a:b:c to select contiguous or strided subsections, and arrays of booleans to select elements at their true indices.If all the indices are scalars, then the result X is a single element from the array A. Otherwise, X is an array with the same number of dimensions as the sum of the dimensionalities of all the indices.If all indices are vectors, for example, then the shape of X would be (length(I_1), length(I_2), ..., length(I_n)), with location (i_1, i_2, ..., i_n) of X containing the value A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]. If I_1 is changed to a two-dimensional matrix, then X becomes an n+1-dimensional array of shape (size(I_1, 1), size(I_1, 2), length(I_2), ..., length(I_n)). The matrix adds a dimension. The location (i_1, i_2, i_3, ..., i_{n+1}) contains the value at A[I_1[i_1, i_2], I_2[i_3], ..., I_n[i_{n+1}]]. All dimensions indexed with scalars are dropped. For example, the result of A[2, I, 3] is an array with size size(I). Its ith element is populated by A[2, I[i], 3].As a special part of this syntax, the end keyword may be used to represent the last index of each dimension within the indexing brackets, as determined by the size of the innermost array being indexed. Indexing syntax without the end keyword is equivalent to a call to getindex:X = getindex(A, I_1, I_2, ..., I_n)Example:julia> x = reshape(1:16, 4, 4)\n4×4 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> x[2:3, 2:end-1]\n2×2 Array{Int64,2}:\n 6  10\n 7  11\n\njulia> x[1, [2 3; 4 1]]\n2×2 Array{Int64,2}:\n  5  9\n 13  1Empty ranges of the form n:n-1 are sometimes used to indicate the inter-index location between n-1 and n. For example, the searchsorted() function uses this convention to indicate the insertion point of a value not found in a sorted array:julia> a = [1,2,5,6,7];\n\njulia> searchsorted(a, 3)\n3:2"
+    "text": "La sintaxis general para indexar en un array n-dimensional A es:X = A[I_1, I_2, ..., I_n]donde cada I_k puede ser un entero escalar, un array de enteros o cualquier otro índice soportado. Esto incluye Colon (:) para seleccionar todos los índices dentro de la dimensión completa, rangos de la forma a:c o a:b:c para seleccionar subsecciones contiguas o con salto, y arrays de booleans para seleccionar elementos en sus índices true.Si todos los índices son escalares, entonces el resultado X es un solo elemento del array A. De lo contrario, X es un array con el mismo número de dimensiones que la suma de las dimensionalidades de todos los índices.Si todos los índices son vectores, por ejemplo, entonces la forma de X sería (length(I_1), length(I_2), ..., length(I_n)), donde las ubicaciones (i_1, i_2, ..., i_n) de X contienen el valor A[I_1[i_1], I_2[i_2], ..., I_n[i_n]]. Si I_1 se cambia por un array bidimensional, entonces X se vuelve un n+1-dimensional array de forma (size(I_1, 1), size(I_1, 2), length(I_2), ..., length(I_n)). La matriz añade una dimensión. La ubicación (i_1, i_2, i_3, ..., i_{n+1}) contiene el valor en A[I_1[i_1, i_2], I_2[i_3], ..., I_n[i_{n+1}]]. Todas las dimensiones indexadas con escalares se eliminan. Por ejemplo, el resultado de A[2, I, 3] es un array de tamaño size(I). Su i-ésimo elemento es poblado por A[2, I[i], 3].Como parte especial de esta sintaxis, se puede usar la palabra clave end para representar el último índice de cada dimensión dentro de los corchetes de indexación, según lo determinado por el tamaño del array más interno indexado. La sintaxis de indexación sin la palabra end es equivalente a una llamada a getindex:X = getindex(A, I_1, I_2, ..., I_n)Example:julia> x = reshape(1:16, 4, 4)\n4×4 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> x[2:3, 2:end-1]\n2×2 Array{Int64,2}:\n 6  10\n 7  11\n\njulia> x[1, [2 3; 4 1]]\n2×2 Array{Int64,2}:\n  5  9\n 13  1Los rangos vacío de la forma n:n-1 se suelen usar para indicar la localización inter-index entre n-1 y n. Por ejemplo, la función searchsorted() usa esta convención para indicar el punto de inserción de un valor no encontrados en un array ordenado:julia> a = [1,2,5,6,7];\n\njulia> searchsorted(a, 3)\n3:2"
 },
 
 {
-    "location": "manual/arrays.html#Assignment-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Assignment",
+    "location": "manual/arrays.html#Asignación-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Asignación",
     "category": "section",
-    "text": "The general syntax for assigning values in an n-dimensional array A is:A[I_1, I_2, ..., I_n] = Xwhere each I_k may be a scalar integer, an array of integers, or any other supported index. This includes Colon (:) to select all indices within the entire dimension, ranges of the form a:c or a:b:c to select contiguous or strided subsections, and arrays of booleans to select elements at their true indices.If X is an array, it must have the same number of elements as the product of the lengths of the indices: prod(length(I_1), length(I_2), ..., length(I_n)). The value in location I_1[i_1], I_2[i_2], ..., I_n[i_n] of A is overwritten with the value X[i_1, i_2, ..., i_n]. If X is not an array, its value is written to all referenced locations of A.Just as in Indexing, the end keyword may be used to represent the last index of each dimension within the indexing brackets, as determined by the size of the array being assigned into. Indexed assignment syntax without the end keyword is equivalent to a call to setindex!():setindex!(A, X, I_1, I_2, ..., I_n)Example:julia> x = collect(reshape(1:9, 3, 3))\n3×3 Array{Int64,2}:\n 1  4  7\n 2  5  8\n 3  6  9\n\njulia> x[1:2, 2:3] = -1\n-1\n\njulia> x\n3×3 Array{Int64,2}:\n 1  -1  -1\n 2  -1  -1\n 3   6   9"
+    "text": "La sintaxis general para asignar valores en un array n-dimensional A es:A[I_1, I_2, ..., I_n] = Xdonde cada I_k puede ser un índice escalar, un array de enteros o cualquier otro índice soportado. Esto incluye Colon (:) para seleccionar todos los índices dentro de la dimensión completa, rangos de la forma a:c o a:b:c para seleccionar subsecciones contiguas o con salto, y arrays de booleans para seleccionar elementos en sus índices true.Si X es un array, debe tener el mismo número de elementos que el producto de las longitudes de los índices prod(length(I_1), length(I_2), ..., length(I_n)). El valor en la localización I_1[i_1], I_2[i_2], ..., I_n[i_n]de A es sobreescrito con el valor X[i_1, i_2, ..., i_n]. Si X no es un array, su valor es escrito a todas las localizaciones referenciadas de A.Justo como en Indexación, la palabra clave end puede utilizarse para representar el último índice de cada dimensión dentro de los corchetes de los índices, como queda determinado por el tamaño del array en el que se está siendo asignado. La sintaxis de la asignación indexada sin la palabra clave end es equivalente a llamar a la función setindex!():setindex!(A, X, I_1, I_2, ..., I_n)Ejemplo:julia> x = collect(reshape(1:9, 3, 3))\n3×3 Array{Int64,2}:\n 1  4  7\n 2  5  8\n 3  6  9\n\njulia> x[1:2, 2:3] = -1\n-1\n\njulia> x\n3×3 Array{Int64,2}:\n 1  -1  -1\n 2  -1  -1\n 3   6   9"
 },
 
 {
     "location": "manual/arrays.html#man-supported-index-types-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Supported index types",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Tipos de Índices Soportados",
     "category": "section",
-    "text": "In the expression A[I_1, I_2, ..., I_n], each I_k may be a scalar index, an array of scalar indices, or an object that represents an array of scalar indices and can be converted to such by to_indices:A scalar index. By default this includes:\nNon-boolean integers\nCartesianIndex{N}s, which behave like an N-tuple of integers spanning multiple dimensions (see below for more details)\nAn array of scalar indices. This includes:\nVectors and multidimensional arrays of integers\nEmpty arrays like [], which select no elements\nRanges of the form a:c or a:b:c, which select contiguous or strided subsections from a to c (inclusive)\nAny custom array of scalar indices that is a subtype of AbstractArray\nArrays of CartesianIndex{N} (see below for more details)\nAn object that represents an array of scalar indices and can be converted to such by to_indices. By default this includes:\nColon() (:), which represents all indices within an entire dimension or across the entire array\nArrays of booleans, which select elements at their true indices (see below for more details)"
+    "text": "En la expresión A[I_1, I_2, ..., I_n], cada I_k puede ser un índice escalar, un array de índices escalares o un objeto que repreenta un array de índices escalares y puede ser convertido a tal mediante to_indices:Un índice escalar. Por defecto esto incluye:\nEnteros no booleanos   * CartesianIndex{N}s, que se comportan como una N-tupla de enteros abarcando múltiples dimensiones (ver abajo para ms detalles)Un array de índices escalares. Esto incluye:\nVectores y arrays multidimensionales de enteros   * Arrays vacíos como [], que no selecciona elementos     * Ranges de la forma a:c o a:b:c, que seleccionan subsecciones contiguas o con salto desde a hasta c (inclusive)     * Cualquier array de índices escalares que sea un subtipo de AbstractArray     * Arrays de CartesianIndex{N} (ver abajo para ms detalles)Un objeto que representa un array de índice escalares y puede ser convertido a tal mediante to_indices. Por defecto esto incluye:   * Colon() (:), que representa todos los índices dentro de una dimensión entera o a través del array completo     * Arrays de booleans, que seleccionan los elementos en los que sus índices son true indices (ver abajo para más detalles)"
 },
 
 {
-    "location": "manual/arrays.html#Cartesian-indices-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Cartesian indices",
+    "location": "manual/arrays.html#Índices-Cartesianos-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Índices Cartesianos",
     "category": "section",
-    "text": "The special CartesianIndex{N} object represents a scalar index that behaves like an N-tuple of integers spanning multiple dimensions.  For example:julia> A = reshape(1:32, 4, 4, 2);\n\njulia> A[3, 2, 1]\n7\n\njulia> A[CartesianIndex(3, 2, 1)] == A[3, 2, 1] == 7\ntrueConsidered alone, this may seem relatively trivial; CartesianIndex simply gathers multiple integers together into one object that represents a single multidimensional index. When combined with other indexing forms and iterators that yield CartesianIndexes, however, this can lead directly to very elegant and efficient code. See Iteration below, and for some more advanced examples, see this blog post on multidimensional algorithms and iteration.Arrays of CartesianIndex{N} are also supported. They represent a collection of scalar indices that each span N dimensions, enabling a form of indexing that is sometimes referred to as pointwise indexing. For example, it enables accessing the diagonal elements from the first \"page\" of A from above:julia> page = A[:,:,1]\n4×4 Array{Int64,2}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> page[[CartesianIndex(1,1),\n             CartesianIndex(2,2),\n             CartesianIndex(3,3),\n             CartesianIndex(4,4)]]\n4-element Array{Int64,1}:\n  1\n  6\n 11\n 16This can be expressed much more simply with dot broadcasting and by combining it with a normal integer index (instead of extracting the first page from A as a separate step). It can even be combined with a : to extract both diagonals from the two pages at the same time:julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), 1]\n4-element Array{Int64,1}:\n  1\n  6\n 11\n 16\n\njulia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), :]\n4×2 Array{Int64,2}:\n  1  17\n  6  22\n 11  27\n 16  32warning: Warning\nCartesianIndex and arrays of CartesianIndex are not compatible with the end keyword to represent the last index of a dimension. Do not use end in indexing expressions that may contain either CartesianIndex or arrays thereof."
+    "text": "El objeto especial CartesianIndex{N} representa un índice escalar que se comporta como una N-tupla de enteros que abarcan multiples dimensioneas. Por ejemplo:julia> A = reshape(1:32, 4, 4, 2);\n\njulia> A[3, 2, 1]\n7\n\njulia> A[CartesianIndex(3, 2, 1)] == A[3, 2, 1] == 7\ntrueConsiderado solo, esto puede parecer relativamente trivial; CartesianIndex simplemente reúne múltiples enteros juntos en un objeto que representa un único índice multidimensional. Sin embargo, cuando se combina con otras formas de indexación e iteradores que producen CartesianIndexes, esto puede conducir directamente a un código muy elegante y eficiente. Ver Iteración a continuación, y para algunos ejemplos más avanzados, ver esta publicación en el blog sobre algoritmos multidimensionales e iteración.Los arrays de CartesianIndex{N} también sestán soportados. Representan una colección de índices escalares que abarcan   N dimensiones cada uno, lo que permite una forma de indexación que a veces se denomina indexación puntual. Por ejemplo, permite acceder a los elementos diagonales desde la primera \"página\" de 'A' desde arriba:julia> page = A[:,:,1]\n4×4 Array{Int64,2}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> page[[CartesianIndex(1,1),\n             CartesianIndex(2,2),\n             CartesianIndex(3,3),\n             CartesianIndex(4,4)]]\n4-element Array{Int64,1}:\n  1\n  6\n 11\n 16Esto se puede expresar mucho más simplemente con dot broadcasting y combinándolo con un índice entero normal (en lugar de extraer la primera página deA como un paso separado). Incluso se puede combinar con : para extraer ambas diagonales de las dos páginas al mismo tiempo:julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), 1]\n4-element Array{Int64,1}:\n  1\n  6\n 11\n 16\n\njulia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), :]\n4×2 Array{Int64,2}:\n  1  17\n  6  22\n 11  27\n 16  32warning: Warning\nCartesianIndex y los arrays de CartesianIndex no son compatibles con la palabra   clave end que representa el último índice de una dimensión. No usaremos end     cuando se indexen expresiones que puedan contener CartesianIndex or arrays de ellos."
 },
 
 {
-    "location": "manual/arrays.html#Logical-indexing-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Logical indexing",
+    "location": "manual/arrays.html#Indexación-Lógica-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Indexación Lógica",
     "category": "section",
-    "text": "Often referred to as logical indexing or indexing with a logical mask, indexing by a boolean array selects elements at the indices where its values are true. Indexing by a boolean vector B is effectively the same as indexing by the vector of integers that is returned by find(B). Similarly, indexing by a N-dimensional boolean array is effectively the same as indexing by the vector of CartesianIndex{N}s where its values are true. A logical index must be a vector of the same length as the dimension it indexes into, or it must be the only index provided and match the size and dimensionality of the array it indexes into. It is generally more efficient to use boolean arrays as indices directly instead of first calling find().julia> x = reshape(1:16, 4, 4)\n4×4 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> x[[false, true, true, false], :]\n2×4 Array{Int64,2}:\n 2  6  10  14\n 3  7  11  15\n\njulia> mask = map(ispow2, x)\n4×4 Array{Bool,2}:\n  true  false  false  false\n  true  false  false  false\n false  false  false  false\n  true   true  false   true\n\njulia> x[mask]\n5-element Array{Int64,1}:\n  1\n  2\n  4\n  8\n 16"
+    "text": "A menudo denominada indexación lógica o indexación con una máscara lógica, la indexación mediante  una matriz booleana selecciona elementos en los índices cuyos valores son verdaderos. La indexación por un vector booleano B es efectivamente igual a la indexación por el vector de enteros que es devuelto por find (B). De forma similar, la indexación por una matriz booleana N-dimensional es efectivamente igual a la indexación por el vector de CartesianIndex{N}s donde sus valores son true. Un índice lógico debe ser un vector de la misma longitud que la dimensión en la que indexa, o debe ser el único índice proporcionado y debe coincidir con el tamaño y la dimensionalidad de la matriz en la que se indexa. En general, es más eficiente usar matrices booleanas como índices directamente en lugar de llamar primero a find().julia> x = reshape(1:16, 4, 4)\n4×4 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5   9  13\n 2  6  10  14\n 3  7  11  15\n 4  8  12  16\n\njulia> x[[false, true, true, false], :]\n2×4 Array{Int64,2}:\n 2  6  10  14\n 3  7  11  15\n\njulia> mask = map(ispow2, x)\n4×4 Array{Bool,2}:\n  true  false  false  false\n  true  false  false  false\n false  false  false  false\n  true   true  false   true\n\njulia> x[mask]\n5-element Array{Int64,1}:\n  1\n  2\n  4\n  8\n 16"
 },
 
 {
-    "location": "manual/arrays.html#Iteration-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Iteration",
+    "location": "manual/arrays.html#Iteración-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Iteración",
     "category": "section",
-    "text": "The recommended ways to iterate over a whole array arefor a in A\n    # Do something with the element a\nend\n\nfor i in eachindex(A)\n    # Do something with i and/or A[i]\nendThe first construct is used when you need the value, but not index, of each element. In the second construct, i will be an Int if A is an array type with fast linear indexing; otherwise, it will be a CartesianIndex:julia> A = rand(4,3);\n\njulia> B = view(A, 1:3, 2:3);\n\njulia> for i in eachindex(B)\n           @show i\n       end\ni = CartesianIndex{2}((1, 1))\ni = CartesianIndex{2}((2, 1))\ni = CartesianIndex{2}((3, 1))\ni = CartesianIndex{2}((1, 2))\ni = CartesianIndex{2}((2, 2))\ni = CartesianIndex{2}((3, 2))In contrast with for i = 1:length(A), iterating with eachindex provides an efficient way to iterate over any array type."
+    "text": "Las formas recomendadas de iterar sobre un array completo son:for a in A\n    # Do something with the element a\nend\n\nfor i in eachindex(A)\n    # Do something with i and/or A[i]\nendLa primera construcción se usa cuando necesitamos el valor, pero no los índices, de cada elemento. En la segunda construcción, i será un Int si A es un tipo array con indexación lineal rápida; en caso contrario será un CartesianIndex:julia> A = rand(4,3);\n\njulia> B = view(A, 1:3, 2:3);\n\njulia> for i in eachindex(B)\n           @show i\n       end\ni = CartesianIndex{2}((1, 1))\ni = CartesianIndex{2}((2, 1))\ni = CartesianIndex{2}((3, 1))\ni = CartesianIndex{2}((1, 2))\ni = CartesianIndex{2}((2, 2))\ni = CartesianIndex{2}((3, 2))En contraste con for i = 1:length(A), iterar con eachindex proporciona una forma eficiente de iterar sobre cualquier tipo de array."
 },
 
 {
-    "location": "manual/arrays.html#Array-traits-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Array traits",
+    "location": "manual/arrays.html#Rasgos-de-Array-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Rasgos de  Array",
     "category": "section",
-    "text": "If you write a custom AbstractArray type, you can specify that it has fast linear indexing usingBase.IndexStyle(::Type{<:MyArray}) = IndexLinear()This setting will cause eachindex iteration over a MyArray to use integers. If you don't specify this trait, the default value IndexCartesian() is used."
+    "text": "Si uno escribe un tipo AbstractArray personalizado, uno puede especificar que el tipo tiene indexación lineal rápida usando:Base.IndexStyle(::Type{<:MyArray}) = IndexLinear()Esta configuración hará que la iteración eachindex sobre un objeto MyArray use enteros. Si no especifica este rasgo, se usa el valor predeterminado IndexCartesian()."
 },
 
 {
-    "location": "manual/arrays.html#Array-and-Vectorized-Operators-and-Functions-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Array and Vectorized Operators and Functions",
+    "location": "manual/arrays.html#Arrays,-Funciones-y-Operadores-Vectorizados-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Arrays, Funciones y Operadores Vectorizados",
     "category": "section",
-    "text": "The following operators are supported for arrays:Unary arithmetic – -, +\nBinary arithmetic – -, +, *, /, \\, ^\nComparison – ==, !=, ≈ (isapprox), ≉Most of the binary arithmetic operators listed above also operate elementwise when one argument is scalar: -, +, and * when either argument is scalar, and / and \\ when the denominator is scalar. For example, [1, 2] + 3 == [4, 5] and [6, 4] / 2 == [3, 2].Additionally, to enable convenient vectorization of mathematical and other operations, Julia provides the dot syntax f.(args...), e.g. sin.(x) or min.(x,y), for elementwise operations over arrays or mixtures of arrays and scalars (a Broadcasting operation); these have the additional advantage of \"fusing\" into a single loop when combined with other dot calls, e.g. sin.(cos.(x)).Also, every binary operator supports a dot version that can be applied to arrays (and combinations of arrays and scalars) in such fused broadcasting operations, e.g. z .== sin.(x .* y).Note that comparisons such as == operate on whole arrays, giving a single boolean answer. Use dot operators like .== for elementwise comparisons. (For comparison operations like <, only the elementwise .< version is applicable to arrays.)Also notice the difference between max.(a,b), which broadcasts max() elementwise over a and b, and maximum(a), which finds the largest value within a. The same relationship holds for min.(a,b) and minimum(a)."
+    "text": "Los siguientes operadores están soportados para arrays:Aritmética unaria – -, +\nAritmética binaria – -, +, *, /, \\, ^\nComparación – ==, !=, ≈ (isapprox), ≉La mayoría de los operadores aritméticos binarios enumerados anteriormente también funcionan elemento a elemento cuando un argumento es escalar: -, +, y *cuando cualquiera de los argumentos es escalar, y / y \\ cuando el denominador es escalar. Por ejemplo, [1, 2] + 3 == [4, 5] y [6, 4] / 2 == [3, 2].Además, para permitir una conveniente vectorización de operaciones matemáticas y de otro tipo, Julia proporciona la sintaxis punto f.(args ...), por ejemplo, sin.(x) o min.(x, y), para operaciones con elementos sobre arrays o mezclas de matrices y escalares (una Retransmisión (broadcasting)); estos tienen la ventaja adicional de \"fusión\" en un solo bucle cuando se combina con otras llamadas de puntos, por ejemplo, sin.(cos.(x))También, cada operador binario admite una versión de punto que se puede aplicar a matrices (y combinaciones de matrices y escalares) en tales operaciones de retransmisión fusionadas, por ejemplo, z .== sin.(x. * y).Tenga en cuenta que las comparaciones como == operan en arrays completos, dando un solo booleano como respuesta. Use operadores de punto como .== para comparaciones elemento a elemento. (Para operaciones de comparación como <, solo la versión de elementos .< es aplicable a las matrices).También note la diferencia entre max.(a, b), que retransmitir max() elemento a elemento sobre a yb, y maximum(a), que encuentra el mayor valor dentro de a. La misma relación se cumple para min.(A, b) y minimum(a)."
 },
 
 {
-    "location": "manual/arrays.html#Broadcasting-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Broadcasting",
+    "location": "manual/arrays.html#broadcasting-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Retransmisión",
     "category": "section",
-    "text": "It is sometimes useful to perform element-by-element binary operations on arrays of different sizes, such as adding a vector to each column of a matrix. An inefficient way to do this would be to replicate the vector to the size of the matrix:julia> a = rand(2,1); A = rand(2,3);\n\njulia> repmat(a,1,3)+A\n2×3 Array{Float64,2}:\n 1.20813  1.82068  1.25387\n 1.56851  1.86401  1.67846This is wasteful when dimensions get large, so Julia offers broadcast(), which expands singleton dimensions in array arguments to match the corresponding dimension in the other array without using extra memory, and applies the given function elementwise:julia> broadcast(+, a, A)\n2×3 Array{Float64,2}:\n 1.20813  1.82068  1.25387\n 1.56851  1.86401  1.67846\n\njulia> b = rand(1,2)\n1×2 Array{Float64,2}:\n 0.867535  0.00457906\n\njulia> broadcast(+, a, b)\n2×2 Array{Float64,2}:\n 1.71056  0.847604\n 1.73659  0.873631Dotted operators such as .+ and .* are equivalent to broadcast calls (except that they fuse, as described below). There is also a broadcast!() function to specify an explicit destination (which can also be accessed in a fusing fashion by .= assignment), and functions broadcast_getindex() and broadcast_setindex!() that broadcast the indices before indexing. Moreover, f.(args...) is equivalent to broadcast(f, args...), providing a convenient syntax to broadcast any function (dot syntax). Nested \"dot calls\" f.(...) (including calls to .+ etcetera) automatically fuse into a single broadcast call.Additionally, broadcast() is not limited to arrays (see the function documentation), it also handles tuples and treats any argument that is not an array, tuple or Ref (except for Ptr) as a \"scalar\".julia> convert.(Float32, [1, 2])\n2-element Array{Float32,1}:\n 1.0\n 2.0\n\njulia> ceil.((UInt8,), [1.2 3.4; 5.6 6.7])\n2×2 Array{UInt8,2}:\n 0x02  0x04\n 0x06  0x07\n\njulia> string.(1:3, \". \", [\"First\", \"Second\", \"Third\"])\n3-element Array{String,1}:\n \"1. First\"\n \"2. Second\"\n \"3. Third\""
+    "text": "A veces es útil realizar operaciones binarias elemento por elemento en matrices de diferentes tamaños, como agregar un vector a cada columna de una matriz. Una forma ineficiente de hacer esto sería replicar el vector al tamaño de la matriz:julia> a = rand(2,1); A = rand(2,3);\n\njulia> repmat(a,1,3)+A\n2×3 Array{Float64,2}:\n 1.20813  1.82068  1.25387\n 1.56851  1.86401  1.67846Esto es un desperdicio cuando las dimensiones son grandes, por lo que Julia ofrece broadcast(), que expande las dimensiones singleton en los argumentos array para hacer coincidir la dimensión correspondiente en el otro array sin usar memoria extra, y aplicar la función dada elemento a elemento:julia> broadcast(+, a, A)\n2×3 Array{Float64,2}:\n 1.20813  1.82068  1.25387\n 1.56851  1.86401  1.67846\n\njulia> b = rand(1,2)\n1×2 Array{Float64,2}:\n 0.867535  0.00457906\n\njulia> broadcast(+, a, b)\n2×2 Array{Float64,2}:\n 1.71056  0.847604\n 1.73659  0.873631Los operadores con punto tales como .+ y .* son equivalentes a llamadas a broadcast (excepto que se funden, como se describe a continuación). También hay una función broadcast!() para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación .=), y funciones broadcast_getindex() y broadcast_setindex! () que retransmiten los índices antes de indexar. Además, f. (Args ...) es equivalente a broadcast(f, args ...), proporcionando una sintaxis conveniente para retransmitir cualquier función (sintaxis punto). \"Llamadas punto\" anidadas f.(...) (incluidas las llamadas a .+ Etcétera) fusibles automáticamente en una sola llamada broadcast.Además, broadcast () no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o Ref (excepto paraPtr ) como un \"escalar\".julia> convert.(Float32, [1, 2])\n2-element Array{Float32,1}:\n 1.0\n 2.0\n\njulia> ceil.((UInt8,), [1.2 3.4; 5.6 6.7])\n2×2 Array{UInt8,2}:\n 0x02  0x04\n 0x06  0x07\n\njulia> string.(1:3, \". \", [\"First\", \"Second\", \"Third\"])\n3-element Array{String,1}:\n \"1. First\"\n \"2. Second\"\n \"3. Third\""
 },
 
 {
     "location": "manual/arrays.html#Implementation-1",
-    "page": "Multi-dimensional Arrays",
+    "page": "Arrays Multi-dimensionales",
     "title": "Implementation",
     "category": "section",
-    "text": "The base array type in Julia is the abstract type AbstractArray{T,N}. It is parametrized by the number of dimensions N and the element type T. AbstractVector and AbstractMatrix are aliases for the 1-d and 2-d cases. Operations on AbstractArray objects are defined using higher level operators and functions, in a way that is independent of the underlying storage. These operations generally work correctly as a fallback for any specific array implementation.The AbstractArray type includes anything vaguely array-like, and implementations of it might be quite different from conventional arrays. For example, elements might be computed on request rather than stored. However, any concrete AbstractArray{T,N} type should generally implement at least size(A) (returning an Int tuple), getindex(A,i) and getindex(A,i1,...,iN); mutable arrays should also implement setindex!(). It is recommended that these operations have nearly constant time complexity, or technically Õ(1) complexity, as otherwise some array functions may be unexpectedly slow. Concrete types should also typically provide a similar(A,T=eltype(A),dims=size(A)) method, which is used to allocate a similar array for copy() and other out-of-place operations. No matter how an AbstractArray{T,N} is represented internally, T is the type of object returned by integer indexing (A[1, ..., 1], when A is not empty) and N should be the length of the tuple returned by size().DenseArray is an abstract subtype of AbstractArray intended to include all arrays that are laid out at regular offsets in memory, and which can therefore be passed to external C and Fortran functions expecting this memory layout. Subtypes should provide a method stride(A,k) that returns the \"stride\" of dimension k: increasing the index of dimension k by 1 should increase the index i of getindex(A,i) by stride(A,k). If a pointer conversion method Base.unsafe_convert(Ptr{T}, A) is provided, the memory layout should correspond in the same way to these strides.The Array type is a specific instance of DenseArray where elements are stored in column-major order (see additional notes in Performance Tips). Vector and Matrix are aliases for the 1-d and 2-d cases. Specific operations such as scalar indexing, assignment, and a few other basic storage-specific operations are all that have to be implemented for Array, so that the rest of the array library can be implemented in a generic manner.SubArray is a specialization of AbstractArray that performs indexing by reference rather than by copying. A SubArray is created with the view() function, which is called the same way as getindex() (with an array and a series of index arguments). The result of view() looks the same as the result of getindex(), except the data is left in place. view() stores the input index vectors in a SubArray object, which can later be used to index the original array indirectly.  By putting the @views macro in front of an expression or block of code, any array[...] slice in that expression will be converted to create a SubArray view instead.StridedVector and StridedMatrix are convenient aliases defined to make it possible for Julia to call a wider range of BLAS and LAPACK functions by passing them either Array or SubArray objects, and thus saving inefficiencies from memory allocation and copying.The following example computes the QR decomposition of a small section of a larger array, without creating any temporaries, and by calling the appropriate LAPACK function with the right leading dimension size and stride parameters.julia> a = rand(10,10)\n10×10 Array{Float64,2}:\n 0.561255   0.226678   0.203391  0.308912   …  0.750307  0.235023   0.217964\n 0.718915   0.537192   0.556946  0.996234      0.666232  0.509423   0.660788\n 0.493501   0.0565622  0.118392  0.493498      0.262048  0.940693   0.252965\n 0.0470779  0.736979   0.264822  0.228787      0.161441  0.897023   0.567641\n 0.343935   0.32327    0.795673  0.452242      0.468819  0.628507   0.511528\n 0.935597   0.991511   0.571297  0.74485    …  0.84589   0.178834   0.284413\n 0.160706   0.672252   0.133158  0.65554       0.371826  0.770628   0.0531208\n 0.306617   0.836126   0.301198  0.0224702     0.39344   0.0370205  0.536062\n 0.890947   0.168877   0.32002   0.486136      0.096078  0.172048   0.77672\n 0.507762   0.573567   0.220124  0.165816      0.211049  0.433277   0.539476\n\njulia> b = view(a, 2:2:8,2:2:4)\n4×2 SubArray{Float64,2,Array{Float64,2},Tuple{StepRange{Int64,Int64},StepRange{Int64,Int64}},false}:\n 0.537192  0.996234\n 0.736979  0.228787\n 0.991511  0.74485\n 0.836126  0.0224702\n\njulia> (q,r) = qr(b);\n\njulia> q\n4×2 Array{Float64,2}:\n -0.338809   0.78934\n -0.464815  -0.230274\n -0.625349   0.194538\n -0.527347  -0.534856\n\njulia> r\n2×2 Array{Float64,2}:\n -1.58553  -0.921517\n  0.0       0.866567"
+    "text": "El tipo de matriz base en Julia es el tipo abstracto AbstractArray {T, N}. Este tipo está parametrizado por el número de dimensiones N y el tipo de elementos T. AbstractVector y AbstractMatrix son aliases para los casos 1-d y 2-d. Las operaciones en los objetos AbstractArray se definen usando operadores y funciones de alto nivel, de  manera que es independiente del almacenamiento subyacente. Estas operaciones generalmente funcionan correctamente como una alternativa para cualquier implementación de matriz específica.El tipo AbstractArray incluye algo vagamente parecido a un array, y las implementaciones de este podrían ser bastante diferentes de los arrays convencionales. Por ejemplo, los elementos se pueden calcular a petición en lugar de ser almacenados. Sin embargo, cualquier tipo concreto de AbstractArray{T, N} debería implementar al menos size(A) (que devolvería una tupla Int), getindex(A,i) y getindex(A, i1, ..., iN); Los arrays mutables también deberían implementar setindex!(). Se recomienda que estas operaciones tengan complejidad temporal casi constante, o técnicamente complejidad de orden 1 (Õ(1)), ya que de lo contrario algunas funciones podrían ser inesperadamente lentas. Los tipos concretos también deberían proporcionar un método similar(A,T=eltype(A),dims=size(A)), que se utiliza para asignar un conjunto similar para copy() y otras operaciones de actualización. No importa cómo se represente internamente un AbstractArray {T, N}, T es el tipo de objeto devuelto por la indización entera (A [1, ..., 1], cuando A no está vacío) yN debe ser la longitud de la tupla devuelta por size().DenseArray es un subtipo abstracto deAbstractArray que pretende incluir todos los arrays que están establecidos en bloques regulares de memoria y que, por tanto, se puede pasar a funciones externas C y Fortran que esperan este diseño de memoria. Los subtipos deberían proporcionar un método stride(A,k) que devuelve el \"paso\" de la dimensión k; incrementar el índice de dimensión k en 1 debería incremental el índice i de getindex(A,i) en stride(A,k). Si se proporciona un método de conversión de puntero Base.unsafe_convert(Ptr{T}, A), el diseño de la memoria debe corresponder de la misma manera a estos pasos.El tipo Array es una instancia específica de DenseArray donde los elementos se almacenan en orden de columnas principales (consulte notas adicionales en Sugerencias de rendimiento). Vector y Matrix son alias para los casos 1-d y 2-d. Las operaciones específicas como la indexación escalar, la asignación y algunas otras operaciones básicas específicas del almacenamiento son todas las que tienen que estar implementadas en  Array, de modo que el resto de la biblioteca de arrays puede implementarse de forma genérica.SubArray es una especialización de AbstractArray que realiza indexación por referencia en lugar de por copia. Un SubArray se crea con la función view(), que es llamada de la misma manera que getindex() (con una matriz y una serie de argumentos de índice) . El resultado de view() se ve igual que el resultado de getindex(), excepto que los datos se dejan en su lugar. view() almacena los vectores de índice de entrada en un objeto SubArray, que luego puede usarse para indexar la matriz original de forma indirecta. Al colocar la macro @views delante de una expresión o bloque de código, cualquier segmento array[...] en esa expresión se convertirá para crear una vista SubArray en su lugar.StridedVector yStridedMatrix son alias convenientes definidos para que Julia pueda llamar a un rango más amplio de funciones BLAS y LAPACK pasándoles objetos Array o SubArray, y ahorrando así ineficiencias de asignación de memoria y copia.El siguiente ejemplo calcula la descomposición QR de una pequeña sección de una matriz más grande, sin crear ningún array temporal, y llamando a la función LAPACK apropiada con los parámetros de tamaño de dimensión y salto correctos.julia> a = rand(10,10)\n10×10 Array{Float64,2}:\n 0.561255   0.226678   0.203391  0.308912   …  0.750307  0.235023   0.217964\n 0.718915   0.537192   0.556946  0.996234      0.666232  0.509423   0.660788\n 0.493501   0.0565622  0.118392  0.493498      0.262048  0.940693   0.252965\n 0.0470779  0.736979   0.264822  0.228787      0.161441  0.897023   0.567641\n 0.343935   0.32327    0.795673  0.452242      0.468819  0.628507   0.511528\n 0.935597   0.991511   0.571297  0.74485    …  0.84589   0.178834   0.284413\n 0.160706   0.672252   0.133158  0.65554       0.371826  0.770628   0.0531208\n 0.306617   0.836126   0.301198  0.0224702     0.39344   0.0370205  0.536062\n 0.890947   0.168877   0.32002   0.486136      0.096078  0.172048   0.77672\n 0.507762   0.573567   0.220124  0.165816      0.211049  0.433277   0.539476\n\njulia> b = view(a, 2:2:8,2:2:4)\n4×2 SubArray{Float64,2,Array{Float64,2},Tuple{StepRange{Int64,Int64},StepRange{Int64,Int64}},false}:\n 0.537192  0.996234\n 0.736979  0.228787\n 0.991511  0.74485\n 0.836126  0.0224702\n\njulia> (q,r) = qr(b);\n\njulia> q\n4×2 Array{Float64,2}:\n -0.338809   0.78934\n -0.464815  -0.230274\n -0.625349   0.194538\n -0.527347  -0.534856\n\njulia> r\n2×2 Array{Float64,2}:\n -1.58553  -0.921517\n  0.0       0.866567"
 },
 
 {
-    "location": "manual/arrays.html#Sparse-Vectors-and-Matrices-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Sparse Vectors and Matrices",
+    "location": "manual/arrays.html#Vectores-y-Matrices-*Sparse*-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Vectores y Matrices Sparse",
     "category": "section",
-    "text": "Julia has built-in support for sparse vectors and sparse matrices. Sparse arrays are arrays that contain enough zeros that storing them in a special data structure leads to savings in space and execution time, compared to dense arrays."
+    "text": "Julia tiene soporte integrado para vectores y matrices dispersas (sparse). Las matrices sparse son matrices que contienen suficientes ceros para almacenarlos en una estructura de datos especial que ahorra espacio y tiempo de ejecución, en comparación con las matrices densas."
 },
 
 {
     "location": "manual/arrays.html#man-csc-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Compressed Sparse Column (CSC) Sparse Matrix Storage",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Columna Comprimida Sparse (CSC) Para Almacenamiento de Matrices Sparse",
     "category": "section",
-    "text": "In Julia, sparse matrices are stored in the Compressed Sparse Column (CSC) format. Julia sparse matrices have the type SparseMatrixCSC{Tv,Ti}, where Tv is the type of the stored values, and Ti is the integer type for storing column pointers and row indices. The internal representation of SparseMatrixCSC is as follows:struct SparseMatrixCSC{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}\n    m::Int                  # Number of rows\n    n::Int                  # Number of columns\n    colptr::Vector{Ti}      # Column i is in colptr[i]:(colptr[i+1]-1)\n    rowval::Vector{Ti}      # Row indices of stored values\n    nzval::Vector{Tv}       # Stored values, typically nonzeros\nendThe compressed sparse column storage makes it easy and quick to access the elements in the column of a sparse matrix, whereas accessing the sparse matrix by rows is considerably slower. Operations such as insertion of previously unstored entries one at a time in the CSC structure tend to be slow. This is because all elements of the sparse matrix that are beyond the point of insertion have to be moved one place over.All operations on sparse matrices are carefully implemented to exploit the CSC data structure for performance, and to avoid expensive operations.If you have data in CSC format from a different application or library, and wish to import it in Julia, make sure that you use 1-based indexing. The row indices in every column need to be sorted. If your SparseMatrixCSC object contains unsorted row indices, one quick way to sort them is by doing a double transpose.In some applications, it is convenient to store explicit zero values in a SparseMatrixCSC. These are accepted by functions in Base (but there is no guarantee that they will be preserved in mutating operations). Such explicitly stored zeros are treated as structural nonzeros by many routines. The nnz() function returns the number of elements explicitly stored in the sparse data structure, including structural nonzeros. In order to count the exact number of numerical nonzeros, use countnz(), which inspects every stored element of a sparse matrix. dropzeros(), and the in-place dropzeros!(), can be used to remove stored zeros from the sparse matrix.julia> A = sparse([1, 2, 3], [1, 2, 3], [0, 2, 0])\n3×3 SparseMatrixCSC{Int64,Int64} with 3 stored entries:\n  [1, 1]  =  0\n  [2, 2]  =  2\n  [3, 3]  =  0\n\njulia> dropzeros(A)\n3×3 SparseMatrixCSC{Int64,Int64} with 1 stored entry:\n  [2, 2]  =  2"
+    "text": "En Julia, las matrices dispersas se almacenan en el formato Compressed Sparse Column (CSC). Las matrices sparse de Julia tienen el tipo SparseMatrixCSC{Tv,Ti}, donde Tv es el tipo de los valores almacenados, yTi es el tipo entero para almacenar punteros de columnas e índices de filas. La representación interna de SparseMatrixCSC es la siguiente:struct SparseMatrixCSC{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}\n    m::Int                  # Number of rows\n    n::Int                  # Number of columns\n    colptr::Vector{Ti}      # Column i is in colptr[i]:(colptr[i+1]-1)\n    rowval::Vector{Ti}      # Row indices of stored values\n    nzval::Vector{Tv}       # Stored values, typically nonzeros\nendEl almacenamiento de columnas dispersas y comprimidas (CSC) facilita y agiliza el acceso a los elementos en la columna de una matriz sparse, mientras que el acceso a la matriz sparse por filas es considerablemente más lento. Las operaciones como la inserción de entradas previamente no almacenadas de una en una en la estructura de CSC tienden a ser lentas. Esto se debe a que todos los elementos de la matriz sparse que están más allá del punto de inserción deben moverse un lugar más.Todas las operaciones en matrices sparse se implementan cuidadosamente para aprovechar la estructura de datos CSC para el rendimiento y para evitar operaciones costosas.Si tiene datos en formato CSC desde una aplicación o biblioteca diferente, y desea importarlos a Julia, asegúrese de utilizar la indexación basada en 1. Los índices de fila en cada columna deben estar ordenados. Si su objeto SparseMatrixCSC contiene índices de filas sin ordenar, una forma rápida de ordenarlos es hacer una doble transposición.En algunas aplicaciones, es conveniente almacenar valores cero explícitos en una SparseMatrixCSC. Estas son aceptadas por funciones en Base (pero no hay garantía de que se conservarán en las operaciones de mutación). Tales ceros explícitamente almacenados son tratados como no estructurales por muchas rutinas. La función nnz() devuelve la cantidad de elementos almacenados explícitamente en la estructura de datos dispersos, incluidos los no-ceros estructurales. Para contar el número exacto de nozeros numéricos, use countnz(), que inspecciona todos los elementos almacenados en un a matriz sparse. dropzeros(), y dropzeros!(), se puede usar para eliminar ceros almacenados de la matriz dispersa.julia> A = sparse([1, 2, 3], [1, 2, 3], [0, 2, 0])\n3×3 SparseMatrixCSC{Int64,Int64} with 3 stored entries:\n  [1, 1]  =  0\n  [2, 2]  =  2\n  [3, 3]  =  0\n\njulia> dropzeros(A)\n3×3 SparseMatrixCSC{Int64,Int64} with 1 stored entry:\n  [2, 2]  =  2"
 },
 
 {
-    "location": "manual/arrays.html#Sparse-Vector-Storage-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Sparse Vector Storage",
+    "location": "manual/arrays.html#Almacenamiento-de-Vectores-*Sparse*-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Almacenamiento de Vectores Sparse",
     "category": "section",
-    "text": "Sparse vectors are stored in a close analog to compressed sparse column format for sparse matrices. In Julia, sparse vectors have the type SparseVector{Tv,Ti} where Tv is the type of the stored values and Ti the integer type for the indices. The internal representation is as follows:struct SparseVector{Tv,Ti<:Integer} <: AbstractSparseVector{Tv,Ti}\n    n::Int              # Length of the sparse vector\n    nzind::Vector{Ti}   # Indices of stored values\n    nzval::Vector{Tv}   # Stored values, typically nonzeros\nendAs for SparseMatrixCSC, the SparseVector type can also contain explicitly stored zeros. (See Sparse Matrix Storage.)."
+    "text": "Los vectores sparse se almacenan en un formato de columna análogo al que se usa en las matrices sparse. En Julia, los vectores sparse tienen el tipo SparseVector{Tv,Ti} donde Tv es el tipo de los valores almacenados yTi el tipo entero para los índices. La representación interna es la siguiente:struct SparseVector{Tv,Ti<:Integer} <: AbstractSparseVector{Tv,Ti}\n    n::Int              # Length of the sparse vector\n    nzind::Vector{Ti}   # Indices of stored values\n    nzval::Vector{Tv}   # Stored values, typically nonzeros\nendEn cuanto a SparseMatrixCSC, el tipo SparseVector también puede contener ceros almacenados explícitamente. (Consulte Almacenamiento de matriz sparse.)."
 },
 
 {
-    "location": "manual/arrays.html#Sparse-Vector-and-Matrix-Constructors-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Sparse Vector and Matrix Constructors",
+    "location": "manual/arrays.html#Constructores-de-Vectores-y-Matrices-*Sparse*-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Constructores de Vectores y Matrices Sparse",
     "category": "section",
-    "text": "The simplest way to create sparse arrays is to use functions equivalent to the zeros() and eye() functions that Julia provides for working with dense arrays. To produce sparse arrays instead, you can use the same names with an sp prefix:julia> spzeros(3)\n3-element SparseVector{Float64,Int64} with 0 stored entries\n\njulia> speye(3,5)\n3×5 SparseMatrixCSC{Float64,Int64} with 3 stored entries:\n  [1, 1]  =  1.0\n  [2, 2]  =  1.0\n  [3, 3]  =  1.0The sparse() function is often a handy way to construct sparse arrays. For example, to construct a sparse matrix we can input a vector I of row indices, a vector J of column indices, and a vector V of stored values (this is also known as the COO (coordinate) format). sparse(I,J,V) then constructs a sparse matrix such that S[I[k], J[k]] = V[k]. The equivalent sparse vector constructor is sparsevec, which takes the (row) index vector I and the vector V with the stored values and constructs a sparse vector R such that R[I[k]] = V[k].julia> I = [1, 4, 3, 5]; J = [4, 7, 18, 9]; V = [1, 2, -5, 3];\n\njulia> S = sparse(I,J,V)\n5×18 SparseMatrixCSC{Int64,Int64} with 4 stored entries:\n  [1 ,  4]  =  1\n  [4 ,  7]  =  2\n  [5 ,  9]  =  3\n  [3 , 18]  =  -5\n\njulia> R = sparsevec(I,V)\n5-element SparseVector{Int64,Int64} with 4 stored entries:\n  [1]  =  1\n  [3]  =  -5\n  [4]  =  2\n  [5]  =  3The inverse of the sparse() and sparsevec functions is findnz(), which retrieves the inputs used to create the sparse array. There is also a findn function which only returns the index vectors.julia> findnz(S)\n([1, 4, 5, 3], [4, 7, 9, 18], [1, 2, 3, -5])\n\njulia> findn(S)\n([1, 4, 5, 3], [4, 7, 9, 18])\n\njulia> findnz(R)\n([1, 3, 4, 5], [1, -5, 2, 3])\n\njulia> findn(R)\n4-element Array{Int64,1}:\n 1\n 3\n 4\n 5Another way to create a sparse array is to convert a dense array into a sparse array using the sparse() function:julia> sparse(eye(5))\n5×5 SparseMatrixCSC{Float64,Int64} with 5 stored entries:\n  [1, 1]  =  1.0\n  [2, 2]  =  1.0\n  [3, 3]  =  1.0\n  [4, 4]  =  1.0\n  [5, 5]  =  1.0\n\njulia> sparse([1.0, 0.0, 1.0])\n3-element SparseVector{Float64,Int64} with 2 stored entries:\n  [1]  =  1.0\n  [3]  =  1.0You can go in the other direction using the Array constructor. The issparse() function can be used to query if a matrix is sparse.julia> issparse(speye(5))\ntrue"
+    "text": "La forma más sencilla de crear matrices sparse es usar funciones equivalentes a las funciones zeros() y eye() que proporciona Julia para trabajar con matrices densas. Para producir matrices sparse en su lugar, puede usar los mismos nombres con el prefijo sp:julia> spzeros(3)\n3-element SparseVector{Float64,Int64} with 0 stored entries\n\njulia> speye(3,5)\n3×5 SparseMatrixCSC{Float64,Int64} with 3 stored entries:\n  [1, 1]  =  1.0\n  [2, 2]  =  1.0\n  [3, 3]  =  1.0La función sparse() suele ser una forma útil de construir arrays sparse. Por ejemplo, para construir una matriz sparse, podemos ingresar un vector I de índices de fila, un vectorJ de índices de columna, y un vector V de valores almacenados (esto también se conoce como formato COO (coordenada)). sparse (I,J,V) construye una matriz sparse tal que S[I[k], J[k]] = V[k]. El constructor de vector sparse equivalente es sparsevec, que toma el vector de índices (fila) I y el vector V con los valores almacenados y construye un vector sparse R tal que R[I[k]] = V[k].julia> I = [1, 4, 3, 5]; J = [4, 7, 18, 9]; V = [1, 2, -5, 3];\n\njulia> S = sparse(I,J,V)\n5×18 SparseMatrixCSC{Int64,Int64} with 4 stored entries:\n  [1 ,  4]  =  1\n  [4 ,  7]  =  2\n  [5 ,  9]  =  3\n  [3 , 18]  =  -5\n\njulia> R = sparsevec(I,V)\n5-element SparseVector{Int64,Int64} with 4 stored entries:\n  [1]  =  1\n  [3]  =  -5\n  [4]  =  2\n  [5]  =  3La inversa de las funciones sparse() y sparsevec es findnz(), que recupera las entradas utilizadas para crear el array sparse. También hay una función findn que solo devuelve los vectores índice.julia> findnz(S)\n([1, 4, 5, 3], [4, 7, 9, 18], [1, 2, 3, -5])\n\njulia> findn(S)\n([1, 4, 5, 3], [4, 7, 9, 18])\n\njulia> findnz(R)\n([1, 3, 4, 5], [1, -5, 2, 3])\n\njulia> findn(R)\n4-element Array{Int64,1}:\n 1\n 3\n 4\n 5Otra forma de crear un array sparse es convertir un array denso en un array sparse usando la función sparse():julia> sparse(eye(5))\n5×5 SparseMatrixCSC{Float64,Int64} with 5 stored entries:\n  [1, 1]  =  1.0\n  [2, 2]  =  1.0\n  [3, 3]  =  1.0\n  [4, 4]  =  1.0\n  [5, 5]  =  1.0\n\njulia> sparse([1.0, 0.0, 1.0])\n3-element SparseVector{Float64,Int64} with 2 stored entries:\n  [1]  =  1.0\n  [3]  =  1.0Puede ir en la otra dirección usando el constructor Array. La función issparse() se puede usar para consultar si una matriz es o no sparse.julia> issparse(speye(5))\ntrue"
 },
 
 {
-    "location": "manual/arrays.html#Sparse-matrix-operations-1",
-    "page": "Multi-dimensional Arrays",
-    "title": "Sparse matrix operations",
+    "location": "manual/arrays.html#Operaciones-con-matrices-*sparse*-1",
+    "page": "Arrays Multi-dimensionales",
+    "title": "Operaciones con matrices sparse",
     "category": "section",
-    "text": "Arithmetic operations on sparse matrices also work as they do on dense matrices. Indexing of, assignment into, and concatenation of sparse matrices work in the same way as dense matrices. Indexing operations, especially assignment, are expensive, when carried out one element at a time. In many cases it may be better to convert the sparse matrix into (I,J,V) format using findnz(), manipulate the values or the structure in the dense vectors (I,J,V), and then reconstruct the sparse matrix."
+    "text": "Las operaciones aritméticas en matrices sparse también funcionan como lo hacen en matrices densas. La indexación de, la asignación en y la concatenación de matrices sparse funcionan de la misma manera que las matrices densas. Las operaciones de indexación, especialmente la asignación, son costosas, cuando se llevan a cabo un elemento cada vez. En muchos casos, puede ser mejor convertir la matriz dispersa en formato (I,J,V) usando findnz(), manipular los valores o la estructura en los vectores densos (I,J,V), y luego reconstruir la matriz sparse."
 },
 
 {
     "location": "manual/arrays.html#Correspondence-of-dense-and-sparse-methods-1",
-    "page": "Multi-dimensional Arrays",
+    "page": "Arrays Multi-dimensionales",
     "title": "Correspondence of dense and sparse methods",
     "category": "section",
-    "text": "The following table gives a correspondence between built-in methods on sparse matrices and their corresponding methods on dense matrix types. In general, methods that generate sparse matrices differ from their dense counterparts in that the resulting matrix follows the same sparsity pattern as a given sparse matrix S, or that the resulting sparse matrix has density d, i.e. each matrix element has a probability d of being non-zero.Details can be found in the Sparse Vectors and Matrices section of the standard library reference.Sparse Dense Description\nspzeros(m,n) zeros(m,n) Creates a m-by-n matrix of zeros. (spzeros(m,n) is empty.)\nspones(S) ones(m,n) Creates a matrix filled with ones. Unlike the dense version, spones() has the same sparsity pattern as S.\nspeye(n) eye(n) Creates a n-by-n identity matrix.\nfull(S) sparse(A) Interconverts between dense and sparse formats.\nsprand(m,n,d) rand(m,n) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed uniformly on the half-open interval 0 1).\nsprandn(m,n,d) randn(m,n) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed according to the standard normal (Gaussian) distribution.\nsprandn(m,n,d,X) randn(m,n,X) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed according to the X distribution. (Requires the Distributions package.)"
+    "text": "La siguiente tabla proporciona una correspondencia entre los métodos incorporados en matrices sparse y sus métodos correspondientes en tipos de matrices densas. En general, los métodos que generan matrices sparse difieren de sus contrapartes densas en que la matriz resultante sigue el mismo patrón de dispersión que una matriz sparse dada S, o que la matriz sparse resultante tiene densidad d, es decir, cada elemento de matriz tiene una probabilidad d de ser diferente de cero.Los detalles se pueden encontrar en la sección Vectores y Matrices Sparse de la referencia de biblioteca estándar.Sparse Dense Description\nspzeros(m,n) zeros(m,n) Creates a m-by-n matrix of zeros. (spzeros(m,n) is empty.)\nspones(S) ones(m,n) Creates a matrix filled with ones. Unlike the dense version, spones() has the same sparsity pattern as S.\nspeye(n) eye(n) Creates a n-by-n identity matrix.\nfull(S) sparse(A) Interconverts between dense and sparse formats.\nsprand(m,n,d) rand(m,n) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed uniformly on the half-open interval 0 1).\nsprandn(m,n,d) randn(m,n) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed according to the standard normal (Gaussian) distribution.\nsprandn(m,n,d,X) randn(m,n,X) Creates a m-by-n random matrix (of density d) with iid non-zero elements distributed according to the X distribution. (Requires the Distributions package.)"
 },
 
 {
@@ -2089,7 +2089,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/linear-algebra.html#Linear-algebra-1",
+    "location": "manual/linear-algebra.html#linear-algebra-1",
     "page": "Linear algebra",
     "title": "Linear algebra",
     "category": "section",
@@ -2145,7 +2145,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/networking-and-streams.html#Networking-and-Streams-1",
+    "location": "manual/networking-and-streams.html#networking-and-streams-1",
     "page": "Networking and Streams",
     "title": "Networking and Streams",
     "category": "section",
@@ -2209,7 +2209,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/parallel-computing.html#Parallel-Computing-1",
+    "location": "manual/parallel-computing.html#parallel-computing-1",
     "page": "Parallel Computing",
     "title": "Parallel Computing",
     "category": "section",
@@ -2393,7 +2393,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/dates.html#Date-and-DateTime-1",
+    "location": "manual/dates.html#dates-1",
     "page": "Date and DateTime",
     "title": "Date and DateTime",
     "category": "section",
@@ -2481,7 +2481,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/interacting-with-julia.html#Interacting-With-Julia-1",
+    "location": "manual/interacting-with-julia.html#interacting-with-julia-1",
     "page": "Interacting With Julia",
     "title": "Interacting With Julia",
     "category": "section",
@@ -2569,7 +2569,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/running-external-programs.html#Running-External-Programs-1",
+    "location": "manual/running-external-programs.html#running-external-programs-1",
     "page": "Running External Programs",
     "title": "Running External Programs",
     "category": "section",
@@ -2618,23 +2618,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#",
-    "page": "Calling C and Fortran Code",
-    "title": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
+    "title": "Llamando a código C y Fortran",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "manual/calling-c-and-fortran-code.html#Calling-C-and-Fortran-Code-1",
-    "page": "Calling C and Fortran Code",
-    "title": "Calling C and Fortran Code",
+    "location": "manual/calling-c-and-fortran-code.html#calling-c-and-fortran-code-1",
+    "page": "Llamando a código C y Fortran",
+    "title": "Llamando a código C y Fortran",
     "category": "section",
-    "text": "Though most code can be written in Julia, there are many high-quality, mature libraries for numerical computing already written in C and Fortran. To allow easy use of this existing code, Julia makes it simple and efficient to call C and Fortran functions. Julia has a \"no boilerplate\" philosophy: functions can be called directly from Julia without any \"glue\" code, code generation, or compilation – even from the interactive prompt. This is accomplished just by making an appropriate call with ccall syntax, which looks like an ordinary function call.The code to be called must be available as a shared library. Most C and Fortran libraries ship compiled as shared libraries already, but if you are compiling the code yourself using GCC (or Clang), you will need to use the -shared and -fPIC options. The machine instructions generated by Julia's JIT are the same as a native C call would be, so the resulting overhead is the same as calling a library function from C code. (Non-library function calls in both C and Julia can be inlined and thus may have even less overhead than calls to shared library functions. When both libraries and executables are generated by LLVM, it is possible to perform whole-program optimizations that can even optimize across this boundary, but Julia does not yet support that. In the future, however, it may do so, yielding even greater performance gains.)Shared libraries and functions are referenced by a tuple of the form (:function, \"library\") or (\"function\", \"library\") where function is the C-exported function name. library refers to the shared library name: shared libraries available in the (platform-specific) load path will be resolved by name, and if necessary a direct path may be specified.A function name may be used alone in place of the tuple (just :function or \"function\"). In this case the name is resolved within the current process. This form can be used to call C library functions, functions in the Julia runtime, or functions in an application linked to Julia.By default, Fortran compilers generate mangled names (for example, converting function names to lowercase or uppercase, often appending an underscore), and so to call a Fortran function via ccall you must pass the mangled identifier corresponding to the rule followed by your Fortran compiler.  Also, when calling a Fortran function, all inputs must be passed by reference.Finally, you can use ccall to actually generate a call to the library function. Arguments to ccall are as follows:A (:function, \"library\") pair, which must be written as a literal constant,\nOR\na function pointer (for example, from dlsym).\nReturn type (see below for mapping the declared C type to Julia)\nThis argument will be evaluated at compile-time, when the containing method is defined.\nA tuple of input types. The input types must be written as a literal tuple, not a tuple-valued variable or expression.\nThis argument will be evaluated at compile-time, when the containing method is defined.\nThe following arguments, if any, are the actual argument values passed to the function.As a complete but simple example, the following calls the clock function from the standard C library:julia> t = ccall((:clock, \"libc\"), Int32, ())\n2292761\n\njulia> t\n2292761\n\njulia> typeof(ans)\nInt32clock takes no arguments and returns an Int32. One common gotcha is that a 1-tuple must be written with a trailing comma. For example, to call the getenv function to get a pointer to the value of an environment variable, one makes a call like this:julia> path = ccall((:getenv, \"libc\"), Cstring, (Cstring,), \"SHELL\")\nCstring(@0x00007fff5fbffc45)\n\njulia> unsafe_string(path)\n\"/bin/bash\"Note that the argument type tuple must be written as (Cstring,), rather than (Cstring). This is because (Cstring) is just the expression Cstring surrounded by parentheses, rather than a 1-tuple containing Cstring:julia> (Cstring)\nCstring\n\njulia> (Cstring,)\n(Cstring,)In practice, especially when providing reusable functionality, one generally wraps ccall uses in Julia functions that set up arguments and then check for errors in whatever manner the C or Fortran function indicates them, propagating to the Julia caller as exceptions. This is especially important since C and Fortran APIs are notoriously inconsistent about how they indicate error conditions. For example, the getenv C library function is wrapped in the following Julia function, which is a simplified version of the actual definition from env.jl:function getenv(var::AbstractString)\n    val = ccall((:getenv, \"libc\"),\n                Cstring, (Cstring,), var)\n    if val == C_NULL\n        error(\"getenv: undefined variable: \", var)\n    end\n    unsafe_string(val)\nendThe C getenv function indicates an error by returning NULL, but other standard C functions indicate errors in various different ways, including by returning -1, 0, 1 and other special values. This wrapper throws an exception clearly indicating the problem if the caller tries to get a non-existent environment variable:julia> getenv(\"SHELL\")\n\"/bin/bash\"\n\njulia> getenv(\"FOOBAR\")\ngetenv: undefined variable: FOOBARHere is a slightly more complex example that discovers the local machine's hostname:function gethostname()\n    hostname = Vector{UInt8}(128)\n    ccall((:gethostname, \"libc\"), Int32,\n          (Ptr{UInt8}, Csize_t),\n          hostname, sizeof(hostname))\n    hostname[end] = 0; # ensure null-termination\n    return unsafe_string(pointer(hostname))\nendThis example first allocates an array of bytes, then calls the C library function gethostname to fill the array in with the hostname, takes a pointer to the hostname buffer, and converts the pointer to a Julia string, assuming that it is a NUL-terminated C string. It is common for C libraries to use this pattern of requiring the caller to allocate memory to be passed to the callee and filled in. Allocation of memory from Julia like this is generally accomplished by creating an uninitialized array and passing a pointer to its data to the C function. This is why we don't use the Cstring type here: as the array is uninitialized, it could contain NUL bytes. Converting to a Cstring as part of the ccall checks for contained NUL bytes and could therefore throw a conversion error."
+    "text": "Aunque la mayoría del código se puede escribir en Julia, hay muchas bibliotecas maduras de alta calidad para computación numérica ya escritas en C y Fortran. Para permitir el uso fácil de este código existente, Julia hace que sea sencillo y eficiente llamar a las funciones C y Fortran. Julia tiene una filosofía de \"no repetitivo\": las funciones se pueden llamar directamente desde Julia sin ningún código de \"pegamento\", generación de código o compilación, incluso desde el aviso interactivo. Esto se logra haciendo una llamada apropiada con la sintaxis ccall, que se parece a una llamada de función ordinaria.El código que se debe llamar debe estar disponible como una biblioteca compartida. La mayoría de las bibliotecas C y Fortran ya se han compilado como bibliotecas compartidas, pero si está compilando el código usted mismo usando GCC (o Clang), necesitará usar las opciones -shared y-fPIC. Las instrucciones de la máquina generadas por el JIT de Julia son las mismas que una llamada C nativa, por lo que la sobrecarga resultante es lo mismo que llamar a una función de biblioteca desde el código C. (Las llamadas a funciones que no son de la biblioteca en C y Julia pueden estar incluidas y, por lo tanto, pueden tener incluso menos gastos generales que las llamadas a funciones de biblioteca compartidas. Cuando LLVM genera bibliotecas y ejecutables, es posible realizar optimizaciones de todo el programa que incluso optimizar a través de este límite, pero Julia aún no lo admite. Sin embargo, en el futuro, puede hacerlo, produciendo ganancias de rendimiento incluso mayores).Las bibliotecas y funciones compartidas están referenciadas por una tupla de la forma (:función,\"biblioteca\") o (\"función\", \"biblioteca\") donde función es el nombre de función exportado por C. library se refiere al nombre de la biblioteca compartida: las bibliotecas compartidas disponibles en la ruta de carga (específica de la plataforma) se resolverán por nombre y, si es necesario, se puede especificar una ruta directa.El nombre de una función se puede usar solo en lugar de la tupla (solo :función o\"función\"). En este caso, el nombre se resuelve dentro del proceso actual. Este formulario se puede usar para llamar funciones de biblioteca C, funciones en el tiempo de ejecución de Julia o funciones en una aplicación vinculada a Julia.Por defecto, los compiladores Fortran generan nombres destrozados (por ejemplo, convirtiendo nombres de funciones a minúsculas o mayúsculas, a menudo añadiendo un guión bajo), y para llamar a una función Fortran a través de ccall debe pasar el identificador mutilado correspondiente a la regla seguida por su compilador Fortran . Además, cuando se llama a una función Fortran, todas las entradas se deben pasar por referencia.Por último, se puede usar ccall para generar de hecho una llamada a la función de librería. Los argumentos a  ccall son los siguientes:Una pareja (:función, \"librería\"), que debe ser escrita como una constante literal,\nO  un puntero a función (por ejemplo, de dlsym).Tipo de retorno (ver abajo para la correspondencia entre el tipo declarado en C y Julia)    * Este argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.Una tupla de tipos de entrada. Los tipos de entrada deben ser escritos como un literal tupla, no como una variable o expresión de valor tupla.\nEste argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.\nLos siguientes argumentos, si los hay, son los valores de los argumentos actuales pasados a la función.Como un ejemplo completo pero simple, el siguiente código llama a la función clock de la librería estándar C:julia> t = ccall((:clock, \"libc\"), Int32, ())\n2292761\n\njulia> t\n2292761\n\njulia> typeof(ans)\nInt32clock no toma argumentos y devuelve un Int32. Un problema común es que una 1-tupla debe escribirse con una coma al final. Por ejemplo, para llamar a la función getenv para obtener un puntero al valor de una variable de entorno, se realiza una llamada como esta:julia> path = ccall((:getenv, \"libc\"), Cstring, (Cstring,), \"SHELL\")\nCstring(@0x00007fff5fbffc45)\n\njulia> unsafe_string(path)\n\"/bin/bash\"Note que la tupla del tipo de argumento debe ser escrita como (Cstring,), en lugar de como (Cstring). Esto es debido a que (Cstring) es justo la expresión Cstring rodeada entre paréntesis, en lugar de una tupla que contiene a Cstring:julia> (Cstring)\nCstring\n\njulia> (Cstring,)\n(Cstring,)En la práctica, especialmente cuando se proporciona funcionalidad reutilizable, generalmente se envuelve el usp de  ccall en funciones de Julia que configuran argumentos y luego se comprueban los errores de cualquier forma que la función C o Fortran los indique, propagándose al código que llama desde Julia como excepciones. Esto es especialmente importante ya que las API de C y Fortran son notoriamente inconsistentes sobre cómo indican las condiciones de error. Por ejemplo, la función de biblioteca C getenv está envuelta en la siguiente función Julia, que es una versión simplificada de la definición real de env.jl:function getenv(var::AbstractString)\n    val = ccall((:getenv, \"libc\"),\n                Cstring, (Cstring,), var)\n    if val == C_NULL\n        error(\"getenv: undefined variable: \", var)\n    end\n    unsafe_string(val)\nendLa función C getenv indica un error al devolverNULL, pero otras funciones C estándar indican errores de varias maneras diferentes, incluyendo al devolver -1, 0, 1 y otros valores especiales. Este contenedor arroja una excepción que indica claramente el problema si la persona que llama intenta obtener una variable de entorno inexistente:julia> getenv(\"SHELL\")\n\"/bin/bash\"\n\njulia> getenv(\"FOOBAR\")\ngetenv: undefined variable: FOOBARAquí hay un ejemplo ligeramente ms complejo que descubre el nombre de host de la máquina local:function gethostname()\n    hostname = Vector{UInt8}(128)\n    ccall((:gethostname, \"libc\"), Int32,\n          (Ptr{UInt8}, Csize_t),\n          hostname, sizeof(hostname))\n    hostname[end] = 0; # ensure null-termination\n    return unsafe_string(pointer(hostname))\nendEste ejemplo primero asigna un array de bytes, luego llama a la función de biblioteca C gethostname para llenar el array con el nombre de host, toma un puntero al buffer de nombre de host, y convierte el puntero a una cadena Julia, asumiendo que es una cadena C terminada en NUL. Es común que las bibliotecas C usen este patrón de requerir al llamador que asigne memoria para que la pase al llamado y la complete. La asignación de la memoria de Julia se logra generalmente creando un array no inicializada y pasando un puntero a sus datos a la función C. Es por eso que no usamos el tipo Cstring aquí: como la matriz no está inicializada, podría contener bytes NUL. Convertir a Cstring como parte de ccall comprueba si hay bytes NUL contenidos y, por lo tanto, puede arrojar un error de conversión."
 },
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Creating-C-Compatible-Julia-Function-Pointers-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Creating C-Compatible Julia Function Pointers",
     "category": "section",
     "text": "It is possible to pass Julia functions to native C functions that accept function pointer arguments. For example, to match C prototypes of the form:typedef returntype (*functiontype)(argumenttype,...)The function cfunction() generates the C-compatible function pointer for a call to a Julia library function. Arguments to cfunction() are as follows:A Julia Function\nReturn type\nA tuple of input typesA classic example is the standard C library qsort function, declared as:void qsort(void *base, size_t nmemb, size_t size,\n           int(*compare)(const void *a, const void *b));The base argument is a pointer to an array of length nmemb, with elements of size bytes each. compare is a callback function which takes pointers to two elements a and b and returns an integer less/greater than zero if a should appear before/after b (or zero if any order is permitted). Now, suppose that we have a 1d array A of values in Julia that we want to sort using the qsort function (rather than Julia's built-in sort function). Before we worry about calling qsort and passing arguments, we need to write a comparison function that works for some arbitrary type T:julia> function mycompare(a::T, b::T) where T\n           return convert(Cint, a < b ? -1 : a > b ? +1 : 0)::Cint\n       end\nmycompare (generic function with 1 method)Notice that we have to be careful about the return type: qsort expects a function returning a C int, so we must be sure to return Cint via a call to convert and a typeassert.In order to pass this function to C, we obtain its address using the function cfunction:julia> const mycompare_c = cfunction(mycompare, Cint, (Ref{Cdouble}, Ref{Cdouble}));cfunction() accepts three arguments: the Julia function (mycompare), the return type (Cint), and a tuple of the argument types, in this case to sort an array of Cdouble (Float64) elements.The final call to qsort looks like this:julia> A = [1.3, -2.7, 4.4, 3.1]\n4-element Array{Float64,1}:\n  1.3\n -2.7\n  4.4\n  3.1\n\njulia> ccall(:qsort, Void, (Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Void}),\n             A, length(A), sizeof(eltype(A)), mycompare_c)\n\njulia> A\n4-element Array{Float64,1}:\n -2.7\n  1.3\n  3.1\n  4.4As can be seen, A is changed to the sorted array [-2.7, 1.3, 3.1, 4.4]. Note that Julia knows how to convert an array into a Ptr{Cdouble}, how to compute the size of a type in bytes (identical to C's sizeof operator), and so on. For fun, try inserting a println(\"mycompare($a,$b)\") line into mycompare, which will allow you to see the comparisons that qsort is performing (and to verify that it is really calling the Julia function that you passed to it)."
@@ -2642,7 +2642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Mapping-C-Types-to-Julia-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Mapping C Types to Julia",
     "category": "section",
     "text": "It is critical to exactly match the declared C type with its declaration in Julia. Inconsistencies can cause code that works correctly on one system to fail or produce indeterminate results on a different system.Note that no C header files are used anywhere in the process of calling C functions: you are responsible for making sure that your Julia types and call signatures accurately reflect those in the C header file. (The Clang package can be used to auto-generate Julia code from a C header file.)"
@@ -2650,7 +2650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Auto-conversion:-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Auto-conversion:",
     "category": "section",
     "text": "Julia automatically inserts calls to the Base.cconvert() function to convert each argument to the specified type. For example, the following call:ccall((:foo, \"libfoo\"), Void, (Int32, Float64), x, y)will behave as if the following were written:ccall((:foo, \"libfoo\"), Void, (Int32, Float64),\n      Base.unsafe_convert(Int32, Base.cconvert(Int32, x)),\n      Base.unsafe_convert(Float64, Base.cconvert(Float64, y)))Base.cconvert() normally just calls convert(), but can be defined to return an arbitrary new object more appropriate for passing to C. For example, this is used to convert an Array of objects (e.g. strings) to an array of pointers.Base.unsafe_convert() handles conversion to Ptr types. It is considered unsafe because converting an object to a native pointer can hide the object from the garbage collector, causing it to be freed prematurely."
@@ -2658,7 +2658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Type-Correspondences:-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Type Correspondences:",
     "category": "section",
     "text": "First, a review of some relevant Julia type terminology:Syntax / Keyword Example Description\nmutable struct String \"Leaf Type\" :: A group of related data that includes a type-tag, is managed by the Julia GC, and is defined by object-identity. The type parameters of a leaf type must be fully defined (no TypeVars are allowed) in order for the instance to be constructed.\nabstract type Any, AbstractArray{T, N}, Complex{T} \"Super Type\" :: A super-type (not a leaf-type) that cannot be instantiated, but can be used to describe a group of types.\nT{A} Vector{Int} \"Type Parameter\" :: A specialization of a type (typically used for dispatch or storage optimization).\n  \"TypeVar\" :: The T in the type parameter declaration is referred to as a TypeVar (short for type variable).\nprimitive type Int, Float64 \"Primitive Type\" :: A type with no fields, but a size. It is stored and defined by-value.\nstruct Pair{Int, Int} \"Struct\" :: A type with all fields defined to be constant. It is defined by-value, and may be stored with a type-tag.\n Complex128 (isbits) \"Is-Bits\"   :: A primitive type, or a struct type where all fields are other isbits types. It is defined by-value, and is stored without a type-tag.\nstruct ...; end nothing \"Singleton\" :: a Leaf Type or Struct with no fields.\n(...) or tuple(...) (1, 2, 3) \"Tuple\" :: an immutable data-structure similar to an anonymous struct type, or a constant array. Represented as either an array or a struct."
@@ -2666,7 +2666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Bits-Types:-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Bits Types:",
     "category": "section",
     "text": "There are several special types to be aware of, as no other type can be defined to behave the same:Float32\nExactly corresponds to the float type in C (or REAL*4 in Fortran).\nFloat64\nExactly corresponds to the double type in C (or REAL*8 in Fortran).\nComplex64\nExactly corresponds to the complex float type in C (or COMPLEX*8 in Fortran).\nComplex128\nExactly corresponds to the complex double type in C (or COMPLEX*16 in Fortran).\nSigned\nExactly corresponds to the signed type annotation in C (or any INTEGER type in Fortran). Any Julia type that is not a subtype of Signed is assumed to be unsigned.Ref{T}\nBehaves like a Ptr{T} that can manage its memory via the Julia GC.Array{T,N}\nWhen an array is passed to C as a Ptr{T} argument, it is not reinterpret-cast: Julia requires that the element type of the array matches T, and the address of the first element is passed.\nTherefore, if an Array contains data in the wrong format, it will have to be explicitly converted using a call such as trunc(Int32, a).\nTo pass an array A as a pointer of a different type without converting the data beforehand (for example, to pass a Float64 array to a function that operates on uninterpreted bytes), you can declare the argument as Ptr{Void}.\nIf an array of eltype Ptr{T} is passed as a Ptr{Ptr{T}} argument, Base.cconvert() will attempt to first make a null-terminated copy of the array with each element replaced by its Base.cconvert() version. This allows, for example, passing an argv pointer array of type Vector{String} to an argument of type Ptr{Ptr{Cchar}}.On all systems we currently support, basic C/C++ value types may be translated to Julia types as follows. Every C type also has a corresponding Julia type with the same name, prefixed by C. This can help for writing portable code (and remembering that an int in C is not the same as an Int in Julia).System Independent:C name Fortran name Standard Julia Alias Julia Base Type\nunsigned char CHARACTER Cuchar UInt8\nbool (only in C++)  Cuchar UInt8\nshort INTEGER*2, LOGICAL*2 Cshort Int16\nunsigned short   Cushort UInt16\nint, BOOL (C, typical) INTEGER*4, LOGICAL*4 Cint Int32\nunsigned int   Cuint UInt32\nlong long INTEGER*8, LOGICAL*8 Clonglong Int64\nunsigned long long   Culonglong UInt64\nintmax_t   Cintmax_t Int64\nuintmax_t   Cuintmax_t UInt64\nfloat REAL*4i Cfloat Float32\ndouble REAL*8 Cdouble Float64\ncomplex float COMPLEX*8 Complex64 Complex{Float32}\ncomplex double COMPLEX*16 Complex128 Complex{Float64}\nptrdiff_t   Cptrdiff_t Int\nssize_t   Cssize_t Int\nsize_t   Csize_t UInt\nvoid     Void\nvoid and [[noreturn]] or _Noreturn     Union{}\nvoid*     Ptr{Void}\nT* (where T represents an appropriately defined type)     Ref{T}\nchar* (or char[], e.g. a string) CHARACTER*N   Cstring if NUL-terminated, or Ptr{UInt8} if not\nchar** (or *char[])     Ptr{Ptr{UInt8}}\njl_value_t* (any Julia Type)     Any\njl_value_t** (a reference to a Julia Type)     Ref{Any}\nva_arg     Not supported\n... (variadic function specification)     T... (where T is one of the above types, variadic functions of different argument types are not supported)The Cstring type is essentially a synonym for Ptr{UInt8}, except the conversion to Cstring throws an error if the Julia string contains any embedded NUL characters (which would cause the string to be silently truncated if the C routine treats NUL as the terminator).  If you are passing a char* to a C routine that does not assume NUL termination (e.g. because you pass an explicit string length), or if you know for certain that your Julia string does not contain NUL and want to skip the check, you can use Ptr{UInt8} as the argument type. Cstring can also be used as the ccall return type, but in that case it obviously does not introduce any extra checks and is only meant to improve readability of the call.System-dependent:C name Standard Julia Alias Julia Base Type\nchar Cchar Int8 (x86, x86_64), UInt8 (powerpc, arm)\nlong Clong Int (UNIX), Int32 (Windows)\nunsigned long Culong UInt (UNIX), UInt32 (Windows)\nwchar_t Cwchar_t Int32 (UNIX), UInt16 (Windows)note: Note\nWhen calling a Fortran function, all inputs must be passed by reference, so all type correspondences above should contain an additional Ptr{..} or Ref{..} wrapper around their type specification.warning: Warning\nFor string arguments (char*) the Julia type should be Cstring (if NUL- terminated data is expected) or either Ptr{Cchar} or Ptr{UInt8} otherwise (these two pointer types have the same effect), as described above, not String. Similarly, for array arguments (T[] or T*), the Julia type should again be Ptr{T}, not Vector{T}.warning: Warning\nJulia's Char type is 32 bits, which is not the same as the wide character type (wchar_t or wint_t) on all platforms.warning: Warning\nA return type of Union{} means the function will not return i.e. C++11 [[noreturn]] or C11 _Noreturn (e.g. jl_throw or longjmp). Do not use this for functions that return no value (void) but do return, use Void instead.note: Note\nFor wchar_t* arguments, the Julia type should be Cwstring (if the C routine expects a NUL-terminated string) or Ptr{Cwchar_t} otherwise. Note also that UTF-8 string data in Julia is internally NUL-terminated, so it can be passed to C functions expecting NUL-terminated data without making a copy (but using the Cwstring type will cause an error to be thrown if the string itself contains NUL characters).note: Note\nC functions that take an argument of the type char** can be called by using a Ptr{Ptr{UInt8}} type within Julia. For example, C functions of the form:int main(int argc, char **argv);can be called via the following Julia code:argv = [ \"a.out\", \"arg1\", \"arg2\" ]\nccall(:main, Int32, (Int32, Ptr{Ptr{UInt8}}), length(argv), argv)note: Note\nA C function declared to return Void will return the value nothing in Julia."
@@ -2674,7 +2674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Struct-Type-correspondences-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Struct Type correspondences",
     "category": "section",
     "text": "Composite types, aka struct in C or TYPE in Fortran90 (or STRUCTURE / RECORD in some variants of F77), can be mirrored in Julia by creating a struct definition with the same field layout.When used recursively, isbits types are stored inline. All other types are stored as a pointer to the data. When mirroring a struct used by-value inside another struct in C, it is imperative that you do not attempt to manually copy the fields over, as this will not preserve the correct field alignment. Instead, declare an isbits struct type and use that instead. Unnamed structs are not possible in the translation to Julia.Packed structs and union declarations are not supported by Julia.You can get a near approximation of a union if you know, a priori, the field that will have the greatest size (potentially including padding). When translating your fields to Julia, declare the Julia field to be only of that type.Arrays of parameters can be expressed with NTuple:in C:\nstruct B {\n    int A[3];\n};\nb_a_2 = B.A[2];\n\nin Julia:\nstruct B\n    A::NTuple{3, CInt}\nend\nb_a_2 = B.A[3]  # note the difference in indexing (1-based in Julia, 0-based in C)Arrays of unknown size (C99-compliant variable length structs specified by [] or [0]) are not directly supported. Often the best way to deal with these is to deal with the byte offsets directly. For example, if a C library declared a proper string type and returned a pointer to it:struct String {\n    int strlen;\n    char data[];\n};In Julia, we can access the parts independently to make a copy of that string:str = from_c::Ptr{Void}\nlen = unsafe_load(Ptr{Cint}(str))\nunsafe_string(str + Core.sizeof(Cint), len)"
@@ -2682,7 +2682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Type-Parameters-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Type Parameters",
     "category": "section",
     "text": "The type arguments to ccall are evaluated statically, when the method containing the ccall is defined. They therefore must take the form of a literal tuple, not a variable, and cannot reference local variables.This may sound like a strange restriction, but remember that since C is not a dynamic language like Julia, its functions can only accept argument types with a statically-known, fixed signature.However, while the type layout must be known statically to compute the ccall ABI, the static parameters of the function are considered to be part of this static environment. The static parameters of the function may be used as type parameters in the ccall signature, as long as they don't affect the layout of the type. For example, f(x::T) where {T} = ccall(:valid, Ptr{T}, (Ptr{T},), x) is valid, since Ptr is always a word-size primitive type. But, g(x::T) where {T} = ccall(:notvalid, T, (T,), x) is not valid, since the type layout of T is not known statically."
@@ -2690,7 +2690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#SIMD-Values-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "SIMD Values",
     "category": "section",
     "text": "Note: This feature is currently implemented on 64-bit x86 and AArch64 platforms only.If a C/C++ routine has an argument or return value that is a native SIMD type, the corresponding Julia type is a homogeneous tuple of VecElement that naturally maps to the SIMD type.  Specifically:The tuple must be the same size as the SIMD type. For example, a tuple representing an __m128 on x86 must have a size of 16 bytes.\nThe element type of the tuple must be an instance of VecElement{T} where T is a primitive type that is 1, 2, 4 or 8 bytes.For instance, consider this C routine that uses AVX intrinsics:#include <immintrin.h>\n\n__m256 dist( __m256 a, __m256 b ) {\n    return _mm256_sqrt_ps(_mm256_add_ps(_mm256_mul_ps(a, a),\n                                        _mm256_mul_ps(b, b)));\n}The following Julia code calls dist using ccall:const m256 = NTuple{8, VecElement{Float32}}\n\na = m256(ntuple(i -> VecElement(sin(Float32(i))), 8))\nb = m256(ntuple(i -> VecElement(cos(Float32(i))), 8))\n\nfunction call_dist(a::m256, b::m256)\n    ccall((:dist, \"libdist\"), m256, (m256, m256), a, b)\nend\n\nprintln(call_dist(a,b))The host machine must have the requisite SIMD registers.  For example, the code above will not work on hosts without AVX support."
@@ -2698,7 +2698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Memory-Ownership-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Memory Ownership",
     "category": "section",
     "text": "malloc/freeMemory allocation and deallocation of such objects must be handled by calls to the appropriate cleanup routines in the libraries being used, just like in any C program. Do not try to free an object received from a C library with Libc.free in Julia, as this may result in the free function being called via the wrong libc library and cause Julia to crash. The reverse (passing an object allocated in Julia to be freed by an external library) is equally invalid."
@@ -2706,7 +2706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#When-to-use-T,-Ptr{T}-and-Ref{T}-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "When to use T, Ptr{T} and Ref{T}",
     "category": "section",
     "text": "In Julia code wrapping calls to external C routines, ordinary (non-pointer) data should be declared to be of type T inside the ccall, as they are passed by value.  For C code accepting pointers, Ref{T} should generally be used for the types of input arguments, allowing the use of pointers to memory managed by either Julia or C through the implicit call to Base.cconvert().  In contrast, pointers returned by the C function called should be declared to be of output type Ptr{T}, reflecting that the memory pointed to is managed by C only. Pointers contained in C structs should be represented as fields of type Ptr{T} within the corresponding Julia struct types designed to mimic the internal structure of corresponding C structs.In Julia code wrapping calls to external Fortran routines, all input arguments should be declared as of type Ref{T}, as Fortran passes all variables by reference. The return type should either be Void for Fortran subroutines, or a T for Fortran functions returning the type T."
@@ -2714,7 +2714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Mapping-C-Functions-to-Julia-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Mapping C Functions to Julia",
     "category": "section",
     "text": ""
@@ -2722,7 +2722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#ccall/cfunction-argument-translation-guide-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "ccall/cfunction argument translation guide",
     "category": "section",
     "text": "For translating a C argument list to Julia:T, where T is one of the primitive types: char, int, long, short, float, double, complex, enum or any of their typedef equivalents\nT, where T is an equivalent Julia Bits Type (per the table above)\nif T is an enum, the argument type should be equivalent to Cint or Cuint\nargument value will be copied (passed by value)\nstruct T (including typedef to a struct)\nT, where T is a Julia leaf type\nargument value will be copied (passed by value)\nvoid*\ndepends on how this parameter is used, first translate this to the intended pointer type, then determine the Julia equivalent using the remaining rules in this list\nthis argument may be declared as Ptr{Void}, if it really is just an unknown pointer\njl_value_t*\nAny\nargument value must be a valid Julia object\ncurrently unsupported by cfunction()\njl_value_t**\nRef{Any}\nargument value must be a valid Julia object (or C_NULL)\ncurrently unsupported by cfunction()\nT*\nRef{T}, where T is the Julia type corresponding to T\nargument value will be copied if it is an isbits type otherwise, the value must be a valid Julia object\n(T*)(...) (e.g. a pointer to a function)\nPtr{Void} (you may need to use cfunction() explicitly to create this pointer)\n... (e.g. a vararg)\nT..., where T is the Julia type\nva_arg\nnot supported"
@@ -2730,7 +2730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#ccall/cfunction-return-type-translation-guide-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "ccall/cfunction return type translation guide",
     "category": "section",
     "text": "For translating a C return type to Julia:void\nVoid (this will return the singleton instance nothing::Void)\nT, where T is one of the primitive types: char, int, long, short, float, double, complex, enum or any of their typedef equivalents\nT, where T is an equivalent Julia Bits Type (per the table above)\nif T is an enum, the argument type should be equivalent to Cint or Cuint\nargument value will be copied (returned by-value)\nstruct T (including typedef to a struct)\nT, where T is a Julia Leaf Type\nargument value will be copied (returned by-value)\nvoid*\ndepends on how this parameter is used, first translate this to the intended pointer type, then determine the Julia equivalent using the remaining rules in this list\nthis argument may be declared as Ptr{Void}, if it really is just an unknown pointer\njl_value_t*\nAny\nargument value must be a valid Julia object\njl_value_t**\nRef{Any}\nargument value must be a valid Julia object (or C_NULL)\nT*\nIf the memory is already owned by Julia, or is an isbits type, and is known to be non-null:\nRef{T}, where T is the Julia type corresponding to T\na return type of Ref{Any} is invalid, it should either be Any (corresponding to jl_value_t*) or Ptr{Any} (corresponding to Ptr{Any})\nC MUST NOT modify the memory returned via Ref{T} if T is an isbits type\nIf the memory is owned by C:\nPtr{T}, where T is the Julia type corresponding to T\n(T*)(...) (e.g. a pointer to a function)\nPtr{Void} (you may need to use cfunction() explicitly to create this pointer)"
@@ -2738,7 +2738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Passing-Pointers-for-Modifying-Inputs-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Passing Pointers for Modifying Inputs",
     "category": "section",
     "text": "Because C doesn't support multiple return values, often C functions will take pointers to data that the function will modify. To accomplish this within a ccall, you need to first encapsulate the value inside an Ref{T} of the appropriate type. When you pass this Ref object as an argument, Julia will automatically pass a C pointer to the encapsulated data:width = Ref{Cint}(0)\nrange = Ref{Cfloat}(0)\nccall(:foo, Void, (Ref{Cint}, Ref{Cfloat}), width, range)Upon return, the contents of width and range can be retrieved (if they were changed by foo) by width[] and range[]; that is, they act like zero-dimensional arrays."
@@ -2746,7 +2746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Special-Reference-Syntax-for-ccall-(deprecated):-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Special Reference Syntax for ccall (deprecated):",
     "category": "section",
     "text": "The & syntax is deprecated, use the Ref{T} argument type instead.A prefix & is used on an argument to ccall to indicate that a pointer to a scalar argument should be passed instead of the scalar value itself (required for all Fortran function arguments, as noted above). The following example computes a dot product using a BLAS function.function compute_dot(DX::Vector{Float64}, DY::Vector{Float64})\n    @assert length(DX) == length(DY)\n    n = length(DX)\n    incx = incy = 1\n    product = ccall((:ddot_, \"libLAPACK\"),\n                    Float64,\n                    (Ptr{Int32}, Ptr{Float64}, Ptr{Int32}, Ptr{Float64}, Ptr{Int32}),\n                    &n, DX, &incx, DY, &incy)\n    return product\nendThe meaning of prefix & is not quite the same as in C. In particular, any changes to the referenced variables will not be visible in Julia unless the type is mutable (declared via type). However, even for immutable structs it will not cause any harm for called functions to attempt such modifications (that is, writing through the passed pointers). Moreover, & may be used with any expression, such as &0 or &f(x).When a scalar value is passed with & as an argument of type Ptr{T}, the value will first be converted to type T."
@@ -2754,7 +2754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Some-Examples-of-C-Wrappers-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Some Examples of C Wrappers",
     "category": "section",
     "text": "Here is a simple example of a C wrapper that returns a Ptr type:mutable struct gsl_permutation\nend\n\n# The corresponding C signature is\n#     gsl_permutation * gsl_permutation_alloc (size_t n);\nfunction permutation_alloc(n::Integer)\n    output_ptr = ccall(\n        (:gsl_permutation_alloc, :libgsl), # name of C function and library\n        Ptr{gsl_permutation},              # output type\n        (Csize_t,),                        # tuple of input types\n        n                                  # name of Julia variable to pass in\n    )\n    if output_ptr == C_NULL # Could not allocate memory\n        throw(OutOfMemoryError())\n    end\n    return output_ptr\nendThe GNU Scientific Library (here assumed to be accessible through :libgsl) defines an opaque pointer, gsl_permutation *, as the return type of the C function gsl_permutation_alloc(). As user code never has to look inside the gsl_permutation struct, the corresponding Julia wrapper simply needs a new type declaration, gsl_permutation, that has no internal fields and whose sole purpose is to be placed in the type parameter of a Ptr type.  The return type of the ccall is declared as Ptr{gsl_permutation}, since the memory allocated and pointed to by output_ptr is controlled by C (and not Julia).The input n is passed by value, and so the function's input signature is simply declared as (Csize_t,) without any Ref or Ptr necessary. (If the wrapper was calling a Fortran function instead, the corresponding function input signature should instead be (Ref{Csize_t},), since Fortran variables are passed by reference.) Furthermore, n can be any type that is convertable to a Csize_t integer; the ccall implicitly calls Base.cconvert(Csize_t, n).Here is a second example wrapping the corresponding destructor:# The corresponding C signature is\n#     void gsl_permutation_free (gsl_permutation * p);\nfunction permutation_free(p::Ref{gsl_permutation})\n    ccall(\n        (:gsl_permutation_free, :libgsl), # name of C function and library\n        Void,                             # output type\n        (Ref{gsl_permutation},),          # tuple of input types\n        p                                 # name of Julia variable to pass in\n    )\nendHere, the input p is declared to be of type Ref{gsl_permutation}, meaning that the memory that p points to may be managed by Julia or by C. A pointer to memory allocated by C should be of type Ptr{gsl_permutation}, but it is convertable using Base.cconvert() and therefore can be used in the same (covariant) context of the input argument to a ccall. A pointer to memory allocated by Julia must be of type Ref{gsl_permutation}, to ensure that the memory address pointed to is valid and that Julia's garbage collector manages the chunk of memory pointed to correctly. Therefore, the Ref{gsl_permutation} declaration allows pointers managed by C or Julia to be used.If the C wrapper never expects the user to pass pointers to memory managed by Julia, then using p::Ptr{gsl_permutation} for the method signature of the wrapper and similarly in the ccall is also acceptable.Here is a third example passing Julia arrays:# The corresponding C signature is\n#    int gsl_sf_bessel_Jn_array (int nmin, int nmax, double x,\n#                                double result_array[])\nfunction sf_bessel_Jn_array(nmin::Integer, nmax::Integer, x::Real)\n    if nmax < nmin\n        throw(DomainError())\n    end\n    result_array = Vector{Cdouble}(nmax - nmin + 1)\n    errorcode = ccall(\n        (:gsl_sf_bessel_Jn_array, :libgsl), # name of C function and library\n        Cint,                               # output type\n        (Cint, Cint, Cdouble, Ref{Cdouble}),# tuple of input types\n        nmin, nmax, x, result_array         # names of Julia variables to pass in\n    )\n    if errorcode != 0\n        error(\"GSL error code $errorcode\")\n    end\n    return result_array\nendThe C function wrapped returns an integer error code; the results of the actual evaluation of the Bessel J function populate the Julia array result_array. This variable can only be used with corresponding input type declaration Ref{Cdouble}, since its memory is allocated and managed by Julia, not C. The implicit call to Base.cconvert(Ref{Cdouble}, result_array) unpacks the Julia pointer to a Julia array data structure into a form understandable by C.Note that for this code to work correctly, result_array must be declared to be of type Ref{Cdouble} and not Ptr{Cdouble}. The memory is managed by Julia and the Ref signature alerts Julia's garbage collector to keep managing the memory for result_array while the ccall executes. If Ptr{Cdouble} were used instead, the ccall may still work, but Julia's garbage collector would not be aware that the memory declared for result_array is being used by the external C function. As a result, the code may produce a memory leak if result_array never gets freed by the garbage collector, or if the garbage collector prematurely frees result_array, the C function may end up throwing an invalid memory access exception."
@@ -2762,7 +2762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Garbage-Collection-Safety-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Garbage Collection Safety",
     "category": "section",
     "text": "When passing data to a ccall, it is best to avoid using the pointer() function. Instead define a convert method and pass the variables directly to the ccall. ccall automatically arranges that all of its arguments will be preserved from garbage collection until the call returns. If a C API will store a reference to memory allocated by Julia, after the ccall returns, you must arrange that the object remains visible to the garbage collector. The suggested way to handle this is to make a global variable of type Array{Ref,1} to hold these values, until the C library notifies you that it is finished with them.Whenever you have created a pointer to Julia data, you must ensure the original data exists until you are done with using the pointer. Many methods in Julia such as unsafe_load() and String() make copies of data instead of taking ownership of the buffer, so that it is safe to free (or alter) the original data without affecting Julia. A notable exception is unsafe_wrap() which, for performance reasons, shares (or can be told to take ownership of) the underlying buffer.The garbage collector does not guarantee any order of finalization. That is, if a contained a reference to b and both a and b are due for garbage collection, there is no guarantee that b would be finalized after a. If proper finalization of a depends on b being valid, it must be handled in other ways."
@@ -2770,7 +2770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Non-constant-Function-Specifications-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Non-constant Function Specifications",
     "category": "section",
     "text": "A (name, library) function specification must be a constant expression. However, it is possible to use computed values as function names by staging through eval as follows:@eval ccall(($(string(\"a\", \"b\")), \"lib\"), ...This expression constructs a name using string, then substitutes this name into a new ccall expression, which is then evaluated. Keep in mind that eval only operates at the top level, so within this expression local variables will not be available (unless their values are substituted with $). For this reason, eval is typically only used to form top-level definitions, for example when wrapping libraries that contain many similar functions.If your usage is more dynamic, use indirect calls as described in the next section."
@@ -2778,7 +2778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Indirect-Calls-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Indirect Calls",
     "category": "section",
     "text": "The first argument to ccall can also be an expression evaluated at run time. In this case, the expression must evaluate to a Ptr, which will be used as the address of the native function to call. This behavior occurs when the first ccall argument contains references to non-constants, such as local variables, function arguments, or non-constant globals.For example, you might look up the function via dlsym, then cache it in a global variable for that session. For example:macro dlsym(func, lib)\n    z, zlocal = gensym(string(func)), gensym()\n    eval(current_module(), :(global $z = C_NULL))\n    z = esc(z)\n    quote\n        let $zlocal::Ptr{Void} = $z::Ptr{Void}\n            if $zlocal == C_NULL\n                $zlocal = dlsym($(esc(lib))::Ptr{Void}, $(esc(func)))\n                global $z = $zlocal\n            end\n            $zlocal\n        end\n    end\nend\n\nmylibvar = Libdl.dlopen(\"mylib\")\nccall(@dlsym(\"myfunc\", mylibvar), Void, ())"
@@ -2786,7 +2786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Calling-Convention-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Calling Convention",
     "category": "section",
     "text": "The second argument to ccall can optionally be a calling convention specifier (immediately preceding return type). Without any specifier, the platform-default C calling convention is used. Other supported conventions are: stdcall, cdecl, fastcall, and thiscall. For example (from base/libc.jl) we see the same gethostnameccall as above, but with the correct signature for Windows:hn = Vector{UInt8}(256)\nerr = ccall(:gethostname, stdcall, Int32, (Ptr{UInt8}, UInt32), hn, length(hn))For more information, please see the LLVM Language Reference.There is one additional special calling convention llvmcall, which allows inserting calls to LLVM intrinsics directly. This can be especially useful when targeting unusual platforms such as GPGPUs. For example, for CUDA, we need to be able to read the thread index:ccall(\"llvm.nvvm.read.ptx.sreg.tid.x\", llvmcall, Int32, ())As with any ccall, it is essential to get the argument signature exactly correct. Also, note that there is no compatibility layer that ensures the intrinsic makes sense and works on the current target, unlike the equivalent Julia functions exposed by Core.Intrinsics."
@@ -2794,7 +2794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Accessing-Global-Variables-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Accessing Global Variables",
     "category": "section",
     "text": "Global variables exported by native libraries can be accessed by name using the cglobal() function. The arguments to cglobal() are a symbol specification identical to that used by ccall, and a type describing the value stored in the variable:julia> cglobal((:errno, :libc), Int32)\nPtr{Int32} @0x00007f418d0816b8The result is a pointer giving the address of the value. The value can be manipulated through this pointer using unsafe_load() and unsafe_store!()."
@@ -2802,7 +2802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Accessing-Data-through-a-Pointer-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Accessing Data through a Pointer",
     "category": "section",
     "text": "The following methods are described as \"unsafe\" because a bad pointer or type declaration can cause Julia to terminate abruptly.Given a Ptr{T}, the contents of type T can generally be copied from the referenced memory into a Julia object using unsafe_load(ptr, [index]). The index argument is optional (default is 1), and follows the Julia-convention of 1-based indexing. This function is intentionally similar to the behavior of getindex() and setindex!() (e.g. [] access syntax).The return value will be a new object initialized to contain a copy of the contents of the referenced memory. The referenced memory can safely be freed or released.If T is Any, then the memory is assumed to contain a reference to a Julia object (a jl_value_t*), the result will be a reference to this object, and the object will not be copied. You must be careful in this case to ensure that the object was always visible to the garbage collector (pointers do not count, but the new reference does) to ensure the memory is not prematurely freed. Note that if the object was not originally allocated by Julia, the new object will never be finalized by Julia's garbage collector.  If the Ptr itself is actually a jl_value_t*, it can be converted back to a Julia object reference by unsafe_pointer_to_objref(ptr). (Julia values v can be converted to jl_value_t* pointers, as Ptr{Void}, by calling pointer_from_objref(v).)The reverse operation (writing data to a Ptr{T}), can be performed using unsafe_store!(ptr, value, [index]). Currently, this is only supported for primitive types or other pointer-free (isbits) immutable struct types.Any operation that throws an error is probably currently unimplemented and should be posted as a bug so that it can be resolved.If the pointer of interest is a plain-data array (primitive type or immutable struct), the function unsafe_wrap(Array, ptr,dims,[own]) may be more useful. The final parameter should be true if Julia should \"take ownership\" of the underlying buffer and call free(ptr) when the returned Array object is finalized.  If the own parameter is omitted or false, the caller must ensure the buffer remains in existence until all access is complete.Arithmetic on the Ptr type in Julia (e.g. using +) does not behave the same as C's pointer arithmetic. Adding an integer to a Ptr in Julia always moves the pointer by some number of bytes, not elements. This way, the address values obtained from pointer arithmetic do not depend on the element types of pointers."
@@ -2810,7 +2810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#Thread-safety-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "Thread-safety",
     "category": "section",
     "text": "Some C libraries execute their callbacks from a different thread, and since Julia isn't thread-safe you'll need to take some extra precautions. In particular, you'll need to set up a two-layered system: the C callback should only schedule (via Julia's event loop) the execution of your \"real\" callback. To do this, create a AsyncCondition object and wait on it:cond = Base.AsyncCondition()\nwait(cond)The callback you pass to C should only execute a ccall to :uv_async_send, passing cond.handle as the argument, taking care to avoid any allocations or other interactions with the Julia runtime.Note that events may be coalesced, so multiple calls to uv_async_send may result in a single wakeup notification to the condition."
@@ -2818,7 +2818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#More-About-Callbacks-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "More About Callbacks",
     "category": "section",
     "text": "For more details on how to pass callbacks to C libraries, see this blog post."
@@ -2826,7 +2826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "manual/calling-c-and-fortran-code.html#C-1",
-    "page": "Calling C and Fortran Code",
+    "page": "Llamando a código C y Fortran",
     "title": "C++",
     "category": "section",
     "text": "For direct C++ interfacing, see the Cxx package. For tools to create C++ bindings, see the CxxWrap package."
@@ -2841,7 +2841,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/handling-operating-system-variation.html#Handling-Operating-System-Variation-1",
+    "location": "manual/handling-operating-system-variation.html#handling-operating-system-variation-1",
     "page": "Handling Operating System Variation",
     "title": "Handling Operating System Variation",
     "category": "section",
@@ -2857,7 +2857,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/environment-variables.html#Environment-Variables-1",
+    "location": "manual/environment-variables.html#environment-variables-1",
     "page": "Environment Variables",
     "title": "Environment Variables",
     "category": "section",
@@ -3113,7 +3113,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/embedding.html#Embedding-Julia-1",
+    "location": "manual/embedding.html#embedding-1",
     "page": "Embedding Julia",
     "title": "Embedding Julia",
     "category": "section",
@@ -3241,7 +3241,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/packages.html#Packages-1",
+    "location": "manual/packages.html#packages-1",
     "page": "Packages",
     "title": "Packages",
     "category": "section",
@@ -3305,7 +3305,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/packages.html#Package-Development-1",
+    "location": "manual/packages.html#package-development-1",
     "page": "Packages",
     "title": "Package Development",
     "category": "section",
@@ -3473,7 +3473,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/profile.html#Profiling-1",
+    "location": "manual/profile.html#profiling-1",
     "page": "Profiling",
     "title": "Profiling",
     "category": "section",
@@ -3513,7 +3513,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/profile.html#Memory-allocation-analysis-1",
+    "location": "manual/profile.html#memory-allocation-analysis-1",
     "page": "Profiling",
     "title": "Memory allocation analysis",
     "category": "section",
@@ -3529,7 +3529,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/stacktraces.html#Stack-Traces-1",
+    "location": "manual/stacktraces.html#stacktraces-1",
     "page": "Stack Traces",
     "title": "Stack Traces",
     "category": "section",
@@ -3849,7 +3849,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/style-guide.html#Style-Guide-1",
+    "location": "manual/style-guide.html#style-guide-1",
     "page": "Style Guide",
     "title": "Style Guide",
     "category": "section",
@@ -4025,7 +4025,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/faq.html#Frequently-Asked-Questions-1",
+    "location": "manual/faq.html#faq-1",
     "page": "Frequently Asked Questions",
     "title": "Frequently Asked Questions",
     "category": "section",
@@ -4169,7 +4169,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/faq.html#Nothingness-and-missing-values-1",
+    "location": "manual/faq.html#nothingness-and-missing-values-1",
     "page": "Frequently Asked Questions",
     "title": "Nothingness and missing values",
     "category": "section",
@@ -4249,7 +4249,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/noteworthy-differences.html#Noteworthy-Differences-from-other-Languages-1",
+    "location": "manual/noteworthy-differences.html#noteworthy-differences-1",
     "page": "Noteworthy Differences from other Languages",
     "title": "Noteworthy Differences from other Languages",
     "category": "section",
@@ -4297,7 +4297,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/unicode-input.html#Unicode-Input-1",
+    "location": "manual/unicode-input.html#unicode-input-1",
     "page": "Unicode Input",
     "title": "Unicode Input",
     "category": "section",
@@ -4313,7 +4313,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Essentials-1",
+    "location": "stdlib/base.html#essentials-1",
     "page": "Essentials",
     "title": "Essentials",
     "category": "section",
@@ -6153,7 +6153,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/collections.html#Collections-and-Data-Structures-1",
+    "location": "stdlib/collections.html#collections-1",
     "page": "Collections and Data Structures",
     "title": "Collections and Data Structures",
     "category": "section",
@@ -6861,7 +6861,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Collections and Data Structures",
     "title": "Base.merge!",
     "category": "Function",
-    "text": "merge!(d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. See also merge.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 4\n\n\n\nmerge!(combine, d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. Values with the same key will be combined using the combiner function.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(+, d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 6\n\njulia> merge!(-, d1, d1);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 0\n  3 => 0\n  1 => 0\n\n\n\nMerge changes into current head \n\n\n\nInternal implementation of merge. Returns true if merge was successful, otherwise false\n\n\n\nmerge!(repo::GitRepo; kwargs...) -> Bool\n\nPerform a git merge on the repository repo, merging commits with diverging history into the current branch. Returns true if the merge succeeded, false if not.\n\nThe keyword arguments are:\n\ncommittish::AbstractString=\"\": Merge the named commit(s) in committish.\nbranch::AbstractString=\"\": Merge the branch branch and all its commits since it diverged from the current branch.\nfastforward::Bool=false: If fastforward is true, only merge if the merge is a fast-forward (the current branch head is an ancestor of the commits to be merged), otherwise refuse to merge and return false. This is equivalent to the git CLI option --ff-only.\nmerge_opts::MergeOptions=MergeOptions(): merge_opts specifies options for the merge, such as merge strategy in case of conflicts.\ncheckout_opts::CheckoutOptions=CheckoutOptions(): checkout_opts specifies options for the checkout step.\n\nEquivalent to git merge [--ff-only] [<committish> | <branch>].\n\nnote: Note\nIf you specify a branch, this must be done in reference format, since the string will be turned into a GitReference. For example, if you wanted to merge branch branch_a, you would call merge!(repo, branch=\"refs/heads/branch_a\").\n\n\n\n"
+    "text": "Merge changes into current head \n\n\n\nInternal implementation of merge. Returns true if merge was successful, otherwise false\n\n\n\nmerge!(repo::GitRepo; kwargs...) -> Bool\n\nPerform a git merge on the repository repo, merging commits with diverging history into the current branch. Returns true if the merge succeeded, false if not.\n\nThe keyword arguments are:\n\ncommittish::AbstractString=\"\": Merge the named commit(s) in committish.\nbranch::AbstractString=\"\": Merge the branch branch and all its commits since it diverged from the current branch.\nfastforward::Bool=false: If fastforward is true, only merge if the merge is a fast-forward (the current branch head is an ancestor of the commits to be merged), otherwise refuse to merge and return false. This is equivalent to the git CLI option --ff-only.\nmerge_opts::MergeOptions=MergeOptions(): merge_opts specifies options for the merge, such as merge strategy in case of conflicts.\ncheckout_opts::CheckoutOptions=CheckoutOptions(): checkout_opts specifies options for the checkout step.\n\nEquivalent to git merge [--ff-only] [<committish> | <branch>].\n\nnote: Note\nIf you specify a branch, this must be done in reference format, since the string will be turned into a GitReference. For example, if you wanted to merge branch branch_a, you would call merge!(repo, branch=\"refs/heads/branch_a\").\n\n\n\nmerge!(d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. See also merge.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 4\n\n\n\nmerge!(combine, d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. Values with the same key will be combined using the combiner function.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(+, d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 6\n\njulia> merge!(-, d1, d1);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 0\n  3 => 0\n  1 => 0\n\n\n\n"
 },
 
 {
@@ -7105,7 +7105,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/math.html#Mathematics-1",
+    "location": "stdlib/math.html#math-1",
     "page": "Mathematics",
     "title": "Mathematics",
     "category": "section",
@@ -8309,7 +8309,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Mathematics",
     "title": "Base.conj",
     "category": "Function",
-    "text": "conj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\nconj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\n"
+    "text": "conj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\nconj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\n"
 },
 
 {
@@ -11681,7 +11681,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/parallel.html#Tasks-and-Parallel-Computing-1",
+    "location": "stdlib/parallel.html#tasks-and-parallel-computing-1",
     "page": "Tasks and Parallel Computing",
     "title": "Tasks and Parallel Computing",
     "category": "section",
@@ -12649,7 +12649,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/linalg.html#Linear-Algebra-1",
+    "location": "stdlib/linalg.html#lib-linear-algebra-1",
     "page": "Linear Algebra",
     "title": "Linear Algebra",
     "category": "section",
@@ -12805,7 +12805,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Linear Algebra",
     "title": "Base.LinAlg.cholfact",
     "category": "Function",
-    "text": "cholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\ncholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\n"
+    "text": "cholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\ncholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
 },
 
 {
@@ -12813,7 +12813,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Linear Algebra",
     "title": "Base.LinAlg.cholfact!",
     "category": "Function",
-    "text": "cholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\n"
+    "text": "cholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\ncholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
 },
 
 {
@@ -12853,7 +12853,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Linear Algebra",
     "title": "Base.LinAlg.ldltfact",
     "category": "Function",
-    "text": "ldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\nldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\n"
+    "text": "ldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\nldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
 },
 
 {
@@ -12861,7 +12861,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Linear Algebra",
     "title": "Base.LinAlg.ldltfact!",
     "category": "Function",
-    "text": "ldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\nldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\n"
+    "text": "ldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\nldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
 },
 
 {
@@ -12885,7 +12885,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Linear Algebra",
     "title": "Base.LinAlg.qrfact",
     "category": "Function",
-    "text": "qrfact(A) -> SPQR.Factorization\n\nCompute the QR factorization of a sparse matrix A. A fill-reducing permutation is used. The main application of this type is to solve least squares problems with \\. The function calls the C library SPQR and a few additional functions from the library are wrapped but not exported.\n\n\n\nqrfact(A, pivot=Val{false}) -> F\n\nCompute the QR factorization of the matrix A: an orthogonal (or unitary if A is complex-valued) matrix Q, and an upper triangular matrix R such that\n\nA = Q R\n\nThe returned object F stores the factorization in a packed format:\n\nif pivot == Val{true} then F is a QRPivoted object,\notherwise if the element type of A is a BLAS type (Float32, Float64, Complex64 or Complex128), then F is a QRCompactWY object,\notherwise F is a QR object.\n\nThe individual components of the factorization F can be accessed by indexing with a symbol:\n\nF[:Q]: the orthogonal/unitary matrix Q\nF[:R]: the upper triangular matrix R\nF[:p]: the permutation vector of the pivot (QRPivoted only)\nF[:P]: the permutation matrix of the pivot (QRPivoted only)\n\nThe following functions are available for the QR objects: inv, size, and \\. When A is rectangular, \\ will return a least squares solution and if the solution is not unique, the one with smallest norm is returned.\n\nMultiplication with respect to either thin or full Q is allowed, i.e. both F[:Q]*F[:R] and F[:Q]*A are supported. A Q matrix can be converted into a regular matrix with full which has a named argument thin.\n\nExample\n\njulia> A = [3.0 -6.0; 4.0 -8.0; 0.0 1.0]\n3×2 Array{Float64,2}:\n 3.0  -6.0\n 4.0  -8.0\n 0.0   1.0\n\njulia> F = qrfact(A)\nBase.LinAlg.QRCompactWY{Float64,Array{Float64,2}} with factors Q and R:\n[-0.6 0.0 0.8; -0.8 0.0 -0.6; 0.0 -1.0 0.0]\n[-5.0 10.0; 0.0 -1.0]\n\njulia> F[:Q] * F[:R] == A\ntrue\n\nnote: Note\nqrfact returns multiple types because LAPACK uses several representations that minimize the memory storage requirements of products of Householder elementary reflectors, so that the Q and R matrices can be stored compactly rather as two separate dense matrices.\n\n\n\n"
+    "text": "qrfact(A, pivot=Val{false}) -> F\n\nCompute the QR factorization of the matrix A: an orthogonal (or unitary if A is complex-valued) matrix Q, and an upper triangular matrix R such that\n\nA = Q R\n\nThe returned object F stores the factorization in a packed format:\n\nif pivot == Val{true} then F is a QRPivoted object,\notherwise if the element type of A is a BLAS type (Float32, Float64, Complex64 or Complex128), then F is a QRCompactWY object,\notherwise F is a QR object.\n\nThe individual components of the factorization F can be accessed by indexing with a symbol:\n\nF[:Q]: the orthogonal/unitary matrix Q\nF[:R]: the upper triangular matrix R\nF[:p]: the permutation vector of the pivot (QRPivoted only)\nF[:P]: the permutation matrix of the pivot (QRPivoted only)\n\nThe following functions are available for the QR objects: inv, size, and \\. When A is rectangular, \\ will return a least squares solution and if the solution is not unique, the one with smallest norm is returned.\n\nMultiplication with respect to either thin or full Q is allowed, i.e. both F[:Q]*F[:R] and F[:Q]*A are supported. A Q matrix can be converted into a regular matrix with full which has a named argument thin.\n\nExample\n\njulia> A = [3.0 -6.0; 4.0 -8.0; 0.0 1.0]\n3×2 Array{Float64,2}:\n 3.0  -6.0\n 4.0  -8.0\n 0.0   1.0\n\njulia> F = qrfact(A)\nBase.LinAlg.QRCompactWY{Float64,Array{Float64,2}} with factors Q and R:\n[-0.6 0.0 0.8; -0.8 0.0 -0.6; 0.0 -1.0 0.0]\n[-5.0 10.0; 0.0 -1.0]\n\njulia> F[:Q] * F[:R] == A\ntrue\n\nnote: Note\nqrfact returns multiple types because LAPACK uses several representations that minimize the memory storage requirements of products of Householder elementary reflectors, so that the Q and R matrices can be stored compactly rather as two separate dense matrices.\n\n\n\nqrfact(A) -> SPQR.Factorization\n\nCompute the QR factorization of a sparse matrix A. A fill-reducing permutation is used. The main application of this type is to solve least squares problems with \\. The function calls the C library SPQR and a few additional functions from the library are wrapped but not exported.\n\n\n\n"
 },
 
 {
@@ -15369,7 +15369,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/file.html#Filesystem-1",
+    "location": "stdlib/file.html#filesystem-1",
     "page": "Filesystem",
     "title": "Filesystem",
     "category": "section",
@@ -15385,7 +15385,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/io-network.html#I/O-and-Network-1",
+    "location": "stdlib/io-network.html#io-network-1",
     "page": "I/O and Network",
     "title": "I/O and Network",
     "category": "section",
@@ -16409,7 +16409,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/punctuation.html#Punctuation-1",
+    "location": "stdlib/punctuation.html#punctuation-1",
     "page": "Punctuation",
     "title": "Punctuation",
     "category": "section",
@@ -16425,7 +16425,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/sort.html#Sorting-and-Related-Functions-1",
+    "location": "stdlib/sort.html#sort-1",
     "page": "Sorting and Related Functions",
     "title": "Sorting and Related Functions",
     "category": "section",
@@ -16721,7 +16721,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/pkg.html#Package-Manager-Functions-1",
+    "location": "stdlib/pkg.html#pkg-1",
     "page": "Package Manager Functions",
     "title": "Package Manager Functions",
     "category": "section",
@@ -17713,7 +17713,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/iterators.html#Iteration-utilities-1",
+    "location": "stdlib/iterators.html#iterators-1",
     "page": "Iteration utilities",
     "title": "Iteration utilities",
     "category": "section",
@@ -17729,7 +17729,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/test.html#Unit-Testing-1",
+    "location": "stdlib/test.html#test-1",
     "page": "Unit Testing",
     "title": "Unit Testing",
     "category": "section",
@@ -18201,7 +18201,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/c.html#C-Interface-1",
+    "location": "stdlib/c.html#c-1",
     "page": "C Interface",
     "title": "C Interface",
     "category": "section",
@@ -18217,7 +18217,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/c.html#LLVM-Interface-1",
+    "location": "stdlib/c.html#llvm-interface-1",
     "page": "C Interface",
     "title": "LLVM Interface",
     "category": "section",
@@ -18337,7 +18337,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/libc.html#C-Standard-Library-1",
+    "location": "stdlib/libc.html#libc-1",
     "page": "C Standard Library",
     "title": "C Standard Library",
     "category": "section",
@@ -18425,7 +18425,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/libdl.html#Dynamic-Linker-1",
+    "location": "stdlib/libdl.html#dynamic-linker-1",
     "page": "Dynamic Linker",
     "title": "Dynamic Linker",
     "category": "section",
@@ -18569,7 +18569,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/stacktraces.html#StackTraces-1",
+    "location": "stdlib/stacktraces.html#lib-stacktraces-1",
     "page": "StackTraces",
     "title": "StackTraces",
     "category": "section",
@@ -18585,7 +18585,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/simd-types.html#SIMD-Support-1",
+    "location": "stdlib/simd-types.html#simd-support-1",
     "page": "SIMD Support",
     "title": "SIMD Support",
     "category": "section",
@@ -18601,7 +18601,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/reflection.html#Reflection-and-introspection-1",
+    "location": "devdocs/reflection.html#reflection-and-introspection-1",
     "page": "Reflection and introspection",
     "title": "Reflection and introspection",
     "category": "section",
@@ -18673,7 +18673,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/init.html#Initialization-of-the-Julia-runtime-1",
+    "location": "devdocs/init.html#init-1",
     "page": "Initialization of the Julia runtime",
     "title": "Initialization of the Julia runtime",
     "category": "section",
@@ -18745,7 +18745,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/ast.html#Julia-ASTs-1",
+    "location": "devdocs/ast.html#ast-1",
     "page": "Julia ASTs",
     "title": "Julia ASTs",
     "category": "section",
@@ -18866,31 +18866,31 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#",
-    "page": "More about types",
-    "title": "More about types",
+    "page": "Más sobre tipos",
+    "title": "Más sobre tipos",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "devdocs/types.html#More-about-types-1",
-    "page": "More about types",
-    "title": "More about types",
+    "location": "devdocs/types.html#types-1",
+    "page": "Más sobre tipos",
+    "title": "Más sobre tipos",
     "category": "section",
-    "text": "If you've used Julia for a while, you understand the fundamental role that types play.  Here we try to get under the hood, focusing particularly on Parametric Types."
+    "text": "Si ha usado Julia durante un tiempo, comprenderá el papel fundamental que juegan los tipos. Aquí intentamos meternos debajo del capó, centrándonos fundamentalmente en los Tipos Paramétricos."
 },
 
 {
-    "location": "devdocs/types.html#Types-and-sets-(and-Any-and-Union{}/Bottom)-1",
-    "page": "More about types",
-    "title": "Types and sets (and Any and Union{}/Bottom)",
+    "location": "devdocs/types.html#Tipos-y-conjuntos-(y-Any-y-Union{}/Bottom)-1",
+    "page": "Más sobre tipos",
+    "title": "Tipos y conjuntos (y Any y Union{}/Bottom)",
     "category": "section",
-    "text": "It's perhaps easiest to conceive of Julia's type system in terms of sets. While programs manipulate individual values, a type refers to a set of values. This is not the same thing as a collection; for example a Set of values is itself a single Set value. Rather, a type describes a set of possible values, expressing uncertainty about which value we have.A concrete type T describes the set of values whose direct tag, as returned by the typeof function, is T. An abstract type describes some possibly-larger set of values.Any describes the entire universe of possible values. Integer is a subset of Any that includes Int, Int8, and other concrete types. Internally, Julia also makes heavy use of another type known as Bottom, which can also be written as Union{}. This corresponds to the empty set.Julia's types support the standard operations of set theory: you can ask whether T1 is a \"subset\" (subtype) of T2 with T1 <: T2. Likewise, you intersect two types using typeintersect, take their union with Union, and compute a type that contains their union with typejoin:julia> typeintersect(Int, Float64)\nUnion{}\n\njulia> Union{Int, Float64}\nUnion{Float64, Int64}\n\njulia> typejoin(Int, Float64)\nReal\n\njulia> typeintersect(Signed, Union{UInt8, Int8})\nInt8\n\njulia> Union{Signed, Union{UInt8, Int8}}\nUnion{Signed, UInt8}\n\njulia> typejoin(Signed, Union{UInt8, Int8})\nInteger\n\njulia> typeintersect(Tuple{Integer,Float64}, Tuple{Int,Real})\nTuple{Int64,Float64}\n\njulia> Union{Tuple{Integer,Float64}, Tuple{Int,Real}}\nUnion{Tuple{Int64,Real}, Tuple{Integer,Float64}}\n\njulia> typejoin(Tuple{Integer,Float64}, Tuple{Int,Real})\nTuple{Integer,Real}While these operations may seem abstract, they lie at the heart of Julia.  For example, method dispatch is implemented by stepping through the items in a method list until reaching one for which the type of the argument tuple is a subtype of the method signature. For this algorithm to work, it's important that methods be sorted by their specificity, and that the search begins with the most specific methods. Consequently, Julia also implements a partial order on types; this is achieved by functionality that is similar to <:, but with differences that will be discussed below."
+    "text": "Tal vez sea ms sencillo concebir el sistema de tipos de Julia en términos de conjuntos. Aunque los programas pueden manipular los valores individuales, un tipo se refiere a un conjunto de valores. Esto no es la misma cosa que una colección; por ejemplo, un Set de valores es en sí mismo un solo valor de tipo Set. En lugar de ello, un tipo describe un conjunto de  posible valores, expresando incertidumbre sobre qué valor tenemos.Un tipo concreto T describe el conjunto de valores cuya etiqueta directa, tal y como es obtenida por la función typeof es T. Un tipo abstracto describe un conjunto de valores posiblemente más grande.Any describe el universo completo de valores posibles. Integer es un subconjunto de Any que incluye Int, Int8, y otros tipos concretos. Internamente, Julia también hace un uso intensivo de otro tipo conocido como  Bottom, que puede también ser escrito como Union{}. Esto corresponde al conjunto vacío.Los tipos de Julia soportan las operaciones estándar de la teora de conjuntos: uno puede preguntar si T1 es un \"subconjunto\" de T2 con T1 <: T2. Análogamente, uno intersecta dos tipos usando typeintersect, realiza su unión con Union, y calcula un tipo que contiene su unión con typejoin:julia> typeintersect(Int, Float64)\nUnion{}\n\njulia> Union{Int, Float64}\nUnion{Float64, Int64}\n\njulia> typejoin(Int, Float64)\nReal\n\njulia> typeintersect(Signed, Union{UInt8, Int8})\nInt8\n\njulia> Union{Signed, Union{UInt8, Int8}}\nUnion{Signed, UInt8}\n\njulia> typejoin(Signed, Union{UInt8, Int8})\nInteger\n\njulia> typeintersect(Tuple{Integer,Float64}, Tuple{Int,Real})\nTuple{Int64,Float64}\n\njulia> Union{Tuple{Integer,Float64}, Tuple{Int,Real}}\nUnion{Tuple{Int64,Real}, Tuple{Integer,Float64}}\n\njulia> typejoin(Tuple{Integer,Float64}, Tuple{Int,Real})\nTuple{Integer,Real}While these operations may seem abstract, they lie at the heart of Julia.  For example, method dispatch is implemented by stepping through the items in a method list until reaching one for which the type of the argument tuple is a subtype of the method signature. For this algorithm to work, it's important that methods be sorted by their specificity, and that the search begins with the most specific methods. Consequently, Julia also implements a partial order on types; this is achieved by functionality that is similar to <:, but with differences that will be discussed below."
 },
 
 {
     "location": "devdocs/types.html#UnionAll-types-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "UnionAll types",
     "category": "section",
     "text": "Julia's type system can also express an iterated union of types: a union of types over all values of some variable. This is needed to describe parametric types where the values of some parameters are not known.For example, :obj:Array has two parameters as in Array{Int,2}. If we did not know the element type, we could write Array{T,2} where T, which is the union of Array{T,2} for all values of T: Union{Array{Int8,2}, Array{Int16,2}, ...}.Such a type is represented by a UnionAll object, which contains a variable (T in this example, of type TypeVar), and a wrapped type (Array{T,2} in this example).Consider the following methods:f1(A::Array) = 1\nf2(A::Array{Int}) = 2\nf3(A::Array{T}) where {T<:Any} = 3\nf4(A::Array{Any}) = 4The signature of f3 is a UnionAll type wrapping a tuple type. All but f4 can be called with a = [1,2]; all but f2 can be called with b = Any[1,2].Let's look at these types a little more closely:julia> dump(Array)\nUnionAll\n  var: TypeVar\n    name: Symbol T\n    lb: Core.TypeofBottom Union{}\n    ub: Any\n  body: UnionAll\n    var: TypeVar\n      name: Symbol N\n      lb: Core.TypeofBottom Union{}\n      ub: Any\n    body: Array{T,N} <: DenseArray{T,N}This indicates that Array actually names a UnionAll type. There is one UnionAll type for each parameter, nested. The syntax Array{Int,2} is equivalent to Array{Int}{2}; internally each UnionAll is instantiated with a particular variable value, one at a time, outermost-first. This gives a natural meaning to the omission of trailing type parameters; Array{Int} gives a type equivalent to Array{Int,N} where N.A TypeVar is not itself a type, but rather should be considered part of the structure of a UnionAll type. Type variables have lower and upper bounds on their values (in the fields lb and ub). The symbol name is purely cosmetic. Internally, TypeVars are compared by address, so they are defined as mutable types to ensure that \"different\" type variables can be distinguished. However, by convention they should not be mutated.One can construct TypeVars manually:julia> TypeVar(:V, Signed, Real)\nSigned<:V<:RealThere are convenience versions that allow you to omit any of these arguments except the name symbol.The syntax Array{T} where T<:Integer is lowered tolet T = TypeVar(:T,Integer)\n    UnionAll(T, Array{T})\nendso it is seldom necessary to construct a TypeVar manually (indeed, this is to be avoided)."
@@ -18898,7 +18898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Free-variables-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Free variables",
     "category": "section",
     "text": "The concept of a free type variable is extremely important in the type system. We say that a variable V is free in type T if T does not contain the UnionAll that introduces variable V. For example, the type Array{Array{V} where V<:Integer} has no free variables, but the Array{V} part inside of it does have a free variable, V.A type with free variables is, in some sense, not really a type at all. Consider the type Array{Array{T}} where T, which refers to all homogeneous arrays of arrays. The inner type Array{T}, seen by itself, might seem to refer to any kind of array. However, every element of the outer array must have the same array type, so Array{T} cannot refer to just any old array. One could say that Array{T} effectively \"occurs\" multiple times, and T must have the same value each \"time\".For this reason, the function jl_has_free_typevars in the C API is very important. Types for which it returns true will not give meaningful answers in subtyping and other type functions."
@@ -18906,7 +18906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#TypeNames-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "TypeNames",
     "category": "section",
     "text": "The following two Array types are functionally equivalent, yet print differently:julia> TV, NV = TypeVar(:T), TypeVar(:N)\n(T, N)\n\njulia> Array\nArray\n\njulia> Array{TV,NV}\nArray{T,N}These can be distinguished by examining the name field of the type, which is an object of type TypeName:julia> dump(Array{Int,1}.name)\nTypeName\n  name: Symbol Array\n  module: Module Core\n  names: empty SimpleVector\n  wrapper: UnionAll\n    var: TypeVar\n      name: Symbol T\n      lb: Core.TypeofBottom Union{}\n      ub: Any\n    body: UnionAll\n      var: TypeVar\n        name: Symbol N\n        lb: Core.TypeofBottom Union{}\n        ub: Any\n      body: Array{T,N} <: DenseArray{T,N}\n  cache: SimpleVector\n    ...\n\n  linearcache: SimpleVector\n    ...\n\n  hash: Int64 -7900426068641098781\n  mt: MethodTable\n    name: Symbol Array\n    defs: Void nothing\n    cache: Void nothing\n    max_args: Int64 0\n    kwsorter: #undef\n    module: Module Core\n    : Int64 0\n    : Int64 0In this case, the relevant field is wrapper, which holds a reference to the top-level type used to make new Array types.julia> pointer_from_objref(Array)\nPtr{Void} @0x00007fcc7de64850\n\njulia> pointer_from_objref(Array.body.body.name.wrapper)\nPtr{Void} @0x00007fcc7de64850\n\njulia> pointer_from_objref(Array{TV,NV})\nPtr{Void} @0x00007fcc80c4d930\n\njulia> pointer_from_objref(Array{TV,NV}.name.wrapper)\nPtr{Void} @0x00007fcc7de64850The wrapper field of Array points to itself, but for Array{TV,NV} it points back to the original definition of the type.What about the other fields? hash assigns an integer to each type.  To examine the cache field, it's helpful to pick a type that is less heavily used than Array. Let's first create our own type:julia> struct MyType{T,N} end\n\njulia> MyType{Int,2}\nMyType{Int64,2}\n\njulia> MyType{Float32, 5}\nMyType{Float32,5}\n\njulia> MyType.body.body.name.cache\nsvec(MyType{Float32,5}, MyType{Int64,2}, #undef, #undef, #undef, #undef, #undef, #undef)(The cache is pre-allocated to have length 8, but only the first two entries are populated.) Consequently, when you instantiate a parametric type, each concrete type gets saved in a type cache.  However, instances containing free type variables are not cached."
@@ -18914,7 +18914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Tuple-types-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Tuple types",
     "category": "section",
     "text": "Tuple types constitute an interesting special case.  For dispatch to work on declarations like x::Tuple, the type has to be able to accommodate any tuple.  Let's check the parameters:julia> Tuple\nTuple\n\njulia> Tuple.parameters\nsvec(Vararg{Any,N} where N)Unlike other types, tuple types are covariant in their parameters, so this definition permits Tuple to match any type of tuple:julia> typeintersect(Tuple, Tuple{Int,Float64})\nTuple{Int64,Float64}\n\njulia> typeintersect(Tuple{Vararg{Any}}, Tuple{Int,Float64})\nTuple{Int64,Float64}However, if a variadic (Vararg) tuple type has free variables it can describe different kinds of tuples:julia> typeintersect(Tuple{Vararg{T} where T}, Tuple{Int,Float64})\nTuple{Int64,Float64}\n\njulia> typeintersect(Tuple{Vararg{T}} where T, Tuple{Int,Float64})\nUnion{}Notice that when T is free with respect to the Tuple type (i.e. its binding UnionAll type is outside the Tuple type), only one T value must work over the whole type. Therefore a heterogeneous tuple does not match.Finally, it's worth noting that Tuple{} is distinct:julia> Tuple{}\nTuple{}\n\njulia> Tuple{}.parameters\nsvec()\n\njulia> typeintersect(Tuple{}, Tuple{Int})\nUnion{}What is the \"primary\" tuple-type?julia> pointer_from_objref(Tuple)\nPtr{Void} @0x00007f5998a04370\n\njulia> pointer_from_objref(Tuple{})\nPtr{Void} @0x00007f5998a570d0\n\njulia> pointer_from_objref(Tuple.name.wrapper)\nPtr{Void} @0x00007f5998a04370\n\njulia> pointer_from_objref(Tuple{}.name.wrapper)\nPtr{Void} @0x00007f5998a04370so Tuple == Tuple{Vararg{Any}} is indeed the primary type."
@@ -18922,7 +18922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Diagonal-types-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Diagonal types",
     "category": "section",
     "text": "Consider the type Tuple{T,T} where T. A method with this signature would look like:f(x::T, y::T) where {T} = ...According to the usual interpretation of a UnionAll type, this T ranges over all types, including Any, so this type should be equivalent to Tuple{Any,Any}. However, this interpretation causes some practical problems.First, a value of T needs to be available inside the method definition. For a call like f(1, 1.0), it's not clear what T should be. It could be Union{Int,Float64}, or perhaps Real. Intuitively, we expect the declaration x::T to mean T === typeof(x). To make sure that invariant holds, we need typeof(x) === typeof(y) === T in this method. That implies the method should only be called for arguments of the exact same type.It turns out that being able to dispatch on whether two values have the same type is very useful (this is used by the promotion system for example), so we have multiple reasons to want a different interpretation of Tuple{T,T} where T. To make this work we add the following rule to subtyping: if a variable occurs more than once in covariant position, it is restricted to ranging over only concrete types. (\"Covariant position\" means that only Tuple and Union types occur between an occurrence of a variable and the UnionAll type that introduces it.) Such variables are called \"diagonal variables\" or \"concrete variables\".So for example, Tuple{T,T} where T can be seen as Union{Tuple{Int8,Int8}, Tuple{Int16,Int16}, ...}, where T ranges over all concrete types. This gives rise to some interesting subtyping results. For example Tuple{Real,Real} is not a subtype of Tuple{T,T} where T, because it includes some types like Tuple{Int8,Int16} where the two elements have different types. Tuple{Real,Real} and Tuple{T,T} where T have the non-trivial intersection Tuple{T,T} where T<:Real. However, Tuple{Real} is a subtype of Tuple{T} where T, because in that case T occurs only once and so is not diagonal.Next consider a signature like the following:f(a::Array{T}, x::T, y::T) where {T} = ...In this case, T occurs in invariant position inside Array{T}. That means whatever type of array is passed unambiguously determines the value of T –- we say T has an equality constraint on it. Therefore in this case the diagonal rule is not really necessary, since the array determines T and we can then allow x and y to be of any subtypes of T. So variables that occur in invariant position are never considered diagonal. This choice of behavior is slightly controversial –- some feel this definition should be written asf(a::Array{T}, x::S, y::S) where {T, S<:T} = ...to clarify whether x and y need to have the same type. In this version of the signature they would, or we could introduce a third variable for the type of y if x and y can have different types.The next complication is the interaction of unions and diagonal variables, e.g.f(x::Union{Void,T}, y::T) where {T} = ...Consider what this declaration means. y has type T. x then can have either the same type T, or else be of type Void. So all of the following calls should match:f(1, 1)\nf(\"\", \"\")\nf(2.0, 2.0)\nf(nothing, 1)\nf(nothing, \"\")\nf(nothing, 2.0)These examples are telling us something: when x is nothing::Void, there are no extra constraints on y. It is as if the method signature had y::Any. This means that whether a variable is diagonal is not a static property based on where it appears in a type. Rather, it depends on where a variable appears when the subtyping algorithm uses it. When x has type Void, we don't need to use the T in Union{Void,T}, so T does not \"occur\". Indeed, we have the following type equivalence:(Tuple{Union{Void,T},T} where T) == Union{Tuple{Void,Any}, Tuple{T,T} where T}"
@@ -18930,7 +18930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Subtyping-diagonal-variables-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Subtyping diagonal variables",
     "category": "section",
     "text": "The subtyping algorithm for diagonal variables has two components: (1) identifying variable occurrences, and (2) ensuring that diagonal variables range over concrete types only.The first task is accomplished by keeping counters occurs_inv and occurs_cov (in src/subtype.c) for each variable in the environment, tracking the number of invariant and covariant occurrences, respectively. A variable is diagonal when occurs_inv == 0 && occurs_cov > 1.The second task is accomplished by imposing a condition on a variable's lower bound. As the subtyping algorithm runs, it narrows the bounds of each variable (raising lower bounds and lowering upper bounds) to keep track of the range of variable values for which the subtype relation would hold. When we are done evaluating the body of a UnionAll type whose variable is diagonal, we look at the final values of the bounds. Since the variable must be concrete, a contradiction occurs if its lower bound could not be a subtype of a concrete type. For example, an abstract type like AbstractArray cannot be a subtype of a concrete type, but a concrete type like Int can be, and the empty type Bottom can be as well. If a lower bound fails this test the algorithm stops with the answer false.For example, in the problem Tuple{Int,String} <: Tuple{T,T} where T, we derive that this would be true if T were a supertype of Union{Int,String}. However, Union{Int,String} is an abstract type, so the relation does not hold.This concreteness test is done by the function is_leaf_bound. Note that this test is slightly different from jl_is_leaf_type, since it also returns true for Bottom. Currently this function is heuristic, and does not catch all possible concrete types. The difficulty is that whether a lower bound is concrete might depend on the values of other type variable bounds. For example, Vector{T} is equivalent to the concrete type Vector{Int} only if both the upper and lower bounds of T equal Int. We have not yet worked out a complete algorithm for this."
@@ -18938,7 +18938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Introduction-to-the-internal-machinery-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Introduction to the internal machinery",
     "category": "section",
     "text": "Most operations for dealing with types are found in the files jltypes.c and subtype.c. A good way to start is to watch subtyping in action. Build Julia with make debug and fire up Julia within a debugger. gdb debugging tips has some tips which may be useful.Because the subtyping code is used heavily in the REPL itself–and hence breakpoints in this code get triggered often–it will be easiest if you make the following definition:julia> function mysubtype(a,b)\n           ccall(:jl_breakpoint, Void, (Any,), nothing)\n           issubtype(a, b)\n       endand then set a breakpoint in jl_breakpoint.  Once this breakpoint gets triggered, you can set breakpoints in other functions.As a warm-up, try the following:mysubtype(Tuple{Int,Float64}, Tuple{Integer,Real})We can make it more interesting by trying a more complex case:mysubtype(Tuple{Array{Int,2}, Int8}, Tuple{Array{T}, T} where T)"
@@ -18946,7 +18946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/types.html#Subtyping-and-method-sorting-1",
-    "page": "More about types",
+    "page": "Más sobre tipos",
     "title": "Subtyping and method sorting",
     "category": "section",
     "text": "The type_morespecific functions are used for imposing a partial order on functions in method tables (from most-to-least specific). Specificity is strict; if a is more specific than b, then a does not equal b and b is not more specific than a.If a is a strict subtype of b, then it is automatically considered more specific. From there, type_morespecific employs some less formal rules. For example, subtype is sensitive to the number of arguments, but type_morespecific may not be. In particular, Tuple{Int,AbstractFloat} is more specific than Tuple{Integer}, even though it is not a subtype.  (Of Tuple{Int,AbstractFloat} and Tuple{Integer,Float64}, neither is more specific than the other.)  Likewise, Tuple{Int,Vararg{Int}} is not a subtype of Tuple{Integer}, but it is considered more specific. However, morespecific does get a bonus for length: in particular, Tuple{Int,Int} is more specific than Tuple{Int,Vararg{Int}}.If you're debugging how methods get sorted, it can be convenient to define the function:type_morespecific(a, b) = ccall(:jl_type_morespecific, Cint, (Any,Any), a, b)which allows you to test whether tuple type a is more specific than tuple type b."
@@ -18961,7 +18961,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/object.html#Memory-layout-of-Julia-Objects-1",
+    "location": "devdocs/object.html#object-1",
     "page": "Memory layout of Julia Objects",
     "title": "Memory layout of Julia Objects",
     "category": "section",
@@ -19001,7 +19001,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/eval.html#Eval-of-Julia-code-1",
+    "location": "devdocs/eval.html#eval-1",
     "page": "Eval of Julia code",
     "title": "Eval of Julia code",
     "category": "section",
@@ -19065,7 +19065,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/callconv.html#Calling-Conventions-1",
+    "location": "devdocs/callconv.html#callconv-1",
     "page": "Calling Conventions",
     "title": "Calling Conventions",
     "category": "section",
@@ -19105,7 +19105,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/compiler.html#High-level-Overview-of-the-Native-Code-Generation-Process-1",
+    "location": "devdocs/compiler.html#compiler-1",
     "page": "High-level Overview of the Native-Code Generation Process",
     "title": "High-level Overview of the Native-Code Generation Process",
     "category": "section",
@@ -19153,7 +19153,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/functions.html#Julia-Functions-1",
+    "location": "devdocs/functions.html#functions-1",
     "page": "Julia Functions",
     "title": "Julia Functions",
     "category": "section",
@@ -19241,43 +19241,43 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/cartesian.html#Base.Cartesian-1",
+    "location": "devdocs/cartesian.html#cartesian-1",
     "page": "Base.Cartesian",
     "title": "Base.Cartesian",
     "category": "section",
-    "text": "The (non-exported) Cartesian module provides macros that facilitate writing multidimensional algorithms. It is hoped that Cartesian will not, in the long term, be necessary; however, at present it is one of the few ways to write compact and performant multidimensional code."
+    "text": "El módulo Cartesian (no exportado) proporciona macros que facilitan escribir algoritmos multidimensionales. Es deseable que, a largo plazo, este módulo Cartesian no sea necesario; sin embargo, en la actualidad es una de las pocas formas de escribir código multidimensional compacto y con rendimiento."
 },
 
 {
-    "location": "devdocs/cartesian.html#Principles-of-usage-1",
+    "location": "devdocs/cartesian.html#Principios-de-uso-1",
     "page": "Base.Cartesian",
-    "title": "Principles of usage",
+    "title": "Principios de uso",
     "category": "section",
-    "text": "A simple example of usage is:@nloops 3 i A begin\n    s += @nref 3 A i\nendwhich generates the following code:for i_3 = 1:size(A,3)\n    for i_2 = 1:size(A,2)\n        for i_1 = 1:size(A,1)\n            s += A[i_1,i_2,i_3]\n        end\n    end\nendIn general, Cartesian allows you to write generic code that contains repetitive elements, like the nested loops in this example.  Other applications include repeated expressions (e.g., loop unwinding) or creating function calls with variable numbers of arguments without using the \"splat\" construct (i...)."
+    "text": "Un ejemplo de uso simple podría ser:@nloops 3 i A begin\n    s += @nref 3 A i\nendque genera el siguiente código:for i_3 = 1:size(A,3)\n    for i_2 = 1:size(A,2)\n        for i_1 = 1:size(A,1)\n            s += A[i_1,i_2,i_3]\n        end\n    end\nendEn general, Cartesian permitirá escribir código que contiene elementos repetitivos, como los bucles anidados de este ejemplo. Otras aplicaciones incluyen expresiones repetidas (por ejemplo, desenrollado de bucles) o crear llamadas a función con números variables de argumentos sin usar la construcción \"splat\" (i...)."
 },
 
 {
-    "location": "devdocs/cartesian.html#Basic-syntax-1",
+    "location": "devdocs/cartesian.html#Sintaxis-Básica-1",
     "page": "Base.Cartesian",
-    "title": "Basic syntax",
+    "title": "Sintaxis Básica",
     "category": "section",
-    "text": "The (basic) syntax of @nloops is as follows:The first argument must be an integer (not a variable) specifying the number of loops.\nThe second argument is the symbol-prefix used for the iterator variable. Here we used i, and variables i_1, i_2, i_3 were generated.\nThe third argument specifies the range for each iterator variable. If you use a variable (symbol) here, it's taken as 1:size(A,dim). More flexibly, you can use the anonymous-function expression syntax described below.\nThe last argument is the body of the loop. Here, that's what appears between the begin...end.There are some additional features of @nloops described in the reference section.@nref follows a similar pattern, generating A[i_1,i_2,i_3] from @nref 3 A i. The general practice is to read from left to right, which is why @nloops is @nloops 3 i A expr (as in for i_2 = 1:size(A,2), where i_2 is to the left and the range is to the right) whereas @nref is @nref 3 A i (as in A[i_1,i_2,i_3], where the array comes first).If you're developing code with Cartesian, you may find that debugging is easier when you examine the generated code, using macroexpand:DocTestSetup = quote\n    import Base.Cartesian: @nref\nendjulia> macroexpand(:(@nref 2 A i))\n:(A[i_1, i_2])DocTestSetup = nothing"
+    "text": "La sintaxis básica de @nloops es la siguiente: * El primer argumento debe ser un entero (no una variable) que especifica el número de bucles.   * El segundo argumento es el prefijo simbólico que se utilizará para la variable iteradora. De este modo, en el ejemplo anterior usamos i, y se generaron las variables  i_1, i_2, i_3.   * El tercer argumento especifica el rango para cada variable iteradora. Si se usa una variable (símbolo) aquí, es considerado como 1:size(A,dim). De forma más flexible, se puede usar la sintaxis de expresiones basadas en funciones anónimas que se decribe más adelante.   * El último argumento es el cuerpo del bucle. En el ejemplo anterior, lo que aparece entre begin...end.Hay otras características adicionales de @nloops descritas en la sección de referencia.@nref sigue un patrn similar, generando A[i_1,i_2,i_3] a partir de @nref 3 A i. La práctica general es leer de izquierda a derecha, por lo que @nloops es @nloops 3 i A expr (como en el bucle for i_2 = 1:size(A,2), donde i_2 está a la izquierda y el rango a la derecha) mientras que @nref es @nref 3 A i (como en A[i_1,i_2,i_3], donde el array va primero).Si ests desarrollando código con Cartesian, puedes encontrar que depurar es más sencillo cuando examinas el código generado, usando macroexpand:DocTestSetup = quote\n    import Base.Cartesian: @nref\nendjulia> macroexpand(:(@nref 2 A i))\n:(A[i_1, i_2])DocTestSetup = nothing"
 },
 
 {
-    "location": "devdocs/cartesian.html#Supplying-the-number-of-expressions-1",
+    "location": "devdocs/cartesian.html#Proporcionando-el-número-de-expresiones-1",
     "page": "Base.Cartesian",
-    "title": "Supplying the number of expressions",
+    "title": "Proporcionando el número de expresiones",
     "category": "section",
-    "text": "The first argument to both of these macros is the number of expressions, which must be an integer. When you're writing a function that you intend to work in multiple dimensions, this may not be something you want to hard-code. If you're writing code that you need to work with older Julia versions, currently you should use the @ngenerate macro described in an older version of this documentation.Starting in Julia 0.4-pre, the recommended approach is to use a @generated function.  Here's an example:@generated function mysum(A::Array{T,N}) where {T,N}\n    quote\n        s = zero(T)\n        @nloops $N i A begin\n            s += @nref $N A i\n        end\n        s\n    end\nendNaturally, you can also prepare expressions or perform calculations before the quote block."
+    "text": "El primer argumentos de estas dos macros es el número de expresiones, que debe ser un entero. Cuando estás escribiendo una funcin que pretendes que trabaje en múltiples dimensiones, esto puede no ser algo que desees codificar. Si estás escribiendo código que necesitas que trabaje con versiones antiguas de Julia, deberías usar la macro @ngenerate descrita en una versión más antigua de esta documentación.Empezando en Julia 0.4-pre, el enfoque recomendado es usar una @generated function.  He aquí un ejemplo:@generated function mysum(A::Array{T,N}) where {T,N}\n    quote\n        s = zero(T)\n        @nloops $N i A begin\n            s += @nref $N A i\n        end\n        s\n    end\nendNaturalmente, también podemos preparar expresiones o realizar cálculos antes del bloque quote."
 },
 
 {
-    "location": "devdocs/cartesian.html#Anonymous-function-expressions-as-macro-arguments-1",
+    "location": "devdocs/cartesian.html#Expresiones-función-anónima-como-argumentos-de-macros-1",
     "page": "Base.Cartesian",
-    "title": "Anonymous-function expressions as macro arguments",
+    "title": "Expresiones función anónima como argumentos de macros",
     "category": "section",
-    "text": "Perhaps the single most powerful feature in Cartesian is the ability to supply anonymous-function expressions that get evaluated at parsing time.  Let's consider a simple example:@nexprs 2 j->(i_j = 1)@nexprs generates n expressions that follow a pattern. This code would generate the following statements:i_1 = 1\ni_2 = 1In each generated statement, an \"isolated\" j (the variable of the anonymous function) gets replaced by values in the range 1:2. Generally speaking, Cartesian employs a LaTeX-like syntax.  This allows you to do math on the index j.  Here's an example computing the strides of an array:s_1 = 1\n@nexprs 3 j->(s_{j+1} = s_j * size(A, j))would generate expressionss_1 = 1\ns_2 = s_1 * size(A, 1)\ns_3 = s_2 * size(A, 2)\ns_4 = s_3 * size(A, 3)Anonymous-function expressions have many uses in practice."
+    "text": "Quizás la característica más potente de Cartesian es la capacidad de proporcionar expresiones función-anónima que son evaluadas en tiempo de análisis sintáctico. Consideremos un ejemplo sencillo:@nexprs 2 j->(i_j = 1)@nexprs genera n expresiones que siguen un patrón. Este código generaría las siguientes instrucciones:i_1 = 1\ni_2 = 1En cada instrucción generada un j aislado (la variable de la función anónima) es reemplazada por valores en el rango 1:2. Hablando de forma general, Cartesian emplea una sintaxis parecida a LaTeX. Esto te permite hacer operaciones sobre el índice j.  He aquí un ejemplo que calcula los pasos de un array:s_1 = 1\n@nexprs 3 j->(s_{j+1} = s_j * size(A, j))generará las expresioness_1 = 1\ns_2 = s_1 * size(A, 1)\ns_3 = s_2 * size(A, 2)\ns_4 = s_3 * size(A, 3)Las expresiones función anónima tienen muchos usos en la práctica."
 },
 
 {
@@ -19355,7 +19355,7 @@ var documenterSearchIndex = {"docs": [
 {
     "location": "devdocs/cartesian.html#dev-cartesian-reference-1",
     "page": "Base.Cartesian",
-    "title": "Macro reference",
+    "title": "Referencia de las Macros",
     "category": "section",
     "text": "Base.Cartesian.@nloops\nBase.Cartesian.@nref\nBase.Cartesian.@nextract\nBase.Cartesian.@nexprs\nBase.Cartesian.@ncall\nBase.Cartesian.@ntuple\nBase.Cartesian.@nall\nBase.Cartesian.@nany\nBase.Cartesian.@nif"
 },
@@ -19369,7 +19369,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/meta.html#Talking-to-the-compiler-(the-:meta-mechanism)-1",
+    "location": "devdocs/meta.html#meta-1",
     "page": "Talking to the compiler (the :meta mechanism)",
     "title": "Talking to the compiler (the :meta mechanism)",
     "category": "section",
@@ -19385,67 +19385,67 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/subarrays.html#SubArrays-1",
+    "location": "devdocs/subarrays.html#subarrays-1",
     "page": "SubArrays",
     "title": "SubArrays",
     "category": "section",
-    "text": "Julia's SubArray type is a container encoding a \"view\" of a parent AbstractArray.  This page documents some of the design principles and implementation of SubArrays."
+    "text": "El tipo SubArray de Julia es un contenedor que codifica una \"vista\" de un AbstractArray padre.  Esta pagina documenta algunos de los principios de diseño e implementación de SubArray."
 },
 
 {
-    "location": "devdocs/subarrays.html#Indexing:-cartesian-vs.-linear-indexing-1",
+    "location": "devdocs/subarrays.html#Indexación:-indexación-cartesiana-vs.-lineal-1",
     "page": "SubArrays",
-    "title": "Indexing: cartesian vs. linear indexing",
+    "title": "Indexación: indexación cartesiana vs. lineal",
     "category": "section",
-    "text": "Broadly speaking, there are two main ways to access data in an array. The first, often called cartesian indexing, uses N indexes for an N -dimensional AbstractArray.  For example, a matrix A (2-dimensional) can be indexed in cartesian style as A[i,j].  The second indexing method, referred to as linear indexing, uses a single index even for higher-dimensional objects.  For example, if A = reshape(1:12, 3, 4), then the expression A[5] returns the value 5.  Julia allows you to combine these styles of indexing: for example, a 3d array A3 can be indexed as A3[i,j], in which case i is interpreted as a cartesian index for the first dimension, and j is a linear index over dimensions 2 and 3.For Arrays, linear indexing appeals to the underlying storage format: an array is laid out as a contiguous block of memory, and hence the linear index is just the offset (+1) of the corresponding entry relative to the beginning of the array.  However, this is not true for many other AbstractArray types: examples include SparseMatrixCSC, arrays that require some kind of computation (such as interpolation), and the type under discussion here, SubArray. For these types, the underlying information is more naturally described in terms of cartesian indexes.You can manually convert from a cartesian index to a linear index with sub2ind, and vice versa using ind2sub.  getindex and setindex! functions for AbstractArray types may include similar operations.While converting from a cartesian index to a linear index is fast (it's just multiplication and addition), converting from a linear index to a cartesian index is very slow: it relies on the div operation, which is one of the slowest low-level operations you can perform with a CPU.  For this reason, any code that deals with AbstractArray types is best designed in terms of cartesian, rather than linear, indexing."
+    "text": "Ampliamente hablando, hay dos formas principales de acceder a los datos en un array. La primera, frecuentemente llamada indexación cartesiana, usa N índices para un AbstractArray N -dimensional. Por ejemlo, una matriz A (bidimensional) puede ser indexada en estilo cartesiano como A[i,j]. El segundo método de indexación, denominado indexación lineal, usa un solo índice incluso para objetos de mayor dimensión. Por ejemplo si A = reshape(1:12, 3, 4), la expresión A[5] devuelve el valor 5. Julia nos permite combinar estos estilos de indexación: por ejemplo, un array 3d A3 puede ser indexado como A3[i,j], en cuyo caso i es interpretado como un índice cartesiano para la primera dimensión, y j es un índice lineal sobre las dimensiones 2 y 3.Para los Arrays, la indexación lineal apela al formato subyacente de almacenamiento: un array se presenta como un bloque contiguo de memoria, y por tanto el índice lineal es justo el desplazamiento (+1) de la correspondiente entrada relativa al principio del array. Sin embargo, esto no es cierto para muchos otros tipos AbstractArray: ejemplos de ello incluyen SparseMatrixCSC, unos arrays que requieren alguna clase de cálculo (tal como interpolación), y el tipo bajo discusión aquí, SubArray. Para estos tipos, la información subyacente es descrita más naturalmente en términos de índices cartesianos. Uno puede convertir manualmente un índice cartesiano a uno lineal con sub2ind, y viceversa usando ìnd2sub. Las funcionesgetindexandsetindex!de los tiposAbstractArray` puden incluir operaciones similares.Aunque convertir de un índice cartesiano a uno lineal es rápido (es justo una multiplicación y una suma), convertir de un índice lineal a uno cartesiano es muy lento: se basa en la operación div, que es una de las operacions de bajo nivel más lentas que uno puede realizar con una CPU. Por esta razón, cualquier código que trate con tipos AbstractArray está mejor diseñado en términos de indexación cartesiana en lugar de lineal."
 },
 
 {
-    "location": "devdocs/subarrays.html#Index-replacement-1",
+    "location": "devdocs/subarrays.html#Reemplazo-de-Índices-1",
     "page": "SubArrays",
-    "title": "Index replacement",
+    "title": "Reemplazo de Índices",
     "category": "section",
-    "text": "Consider making 2d slices of a 3d array:S1 = view(A, :, 5, 2:6)\nS2 = view(A, 5, :, 2:6)view drops \"singleton\" dimensions (ones that are specified by an Int), so both S1 and S2 are two-dimensional SubArrays. Consequently, the natural way to index these is with S1[i,j].  To extract the value from the parent array A, the natural approach is to replace S1[i,j] with A[i,5,(2:6)[j]] and S2[i,j] with A[5,i,(2:6)[j]].The key feature of the design of SubArrays is that this index replacement can be performed without any runtime overhead."
+    "text": "Considere hacer rebanadas bidimensionales de un array tridimensional:S1 = view(A, :, 5, 2:6)\nS2 = view(A, 5, :, 2:6)view elimina las dimensiones \"singleton\" (las que están especificadas por un Int), por lo que tanto S1 como S2 son SubArrays bidimensionales. En consecuencia, el camino natural para indexar esto es con S1[i,j]. Para extraer el valor del array padre A, el enfoque natural es reemplazar S1[i,j] con A[i,5,(2:6)[j]] y S2[i,j] con A[5,i,(2:6)[j]].La característica clave del diseño de SubArrays es que este reemplazo de índices puede realizarse sin ninguna sobrecarga en tiempo de ejecución."
 },
 
 {
-    "location": "devdocs/subarrays.html#SubArray-design-1",
+    "location": "devdocs/subarrays.html#Diseño-de-SubArray's-1",
     "page": "SubArrays",
-    "title": "SubArray design",
+    "title": "Diseño de SubArray's",
     "category": "section",
     "text": ""
 },
 
 {
-    "location": "devdocs/subarrays.html#Type-parameters-and-fields-1",
+    "location": "devdocs/subarrays.html#Parámetros-de-Tipo-y-Campos-1",
     "page": "SubArrays",
-    "title": "Type parameters and fields",
+    "title": "Parámetros de Tipo y Campos",
     "category": "section",
-    "text": "The strategy adopted is first and foremost expressed in the definition of the type:struct SubArray{T,N,P,I,L} <: AbstractArray{T,N}\n    parent::P\n    indexes::I\n    offset1::Int       # for linear indexing and pointer, only valid when L==true\n    stride1::Int       # used only for linear indexing\n    ...\nendSubArray has 5 type parameters.  The first two are the standard element type and dimensionality.  The next is the type of the parent AbstractArray.  The most heavily-used is the fourth parameter, a Tuple of the types of the indices for each dimension. The final one, L, is only provided as a convenience for dispatch; it's a boolean that represents whether the index types support fast linear indexing. More on that later.If in our example above A is a Array{Float64, 3}, our S1 case above would be a SubArray{Int64,2,Array{Int64,3},Tuple{Colon,Int64,UnitRange{Int64}},false}. Note in particular the tuple parameter, which stores the types of the indices used to create S1.  Likewise,julia> S1.indexes\n(Colon(),5,2:6)Storing these values allows index replacement, and having the types encoded as parameters allows one to dispatch to efficient algorithms."
+    "text": "La estrategia adoptada está expresada en la definición del tipo:struct SubArray{T,N,P,I,L} <: AbstractArray{T,N}\n    parent::P\n    indexes::I\n    offset1::Int       # for linear indexing and pointer, only valid when L==true\n    stride1::Int       # used only for linear indexing\n    ...\nendSubArray tiene cinco parámetros de tipo. Los dos primeros son el tipo de elemento estándar y la dimensionalidad. La siguiente es el tipo del AbstractArray padre. El usado más intensamente es el cuarto parámetro, una Tuple de los tipos de los índices para cada dimensión. El final, L,  es sólo proporcionado como una conveniencia para el despacho; es un valor booleano que representa si los tipos del índice soportan indexacion lineal rápida. Más sobre este tema después.  Si en nuestro ejemplo de arriba A es un Array{Float64, 3}, nuestro caso S1 sería un  SubArray{Int64,2,Array{Int64,3},Tuple{Colon,Int64,UnitRange{Int64}},false}. Note en particular el parámetro tupla, que almacena los tipos de los índices usados para crear S1.  Igualmente,julia> S1.indexes\n(Colon(),5,2:6)Almacenar estos valores permite el reemplzao de índices, y tener los tipos codificados como parámetros permite a uno despachar a eficientes algoritmos."
 },
 
 {
-    "location": "devdocs/subarrays.html#Index-translation-1",
+    "location": "devdocs/subarrays.html#Traducción-de-Índices-1",
     "page": "SubArrays",
-    "title": "Index translation",
+    "title": "Traducción de Índices",
     "category": "section",
-    "text": "Performing index translation requires that you do different things for different concrete SubArray types.  For example, for S1, one needs to apply the i,j indices to the first and third dimensions of the parent array, whereas for S2 one needs to apply them to the second and third.  The simplest approach to indexing would be to do the type-analysis at runtime:parentindexes = Array{Any}(0)\nfor thisindex in S.indexes\n    ...\n    if isa(thisindex, Int)\n        # Don't consume one of the input indexes\n        push!(parentindexes, thisindex)\n    elseif isa(thisindex, AbstractVector)\n        # Consume an input index\n        push!(parentindexes, thisindex[inputindex[j]])\n        j += 1\n    elseif isa(thisindex, AbstractMatrix)\n        # Consume two input indices\n        push!(parentindexes, thisindex[inputindex[j], inputindex[j+1]])\n        j += 2\n    elseif ...\nend\nS.parent[parentindexes...]Unfortunately, this would be disastrous in terms of performance: each element access would allocate memory, and involves the running of a lot of poorly-typed code.The better approach is to dispatch to specific methods to handle each type of stored index. That's what reindex does: it dispatches on the type of the first stored index and consumes the appropriate number of input indices, and then it recurses on the remaining indices. In the case of S1, this expands toBase.reindex(S1, S1.indexes, (i, j)) == (i, S1.indexes[2], S1.indexes[3][j])for any pair of indices (i,j) (except CartesianIndexs and arrays thereof, see below).This is the core of a SubArray; indexing methods depend upon reindex to do this index translation. Sometimes, though, we can avoid the indirection and make it even faster."
+    "text": "Realizar la traducción de índices requiere que uno haga diferentes cosas para diferentes tipos concretos de SubArray. Por ejemplo, para S1 uno necesita aplicar los índices i,j a las dimensiones primera y tercera del array padre, mientras que para S2 uno necesita aplicarlas a la segunda y la tercera. El enfoque más sencillo a indexar sería hacer el análisis de tipos en tiempo de ejecución:parentindexes = Array{Any}(0)\nfor thisindex in S.indexes\n    ...\n    if isa(thisindex, Int)\n        # Don't consume one of the input indexes\n        push!(parentindexes, thisindex)\n    elseif isa(thisindex, AbstractVector)\n        # Consume an input index\n        push!(parentindexes, thisindex[inputindex[j]])\n        j += 1\n    elseif isa(thisindex, AbstractMatrix)\n        # Consume two input indices\n        push!(parentindexes, thisindex[inputindex[j], inputindex[j+1]])\n        j += 2\n    elseif ...\nend\nS.parent[parentindexes...]Desgraciadamente, esto sería desastroso en términos de rendimiento: cada acceso a elemento asignaría memoria, e implicaría la ejecución de un montón de código pobremente tipado.El mejor enfoque es despachar a métodos específicos para manejar cada tipo de índice almacenado. Esto es lo que hace reindex: él despacha sobre el tipo del primer índice almacenado y consume el número apropiado de índices de entrada, y entonces recurre sobre los índices restantes. En el caso de S1, esto expande aBase.reindex(S1, S1.indexes, (i, j)) == (i, S1.indexes[2], S1.indexes[3][j])para cualquier par de índices (i,j) (excepto CartesianIndexs and arrays de este tipo, ver abajo).Este es el núcleo de un SubArray; los métodos de indexación se basan en reindex para hacer esta traducción de índices. Sin embargo, algunas veces, podemos evitar la indirección y hacerlo incluso más rápido."
 },
 
 {
-    "location": "devdocs/subarrays.html#Linear-indexing-1",
+    "location": "devdocs/subarrays.html#Indexación-Lineal-1",
     "page": "SubArrays",
-    "title": "Linear indexing",
+    "title": "Indexación Lineal",
     "category": "section",
-    "text": "Linear indexing can be implemented efficiently when the entire array has a single stride that separates successive elements, starting from some offset. This means that we can pre-compute these values and represent linear indexing simply as an addition and multiplication, avoiding the indirection of reindex and (more importantly) the slow computation of the cartesian coordinates entirely.For SubArray types, the availability of efficient linear indexing is based purely on the types of the indices, and does not depend on values like the size of the parent array. You can ask whether a given set of indices supports fast linear indexing with the internal Base.viewindexing function:julia> Base.viewindexing(S1.indexes)\nIndexCartesian()\n\njulia> Base.viewindexing(S2.indexes)\nIndexLinear()This is computed during construction of the SubArray and stored in the L type parameter as a boolean that encodes fast linear indexing support. While not strictly necessary, it means that we can define dispatch directly on SubArray{T,N,A,I,true} without any intermediaries.Since this computation doesn't depend on runtime values, it can miss some cases in which the stride happens to be uniform:julia> A = reshape(1:4*2, 4, 2)\n4×2 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5\n 2  6\n 3  7\n 4  8\n\njulia> diff(A[2:2:4,:][:])\n3-element Array{Int64,1}:\n 2\n 2\n 2A view constructed as view(A, 2:2:4, :) happens to have uniform stride, and therefore linear indexing indeed could be performed efficiently.  However, success in this case depends on the size of the array: if the first dimension instead were odd,julia> A = reshape(1:5*2, 5, 2)\n5×2 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1   6\n 2   7\n 3   8\n 4   9\n 5  10\n\njulia> diff(A[2:2:4,:][:])\n3-element Array{Int64,1}:\n 2\n 3\n 2then A[2:2:4,:] does not have uniform stride, so we cannot guarantee efficient linear indexing.  Since we have to base this decision based purely on types encoded in the parameters of the SubArray, S = view(A, 2:2:4, :) cannot implement efficient linear indexing."
+    "text": "La indexación lineal puede implementarse de forma eficiente cuando el array completo tiene un solo paso que separe elementos sucesivos, empezando desde cierto desplazamiento. Esto significa que nosotros pre-computamos estos valores y representamos la indexación lineal simplemente como una adición y multiplicación, evitando la indirección de reindex y (lo que es más importante) la computación lenta de las coordenadas cartesianas por completo.Para los tipos SubArray, la disponibilidad de una indexación lineal eficiente está basada puramente en los tipos de los índices, y no depende de valores como el tamaño de array padre. Uno puede preguntar si un cnjunto de índices dado soporta indexación lineal rápida con la función interna Base.viewindexing:julia> Base.viewindexing(S1.indexes)\nIndexCartesian()\n\njulia> Base.viewindexing(S2.indexes)\nIndexLinear()Esto se calcula durante la construcción del SubArray y se almacena en el parámetro de tipo L como un boolean que codifica soporte de indexación lineal rápido. Aunque n oes estrictamente necesario, esto significa qeu podemos definir despacho directamente sobre SubArray{T,N,A,I,true} sin intermediarios.Como esta computación no depende de valores en tiempo de ejecución, puede perder algunos casos en los que el paso sea uniforme:julia> A = reshape(1:4*2, 4, 2)\n4×2 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1  5\n 2  6\n 3  7\n 4  8\n\njulia> diff(A[2:2:4,:][:])\n3-element Array{Int64,1}:\n 2\n 2\n 2Una vista construída como view(A, 2:2:4, :) tiene un paso uniforme y, por tanto la indexación lineal podría llevarse a cabo eficientemente. Sin embargo, el éxito en este caso depende del tamaño del array: Si, a diferencia del caso anterior, la primera dimensión fuera impar,julia> A = reshape(1:5*2, 5, 2)\n5×2 Base.ReshapedArray{Int64,2,UnitRange{Int64},Tuple{}}:\n 1   6\n 2   7\n 3   8\n 4   9\n 5  10\n\njulia> diff(A[2:2:4,:][:])\n3-element Array{Int64,1}:\n 2\n 3\n 2entonces A[2:2:4,:] no tiene un paso uniforme, por lo que no podemos garantizar indexación lineal eficiente. Como tenemos que basar esta decisión puramente en los tipos codificados en los parámetros del SubArray, S = view(A, 2:2:4, :) no puede implementar una indexación lienal eficiente."
 },
 
 {
-    "location": "devdocs/subarrays.html#A-few-details-1",
+    "location": "devdocs/subarrays.html#Unos-pocos-detalles-1",
     "page": "SubArrays",
-    "title": "A few details",
+    "title": "Unos pocos detalles",
     "category": "section",
-    "text": "Note that the Base.reindex function is agnostic to the types of the input indices; it simply determines how and where the stored indices should be reindexed. It not only supports integer indices, but it supports non-scalar indexing, too. This means that views of views don't need two levels of indirection; they can simply re-compute the indices into the original parent array!\nHopefully by now it's fairly clear that supporting slices means that the dimensionality, given by the parameter N, is not necessarily equal to the dimensionality of the parent array or the length of the indexes tuple.  Neither do user-supplied indices necessarily line up with entries in the indexes tuple (e.g., the second user-supplied index might correspond to the third dimension of the parent array, and the third element in the indexes tuple).\nWhat might be less obvious is that the dimensionality of the stored parent array must be equal to the number of effective indices in the indexes tuple. Some examples:\nA = reshape(1:35, 5, 7) # A 2d parent Array\nS = view(A, 2:7)         # A 1d view created by linear indexing\nS = view(A, :, :, 1:1)   # Appending extra indices is supported\nNaively, you'd think you could just set S.parent = A and S.indexes = (:,:,1:1), but supporting this dramatically complicates the reindexing process, especially for views of views. Not only do you need to dispatch on the types of the stored indices, but you need to examine whether a given index is the final one and \"merge\" any remaining stored indices together. This is not an easy task, and even worse: it's slow since it implicitly depends upon linear indexing.\nFortunately, this is precisely the computation that ReshapedArray performs, and it does so linearly if possible. Consequently, view ensures that the parent array is the appropriate dimensionality for the given indices by reshaping it if needed. The inner SubArray constructor ensures that this invariant is satisfied.\nCartesianIndex and arrays thereof throw a nasty wrench into the reindex scheme. Recall that reindex simply dispatches on the type of the stored indices in order to determine how many passed indices should be used and where they should go. But with CartesianIndex, there's no longer a one-to-one correspondence between the number of passed arguments and the number of dimensions that they index into. If we return to the above example of Base.reindex(S1, S1.indexes, (i, j)), you can see that the expansion is incorrect for i, j = CartesianIndex(), CartesianIndex(2,1). It should skip the CartesianIndex() entirely and return:\n(CartesianIndex(2,1)[1], S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)[2]])\nInstead, though, we get:\n(CartesianIndex(), S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)])\nDoing this correctly would require combined dispatch on both the stored and passed indices across all combinations of dimensionalities in an intractable manner. As such, reindex must never be called with CartesianIndex indices. Fortunately, the scalar case is easily handled by first flattening the CartesianIndex arguments to plain integers. Arrays of CartesianIndex, however, cannot be split apart into orthogonal pieces so easily. Before attempting to use reindex, view must ensure that there are no arrays of CartesianIndex in the argument list. If there are, it can simply \"punt\" by avoiding the reindex calculation entirely, constructing a nested SubArray with two levels of indirection instead."
+    "text": "Note que la función Base.reindex es agnóstica a los tipos de los índices de entrada; ella simplemente determina como y donde deberían reindexarse los indices almacenados. Ella no solo soporta indices enteros, sino que también soporta indexación no escalar. Esto significa que las vistas de vistas no necesitan dos    niveles de indirección; ellas pueden simplemente recomputar los índices en el array padre original.  Es de esperar que a estas alturas esté bastante claro que soportar rebanadas en arrays significa que la dimensionalidad, dada por el parámetro N, no es necesariamente igual a la dimensionalidad del array padre o la longitud de la tupla indexes. Tampoco los índices proporcionados por el usuario se alinean necesariamente con las entradas en la tupla indexes (por ejemplo, el segundo índice proporcionado por el usuario puede corresponder a la tercera dimensión de la matriz padre, y el tercer elemento en la tupla indexes).\nLo que podría ser menos obvio es que la dimensionalidad del array padre almacenado sea igual al número de  índices efectivos en la tupla indexes. Algunos ejemplos:\nA = reshape(1:35, 5, 7) # A 2d parent Array\nS = view(A, 2:7)         # A 1d view created by linear indexing\nS = view(A, :, :, 1:1)   # Appending extra indices is supported\nIngenuamente, uno pensaría que podría simplemente establecer S.parent = A yS.indexes = (:,:, 1: 1),  pero el hecho de soportar esto complica dramáticamente el proceso de reindexación, especialmente para  vistas de vistas. No solo se necesita despachar los tipos de los índices almacenados, sino que se debe  examinar si un índice dado es el último y \"fusionar\" los índices almacenados restantes. Esto no es una  tarea fácil, y aún peor: es lenta ya que depende implícitamente de la indexación lineal.\nAfortunadamente, este es precisamente el cálculo que 'ReshapedArray' realiza, y lo hace linealmente si es posible. En consecuencia, view asegura que el array padre es la dimensionalidad adecuada para los  índices dados mediante reformateo (reshaping) si es necesario. El constructor interno SubArray  asegura que este invariante esté satisfecha.\nCartesianIndex y sus matrices retuercen de una forma desagradable el esquema reindex. Recuerde  que reindex simplemente despacha sobre el tipo de índices almacenados para determinar cuántos  índices pasados deberían usarse y a dónde deberían ir. Pero con CartesianIndex, ya no hay una  correspondencia uno a uno entre la cantidad de argumentos pasados y la cantidad de dimensiones en  las que indexan. Si volvemos al ejemplo anterior de Base.reindex(S1, S1.indexes, (i, j)), puede  ver que la expansión es incorrecta para i, j = CartesianIndex (), CartesianIndex (2,1 ). Él  debería salta el CartesianIndex() por completo y devolver:\n(CartesianIndex(2,1)[1], S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)[2]])\nY si embargo, lo que devuelve es:\n(CartesianIndex(), S1.indexes[2], S1.indexes[3][CartesianIndex(2,1)])\nHacer esto correctamente requeriría el envío combinado en los índices almacenados y pasados en  todas las combinaciones de dimensionalidades de una manera intratable. Como tal, reindex nunca  debe invocarse con índices CartesianIndex. Afortunadamente, el caso escalar se maneja fácilmente  aplanando primero los argumentos CartesianIndex a enteros simples. Sin embargo, las matrices de  CartesianIndex no se pueden dividir en piezas ortogonales tan fácilmente. Antes de intentar usar  reindex,view debe garantizar que no haya matrices de CartesianIndex en la lista de argumentos.  Si los hay, simplemente puede \"puntualizar\" evitando por completo el cálculo de 'reindex', construyendo  un SubArray anidado con dos niveles de indirección en su lugar."
 },
 
 {
@@ -19457,7 +19457,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/sysimg.html#System-Image-Building-1",
+    "location": "devdocs/sysimg.html#sysimg-1",
     "page": "System Image Building",
     "title": "System Image Building",
     "category": "section",
@@ -19473,7 +19473,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/sysimg.html#Building-the-Julia-system-image-1",
+    "location": "devdocs/sysimg.html#building-julia-system-image-1",
     "page": "System Image Building",
     "title": "Building the Julia system image",
     "category": "section",
@@ -19489,7 +19489,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/llvm.html#Working-with-LLVM-1",
+    "location": "devdocs/llvm.html#llvm-1",
     "page": "Working with LLVM",
     "title": "Working with LLVM",
     "category": "section",
@@ -19545,7 +19545,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/stdio.html#printf()-and-stdio-in-the-Julia-runtime-1",
+    "location": "devdocs/stdio.html#stdio-1",
     "page": "printf() and stdio in the Julia runtime",
     "title": "printf() and stdio in the Julia runtime",
     "category": "section",
@@ -19553,7 +19553,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/stdio.html#Libuv-wrappers-for-stdio-1",
+    "location": "devdocs/stdio.html#libuv-wrappers-stdio-1",
     "page": "printf() and stdio in the Julia runtime",
     "title": "Libuv wrappers for stdio",
     "category": "section",
@@ -19577,7 +19577,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/stdio.html#Legacy-ios.c-library-1",
+    "location": "devdocs/stdio.html#legacy-ios-library-1",
     "page": "printf() and stdio in the Julia runtime",
     "title": "Legacy ios.c library",
     "category": "section",
@@ -19593,7 +19593,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/boundscheck.html#Bounds-checking-1",
+    "location": "devdocs/boundscheck.html#boundscheck-1",
     "page": "Bounds checking",
     "title": "Bounds checking",
     "category": "section",
@@ -19633,7 +19633,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/locks.html#Proper-maintenance-and-care-of-multi-threading-locks-1",
+    "location": "devdocs/locks.html#locks-1",
     "page": "Proper maintenance and care of multi-threading locks",
     "title": "Proper maintenance and care of multi-threading locks",
     "category": "section",
@@ -19673,7 +19673,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/offset-arrays.html#Arrays-with-custom-indices-1",
+    "location": "devdocs/offset-arrays.html#offset-arrays-1",
     "page": "Arrays with custom indices",
     "title": "Arrays with custom indices",
     "category": "section",
@@ -19801,7 +19801,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/libgit2.html#Base.LibGit2-1",
+    "location": "devdocs/libgit2.html#libgit2-1",
     "page": "Base.LibGit2",
     "title": "Base.LibGit2",
     "category": "section",
@@ -20657,7 +20657,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/require.html#Module-loading-1",
+    "location": "devdocs/require.html#require-1",
     "page": "Module loading",
     "title": "Module loading",
     "category": "section",
@@ -20689,7 +20689,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/backtraces.html#Reporting-and-analyzing-crashes-(segfaults)-1",
+    "location": "devdocs/backtraces.html#backtraces-1",
     "page": "Reporting and analyzing crashes (segfaults)",
     "title": "Reporting and analyzing crashes (segfaults)",
     "category": "section",
@@ -20705,7 +20705,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/backtraces.html#Segfaults-during-bootstrap-(sysimg.jl)-1",
+    "location": "devdocs/backtraces.html#segfaults-bootstrap-1",
     "page": "Reporting and analyzing crashes (segfaults)",
     "title": "Segfaults during bootstrap (sysimg.jl)",
     "category": "section",
@@ -20713,7 +20713,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/backtraces.html#Segfaults-when-running-a-script-1",
+    "location": "devdocs/backtraces.html#segfaults-script-1",
     "page": "Reporting and analyzing crashes (segfaults)",
     "title": "Segfaults when running a script",
     "category": "section",
@@ -20721,7 +20721,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/backtraces.html#Errors-during-Julia-startup-1",
+    "location": "devdocs/backtraces.html#errors-startup-1",
     "page": "Reporting and analyzing crashes (segfaults)",
     "title": "Errors during Julia startup",
     "category": "section",
@@ -20745,7 +20745,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/debuggingtips.html#gdb-debugging-tips-1",
+    "location": "devdocs/debuggingtips.html#debuggingtips-1",
     "page": "gdb debugging tips",
     "title": "gdb debugging tips",
     "category": "section",
@@ -20842,39 +20842,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/valgrind.html#",
-    "page": "Using Valgrind with Julia",
-    "title": "Using Valgrind with Julia",
+    "page": "Usando Valgrind con Julia",
+    "title": "Usando Valgrind con Julia",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "devdocs/valgrind.html#Using-Valgrind-with-Julia-1",
-    "page": "Using Valgrind with Julia",
-    "title": "Using Valgrind with Julia",
+    "location": "devdocs/valgrind.html#valgrind-1",
+    "page": "Usando Valgrind con Julia",
+    "title": "Usando Valgrind con Julia",
     "category": "section",
-    "text": "Valgrind is a tool for memory debugging, memory leak detection, and profiling.  This section describes things to keep in mind when using Valgrind to debug memory issues with Julia."
+    "text": "Valgrind es una herramienta para deputación de memoria, deteccin de fallos de página y creación de perfiles. Esta sección describe cosas a tner en cuenta cuando se usa Valgrind para depurar cuestiones de memoria con Julia."
 },
 
 {
-    "location": "devdocs/valgrind.html#General-considerations-1",
-    "page": "Using Valgrind with Julia",
-    "title": "General considerations",
+    "location": "devdocs/valgrind.html#Consideraciones-Generales-1",
+    "page": "Usando Valgrind con Julia",
+    "title": "Consideraciones Generales",
     "category": "section",
-    "text": "By default, Valgrind assumes that there is no self modifying code in the programs it runs.  This assumption works fine in most instances but fails miserably for a just-in-time compiler like julia.  For this reason it is crucial to pass --smc-check=all-non-file to valgrind, else code may crash or behave unexpectedly (often in subtle ways).In some cases, to better detect memory errors using Valgrind it can help to compile julia with memory pools disabled.  The compile-time flag MEMDEBUG disables memory pools in Julia, and MEMDEBUG2 disables memory pools in FemtoLisp.  To build julia with both flags, add the following line to Make.user:CFLAGS = -DMEMDEBUG -DMEMDEBUG2Another thing to note: if your program uses multiple workers processes, it is likely that you want all such worker processes to run under Valgrind, not just the parent process.  To do this, pass --trace-children=yes to valgrind."
+    "text": "Por defecto, Valgrind asume que no hay código automodificador en el programa que está ejecutando. Esta suposición trabaja bien en la mayoría de las instancias, pero falla miserablemente para un compilador JIT como julia. Por esta razón es crucial pasar --smc-check=all-non-file a valgrind, si no el código puede bloquearse o comportarse de forma inesperada (frecuentemente de una forma sutil).En algunos casos, para detectar mejor errores de memoria usando Valgrind puede ayudar compilar julia con los pools de memoria dehabilitados. El flag de tiempo de compilación MEMDEBUG desabilita los pools de memoria en Julia y el flag MEMDEBUG2 deshabilita los pools de memoria en FemtoLisp. Para construir julia con ambos flags, añada la siguiente línea a Make.user:CFLAGS = -DMEMDEBUG -DMEMDEBUG2Otra cosa a notar: si nuestros programa usa múltiples procesos workers, es probable que queramos que todos esos procesos worker se ejecuten bajo Valgrind, no sólo bajo el proceso padre. Para hacer esto, pasaremos --trace-children=yes a valgrind."
 },
 
 {
-    "location": "devdocs/valgrind.html#Suppressions-1",
-    "page": "Using Valgrind with Julia",
-    "title": "Suppressions",
+    "location": "devdocs/valgrind.html#Supresiones-1",
+    "page": "Usando Valgrind con Julia",
+    "title": "Supresiones",
     "category": "section",
-    "text": "Valgrind will typically display spurious warnings as it runs.  To reduce the number of such warnings, it helps to provide a suppressions file to Valgrind.  A sample suppressions file is included in the Julia source distribution at contrib/valgrind-julia.supp.The suppressions file can be used from the julia/ source directory as follows:$ valgrind --smc-check=all-non-file --suppressions=contrib/valgrind-julia.supp ./julia progname.jlAny memory errors that are displayed should either be reported as bugs or contributed as additional suppressions.  Note that some versions of Valgrind are shipped with insufficient default suppressions, so that may be one thing to consider before submitting any bugs."
+    "text": "Valgrind tipicamente mostrará avisos falsos mientras se ejecuta. Para reducir el número de tales avisos, ayuda proporcionar un fichero supresiones a Valgrind. Un fichero supresiones de ejemplo se incluye en la distribución fuente de Julia en contrib/valgrind-julia.supp.El fichero de supresiones puede ser usado desde el directorio fuente julia/ de la siguiente manera:$ valgrind --smc-check=all-non-file --suppressions=contrib/valgrind-julia.supp ./julia progname.jlAny memory errors that are displayed should either be reported as bugs or contributed as additional suppressions.  Note that some versions of Valgrind are shipped with insufficient default suppressions, so that may be one thing to consider before submitting any bugs."
 },
 
 {
     "location": "devdocs/valgrind.html#Running-the-Julia-test-suite-under-Valgrind-1",
-    "page": "Using Valgrind with Julia",
+    "page": "Usando Valgrind con Julia",
     "title": "Running the Julia test suite under Valgrind",
     "category": "section",
     "text": "It is possible to run the entire Julia test suite under Valgrind, but it does take quite some time (typically several hours).  To do so, run the following command from the julia/test/ directory:valgrind --smc-check=all-non-file --trace-children=yes --suppressions=$PWD/../contrib/valgrind-julia.supp ../julia runtests.jl allIf you would like to see a report of \"definite\" memory leaks, pass the flags --leak-check=full --show-leak-kinds=definite to valgrind as well."
@@ -20882,7 +20882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "devdocs/valgrind.html#Caveats-1",
-    "page": "Using Valgrind with Julia",
+    "page": "Usando Valgrind con Julia",
     "title": "Caveats",
     "category": "section",
     "text": "Valgrind currently does not support multiple rounding modes, so code that adjusts the rounding mode will behave differently when run under Valgrind.In general, if after setting --smc-check=all-non-file you find that your program behaves differently when run under Valgrind, it may help to pass --tool=none to valgrind as you investigate further.  This will enable the minimal Valgrind machinery but will also run much faster than when the full memory checker is enabled."
@@ -20897,7 +20897,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "devdocs/sanitizers.html#Sanitizer-support-1",
+    "location": "devdocs/sanitizers.html#sanitizers-1",
     "page": "Sanitizer support",
     "title": "Sanitizer support",
     "category": "section",
