@@ -38,7 +38,7 @@ julia> typeof(ans)
 Char
 ```
 
-You can convert a `Char` to its integer value, i.e. code point, easily:
+Podemos convertir un `Char` a su valor entero (su punto de código) fácilmente:
 
 ```jldoctest
 julia> Int('x')
@@ -48,17 +48,14 @@ julia> typeof(ans)
 Int64
 ```
 
-On 32-bit architectures, [`typeof(ans)`](@ref) will be [`Int32`](@ref). You can convert an
-integer value back to a `Char` just as easily:
+En arquitecturas de 32 bits,  [`typeof(ans)`](@ref) será [`Int32`](@ref). Puede convertir un valor entero de nuevo a un `Char` fácilmente:
 
 ```jldoctest
 julia> Char(120)
 'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)
 ```
 
-Not all integer values are valid Unicode code points, but for performance, the `Char()` conversion
-does not check that every character value is valid. If you want to check that each converted value
-is a valid code point, use the [`isvalid()`](@ref) function:
+No todos los valores enteros son puntos de código Unicode válidos, pero por una cuestión de  rendimiento, la conversión `Char()` no comprueba que cada valor de carácter sea válido. Si desea comprobar que cada valor convertido es un punto de código válido, utilice la función [`isvalid()`](@ref):
 
 ```jldoctest
 julia> Char(0x110000)
@@ -68,13 +65,9 @@ julia> isvalid(Char, 0x110000)
 false
 ```
 
-As of this writing, the valid Unicode code points are `U+00` through `U+d7ff` and `U+e000` through
-`U+10ffff`. These have not all been assigned intelligible meanings yet, nor are they necessarily
-interpretable by applications, but all of these values are considered to be valid Unicode characters.
+A partir de este momento, los puntos de código Unicode válidos son `U+00` a `U+d7ff` y `U+e000` a `U+10ffff`. A estos no se les han asignado todavía significados inteligibles, ni son necesariamente interpretables por las aplicaciones, pero todos ellos se consideran caracteres Unicode válidos.
 
-You can input any Unicode character in single quotes using `\u` followed by up to four hexadecimal
-digits or `\U` followed by up to eight hexadecimal digits (the longest valid value only requires
-six):
+Puede introducir cualquier carácter Unicode entre comillas simples utilizando `\u` seguido de hasta cuatro dígitos hexadecimales o `\U` seguido de hasta ocho dígitos hexadecimales (el valor válido más largo sólo requiere seis):
 
 ```jldoctest
 julia> '\u0'
@@ -90,10 +83,7 @@ julia> '\U10ffff'
 '\U10ffff': Unicode U+10ffff (category Cn: Other, not assigned)
 ```
 
-Julia uses your system's locale and language settings to determine which characters can be printed
-as-is and which must be output using the generic, escaped `\u` or `\U` input forms. In addition
-to these Unicode escape forms, all of [C's traditional escaped input forms](https://en.wikipedia.org/wiki/C_syntax#Backslash_escapes)
-can also be used:
+Julia utiliza la configuración regional y de idioma de tu sistema para determinar qué caracteres se pueden imprimir tal cual y cuáles se deben imprimir utilizando las formas de entrada genéricas, escapadas con `\u` o `\U`. Además de estas formas de escape de Unicode, también se pueden usar todas las [formas de entrada de escape tradicionales de C](https://en.wikipedia.org/wiki/C_syntax#Backslash_escapes):
 
 ```jldoctest
 julia> Int('\0')
@@ -118,7 +108,7 @@ julia> Int('\xff')
 255
 ```
 
-You can do comparisons and a limited amount of arithmetic with `Char` values:
+Puedes hacer comparaciones y una cantidad limitada de aritmética con los valores `Char`:
 
 ```jldoctest
 julia> 'A' < 'a'
@@ -137,9 +127,9 @@ julia> 'A' + 1
 'B': ASCII/Unicode U+0042 (category Lu: Letter, uppercase)
 ```
 
-## String Basics
+## Fundamentos de Cadenas
 
-String literals are delimited by double quotes or triple double quotes:
+Los literales de cadenas están delimitados por comillas dobles o comillas dobles triples:
 
 ```jldoctest helloworldstring
 julia> str = "Hello, world.\n"
@@ -149,7 +139,7 @@ julia> """Contains "quote" characters"""
 "Contains \"quote\" characters"
 ```
 
-If you want to extract a character from a string, you index into it:
+Si desea extraer un carácter de una cadena, indéxelo:
 
 ```jldoctest helloworldstring
 julia> str[1]
@@ -162,13 +152,9 @@ julia> str[end]
 '\n': ASCII/Unicode U+000a (category Cc: Other, control)
 ```
 
-All indexing in Julia is 1-based: the first element of any integer-indexed object is found at
-index 1. (As we will see below, this does not necessarily mean that the last element is found
-at index `n`, where `n` is the length of the string.)
+Toda la indexación en Julia está basada en 1: el primer elemento de cualquier objeto indexado medidante enteros se encuentra en el índice `1`, y el último elemento se encuentra en el índice `n`, cuando la cadena tiene una longitud de `n`.
 
-In any indexing expression, the keyword `end` can be used as a shorthand for the last index (computed
-by [`endof(str)`](@ref)). You can perform arithmetic and other operations with `end`, just like
-a normal value:
+En cualquier expresión de indexación, puede usarse la palabra clave `end` como una abreviatura para el último índice (calculado mediante [`endof(str)`](@ref)). Puede realizar operaciones aritméticas y otras con `end`, como si de un valor normal se tratara:
 
 ```jldoctest helloworldstring
 julia> str[end-1]
@@ -178,7 +164,7 @@ julia> str[end÷2]
 ' ': ASCII/Unicode U+0020 (category Zs: Separator, space)
 ```
 
-Using an index less than 1 or greater than `end` raises an error:
+Usar un índice menor que 1 o mayor que `end` lanza un error:
 
 ```jldoctest helloworldstring
 julia> str[0]
@@ -192,14 +178,14 @@ ERROR: BoundsError: attempt to access "Hello, world.\n"
 [...]
 ```
 
-You can also extract a substring using range indexing:
+También puedes extraer una subcadena usando indexación mediante un rango:
 
 ```jldoctest helloworldstring
 julia> str[4:9]
 "lo, wo"
 ```
 
-Notice that the expressions `str[k]` and `str[k:k]` do not give the same result:
+Nótese que las expresiones `str[k]` y `str[k:k]` no dan el mismo resultado:
 
 ```jldoctest helloworldstring
 julia> str[6]
@@ -209,28 +195,18 @@ julia> str[6:6]
 ","
 ```
 
-The former is a single character value of type `Char`, while the latter is a string value that
-happens to contain only a single character. In Julia these are very different things.
+La primera es un valor carácter de tipo `Char`, mientras que la segunda es un valor cadena que tiene un único carácter. En Julia se trata de cosas muy diferentes.
 
-## Unicode and UTF-8
+## Unicode y UTF-8
 
-Julia fully supports Unicode characters and strings. As [discussed above](@ref man-characters), in character
-literals, Unicode code points can be represented using Unicode `\u` and `\U` escape sequences,
-as well as all the standard C escape sequences. These can likewise be used to write string literals:
+Julia soporta totalmente caracteres y cadenas Unicode. Como se ha [comentado anteriormente](@ref man-characters), en literales de caracteres, los puntos de código Unicode se pueden representar usando las secuencias de escape Unicode `\u` y `\U`, así como todas las secuencias de escape C estándar. Éstos también se pueden utilizar para escribir literales de cadena:
 
 ```jldoctest unicodestring
 julia> s = "\u2200 x \u2203 y"
 "∀ x ∃ y"
 ```
 
-Whether these Unicode characters are displayed as escapes or shown as special characters depends
-on your terminal's locale settings and its support for Unicode. String literals are encoded using
-the UTF-8 encoding. UTF-8 is a variable-width encoding, meaning that not all characters are encoded
-in the same number of bytes. In UTF-8, ASCII characters -- i.e. those with code points less than
-0x80 (128) -- are encoded as they are in ASCII, using a single byte, while code points 0x80 and
-above are encoded using multiple bytes -- up to four per character. This means that not every
-byte index into a UTF-8 string is necessarily a valid index for a character. If you index into
-a string at such an invalid byte index, an error is thrown:
+Si estos caracteres Unicode se muestran como escapes o se muestran como caracteres especiales depende de la configuración regional de tu terminal y su compatibilidad con Unicode. Los literales de cadena se codifican utilizando la codificación UTF-8. UTF-8 es una codificación de ancho variable, lo que significa que no todos los caracteres están codificados en el mismo número de bytes. En UTF-8, los caracteres ASCII -es decir, aquellos con puntos de código inferiores a 0x80 (128) - están codificados como lo están en ASCII, usando un solo byte, mientras que los puntos de código 0x80 y superiores se codifican utilizando múltiples bytes (hasta cuatro por carácter). Esto significa que no todos los índices de bytes en una cadena UTF-8 es necesariamente un índice válido para un carácter. Si indexas una cadena en un índice de bytes no válido, se genera un error:
 
 ```jldoctest unicodestring
 julia> s[1]
@@ -248,16 +224,9 @@ julia> s[4]
 ' ': ASCII/Unicode U+0020 (category Zs: Separator, space)
 ```
 
-In this case, the character `∀` is a three-byte character, so the indices 2 and 3 are invalid
-and the next character's index is 4; this next valid index can be computed by [`nextind(s,1)`](@ref),
-and the next index after that by `nextind(s,4)` and so on.
+En este caso, el carácter `∀` es un carácter de tres bytes, por lo que los índices 2 y 3 no son válidos y el índice del siguiente carácter es 4; este siguiente índice válido puede ser calculado con [`nextind(s,1)`](@ref), y el siguiente índice después de éste con `nextind(s,4)` y así sucesivamente.
 
-Because of variable-length encodings, the number of characters in a string (given by [`length(s)`](@ref))
-is not always the same as the last index. If you iterate through the indices 1 through [`endof(s)`](@ref)
-and index into `s`, the sequence of characters returned when errors aren't thrown is the sequence
-of characters comprising the string `s`. Thus we have the identity that `length(s) <= endof(s)`,
-since each character in a string must have its own index. The following is an inefficient and
-verbose way to iterate through the characters of `s`:
+Debido a las codificaciones de longitud variable, el número de caracteres de una cadena (dada por [`length(s)`](@ref)) no siempre lo mismo que el último índice. Si se itera a través de los índices 1 hasta [`endof(s)`](@ref) y se indexa en `s`, la secuencia de caracteres devueltos cuando no se lanzan errores es la secuencia de caracteres que contiene la cadena `s`. Por tanto, tenemos la identidad de que `length(s) <= endof(s)`, ya que cada carácter en una cadena debe tener su propio índice. La siguiente es una forma ineficaz y verbosa de iterar a través de los caracteres de `s`:
 
 ```jldoctest unicodestring
 julia> for i = 1:endof(s)
@@ -276,9 +245,7 @@ x
 y
 ```
 
-The blank lines actually have spaces on them. Fortunately, the above awkward idiom is unnecessary
-for iterating through the characters in a string, since you can just use the string as an iterable
-object, no exception handling required:
+Las líneas en blanco en realidad tienen espacios en ellos. Afortunadamente, el idioma anterior incómodo es innecesario para iterar a través de los caracteres de una cadena, ya que se puede utilizar la cadena como un objeto iterable, sin que se requiera el manejo de excepciones:
 
 ```jldoctest unicodestring
 julia> for c in s
@@ -293,17 +260,11 @@ x
 y
 ```
 
-Julia uses the UTF-8 encoding by default, and support for new encodings can be added by packages.
-For example, the [LegacyStrings.jl](https://github.com/JuliaArchive/LegacyStrings.jl) package
-implements `UTF16String` and `UTF32String` types. Additional discussion of other encodings and
-how to implement support for them is beyond the scope of this document for the time being. For
-further discussion of UTF-8 encoding issues, see the section below on [byte array literals](@ref man-byte-array-literals).
-The [`transcode()`](@ref) function is provided to convert data between the various UTF-xx encodings,
-primarily for working with external data and libraries.
+Julia utiliza la codificación UTF-8 de forma predeterminada y el soporte para nuevas codificaciones puede agregarse mediante paquetes. Por ejemplo, el paquete [LegacyStrings.jl](https://github.com/JuliaArchive/LegacyStrings.jl) implementa los tipos `UTF16String` y `UTF32String`. Una mayor discusión sobre otras codificaciones y cómo implementar el soporte para ellas está más allá del alcance de este documento por el momento. Para más información sobre los problemas de codificación UTF-8, consulte la sección siguiente sobre [literales byte array](@ref man-byte-array-literals). La función [`transcode()`](@ref) se proporciona para convertir datos entre las distintas codificaciones UTF-xx, principalmente para trabajar con datos y bibliotecas externas.
 
-## Concatenation
+## [Concatenación](@id concatenation)
 
-One of the most common and useful string operations is concatenation:
+Una de las operaciones de cadena más comunes y útiles es la concatenación:
 
 ```jldoctest stringconcat
 julia> greet = "Hello"
@@ -316,55 +277,38 @@ julia> string(greet, ", ", whom, ".\n")
 "Hello, world.\n"
 ```
 
-Julia also provides `*` for string concatenation:
+Julia también proporciona el operador `*` para concatenar cadenas:
 
 ```jldoctest stringconcat
 julia> greet * ", " * whom * ".\n"
 "Hello, world.\n"
 ```
 
-While `*` may seem like a surprising choice to users of languages that provide `+` for string
-concatenation, this use of `*` has precedent in mathematics, particularly in abstract algebra.
+Aunque `*` puede parecer una elección sorprendente a los usuarios de lenguajes que proporcionan `+` para concatenación de cadenas, este uso de `*`tiene precedentes en matemáticas, particularmente en álgebra abstracta.
 
-In mathematics, `+` usually denotes a *commutative* operation, where the order of the operands does
-not matter. An example of this is matrix addition, where `A + B == B + A` for any matrices `A` and `B`
-that have the same shape. In contrast, `*` typically denotes a *noncommutative* operation, where the
-order of the operands *does* matter. An example of this is matrix multiplication, where in general
-`A * B != B * A`. As with matrix multiplication, string concatenation is noncommutative:
-`greet * whom != whom * greet`. As such, `*` is a more natural choice for an infix string concatenation
-operator, consistent with common mathematical use.
+En matemáticas, `+` suele denotar una operación *conmutativa*, donde el orden de los operandos no importa. Un ejemplo de esto es la suma de matrices, donde `A + B == B + A` para dos matrices cualesquiera `A` y `B` que tengan la misma forma. En contraste, `*` suele denotar una operación no conmutativa, donde el orden de los operandos *importa*. Un ejemplo de esto es la multiplicación de matrices donde, en general, `A * B != B * A`. Como con la multiplicación de matrices, la concatenación es no conmutativa: `greet * whom != whom * greet`. Por tanto, `*` es una elección más natural para el operador infijo de concatenación, consistente con el uso matemático común.
 
-More precisely, the set of all finite-length strings *S* together with the string concatenation operator
-`*` forms a [free monoid](https://en.wikipedia.org/wiki/Free_monoid) (*S*, `*`). The identity element
-of this set is the empty string, `""`. Whenever a free monoid is not commutative, the operation is
-typically represented as `\cdot`, `*`, or a similar symbol, rather than `+`, which as stated usually
-implies commutativity.
+Más precisamente, el conjunto de todas las cadenas *S* de longitud finita junto con el operador de concatenación `*` forman un [monoide libre](https://en.wikipedia.org/wiki/Free_monoid) (S, `*`). El elemento identidad de este conjunto es la cadena vacía "". Siempre que un monoide libre es no conmutativo, la operación suele ser representada por `\cdot`, `*`, o un símbolo similar, en luga de con `+` que implica conmutatividad.
 
-## [Interpolation](@id string-interpolation)
+## [Interpolación](@id string-interpolation)
 
-Constructing strings using concatenation can become a bit cumbersome, however. To reduce the need for these
-verbose calls to [`string()`](@ref) or repeated multiplications, Julia allows interpolation into string literals
-using `$`, as in Perl:
+Construir cadenas mediante concatenación puede llegar a ser un poco engorroso, sin embargo. Para reducir la necesidad de estas llamadas verbosas a [`string()`](@ref) o multiplicaciones repetidas, Julia permite la interpolación en literales de cadena usando `$`, como en Perl:
 
 ```jldoctest stringconcat
 julia> "$greet, $whom.\n"
 "Hello, world.\n"
 ```
 
-This is more readable and convenient and equivalent to the above string concatenation -- the system
-rewrites this apparent single string literal into a concatenation of string literals with variables.
+Esto es más legible y conveniente, y equivalente a la concatenación de cadena anterior -- el sistema rescribe este aparente literal de cadena única en una concatenación de literales de cadena con variables.
 
-The shortest complete expression after the `$` is taken as the expression whose value is to be
-interpolated into the string. Thus, you can interpolate any expression into a string using parentheses:
+La expresión completa más corta después de `$` se toma como la expresión cuyo valor debe ser interpolado en la cadena. Por lo tanto, puede interpolar cualquier expresión en una cadena usando paréntesis:
 
 ```jldoctest
 julia> "1 + 2 = $(1 + 2)"
 "1 + 2 = 3"
 ```
 
-Both concatenation and string interpolation call [`string()`](@ref) to convert objects into string
-form. Most non-`AbstractString` objects are converted to strings closely corresponding to how
-they are entered as literal expressions:
+Tanto la concatenación como la interpolación de cadena llaman a [`string()`](@ref) para convertir objetos al formato de cadena. La mayoría de los objetos que no son `AbstractString` se convierten en cadenas que se corresponden estrechamente con la forma en que se introducen como expresiones literales:
 
 ```jldoctest
 julia> v = [1,2,3]
@@ -377,8 +321,7 @@ julia> "v: $v"
 "v: [1, 2, 3]"
 ```
 
-[`string()`](@ref) is the identity for `AbstractString` and `Char` values, so these are interpolated
-into strings as themselves, unquoted and unescaped:
+[`string()`](@ref) es la identidad para los valores `AbstractString` y `Char` values, por lo que estos se interpolan en cadenas como ellos mismos, sin entrecomillar y sin escapar:
 
 ```jldoctest
 julia> c = 'x'
@@ -388,31 +331,29 @@ julia> "hi, $c"
 "hi, x"
 ```
 
-To include a literal `$` in a string literal, escape it with a backslash:
+Para incluir un literal `$` en una cadena, lo escaparemos con un backslash:
 
 ```jldoctest
 julia> print("I have \$100 in my account.\n")
 I have $100 in my account.
 ```
 
-## Triple-Quoted String Literals
+## [Literales cadena con triples comillas](@id triple-quoted-string-literals)
 
-When strings are created using triple-quotes (`"""..."""`) they have some special behavior that
-can be useful for creating longer blocks of text. First, if the opening `"""` is followed by a
-newline, the newline is stripped from the resulting string.
+Cuando las cadenas se crean utilizando comillas triples (`"""..."""`) tienen un comportamiento especial que puede ser útil para crear bloques de texto más largos. En primer lugar, si la apertura """ es seguida por una nueva línea, la nueva línea se quita de la cadena resultante:
 
 ```julia
 """hello"""
 ```
 
-is equivalent to
+es equivalente a
 
 ```julia
 """
 hello"""
 ```
 
-but
+pero
 
 ```julia
 """
@@ -420,10 +361,7 @@ but
 hello"""
 ```
 
-will contain a literal newline at the beginning. Trailing whitespace is left unaltered. They can
-contain `"` symbols without escaping. Triple-quoted strings are also dedented to the level of
-the least-indented line. This is useful for defining strings within code that is indented. For
-example:
+contendrá un literal *new line* al principio. Los espacios en blanco no se modifican. Pueden contener símbolos `"` sin escapar. Las cadenas de triple comilla también se dedican al nivel de la línea menos indentada. Esto es útil para definir cadenas dentro del código que está sangrado Por ejemplo:
 
 ```jldoctest
 julia> str = """
@@ -433,16 +371,13 @@ julia> str = """
 "  Hello,\n  world.\n"
 ```
 
-In this case the final (empty) line before the closing `"""` sets the indentation level.
+En este caso la línea final (vacía) antes del cierre `"""` establece el nivel de indentación.
 
-Note that line breaks in literal strings, whether single- or triple-quoted, result in a newline
-(LF) character `\n` in the string, even if your editor uses a carriage return `\r` (CR) or CRLF
-combination to end lines. To include a CR in a string, use an explicit escape `\r`; for example,
-you can enter the literal string `"a CRLF line ending\r\n"`.
+Tenga en cuenta que las saltos de línea en cadenas literales, sean de una sola o triple comilla, resultan en un carácter de línea nueva (LF) `\n` en la cadena, incluso si su editor usa una combinación de retorno de carro (CR) o CRLF para finalizar líneas. Para incluir un CR en una cadena, utilice un escape explícito `\r`; Por ejemplo, puede introducir la cadena literal `"una línea CRLF que termina \r \n"`.
 
-## Common Operations
+## [Operaciones Comunes](@id common-operations)
 
-You can lexicographically compare strings using the standard comparison operators:
+Podemos comparar cadenas lexicográficamente usando los operadores de comparación estandard:
 
 ```jldoctest
 julia> "abracadabra" < "xylophone"
@@ -458,7 +393,7 @@ julia> "1 + 2 = 3" == "1 + 2 = $(1 + 2)"
 true
 ```
 
-You can search for the index of a particular character using the [`search()`](@ref) function:
+La función [`search()`](@ref) permite buscar el índice de una carácter en una cadena:
 
 ```jldoctest
 julia> search("xylophone", 'x')
@@ -471,7 +406,7 @@ julia> search("xylophone", 'z')
 0
 ```
 
-You can start the search for a character at a given offset by providing a third argument:
+Y se puede arrancar la búsqueda de un carácter a partir de un desplazamiento proporcionado por un tercer argumento:
 
 ```jldoctest
 julia> search("xylophone", 'o')
@@ -484,7 +419,7 @@ julia> search("xylophone", 'o', 8)
 0
 ```
 
-You can use the [`contains()`](@ref) function to check if a substring is contained in a string:
+La función [`contains()`](@ref) se usa para comprobar si una subcadena está contenida en una cadena:
 
 ```jldoctest
 julia> contains("Hello, world.", "world")
@@ -503,11 +438,9 @@ Closest candidates are:
   contains(::AbstractString, !Matched::AbstractString) at strings/search.jl:378
 ```
 
-The last error is because `'o'` is a character literal, and [`contains()`](@ref) is a generic
-function that looks for subsequences. To look for an element in a sequence, you must use [`in()`](@ref)
-instead.
+Este último error es debido a que 'o'  es un literal carácter, y [`contains()`](@ref) es una función genérica que busca subsecuencias. Para buscar un elemento en una secuencia, debemos usar la función [`in()`](@ref) en lugra de la anterior.
 
-Two other handy string functions are [`repeat()`](@ref) and [`join()`](@ref):
+[`repeat()`](@ref) y [`join()`](@ref) son otras dos funciones de cadena muy útiles:
 
 ```jldoctest
 julia> repeat(".:Z:.", 10)
@@ -517,38 +450,22 @@ julia> join(["apples", "bananas", "pineapples"], ", ", " and ")
 "apples, bananas and pineapples"
 ```
 
-Some other useful functions include:
+Algunas otras funciones útiles son:
 
-  * [`endof(str)`](@ref) gives the maximal (byte) index that can be used to index into `str`.
-  * [`length(str)`](@ref) the number of characters in `str`.
-  * [`i = start(str)`](@ref start) gives the first valid index at which a character can be found in `str`
-    (typically 1).
-  * [`c, j = next(str,i)`](@ref next) returns next character at or after the index `i` and the next valid
-    character index following that. With [`start()`](@ref) and [`endof()`](@ref), can be used to iterate
-    through the characters in `str`.
-  * [`ind2chr(str,i)`](@ref) gives the number of characters in `str` up to and including any at index
-    `i`.
-  * [`chr2ind(str,j)`](@ref) gives the index at which the `j`th character in `str` occurs.
+  * [`endof(str)`](@ref) el índice máximo (byte) que se puede utilizar para indexar en `str`.
+  * [`length(str)`](@ref) el número de caracteres en `str`.
+  * [`i = start(str)`](@ref start) da el primer índice válido en el que se puede encontrar un carácter en `str (típicamente 1).
+  * [`c, j = next(str,i)`](@ref next) devuelve el carácter siguiente en o después del índice `i` y el siguiente índice de carácter válido que sigue a éste. Con [`start()`](@ref) y [`endof()`](@ref), se puede utilizar para iterar a través de los caracteres en str`.
+  * [`ind2chr(str,i)`](@ref) da el número de caracteres en `str` hasta e incluyendo cualquiera en el índice `i`.
+  * [`chr2ind(str,j)`](@ref) da el índice en el cual ocurre el carácter `j`-ésimo en `str`.
 
-## [Non-Standard String Literals](@id non-standard-string-literals)
+## [Literales cadena no estándar](@id non-standard-string-literals)
 
-There are situations when you want to construct a string or use string semantics, but the behavior
-of the standard string construct is not quite what is needed. For these kinds of situations, Julia
-provides [non-standard string literals](@ref). A non-standard string literal looks like a regular
-double-quoted string literal, but is immediately prefixed by an identifier, and doesn't behave
-quite like a normal string literal.  Regular expressions, byte array literals and version number
-literals, as described below, are some examples of non-standard string literals. Other examples
-are given in the [Metaprogramming](@ref metaprogramming) section.
+Hay situaciones en las que se desea construir una cadena o utilizar semántica de cadenas, pero el comportamiento de la construcción de cadena estándar no es lo que se necesita. Para este tipo de situaciones, Julia proporciona [literales cadena no estándar](@ref). Un literal de cadena no estándar es como una cadena literal normal de doble comilla, pero va inmediatamente precedido de un identificador y no se comporta como un literal de cadena normal. El convenio es que los literales no estándar con prefijos en mayúsculas producen objetos cadena reales, mientras que aquellos con prefijos en minúsculas producen objetos que no cadena, como arrays de bytes o expresiones regulares compiladas. Las expresiones regulares, literales arrays de bytes y literales de números de versión, como se describe a continuación, son algunos ejemplos de literales de cadena no estándar. Otros ejemplos se dan en la sección [Metaprogramación](@ref).
 
-## Regular Expressions
+## [Expresiones Regulares](@id regular-expressions)
 
-Julia has Perl-compatible regular expressions (regexes), as provided by the [PCRE](http://www.pcre.org/)
-library. Regular expressions are related to strings in two ways: the obvious connection is that
-regular expressions are used to find regular patterns in strings; the other connection is that
-regular expressions are themselves input as strings, which are parsed into a state machine that
-can be used to efficiently search for patterns in strings. In Julia, regular expressions are input
-using non-standard string literals prefixed with various identifiers beginning with `r`. The most
-basic regular expression literal without any options turned on just uses `r"..."`:
+Julia tiene expresiones regulares compatibles con Perl (expresiones regulares), tal y como las proporciona la biblioteca [PCRE](http://www.pcre.org/). Las expresiones regulares se relacionan con las cadenas de dos maneras: la conexión obvia es que las expresiones regulares se utilizan para encontrar patrones regulares en cadenas; La otra conexión es que las expresiones regulares se introducen ellas mismas como cadenas, que se analizan en una máquina de estado que puede utilizarse para buscar patrones en cadenas de forma eficiente. En Julia, las expresiones regulares se introducen usando literales de cadena no estándar prefijados con varios identificadores comenzando por `r`. El literal de expresión regular más básico sin ninguna opción activada sólo utiliza `r"..."`:
 
 ```jldoctest
 julia> r"^\s*(?:#|$)"
@@ -558,7 +475,7 @@ julia> typeof(ans)
 Regex
 ```
 
-To check if a regex matches a string, use [`ismatch()`](@ref):
+Para comprobar si una *regex* se corresponde con una cadena, se utiliza  [`ismatch()`](@ref):
 
 ```jldoctest
 julia> ismatch(r"^\s*(?:#|$)", "not a comment")
@@ -568,10 +485,7 @@ julia> ismatch(r"^\s*(?:#|$)", "# a comment")
 true
 ```
 
-As one can see here, [`ismatch()`](@ref) simply returns true or false, indicating whether the
-given regex matches the string or not. Commonly, however, one wants to know not just whether a
-string matched, but also *how* it matched. To capture this information about a match, use the
-[`match()`](@ref) function instead:
+Como puede verse aquí, [`ismatch()`](@ref) simplemente devuelve `true` o `false`, indicando si la *regex* dada coincide o no con la cadena. Es común, sin embargo, que uno quiera saber no sólo si una cadena coincide, sino también *cómo* coincide. Para capturar esta información sobre una coincidencia, se utiliza la función [`match()`](@ref):
 
 ```jldoctest
 julia> match(r"^\s*(?:#|$)", "not a comment")
@@ -580,9 +494,7 @@ julia> match(r"^\s*(?:#|$)", "# a comment")
 RegexMatch("#")
 ```
 
-If the regular expression does not match the given string, [`match()`](@ref) returns `nothing`
--- a special value that does not print anything at the interactive prompt. Other than not printing,
-it is a completely normal value and you can test for it programmatically:
+Si la expresión regular no coincide con la cadena dada, [`match()`](@ref) devuelve `nothing` -- un valor especial que no imprime nada en el indicador interactivo. Aparte de no imprimir, es un valor completamente normal, como podemos comprobar en el siguiente código:
 
 ```julia
 m = match(r"^\s*(?:#|$)", line)
@@ -593,19 +505,14 @@ else
 end
 ```
 
-If a regular expression does match, the value returned by [`match()`](@ref) is a `RegexMatch`
-object. These objects record how the expression matches, including the substring that the pattern
-matches and any captured substrings, if there are any. This example only captures the portion
-of the substring that matches, but perhaps we want to capture any non-blank text after the comment
-character. We could do the following:
+Si la expresión regular coincide, el valor devuelto por [`match()`](@ref)  es un objeto `RegexMatch`. Estos objetos registran cómo coincide la expresión, incluyendo la subcadena que coincide con el patrón y cualquier subcadena capturada, si la hay. Este ejemplo sólo captura la parte de la subcadena que coincide, pero tal vez quisiéramos capturar cualquier texto no en blanco después del carácter de comentario. Podríamos hacer lo siguiente:
 
 ```jldoctest
 julia> m = match(r"^\s*(?:#\s*(.*?)\s*$|$)", "# a comment ")
 RegexMatch("# a comment ", 1="a comment")
 ```
 
-When calling [`match()`](@ref), you have the option to specify an index at which to start the
-search. For example:
+Al invocar a [`match()`](@ref), tenemos la opción de especificar un índice en el que iniciar la búsqueda. Por ejemplo:
 
 ```jldoctest
 julia> m = match(r"[0-9]","aaaa1aaaa2aaaa3",1)
@@ -618,16 +525,14 @@ julia> m = match(r"[0-9]","aaaa1aaaa2aaaa3",11)
 RegexMatch("3")
 ```
 
-You can extract the following info from a `RegexMatch` object:
+Puede extraer la siguiente información de un objeto `RegexMatch`:
 
-  * the entire substring matched: `m.match`
-  * the captured substrings as an array of strings: `m.captures`
-  * the offset at which the whole match begins: `m.offset`
-  * the offsets of the captured substrings as a vector: `m.offsets`
+* La totalidad de la subcadena emparejada: `m.match`
+* Las subcadenas capturadas como una matriz de cadenas: `m.captures`
+* El desplazamiento en el que comienza la coincidencia del patrón: `m.offset`
+* Los desplazamientos de las subcadenas capturadas como un vector: `m.offsets`
 
-For when a capture doesn't match, instead of a substring, `m.captures` contains `nothing` in that
-position, and `m.offsets` has a zero offset (recall that indices in Julia are 1-based, so a zero
-offset into a string is invalid). Here is a pair of somewhat contrived examples:
+Para cuando una captura no coincide, en lugar de una subcadena, `m.captures` no contiene nada en esa posición, y `m.offsets` tiene un desplazamiento de cero (recuerde que los índices en Julia son *1-based*, por lo que un desplazamiento de cero en una cadena es inválido). Aquí hay un par de ejemplos algo artificiales:
 
 ```jldoctest acdmatch
 julia> m = match(r"(a|b)(c)?(d)", "acd")
@@ -673,16 +578,14 @@ julia> m.offsets
  2
 ```
 
-It is convenient to have captures returned as an array so that one can use destructuring syntax
-to bind them to local variables:
+Es conveniente que las capturas sean retornadas como un array para que uno pueda usar la sintaxis de desestructurante para enlazarlas a variables locales: 
 
 ```jldoctest acdmatch
 julia> first, second, third = m.captures; first
 "a"
 ```
 
-Captures can also be accessed by indexing the `RegexMatch` object with the number or name of the
-capture group:
+Las capturas también está accesibles indexando el objeto `RegexMatch` con el número o nombre del grupo captura:
 
 ```jldoctest
 julia> m=match(r"(?<hour>\d+):(?<minute>\d+)","12:45")
@@ -695,27 +598,21 @@ julia> m[2]
 "45"
 ```
 
-Captures can be referenced in a substitution string when using [`replace()`](@ref) by using `\n`
-to refer to the nth capture group and prefixing the substitution string with `s`. Capture group
-0 refers to the entire match object. Named capture groups can be referenced in the substitution
-with `g<groupname>`. For example:
+Las capturas pueden referenciarse en una cadena de sustitución cuando se utiliza [`replace()`](@ref) utilizando `\n` para referirse al grupo de captura `n`-ésimo y prefijando la cadena de subsitución con `s`. El grupo de captura `0` se refiere a todo el objeto de coincidencia. Los grupos de captura nombrados se pueden hacer referencia en la sustitución con g<groupname>. Por ejemplo:
 
 ```jldoctest
 julia> replace("first second", r"(\w+) (?<agroup>\w+)", s"\g<agroup> \1")
 "second first"
 ```
 
-Numbered capture groups can also be referenced as `\g<n>` for disambiguation, as in:
+Los grupos de captura numerados pueden también ser referenciados como `\g<n>` para evitar ambigüedad, como en:
 
 ```jldoctest
 julia> replace("a", r".", s"\g<0>1")
 "a1"
 ```
 
-You can modify the behavior of regular expressions by some combination of the flags `i`, `m`,
-`s`, and `x` after the closing double quote mark. These flags have the same meaning as they do
-in Perl, as explained in this excerpt from the [perlre manpage](http://perldoc.perl.org/perlre.html#Modifiers):
-
+Puedes modificar el comportamiento de las expresiones regulares mediante una combinación de los flags `i`, `m`, `s` y `x` después de la marca de comillas dobles de cierre. Estas banderas tienen el mismo significado que en Perl, tal y como se describe en este fragmento de la [página de manual del referencia de Perl(http://perldoc.perl.org/perlre.html#Modifiers):
 ```
 i   Do case-insensitive pattern matching.
 
@@ -746,7 +643,7 @@ x   Tells the regular expression parser to ignore most whitespace
     ordinary code.
 ```
 
-For example, the following regex has all three flags turned on:
+Por ejemplo, la siguiente regex tiene activados los tres *flags*:
 
 ```jldoctest
 julia> r"a+.*b+.*?d$"ism
@@ -756,23 +653,17 @@ julia> match(r"a+.*b+.*?d$"ism, "Goodbye,\nOh, angry,\nBad world\n")
 RegexMatch("angry,\nBad world")
 ```
 
-Triple-quoted regex strings, of the form `r"""..."""`, are also supported (and may be convenient
-for regular expressions containing quotation marks or newlines).
+Las cadenas *regex* con triples comillas, de la forma `r"""..."""` están también soportadas (y puede ser conveniente para expresiones regulares que contengan comillas o caracteres de salto de línea).
 
 ## [Byte Array Literals](@id man-byte-array-literals)
 
-Another useful non-standard string literal is the byte-array string literal: `b"..."`. This form
-lets you use string notation to express literal byte arrays -- i.e. arrays of
-[`UInt8`](@ref) values. The rules for byte array literals are the following:
+Otro literal de cadena no estándar útil es el literal de cadena de bytes: `b "..."`. Esta forma nos permite usar la notación de cadena para expresar arrays de bytes literales, es decir, arrays de valores [`UInt8`](@ref). Las reglas para los literales de arrays de bytes son las siguientes:
 
-  * ASCII characters and ASCII escapes produce a single byte.
-  * `\x` and octal escape sequences produce the *byte* corresponding to the escape value.
-  * Unicode escape sequences produce a sequence of bytes encoding that code point in UTF-8.
+* Los caracteres ASCII y los escapes ASCII producen un solo byte.
+* `\x` y las secuencias de escape octales producen el *byte* correspondiente al valor de escape.
+* Las secuencias de escape Unicode producen una secuencia de bytes que codifican ese punto de código en UTF-8.
 
-There is some overlap between these rules since the behavior of `\x` and octal escapes less than
-0x80 (128) are covered by both of the first two rules, but here these rules agree. Together, these
-rules allow one to easily use ASCII characters, arbitrary byte values, and UTF-8 sequences to
-produce arrays of bytes. Here is an example using all three:
+Hay una cierta superposición entre estas reglas ya que el comportamiento de `\x` y escapes octales menores de `0x80` (128) están cubiertos por las dos primeras reglas, pero aquí estas reglas están de acuerdo. Juntas, estas reglas permiten usar fácilmente caracteres ASCII, valores arbitrarios de bytes y secuencias UTF-8 para producir matrices de bytes. Aquí hay un ejemplo usando los tres:
 
 ```jldoctest
 julia> b"DATA\xff\u2200"
@@ -787,19 +678,14 @@ julia> b"DATA\xff\u2200"
  0x80
 ```
 
-The ASCII string "DATA" corresponds to the bytes 68, 65, 84, 65. `\xff` produces the single byte 255.
-The Unicode escape `\u2200` is encoded in UTF-8 as the three bytes 226, 136, 128. Note that the
-resulting byte array does not correspond to a valid UTF-8 string -- if you try to use this as
-a regular string literal, you will get a syntax error:
+La secuencia ASCII "DATA" corresponde a los bytes 68, 65, 84, 65. `\xff` produce el byte simple 255. El escape Unicode `\u2200` está codificado en UTF-8 como los tres bytes 226, 136, 128. Nótese que la matriz de bytes resultante no corresponde a una cadena UTF-8 válida - si intenta utilizar esto como una cadena literal normal, obtendrá un error de sintaxis:
 
 ```julia-repl
 julia> "DATA\xff\u2200"
 ERROR: syntax: invalid UTF-8 sequence
 ```
 
-Also observe the significant distinction between `\xff` and `\uff`: the former escape sequence
-encodes the *byte 255*, whereas the latter escape sequence represents the *code point 255*, which
-is encoded as two bytes in UTF-8:
+Observe también la distinción significativa entre `\xff` y `\uff`: la secuencia de escape anterior codifica el *byte 255*, mientras que la última secuencia de escape representa el *punto de código 255*, que se codifica como dos bytes en UTF-8:
 
 ```jldoctest
 julia> b"\xff"
@@ -812,36 +698,15 @@ julia> b"\uff"
  0xbf
 ```
 
-In character literals, this distinction is glossed over and `\xff` is allowed to represent the
-code point 255, because characters *always* represent code points. In strings, however, `\x` escapes
-always represent bytes, not code points, whereas `\u` and `\U` escapes always represent code points,
-which are encoded in one or more bytes. For code points less than `\u80`, it happens that the
-UTF-8 encoding of each code point is just the single byte produced by the corresponding `\x` escape,
-so the distinction can safely be ignored. For the escapes `\x80` through `\xff` as compared to
-`\u80` through `\uff`, however, there is a major difference: the former escapes all encode single
-bytes, which -- unless followed by very specific continuation bytes -- do not form valid UTF-8
-data, whereas the latter escapes all represent Unicode code points with two-byte encodings.
+En los literales de caracteres, esta distinción se pasa por alto y `\xff` está autorizado a  representar el punto de código 255, porque los caracteres *siempre* representan puntos de código. En las cadenas, sin embargo, los escapes `\x` siempre representan bytes, no puntos de código, mientras que los escapes `\u` y `\U` siempre representan puntos de código, que están codificados en uno o más bytes. Para los puntos de código inferiores a `\u80`, ocurre que la codificación UTF-8 de cada punto de código es sólo el byte producido por el escape `\x` correspondiente, por lo que la distinción puede ignorarse con seguridad. Sin embargo, para los escapes `\x80` a `\xff` en comparación con `\u80` a `\uff`, existe una diferencia importante: el primero escapa a todos los bytes sencillos de codificación, los cuales -a menos que sean seguidos por bytes de continuación muy específicos- no forman UTF-8 válido, mientras que los últimos escapes representan puntos de código Unicode con codificaciones de dos bytes.
 
-If this is all extremely confusing, try reading ["The Absolute Minimum Every
-Software Developer Absolutely, Positively Must Know About Unicode and Character
-Sets"](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/).
-It's an excellent introduction to Unicode and UTF-8, and may help alleviate
-some confusion regarding the matter.
+Si todo esto es muy confuso, intente leer ["The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets"](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/). Es una excelente introducción a Unicode y UTF-8, y puede ayudar a aliviar cierta confusión sobre el asunto.
 
-## [Version Number Literals](@id man-version-number-literals)
+## [Literales Número de Versión](@id man-version-number-literals)
 
-Version numbers can easily be expressed with non-standard string literals of the form `v"..."`.
-Version number literals create `VersionNumber` objects which follow the specifications of [semantic versioning](http://semver.org),
-and therefore are composed of major, minor and patch numeric values, followed by pre-release and
-build alpha-numeric annotations. For example, `v"0.2.1-rc1+win64"` is broken into major version
-`0`, minor version `2`, patch version `1`, pre-release `rc1` and build `win64`. When entering
-a version literal, everything except the major version number is optional, therefore e.g.  `v"0.2"`
-is equivalent to `v"0.2.0"` (with empty pre-release/build annotations), `v"2"` is equivalent to
-`v"2.0.0"`, and so on.
+Los números de versión se pueden expresar fácilmente con literales de cadena no estándar del forma `v"..."`. Los literales de número de versión crean objetos `VersionNumber` que siguen las especificaciones del [control de versiones semánticas](http://semver.org/) y, por lo tanto, se componen de valores numéricos mayor, menor y de parche, seguidos de anotaciones alfanuméricas de pre-liberación y construcción. Por ejemplo, `v "0.2.1-rc1 + win64"` se divide en versión principal `0`, versión secundaria `2`, versión de revisión `1`, `rc1` de pre-lanzamiento y construcción `win64`. Al introducir una versión literal, todo excepto el número de versión principal es opcional, por ejemplo, `v"0.2"` es equivalente a `v"0.2.0"` (con anotaciones previas / de compilación vacías), `v"2"` equivale a `v"2.0.0"`, y así sucesivamente.
 
-`VersionNumber` objects are mostly useful to easily and correctly compare two (or more) versions.
-For example, the constant `VERSION` holds Julia version number as a `VersionNumber` object, and
-therefore one can define some version-specific behavior using simple statements as:
+Los objetos `VersionNumber` son en su mayoría útiles para comparar fácilmente y correctamente dos (o más) versiones. Por ejemplo, la constante `VERSION` contiene el número de versión de Julia como un objeto `VersionNumber` y, por lo tanto, se puede definir algún comportamiento específico de la versión utilizando declaraciones simples como:
 
 ```julia
 if v"0.2" <= VERSION < v"0.3-"
@@ -849,32 +714,14 @@ if v"0.2" <= VERSION < v"0.3-"
 end
 ```
 
-Note that in the above example the non-standard version number `v"0.3-"` is used, with a trailing
-`-`: this notation is a Julia extension of the standard, and it's used to indicate a version which
-is lower than any `0.3` release, including all of its pre-releases. So in the above example the
-code would only run with stable `0.2` versions, and exclude such versions as `v"0.3.0-rc1"`. In
-order to also allow for unstable (i.e. pre-release) `0.2` versions, the lower bound check should
-be modified like this: `v"0.2-" <= VERSION`.
+Obsérvese que en el ejemplo anterior se utiliza el número de versión no estándar `v"0.3-"`, con un guión `-` en cola: esta notación es una extensión Julia del estándar, y se usa para indicar una versión que es más baja que cualquier versión `0.3`, Incluyendo todas sus pre-lanzamientos. Por lo tanto, en el ejemplo anterior, el código sólo se ejecuta con versiones estable `0.2` y excluye las versiones `v"0.3.0-rc1"`. Para permitir también versiones `0.2` inestables (es decir, pre-liberación), la verificación del límite inferior debería modificarse de la siguiente manera: `v"0.2-" <= VERSION`.
 
-Another non-standard version specification extension allows one to use a trailing `+` to express
-an upper limit on build versions, e.g.  `VERSION > v"0.2-rc1+"` can be used to mean any version
-above `0.2-rc1` and any of its builds: it will return `false` for version `v"0.2-rc1+win64"` and
-`true` for `v"0.2-rc2"`.
+Otra extensión de especificación de versión no estándar permite usar un `+` de cola para expresar un límite superior en las versiones de compilación, por ej. `VERSIÓN> v "0.2-rc1 +"` se puede utilizar para significar cualquier versión por encima de `0.2-rc1` y cualquiera de sus compilaciones: devolverá `false` para la versión `v"0.2-rc1+win64"` y `true` para `v"0.2-rc2"`.
 
-It is good practice to use such special versions in comparisons (particularly, the trailing `-`
-should always be used on upper bounds unless there's a good reason not to), but they must not
-be used as the actual version number of anything, as they are invalid in the semantic versioning
-scheme.
+Es una buena práctica utilizar estas versiones especiales en comparaciones (en particular, el valor `-`de cola siempre debe utilizarse en los límites superiores a menos que haya una buena razón para no hacerlo), pero no deben utilizarse como el número de versión real de nada, ya que son inválidos en el esquema de versiones semánticas.
 
-Besides being used for the [`VERSION`](@ref) constant, `VersionNumber` objects are widely used
-in the `Pkg` module, to specify packages versions and their dependencies.
+Además de ser utilizados por la constante [`VERSION`](@ref), los objetos `VersionNumber` son ampliamente utilizados en el módulo `Pkg`, para especificar las versiones de paquetes y sus dependencias.
 
 ## [Raw String Literals](@id man-raw-string-literals)
 
-Raw strings without interpolation or unescaping can be expressed with
-non-standard string literals of the form `raw"..."`. Raw string literals create
-ordinary `String` objects which contain the enclosed contents exactly as
-entered with no interpolation or unescaping. This is useful for strings which
-contain code or markup in other languages which use `$` or `\` as special
-characters. The exception is quotation marks that still must be
-escaped, e.g. `raw"\""` is equivalent to `"\""`.
+Las cadenas en bruto (*raw*) sin interpolación o *unescaping* pueden ser expresadas con literales cadena no estándar de la forma `raw"..."`. Los literales cadena en bruto crean objetos `String` ordinarios que contienen los contenidos encerrados exactamente como entrados sin interpolación ni separación. Esto es útil para cadenas que contiene código o marcado en otros idiomas que usan `$` o `\` como caracteres especiales. La excepción son las comillas que aún deben ser escapadas, por ejemplo,  `raw" \ "" `es equivalente a` "\" "`.
