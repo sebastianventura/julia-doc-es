@@ -458,7 +458,7 @@ julia> repmat(a,1,3)+A
  1.56851  1.86401  1.67846
 ```
 
-Esto es un desperdicio cuando las dimensiones son grandes, por lo que Julia ofrece [`broadcast()`](@ref), que expande las dimensiones *singleton* en los argumentos array para hacer coincidir la dimensión correspondiente en el otro array sin usar memoria extra, y aplicar la función dada elemento a elemento:
+Esto es un desperdicio cuando las dimensiones son grandes, por lo que Julia ofrece `broadcast()`, que expande las dimensiones *singleton* en los argumentos array para hacer coincidir la dimensión correspondiente en el otro array sin usar memoria extra, y aplicar la función dada elemento a elemento:
 
 ```julia-repl
 julia> broadcast(+, a, A)
