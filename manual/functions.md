@@ -1,8 +1,9 @@
-# [Functions](@id man-functions)
+# [Funciones](@id man-functions)
 
-In Julia, a function is an object that maps a tuple of argument values to a return value. Julia
-functions are not pure mathematical functions, in the sense that functions can alter and be affected
-by the global state of the program. The basic syntax for defining functions in Julia is:
+En Julia, una función es un objeto que hace corresponde una tupla de valores argumentos en
+un valor de retorno. Las funciones de Julia no son funciones matemáticas puras, en el sentido 
+de que pueden alterar y ser afectadas por el estado global del programa. La sintaxis básica 
+a definir funciones en Julia es:
 
 ```jldoctest
 julia> function f(x,y)
@@ -11,28 +12,29 @@ julia> function f(x,y)
 f (generic function with 1 method)
 ```
 
-There is a second, more terse syntax for defining a function in Julia. The traditional function
-declaration syntax demonstrated above is equivalent to the following compact "assignment form":
+Hay una segunda sintaxis, más concisa, para definir una función en Julia. La declaración de 
+función tradicional mostrada anteriormente es equivalente a la denominada "forma de asignación". 
+Por ejemplo:
 
 ```jldoctest fofxy
 julia> f(x,y) = x + y
 f (generic function with 1 method)
 ```
 
-In the assignment form, the body of the function must be a single expression, although it can
-be a compound expression (see [Compound Expressions](@ref man-compound-expressions)). Short, simple function definitions
-are common in Julia. The short function syntax is accordingly quite idiomatic, considerably reducing
-both typing and visual noise.
+En esta segunda forma, el cuerpo de la función debe ser una sola expresión, aunque puede 
+tratarse de una expresión compuesta (see [Expresiones Compuestas](@ref man-compound-expressions)). 
+Estas definiciones de función cortas y simples son comunes en Julia. La sintaxis de funciones
+cortas es, por tanto, bastante idiomática, reduciendo considerablemente tanto la escritura como 
+el ruido visual.
 
-A function is called using the traditional parenthesis syntax:
+Para invocar una función se usa la sintaxis tradicional basada en el uso del paréntesis:
 
 ```jldoctest fofxy
 julia> f(2,3)
 5
 ```
 
-Without parentheses, the expression `f` refers to the function object, and can be passed around
-like any value:
+Sin usar paréntesis, la expresión `f` se refiere al objeto función, y puede ser tratada como cualquier otro valor:
 
 ```jldoctest fofxy
 julia> g = f;
@@ -41,7 +43,7 @@ julia> g(2,3)
 5
 ```
 
-As with variables, Unicode can also be used for function names:
+Y, como en el caso de las variables, podemos usar Unicode en el caso de los nombres de función:
 
 ```jldoctest
 julia> ∑(x,y) = x + y
@@ -51,22 +53,23 @@ julia> ∑(2, 3)
 5
 ```
 
-## Argument Passing Behavior
+## Comportamiento del Paso de Argumentos
 
-Julia function arguments follow a convention sometimes called "pass-by-sharing", which means that
-values are not copied when they are passed to functions. Function arguments themselves act as
-new variable *bindings* (new locations that can refer to values), but the values they refer to
-are identical to the passed values. Modifications to mutable values (such as `Array`s) made within
-a function will be visible to the caller. This is the same behavior found in Scheme, most Lisps,
-Python, Ruby and Perl, among other dynamic languages.
+Los argumentos de función en Julia siguen un convenio denominado a veces "paso por compartición", 
+que significa que los valores no son copiados cuando se pasan a las funciones. Los argumentos de 
+las funciones actúan ellos mismos como nuevos enlaces a variable (nuevas localizaciones que pueden 
+referirse a valores) pero los valores a los que se refieren son idénticos a los valores pasados. 
+Las modificaciones a valores mutables (tales como los Arrays) hechos dentro de la función serán 
+visibles desde fuera de ésta. Este es el mismo comportamiento que presenta Scheme, la mayoría de 
+versiones de Lisp, Python, Ruby y Perl, entre otros lenguajes dinámicos.
 
-## The `return` Keyword
+## La palabra clave `return`
 
-The value returned by a function is the value of the last expression evaluated, which, by default,
-is the last expression in the body of the function definition. In the example function, `f`, from
-the previous section this is the value of the expression `x + y`. As in C and most other imperative
-or functional languages, the `return` keyword causes a function to return immediately, providing
-an expression whose value is returned:
+El valor devuelto por una función es el valor de la última expresión evaluada, el cual, por 
+defecto, es la última expresión en el cuerpo de definición de la función. En la función `f`, 
+mostrada en la sección anterior, el valor devuelto sería la suma `x + y`. Como en C y la mayoría 
+de los demás lenguajes imperativos o funcionales, la palabra clave `return` causa que la función 
+retorne inmediatamente, proporcionando una función cuyo valor es devuelto:
 
 ```julia
 function g(x,y)
@@ -75,8 +78,7 @@ function g(x,y)
 end
 ```
 
-Since function definitions can be entered into interactive sessions, it is easy to compare these
-definitions:
+Como las definiciones a función pueden ser introducidas en una sesión interactiva, es muy sencillo comparar estas definiciones:
 
 ```jldoctest
 julia> f(x,y) = x + y
@@ -95,11 +97,7 @@ julia> g(2,3)
 6
 ```
 
-Of course, in a purely linear function body like `g`, the usage of `return` is pointless since
-the expression `x + y` is never evaluated and we could simply make `x * y` the last expression
-in the function and omit the `return`. In conjunction with other control flow, however, `return`
-is of real use. Here, for example, is a function that computes the hypotenuse length of a right
-triangle with sides of length `x` and `y`, avoiding overflow:
+Por supuesto, en una función con cuerpo puramente lineal como `g`, el uso de `return` es irrelevante ya que la expresión `x+y` nunca va a ser evaluada, por lo que podríamos hacer que `x*y` fuese la última línea de la función y omitir el `return`. Sin embargo, cuando hacemos uso de esta instrucción junto con otras de control de flujo, el resultado puede ser muy interesante. Aquí, por ejemplo, hay una función que calcula la longitud de la hipotenusa de un triángulo equilátero correcto con catetos de longitudes `x` e `y`, evitando un desbordamiento:
 
 ```jldoctest
 julia> function hypot(x,y)
@@ -121,17 +119,11 @@ julia> hypot(3, 4)
 5.0
 ```
 
-There are three possible points of return from this function, returning the values of three different
-expressions, depending on the values of `x` and `y`. The `return` on the last line could be omitted
-since it is the last expression.
+Hay tres posibles puntos de retorno en esta función, devolviendo los valores de tres expresiones diferentes, dependiendo de los valores de `x` e `y`. El `return` de la última línea podría ser omitido ya que es la última expresión.
 
 ## Operators Are Functions
 
-In Julia, most operators are just functions with support for special syntax. (The exceptions are
-operators with special evaluation semantics like `&&` and `||`. These operators cannot be functions
-since [Short-Circuit Evaluation](@ref short-circuit-evaluation) requires that their operands are not evaluated before evaluation
-of the operator.) Accordingly, you can also apply them using parenthesized argument lists, just
-as you would any other function:
+En Julia, la mayoría de los operadores son funciones con soporte para una sintaxis especial (la excepción a esta regla son las operaciones con una semática de evaluación especial, tales como `&&` y `||`. Estos operadores no pueden ser funciones porque la [Evaluación en Cortocircuito](@ref short-circuit-evaluation) requiere que sus operandos no sean evaluados antes de la evaluación del operador). De acuerdo con ésto, podemos usar listas de argumentos entre paréntesis, tal como en cualquier otra función:
 
 ```jldoctest
 julia> 1 + 2 + 3
@@ -141,9 +133,7 @@ julia> +(1,2,3)
 6
 ```
 
-The infix form is exactly equivalent to the function application form -- in fact the former is
-parsed to produce the function call internally. This also means that you can assign and pass around
-operators such as [`+()`](@ref) and [`*()`](@ref) just like you would with other function values:
+La forma infija es equivalente a la forma de aplicación función. De hecho, la primera es transformada para producir la llamada a función internamente. Esto también significa que puedes asignar y pasar operadores tales como [`+()`](@ref) y [`*()`](@ref) , tal y como se hace con otros valores función:
 
 ```jldoctest
 julia> f = +;
@@ -152,13 +142,13 @@ julia> f(1,2,3)
 6
 ```
 
-Under the name `f`, the function does not support infix notation, however.
+Sin embargo, cuando se usa el formato de función, como `f`, no se puede usar notación infija.
 
-## Operators With Special Names
+## Operadores con Nombres Especiales
 
-A few special expressions correspond to calls to functions with non-obvious names. These are:
+Hay unas pocas operaciones especiales que corresponden a llamadas a funciones con nombres no obvios. Estas son las siguientes:
 
-| Expression        | Calls                  |
+| Expresión         | Llamada                |
 |:----------------- |:---------------------- |
 | `[A B C ...]`     | [`hcat()`](@ref)       |
 | `[A; B; C; ...]`  | [`vcat()`](@ref)       |
@@ -169,16 +159,11 @@ A few special expressions correspond to calls to functions with non-obvious name
 | `A[i]`            | [`getindex()`](@ref)   |
 | `A[i]=x`          | [`setindex!()`](@ref)  |
 
-These functions are included in the `Base.Operators` module even though they do not have operator-like
-names.
+Estasa funciones están incluidas en el módulo `Base.Operators` incluso aunque no tengan nombres como operadores.
 
-## [Anonymous Functions](@id man-anonymous-functions)
+## [Funciones Anónimas](@id man-anonymous-functions)
 
-Functions in Julia are [first-class objects](https://en.wikipedia.org/wiki/First-class_citizen):
-they can be assigned to variables, and called using the standard function call syntax from the
-variable they have been assigned to. They can be used as arguments, and they can be returned as
-values. They can also be created anonymously, without being given a name, using either of these
-syntaxes:
+Las funciones en Julia son [objetos de primera clase](https://en.wikipedia.org/wiki/First-class_citizen): ellas pueden ser asignadas a variables y ser invocadas usando la sintaxis estándar de llamadas a función desde la variable a la que han sido asignadas. Ellas pueden ser usadas como argumentos y ser devueltas como valores. Ellas pueden también ser usadas de forma anónima sin dárseles un nombre, usando alguna de estas sintaxis:
 
 ```jldoctest
 julia> x -> x^2 + 2x - 1
@@ -190,13 +175,9 @@ julia> function (x)
 (::#3) (generic function with 1 method)
 ```
 
-This creates a function taking one argument `x` and returning the value of the polynomial `x^2 +
-2x - 1` at that value. Notice that the result is a generic function, but with a compiler-generated
-name based on consecutive numbering.
+Esto crea una función que toma un argumento `x` y devuelve el valor del polinomio `x^2 + 2x - 1`. Nótese que el resultado es una función genérica, pero con un nombre generado por el compilador basado en una numeración consecutiva.
 
-The primary use for anonymous functions is passing them to functions which take other functions
-as arguments. A classic example is [`map()`](@ref), which applies a function to each value of
-an array and returns a new array containing the resulting values:
+El uso primario de las funciones anónimas es pasarlas a funciones que toman otras funciones como argumentos. Un ejemplo clásico es [`map()`](@ref), , que aplica una función a cada valor de un array y devuelve un nuevo array que contienen los valores resultantes:
 
 ```jldoctest
 julia> map(round, [1.2,3.5,1.7])
@@ -206,10 +187,7 @@ julia> map(round, [1.2,3.5,1.7])
  2.0
 ```
 
-This is fine if a named function effecting the transform one wants already exists to pass as the
-first argument to [`map()`](@ref). Often, however, a ready-to-use, named function does not exist.
-In these situations, the anonymous function construct allows easy creation of a single-use function
-object without needing a name:
+Esto está bien si ya exite una función que efectúa la transformación que uno desea para pasarla como primer argumento de [`map()`](@ref). Sin embargo, no es frecuente que exista este tipo de función. En estas situaciones, el constructor de la función anónima permite una fácil creación de un objeto función de un solo uso sin necesidad de asignarle un nombre:
 
 ```jldoctest
 julia> map(x -> x^2 + 2x - 1, [1,3,-1])
@@ -219,17 +197,11 @@ julia> map(x -> x^2 + 2x - 1, [1,3,-1])
  -2
 ```
 
-An anonymous function accepting multiple arguments can be written using the syntax `(x,y,z)->2x+y-z`.
-A zero-argument anonymous function is written as `()->3`. The idea of a function with no arguments
-may seem strange, but is useful for "delaying" a computation. In this usage, a block of code is
-wrapped in a zero-argument function, which is later invoked by calling it as `f()`.
+Para escribir funciones anónimas que aceptan múltiples argumentos puede utilizarse la sintaxis `(x,y,z) -> 2x + y +z`. Una función anónima con cero argumentos se escribe como `() -> 3`.  La idea de una función sin argumentos puede parecer extraña, pero es útil para demorar un cálculo. En este uso, un bloque de código es envuelto en una función con cero argumentos, el cual es después invocado mediante una llamada como `f()`.
 
-## Multiple Return Values
+## Retorno de Múltiples Valores
 
-In Julia, one returns a tuple of values to simulate returning multiple values. However, tuples
-can be created and destructured without needing parentheses, thereby providing an illusion that
-multiple values are being returned, rather than a single tuple value. For example, the following
-function returns a pair of values:
+En Julia, uno devuelve una tupla para simular el retorno de múltiples valores. Sin embargo, como las tuplas puede salteadas y destruidas sin necesitar paréntesis, podemos proporcionar una ilusión de que se están devolviendo múltiples valores. Por ejemplo, la siguiente función devuelve un par de valores:
 
 ```jldoctest foofunc
 julia> function foo(a,b)
@@ -238,16 +210,14 @@ julia> function foo(a,b)
 foo (generic function with 1 method)
 ```
 
-If you call it in an interactive session without assigning the return value anywhere, you will
-see the tuple returned:
+Si invocamos esta función en una sesión interactiva sin asignar los valores en ningún sitio, comprobaremos que la función devuelve una tupla:
 
 ```jldoctest foofunc
 julia> foo(2,3)
 (5, 6)
 ```
 
-A typical usage of such a pair of return values, however, extracts each value into a variable.
-Julia supports simple tuple "destructuring" that facilitates this:
+Un uso típico de tal par de valores devueltos es extraer cada valor en una variable. Julia soporta la "desestructuración" simple de una tupla que facilita esto:
 
 ```jldoctest foofunc
 julia> x, y = foo(2,3)
@@ -260,7 +230,7 @@ julia> y
 6
 ```
 
-You can also return multiple values via an explicit usage of the `return` keyword:
+Y también podemos devolver múltiples valores mediante el uso explícito de la palabra clave `return`:
 
 ```julia
 function foo(a,b)
@@ -268,22 +238,18 @@ function foo(a,b)
 end
 ```
 
-This has the exact same effect as the previous definition of `foo`.
+Esto tiene exactamente el mismo efecto que la definición anterior de `foo`.
 
-## Varargs Functions
+## Funciones con argumentos variables (varargs)
 
-It is often convenient to be able to write functions taking an arbitrary number of arguments.
-Such functions are traditionally known as "varargs" functions, which is short for "variable number
-of arguments". You can define a varargs function by following the last argument with an ellipsis:
+Suele ser muy conveniente ser capaz de escribir funciones que toman un número arbitrario de argumentos. Estas funciones se conocen como *funciones vararg*. Podemos definir funciones de tal tipo poniendo puntos suspensivos `…` después del último argumento.
 
 ```jldoctest barfunc
 julia> bar(a,b,x...) = (a,b,x)
 bar (generic function with 1 method)
 ```
 
-The variables `a` and `b` are bound to the first two argument values as usual, and the variable
-`x` is bound to an iterable collection of the zero or more values passed to `bar` after its first
-two arguments:
+Las variables `a` y `b` están asociadas a los dos primeros argumentos como es natural, y la variable `x` se asocia a una colección, iterable de cero o más valores pasados a la función `bar` después de estos dos argumentos:
 
 ```jldoctest barfunc
 julia> bar(1,2)
@@ -299,14 +265,11 @@ julia> bar(1,2,3,4,5,6)
 (1, 2, (3, 4, 5, 6))
 ```
 
-In all these cases, `x` is bound to a tuple of the trailing values passed to `bar`.
+En todos los casos, `x` es asociada a una tupla con el resto de valores pasados a la función.
 
-It is possible to constrain the number of values passed as a variable argument; this will be discussed
-later in [Parametrically-constrained Varargs methods](@ref).
+Es posible restringir el número de argumentos pasados como argumento variable. Esto se discutirá más adelante en la sección [métodos *vararg* restringidos paramétricamente](@ref).
 
-On the flip side, it is often handy to "splice" the values contained in an iterable collection
-into a function call as individual arguments. To do this, one also uses `...` but in the function
-call instead:
+Como contraposición, es frecuente manejar la división de los valores contenidos en una colección iterable en una llamada a función como argumentos individuales. Para hacer eso, se utilizará la notación de puntos suspensivos, pero esta vez en la llamada a función.
 
 ```jldoctest barfunc
 julia> x = (3, 4)
@@ -316,8 +279,7 @@ julia> bar(1,2,x...)
 (1, 2, (3, 4))
 ```
 
-In this case a tuple of values is spliced into a varargs call precisely where the variable number
-of arguments go. This need not be the case, however:
+En este caso hay una tupla que se divide en una llamada *vararg* precisamente donde está el número de argumentos variable. Esa necesidad no tiene por qué ser el caso:
 
 ```jldoctest barfunc
 julia> x = (2, 3, 4)
@@ -333,7 +295,7 @@ julia> bar(x...)
 (1, 2, (3, 4))
 ```
 
-Furthermore, the iterable object spliced into a function call need not be a tuple:
+Además, el objeto iterable dividido durante la llamada a función no tiene que ser una tupla:
 
 ```jldoctest barfunc
 julia> x = [3,4]
@@ -355,8 +317,7 @@ julia> bar(x...)
 (1, 2, (3, 4))
 ```
 
-Also, the function that arguments are spliced into need not be a varargs function (although it
-often is):
+También, la función cuyos argumentos son divididos no tiene por qué ser una función *vararg* (aunque frecuentemente lo sea):
 
 ```jldoctest
 julia> baz(a,b) = a + b;
@@ -381,15 +342,11 @@ Closest candidates are:
   baz(::Any, ::Any) at none:1
 ```
 
-As you can see, if the wrong number of elements are in the spliced container, then the function
-call will fail, just as it would if too many arguments were given explicitly.
+Como puede comprobarse, si el número de elementos que se van a sacar del contenedor es inapropiado  para pasar a la función como argumentos, se generará un error, igual que si hubiéramos realizado la llamada a función con un número de argumentos inapropiado.
 
-## Optional Arguments
+## Argumentos Opcionales
 
-In many cases, function arguments have sensible default values and therefore might not need to
-be passed explicitly in every call. For example, the library function [`parse(T, num, base)`](@ref)
-interprets a string as a number in some base. The `base` argument defaults to `10`. This behavior
-can be expressed concisely as:
+En muchos casos, los argumentos de función tienen valores por defecto sensibles y, por tanto, puede no ser necesario que se pasen explícitamente en cada llamada. Por ejemplo, la función de librería [`parse(type, num, base`](@ref) interpreta una cadena como un número en cierta base. El argumento `base` tiene un valor por defecto de `10`. Este comportamiento puede expresarse de forma concisa como:
 
 ```julia
 function parse(T, num, base=10)
@@ -397,8 +354,7 @@ function parse(T, num, base=10)
 end
 ```
 
-With this definition, the function can be called with either two or three arguments, and `10`
-is automatically passed when a third argument is not specified:
+Con esta definición, la función puede ser llamada con dos o tres argumentos y, cuando no se pase el tercer argumento, la función asignara el valor por defecto de `10` al parámetro `base`.
 
 ```jldoctest
 julia> parse(Int,"12",10)
@@ -411,23 +367,15 @@ julia> parse(Int,"12")
 12
 ```
 
-Optional arguments are actually just a convenient syntax for writing multiple method definitions
-with different numbers of arguments (see [Note on Optional and keyword Arguments](@ref)).
+Los argumentos opcionales son una sintaxis conveniente para escribir múltiples definiciones de métodos con diferentes números de argumentos (ver [Nota sobre Argumentos opcionales y *keyword*](@ref)).
 
-## Keyword Arguments
+## Argumentos *keyword*
 
-Some functions need a large number of arguments, or have a large number of behaviors. Remembering
-how to call such functions can be difficult. Keyword arguments can make these complex interfaces
-easier to use and extend by allowing arguments to be identified by name instead of only by position.
+Algunas funciones necesitan un número de argumentos grande o tienen un gran número de comportamientos. Recordar como llamar a tales funciones puede ser difícil. Los argumentos *keyword* pueden hacer que estas interfaces complejas sean más fáciles de usar y extender permitiendo que los argumentos sean identificados por su nombre en lugar del por su posición.
 
-For example, consider a function `plot` that plots a line. This function might have many options,
-for controlling line style, width, color, and so on. If it accepts keyword arguments, a possible
-call might look like `plot(x, y, width=2)`, where we have chosen to specify only line width. Notice
-that this serves two purposes. The call is easier to read, since we can label an argument with
-its meaning. It also becomes possible to pass any subset of a large number of arguments, in any
-order.
+Por ejemplo, considere una función `plot` que traza una línea. Esta función puede tener muchas opciones para controlar el estilo de línea, su ancho, su color, etc. Si la función  aceptara argumentos *keyword*, una posible llamada al método seria `plot(x,y, width=2)`, donde hemos elegido especificar sólo el ancho de línea. Nótese que esto sirve a dos propósitos: La llamada es más sencillo leer, ya que podemos etiquetar un argumento con su significado. También se vuelve posible pasar cualquier subconjunto de un gran número de argumentos, en cualquier orden.
 
-Functions with keyword arguments are defined using a semicolon in the signature:
+Las funciones con argumentos *keyword* se definen usando un punto y coma en la signatura:
 
 ```julia
 function plot(x, y; style="solid", width=1, color="black")
@@ -435,15 +383,11 @@ function plot(x, y; style="solid", width=1, color="black")
 end
 ```
 
-When the function is called, the semicolon is optional: one can either call `plot(x, y, width=2)`
-or `plot(x, y; width=2)`, but the former style is more common. An explicit semicolon is required
-only for passing varargs or computed keywords as described below.
+Cuando la función es invocada, el punto y coma es opcional: uno puede hacer la llamada como `plot(x, y, width=2)`o como `plot(x, y; width=2)`, aunque el primero es más común. Se requiere un punto y coma explícito sólo en el caso de pasar *vargars* o palabras clave calculadas como se describe abajo.
 
-Keyword argument default values are evaluated only when necessary (when a corresponding keyword
-argument is not passed), and in left-to-right order. Therefore default expressions may refer to
-prior keyword arguments.
+Los valores por defecto de los argumentos *keyword* son evaluados sólo cuando sea necesario (cuando no se pasa el correspondiente argumento *keyword*) y en orden izquierda a derecha. Por tanto, las expresiones por defecto pueden referirse a argumentos *keyword* previos.
 
-The types of keyword arguments can be made explicit as follows:
+Los tipos de argumentos *keyword*  pueden hacerse explícitos de la siguiente forma:
 
 ```julia
 function f(;x::Int64=1)
@@ -451,7 +395,7 @@ function f(;x::Int64=1)
 end
 ```
 
-Extra keyword arguments can be collected using `...`, as in varargs functions:
+Los argumentos *keyword* extra pueden ser recolectados usando `...` como en las funciones *vararg*:
 
 ```julia
 function f(x; y=0, kwargs...)
@@ -459,26 +403,15 @@ function f(x; y=0, kwargs...)
 end
 ```
 
-Inside `f`, `kwargs` will be a collection of `(key,value)` tuples, where each `key` is a symbol.
-Such collections can be passed as keyword arguments using a semicolon in a call, e.g. `f(x, z=1; kwargs...)`.
-Dictionaries can also be used for this purpose.
+Dentro de `f`, `kwargs` será una colección de tuplas `(clave,valor)`, donde cada `clave` es un símbolo. Tales colecciones pueden ser pasadas como argumentos *keyword* usando un punto y coma en la llamada. Por ejemplo: `f(x, z=1; kwargs...)`. Los diccionarios pueden ser también usados para este propósito.
 
-One can also pass `(key,value)` tuples, or any iterable expression (such as a `=>` pair) that
-can be assigned to such a tuple, explicitly after a semicolon. For example, `plot(x, y; (:width,2))`
-and `plot(x, y; :width => 2)` are equivalent to `plot(x, y, width=2)`. This is useful in situations
-where the keyword name is computed at runtime.
+Uno puede también pasar tuplas `(clave, valor)` o cualquier expresión iterable (tal como un par `=>`) que puede ser asignado a una tupla, explícitamente después de un punto y coma. Por ejemplo, `plot(x, y; (:width,2))` y `plot(x, y; :width => 2)` son equivalentes a `plot(x, y, width=2)`. Esto es útil en situaciones donde el nombre de la palabra clave se calcula en tiempo de ejecución.
 
-The nature of keyword arguments makes it possible to specify the same argument more than once.
-For example, in the call `plot(x, y; options..., width=2)` it is possible that the `options` structure
-also contains a value for `width`. In such a case the rightmost occurrence takes precedence; in
-this example, `width` is certain to have the value `2`.
+La naturaleza de los argumentos *keyword*  le hace posible especificar el mismo argumento más de una vez. Por ejemplo, en la llamada `plot(x, y; options..., width=2)` es posible que la estructura `options` contenga también un valor para `width`. En tal caso la ocurrencia más a la derecha toma precedencia; en este ejemplo `width` tendrá el valor `2`.
 
-## Evaluation Scope of Default Values
+## Ámbito de evaluación de Valores por defecto
 
-Optional and keyword arguments differ slightly in how their default values are evaluated. When
-optional argument default expressions are evaluated, only *previous* arguments are in scope. In
-contrast, *all* the arguments are in scope when keyword arguments default expressions are evaluated.
-For example, given this definition:
+Los argumentos opcionales y *keyword* difieren ligeramente en cómo sus valores son evaluados. Cuando se evalúan expresiones por defecto con valores opcionales, sólo están en el ámbito lo valores *previos*. En contraste, cuando se evalúan las expresiones por defecto con argumentos *keyword*, *todos* los argumentos están en el ámbito. Por ejemplo, dada esta definición:
 
 ```julia
 function f(x, a=b, b=1)
@@ -486,7 +419,9 @@ function f(x, a=b, b=1)
 end
 ```
 
-the `b` in `a=b` refers to a `b` in an outer scope, not the subsequent argument `b`. However,
+la `b` en `a=b` se refiere a la `b` de un ámbito más externo, no el siguiente argumento `b`. Sin embargo, si `a` y `b` fueran argumentos *keyword* en lugar de opcionales, el `b`
+
+. However,
 if `a` and `b` were keyword arguments instead, then both would be created in the same scope and
 the `b` in `a=b` would refer to the subsequent argument `b` (shadowing any `b` in an outer scope),
 which would result in an undefined variable error (since the default expressions are evaluated
