@@ -4,18 +4,18 @@ Puede encontrar documentación extendida sobre símbolos y funciones matemática
 
 | symbol      | meaning                                                                                     |
 |:----------- |:------------------------------------------------------------------------------------------- |
-| `@m`        | invoke macro `m`; followed by space-separated expressions                                   |
-| `!`         | prefix "not" operator                                                                       |
-| `a!( )`     | at the end of a function name, `!` indicates that a function modifies its argument(s)       |
+| `@m`        | Invoca la macro `m`; seguido de expresiones separadas por espacios                          |
+| `!`         | Operador "not" prefijo                                                                      |
+| `a!( )`     | Al final de un nombre de función, `!` indica que la función modifica su(s) argumento(s)     |
 | `#`         | Inicio de un comentario de una sola línea                                                   |
 | `#=`        | Inicio de un comentario multilínea (ellos son anidables)                                    |
-| `=#`        | end multi-line comment                                                                      |
-| `$`         | string and expression interpolation                                                         |
-| `%`         | remainder operator                                                                          |
-| `^`         | exponent operator                                                                           |
-| `&`         | bitwise and                                                                                 |
-| `&&`        | short-circuiting boolean and                                                                |
-| `\|`        | bitwise or                                                                                  |
+| `=#`        | Final de un comentario multilínea                                                           |
+| `$`         | Interpolación de cadena y expresión                                                         |
+| `%`         | Operador resto                                                                              |
+| `^`         | Operador exponenente                                                                        |
+| `&`         | Operador and bit-a-bit                                                                      |
+| `&&`        | Operador and booleano (en corto-circuito)                                                   |
+| `\|`        | Operador or bit-a-bit                                                                       |
 | `\|\|`      | short-circuiting boolean or                                                                 |
 | `⊻`         | bitwise xor operator                                                                        |
 | `*`         | multiply, or matrix multiply                                                                |
