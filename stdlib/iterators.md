@@ -1,4 +1,4 @@
-# [Iteration utilities](@id iterators)
+# [Utilidades para Iteración](@id iterators)
 
 ```@docs
 Base.Iterators.zip
