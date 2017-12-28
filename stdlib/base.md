@@ -1,23 +1,26 @@
 # [Essentials](@id essentials)
 
-## Introduction
+## Introducción
 
-The Julia standard library contains a range of functions and macros appropriate for performing
-scientific and numerical computing, but is also as broad as those of many general purpose programming
-languages.  Additional functionality is available from a growing collection of available packages.
-Functions are grouped by topic below.
+La librería estándar de Julia contiene un rango de funciones y maros apropiadas para realizar 
+computación científica y numérica, pero es también tan amplia como la de muchos lenguajes de 
+programación de propósito general. También hay funcionalidad adicional disponible en una 
+colección creciente de paquetes disponibles. Las funciones están agrupadas abajo por temas.
 
-Some general notes:
+Algunas notas generales:
 
-  * Except for functions in built-in modules (`Pkg`, `Collections`, `Test`
-    and `Profile`), all functions documented here are directly available for use in programs.
-  * To use module functions, use `import Module` to import the module, and `Module.fn(x)` to use the
-    functions.
-  * Alternatively, `using Module` will import all exported `Module` functions into the current namespace.
-  * By convention, function names ending with an exclamation point (`!`) modify their arguments.
-    Some functions have both modifying (e.g., `sort!`) and non-modifying (`sort`) versions.
+* Excepto para las funciones en los módulos predefinidos (`Pkg`, `Collections`, `Test` 
+y `Profile`), todas las funciones documentadas aquí están disponibles directamente 
+para ser usadas en programas.
+* Para usar funciones de módulos, usar `import Module` para importar el módulo, y `Module.fn(x)` 
+para usar las funciones.
+* Alternativamente `using Module` importará todas las funciones exportadas por el módulo en 
+el espacio de nombres actual.
+* Por convenio, los nombres de funciones que acaban con un signo de admiración (`!`) 
+modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación 
+de los argumentos).
 
-## Getting Around
+## Moviéndose
 
 ```@docs
 Base.exit
@@ -54,7 +57,7 @@ Base.workspace
 ans
 ```
 
-## All Objects
+## Todos los Objetos
 
 ```@docs
 Core.:(===)
@@ -83,7 +86,7 @@ Base.widen
 Base.identity
 ```
 
-## Types
+## Tipos
 
 ```@docs
 Base.supertype
@@ -115,7 +118,7 @@ Base.Enums.@enum
 Base.instances
 ```
 
-## Generic Functions
+## Funciones Genéricas
 
 ```@docs
 Core.Function
@@ -127,7 +130,7 @@ Base.:(|>)
 Base.:(∘)
 ```
 
-## Syntax
+## Sintaxis
 
 ```@docs
 Core.eval
@@ -144,7 +147,7 @@ Base.parse(::Any, ::Any)
 Base.parse(::Any)
 ```
 
-## Nullables
+## *Nullables*
 
 ```@docs
 Base.Nullable
@@ -153,7 +156,7 @@ Base.isnull
 Base.unsafe_get
 ```
 
-## System
+## Sistema
 
 ```@docs
 Base.run
@@ -197,7 +200,7 @@ Base.Sys.windows_version
 Base.@static
 ```
 
-## Errors
+## Errores
 
 ```@docs
 Base.error
@@ -236,7 +239,7 @@ Base.retry
 Base.ExponentialBackOff
 ```
 
-## Events
+## Eventos
 
 ```@docs
 Base.Timer(::Function, ::Real, ::Real)
@@ -245,7 +248,7 @@ Base.AsyncCondition
 Base.AsyncCondition(::Function)
 ```
 
-## Reflection
+## Reflexión
 
 ```@docs
 Base.module_name
@@ -267,7 +270,7 @@ Base.functionloc(::Method)
 Base.@functionloc
 ```
 
-## Internals
+## Interioridades
 
 ```@docs
 Base.gc
