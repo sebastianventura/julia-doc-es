@@ -92,7 +92,7 @@ Base.Base64.base64decode
 Base.displaysize
 ```
 
-## E/S Multimedia
+## [E/S Multimedia](@id multimedia-io)
 
 Del mismo modo que la salida de texto se realiza mediante [`print`](@ref) y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando [`show`](@ref), Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video) que consta de tres partes:
 
