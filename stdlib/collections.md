@@ -1,9 +1,9 @@
-# [Collections and Data Structures](@id collections)
+# [Colecciones y Estructuras de Datos](@id collections)
 
-## [Iteration](@id lib-collections-iteration)
+## [Iteración](@id lib-collections-iteration)
 
-Sequential iteration is implemented by the methods [`start()`](@ref), [`done()`](@ref), and [`next()`](@ref).
-The general `for` loop:
+La iteración secuencial es implementada por los métodos [`start()`](@ref), [`done()`](@ref) y [`next()`](@ref).
+El bucle `for` general:
 
 ```julia
 for i = I   # or  "for i in I"
@@ -11,7 +11,7 @@ for i = I   # or  "for i in I"
 end
 ```
 
-is translated into:
+es traducido a:
 
 ```julia
 state = start(I)
@@ -21,9 +21,7 @@ while !done(I, state)
 end
 ```
 
-The `state` object may be anything, and should be chosen appropriately for each iterable type.
-See the [manual section on the iteration interface](@ref man-interface-iteration) for more details about defining a custom
-iterable type.
+El objeto `state` puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la [sección de manual sobre la interfaz de iteración](@ref man-interface-iteration) para ms detalles sobre detinir un tipo iterable personalizado.
 
 ```@docs
 Base.start
@@ -33,7 +31,7 @@ Base.iteratorsize
 Base.iteratoreltype
 ```
 
-Fully implemented by:
+Completamente implementada por:
 
   * `Range`
   * `UnitRange`
@@ -48,7 +46,7 @@ Fully implemented by:
   * `AbstractString`
   * [`Set`](@ref)
 
-## General Collections
+## Colecciones generales
 
 ```@docs
 Base.isempty
@@ -57,7 +55,7 @@ Base.length(::Any)
 Base.endof
 ```
 
-Fully implemented by:
+Completamente implementado por:
 
   * `Range`
   * `UnitRange`
@@ -71,7 +69,7 @@ Fully implemented by:
   * `AbstractString`
   * [`Set`](@ref)
 
-## Iterable Collections
+## Colecciones Iterables
 
 ```@docs
 Base.in
@@ -134,14 +132,14 @@ Base.filter
 Base.filter!
 ```
 
-## Indexable Collections
+## Colecciones Indexables
 
 ```@docs
 Base.getindex(::Any, ::Any...)
 Base.setindex!(::Any, ::Any, ::Any...)
 ```
 
-Fully implemented by:
+Completamente implementado por:
 
   * [`Array`](@ref)
   * [`BitArray`](@ref)
@@ -152,34 +150,25 @@ Fully implemented by:
   * [`WeakKeyDict`](@ref)
   * `AbstractString`
 
-Partially implemented by:
+Parcialmente implementado por:
 
   * `Range`
   * `UnitRange`
   * `Tuple`
 
-## Associative Collections
+## Colecciones asociativas
 
-[`Dict`](@ref) is the standard associative collection. Its implementation uses [`hash()`](@ref)
-as the hashing function for the key, and [`isequal()`](@ref) to determine equality. Define these
-two functions for custom types to override how they are stored in a hash table.
+[`Dict`](@ref) es la colección asociativa estándar. Su implementación usa [`hash()`](@ref) como función de hashing para la clave, e [`isequal()`](@ref) para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado sobreescribiran como se almacenan dichos tipos en una tabla hash.
 
-[`ObjectIdDict`](@ref) is a special hash table where the keys are always object identities.
+[`ObjectIdDict`](@ref) es una tabla hash especial donde las claves son siempre identidades de objeto.
 
-[`WeakKeyDict`](@ref) is a hash table implementation where the keys are weak references to objects, and
-thus may be garbage collected even when referenced in a hash table.
+[`WeakKeyDict`] (@ ref) es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.
 
-[`Dict`](@ref)s can be created by passing pair objects constructed with `=>()` to a [`Dict`](@ref)
-constructor: `Dict("A"=>1, "B"=>2)`. This call will attempt to infer type information from the
-keys and values (i.e. this example creates a `Dict{String, Int64}`). To explicitly specify types
-use the syntax `Dict{KeyType,ValueType}(...)`. For example, `Dict{String,Int32}("A"=>1, "B"=>2)`.
+[`Dict`](@ref)s se pueden crear pasando pares de objetos construidos con `=>() `a un constructor [`Dict`](@ref): `Dict ("A"=> 1," B "=> 2)`. Esta llamada intentará inferir información de tipo de las claves y valores (es decir, este ejemplo crea un `Dict{String, Int64}`). Para especificar explícitamente los tipos, use la sintaxis `Dict{KeyType,ValueType}(...)`. Por ejemplo, `Dict{String,Int32}(" A "=> 1," B "=> 2)`.
 
-Associative collections may also be created with generators. For example, `Dict(i => f(i) for i = 1:10)`.
+Las colecciones asociativas pueden también ser creadas con generadores. Por ejemplo, `Dict(i => f(i) for i = 1:10)`.
 
-Given a dictionary `D`, the syntax `D[x]` returns the value of key `x` (if it exists) or throws
-an error, and `D[x] = y` stores the key-value pair `x => y` in `D` (replacing any existing value
-for the key `x`).  Multiple arguments to `D[...]` are converted to tuples; for example, the syntax
-`D[x,y]`  is equivalent to `D[(x,y)]`, i.e. it refers to the value keyed by the tuple `(x,y)`.
+Dado un diccionario `D`, la sintaxis` D[x]` devuelve el valor de la clave `x` (si existe) o arroja un error, y `D[x] = y` almacena el par de clave-valor `x => y` en `D` (reemplazando cualquier valor existente por la clave` x`). Múltiples argumentos para `D [...]` se convierten a tuplas; por ejemplo, la sintaxis `D[x,y]` es equivalente a `D[(x,y)]`, es decir, se refiere al valor introducido por la tupla `(x,y)`.
 
 ```@docs
 Base.Dict
@@ -202,13 +191,13 @@ Base.keytype
 Base.valtype
 ```
 
-Fully implemented by:
+Completamente implementado por:
 
   * [`ObjectIdDict`](@ref)
   * [`Dict`](@ref)
   * [`WeakKeyDict`](@ref)
 
-Partially implemented by:
+Parcialmente implementado por:
 
   * [`IntSet`](@ref)
   * [`Set`](@ref)
@@ -216,7 +205,7 @@ Partially implemented by:
   * [`Array`](@ref)
   * [`BitArray`](@ref)
 
-## Set-Like Collections
+## Colecciones tipo Conjunto
 
 ```@docs
 Base.Set
@@ -234,16 +223,16 @@ Base.intersect!
 Base.issubset
 ```
 
-Fully implemented by:
+Completamente implementado por:
 
   * [`IntSet`](@ref)
   * [`Set`](@ref)
 
-Partially implemented by:
+Parcialmente implementado por:
 
   * [`Array`](@ref)
 
-## Dequeues
+## Acciones relacionadas con colas
 
 ```@docs
 Base.push!
@@ -258,7 +247,7 @@ Base.append!
 Base.prepend!
 ```
 
-Fully implemented by:
+Completamente implementado por:
 
   * `Vector` (a.k.a. 1-dimensional [`Array`](@ref))
   * `BitVector` (a.k.a. 1-dimensional [`BitArray`](@ref))
