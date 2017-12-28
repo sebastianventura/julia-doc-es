@@ -1205,7 +1205,7 @@ REPL and other interactive environments, and also a more compact single-line for
 [`print()`](@ref) or for displaying the object as part of another object (e.g. in an array). Although
 by default the `show(io, z)` function is called in both cases, you can define a *different* multi-line
 format for displaying an object by overloading a three-argument form of `show` that takes the
-`text/plain` MIME type as its second argument (see [Multimedia I/O](@ref)), for example:
+`text/plain` MIME type as its second argument (see [Multimedia I/O](@ref multimedia-io)), for example:
 
 ```jldoctest polartype
 julia> Base.show{T}(io::IO, ::MIME"text/plain", z::Polar{T}) =
@@ -1228,7 +1228,7 @@ julia> [Polar(3, 4.0), Polar(4.0,5.3)]
 where the single-line `show(io, z)` form is still used for an array of `Polar` values.   Technically,
 the REPL calls `display(z)` to display the result of executing a line, which defaults to `show(STDOUT, MIME("text/plain"), z)`,
 which in turn defaults to `show(STDOUT, z)`, but you should *not* define new [`display()`](@ref)
-methods unless you are defining a new multimedia display handler (see [Multimedia I/O](@ref)).
+methods unless you are defining a new multimedia display handler (see [Multimedia I/O](@ref multimedia-io)).
 
 Moreover, you can also define `show` methods for other MIME types in order to enable richer display
 (HTML, images, etcetera) of objects in environments that support this (e.g. IJulia).   For example,
