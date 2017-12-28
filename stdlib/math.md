@@ -1,6 +1,6 @@
 # [Mathematics](@id math)
 
-## [Mathematical Operators](@id math-ops)
+## [Operadores Matemáticos](@id math-ops)
 
 ```@docs
 Base.:-(::Any)
@@ -52,7 +52,7 @@ Base.:(!)
 ||
 ```
 
-## Mathematical Functions
+## Funciones Matemáticas
 
 ```@docs
 Base.isapprox
@@ -182,7 +182,7 @@ Base.widemul
 Base.Math.@evalpoly
 ```
 
-## Statistics
+## Estadística
 
 ```@docs
 Base.mean
@@ -200,9 +200,9 @@ Base.cov
 Base.cor
 ```
 
-## Signal Processing
+## Procesamiento de Señales
 
-Fast Fourier transform (FFT) functions in Julia are implemented by calling functions from [FFTW](http://www.fftw.org).
+Las funciones de transformada rápida de Fourier (*Fast Fourier transform* -- FFT) en Julia están implementadas mediante llamadas a funciones de la librería [FFTW](http://www.fftw.org).
 
 ```@docs
 Base.DFT.fft
@@ -242,7 +242,7 @@ Base.DSP.conv2
 Base.DSP.xcorr
 ```
 
-The following functions are defined within the `Base.FFTW` module.
+Las siguientes funciones están definidas dentro del módulo `Base.FFTW`.
 
 ```@docs
 Base.DFT.FFTW.r2r
