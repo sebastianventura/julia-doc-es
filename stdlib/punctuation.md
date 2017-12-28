@@ -1,14 +1,14 @@
-# [Punctuation](@id punctuation)
+# [Puntuación](@id punctuation)
 
-Extended documentation for mathematical symbols & functions is [here](@ref math-ops).
+Puede encontrar documentación extendida sobre símbolos y funciones matemáticas [aquí](@ref math-ops).
 
 | symbol      | meaning                                                                                     |
 |:----------- |:------------------------------------------------------------------------------------------- |
 | `@m`        | invoke macro `m`; followed by space-separated expressions                                   |
 | `!`         | prefix "not" operator                                                                       |
 | `a!( )`     | at the end of a function name, `!` indicates that a function modifies its argument(s)       |
-| `#`         | begin single line comment                                                                   |
-| `#=`        | begin multi-line comment (these are nestable)                                               |
+| `#`         | Inicio de un comentario de una sola línea                                                   |
+| `#=`        | Inicio de un comentario multilínea (ellos son anidables)                                    |
 | `=#`        | end multi-line comment                                                                      |
 | `$`         | string and expression interpolation                                                         |
 | `%`         | remainder operator                                                                          |
@@ -41,7 +41,7 @@ Extended documentation for mathematical symbols & functions is [here](@ref math-
 | `:`         | index an entire dimension (1:end)                                                           |
 | `::`        | type annotation, depending on context                                                       |
 | `:( )`      | quoted expression                                                                           |
-| `:a`        | symbol a                                                                                    |
+| `:a`        | símbolo a                                                                                   |
 | `<:`        | [`subtype operator`](@ref <:)                                                               |
 | `>:`        | [`supertype operator`](@ref >:) (reverse of subtype operator)                               |
 | `===`       | [`egal comparison operator`](@ref ===)                                                      |
