@@ -1,4 +1,4 @@
-# [C Interface](@id c)
+# [Interfaz C](@id c)
 
 ```@docs
 ccall
@@ -41,7 +41,7 @@ Base.Cfloat
 Base.Cdouble
 ```
 
-# [LLVM Interface](@id llvm-interface)
+# [Interfaz LLVM](@id llvm-interface)
 
 ```@docs
 Core.Intrinsics.llvmcall
