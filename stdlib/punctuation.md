@@ -16,31 +16,31 @@ Puede encontrar documentación extendida sobre símbolos y funciones matemática
 | `&`         | Operador and bit-a-bit                                                                      |
 | `&&`        | Operador and booleano (en corto-circuito)                                                   |
 | `\|`        | Operador or bit-a-bit                                                                       |
-| `\|\|`      | short-circuiting boolean or                                                                 |
-| `⊻`         | bitwise xor operator                                                                        |
-| `*`         | multiply, or matrix multiply                                                                |
-| `()`        | the empty tuple                                                                             |
-| `~`         | bitwise not operator                                                                        |
-| `\`         | backslash operator                                                                          |
-| `'`         | complex transpose operator Aᴴ                                                               |
-| `a[]`       | array indexing                                                                              |
-| `[,]`       | vertical concatenation                                                                      |
-| `[;]`       | also vertical concatenation                                                                 |
-| `[    ]`    | with space-separated expressions, horizontal concatenation                                  |
-| `T{ }`      | parametric type instantiation                                                               |
-| `;`         | statement separator                                                                         |
-| `,`         | separate function arguments or tuple components                                             |
-| `?`         | 3-argument conditional operator (conditional ? if_true : if_false)                          |
-| `""`        | delimit string literals                                                                     |
-| `''`        | delimit character literals                                                                  |
-| ``` ` ` ``` | delimit external process (command) specifications                                           |
-| `...`       | splice arguments into a function call or declare a varargs function or type                 |
-| `.`         | access named fields in objects/modules, also prefixes elementwise operator/function calls   |
-| `a:b`       | range a, a+1, a+2, ..., b                                                                   |
-| `a:s:b`     | range a, a+s, a+2s, ..., b                                                                  |
-| `:`         | index an entire dimension (1:end)                                                           |
-| `::`        | type annotation, depending on context                                                       |
-| `:( )`      | quoted expression                                                                           |
+| `\|\|`      | Operador or booleano (en corto-circuito)                                                    |
+| `⊻`         | Operador xor bit-a-bit                                                                      |
+| `*`         | Multiplicación o producto matricial                                                         |
+| `()`        | Tupla vacía                                                                                 |
+| `~`         | Operador not bit-a-bit                                                                      |
+| `\`         | Operador backslash                                                                          |
+| `'`         | Operador transpuesto complejo Aᴴ                                                            |
+| `a[]`       | Indexación de array                                                                         |
+| `[,]`       | Concatenación vertical                                                                      |
+| `[;]`       | Concatenación vertical (también)                                                            |
+| `[    ]`    | Con expresiones separadas por espacios, concatenación horizontal                            |
+| `T{ }`      | Instanciación de tipo paramétrico                                                           |
+| `;`         | Separador de instrucciones                                                                  |
+| `,`         | Separador de argumentos de función o de componentes de una tupla                            |
+| `?`         | Operador condicional ternario (conditional ? if_true : if_false)                            |
+| `""`        | Delimitador de literales cadena                                                             |
+| `''`        | Delimitador de literales carácter                                                           |
+| ``` ` ` ``` | Delimitador de especificaciones de proceso externo (mandato)                                    |
+| `...`       | splice arguments into a function call or declare a varargs function or type                     |
+| `.`         | Acceso nombrado a campos en objectos/módulos, también llamadas a operator/function vectorizadas |
+| `a:b`       | Rango a, a+1, a+2, ..., b                                                                       |
+| `a:s:b`     | Rango a, a+s, a+2s, ..., b                                                                      |
+| `:`         | Indexa una dimensión entera (1:end)                                                         |
+| `::`        | Anotación de tipo ,dependiendo del contexto                                                 |
+| `:( )`      | Expresión citada                                                                           |
 | `:a`        | símbolo a                                                                                   |
 | `<:`        | [`subtype operator`](@ref <:)                                                               |
 | `>:`        | [`supertype operator`](@ref >:) (reverse of subtype operator)                               |
