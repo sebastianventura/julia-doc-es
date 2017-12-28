@@ -419,20 +419,11 @@ function f(x, a=b, b=1)
 end
 ```
 
-la `b` en `a=b` se refiere a la `b` de un ámbito más externo, no el siguiente argumento `b`. Sin embargo, si `a` y `b` fueran argumentos *keyword* en lugar de opcionales, el `b`
+la `b` en `a=b` se refiere a la `b` de un ámbito más externo, no el siguiente argumento `b`. Sin embargo, si `a` y `b` fueran argumentos *keyword* en lugar de opcionales, el `b` en `a=b` se referiría al argumento posterior `b` (ocultando a cualqiuer `b` de un ámbito ms externo), lo que resultaría en un error de variable indefinida (ya que las expresiones por defecto son evaluadas de izquierda a derecha, y `b` no ha sido aún asignada).
 
-. However,
-if `a` and `b` were keyword arguments instead, then both would be created in the same scope and
-the `b` in `a=b` would refer to the subsequent argument `b` (shadowing any `b` in an outer scope),
-which would result in an undefined variable error (since the default expressions are evaluated
-left-to-right, and `b` has not been assigned yet).
+## Sintaxis Bloque Do para Argumentos Function
 
-## Do-Block Syntax for Function Arguments
-
-Passing functions as arguments to other functions is a powerful technique, but the syntax for
-it is not always convenient. Such calls are especially awkward to write when the function argument
-requires multiple lines. As an example, consider calling [`map()`](@ref) on a function with several
-cases:
+Pasar funciones como argumentos a otras funciones es una técnica muy potente, pero su sintaxis no es siempre conveniente. Estas llamadas son especialmente incómodas de escribir cuando la función argumento necesita varias líneas. Por ejemplo, consideremos llamar a  [`map()`](@ref) sobre una función con varios casos:
 
 ```julia
 map(x->begin
@@ -447,7 +438,7 @@ map(x->begin
     [A, B, C])
 ```
 
-Julia provides a reserved word `do` for rewriting this code more clearly:
+Julia proporciona la palabra reservada `do` para reescribir este código de forma más clara:
 
 ```julia
 map([A, B, C]) do x
@@ -461,18 +452,11 @@ map([A, B, C]) do x
 end
 ```
 
-The `do x` syntax creates an anonymous function with argument `x` and passes it as the first argument
-to [`map()`](@ref). Similarly, `do a,b` would create a two-argument anonymous function, and a
-plain `do` would declare that what follows is an anonymous function of the form `() -> ...`.
+La sintaxis `do x` crea una función anónima con argumento `x` y la pasa como primer argumento a [`map()`](@ref). Similarmente, `do a,b` crearía una función anónima de dos argumentos, y un `do` solo sería una función anónima de la forma `() -> ...`.
 
-How these arguments are initialized depends on the "outer" function; here, [`map()`](@ref) will
-sequentially set `x` to `A`, `B`, `C`, calling the anonymous function on each, just as would happen
-in the syntax `map(func, [A, B, C])`.
+Cómo se inicializan estos argumentos depende de la función más externa; aquí `map()` fijará secuencialmente `x` a `A,B,C` llamando a la función anónima sobre cada uno de ellos, tal y como pasa en la sintaxis `map(func, [A,B,C])`.
 
-This syntax makes it easier to use functions to effectively extend the language, since calls look
-like normal code blocks. There are many possible uses quite different from [`map()`](@ref), such
-as managing system state. For example, there is a version of [`open()`](@ref) that runs code ensuring
-that the opened file is eventually closed:
+Esta sintaxis hace más fácil usar funciones para extender el lenguaje de forma efectiva, ya que las llamadas tiene el aspecto de códigos de bloque normales. Hay muchos usos posibles diferentes al de [`map()`](@ref), tal como la gestión del estado del sistema. Por ejemplo, hay una versión de  [`open()`](@ref) que ejecuta código asegurando que el fichero abierto es cerrado eventualmente:
 
 ```julia
 open("outfile", "w") do io
@@ -480,7 +464,7 @@ open("outfile", "w") do io
 end
 ```
 
-This is accomplished by the following definition:
+Esto se consigue mediante la siguiente definición:
 
 ```julia
 function open(f::Function, args...)
@@ -493,25 +477,15 @@ function open(f::Function, args...)
 end
 ```
 
-Here, [`open()`](@ref) first opens the file for writing and then passes the resulting output stream
-to the anonymous function you defined in the `do ... end` block. After your function exits, [`open()`](@ref)
-will make sure that the stream is properly closed, regardless of whether your function exited
-normally or threw an exception. (The `try/finally` construct will be described in [Control Flow](@ref control-flow).)
+Aquí, [`open()`](@ref) primero abre el fichero para escritura y luego pasa el flujo de salida resultante a la función anónima que se define en el bloque `do...end`.  Después de que la función exista, [`open()`](@ref) asegurará que el flujo ha sido cerrado apropiadamente, sin preocuparse de si la función salió normalmente o lanzó una excepción (la construcción 
+`try/finally` será descrita en  [Control de Flujo](@ref).)
 
-With the `do` block syntax, it helps to check the documentation or implementation to know how
-the arguments of the user function are initialized.
+Con la sintaxis de bloque `do` se ayuda a chequear la documentación o implementaciones para saber cómo se inicializan los argumentos de la función de usuario.
 
-## [Dot Syntax for Vectorizing Functions](@id man-vectorized)
+## [Sintaxis Punto para funciones Vectorizadas](@id man-vectorized)
 
-In technical-computing languages, it is common to have "vectorized" versions of functions, which
-simply apply a given function `f(x)` to each element of an array `A` to yield a new array via
-`f(A)`. This kind of syntax is convenient for data processing, but in other languages vectorization
-is also often required for performance: if loops are slow, the "vectorized" version of a function
-can call fast library code written in a low-level language. In Julia, vectorized functions are
-*not* required for performance, and indeed it is often beneficial to write your own loops (see
-[Performance Tips](@ref man-performance-tips)), but they can still be convenient. Therefore, *any* Julia function
-`f` can be applied elementwise to any array (or other collection) with the syntax `f.(A)`.
-For example `sin` can be applied to all elements in the vector `A`, like so:
+En los lenguajes de computación técnicos es común tener versiones "vectorizadas" de funciones, las cuales aplican una función dada `f(x)` a cada elemento de un array `A` para producir un nuevo array vía `f(A)`. Esta clase de sintaxis es conveniente para procesamiento de datos, pero en otros lenguajes la vectorización es también requerida en aras de mejorar el rendimiento: 
+si los bucles son lentos, la versión "vectorizada" de una función podría llamar al código de librería rápido en un lenguaje de bajo nivel. En Julia, las funciones actualizadas *no son requeridas por motivos de vencimiento*; de hecho, suele ser beneficioso que el usuario escriba sus propios bucles (ver [Consejos de rendimiento](@ref man-performance-tips)), a veces incluso conveniente. Por tanto *cualquier* función Julia `f` puede ser aplicada elemento a elemento a cualquier array (u otra colección) con la sintaxis `f.(A)`. Por ejemplo `sin` puede ser aplicado a todos los elementos del vector `A` de esta forma:
 
 ```jldoctest
 julia> A = [1.0, 2.0, 3.0]
@@ -527,16 +501,9 @@ julia> sin.(A)
  0.14112
 ```
 
-Of course, you can omit the dot if you write a specialized "vector" method of `f`, e.g. via `f(A::AbstractArray) = map(f, A)`,
-and this is just as efficient as `f.(A)`. But that approach requires you to decide in advance
-which functions you want to vectorize.
+Por supuesto, uno puede omitir el punto si escribe un método especial para vectores de `f` por ejemplo, vía `f(A::AbstractArray) = map(f, A)` y esto es tan eficiente como `f.(A)`. Pero este enfoque necesitaría que decidas a priori qué funciones quieres vectorizar.
 
-More generally, `f.(args...)` is actually equivalent to `broadcast(f, args...)`, which allows
-you to operate on multiple arrays (even of different shapes), or a mix of arrays and scalars (see
-[Broadcasting](@ref broadcasting)). For example, if you have `f(x,y) = 3x + 4y`, then `f.(pi,A)` will return
-a new array consisting of `f(pi,a)` for each `a` in `A`, and `f.(vector1,vector2)` will return
-a new vector consisting of `f(vector1[i],vector2[i])` for each index `i` (throwing an exception
-if the vectors have different length).
+Más generalmente, `f.(args...)` es de hecho equivalente a `broadcast(f, args...)`, que te permite operar sobre múltiples arrays (incluso de formas distintas) o una mezcla de arrays y escalares (ver [Broadcasting](@ref)). Por ejemplo, si tenemos `f(x,y) = 3x + 4y`, entonces `f.(pi,A)` devolverá un nuevo array consistente en `f(pi,a)`para cada `a` en `A`, y `f.(vector1,vector2)` devolverá un nuevo vector que consiste en `f(vector1[i],vector2[i])` para cada índice `i` (lanzando una excepción si los vectores tienen diferente longitud).
 
 ```jldoctest
 julia> f(x,y) = 3x + 4y;
@@ -558,29 +525,11 @@ julia> f.(A, B)
  33.0
 ```
 
-Moreover, *nested* `f.(args...)` calls are *fused* into a single `broadcast` loop. For example,
-`sin.(cos.(X))` is equivalent to `broadcast(x -> sin(cos(x)), X)`, similar to `[sin(cos(x)) for x in X]`:
-there is only a single loop over `X`, and a single array is allocated for the result. [In contrast,
-`sin(cos(X))` in a typical "vectorized" language would first allocate one temporary array for
-`tmp=cos(X)`, and then compute `sin(tmp)` in a separate loop, allocating a second array.] This
-loop fusion is not a compiler optimization that may or may not occur, it is a *syntactic guarantee*
-whenever nested `f.(args...)` calls are encountered. Technically, the fusion stops as soon as
-a "non-dot" function call is encountered; for example, in `sin.(sort(cos.(X)))` the `sin` and `cos`
-loops cannot be merged because of the intervening `sort` function.
+Además, las llamadas anidadas `f.(args...)`se funden en un solo `broadcast`. Por ejemplo `sin.(cos.(X))` es equivalent a `broadcast(x->sin(cos(x)), X)`, lo cuál es similar a `[sin(cos(x)) for x in X]`. Hay un solo bucle sobre `X`, y se asigna un solo array para el resultado. En contraste, `sin(cos(X))` en un lenguaje vectorizado típio asignaría primero un array temporal `tmp = cos(X)` y luego calcularía `sin(tmp)` en un bucle separado, asignando un segundo array. Esta fusión de bucles no es una optimización del compilador que puede ocurrir o no, sino que es una *garantía sintáctica*  cuando se encuentran llamadas `f.(array...)` anidadas. Técnicamente, la fusión se para en cuanto se encuentr una función sin punto, por ejemplo, en `sin.(srt(cos.(X)))` los bucles de `sin` y `cos` no pueden mezclarse debido a la intervención de la función `sort`.
 
-Finally, the maximum efficiency is typically achieved when the output array of a vectorized operation
-is *pre-allocated*, so that repeated calls do not allocate new arrays over and over again for
-the results ([Pre-allocating outputs](@ref):). A convenient syntax for this is `X .= ...`, which
-is equivalent to `broadcast!(identity, X, ...)` except that, as above, the `broadcast!` loop is
-fused with any nested "dot" calls. For example, `X .= sin.(Y)` is equivalent to `broadcast!(sin, X, Y)`,
-overwriting `X` with `sin.(Y)` in-place. If the left-hand side is an array-indexing expression,
-e.g. `X[2:end] .= sin.(Y)`, then it translates to `broadcast!` on a `view`, e.g. `broadcast!(sin, view(X, 2:endof(X)), Y)`,
-so that the left-hand side is updated in-place.
+Finalmente, la eficiencia máxima suele conseguirse cuando el array de salida de una operación vectorizada es *pre-asignado*, por lo que las llamadas repetidas no asignarán nuevos arrays una y otra vez para los resultados (ver [Preasignando salidas](@ref)). Una sintaxis conveniente para esto es `X .= ...` que es equivalente a `broadcast!(identity, X, ...)` excepto que, como antes, el bucle `broadcast!` es fusionado con cualquier llamada con punto anidada. Por ejemplo, `X .= sin.(Y)` es equivalente a `broadcast!(sin, X, Y)`, sobreescribiendo `X` con `sin.(Y)` en su lugar. Si el miembro izquierdo de la expresión es una expresión de indexación de un array, como `X[2:end] .= sin.(Y)` entonces ella se traduce a `broadcast!` sobre una vista, por ejemplo `broadcast!(sin, view(X, 2:endof(X)), Y)`.
 
-Since adding dots to many operations and function calls in an expression
-can be tedious and lead to code that is difficult to read, the macro
-[`@.`](@ref @__dot__) is provided to convert *every* function call,
-operation, and assignment in an expression into the "dotted" version.
+Como añadir puntos a muchas operaciones y llamadas a función puede resultar tedioso y conducir a código difícil de leer, se proporciona la macro `@.` para convertir cada llamada a función, operación y asignación en una expresion en su versión "con puntos".
 
 ```jldoctest
 julia> Y = [1.0, 2.0, 3.0, 4.0];
@@ -595,15 +544,8 @@ julia> @. X = sin(cos(Y)) # equivalent to X .= sin.(cos.(Y))
  -0.608083
 ```
 
-Binary (or unary) operators like `.+` are handled with the same mechanism:
-they are equivalent to `broadcast` calls and are fused with other nested "dot" calls.
- `X .+= Y` etcetera is equivalent to `X .= X .+ Y` and results in a fused in-place assignment;
- see also [dot operators](@ref man-dot-operators).
+Los operadores binarios (o unarios) como `.+` se manejan con el mismo mecanismo: son equivalentes a llamadas retransmitidas (broadcast) y son fundidas con otras llamadas que tiene puntos. `X .+= Y etcetera` es equivalente a `X .= X .+ Y` y dan como resultado una asignación fusionada. Ver también [dot operators](@ref man-dot-operators).
 
-## Further Reading
+## Otras Lecturas
 
-We should mention here that this is far from a complete picture of defining functions. Julia has
-a sophisticated type system and allows multiple dispatch on argument types. None of the examples
-given here provide any type annotations on their arguments, meaning that they are applicable to
-all types of arguments. The type system is described in [Types](@ref man-types) and defining a function
-in terms of methods chosen by multiple dispatch on run-time argument types is described in [Methods](@ref methods).
+Deberíamos mencionar que esto está lejos de ser una visión completa de las definiciones de función. Julia tiene un sistema de tipos sofisticado y permite despacho múltiple sobre los tipos de argumento. Ninguno de los ejemplos dados aquí proporciona anotaciones de tipo sobre sus argmentos, lo que significa que son aplicables a cualquier tipo de argumento. El sistema de tipos es descrito en [Tipos](@ref man-types) definir una función en términos de métodos elegidos mediante despacho múltiple sobre los tpos de argumento en tiempo de ejecucoión se describe en el capítulo [Methods](@ref methods).
