@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Manual",
     "category": "section",
-    "text": "Introducción\nEmpezando\nVariables\nIntegers and Floating-Point Numbers\nMathematical Operations and Elementary Functions\nComplex and Rational Numbers\nStrings\nFunctions\nControl Flow\nScope of Variables\nTypes\nMethods\nConstructors\nConversion and Promotion\nInterfaces\nModules\nDocumentation\nMetaprogramming\nMulti-dimensional Arrays\nLinear Algebra\nNetworking and Streams\nParallel Computing\nDate and DateTime\nRunning External Programs\nCalling C and Fortran Code\nHandling Operating System Variation\nEnvironment Variables\nInteracting With Julia\nEmbedding Julia\nPackages\nProfiling\nStack Traces\nPerformance Tips\nWorkflow Tips\nStyle Guide\nFrequently Asked Questions\nNoteworthy Differences from other Languages\nUnicode Input"
+    "text": "Introducción\nEmpezando\nVariables\nNúmeros Enteros y en Punto Flotante\nOperaciones Matemáticas y Funciones Elementales\nNúmeros Complejos y Racionales\nCadenas\nFunctions\nControl Flow\nScope of Variables\nTypes\nMethods\nConstructors\nConversion and Promotion\nInterfaces\nModules\nDocumentation\nMetaprogramming\nMulti-dimensional Arrays\nLinear Algebra\nNetworking and Streams\nParallel Computing\nDate and DateTime\nRunning External Programs\nCalling C and Fortran Code\nHandling Operating System Variation\nEnvironment Variables\nInteracting With Julia\nEmbedding Julia\nPackages\nProfiling\nStack Traces\nPerformance Tips\nWorkflow Tips\nStyle Guide\nFrequently Asked Questions\nNoteworthy Differences from other Languages\nUnicode Input"
 },
 
 {
@@ -421,71 +421,71 @@ var documenterSearchIndex = {"docs": [
     "page": "Strings",
     "title": "Caracteres",
     "category": "section",
-    "text": "Un valor Char representa un solo carácter: es sólo un bitstype de 32 bits con una representación literal especial y comportamientos aritméticos apropiados, cuyo valor numérico se interpreta como un punto de código Unicode. Aquí se muestra cómo se introducen y se muestran los valores Char:julia> 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> typeof(ans)\nCharYou can convert a Char to its integer value, i.e. code point, easily:julia> Int('x')\n120\n\njulia> typeof(ans)\nInt64On 32-bit architectures, typeof(ans) will be Int32. You can convert an integer value back to a Char just as easily:julia> Char(120)\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)Not all integer values are valid Unicode code points, but for performance, the Char() conversion does not check that every character value is valid. If you want to check that each converted value is a valid code point, use the isvalid() function:julia> Char(0x110000)\n'\\U110000': Unicode U+110000 (category Cn: Other, not assigned)\n\njulia> isvalid(Char, 0x110000)\nfalseAs of this writing, the valid Unicode code points are U+00 through U+d7ff and U+e000 through U+10ffff. These have not all been assigned intelligible meanings yet, nor are they necessarily interpretable by applications, but all of these values are considered to be valid Unicode characters.You can input any Unicode character in single quotes using \\u followed by up to four hexadecimal digits or \\U followed by up to eight hexadecimal digits (the longest valid value only requires six):julia> '\\u0'\n'\\0': ASCII/Unicode U+0000 (category Cc: Other, control)\n\njulia> '\\u78'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> '\\u2200'\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> '\\U10ffff'\n'\\U10ffff': Unicode U+10ffff (category Cn: Other, not assigned)Julia uses your system's locale and language settings to determine which characters can be printed as-is and which must be output using the generic, escaped \\u or \\U input forms. In addition to these Unicode escape forms, all of C's traditional escaped input forms can also be used:julia> Int('\\0')\n0\n\njulia> Int('\\t')\n9\n\njulia> Int('\\n')\n10\n\njulia> Int('\\e')\n27\n\njulia> Int('\\x7f')\n127\n\njulia> Int('\\177')\n127\n\njulia> Int('\\xff')\n255You can do comparisons and a limited amount of arithmetic with Char values:julia> 'A' < 'a'\ntrue\n\njulia> 'A' <= 'a' <= 'Z'\nfalse\n\njulia> 'A' <= 'X' <= 'Z'\ntrue\n\njulia> 'x' - 'a'\n23\n\njulia> 'A' + 1\n'B': ASCII/Unicode U+0042 (category Lu: Letter, uppercase)"
+    "text": "Un valor Char representa un solo carácter: es sólo un bitstype de 32 bits con una representación literal especial y comportamientos aritméticos apropiados, cuyo valor numérico se interpreta como un punto de código Unicode. Aquí se muestra cómo se introducen y se muestran los valores Char:julia> 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> typeof(ans)\nCharPodemos convertir un Char a su valor entero (su punto de código) fácilmente:julia> Int('x')\n120\n\njulia> typeof(ans)\nInt64En arquitecturas de 32 bits,  typeof(ans) será Int32. Puede convertir un valor entero de nuevo a un Char fácilmente:julia> Char(120)\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)No todos los valores enteros son puntos de código Unicode válidos, pero por una cuestión de  rendimiento, la conversión Char() no comprueba que cada valor de carácter sea válido. Si desea comprobar que cada valor convertido es un punto de código válido, utilice la función isvalid():julia> Char(0x110000)\n'\\U110000': Unicode U+110000 (category Cn: Other, not assigned)\n\njulia> isvalid(Char, 0x110000)\nfalseA partir de este momento, los puntos de código Unicode válidos son U+00 a U+d7ff y U+e000 a U+10ffff. A estos no se les han asignado todavía significados inteligibles, ni son necesariamente interpretables por las aplicaciones, pero todos ellos se consideran caracteres Unicode válidos.Puede introducir cualquier carácter Unicode entre comillas simples utilizando \\u seguido de hasta cuatro dígitos hexadecimales o \\U seguido de hasta ocho dígitos hexadecimales (el valor válido más largo sólo requiere seis):julia> '\\u0'\n'\\0': ASCII/Unicode U+0000 (category Cc: Other, control)\n\njulia> '\\u78'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> '\\u2200'\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> '\\U10ffff'\n'\\U10ffff': Unicode U+10ffff (category Cn: Other, not assigned)Julia utiliza la configuración regional y de idioma de tu sistema para determinar qué caracteres se pueden imprimir tal cual y cuáles se deben imprimir utilizando las formas de entrada genéricas, escapadas con \\u o \\U. Además de estas formas de escape de Unicode, también se pueden usar todas las formas de entrada de escape tradicionales de C:julia> Int('\\0')\n0\n\njulia> Int('\\t')\n9\n\njulia> Int('\\n')\n10\n\njulia> Int('\\e')\n27\n\njulia> Int('\\x7f')\n127\n\njulia> Int('\\177')\n127\n\njulia> Int('\\xff')\n255Puedes hacer comparaciones y una cantidad limitada de aritmética con los valores Char:julia> 'A' < 'a'\ntrue\n\njulia> 'A' <= 'a' <= 'Z'\nfalse\n\njulia> 'A' <= 'X' <= 'Z'\ntrue\n\njulia> 'x' - 'a'\n23\n\njulia> 'A' + 1\n'B': ASCII/Unicode U+0042 (category Lu: Letter, uppercase)"
 },
 
 {
-    "location": "manual/strings.html#String-Basics-1",
+    "location": "manual/strings.html#Fundamentos-de-Cadenas-1",
     "page": "Strings",
-    "title": "String Basics",
+    "title": "Fundamentos de Cadenas",
     "category": "section",
-    "text": "String literals are delimited by double quotes or triple double quotes:julia> str = \"Hello, world.\\n\"\n\"Hello, world.\\n\"\n\njulia> \"\"\"Contains \"quote\" characters\"\"\"\n\"Contains \\\"quote\\\" characters\"If you want to extract a character from a string, you index into it:julia> str[1]\n'H': ASCII/Unicode U+0048 (category Lu: Letter, uppercase)\n\njulia> str[6]\n',': ASCII/Unicode U+002c (category Po: Punctuation, other)\n\njulia> str[end]\n'\\n': ASCII/Unicode U+000a (category Cc: Other, control)All indexing in Julia is 1-based: the first element of any integer-indexed object is found at index 1. (As we will see below, this does not necessarily mean that the last element is found at index n, where n is the length of the string.)In any indexing expression, the keyword end can be used as a shorthand for the last index (computed by endof(str)). You can perform arithmetic and other operations with end, just like a normal value:julia> str[end-1]\n'.': ASCII/Unicode U+002e (category Po: Punctuation, other)\n\njulia> str[end÷2]\n' ': ASCII/Unicode U+0020 (category Zs: Separator, space)Using an index less than 1 or greater than end raises an error:julia> str[0]\nERROR: BoundsError: attempt to access \"Hello, world.\\n\"\n  at index [0]\n[...]\n\njulia> str[end+1]\nERROR: BoundsError: attempt to access \"Hello, world.\\n\"\n  at index [15]\n[...]You can also extract a substring using range indexing:julia> str[4:9]\n\"lo, wo\"Notice that the expressions str[k] and str[k:k] do not give the same result:julia> str[6]\n',': ASCII/Unicode U+002c (category Po: Punctuation, other)\n\njulia> str[6:6]\n\",\"The former is a single character value of type Char, while the latter is a string value that happens to contain only a single character. In Julia these are very different things."
+    "text": "Los literales de cadenas están delimitados por comillas dobles o comillas dobles triples:julia> str = \"Hello, world.\\n\"\n\"Hello, world.\\n\"\n\njulia> \"\"\"Contains \"quote\" characters\"\"\"\n\"Contains \\\"quote\\\" characters\"Si desea extraer un carácter de una cadena, indéxelo:julia> str[1]\n'H': ASCII/Unicode U+0048 (category Lu: Letter, uppercase)\n\njulia> str[6]\n',': ASCII/Unicode U+002c (category Po: Punctuation, other)\n\njulia> str[end]\n'\\n': ASCII/Unicode U+000a (category Cc: Other, control)Toda la indexación en Julia está basada en 1: el primer elemento de cualquier objeto indexado medidante enteros se encuentra en el índice 1, y el último elemento se encuentra en el índice n, cuando la cadena tiene una longitud de n.En cualquier expresión de indexación, puede usarse la palabra clave end como una abreviatura para el último índice (calculado mediante endof(str)). Puede realizar operaciones aritméticas y otras con end, como si de un valor normal se tratara:julia> str[end-1]\n'.': ASCII/Unicode U+002e (category Po: Punctuation, other)\n\njulia> str[end÷2]\n' ': ASCII/Unicode U+0020 (category Zs: Separator, space)Usar un índice menor que 1 o mayor que end lanza un error:julia> str[0]\nERROR: BoundsError: attempt to access \"Hello, world.\\n\"\n  at index [0]\n[...]\n\njulia> str[end+1]\nERROR: BoundsError: attempt to access \"Hello, world.\\n\"\n  at index [15]\n[...]También puedes extraer una subcadena usando indexación mediante un rango:julia> str[4:9]\n\"lo, wo\"Nótese que las expresiones str[k] y str[k:k] no dan el mismo resultado:julia> str[6]\n',': ASCII/Unicode U+002c (category Po: Punctuation, other)\n\njulia> str[6:6]\n\",\"La primera es un valor carácter de tipo Char, mientras que la segunda es un valor cadena que tiene un único carácter. En Julia se trata de cosas muy diferentes."
 },
 
 {
-    "location": "manual/strings.html#Unicode-and-UTF-8-1",
+    "location": "manual/strings.html#Unicode-y-UTF-8-1",
     "page": "Strings",
-    "title": "Unicode and UTF-8",
+    "title": "Unicode y UTF-8",
     "category": "section",
-    "text": "Julia fully supports Unicode characters and strings. As discussed above, in character literals, Unicode code points can be represented using Unicode \\u and \\U escape sequences, as well as all the standard C escape sequences. These can likewise be used to write string literals:julia> s = \"\\u2200 x \\u2203 y\"\n\"∀ x ∃ y\"Whether these Unicode characters are displayed as escapes or shown as special characters depends on your terminal's locale settings and its support for Unicode. String literals are encoded using the UTF-8 encoding. UTF-8 is a variable-width encoding, meaning that not all characters are encoded in the same number of bytes. In UTF-8, ASCII characters – i.e. those with code points less than 0x80 (128) – are encoded as they are in ASCII, using a single byte, while code points 0x80 and above are encoded using multiple bytes – up to four per character. This means that not every byte index into a UTF-8 string is necessarily a valid index for a character. If you index into a string at such an invalid byte index, an error is thrown:julia> s[1]\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> s[2]\nERROR: UnicodeError: invalid character index\n[...]\n\njulia> s[3]\nERROR: UnicodeError: invalid character index\n[...]\n\njulia> s[4]\n' ': ASCII/Unicode U+0020 (category Zs: Separator, space)In this case, the character ∀ is a three-byte character, so the indices 2 and 3 are invalid and the next character's index is 4; this next valid index can be computed by nextind(s,1), and the next index after that by nextind(s,4) and so on.Because of variable-length encodings, the number of characters in a string (given by length(s)) is not always the same as the last index. If you iterate through the indices 1 through endof(s) and index into s, the sequence of characters returned when errors aren't thrown is the sequence of characters comprising the string s. Thus we have the identity that length(s) <= endof(s), since each character in a string must have its own index. The following is an inefficient and verbose way to iterate through the characters of s:julia> for i = 1:endof(s)\n           try\n               println(s[i])\n           catch\n               # ignore the index error\n           end\n       end\n∀\n\nx\n\n∃\n\nyThe blank lines actually have spaces on them. Fortunately, the above awkward idiom is unnecessary for iterating through the characters in a string, since you can just use the string as an iterable object, no exception handling required:julia> for c in s\n           println(c)\n       end\n∀\n\nx\n\n∃\n\nyJulia uses the UTF-8 encoding by default, and support for new encodings can be added by packages. For example, the LegacyStrings.jl package implements UTF16String and UTF32String types. Additional discussion of other encodings and how to implement support for them is beyond the scope of this document for the time being. For further discussion of UTF-8 encoding issues, see the section below on byte array literals. The transcode() function is provided to convert data between the various UTF-xx encodings, primarily for working with external data and libraries."
+    "text": "Julia soporta totalmente caracteres y cadenas Unicode. Como se ha comentado anteriormente, en literales de caracteres, los puntos de código Unicode se pueden representar usando las secuencias de escape Unicode \\u y \\U, así como todas las secuencias de escape C estándar. Éstos también se pueden utilizar para escribir literales de cadena:julia> s = \"\\u2200 x \\u2203 y\"\n\"∀ x ∃ y\"Si estos caracteres Unicode se muestran como escapes o se muestran como caracteres especiales depende de la configuración regional de tu terminal y su compatibilidad con Unicode. Los literales de cadena se codifican utilizando la codificación UTF-8. UTF-8 es una codificación de ancho variable, lo que significa que no todos los caracteres están codificados en el mismo número de bytes. En UTF-8, los caracteres ASCII -es decir, aquellos con puntos de código inferiores a 0x80 (128) - están codificados como lo están en ASCII, usando un solo byte, mientras que los puntos de código 0x80 y superiores se codifican utilizando múltiples bytes (hasta cuatro por carácter). Esto significa que no todos los índices de bytes en una cadena UTF-8 es necesariamente un índice válido para un carácter. Si indexas una cadena en un índice de bytes no válido, se genera un error:julia> s[1]\n'∀': Unicode U+2200 (category Sm: Symbol, math)\n\njulia> s[2]\nERROR: UnicodeError: invalid character index\n[...]\n\njulia> s[3]\nERROR: UnicodeError: invalid character index\n[...]\n\njulia> s[4]\n' ': ASCII/Unicode U+0020 (category Zs: Separator, space)En este caso, el carácter ∀ es un carácter de tres bytes, por lo que los índices 2 y 3 no son válidos y el índice del siguiente carácter es 4; este siguiente índice válido puede ser calculado con nextind(s,1), y el siguiente índice después de éste con nextind(s,4) y así sucesivamente.Debido a las codificaciones de longitud variable, el número de caracteres de una cadena (dada por length(s)) no siempre lo mismo que el último índice. Si se itera a través de los índices 1 hasta endof(s) y se indexa en s, la secuencia de caracteres devueltos cuando no se lanzan errores es la secuencia de caracteres que contiene la cadena s. Por tanto, tenemos la identidad de que length(s) <= endof(s), ya que cada carácter en una cadena debe tener su propio índice. La siguiente es una forma ineficaz y verbosa de iterar a través de los caracteres de s:julia> for i = 1:endof(s)\n           try\n               println(s[i])\n           catch\n               # ignore the index error\n           end\n       end\n∀\n\nx\n\n∃\n\nyLas líneas en blanco en realidad tienen espacios en ellos. Afortunadamente, el idioma anterior incómodo es innecesario para iterar a través de los caracteres de una cadena, ya que se puede utilizar la cadena como un objeto iterable, sin que se requiera el manejo de excepciones:julia> for c in s\n           println(c)\n       end\n∀\n\nx\n\n∃\n\nyJulia utiliza la codificación UTF-8 de forma predeterminada y el soporte para nuevas codificaciones puede agregarse mediante paquetes. Por ejemplo, el paquete LegacyStrings.jl implementa los tipos UTF16String y UTF32String. Una mayor discusión sobre otras codificaciones y cómo implementar el soporte para ellas está más allá del alcance de este documento por el momento. Para más información sobre los problemas de codificación UTF-8, consulte la sección siguiente sobre literales byte array. La función transcode() se proporciona para convertir datos entre las distintas codificaciones UTF-xx, principalmente para trabajar con datos y bibliotecas externas."
 },
 
 {
-    "location": "manual/strings.html#Concatenation-1",
+    "location": "manual/strings.html#concatenation-1",
     "page": "Strings",
-    "title": "Concatenation",
+    "title": "Concatenación",
     "category": "section",
-    "text": "One of the most common and useful string operations is concatenation:julia> greet = \"Hello\"\n\"Hello\"\n\njulia> whom = \"world\"\n\"world\"\n\njulia> string(greet, \", \", whom, \".\\n\")\n\"Hello, world.\\n\"Julia also provides * for string concatenation:julia> greet * \", \" * whom * \".\\n\"\n\"Hello, world.\\n\"While * may seem like a surprising choice to users of languages that provide + for string concatenation, this use of * has precedent in mathematics, particularly in abstract algebra.In mathematics, + usually denotes a commutative operation, where the order of the operands does not matter. An example of this is matrix addition, where A + B == B + A for any matrices A and B that have the same shape. In contrast, * typically denotes a noncommutative operation, where the order of the operands does matter. An example of this is matrix multiplication, where in general A * B != B * A. As with matrix multiplication, string concatenation is noncommutative: greet * whom != whom * greet. As such, * is a more natural choice for an infix string concatenation operator, consistent with common mathematical use.More precisely, the set of all finite-length strings S together with the string concatenation operator * forms a free monoid (S, *). The identity element of this set is the empty string, \"\". Whenever a free monoid is not commutative, the operation is typically represented as \\cdot, *, or a similar symbol, rather than +, which as stated usually implies commutativity."
+    "text": "Una de las operaciones de cadena más comunes y útiles es la concatenación:julia> greet = \"Hello\"\n\"Hello\"\n\njulia> whom = \"world\"\n\"world\"\n\njulia> string(greet, \", \", whom, \".\\n\")\n\"Hello, world.\\n\"Julia también proporciona el operador * para concatenar cadenas:julia> greet * \", \" * whom * \".\\n\"\n\"Hello, world.\\n\"Aunque * puede parecer una elección sorprendente a los usuarios de lenguajes que proporcionan + para concatenación de cadenas, este uso de *tiene precedentes en matemáticas, particularmente en álgebra abstracta.En matemáticas, + suele denotar una operación conmutativa, donde el orden de los operandos no importa. Un ejemplo de esto es la suma de matrices, donde A + B == B + A para dos matrices cualesquiera A y B que tengan la misma forma. En contraste, * suele denotar una operación no conmutativa, donde el orden de los operandos importa. Un ejemplo de esto es la multiplicación de matrices donde, en general, A * B != B * A. Como con la multiplicación de matrices, la concatenación es no conmutativa: greet * whom != whom * greet. Por tanto, * es una elección más natural para el operador infijo de concatenación, consistente con el uso matemático común.Más precisamente, el conjunto de todas las cadenas S de longitud finita junto con el operador de concatenación * forman un monoide libre (S, *). El elemento identidad de este conjunto es la cadena vacía \"\". Siempre que un monoide libre es no conmutativo, la operación suele ser representada por \\cdot, *, o un símbolo similar, en luga de con + que implica conmutatividad."
 },
 
 {
     "location": "manual/strings.html#string-interpolation-1",
     "page": "Strings",
-    "title": "Interpolation",
+    "title": "Interpolación",
     "category": "section",
-    "text": "Constructing strings using concatenation can become a bit cumbersome, however. To reduce the need for these verbose calls to string() or repeated multiplications, Julia allows interpolation into string literals using $, as in Perl:julia> \"$greet, $whom.\\n\"\n\"Hello, world.\\n\"This is more readable and convenient and equivalent to the above string concatenation – the system rewrites this apparent single string literal into a concatenation of string literals with variables.The shortest complete expression after the $ is taken as the expression whose value is to be interpolated into the string. Thus, you can interpolate any expression into a string using parentheses:julia> \"1 + 2 = $(1 + 2)\"\n\"1 + 2 = 3\"Both concatenation and string interpolation call string() to convert objects into string form. Most non-AbstractString objects are converted to strings closely corresponding to how they are entered as literal expressions:julia> v = [1,2,3]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> \"v: $v\"\n\"v: [1, 2, 3]\"string() is the identity for AbstractString and Char values, so these are interpolated into strings as themselves, unquoted and unescaped:julia> c = 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> \"hi, $c\"\n\"hi, x\"To include a literal $ in a string literal, escape it with a backslash:julia> print(\"I have \\$100 in my account.\\n\")\nI have $100 in my account."
+    "text": "Construir cadenas mediante concatenación puede llegar a ser un poco engorroso, sin embargo. Para reducir la necesidad de estas llamadas verbosas a string() o multiplicaciones repetidas, Julia permite la interpolación en literales de cadena usando $, como en Perl:julia> \"$greet, $whom.\\n\"\n\"Hello, world.\\n\"Esto es más legible y conveniente, y equivalente a la concatenación de cadena anterior – el sistema rescribe este aparente literal de cadena única en una concatenación de literales de cadena con variables.La expresión completa más corta después de $ se toma como la expresión cuyo valor debe ser interpolado en la cadena. Por lo tanto, puede interpolar cualquier expresión en una cadena usando paréntesis:julia> \"1 + 2 = $(1 + 2)\"\n\"1 + 2 = 3\"Tanto la concatenación como la interpolación de cadena llaman a string() para convertir objetos al formato de cadena. La mayoría de los objetos que no son AbstractString se convierten en cadenas que se corresponden estrechamente con la forma en que se introducen como expresiones literales:julia> v = [1,2,3]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> \"v: $v\"\n\"v: [1, 2, 3]\"string() es la identidad para los valores AbstractString y Char values, por lo que estos se interpolan en cadenas como ellos mismos, sin entrecomillar y sin escapar:julia> c = 'x'\n'x': ASCII/Unicode U+0078 (category Ll: Letter, lowercase)\n\njulia> \"hi, $c\"\n\"hi, x\"Para incluir un literal $ en una cadena, lo escaparemos con un backslash:julia> print(\"I have \\$100 in my account.\\n\")\nI have $100 in my account."
 },
 
 {
-    "location": "manual/strings.html#Triple-Quoted-String-Literals-1",
+    "location": "manual/strings.html#triple-quoted-string-literals-1",
     "page": "Strings",
-    "title": "Triple-Quoted String Literals",
+    "title": "Literales cadena con triples comillas",
     "category": "section",
-    "text": "When strings are created using triple-quotes (\"\"\"...\"\"\") they have some special behavior that can be useful for creating longer blocks of text. First, if the opening \"\"\" is followed by a newline, the newline is stripped from the resulting string.\"\"\"hello\"\"\"is equivalent to\"\"\"\nhello\"\"\"but\"\"\"\n\nhello\"\"\"will contain a literal newline at the beginning. Trailing whitespace is left unaltered. They can contain \" symbols without escaping. Triple-quoted strings are also dedented to the level of the least-indented line. This is useful for defining strings within code that is indented. For example:julia> str = \"\"\"\n           Hello,\n           world.\n         \"\"\"\n\"  Hello,\\n  world.\\n\"In this case the final (empty) line before the closing \"\"\" sets the indentation level.Note that line breaks in literal strings, whether single- or triple-quoted, result in a newline (LF) character \\n in the string, even if your editor uses a carriage return \\r (CR) or CRLF combination to end lines. To include a CR in a string, use an explicit escape \\r; for example, you can enter the literal string \"a CRLF line ending\\r\\n\"."
+    "text": "Cuando las cadenas se crean utilizando comillas triples (\"\"\"...\"\"\") tienen un comportamiento especial que puede ser útil para crear bloques de texto más largos. En primer lugar, si la apertura \"\"\" es seguida por una nueva línea, la nueva línea se quita de la cadena resultante:\"\"\"hello\"\"\"es equivalente a\"\"\"\nhello\"\"\"pero\"\"\"\n\nhello\"\"\"contendrá un literal new line al principio. Los espacios en blanco no se modifican. Pueden contener símbolos \" sin escapar. Las cadenas de triple comilla también se dedican al nivel de la línea menos indentada. Esto es útil para definir cadenas dentro del código que está sangrado Por ejemplo:julia> str = \"\"\"\n           Hello,\n           world.\n         \"\"\"\n\"  Hello,\\n  world.\\n\"En este caso la línea final (vacía) antes del cierre \"\"\" establece el nivel de indentación.Tenga en cuenta que las saltos de línea en cadenas literales, sean de una sola o triple comilla, resultan en un carácter de línea nueva (LF) \\n en la cadena, incluso si su editor usa una combinación de retorno de carro (CR) o CRLF para finalizar líneas. Para incluir un CR en una cadena, utilice un escape explícito \\r; Por ejemplo, puede introducir la cadena literal \"una línea CRLF que termina \\r \\n\"."
 },
 
 {
-    "location": "manual/strings.html#Common-Operations-1",
+    "location": "manual/strings.html#common-operations-1",
     "page": "Strings",
-    "title": "Common Operations",
+    "title": "Operaciones Comunes",
     "category": "section",
-    "text": "You can lexicographically compare strings using the standard comparison operators:julia> \"abracadabra\" < \"xylophone\"\ntrue\n\njulia> \"abracadabra\" == \"xylophone\"\nfalse\n\njulia> \"Hello, world.\" != \"Goodbye, world.\"\ntrue\n\njulia> \"1 + 2 = 3\" == \"1 + 2 = $(1 + 2)\"\ntrueYou can search for the index of a particular character using the search() function:julia> search(\"xylophone\", 'x')\n1\n\njulia> search(\"xylophone\", 'p')\n5\n\njulia> search(\"xylophone\", 'z')\n0You can start the search for a character at a given offset by providing a third argument:julia> search(\"xylophone\", 'o')\n4\n\njulia> search(\"xylophone\", 'o', 5)\n7\n\njulia> search(\"xylophone\", 'o', 8)\n0You can use the contains() function to check if a substring is contained in a string:julia> contains(\"Hello, world.\", \"world\")\ntrue\n\njulia> contains(\"Xylophon\", \"o\")\ntrue\n\njulia> contains(\"Xylophon\", \"a\")\nfalse\n\njulia> contains(\"Xylophon\", 'o')\nERROR: MethodError: no method matching contains(::String, ::Char)\nClosest candidates are:\n  contains(!Matched::Function, ::Any, !Matched::Any) at reduce.jl:664\n  contains(::AbstractString, !Matched::AbstractString) at strings/search.jl:378The last error is because 'o' is a character literal, and contains() is a generic function that looks for subsequences. To look for an element in a sequence, you must use in() instead.Two other handy string functions are repeat() and join():julia> repeat(\".:Z:.\", 10)\n\".:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:.\"\n\njulia> join([\"apples\", \"bananas\", \"pineapples\"], \", \", \" and \")\n\"apples, bananas and pineapples\"Some other useful functions include:endof(str) gives the maximal (byte) index that can be used to index into str.\nlength(str) the number of characters in str.\ni = start(str) gives the first valid index at which a character can be found in str (typically 1).\nc, j = next(str,i) returns next character at or after the index i and the next valid character index following that. With start() and endof(), can be used to iterate through the characters in str.\nind2chr(str,i) gives the number of characters in str up to and including any at index i.\nchr2ind(str,j) gives the index at which the jth character in str occurs."
+    "text": "Podemos comparar cadenas lexicográficamente usando los operadores de comparación estandard:julia> \"abracadabra\" < \"xylophone\"\ntrue\n\njulia> \"abracadabra\" == \"xylophone\"\nfalse\n\njulia> \"Hello, world.\" != \"Goodbye, world.\"\ntrue\n\njulia> \"1 + 2 = 3\" == \"1 + 2 = $(1 + 2)\"\ntrueLa función search() permite buscar el índice de una carácter en una cadena:julia> search(\"xylophone\", 'x')\n1\n\njulia> search(\"xylophone\", 'p')\n5\n\njulia> search(\"xylophone\", 'z')\n0Y se puede arrancar la búsqueda de un carácter a partir de un desplazamiento proporcionado por un tercer argumento:julia> search(\"xylophone\", 'o')\n4\n\njulia> search(\"xylophone\", 'o', 5)\n7\n\njulia> search(\"xylophone\", 'o', 8)\n0La función contains() se usa para comprobar si una subcadena está contenida en una cadena:julia> contains(\"Hello, world.\", \"world\")\ntrue\n\njulia> contains(\"Xylophon\", \"o\")\ntrue\n\njulia> contains(\"Xylophon\", \"a\")\nfalse\n\njulia> contains(\"Xylophon\", 'o')\nERROR: MethodError: no method matching contains(::String, ::Char)\nClosest candidates are:\n  contains(!Matched::Function, ::Any, !Matched::Any) at reduce.jl:664\n  contains(::AbstractString, !Matched::AbstractString) at strings/search.jl:378Este último error es debido a que 'o'  es un literal carácter, y contains() es una función genérica que busca subsecuencias. Para buscar un elemento en una secuencia, debemos usar la función in() en lugra de la anterior.repeat() y join() son otras dos funciones de cadena muy útiles:julia> repeat(\".:Z:.\", 10)\n\".:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:.\"\n\njulia> join([\"apples\", \"bananas\", \"pineapples\"], \", \", \" and \")\n\"apples, bananas and pineapples\"Algunas otras funciones útiles son:endof(str) el índice máximo (byte) que se puede utilizar para indexar en str.\nlength(str) el número de caracteres en str. * i = start(str) da el primer índice válido en el que se puede encontrar un carácter en `str (típicamente 1).c, j = next(str,i) devuelve el carácter siguiente en o después del índice i y el siguiente índice de carácter válido que sigue a éste. Con start() y endof(), se puede utilizar para iterar a través de los caracteres en str`.\nind2chr(str,i) da el número de caracteres en str hasta e incluyendo cualquiera en el índice i.\nchr2ind(str,j) da el índice en el cual ocurre el carácter j-ésimo en str."
 },
 
 {
     "location": "manual/strings.html#non-standard-string-literals-1",
     "page": "Strings",
-    "title": "Non-Standard String Literals",
+    "title": "Literales cadena no estándar",
     "category": "section",
-    "text": "There are situations when you want to construct a string or use string semantics, but the behavior of the standard string construct is not quite what is needed. For these kinds of situations, Julia provides non-standard string literals. A non-standard string literal looks like a regular double-quoted string literal, but is immediately prefixed by an identifier, and doesn't behave quite like a normal string literal.  Regular expressions, byte array literals and version number literals, as described below, are some examples of non-standard string literals. Other examples are given in the Metaprogramming section."
+    "text": "Hay situaciones en las que se desea construir una cadena o utilizar semántica de cadenas, pero el comportamiento de la construcción de cadena estándar no es lo que se necesita. Para este tipo de situaciones, Julia proporciona literales cadena no estándar. Un literal de cadena no estándar es como una cadena literal normal de doble comilla, pero va inmediatamente precedido de un identificador y no se comporta como un literal de cadena normal. El convenio es que los literales no estándar con prefijos en mayúsculas producen objetos cadena reales, mientras que aquellos con prefijos en minúsculas producen objetos que no cadena, como arrays de bytes o expresiones regulares compiladas. Las expresiones regulares, literales arrays de bytes y literales de números de versión, como se describe a continuación, son algunos ejemplos de literales de cadena no estándar. Otros ejemplos se dan en la sección Metaprogramación."
 },
 
 {
-    "location": "manual/strings.html#Regular-Expressions-1",
+    "location": "manual/strings.html#regular-expressions-1",
     "page": "Strings",
-    "title": "Regular Expressions",
+    "title": "Expresiones Regulares",
     "category": "section",
-    "text": "Julia has Perl-compatible regular expressions (regexes), as provided by the PCRE library. Regular expressions are related to strings in two ways: the obvious connection is that regular expressions are used to find regular patterns in strings; the other connection is that regular expressions are themselves input as strings, which are parsed into a state machine that can be used to efficiently search for patterns in strings. In Julia, regular expressions are input using non-standard string literals prefixed with various identifiers beginning with r. The most basic regular expression literal without any options turned on just uses r\"...\":julia> r\"^\\s*(?:#|$)\"\nr\"^\\s*(?:#|$)\"\n\njulia> typeof(ans)\nRegexTo check if a regex matches a string, use ismatch():julia> ismatch(r\"^\\s*(?:#|$)\", \"not a comment\")\nfalse\n\njulia> ismatch(r\"^\\s*(?:#|$)\", \"# a comment\")\ntrueAs one can see here, ismatch() simply returns true or false, indicating whether the given regex matches the string or not. Commonly, however, one wants to know not just whether a string matched, but also how it matched. To capture this information about a match, use the match() function instead:julia> match(r\"^\\s*(?:#|$)\", \"not a comment\")\n\njulia> match(r\"^\\s*(?:#|$)\", \"# a comment\")\nRegexMatch(\"#\")If the regular expression does not match the given string, match() returns nothing – a special value that does not print anything at the interactive prompt. Other than not printing, it is a completely normal value and you can test for it programmatically:m = match(r\"^\\s*(?:#|$)\", line)\nif m === nothing\n    println(\"not a comment\")\nelse\n    println(\"blank or comment\")\nendIf a regular expression does match, the value returned by match() is a RegexMatch object. These objects record how the expression matches, including the substring that the pattern matches and any captured substrings, if there are any. This example only captures the portion of the substring that matches, but perhaps we want to capture any non-blank text after the comment character. We could do the following:julia> m = match(r\"^\\s*(?:#\\s*(.*?)\\s*$|$)\", \"# a comment \")\nRegexMatch(\"# a comment \", 1=\"a comment\")When calling match(), you have the option to specify an index at which to start the search. For example:julia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",1)\nRegexMatch(\"1\")\n\njulia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",6)\nRegexMatch(\"2\")\n\njulia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",11)\nRegexMatch(\"3\")You can extract the following info from a RegexMatch object:the entire substring matched: m.match\nthe captured substrings as an array of strings: m.captures\nthe offset at which the whole match begins: m.offset\nthe offsets of the captured substrings as a vector: m.offsetsFor when a capture doesn't match, instead of a substring, m.captures contains nothing in that position, and m.offsets has a zero offset (recall that indices in Julia are 1-based, so a zero offset into a string is invalid). Here is a pair of somewhat contrived examples:julia> m = match(r\"(a|b)(c)?(d)\", \"acd\")\nRegexMatch(\"acd\", 1=\"a\", 2=\"c\", 3=\"d\")\n\njulia> m.match\n\"acd\"\n\njulia> m.captures\n3-element Array{Union{SubString{String}, Void},1}:\n \"a\"\n \"c\"\n \"d\"\n\njulia> m.offset\n1\n\njulia> m.offsets\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> m = match(r\"(a|b)(c)?(d)\", \"ad\")\nRegexMatch(\"ad\", 1=\"a\", 2=nothing, 3=\"d\")\n\njulia> m.match\n\"ad\"\n\njulia> m.captures\n3-element Array{Union{SubString{String}, Void},1}:\n \"a\"\n nothing\n \"d\"\n\njulia> m.offset\n1\n\njulia> m.offsets\n3-element Array{Int64,1}:\n 1\n 0\n 2It is convenient to have captures returned as an array so that one can use destructuring syntax to bind them to local variables:julia> first, second, third = m.captures; first\n\"a\"Captures can also be accessed by indexing the RegexMatch object with the number or name of the capture group:julia> m=match(r\"(?<hour>\\d+):(?<minute>\\d+)\",\"12:45\")\nRegexMatch(\"12:45\", hour=\"12\", minute=\"45\")\n\njulia> m[:minute]\n\"45\"\n\njulia> m[2]\n\"45\"Captures can be referenced in a substitution string when using replace() by using \\n to refer to the nth capture group and prefixing the substitution string with s. Capture group 0 refers to the entire match object. Named capture groups can be referenced in the substitution with g<groupname>. For example:julia> replace(\"first second\", r\"(\\w+) (?<agroup>\\w+)\", s\"\\g<agroup> \\1\")\n\"second first\"Numbered capture groups can also be referenced as \\g<n> for disambiguation, as in:julia> replace(\"a\", r\".\", s\"\\g<0>1\")\n\"a1\"You can modify the behavior of regular expressions by some combination of the flags i, m, s, and x after the closing double quote mark. These flags have the same meaning as they do in Perl, as explained in this excerpt from the perlre manpage:i   Do case-insensitive pattern matching.\n\n    If locale matching rules are in effect, the case map is taken\n    from the current locale for code points less than 255, and\n    from Unicode rules for larger code points. However, matches\n    that would cross the Unicode rules/non-Unicode rules boundary\n    (ords 255/256) will not succeed.\n\nm   Treat string as multiple lines.  That is, change \"^\" and \"$\"\n    from matching the start or end of the string to matching the\n    start or end of any line anywhere within the string.\n\ns   Treat string as single line.  That is, change \".\" to match any\n    character whatsoever, even a newline, which normally it would\n    not match.\n\n    Used together, as r\"\"ms, they let the \".\" match any character\n    whatsoever, while still allowing \"^\" and \"$\" to match,\n    respectively, just after and just before newlines within the\n    string.\n\nx   Tells the regular expression parser to ignore most whitespace\n    that is neither backslashed nor within a character class. You\n    can use this to break up your regular expression into\n    (slightly) more readable parts. The '#' character is also\n    treated as a metacharacter introducing a comment, just as in\n    ordinary code.For example, the following regex has all three flags turned on:julia> r\"a+.*b+.*?d$\"ism\nr\"a+.*b+.*?d$\"ims\n\njulia> match(r\"a+.*b+.*?d$\"ism, \"Goodbye,\\nOh, angry,\\nBad world\\n\")\nRegexMatch(\"angry,\\nBad world\")Triple-quoted regex strings, of the form r\"\"\"...\"\"\", are also supported (and may be convenient for regular expressions containing quotation marks or newlines)."
+    "text": "Julia tiene expresiones regulares compatibles con Perl (expresiones regulares), tal y como las proporciona la biblioteca PCRE. Las expresiones regulares se relacionan con las cadenas de dos maneras: la conexión obvia es que las expresiones regulares se utilizan para encontrar patrones regulares en cadenas; La otra conexión es que las expresiones regulares se introducen ellas mismas como cadenas, que se analizan en una máquina de estado que puede utilizarse para buscar patrones en cadenas de forma eficiente. En Julia, las expresiones regulares se introducen usando literales de cadena no estándar prefijados con varios identificadores comenzando por r. El literal de expresión regular más básico sin ninguna opción activada sólo utiliza r\"...\":julia> r\"^\\s*(?:#|$)\"\nr\"^\\s*(?:#|$)\"\n\njulia> typeof(ans)\nRegexPara comprobar si una regex se corresponde con una cadena, se utiliza  ismatch():julia> ismatch(r\"^\\s*(?:#|$)\", \"not a comment\")\nfalse\n\njulia> ismatch(r\"^\\s*(?:#|$)\", \"# a comment\")\ntrueComo puede verse aquí, ismatch() simplemente devuelve true o false, indicando si la regex dada coincide o no con la cadena. Es común, sin embargo, que uno quiera saber no sólo si una cadena coincide, sino también cómo coincide. Para capturar esta información sobre una coincidencia, se utiliza la función match():julia> match(r\"^\\s*(?:#|$)\", \"not a comment\")\n\njulia> match(r\"^\\s*(?:#|$)\", \"# a comment\")\nRegexMatch(\"#\")Si la expresión regular no coincide con la cadena dada, match() devuelve nothing – un valor especial que no imprime nada en el indicador interactivo. Aparte de no imprimir, es un valor completamente normal, como podemos comprobar en el siguiente código:m = match(r\"^\\s*(?:#|$)\", line)\nif m === nothing\n    println(\"not a comment\")\nelse\n    println(\"blank or comment\")\nendSi la expresión regular coincide, el valor devuelto por match()  es un objeto RegexMatch. Estos objetos registran cómo coincide la expresión, incluyendo la subcadena que coincide con el patrón y cualquier subcadena capturada, si la hay. Este ejemplo sólo captura la parte de la subcadena que coincide, pero tal vez quisiéramos capturar cualquier texto no en blanco después del carácter de comentario. Podríamos hacer lo siguiente:julia> m = match(r\"^\\s*(?:#\\s*(.*?)\\s*$|$)\", \"# a comment \")\nRegexMatch(\"# a comment \", 1=\"a comment\")Al invocar a match(), tenemos la opción de especificar un índice en el que iniciar la búsqueda. Por ejemplo:julia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",1)\nRegexMatch(\"1\")\n\njulia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",6)\nRegexMatch(\"2\")\n\njulia> m = match(r\"[0-9]\",\"aaaa1aaaa2aaaa3\",11)\nRegexMatch(\"3\")Puede extraer la siguiente información de un objeto RegexMatch:La totalidad de la subcadena emparejada: m.match\nLas subcadenas capturadas como una matriz de cadenas: m.captures\nEl desplazamiento en el que comienza la coincidencia del patrón: m.offset\nLos desplazamientos de las subcadenas capturadas como un vector: m.offsetsPara cuando una captura no coincide, en lugar de una subcadena, m.captures no contiene nada en esa posición, y m.offsets tiene un desplazamiento de cero (recuerde que los índices en Julia son 1-based, por lo que un desplazamiento de cero en una cadena es inválido). Aquí hay un par de ejemplos algo artificiales:julia> m = match(r\"(a|b)(c)?(d)\", \"acd\")\nRegexMatch(\"acd\", 1=\"a\", 2=\"c\", 3=\"d\")\n\njulia> m.match\n\"acd\"\n\njulia> m.captures\n3-element Array{Union{SubString{String}, Void},1}:\n \"a\"\n \"c\"\n \"d\"\n\njulia> m.offset\n1\n\njulia> m.offsets\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> m = match(r\"(a|b)(c)?(d)\", \"ad\")\nRegexMatch(\"ad\", 1=\"a\", 2=nothing, 3=\"d\")\n\njulia> m.match\n\"ad\"\n\njulia> m.captures\n3-element Array{Union{SubString{String}, Void},1}:\n \"a\"\n nothing\n \"d\"\n\njulia> m.offset\n1\n\njulia> m.offsets\n3-element Array{Int64,1}:\n 1\n 0\n 2Es conveniente que las capturas sean retornadas como un array para que uno pueda usar la sintaxis de desestructurante para enlazarlas a variables locales: julia> first, second, third = m.captures; first\n\"a\"Las capturas también está accesibles indexando el objeto RegexMatch con el número o nombre del grupo captura:julia> m=match(r\"(?<hour>\\d+):(?<minute>\\d+)\",\"12:45\")\nRegexMatch(\"12:45\", hour=\"12\", minute=\"45\")\n\njulia> m[:minute]\n\"45\"\n\njulia> m[2]\n\"45\"Las capturas pueden referenciarse en una cadena de sustitución cuando se utiliza replace() utilizando \\n para referirse al grupo de captura n-ésimo y prefijando la cadena de subsitución con s. El grupo de captura 0 se refiere a todo el objeto de coincidencia. Los grupos de captura nombrados se pueden hacer referencia en la sustitución con g<groupname>. Por ejemplo:julia> replace(\"first second\", r\"(\\w+) (?<agroup>\\w+)\", s\"\\g<agroup> \\1\")\n\"second first\"Los grupos de captura numerados pueden también ser referenciados como \\g<n> para evitar ambigüedad, como en:julia> replace(\"a\", r\".\", s\"\\g<0>1\")\n\"a1\"Puedes modificar el comportamiento de las expresiones regulares mediante una combinación de los flags i, m, s y x después de la marca de comillas dobles de cierre. Estas banderas tienen el mismo significado que en Perl, tal y como se describe en este fragmento de la [página de manual del referencia de Perl(http://perldoc.perl.org/perlre.html#Modifiers):i   Do case-insensitive pattern matching.\n\n    If locale matching rules are in effect, the case map is taken\n    from the current locale for code points less than 255, and\n    from Unicode rules for larger code points. However, matches\n    that would cross the Unicode rules/non-Unicode rules boundary\n    (ords 255/256) will not succeed.\n\nm   Treat string as multiple lines.  That is, change \"^\" and \"$\"\n    from matching the start or end of the string to matching the\n    start or end of any line anywhere within the string.\n\ns   Treat string as single line.  That is, change \".\" to match any\n    character whatsoever, even a newline, which normally it would\n    not match.\n\n    Used together, as r\"\"ms, they let the \".\" match any character\n    whatsoever, while still allowing \"^\" and \"$\" to match,\n    respectively, just after and just before newlines within the\n    string.\n\nx   Tells the regular expression parser to ignore most whitespace\n    that is neither backslashed nor within a character class. You\n    can use this to break up your regular expression into\n    (slightly) more readable parts. The '#' character is also\n    treated as a metacharacter introducing a comment, just as in\n    ordinary code.Por ejemplo, la siguiente regex tiene activados los tres flags:julia> r\"a+.*b+.*?d$\"ism\nr\"a+.*b+.*?d$\"ims\n\njulia> match(r\"a+.*b+.*?d$\"ism, \"Goodbye,\\nOh, angry,\\nBad world\\n\")\nRegexMatch(\"angry,\\nBad world\")Las cadenas regex con triples comillas, de la forma r\"\"\"...\"\"\" están también soportadas (y puede ser conveniente para expresiones regulares que contengan comillas o caracteres de salto de línea)."
 },
 
 {
@@ -493,15 +493,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Strings",
     "title": "Byte Array Literals",
     "category": "section",
-    "text": "Another useful non-standard string literal is the byte-array string literal: b\"...\". This form lets you use string notation to express literal byte arrays – i.e. arrays of UInt8 values. The rules for byte array literals are the following:ASCII characters and ASCII escapes produce a single byte.\n\\x and octal escape sequences produce the byte corresponding to the escape value.\nUnicode escape sequences produce a sequence of bytes encoding that code point in UTF-8.There is some overlap between these rules since the behavior of \\x and octal escapes less than 0x80 (128) are covered by both of the first two rules, but here these rules agree. Together, these rules allow one to easily use ASCII characters, arbitrary byte values, and UTF-8 sequences to produce arrays of bytes. Here is an example using all three:julia> b\"DATA\\xff\\u2200\"\n8-element Array{UInt8,1}:\n 0x44\n 0x41\n 0x54\n 0x41\n 0xff\n 0xe2\n 0x88\n 0x80The ASCII string \"DATA\" corresponds to the bytes 68, 65, 84, 65. \\xff produces the single byte 255. The Unicode escape \\u2200 is encoded in UTF-8 as the three bytes 226, 136, 128. Note that the resulting byte array does not correspond to a valid UTF-8 string – if you try to use this as a regular string literal, you will get a syntax error:julia> \"DATA\\xff\\u2200\"\nERROR: syntax: invalid UTF-8 sequenceAlso observe the significant distinction between \\xff and \\uff: the former escape sequence encodes the byte 255, whereas the latter escape sequence represents the code point 255, which is encoded as two bytes in UTF-8:julia> b\"\\xff\"\n1-element Array{UInt8,1}:\n 0xff\n\njulia> b\"\\uff\"\n2-element Array{UInt8,1}:\n 0xc3\n 0xbfIn character literals, this distinction is glossed over and \\xff is allowed to represent the code point 255, because characters always represent code points. In strings, however, \\x escapes always represent bytes, not code points, whereas \\u and \\U escapes always represent code points, which are encoded in one or more bytes. For code points less than \\u80, it happens that the UTF-8 encoding of each code point is just the single byte produced by the corresponding \\x escape, so the distinction can safely be ignored. For the escapes \\x80 through \\xff as compared to \\u80 through \\uff, however, there is a major difference: the former escapes all encode single bytes, which – unless followed by very specific continuation bytes – do not form valid UTF-8 data, whereas the latter escapes all represent Unicode code points with two-byte encodings.If this is all extremely confusing, try reading \"The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets\". It's an excellent introduction to Unicode and UTF-8, and may help alleviate some confusion regarding the matter."
+    "text": "Otro literal de cadena no estándar útil es el literal de cadena de bytes: b \"...\". Esta forma nos permite usar la notación de cadena para expresar arrays de bytes literales, es decir, arrays de valores UInt8. Las reglas para los literales de arrays de bytes son las siguientes:Los caracteres ASCII y los escapes ASCII producen un solo byte.\n\\x y las secuencias de escape octales producen el byte correspondiente al valor de escape.\nLas secuencias de escape Unicode producen una secuencia de bytes que codifican ese punto de código en UTF-8.Hay una cierta superposición entre estas reglas ya que el comportamiento de \\x y escapes octales menores de 0x80 (128) están cubiertos por las dos primeras reglas, pero aquí estas reglas están de acuerdo. Juntas, estas reglas permiten usar fácilmente caracteres ASCII, valores arbitrarios de bytes y secuencias UTF-8 para producir matrices de bytes. Aquí hay un ejemplo usando los tres:julia> b\"DATA\\xff\\u2200\"\n8-element Array{UInt8,1}:\n 0x44\n 0x41\n 0x54\n 0x41\n 0xff\n 0xe2\n 0x88\n 0x80La secuencia ASCII \"DATA\" corresponde a los bytes 68, 65, 84, 65. \\xff produce el byte simple 255. El escape Unicode \\u2200 está codificado en UTF-8 como los tres bytes 226, 136, 128. Nótese que la matriz de bytes resultante no corresponde a una cadena UTF-8 válida - si intenta utilizar esto como una cadena literal normal, obtendrá un error de sintaxis:julia> \"DATA\\xff\\u2200\"\nERROR: syntax: invalid UTF-8 sequenceObserve también la distinción significativa entre \\xff y \\uff: la secuencia de escape anterior codifica el byte 255, mientras que la última secuencia de escape representa el punto de código 255, que se codifica como dos bytes en UTF-8:julia> b\"\\xff\"\n1-element Array{UInt8,1}:\n 0xff\n\njulia> b\"\\uff\"\n2-element Array{UInt8,1}:\n 0xc3\n 0xbfEn los literales de caracteres, esta distinción se pasa por alto y \\xff está autorizado a  representar el punto de código 255, porque los caracteres siempre representan puntos de código. En las cadenas, sin embargo, los escapes \\x siempre representan bytes, no puntos de código, mientras que los escapes \\u y \\U siempre representan puntos de código, que están codificados en uno o más bytes. Para los puntos de código inferiores a \\u80, ocurre que la codificación UTF-8 de cada punto de código es sólo el byte producido por el escape \\x correspondiente, por lo que la distinción puede ignorarse con seguridad. Sin embargo, para los escapes \\x80 a \\xff en comparación con \\u80 a \\uff, existe una diferencia importante: el primero escapa a todos los bytes sencillos de codificación, los cuales -a menos que sean seguidos por bytes de continuación muy específicos- no forman UTF-8 válido, mientras que los últimos escapes representan puntos de código Unicode con codificaciones de dos bytes.Si todo esto es muy confuso, intente leer \"The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets\". Es una excelente introducción a Unicode y UTF-8, y puede ayudar a aliviar cierta confusión sobre el asunto."
 },
 
 {
     "location": "manual/strings.html#man-version-number-literals-1",
     "page": "Strings",
-    "title": "Version Number Literals",
+    "title": "Literales Número de Versión",
     "category": "section",
-    "text": "Version numbers can easily be expressed with non-standard string literals of the form v\"...\". Version number literals create VersionNumber objects which follow the specifications of semantic versioning, and therefore are composed of major, minor and patch numeric values, followed by pre-release and build alpha-numeric annotations. For example, v\"0.2.1-rc1+win64\" is broken into major version 0, minor version 2, patch version 1, pre-release rc1 and build win64. When entering a version literal, everything except the major version number is optional, therefore e.g.  v\"0.2\" is equivalent to v\"0.2.0\" (with empty pre-release/build annotations), v\"2\" is equivalent to v\"2.0.0\", and so on.VersionNumber objects are mostly useful to easily and correctly compare two (or more) versions. For example, the constant VERSION holds Julia version number as a VersionNumber object, and therefore one can define some version-specific behavior using simple statements as:if v\"0.2\" <= VERSION < v\"0.3-\"\n    # do something specific to 0.2 release series\nendNote that in the above example the non-standard version number v\"0.3-\" is used, with a trailing -: this notation is a Julia extension of the standard, and it's used to indicate a version which is lower than any 0.3 release, including all of its pre-releases. So in the above example the code would only run with stable 0.2 versions, and exclude such versions as v\"0.3.0-rc1\". In order to also allow for unstable (i.e. pre-release) 0.2 versions, the lower bound check should be modified like this: v\"0.2-\" <= VERSION.Another non-standard version specification extension allows one to use a trailing + to express an upper limit on build versions, e.g.  VERSION > v\"0.2-rc1+\" can be used to mean any version above 0.2-rc1 and any of its builds: it will return false for version v\"0.2-rc1+win64\" and true for v\"0.2-rc2\".It is good practice to use such special versions in comparisons (particularly, the trailing - should always be used on upper bounds unless there's a good reason not to), but they must not be used as the actual version number of anything, as they are invalid in the semantic versioning scheme.Besides being used for the VERSION constant, VersionNumber objects are widely used in the Pkg module, to specify packages versions and their dependencies."
+    "text": "Los números de versión se pueden expresar fácilmente con literales de cadena no estándar del forma v\"...\". Los literales de número de versión crean objetos VersionNumber que siguen las especificaciones del control de versiones semánticas y, por lo tanto, se componen de valores numéricos mayor, menor y de parche, seguidos de anotaciones alfanuméricas de pre-liberación y construcción. Por ejemplo, v \"0.2.1-rc1 + win64\" se divide en versión principal 0, versión secundaria 2, versión de revisión 1, rc1 de pre-lanzamiento y construcción win64. Al introducir una versión literal, todo excepto el número de versión principal es opcional, por ejemplo, v\"0.2\" es equivalente a v\"0.2.0\" (con anotaciones previas / de compilación vacías), v\"2\" equivale a v\"2.0.0\", y así sucesivamente.Los objetos VersionNumber son en su mayoría útiles para comparar fácilmente y correctamente dos (o más) versiones. Por ejemplo, la constante VERSION contiene el número de versión de Julia como un objeto VersionNumber y, por lo tanto, se puede definir algún comportamiento específico de la versión utilizando declaraciones simples como:if v\"0.2\" <= VERSION < v\"0.3-\"\n    # do something specific to 0.2 release series\nendObsérvese que en el ejemplo anterior se utiliza el número de versión no estándar v\"0.3-\", con un guión - en cola: esta notación es una extensión Julia del estándar, y se usa para indicar una versión que es más baja que cualquier versión 0.3, Incluyendo todas sus pre-lanzamientos. Por lo tanto, en el ejemplo anterior, el código sólo se ejecuta con versiones estable 0.2 y excluye las versiones v\"0.3.0-rc1\". Para permitir también versiones 0.2 inestables (es decir, pre-liberación), la verificación del límite inferior debería modificarse de la siguiente manera: v\"0.2-\" <= VERSION.Otra extensión de especificación de versión no estándar permite usar un + de cola para expresar un límite superior en las versiones de compilación, por ej. VERSIÓN> v \"0.2-rc1 +\" se puede utilizar para significar cualquier versión por encima de 0.2-rc1 y cualquiera de sus compilaciones: devolverá false para la versión v\"0.2-rc1+win64\" y true para v\"0.2-rc2\".Es una buena práctica utilizar estas versiones especiales en comparaciones (en particular, el valor -de cola siempre debe utilizarse en los límites superiores a menos que haya una buena razón para no hacerlo), pero no deben utilizarse como el número de versión real de nada, ya que son inválidos en el esquema de versiones semánticas.Además de ser utilizados por la constante VERSION, los objetos VersionNumber son ampliamente utilizados en el módulo Pkg, para especificar las versiones de paquetes y sus dependencias."
 },
 
 {
@@ -509,7 +509,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Strings",
     "title": "Raw String Literals",
     "category": "section",
-    "text": "Raw strings without interpolation or unescaping can be expressed with non-standard string literals of the form raw\"...\". Raw string literals create ordinary String objects which contain the enclosed contents exactly as entered with no interpolation or unescaping. This is useful for strings which contain code or markup in other languages which use $ or \\ as special characters. The exception is quotation marks that still must be escaped, e.g. raw\"\\\"\" is equivalent to \"\\\"\"."
+    "text": "Las cadenas en bruto (raw) sin interpolación o unescaping pueden ser expresadas con literales cadena no estándar de la forma raw\"...\". Los literales cadena en bruto crean objetos String ordinarios que contienen los contenidos encerrados exactamente como entrados sin interpolación ni separación. Esto es útil para cadenas que contiene código o marcado en otros idiomas que usan $ o \\ como caracteres especiales. La excepción son las comillas que aún deben ser escapadas, por ejemplo,  raw\" \\ \"\"es equivalente a\"\\\" \"."
 },
 
 {
@@ -4321,11 +4321,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Introduction-1",
+    "location": "stdlib/base.html#Introducción-1",
     "page": "Essentials",
-    "title": "Introduction",
+    "title": "Introducción",
     "category": "section",
-    "text": "The Julia standard library contains a range of functions and macros appropriate for performing scientific and numerical computing, but is also as broad as those of many general purpose programming languages.  Additional functionality is available from a growing collection of available packages. Functions are grouped by topic below.Some general notes:Except for functions in built-in modules (Pkg, Collections, Test and Profile), all functions documented here are directly available for use in programs.\nTo use module functions, use import Module to import the module, and Module.fn(x) to use the functions.\nAlternatively, using Module will import all exported Module functions into the current namespace.\nBy convention, function names ending with an exclamation point (!) modify their arguments. Some functions have both modifying (e.g., sort!) and non-modifying (sort) versions."
+    "text": "La librería estándar de Julia contiene un rango de funciones y maros apropiadas para realizar  computación científica y numérica, pero es también tan amplia como la de muchos lenguajes de  programación de propósito general. También hay funcionalidad adicional disponible en una  colección creciente de paquetes disponibles. Las funciones están agrupadas abajo por temas.Algunas notas generales:Excepto para las funciones en los módulos predefinidos (Pkg, Collections, Test y Profile), todas las funciones documentadas aquí están disponibles directamente  para ser usadas en programas.Para usar funciones de módulos, usar import Module para importar el módulo, y Module.fn(x) para usar las funciones.Alternativamente using Module importará todas las funciones exportadas por el módulo en el espacio de nombres actual.Por convenio, los nombres de funciones que acaban con un signo de admiración (!) modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación  de los argumentos)."
 },
 
 {
@@ -4585,9 +4585,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Getting-Around-1",
+    "location": "stdlib/base.html#Moviéndose-1",
     "page": "Essentials",
-    "title": "Getting Around",
+    "title": "Moviéndose",
     "category": "section",
     "text": "Base.exit\nBase.quit\nBase.atexit\nBase.atreplinit\nBase.isinteractive\nBase.whos\nBase.summarysize\nBase.edit(::AbstractString, ::Integer)\nBase.edit(::Any)\nBase.@edit\nBase.less(::AbstractString)\nBase.less(::Any)\nBase.@less\nBase.clipboard(::Any)\nBase.clipboard()\nBase.reload\nBase.require\nBase.compilecache\nBase.__precompile__\nBase.include\nBase.include_string\nBase.include_dependency\nBase.Docs.apropos\nBase.which(::Any, ::Any)\nBase.which(::Symbol)\nBase.@which\nBase.methods\nBase.methodswith\nBase.@show\nBase.versioninfo\nBase.workspace\nans"
 },
@@ -4785,9 +4785,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#All-Objects-1",
+    "location": "stdlib/base.html#Todos-los-Objetos-1",
     "page": "Essentials",
-    "title": "All Objects",
+    "title": "Todos los Objetos",
     "category": "section",
     "text": "Core.:(===)\nCore.isa\nBase.isequal(::Any, ::Any)\nBase.isequal(::Nullable, ::Nullable)\nBase.isless\nBase.isless(::Nullable, ::Nullable)\nBase.ifelse\nBase.lexcmp\nBase.lexless\nCore.typeof\nCore.tuple\nBase.ntuple\nBase.object_id\nBase.hash\nBase.finalizer\nBase.finalize\nBase.copy\nBase.deepcopy\nCore.isdefined\nBase.convert\nBase.promote\nBase.oftype\nBase.widen\nBase.identity"
 },
@@ -5009,9 +5009,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Types-1",
+    "location": "stdlib/base.html#Tipos-1",
     "page": "Essentials",
-    "title": "Types",
+    "title": "Tipos",
     "category": "section",
     "text": "Base.supertype\nCore.issubtype\nBase.:(<:)\nBase.:(>:)\nBase.subtypes\nBase.typemin\nBase.typemax\nBase.realmin\nBase.realmax\nBase.maxintfloat\nBase.sizeof(::Type)\nBase.eps(::Type{<:AbstractFloat})\nBase.eps(::AbstractFloat)\nBase.promote_type\nBase.promote_rule\nCore.getfield\nCore.setfield!\nBase.fieldoffset\nCore.fieldtype\nBase.isimmutable\nBase.isbits\nBase.isleaftype\nBase.typejoin\nBase.typeintersect\nBase.Val\nBase.Enums.@enum\nBase.instances"
 },
@@ -5073,9 +5073,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Generic-Functions-1",
+    "location": "stdlib/base.html#Funciones-Genéricas-1",
     "page": "Essentials",
-    "title": "Generic Functions",
+    "title": "Funciones Genéricas",
     "category": "section",
     "text": "Core.Function\nBase.method_exists\nCore.applicable\nCore.invoke\nBase.invokelatest\nBase.:(|>)\nBase.:(∘)"
 },
@@ -5177,9 +5177,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Syntax-1",
+    "location": "stdlib/base.html#Sintaxis-1",
     "page": "Essentials",
-    "title": "Syntax",
+    "title": "Sintaxis",
     "category": "section",
     "text": "Core.eval\nBase.@eval\nBase.evalfile\nBase.esc\nBase.@inbounds\nBase.@inline\nBase.@noinline\nBase.gensym\nBase.@gensym\nBase.@polly\nBase.parse(::Any, ::Any)\nBase.parse(::Any)"
 },
@@ -5217,7 +5217,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Nullables-1",
+    "location": "stdlib/base.html#*Nullables*-1",
     "page": "Essentials",
     "title": "Nullables",
     "category": "section",
@@ -5537,9 +5537,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#System-1",
+    "location": "stdlib/base.html#Sistema-1",
     "page": "Essentials",
-    "title": "System",
+    "title": "Sistema",
     "category": "section",
     "text": "Base.run\nBase.spawn\nBase.DevNull\nBase.success\nBase.process_running\nBase.process_exited\nBase.kill(::Base.Process, ::Integer)\nBase.Sys.set_process_title\nBase.Sys.get_process_title\nBase.readandwrite\nBase.ignorestatus\nBase.detach\nBase.Cmd\nBase.setenv\nBase.withenv\nBase.pipeline(::Any, ::Any, ::Any, ::Any...)\nBase.pipeline(::Base.AbstractCmd)\nBase.Libc.gethostname\nBase.getipaddr\nBase.Libc.getpid\nBase.Libc.time()\nBase.time_ns\nBase.tic\nBase.toc\nBase.toq\nBase.@time\nBase.@timev\nBase.@timed\nBase.@elapsed\nBase.@allocated\nBase.EnvHash\nBase.ENV\nBase.is_unix\nBase.is_apple\nBase.is_linux\nBase.is_bsd\nBase.is_windows\nBase.Sys.windows_version\nBase.@static"
 },
@@ -5817,9 +5817,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Errors-1",
+    "location": "stdlib/base.html#Errores-1",
     "page": "Essentials",
-    "title": "Errors",
+    "title": "Errores",
     "category": "section",
     "text": "Base.error\nCore.throw\nBase.rethrow\nBase.backtrace\nBase.catch_backtrace\nBase.assert\nBase.@assert\nBase.ArgumentError\nBase.AssertionError\nCore.BoundsError\nBase.DimensionMismatch\nCore.DivideError\nCore.DomainError\nBase.EOFError\nCore.ErrorException\nCore.InexactError\nCore.InterruptException\nBase.KeyError\nBase.LoadError\nBase.MethodError\nBase.NullException\nCore.OutOfMemoryError\nCore.ReadOnlyMemoryError\nCore.OverflowError\nBase.ParseError\nBase.ProcessExitedException\nCore.StackOverflowError\nBase.SystemError\nCore.TypeError\nCore.UndefRefError\nCore.UndefVarError\nBase.InitError\nBase.retry\nBase.ExponentialBackOff"
 },
@@ -5857,9 +5857,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Events-1",
+    "location": "stdlib/base.html#Eventos-1",
     "page": "Essentials",
-    "title": "Events",
+    "title": "Eventos",
     "category": "section",
     "text": "Base.Timer(::Function, ::Real, ::Real)\nBase.Timer\nBase.AsyncCondition\nBase.AsyncCondition(::Function)"
 },
@@ -6001,9 +6001,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Reflection-1",
+    "location": "stdlib/base.html#Reflexión-1",
     "page": "Essentials",
-    "title": "Reflection",
+    "title": "Reflexión",
     "category": "section",
     "text": "Base.module_name\nBase.module_parent\nBase.current_module\nBase.fullname\nBase.names\nCore.nfields\nBase.fieldnames\nBase.fieldname\nBase.datatype_module\nBase.datatype_name\nBase.isconst\nBase.function_name\nBase.function_module(::Function)\nBase.function_module(::Any, ::Any)\nBase.functionloc(::Any, ::Any)\nBase.functionloc(::Method)\nBase.@functionloc"
 },
@@ -6137,32 +6137,32 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/base.html#Internals-1",
+    "location": "stdlib/base.html#Interioridades-1",
     "page": "Essentials",
-    "title": "Internals",
+    "title": "Interioridades",
     "category": "section",
     "text": "Base.gc\nBase.gc_enable\nBase.macroexpand\nBase.@macroexpand\nBase.expand\nBase.code_lowered\nBase.@code_lowered\nBase.code_typed\nBase.@code_typed\nBase.code_warntype\nBase.@code_warntype\nBase.code_llvm\nBase.@code_llvm\nBase.code_native\nBase.@code_native\nBase.precompile"
 },
 
 {
     "location": "stdlib/collections.html#",
-    "page": "Collections and Data Structures",
-    "title": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones y Estructuras de Datos",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/collections.html#collections-1",
-    "page": "Collections and Data Structures",
-    "title": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones y Estructuras de Datos",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/collections.html#Base.start",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.start",
     "category": "Function",
     "text": "start(iter) -> state\n\nGet initial iteration state for an iterable object.\n\nExamples\n\njulia> start(1:5)\n1\n\njulia> start([1;2;3])\n1\n\njulia> start([4;2;3])\n1\n\n\n\n"
@@ -6170,7 +6170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.done",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.done",
     "category": "Function",
     "text": "done(iter, state) -> Bool\n\nTest whether we are done iterating.\n\nExamples\n\njulia> done(1:5, 3)\nfalse\n\njulia> done(1:5, 5)\nfalse\n\njulia> done(1:5, 6)\ntrue\n\n\n\n"
@@ -6178,7 +6178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.next",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.next",
     "category": "Function",
     "text": "next(iter, state) -> item, state\n\nFor a given iterable object and iteration state, return the current item and the next iteration state.\n\nExamples\n\njulia> next(1:5, 3)\n(3, 4)\n\njulia> next(1:5, 5)\n(5, 6)\n\n\n\n"
@@ -6186,7 +6186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.iteratorsize",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.iteratorsize",
     "category": "Function",
     "text": "iteratorsize(itertype::Type) -> IteratorSize\n\nGiven the type of an iterator, returns one of the following values:\n\nSizeUnknown() if the length (number of elements) cannot be determined in advance.\nHasLength() if there is a fixed, finite length.\nHasShape() if there is a known length plus a notion of multidimensional shape (as for an array).  In this case the size function is valid for the iterator.\nIsInfinite() if the iterator yields values forever.\n\nThe default value (for iterators that do not define this function) is HasLength(). This means that most iterators are assumed to implement length.\n\nThis trait is generally used to select between algorithms that pre-allocate space for their result, and algorithms that resize their result incrementally.\n\njulia> Base.iteratorsize(1:5)\nBase.HasShape()\n\njulia> Base.iteratorsize((2,3))\nBase.HasLength()\n\n\n\n"
@@ -6194,7 +6194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.iteratoreltype",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.iteratoreltype",
     "category": "Function",
     "text": "iteratoreltype(itertype::Type) -> IteratorEltype\n\nGiven the type of an iterator, returns one of the following values:\n\nEltypeUnknown() if the type of elements yielded by the iterator is not known in advance.\nHasEltype() if the element type is known, and eltype would return a meaningful value.\n\nHasEltype() is the default, since iterators are assumed to implement eltype.\n\nThis trait is generally used to select between algorithms that pre-allocate a specific type of result, and algorithms that pick a result type based on the types of yielded values.\n\njulia> Base.iteratoreltype(1:5)\nBase.HasEltype()\n\n\n\n"
@@ -6202,15 +6202,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#lib-collections-iteration-1",
-    "page": "Collections and Data Structures",
-    "title": "Iteration",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Iteración",
     "category": "section",
-    "text": "Sequential iteration is implemented by the methods start(), done(), and next(). The general for loop:for i = I   # or  \"for i in I\"\n    # body\nendis translated into:state = start(I)\nwhile !done(I, state)\n    (i, state) = next(I, state)\n    # body\nendThe state object may be anything, and should be chosen appropriately for each iterable type. See the manual section on the iteration interface for more details about defining a custom iterable type.Base.start\nBase.done\nBase.next\nBase.iteratorsize\nBase.iteratoreltypeFully implemented by:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nEachLine\nAbstractString\nSet"
+    "text": "La iteración secuencial es implementada por los métodos start(), done() y next(). El bucle for general:for i = I   # or  \"for i in I\"\n    # body\nendes traducido a:state = start(I)\nwhile !done(I, state)\n    (i, state) = next(I, state)\n    # body\nendEl objeto state puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la sección de manual sobre la interfaz de iteración para ms detalles sobre detinir un tipo iterable personalizado.Base.start\nBase.done\nBase.next\nBase.iteratorsize\nBase.iteratoreltypeCompletamente implementada por:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nEachLine\nAbstractString\nSet"
 },
 
 {
     "location": "stdlib/collections.html#Base.isempty",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.isempty",
     "category": "Function",
     "text": "isempty(collection) -> Bool\n\nDetermine whether a collection is empty (has no elements).\n\nExamples\n\njulia> isempty([])\ntrue\n\njulia> isempty([1 2 3])\nfalse\n\n\n\n"
@@ -6218,7 +6218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.empty!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.empty!",
     "category": "Function",
     "text": "empty!(collection) -> collection\n\nRemove all elements from a collection.\n\njulia> A = Dict(\"a\" => 1, \"b\" => 2)\nDict{String,Int64} with 2 entries:\n  \"b\" => 2\n  \"a\" => 1\n\njulia> empty!(A);\n\njulia> A\nDict{String,Int64} with 0 entries\n\n\n\n"
@@ -6226,7 +6226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.length-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.length",
     "category": "Method",
     "text": "length(collection) -> Integer\n\nFor ordered, indexable collections, returns the maximum index i for which getindex(collection, i) is valid. For unordered collections, returns the number of elements.\n\nExamples\n\njulia> length(1:5)\n5\n\njulia> length([1; 2; 3; 4])\n4\n\n\n\n"
@@ -6234,23 +6234,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.endof",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.endof",
     "category": "Function",
     "text": "endof(collection) -> Integer\n\nReturns the last index of the collection.\n\nExample\n\njulia> endof([1,2,4])\n3\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#General-Collections-1",
-    "page": "Collections and Data Structures",
-    "title": "General Collections",
+    "location": "stdlib/collections.html#Colecciones-generales-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones generales",
     "category": "section",
-    "text": "Base.isempty\nBase.empty!\nBase.length(::Any)\nBase.endofFully implemented by:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nAbstractString\nSet"
+    "text": "Base.isempty\nBase.empty!\nBase.length(::Any)\nBase.endofCompletamente implementado por:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nAbstractString\nSet"
 },
 
 {
     "location": "stdlib/collections.html#Base.in",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.in",
     "category": "Function",
     "text": "in(item, collection) -> Bool\n∈(item,collection) -> Bool\n∋(collection,item) -> Bool\n∉(item,collection) -> Bool\n∌(collection,item) -> Bool\n\nDetermine whether an item is in the given collection, in the sense that it is == to one of the values generated by iterating over the collection. Some collections need a slightly different definition; for example Sets check whether the item isequal to one of the elements. Dicts look for (key,value) pairs, and the key is compared using isequal. To test for the presence of a key in a dictionary, use haskey or k in keys(dict).\n\njulia> a = 1:3:20\n1:3:19\n\njulia> 4 in a\ntrue\n\njulia> 5 in a\nfalse\n\n\n\n"
@@ -6258,7 +6258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.eltype",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.eltype",
     "category": "Function",
     "text": "eltype(type)\n\nDetermine the type of the elements generated by iterating a collection of the given type. For associative collection types, this will be a Pair{KeyType,ValType}. The definition eltype(x) = eltype(typeof(x)) is provided for convenience so that instances can be passed instead of types. However the form that accepts a type argument should be defined for new types.\n\njulia> eltype(ones(Float32,2,2))\nFloat32\n\njulia> eltype(ones(Int8,2,2))\nInt8\n\n\n\n"
@@ -6266,7 +6266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.indexin",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.indexin",
     "category": "Function",
     "text": "indexin(a, b)\n\nReturns a vector containing the highest index in b for each value in a that is a member of b . The output vector contains 0 wherever a is not a member of b.\n\nExamples\n\njulia> a = ['a', 'b', 'c', 'b', 'd', 'a'];\n\njulia> b = ['a','b','c'];\n\njulia> indexin(a,b)\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 2\n 0\n 1\n\njulia> indexin(b,a)\n3-element Array{Int64,1}:\n 6\n 4\n 3\n\n\n\n"
@@ -6274,7 +6274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findin",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findin",
     "category": "Function",
     "text": "findin(a, b)\n\nReturns the indices of elements in collection a that appear in collection b.\n\nExamples\n\njulia> a = collect(1:3:15)\n5-element Array{Int64,1}:\n  1\n  4\n  7\n 10\n 13\n\njulia> b = collect(2:4:10)\n3-element Array{Int64,1}:\n  2\n  6\n 10\n\njulia> findin(a,b) # 10 is the only common element\n1-element Array{Int64,1}:\n 4\n\n\n\n"
@@ -6282,7 +6282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.unique",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.unique",
     "category": "Function",
     "text": "unique(itr)\n\nReturns an array containing one value from itr for each unique value, as determined by isequal.\n\njulia> unique([1; 2; 2; 6])\n3-element Array{Int64,1}:\n 1\n 2\n 6\n\n\n\nunique(f, itr)\n\nReturns an array containing one value from itr for each unique value produced by f applied to elements of itr.\n\njulia> unique(isodd, [1; 2; 2; 6])\n2-element Array{Int64,1}:\n 1\n 2\n\n\n\nunique(itr[, dim])\n\nReturns an array containing only the unique elements of the iterable itr, in the order that the first of each set of equivalent elements originally appears. If dim is specified, returns unique regions of the array itr along dim.\n\njulia> A = map(isodd, reshape(collect(1:8), (2,2,2)))\n2×2×2 Array{Bool,3}:\n[:, :, 1] =\n  true   true\n false  false\n\n[:, :, 2] =\n  true   true\n false  false\n\njulia> unique(A)\n2-element Array{Bool,1}:\n  true\n false\n\njulia> unique(A, 2)\n2×1×2 Array{Bool,3}:\n[:, :, 1] =\n  true\n false\n\n[:, :, 2] =\n  true\n false\n\njulia> unique(A, 3)\n2×2×1 Array{Bool,3}:\n[:, :, 1] =\n  true   true\n false  false\n\n\n\n"
@@ -6290,7 +6290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.allunique",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.allunique",
     "category": "Function",
     "text": "allunique(itr) -> Bool\n\nReturn true if all values from itr are distinct when compared with isequal.\n\njulia> a = [1; 2; 3]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> allunique([a, a])\nfalse\n\n\n\n"
@@ -6298,7 +6298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.reduce-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.reduce",
     "category": "Method",
     "text": "reduce(op, v0, itr)\n\nReduce the given collection ìtr with the given binary operator op. v0 must be a neutral element for op that will be returned for empty collections. It is unspecified whether v0 is used for non-empty collections.\n\nReductions for certain commonly-used operators have special implementations which should be used instead: maximum(itr), minimum(itr), sum(itr), prod(itr), any(itr), all(itr).\n\nThe associativity of the reduction is implementation dependent. This means that you can't use non-associative operations like - because it is undefined whether reduce(-,[1,2,3]) should be evaluated as (1-2)-3 or 1-(2-3). Use foldl or foldr instead for guaranteed left or right associativity.\n\nSome operations accumulate error, and parallelism will also be easier if the reduction can be executed in groups. Future versions of Julia might change the algorithm. Note that the elements are not reordered if you use an ordered collection.\n\nExamples\n\njulia> reduce(*, 1, [2; 3; 4])\n24\n\n\n\n"
@@ -6306,7 +6306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.reduce-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.reduce",
     "category": "Method",
     "text": "reduce(op, itr)\n\nLike reduce(op, v0, itr). This cannot be used with empty collections, except for some special cases (e.g. when op is one of +, *, max, min, &, |) when Julia can determine the neutral element of op.\n\njulia> reduce(*, [2; 3; 4])\n24\n\n\n\n"
@@ -6314,7 +6314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.foldl-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.foldl",
     "category": "Method",
     "text": "foldl(op, v0, itr)\n\nLike reduce, but with guaranteed left associativity. v0 will be used exactly once.\n\njulia> foldl(-, 1, 2:5)\n-13\n\n\n\n"
@@ -6322,7 +6322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.foldl-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.foldl",
     "category": "Method",
     "text": "foldl(op, itr)\n\nLike foldl(op, v0, itr), but using the first element of itr as v0. In general, this cannot be used with empty collections (see reduce(op, itr)).\n\njulia> foldl(-, 2:5)\n-10\n\n\n\n"
@@ -6330,7 +6330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.foldr-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.foldr",
     "category": "Method",
     "text": "foldr(op, v0, itr)\n\nLike reduce, but with guaranteed right associativity. v0 will be used exactly once.\n\njulia> foldr(-, 1, 2:5)\n-1\n\n\n\n"
@@ -6338,7 +6338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.foldr-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.foldr",
     "category": "Method",
     "text": "foldr(op, itr)\n\nLike foldr(op, v0, itr), but using the last element of itr as v0. In general, this cannot be used with empty collections (see reduce(op, itr)).\n\njulia> foldr(-, 2:5)\n-2\n\n\n\n"
@@ -6346,7 +6346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.maximum-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.maximum",
     "category": "Method",
     "text": "maximum(itr)\n\nReturns the largest element in a collection.\n\njulia> maximum(-20.5:10)\n9.5\n\njulia> maximum([1,2,3])\n3\n\n\n\n"
@@ -6354,7 +6354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.maximum-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.maximum",
     "category": "Method",
     "text": "maximum(A, dims)\n\nCompute the maximum value of an array over the given dimensions. See also the max(a,b) function to take the maximum of two or more arguments, which can be applied elementwise to arrays via max.(a,b).\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> maximum(A, 1)\n1×2 Array{Int64,2}:\n 3  4\n\njulia> maximum(A, 2)\n2×1 Array{Int64,2}:\n 2\n 4\n\n\n\n"
@@ -6362,7 +6362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.maximum!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.maximum!",
     "category": "Function",
     "text": "maximum!(r, A)\n\nCompute the maximum value of A over the singleton dimensions of r, and write results to r.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> maximum!([1; 1], A)\n2-element Array{Int64,1}:\n 2\n 4\n\njulia> maximum!([1 1], A)\n1×2 Array{Int64,2}:\n 3  4\n\n\n\n"
@@ -6370,7 +6370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.minimum-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.minimum",
     "category": "Method",
     "text": "minimum(itr)\n\nReturns the smallest element in a collection.\n\njulia> minimum(-20.5:10)\n-20.5\n\njulia> minimum([1,2,3])\n1\n\n\n\n"
@@ -6378,7 +6378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.minimum-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.minimum",
     "category": "Method",
     "text": "minimum(A, dims)\n\nCompute the minimum value of an array over the given dimensions. See also the min(a,b) function to take the minimum of two or more arguments, which can be applied elementwise to arrays via min.(a,b).\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> minimum(A, 1)\n1×2 Array{Int64,2}:\n 1  2\n\njulia> minimum(A, 2)\n2×1 Array{Int64,2}:\n 1\n 3\n\n\n\n"
@@ -6386,7 +6386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.minimum!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.minimum!",
     "category": "Function",
     "text": "minimum!(r, A)\n\nCompute the minimum value of A over the singleton dimensions of r, and write results to r.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> minimum!([1; 1], A)\n2-element Array{Int64,1}:\n 1\n 3\n\njulia> minimum!([1 1], A)\n1×2 Array{Int64,2}:\n 1  2\n\n\n\n"
@@ -6394,7 +6394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.extrema-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.extrema",
     "category": "Method",
     "text": "extrema(itr) -> Tuple\n\nCompute both the minimum and maximum element in a single pass, and return them as a 2-tuple.\n\njulia> extrema(2:10)\n(2, 10)\n\njulia> extrema([9,pi,4.5])\n(3.141592653589793, 9.0)\n\n\n\n"
@@ -6402,7 +6402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.extrema-Tuple{AbstractArray,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.extrema",
     "category": "Method",
     "text": "extrema(A, dims) -> Array{Tuple}\n\nCompute the minimum and maximum elements of an array over the given dimensions.\n\nExample\n\njulia> A = reshape(collect(1:2:16), (2,2,2))\n2×2×2 Array{Int64,3}:\n[:, :, 1] =\n 1  5\n 3  7\n\n[:, :, 2] =\n  9  13\n 11  15\n\njulia> extrema(A, (1,2))\n1×1×2 Array{Tuple{Int64,Int64},3}:\n[:, :, 1] =\n (1, 7)\n\n[:, :, 2] =\n (9, 15)\n\n\n\n"
@@ -6410,7 +6410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.indmax",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.indmax",
     "category": "Function",
     "text": "indmax(itr) -> Integer\n\nReturns the index of the maximum element in a collection. If there are multiple maximal elements, then the first one will be returned. NaN values are ignored, unless all elements are NaN.\n\nThe collection must not be empty.\n\nExamples\n\njulia> indmax([8,0.1,-9,pi])\n1\n\njulia> indmax([1,7,7,6])\n2\n\njulia> indmax([1,7,7,NaN])\n2\n\n\n\n"
@@ -6418,7 +6418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.indmin",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.indmin",
     "category": "Function",
     "text": "indmin(itr) -> Integer\n\nReturns the index of the minimum element in a collection. If there are multiple minimal elements, then the first one will be returned. NaN values are ignored, unless all elements are NaN.\n\nThe collection must not be empty.\n\nExamples\n\njulia> indmin([8,0.1,-9,pi])\n3\n\njulia> indmin([7,1,1,6])\n2\n\njulia> indmin([7,1,1,NaN])\n2\n\n\n\n"
@@ -6426,7 +6426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmax-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmax",
     "category": "Method",
     "text": "findmax(itr) -> (x, index)\n\nReturns the maximum element of the collection itr and its index. If there are multiple maximal elements, then the first one will be returned. NaN values are ignored, unless all elements are NaN.\n\nThe collection must not be empty.\n\nExamples\n\njulia> findmax([8,0.1,-9,pi])\n(8.0, 1)\n\njulia> findmax([1,7,7,6])\n(7, 2)\n\njulia> findmax([1,7,7,NaN])\n(7.0, 2)\n\n\n\n"
@@ -6434,7 +6434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmax-Tuple{AbstractArray,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmax",
     "category": "Method",
     "text": "findmax(A, region) -> (maxval, index)\n\nFor an array input, returns the value and index of the maximum over the given region.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> findmax(A,1)\n([3 4], [2 4])\n\njulia> findmax(A,2)\n([2; 4], [3; 4])\n\n\n\n"
@@ -6442,7 +6442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmin-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmin",
     "category": "Method",
     "text": "findmin(itr) -> (x, index)\n\nReturns the minimum element of the collection itr and its index. If there are multiple minimal elements, then the first one will be returned. NaN values are ignored, unless all elements are NaN.\n\nThe collection must not be empty.\n\nExamples\n\njulia> findmin([8,0.1,-9,pi])\n(-9.0, 3)\n\njulia> findmin([7,1,1,6])\n(1, 2)\n\njulia> findmin([7,1,1,NaN])\n(1.0, 2)\n\n\n\n"
@@ -6450,7 +6450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmin-Tuple{AbstractArray,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmin",
     "category": "Method",
     "text": "findmin(A, region) -> (minval, index)\n\nFor an array input, returns the value and index of the minimum over the given region.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> findmin(A, 1)\n([1 2], [1 3])\n\njulia> findmin(A, 2)\n([1; 3], [1; 2])\n\n\n\n"
@@ -6458,7 +6458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmax!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmax!",
     "category": "Function",
     "text": "findmax!(rval, rind, A, [init=true]) -> (maxval, index)\n\nFind the maximum of A and the corresponding linear index along singleton dimensions of rval and rind, and store the results in rval and rind.\n\n\n\n"
@@ -6466,7 +6466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.findmin!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.findmin!",
     "category": "Function",
     "text": "findmin!(rval, rind, A, [init=true]) -> (minval, index)\n\nFind the minimum of A and the corresponding linear index along singleton dimensions of rval and rind, and store the results in rval and rind.\n\n\n\n"
@@ -6474,7 +6474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.sum",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.sum",
     "category": "Function",
     "text": "sum(f, itr)\n\nSum the results of calling function f on each element of itr.\n\njulia> sum(abs2, [2; 3; 4])\n29\n\n\n\nsum(itr)\n\nReturns the sum of all elements in a collection.\n\njulia> sum(1:20)\n210\n\n\n\nsum(A, dims)\n\nSum elements of an array over the given dimensions.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> sum(A, 1)\n1×2 Array{Int64,2}:\n 4  6\n\njulia> sum(A, 2)\n2×1 Array{Int64,2}:\n 3\n 7\n\n\n\n"
@@ -6482,7 +6482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.sum!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.sum!",
     "category": "Function",
     "text": "sum!(r, A)\n\nSum elements of A over the singleton dimensions of r, and write results to r.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> sum!([1; 1], A)\n2-element Array{Int64,1}:\n 3\n 7\n\njulia> sum!([1 1], A)\n1×2 Array{Int64,2}:\n 4  6\n\n\n\n"
@@ -6490,7 +6490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.prod",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.prod",
     "category": "Function",
     "text": "prod(f, itr)\n\nReturns the product of f applied to each element of itr.\n\njulia> prod(abs2, [2; 3; 4])\n576\n\n\n\nprod(itr)\n\nReturns the product of all elements of a collection.\n\njulia> prod(1:20)\n2432902008176640000\n\n\n\nprod(A, dims)\n\nMultiply elements of an array over the given dimensions.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> prod(A, 1)\n1×2 Array{Int64,2}:\n 3  8\n\njulia> prod(A, 2)\n2×1 Array{Int64,2}:\n  2\n 12\n\n\n\n"
@@ -6498,7 +6498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.prod!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.prod!",
     "category": "Function",
     "text": "prod!(r, A)\n\nMultiply elements of A over the singleton dimensions of r, and write results to r.\n\nExamples\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> prod!([1; 1], A)\n2-element Array{Int64,1}:\n  2\n 12\n\njulia> prod!([1 1], A)\n1×2 Array{Int64,2}:\n 3  8\n\n\n\n"
@@ -6506,7 +6506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.any-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.any",
     "category": "Method",
     "text": "any(itr) -> Bool\n\nTest whether any elements of a boolean collection are true, returning true as soon as the first true value in itr is encountered (short-circuiting).\n\njulia> a = [true,false,false,true]\n4-element Array{Bool,1}:\n  true\n false\n false\n  true\n\njulia> any(a)\ntrue\n\njulia> any((println(i); v) for (i, v) in enumerate(a))\n1\ntrue\n\n\n\n"
@@ -6514,7 +6514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.any-Tuple{AbstractArray,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.any",
     "category": "Method",
     "text": "any(A, dims)\n\nTest whether any values along the given dimensions of an array are true.\n\nExamples\n\njulia> A = [true false; true false]\n2×2 Array{Bool,2}:\n true  false\n true  false\n\njulia> any(A, 1)\n1×2 Array{Bool,2}:\n true  false\n\njulia> any(A, 2)\n2×1 Array{Bool,2}:\n true\n true\n\n\n\n"
@@ -6522,7 +6522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.any!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.any!",
     "category": "Function",
     "text": "any!(r, A)\n\nTest whether any values in A along the singleton dimensions of r are true, and write results to r.\n\nExamples\n\njulia> A = [true false; true false]\n2×2 Array{Bool,2}:\n true  false\n true  false\n\njulia> any!([1; 1], A)\n2-element Array{Int64,1}:\n 1\n 1\n\njulia> any!([1 1], A)\n1×2 Array{Int64,2}:\n 1  0\n\n\n\n"
@@ -6530,7 +6530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.all-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.all",
     "category": "Method",
     "text": "all(itr) -> Bool\n\nTest whether all elements of a boolean collection are true, returning false as soon as the first false value in itr is encountered (short-circuiting).\n\njulia> a = [true,false,false,true]\n4-element Array{Bool,1}:\n  true\n false\n false\n  true\n\njulia> all(a)\nfalse\n\njulia> all((println(i); v) for (i, v) in enumerate(a))\n1\n2\nfalse\n\n\n\n"
@@ -6538,7 +6538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.all-Tuple{AbstractArray,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.all",
     "category": "Method",
     "text": "all(A, dims)\n\nTest whether all values along the given dimensions of an array are true.\n\nExamples\n\njulia> A = [true false; true true]\n2×2 Array{Bool,2}:\n true  false\n true   true\n\njulia> all(A, 1)\n1×2 Array{Bool,2}:\n true  false\n\njulia> all(A, 2)\n2×1 Array{Bool,2}:\n false\n  true\n\n\n\n"
@@ -6546,7 +6546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.all!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.all!",
     "category": "Function",
     "text": "all!(r, A)\n\nTest whether all values in A along the singleton dimensions of r are true, and write results to r.\n\nExamples\n\njulia> A = [true false; true false]\n2×2 Array{Bool,2}:\n true  false\n true  false\n\njulia> all!([1; 1], A)\n2-element Array{Int64,1}:\n 0\n 0\n\njulia> all!([1 1], A)\n1×2 Array{Int64,2}:\n 1  0\n\n\n\n"
@@ -6554,7 +6554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.count",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.count",
     "category": "Function",
     "text": "count(p, itr) -> Integer\ncount(itr) -> Integer\n\nCount the number of elements in itr for which predicate p returns true. If p is omitted, counts the number of true elements in itr (which should be a collection of boolean values).\n\njulia> count(i->(4<=i<=6), [2,3,4,5,6])\n3\n\njulia> count([true, false, true, true])\n3\n\n\n\n"
@@ -6562,7 +6562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.any-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.any",
     "category": "Method",
     "text": "any(p, itr) -> Bool\n\nDetermine whether predicate p returns true for any elements of itr, returning true as soon as the first item in itr for which p returns true is encountered (short-circuiting).\n\njulia> any(i->(4<=i<=6), [3,5,7])\ntrue\n\njulia> any(i -> (println(i); i > 3), 1:10)\n1\n2\n3\n4\ntrue\n\n\n\n"
@@ -6570,7 +6570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.all-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.all",
     "category": "Method",
     "text": "all(p, itr) -> Bool\n\nDetermine whether predicate p returns true for all elements of itr, returning false as soon as the first item in itr for which p returns false is encountered (short-circuiting).\n\njulia> all(i->(4<=i<=6), [4,5,6])\ntrue\n\njulia> all(i -> (println(i); i < 3), 1:10)\n1\n2\n3\nfalse\n\n\n\n"
@@ -6578,7 +6578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.foreach",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.foreach",
     "category": "Function",
     "text": "foreach(f, c...) -> Void\n\nCall function f on each element of iterable c. For multiple iterable arguments, f is called elementwise. foreach should be used instead of map when the results of f are not needed, for example in foreach(println, array).\n\nExample\n\njulia> a = 1:3:7;\n\njulia> foreach(x -> println(x^2), a)\n1\n16\n49\n\n\n\n"
@@ -6586,7 +6586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.map",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.map",
     "category": "Function",
     "text": "map(f, c...) -> collection\n\nTransform collection c by applying f to each element. For multiple collection arguments, apply f elementwise.\n\nExamples\n\njulia> map(x -> x * 2, [1, 2, 3])\n3-element Array{Int64,1}:\n 2\n 4\n 6\n\njulia> map(+, [1, 2, 3], [10, 20, 30])\n3-element Array{Int64,1}:\n 11\n 22\n 33\n\n\n\nmap(f, x::Nullable)\n\nReturn f applied to the value of x if it has one, as a Nullable. If x is null, then return a null value of type Nullable{S}. S is guaranteed to be either Union{} or a concrete type. Whichever of these is chosen is an implementation detail, but typically the choice that maximizes performance would be used. If x has a value, then the return type is guaranteed to be of type Nullable{typeof(f(x))}.\n\n\n\n"
@@ -6594,7 +6594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.map!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.map!",
     "category": "Function",
     "text": "map!(function, destination, collection...)\n\nLike map, but stores the result in destination rather than a new collection. destination must be at least as large as the first collection.\n\nExample\n\njulia> x = zeros(3);\n\njulia> map!(x -> x * 2, x, [1, 2, 3]);\n\njulia> x\n3-element Array{Float64,1}:\n 2.0\n 4.0\n 6.0\n\n\n\n"
@@ -6602,7 +6602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapreduce-NTuple{4,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapreduce",
     "category": "Method",
     "text": "mapreduce(f, op, v0, itr)\n\nApply function f to each element in itr, and then reduce the result using the binary function op. v0 must be a neutral element for op that will be returned for empty collections. It is unspecified whether v0 is used for non-empty collections.\n\nmapreduce is functionally equivalent to calling reduce(op, v0, map(f, itr)), but will in general execute faster since no intermediate collection needs to be created. See documentation for reduce and map.\n\njulia> mapreduce(x->x^2, +, [1:3;]) # == 1 + 4 + 9\n14\n\nThe associativity of the reduction is implementation-dependent. Additionally, some implementations may reuse the return value of f for elements that appear multiple times in itr. Use mapfoldl or mapfoldr instead for guaranteed left or right associativity and invocation of f for every value.\n\n\n\n"
@@ -6610,7 +6610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapreduce-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapreduce",
     "category": "Method",
     "text": "mapreduce(f, op, itr)\n\nLike mapreduce(f, op, v0, itr). In general, this cannot be used with empty collections (see reduce(op, itr)).\n\n\n\n"
@@ -6618,7 +6618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapfoldl-NTuple{4,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapfoldl",
     "category": "Method",
     "text": "mapfoldl(f, op, v0, itr)\n\nLike mapreduce, but with guaranteed left associativity, as in foldl. v0 will be used exactly once.\n\n\n\n"
@@ -6626,7 +6626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapfoldl-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapfoldl",
     "category": "Method",
     "text": "mapfoldl(f, op, itr)\n\nLike mapfoldl(f, op, v0, itr), but using the first element of itr as v0. In general, this cannot be used with empty collections (see reduce(op, itr)).\n\n\n\n"
@@ -6634,7 +6634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapfoldr-NTuple{4,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapfoldr",
     "category": "Method",
     "text": "mapfoldr(f, op, v0, itr)\n\nLike mapreduce, but with guaranteed right associativity, as in foldr. v0 will be used exactly once.\n\n\n\n"
@@ -6642,7 +6642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.mapfoldr-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.mapfoldr",
     "category": "Method",
     "text": "mapfoldr(f, op, itr)\n\nLike mapfoldr(f, op, v0, itr), but using the first element of itr as v0. In general, this cannot be used with empty collections (see reduce(op, itr)).\n\n\n\n"
@@ -6650,7 +6650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.first",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.first",
     "category": "Function",
     "text": "first(coll)\n\nGet the first element of an iterable collection. Returns the start point of a Range even if it is empty.\n\njulia> first(2:2:10)\n2\n\njulia> first([1; 2; 3; 4])\n1\n\n\n\n"
@@ -6658,7 +6658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.last",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.last",
     "category": "Function",
     "text": "last(coll)\n\nGet the last element of an ordered collection, if it can be computed in O(1) time. This is accomplished by calling endof to get the last index. Returns the end point of a Range even if it is empty.\n\njulia> last(1:2:10)\n9\n\njulia> last([1; 2; 3; 4])\n4\n\n\n\n"
@@ -6666,7 +6666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.step",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.step",
     "category": "Function",
     "text": "step(r)\n\nGet the step size of a Range object.\n\njulia> step(1:10)\n1\n\njulia> step(1:2:10)\n2\n\njulia> step(2.5:0.3:10.9)\n0.3\n\njulia> step(linspace(2.5,10.9,85))\n0.1\n\n\n\n"
@@ -6674,7 +6674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.collect-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.collect",
     "category": "Method",
     "text": "collect(collection)\n\nReturn an Array of all items in a collection or iterator. For associative collections, returns Pair{KeyType, ValType}. If the argument is array-like or is an iterator with the HasShape() trait, the result will have the same shape and number of dimensions as the argument.\n\nExample\n\njulia> collect(1:2:13)\n7-element Array{Int64,1}:\n  1\n  3\n  5\n  7\n  9\n 11\n 13\n\n\n\n"
@@ -6682,7 +6682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.collect-Tuple{Type,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.collect",
     "category": "Method",
     "text": "collect(element_type, collection)\n\nReturn an Array with the given element type of all items in a collection or iterable. The result has the same shape and number of dimensions as collection.\n\njulia> collect(Float64, 1:2:5)\n3-element Array{Float64,1}:\n 1.0\n 3.0\n 5.0\n\n\n\n"
@@ -6690,7 +6690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.issubset-Tuple{Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.issubset",
     "category": "Method",
     "text": "issubset(a, b)\n⊆(a,b) -> Bool\n⊈(a,b) -> Bool\n⊊(a,b) -> Bool\n\nDetermine whether every element of a is also in b, using in.\n\nExamples\n\njulia> issubset([1, 2], [1, 2, 3])\ntrue\n\njulia> issubset([1, 2, 3], [1, 2])\nfalse\n\n\n\n"
@@ -6698,7 +6698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.filter",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.filter",
     "category": "Function",
     "text": "filter(function, collection)\n\nReturn a copy of collection, removing elements for which function is false. For associative collections, the function is passed two arguments (key and value).\n\nExamples\n\njulia> a = 1:10\n1:10\n\njulia> filter(isodd, a)\n5-element Array{Int64,1}:\n 1\n 3\n 5\n 7\n 9\n\njulia> d = Dict(1=>\"a\", 2=>\"b\")\nDict{Int64,String} with 2 entries:\n  2 => \"b\"\n  1 => \"a\"\n\njulia> filter((x,y)->isodd(x), d)\nDict{Int64,String} with 1 entry:\n  1 => \"a\"\n\n\n\nfilter(p, x::Nullable)\n\nReturn null if either x is null or p(get(x)) is false, and x otherwise.\n\n\n\n"
@@ -6706,23 +6706,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.filter!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.filter!",
     "category": "Function",
     "text": "filter!(function, collection)\n\nUpdate collection, removing elements for which function is false. For associative collections, the function is passed two arguments (key and value).\n\nExample\n\njulia> filter!(isodd, collect(1:10))\n5-element Array{Int64,1}:\n 1\n 3\n 5\n 7\n 9\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#Iterable-Collections-1",
-    "page": "Collections and Data Structures",
-    "title": "Iterable Collections",
+    "location": "stdlib/collections.html#Colecciones-Iterables-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones Iterables",
     "category": "section",
     "text": "Base.in\nBase.eltype\nBase.indexin\nBase.findin\nBase.unique\nBase.allunique\nBase.reduce(::Any, ::Any, ::Any)\nBase.reduce(::Any, ::Any)\nBase.foldl(::Any, ::Any, ::Any)\nBase.foldl(::Any, ::Any)\nBase.foldr(::Any, ::Any, ::Any)\nBase.foldr(::Any, ::Any)\nBase.maximum(::Any)\nBase.maximum(::Any, ::Any)\nBase.maximum!\nBase.minimum(::Any)\nBase.minimum(::Any, ::Any)\nBase.minimum!\nBase.extrema(::Any)\nBase.extrema(::AbstractArray, ::Any)\nBase.indmax\nBase.indmin\nBase.findmax(::Any)\nBase.findmax(::AbstractArray, ::Any)\nBase.findmin(::Any)\nBase.findmin(::AbstractArray, ::Any)\nBase.findmax!\nBase.findmin!\nBase.sum\nBase.sum!\nBase.prod\nBase.prod!\nBase.any(::Any)\nBase.any(::AbstractArray, ::Any)\nBase.any!\nBase.all(::Any)\nBase.all(::AbstractArray, ::Any)\nBase.all!\nBase.count\nBase.any(::Any, ::Any)\nBase.all(::Any, ::Any)\nBase.foreach\nBase.map\nBase.map!\nBase.mapreduce(::Any, ::Any, ::Any, ::Any)\nBase.mapreduce(::Any, ::Any, ::Any)\nBase.mapfoldl(::Any, ::Any, ::Any, ::Any)\nBase.mapfoldl(::Any, ::Any, ::Any)\nBase.mapfoldr(::Any, ::Any, ::Any, ::Any)\nBase.mapfoldr(::Any, ::Any, ::Any)\nBase.first\nBase.last\nBase.step\nBase.collect(::Any)\nBase.collect(::Type, ::Any)\nBase.issubset(::Any, ::Any)\nBase.filter\nBase.filter!"
 },
 
 {
     "location": "stdlib/collections.html#Base.getindex-Tuple{Any,Vararg{Any,N} where N}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.getindex",
     "category": "Method",
     "text": "getindex(collection, key...)\n\nRetrieve the value(s) stored at the given key or index within a collection. The syntax a[i,j,...] is converted by the compiler to getindex(a, i, j, ...).\n\nExample\n\njulia> A = Dict(\"a\" => 1, \"b\" => 2)\nDict{String,Int64} with 2 entries:\n  \"b\" => 2\n  \"a\" => 1\n\njulia> getindex(A, \"a\")\n1\n\n\n\n"
@@ -6730,23 +6730,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.setindex!-Tuple{Any,Any,Vararg{Any,N} where N}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.setindex!",
     "category": "Method",
     "text": "setindex!(collection, value, key...)\n\nStore the given value at the given key or index within a collection. The syntax a[i,j,...] = x is converted by the compiler to (setindex!(a, x, i, j, ...); x).\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#Indexable-Collections-1",
-    "page": "Collections and Data Structures",
-    "title": "Indexable Collections",
+    "location": "stdlib/collections.html#Colecciones-Indexables-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones Indexables",
     "category": "section",
-    "text": "Base.getindex(::Any, ::Any...)\nBase.setindex!(::Any, ::Any, ::Any...)Fully implemented by:Array\nBitArray\nAbstractArray\nSubArray\nObjectIdDict\nDict\nWeakKeyDict\nAbstractStringPartially implemented by:Range\nUnitRange\nTuple"
+    "text": "Base.getindex(::Any, ::Any...)\nBase.setindex!(::Any, ::Any, ::Any...)Completamente implementado por:Array\nBitArray\nAbstractArray\nSubArray\nObjectIdDict\nDict\nWeakKeyDict\nAbstractStringParcialmente implementado por:Range\nUnitRange\nTuple"
 },
 
 {
     "location": "stdlib/collections.html#Base.Dict",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.Dict",
     "category": "Type",
     "text": "Dict([itr])\n\nDict{K,V}() constructs a hash table with keys of type K and values of type V.\n\nGiven a single iterable argument, constructs a Dict whose key-value pairs are taken from 2-tuples (key,value) generated by the argument.\n\njulia> Dict([(\"A\", 1), (\"B\", 2)])\nDict{String,Int64} with 2 entries:\n  \"B\" => 2\n  \"A\" => 1\n\nAlternatively, a sequence of pair arguments may be passed.\n\njulia> Dict(\"A\"=>1, \"B\"=>2)\nDict{String,Int64} with 2 entries:\n  \"B\" => 2\n  \"A\" => 1\n\n\n\n"
@@ -6754,7 +6754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.ObjectIdDict",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.ObjectIdDict",
     "category": "Type",
     "text": "ObjectIdDict([itr])\n\nObjectIdDict() constructs a hash table where the keys are (always) object identities.  Unlike Dict it is not parameterized on its key and value type and thus its eltype is always Pair{Any,Any}.\n\nSee Dict for further help.\n\n\n\n"
@@ -6762,7 +6762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.WeakKeyDict",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.WeakKeyDict",
     "category": "Type",
     "text": "WeakKeyDict([itr])\n\nWeakKeyDict() constructs a hash table where the keys are weak references to objects, and thus may be garbage collected even when referenced in a hash table.\n\nSee Dict for further help.\n\n\n\n"
@@ -6770,7 +6770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.haskey",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.haskey",
     "category": "Function",
     "text": "haskey(collection, key) -> Bool\n\nDetermine whether a collection has a mapping for a given key.\n\njulia> a = Dict('a'=>2, 'b'=>3)\nDict{Char,Int64} with 2 entries:\n  'b' => 3\n  'a' => 2\n\njulia> haskey(a,'a')\ntrue\n\njulia> haskey(a,'c')\nfalse\n\n\n\n"
@@ -6778,7 +6778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.get-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.get",
     "category": "Method",
     "text": "get(collection, key, default)\n\nReturn the value stored for the given key, or the given default value if no mapping for the key is present.\n\nExamples\n\njulia> d = Dict(\"a\"=>1, \"b\"=>2);\n\njulia> get(d, \"a\", 3)\n1\n\njulia> get(d, \"c\", 3)\n3\n\n\n\n"
@@ -6786,7 +6786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.get",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.get",
     "category": "Function",
     "text": "get(f::Function, collection, key)\n\nReturn the value stored for the given key, or if no mapping for the key is present, return f().  Use get! to also store the default value in the dictionary.\n\nThis is intended to be called using do block syntax\n\nget(dict, key) do\n    # default value calculated here\n    time()\nend\n\n\n\n"
@@ -6794,7 +6794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.get!-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.get!",
     "category": "Method",
     "text": "get!(collection, key, default)\n\nReturn the value stored for the given key, or if no mapping for the key is present, store key => default, and return default.\n\nExamples\n\njulia> d = Dict(\"a\"=>1, \"b\"=>2, \"c\"=>3);\n\njulia> get!(d, \"a\", 5)\n1\n\njulia> get!(d, \"d\", 4)\n4\n\njulia> d\nDict{String,Int64} with 4 entries:\n  \"c\" => 3\n  \"b\" => 2\n  \"a\" => 1\n  \"d\" => 4\n\n\n\n"
@@ -6802,7 +6802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.get!-Tuple{Function,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.get!",
     "category": "Method",
     "text": "get!(f::Function, collection, key)\n\nReturn the value stored for the given key, or if no mapping for the key is present, store key => f(), and return f().\n\nThis is intended to be called using do block syntax:\n\nget!(dict, key) do\n    # default value calculated here\n    time()\nend\n\n\n\n"
@@ -6810,7 +6810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.getkey",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.getkey",
     "category": "Function",
     "text": "getkey(collection, key, default)\n\nReturn the key matching argument key if one exists in collection, otherwise return default.\n\njulia> a = Dict('a'=>2, 'b'=>3)\nDict{Char,Int64} with 2 entries:\n  'b' => 3\n  'a' => 2\n\njulia> getkey(a,'a',1)\n'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)\n\njulia> getkey(a,'d','a')\n'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)\n\n\n\n"
@@ -6818,7 +6818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.delete!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.delete!",
     "category": "Function",
     "text": "delete!(collection, key)\n\nDelete the mapping for the given key in a collection, and return the collection.\n\nExample\n\njulia> d = Dict(\"a\"=>1, \"b\"=>2)\nDict{String,Int64} with 2 entries:\n  \"b\" => 2\n  \"a\" => 1\n\njulia> delete!(d, \"b\")\nDict{String,Int64} with 1 entry:\n  \"a\" => 1\n\n\n\n"
@@ -6826,7 +6826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.pop!-Tuple{Any,Any,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.pop!",
     "category": "Method",
     "text": "pop!(collection, key[, default])\n\nDelete and return the mapping for key if it exists in collection, otherwise return default, or throw an error if default is not specified.\n\nExamples\n\njulia> d = Dict(\"a\"=>1, \"b\"=>2, \"c\"=>3);\n\njulia> pop!(d, \"a\")\n1\n\njulia> pop!(d, \"d\")\nERROR: KeyError: key \"d\" not found\nStacktrace:\n [1] pop!(::Dict{String,Int64}, ::String) at ./dict.jl:539\n\njulia> pop!(d, \"e\", 4)\n4\n\n\n\n"
@@ -6834,7 +6834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.keys",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.keys",
     "category": "Function",
     "text": "keys(a::Associative)\n\nReturn an iterator over all keys in a collection. collect(keys(a)) returns an array of keys. Since the keys are stored internally in a hash table, the order in which they are returned may vary. But keys(a) and values(a) both iterate a and return the elements in the same order.\n\njulia> a = Dict('a'=>2, 'b'=>3)\nDict{Char,Int64} with 2 entries:\n  'b' => 3\n  'a' => 2\n\njulia> collect(keys(a))\n2-element Array{Char,1}:\n 'b'\n 'a'\n\n\n\n"
@@ -6842,7 +6842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.values",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.values",
     "category": "Function",
     "text": "values(a::Associative)\n\nReturn an iterator over all values in a collection. collect(values(a)) returns an array of values. Since the values are stored internally in a hash table, the order in which they are returned may vary. But keys(a) and values(a) both iterate a and return the elements in the same order.\n\njulia> a = Dict('a'=>2, 'b'=>3)\nDict{Char,Int64} with 2 entries:\n  'b' => 3\n  'a' => 2\n\njulia> collect(values(a))\n2-element Array{Int64,1}:\n 3\n 2\n\n\n\n"
@@ -6850,7 +6850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.merge",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.merge",
     "category": "Function",
     "text": "merge(d::Associative, others::Associative...)\n\nConstruct a merged collection from the given collections. If necessary, the types of the resulting collection will be promoted to accommodate the types of the merged collections. If the same key is present in another collection, the value for that key will be the value it has in the last collection listed.\n\njulia> a = Dict(\"foo\" => 0.0, \"bar\" => 42.0)\nDict{String,Float64} with 2 entries:\n  \"bar\" => 42.0\n  \"foo\" => 0.0\n\njulia> b = Dict(\"baz\" => 17, \"bar\" => 4711)\nDict{String,Int64} with 2 entries:\n  \"bar\" => 4711\n  \"baz\" => 17\n\njulia> merge(a, b)\nDict{String,Float64} with 3 entries:\n  \"bar\" => 4711.0\n  \"baz\" => 17.0\n  \"foo\" => 0.0\n\njulia> merge(b, a)\nDict{String,Float64} with 3 entries:\n  \"bar\" => 42.0\n  \"baz\" => 17.0\n  \"foo\" => 0.0\n\n\n\nmerge(combine, d::Associative, others::Associative...)\n\nConstruct a merged collection from the given collections. If necessary, the types of the resulting collection will be promoted to accommodate the types of the merged collections. Values with the same key will be combined using the combiner function.\n\njulia> a = Dict(\"foo\" => 0.0, \"bar\" => 42.0)\nDict{String,Float64} with 2 entries:\n  \"bar\" => 42.0\n  \"foo\" => 0.0\n\njulia> b = Dict(\"baz\" => 17, \"bar\" => 4711)\nDict{String,Int64} with 2 entries:\n  \"bar\" => 4711\n  \"baz\" => 17\n\njulia> merge(+, a, b)\nDict{String,Float64} with 3 entries:\n  \"bar\" => 4753.0\n  \"baz\" => 17.0\n  \"foo\" => 0.0\n\n\n\n"
@@ -6858,7 +6858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.merge!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.merge!",
     "category": "Function",
     "text": "Merge changes into current head \n\n\n\nInternal implementation of merge. Returns true if merge was successful, otherwise false\n\n\n\nmerge!(repo::GitRepo; kwargs...) -> Bool\n\nPerform a git merge on the repository repo, merging commits with diverging history into the current branch. Returns true if the merge succeeded, false if not.\n\nThe keyword arguments are:\n\ncommittish::AbstractString=\"\": Merge the named commit(s) in committish.\nbranch::AbstractString=\"\": Merge the branch branch and all its commits since it diverged from the current branch.\nfastforward::Bool=false: If fastforward is true, only merge if the merge is a fast-forward (the current branch head is an ancestor of the commits to be merged), otherwise refuse to merge and return false. This is equivalent to the git CLI option --ff-only.\nmerge_opts::MergeOptions=MergeOptions(): merge_opts specifies options for the merge, such as merge strategy in case of conflicts.\ncheckout_opts::CheckoutOptions=CheckoutOptions(): checkout_opts specifies options for the checkout step.\n\nEquivalent to git merge [--ff-only] [<committish> | <branch>].\n\nnote: Note\nIf you specify a branch, this must be done in reference format, since the string will be turned into a GitReference. For example, if you wanted to merge branch branch_a, you would call merge!(repo, branch=\"refs/heads/branch_a\").\n\n\n\nmerge!(d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. See also merge.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 4\n\n\n\nmerge!(combine, d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. Values with the same key will be combined using the combiner function.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(+, d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 6\n\njulia> merge!(-, d1, d1);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 0\n  3 => 0\n  1 => 0\n\n\n\n"
@@ -6866,7 +6866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.sizehint!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.sizehint!",
     "category": "Function",
     "text": "sizehint!(s, n)\n\nSuggest that collection s reserve capacity for at least n elements. This can improve performance.\n\n\n\n"
@@ -6874,7 +6874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.keytype",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.keytype",
     "category": "Function",
     "text": "keytype(type)\n\nGet the key type of an associative collection type. Behaves similarly to eltype.\n\njulia> keytype(Dict(Int32(1) => \"foo\"))\nInt32\n\n\n\n"
@@ -6882,23 +6882,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.valtype",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.valtype",
     "category": "Function",
     "text": "valtype(type)\n\nGet the value type of an associative collection type. Behaves similarly to eltype.\n\njulia> valtype(Dict(Int32(1) => \"foo\"))\nString\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#Associative-Collections-1",
-    "page": "Collections and Data Structures",
-    "title": "Associative Collections",
+    "location": "stdlib/collections.html#Colecciones-asociativas-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones asociativas",
     "category": "section",
-    "text": "Dict is the standard associative collection. Its implementation uses hash() as the hashing function for the key, and isequal() to determine equality. Define these two functions for custom types to override how they are stored in a hash table.ObjectIdDict is a special hash table where the keys are always object identities.WeakKeyDict is a hash table implementation where the keys are weak references to objects, and thus may be garbage collected even when referenced in a hash table.Dicts can be created by passing pair objects constructed with =>() to a Dict constructor: Dict(\"A\"=>1, \"B\"=>2). This call will attempt to infer type information from the keys and values (i.e. this example creates a Dict{String, Int64}). To explicitly specify types use the syntax Dict{KeyType,ValueType}(...). For example, Dict{String,Int32}(\"A\"=>1, \"B\"=>2).Associative collections may also be created with generators. For example, Dict(i => f(i) for i = 1:10).Given a dictionary D, the syntax D[x] returns the value of key x (if it exists) or throws an error, and D[x] = y stores the key-value pair x => y in D (replacing any existing value for the key x).  Multiple arguments to D[...] are converted to tuples; for example, the syntax D[x,y]  is equivalent to D[(x,y)], i.e. it refers to the value keyed by the tuple (x,y).Base.Dict\nBase.ObjectIdDict\nBase.WeakKeyDict\nBase.haskey\nBase.get(::Any, ::Any, ::Any)\nBase.get\nBase.get!(::Any, ::Any, ::Any)\nBase.get!(::Function, ::Any, ::Any)\nBase.getkey\nBase.delete!\nBase.pop!(::Any, ::Any, ::Any)\nBase.keys\nBase.values\nBase.merge\nBase.merge!\nBase.sizehint!\nBase.keytype\nBase.valtypeFully implemented by:ObjectIdDict\nDict\nWeakKeyDictPartially implemented by:IntSet\nSet\nEnvHash\nArray\nBitArray"
+    "text": "Dict es la colección asociativa estándar. Su implementación usa hash() como función de hashing para la clave, e isequal() para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado sobreescribiran como se almacenan dichos tipos en una tabla hash.ObjectIdDict es una tabla hash especial donde las claves son siempre identidades de objeto.WeakKeyDict es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.Dicts se pueden crear pasando pares de objetos construidos con =>()a un constructor Dict: Dict (\"A\"=> 1,\" B \"=> 2). Esta llamada intentará inferir información de tipo de las claves y valores (es decir, este ejemplo crea un Dict{String, Int64}). Para especificar explícitamente los tipos, use la sintaxis Dict{KeyType,ValueType}(...). Por ejemplo, Dict{String,Int32}(\" A \"=> 1,\" B \"=> 2).Las colecciones asociativas pueden también ser creadas con generadores. Por ejemplo, Dict(i => f(i) for i = 1:10).Dado un diccionario D, la sintaxisD[x] devuelve el valor de la clave x (si existe) o arroja un error, y D[x] = y almacena el par de clave-valor x => y en D (reemplazando cualquier valor existente por la clavex). Múltiples argumentos para D [...] se convierten a tuplas; por ejemplo, la sintaxis D[x,y] es equivalente a D[(x,y)], es decir, se refiere al valor introducido por la tupla (x,y).Base.Dict\nBase.ObjectIdDict\nBase.WeakKeyDict\nBase.haskey\nBase.get(::Any, ::Any, ::Any)\nBase.get\nBase.get!(::Any, ::Any, ::Any)\nBase.get!(::Function, ::Any, ::Any)\nBase.getkey\nBase.delete!\nBase.pop!(::Any, ::Any, ::Any)\nBase.keys\nBase.values\nBase.merge\nBase.merge!\nBase.sizehint!\nBase.keytype\nBase.valtypeCompletamente implementado por:ObjectIdDict\nDict\nWeakKeyDictParcialmente implementado por:IntSet\nSet\nEnvHash\nArray\nBitArray"
 },
 
 {
     "location": "stdlib/collections.html#Base.Set",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.Set",
     "category": "Type",
     "text": "Set([itr])\n\nConstruct a Set of the values generated by the given iterable object, or an empty set. Should be used instead of IntSet for sparse integer sets, or for sets of arbitrary objects.\n\n\n\n"
@@ -6906,7 +6906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.IntSet",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.IntSet",
     "category": "Type",
     "text": "IntSet([itr])\n\nConstruct a sorted set of positive Ints generated by the given iterable object, or an empty set. Implemented as a bit string, and therefore designed for dense integer sets. Only Ints greater than 0 can be stored. If the set will be sparse (for example holding a few very large integers), use Set instead.\n\n\n\n"
@@ -6914,7 +6914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.union",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.union",
     "category": "Function",
     "text": "union(s1,s2...)\n∪(s1,s2...)\n\nConstruct the union of two or more sets. Maintains order with arrays.\n\nExamples\n\njulia> union([1, 2], [3, 4])\n4-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n\njulia> union([1, 2], [2, 4])\n3-element Array{Int64,1}:\n 1\n 2\n 4\n\njulia> union([4, 2], [1, 2])\n3-element Array{Int64,1}:\n 4\n 2\n 1\n\n\n\n"
@@ -6922,7 +6922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.union!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.union!",
     "category": "Function",
     "text": "union!(s, iterable)\n\nUnion each element of iterable into set s in-place.\n\n\n\n"
@@ -6930,7 +6930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.intersect",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.intersect",
     "category": "Function",
     "text": "intersect(s1,s2...)\n∩(s1,s2)\n\nConstruct the intersection of two or more sets. Maintains order and multiplicity of the first argument for arrays and ranges.\n\n\n\n"
@@ -6938,7 +6938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.setdiff",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.setdiff",
     "category": "Function",
     "text": "setdiff(a, b)\n\nConstruct the set of elements in a but not b. Maintains order with arrays. Note that both arguments must be collections, and both will be iterated over. In particular, setdiff(set,element) where element is a potential member of set, will not work in general.\n\nExample\n\njulia> setdiff([1,2,3],[3,4,5])\n2-element Array{Int64,1}:\n 1\n 2\n\n\n\n"
@@ -6946,7 +6946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.setdiff!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.setdiff!",
     "category": "Function",
     "text": "setdiff!(s, iterable)\n\nRemove each element of iterable from set s in-place.\n\n\n\n"
@@ -6954,7 +6954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.symdiff",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.symdiff",
     "category": "Function",
     "text": "symdiff(a, b, rest...)\n\nConstruct the symmetric difference of elements in the passed in sets or arrays. Maintains order with arrays.\n\nExample\n\njulia> symdiff([1,2,3],[3,4,5],[4,5,6])\n3-element Array{Int64,1}:\n 1\n 2\n 6\n\n\n\n"
@@ -6962,7 +6962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.symdiff!-Tuple{IntSet,Integer}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.symdiff!",
     "category": "Method",
     "text": "symdiff!(s, n)\n\nThe set s is destructively modified to toggle the inclusion of integer n.\n\n\n\n"
@@ -6970,7 +6970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.symdiff!-Tuple{IntSet,Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.symdiff!",
     "category": "Method",
     "text": "symdiff!(s, itr)\n\nFor each element in itr, destructively toggle its inclusion in set s.\n\n\n\n"
@@ -6978,7 +6978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.symdiff!-Tuple{IntSet,IntSet}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.symdiff!",
     "category": "Method",
     "text": "symdiff!(s, itr)\n\nFor each element in itr, destructively toggle its inclusion in set s.\n\n\n\n"
@@ -6986,7 +6986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.intersect!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.intersect!",
     "category": "Function",
     "text": "intersect!(s1::IntSet, s2::IntSet)\n\nIntersects sets s1 and s2 and overwrites the set s1 with the result. If needed, s1 will be expanded to the size of s2.\n\n\n\n"
@@ -6994,23 +6994,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.issubset",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.issubset",
     "category": "Function",
     "text": "issubset(A, S) -> Bool\n⊆(A,S) -> Bool\n\nReturn true if A is a subset of or equal to S.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#Set-Like-Collections-1",
-    "page": "Collections and Data Structures",
-    "title": "Set-Like Collections",
+    "location": "stdlib/collections.html#Colecciones-tipo-Conjunto-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Colecciones tipo Conjunto",
     "category": "section",
-    "text": "Base.Set\nBase.IntSet\nBase.union\nBase.union!\nBase.intersect\nBase.setdiff\nBase.setdiff!\nBase.symdiff\nBase.symdiff!(::IntSet, ::Integer)\nBase.symdiff!(::IntSet, ::Any)\nBase.symdiff!(::IntSet, ::IntSet)\nBase.intersect!\nBase.issubsetFully implemented by:IntSet\nSetPartially implemented by:Array"
+    "text": "Base.Set\nBase.IntSet\nBase.union\nBase.union!\nBase.intersect\nBase.setdiff\nBase.setdiff!\nBase.symdiff\nBase.symdiff!(::IntSet, ::Integer)\nBase.symdiff!(::IntSet, ::Any)\nBase.symdiff!(::IntSet, ::IntSet)\nBase.intersect!\nBase.issubsetCompletamente implementado por:IntSet\nSetParcialmente implementado por:Array"
 },
 
 {
     "location": "stdlib/collections.html#Base.push!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.push!",
     "category": "Function",
     "text": "push!(collection, items...) -> collection\n\nInsert one or more items at the end of collection.\n\nExample\n\njulia> push!([1, 2, 3], 4, 5, 6)\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 5\n 6\n\nUse append! to add all the elements of another collection to collection. The result of the preceding example is equivalent to append!([1, 2, 3], [4, 5, 6]).\n\n\n\n"
@@ -7018,7 +7018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.pop!-Tuple{Any}",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.pop!",
     "category": "Method",
     "text": "pop!(collection) -> item\n\nRemove the last item in collection and return it.\n\nExamples\n\njulia> A=[1, 2, 3, 4, 5, 6]\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 5\n 6\n\njulia> pop!(A)\n6\n\njulia> A\n5-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 5\n\n\n\n"
@@ -7026,7 +7026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.unshift!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.unshift!",
     "category": "Function",
     "text": "unshift!(collection, items...) -> collection\n\nInsert one or more items at the beginning of collection.\n\nExample\n\njulia> unshift!([1, 2, 3, 4], 5, 6)\n6-element Array{Int64,1}:\n 5\n 6\n 1\n 2\n 3\n 4\n\n\n\n"
@@ -7034,7 +7034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.shift!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.shift!",
     "category": "Function",
     "text": "shift!(collection) -> item\n\nRemove the first item from collection.\n\nExample\n\njulia> A = [1, 2, 3, 4, 5, 6]\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 5\n 6\n\njulia> shift!(A)\n1\n\njulia> A\n5-element Array{Int64,1}:\n 2\n 3\n 4\n 5\n 6\n\n\n\n"
@@ -7042,7 +7042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.insert!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.insert!",
     "category": "Function",
     "text": "insert!(a::Vector, index::Integer, item)\n\nInsert an item into a at the given index. index is the index of item in the resulting a.\n\nExample\n\njulia> insert!([6, 5, 4, 2, 1], 4, 3)\n6-element Array{Int64,1}:\n 6\n 5\n 4\n 3\n 2\n 1\n\n\n\n"
@@ -7050,7 +7050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.deleteat!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.deleteat!",
     "category": "Function",
     "text": "deleteat!(a::Vector, i::Integer)\n\nRemove the item at the given i and return the modified a. Subsequent items are shifted to fill the resulting gap.\n\nExample\n\njulia> deleteat!([6, 5, 4, 3, 2, 1], 2)\n5-element Array{Int64,1}:\n 6\n 4\n 3\n 2\n 1\n\n\n\ndeleteat!(a::Vector, inds)\n\nRemove the items at the indices given by inds, and return the modified a. Subsequent items are shifted to fill the resulting gap.\n\ninds can be either an iterator or a collection of sorted and unique integer indices, or a boolean vector of the same length as a with true indicating entries to delete.\n\nExamples\n\njulia> deleteat!([6, 5, 4, 3, 2, 1], 1:2:5)\n3-element Array{Int64,1}:\n 5\n 3\n 1\n\njulia> deleteat!([6, 5, 4, 3, 2, 1], [true, false, true, false, true, false])\n3-element Array{Int64,1}:\n 5\n 3\n 1\n\njulia> deleteat!([6, 5, 4, 3, 2, 1], (2, 2))\nERROR: ArgumentError: indices must be unique and sorted\nStacktrace:\n [1] _deleteat!(::Array{Int64,1}, ::Tuple{Int64,Int64}) at ./array.jl:926\n [2] deleteat!(::Array{Int64,1}, ::Tuple{Int64,Int64}) at ./array.jl:913\n\n\n\n"
@@ -7058,7 +7058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.splice!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.splice!",
     "category": "Function",
     "text": "splice!(a::Vector, index::Integer, [replacement]) -> item\n\nRemove the item at the given index, and return the removed item. Subsequent items are shifted left to fill the resulting gap. If specified, replacement values from an ordered collection will be spliced in place of the removed item.\n\nExamples\n\njulia> A = [6, 5, 4, 3, 2, 1]; splice!(A, 5)\n2\n\njulia> A\n5-element Array{Int64,1}:\n 6\n 5\n 4\n 3\n 1\n\njulia> splice!(A, 5, -1)\n1\n\njulia> A\n5-element Array{Int64,1}:\n  6\n  5\n  4\n  3\n -1\n\njulia> splice!(A, 1, [-1, -2, -3])\n6\n\njulia> A\n7-element Array{Int64,1}:\n -1\n -2\n -3\n  5\n  4\n  3\n -1\n\nTo insert replacement before an index n without removing any items, use splice!(collection, n:n-1, replacement).\n\n\n\nsplice!(a::Vector, range, [replacement]) -> items\n\nRemove items in the specified index range, and return a collection containing the removed items. Subsequent items are shifted left to fill the resulting gap. If specified, replacement values from an ordered collection will be spliced in place of the removed items.\n\nTo insert replacement before an index n without removing any items, use splice!(collection, n:n-1, replacement).\n\nExample\n\njulia> splice!(A, 4:3, 2)\n0-element Array{Int64,1}\n\njulia> A\n8-element Array{Int64,1}:\n -1\n -2\n -3\n  2\n  5\n  4\n  3\n -1\n\n\n\n"
@@ -7066,7 +7066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.resize!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.resize!",
     "category": "Function",
     "text": "resize!(a::Vector, n::Integer) -> Vector\n\nResize a to contain n elements. If n is smaller than the current collection length, the first n elements will be retained. If n is larger, the new elements are not guaranteed to be initialized.\n\nExamples\n\njulia> resize!([6, 5, 4, 3, 2, 1], 3)\n3-element Array{Int64,1}:\n 6\n 5\n 4\n\njulia> a = resize!([6, 5, 4, 3, 2, 1], 8);\n\njulia> length(a)\n8\n\njulia> a[1:6]\n6-element Array{Int64,1}:\n 6\n 5\n 4\n 3\n 2\n 1\n\n\n\n"
@@ -7074,7 +7074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.append!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.append!",
     "category": "Function",
     "text": "append!(collection, collection2) -> collection.\n\nAdd the elements of collection2 to the end of collection.\n\nExamples\n\njulia> append!([1],[2,3])\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> append!([1, 2, 3], [4, 5, 6])\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 5\n 6\n\nUse push! to add individual items to collection which are not already themselves in another collection. The result is of the preceding example is equivalent to push!([1, 2, 3], 4, 5, 6).\n\n\n\n"
@@ -7082,18 +7082,18 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/collections.html#Base.prepend!",
-    "page": "Collections and Data Structures",
+    "page": "Colecciones y Estructuras de Datos",
     "title": "Base.prepend!",
     "category": "Function",
     "text": "prepend!(a::Vector, items) -> collection\n\nInsert the elements of items to the beginning of a.\n\nExample\n\njulia> prepend!([3],[1,2])\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\n\n\n"
 },
 
 {
-    "location": "stdlib/collections.html#Dequeues-1",
-    "page": "Collections and Data Structures",
-    "title": "Dequeues",
+    "location": "stdlib/collections.html#Acciones-relacionadas-con-colas-1",
+    "page": "Colecciones y Estructuras de Datos",
+    "title": "Acciones relacionadas con colas",
     "category": "section",
-    "text": "Base.push!\nBase.pop!(::Any)\nBase.unshift!\nBase.shift!\nBase.insert!\nBase.deleteat!\nBase.splice!\nBase.resize!\nBase.append!\nBase.prepend!Fully implemented by:Vector (a.k.a. 1-dimensional Array)\nBitVector (a.k.a. 1-dimensional BitArray)"
+    "text": "Base.push!\nBase.pop!(::Any)\nBase.unshift!\nBase.shift!\nBase.insert!\nBase.deleteat!\nBase.splice!\nBase.resize!\nBase.append!\nBase.prepend!Completamente implementado por:Vector (a.k.a. 1-dimensional Array)\nBitVector (a.k.a. 1-dimensional BitArray)"
 },
 
 {
@@ -7491,7 +7491,7 @@ var documenterSearchIndex = {"docs": [
 {
     "location": "stdlib/math.html#math-ops-1",
     "page": "Mathematics",
-    "title": "Mathematical Operators",
+    "title": "Operadores Matemáticos",
     "category": "section",
     "text": "Base.:-(::Any)\nBase.:(+)\nBase.:-(::Any, ::Any)\nBase.:*(::Any, ::Any...)\nBase.:(/)\nBase.:\\(::Any, ::Any)\nBase.:^(::Number, ::Number)\nBase.fma\nBase.muladd\nBase.div\nBase.fld\nBase.cld\nBase.mod\nBase.rem\nBase.rem2pi\nBase.Math.mod2pi\nBase.divrem\nBase.fldmod\nBase.fld1\nBase.mod1\nBase.fldmod1\nBase.:(//)\nBase.rationalize\nBase.numerator\nBase.denominator\nBase.:(<<)\nBase.:(>>)\nBase.:(>>>)\nBase.colon\nBase.range\nBase.OneTo\nBase.StepRangeLen\nBase.:(==)\nBase.:(!=)\nBase.:(!==)\nBase.:(<)\nBase.:(<=)\nBase.:(>)\nBase.:(>=)\nBase.cmp\nBase.:(~)\nBase.:(&)\nBase.:(|)\nBase.xor\nBase.:(!)\n&&\n||"
 },
@@ -8309,7 +8309,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Mathematics",
     "title": "Base.conj",
     "category": "Function",
-    "text": "conj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\nconj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\n"
+    "text": "conj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\nconj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\n"
 },
 
 {
@@ -8497,9 +8497,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/math.html#Mathematical-Functions-1",
+    "location": "stdlib/math.html#Funciones-Matemáticas-1",
     "page": "Mathematics",
-    "title": "Mathematical Functions",
+    "title": "Funciones Matemáticas",
     "category": "section",
     "text": "Base.isapprox\nBase.sin\nBase.cos\nBase.tan\nBase.Math.sind\nBase.Math.cosd\nBase.Math.tand\nBase.Math.sinpi\nBase.Math.cospi\nBase.sinh\nBase.cosh\nBase.tanh\nBase.asin\nBase.acos\nBase.atan\nBase.Math.atan2\nBase.Math.asind\nBase.Math.acosd\nBase.Math.atand\nBase.Math.sec\nBase.Math.csc\nBase.Math.cot\nBase.Math.secd\nBase.Math.cscd\nBase.Math.cotd\nBase.Math.asec\nBase.Math.acsc\nBase.Math.acot\nBase.Math.asecd\nBase.Math.acscd\nBase.Math.acotd\nBase.Math.sech\nBase.Math.csch\nBase.Math.coth\nBase.asinh\nBase.acosh\nBase.atanh\nBase.Math.asech\nBase.Math.acsch\nBase.Math.acoth\nBase.Math.sinc\nBase.Math.cosc\nBase.Math.deg2rad\nBase.Math.rad2deg\nBase.Math.hypot\nBase.log(::Any)\nBase.log(::Number, ::Number)\nBase.log2\nBase.log10\nBase.log1p\nBase.Math.frexp\nBase.exp\nBase.exp2\nBase.exp10\nBase.Math.ldexp\nBase.Math.modf\nBase.expm1\nBase.round(::Type, ::Any)\nBase.Rounding.RoundingMode\nBase.Rounding.RoundNearest\nBase.Rounding.RoundNearestTiesAway\nBase.Rounding.RoundNearestTiesUp\nBase.Rounding.RoundToZero\nBase.Rounding.RoundUp\nBase.Rounding.RoundDown\nBase.round{T <: AbstractFloat, MR, MI}(::Complex{T}, ::RoundingMode{MR}, ::RoundingMode{MI})\nBase.ceil\nBase.floor\nBase.trunc\nBase.unsafe_trunc\nBase.signif\nBase.min\nBase.max\nBase.minmax\nBase.Math.clamp\nBase.Math.clamp!\nBase.abs\nBase.Checked.checked_abs\nBase.Checked.checked_neg\nBase.Checked.checked_add\nBase.Checked.checked_sub\nBase.Checked.checked_mul\nBase.Checked.checked_div\nBase.Checked.checked_rem\nBase.Checked.checked_fld\nBase.Checked.checked_mod\nBase.Checked.checked_cld\nBase.Checked.add_with_overflow\nBase.Checked.sub_with_overflow\nBase.Checked.mul_with_overflow\nBase.abs2\nBase.copysign\nBase.sign\nBase.signbit\nBase.flipsign\nBase.sqrt\nBase.isqrt\nBase.Math.cbrt\nBase.real(::Complex)\nBase.imag\nBase.reim\nBase.conj\nBase.angle\nBase.cis\nBase.binomial\nBase.factorial\nBase.gcd\nBase.lcm\nBase.gcdx\nBase.ispow2\nBase.nextpow2\nBase.prevpow2\nBase.nextpow\nBase.prevpow\nBase.nextprod\nBase.invmod\nBase.powermod\nBase.Math.gamma\nBase.Math.lgamma\nBase.Math.lfact\nBase.Math.beta\nBase.Math.lbeta\nBase.ndigits\nBase.widemul\nBase.Math.@evalpoly"
 },
@@ -8609,9 +8609,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/math.html#Statistics-1",
+    "location": "stdlib/math.html#Estadística-1",
     "page": "Mathematics",
-    "title": "Statistics",
+    "title": "Estadística",
     "category": "section",
     "text": "Base.mean\nBase.mean!\nBase.std\nBase.stdm\nBase.var\nBase.varm\nBase.middle\nBase.median\nBase.median!\nBase.quantile\nBase.quantile!\nBase.cov\nBase.cor"
 },
@@ -8929,40 +8929,40 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/math.html#Signal-Processing-1",
+    "location": "stdlib/math.html#Procesamiento-de-Señales-1",
     "page": "Mathematics",
-    "title": "Signal Processing",
+    "title": "Procesamiento de Señales",
     "category": "section",
-    "text": "Fast Fourier transform (FFT) functions in Julia are implemented by calling functions from FFTW.Base.DFT.fft\nBase.DFT.fft!\nBase.DFT.ifft\nBase.DFT.ifft!\nBase.DFT.bfft\nBase.DFT.bfft!\nBase.DFT.plan_fft\nBase.DFT.plan_ifft\nBase.DFT.plan_bfft\nBase.DFT.plan_fft!\nBase.DFT.plan_ifft!\nBase.DFT.plan_bfft!\nBase.DFT.rfft\nBase.DFT.irfft\nBase.DFT.brfft\nBase.DFT.plan_rfft\nBase.DFT.plan_brfft\nBase.DFT.plan_irfft\nBase.DFT.FFTW.dct\nBase.DFT.FFTW.dct!\nBase.DFT.FFTW.idct\nBase.DFT.FFTW.idct!\nBase.DFT.FFTW.plan_dct\nBase.DFT.FFTW.plan_dct!\nBase.DFT.FFTW.plan_idct\nBase.DFT.FFTW.plan_idct!\nBase.DFT.fftshift(::Any)\nBase.DFT.fftshift(::Any, ::Any)\nBase.DFT.ifftshift\nBase.DSP.filt\nBase.DSP.filt!\nBase.DSP.deconv\nBase.DSP.conv\nBase.DSP.conv2\nBase.DSP.xcorrThe following functions are defined within the Base.FFTW module.Base.DFT.FFTW.r2r\nBase.DFT.FFTW.r2r!\nBase.DFT.FFTW.plan_r2r\nBase.DFT.FFTW.plan_r2r!"
+    "text": "Las funciones de transformada rápida de Fourier (Fast Fourier transform – FFT) en Julia están implementadas mediante llamadas a funciones de la librería FFTW.Base.DFT.fft\nBase.DFT.fft!\nBase.DFT.ifft\nBase.DFT.ifft!\nBase.DFT.bfft\nBase.DFT.bfft!\nBase.DFT.plan_fft\nBase.DFT.plan_ifft\nBase.DFT.plan_bfft\nBase.DFT.plan_fft!\nBase.DFT.plan_ifft!\nBase.DFT.plan_bfft!\nBase.DFT.rfft\nBase.DFT.irfft\nBase.DFT.brfft\nBase.DFT.plan_rfft\nBase.DFT.plan_brfft\nBase.DFT.plan_irfft\nBase.DFT.FFTW.dct\nBase.DFT.FFTW.dct!\nBase.DFT.FFTW.idct\nBase.DFT.FFTW.idct!\nBase.DFT.FFTW.plan_dct\nBase.DFT.FFTW.plan_dct!\nBase.DFT.FFTW.plan_idct\nBase.DFT.FFTW.plan_idct!\nBase.DFT.fftshift(::Any)\nBase.DFT.fftshift(::Any, ::Any)\nBase.DFT.ifftshift\nBase.DSP.filt\nBase.DSP.filt!\nBase.DSP.deconv\nBase.DSP.conv\nBase.DSP.conv2\nBase.DSP.xcorrLas siguientes funciones están definidas dentro del módulo Base.FFTW.Base.DFT.FFTW.r2r\nBase.DFT.FFTW.r2r!\nBase.DFT.FFTW.plan_r2r\nBase.DFT.FFTW.plan_r2r!"
 },
 
 {
     "location": "stdlib/numbers.html#",
-    "page": "Numbers",
-    "title": "Numbers",
+    "page": "Números",
+    "title": "Números",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/numbers.html#lib-numbers-1",
-    "page": "Numbers",
-    "title": "Numbers",
+    "page": "Números",
+    "title": "Números",
     "category": "section",
     "text": ""
 },
 
 {
-    "location": "stdlib/numbers.html#Standard-Numeric-Types-1",
-    "page": "Numbers",
-    "title": "Standard Numeric Types",
+    "location": "stdlib/numbers.html#Tipos-Numéricos-Estándar-1",
+    "page": "Números",
+    "title": "Tipos Numéricos Estándar",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/numbers.html#Core.Number",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Number",
     "category": "Type",
     "text": "Number\n\nAbstract supertype for all number types.\n\n\n\n"
@@ -8970,7 +8970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Real",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Real",
     "category": "Type",
     "text": "Real <: Number\n\nAbstract supertype for all real numbers.\n\n\n\n"
@@ -8978,7 +8978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.AbstractFloat",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.AbstractFloat",
     "category": "Type",
     "text": "AbstractFloat <: Real\n\nAbstract supertype for all floating point numbers.\n\n\n\n"
@@ -8986,7 +8986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Integer",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Integer",
     "category": "Type",
     "text": "Integer <: Real\n\nAbstract supertype for all integers.\n\n\n\n"
@@ -8994,7 +8994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Signed",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Signed",
     "category": "Type",
     "text": "Signed <: Integer\n\nAbstract supertype for all signed integers.\n\n\n\n"
@@ -9002,23 +9002,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Unsigned",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Unsigned",
     "category": "Type",
     "text": "Unsigned <: Integer\n\nAbstract supertype for all unsigned integers.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#Abstract-number-types-1",
-    "page": "Numbers",
-    "title": "Abstract number types",
+    "location": "stdlib/numbers.html#Tipos-Numéricos-Abstractos-1",
+    "page": "Números",
+    "title": "Tipos Numéricos Abstractos",
     "category": "section",
     "text": "Core.Number\nCore.Real\nCore.AbstractFloat\nCore.Integer\nCore.Signed\nCore.Unsigned"
 },
 
 {
     "location": "stdlib/numbers.html#Core.Float16",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Float16",
     "category": "Type",
     "text": "Float16 <: AbstractFloat\n\n16-bit floating point number type.\n\n\n\n"
@@ -9026,7 +9026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Float32",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Float32",
     "category": "Type",
     "text": "Float32 <: AbstractFloat\n\n32-bit floating point number type.\n\n\n\n"
@@ -9034,7 +9034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Float64",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Float64",
     "category": "Type",
     "text": "Float64 <: AbstractFloat\n\n64-bit floating point number type.\n\n\n\n"
@@ -9042,7 +9042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Type",
     "text": "BigFloat <: AbstractFloat\n\nArbitrary precision floating point number type.\n\n\n\n"
@@ -9050,7 +9050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Bool",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Bool",
     "category": "Type",
     "text": "Bool <: Integer\n\nBoolean type.\n\n\n\n"
@@ -9058,7 +9058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Int8",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Int8",
     "category": "Type",
     "text": "Int8 <: Signed\n\n8-bit signed integer type.\n\n\n\n"
@@ -9066,7 +9066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.UInt8",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.UInt8",
     "category": "Type",
     "text": "UInt8 <: Unsigned\n\n8-bit unsigned integer type.\n\n\n\n"
@@ -9074,7 +9074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Int16",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Int16",
     "category": "Type",
     "text": "Int16 <: Signed\n\n16-bit signed integer type.\n\n\n\n"
@@ -9082,7 +9082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.UInt16",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.UInt16",
     "category": "Type",
     "text": "UInt16 <: Unsigned\n\n16-bit unsigned integer type.\n\n\n\n"
@@ -9090,7 +9090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Int32",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Int32",
     "category": "Type",
     "text": "Int32 <: Signed\n\n32-bit signed integer type.\n\n\n\n"
@@ -9098,7 +9098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.UInt32",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.UInt32",
     "category": "Type",
     "text": "UInt32 <: Unsigned\n\n32-bit unsigned integer type.\n\n\n\n"
@@ -9106,7 +9106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Int64",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Int64",
     "category": "Type",
     "text": "Int64 <: Signed\n\n64-bit signed integer type.\n\n\n\n"
@@ -9114,7 +9114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.UInt64",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.UInt64",
     "category": "Type",
     "text": "UInt64 <: Unsigned\n\n64-bit unsigned integer type.\n\n\n\n"
@@ -9122,7 +9122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Int128",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Int128",
     "category": "Type",
     "text": "Int128 <: Signed\n\n128-bit signed integer type.\n\n\n\n"
@@ -9130,7 +9130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.UInt128",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.UInt128",
     "category": "Type",
     "text": "UInt128 <: Unsigned\n\n128-bit unsigned integer type.\n\n\n\n"
@@ -9138,7 +9138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.GMP.BigInt",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.GMP.BigInt",
     "category": "Type",
     "text": "BigInt <: Integer\n\nArbitrary precision integer type.\n\n\n\n"
@@ -9146,7 +9146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Complex",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Complex",
     "category": "Type",
     "text": "Complex{T<:Real} <: Number\n\nComplex number type with real and imaginary part of type T.\n\nComplex32, Complex64 and Complex128 are aliases for Complex{Float16}, Complex{Float32} and Complex{Float64} respectively.\n\n\n\n"
@@ -9154,7 +9154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rational",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rational",
     "category": "Type",
     "text": "Rational{T<:Integer} <: Real\n\nRational number type, with numerator and denominator of type T.\n\n\n\n"
@@ -9162,23 +9162,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Irrational",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Irrational",
     "category": "Type",
     "text": "Irrational <: Real\n\nIrrational number type.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#Concrete-number-types-1",
-    "page": "Numbers",
-    "title": "Concrete number types",
+    "location": "stdlib/numbers.html#Tipos-Numéricos-Concretos-1",
+    "page": "Números",
+    "title": "Tipos Numéricos Concretos",
     "category": "section",
     "text": "Core.Float16\nCore.Float32\nCore.Float64\nBase.BigFloat\nCore.Bool\nCore.Int8\nCore.UInt8\nCore.Int16\nCore.UInt16\nCore.Int32\nCore.UInt32\nCore.Int64\nCore.UInt64\nCore.Int128\nCore.UInt128\nBase.BigInt\nBase.Complex\nBase.Rational\nBase.Irrational"
 },
 
 {
     "location": "stdlib/numbers.html#Base.bin",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.bin",
     "category": "Function",
     "text": "bin(n, pad::Int=1)\n\nConvert an integer to a binary string, optionally specifying a number of digits to pad to.\n\njulia> bin(10,2)\n\"1010\"\n\njulia> bin(10,8)\n\"00001010\"\n\n\n\n"
@@ -9186,7 +9186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.hex",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.hex",
     "category": "Function",
     "text": "hex(n, pad::Int=1)\n\nConvert an integer to a hexadecimal string, optionally specifying a number of digits to pad to.\n\njulia> hex(20)\n\"14\"\n\njulia> hex(20, 3)\n\"014\"\n\n\n\n"
@@ -9194,7 +9194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.dec",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.dec",
     "category": "Function",
     "text": "dec(n, pad::Int=1)\n\nConvert an integer to a decimal string, optionally specifying a number of digits to pad to.\n\nExamples\n\njulia> dec(20)\n\"20\"\n\njulia> dec(20, 3)\n\"020\"\n\n\n\n"
@@ -9202,7 +9202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.oct",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.oct",
     "category": "Function",
     "text": "oct(n, pad::Int=1)\n\nConvert an integer to an octal string, optionally specifying a number of digits to pad to.\n\njulia> oct(20)\n\"24\"\n\njulia> oct(20, 3)\n\"024\"\n\n\n\n"
@@ -9210,7 +9210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.base",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.base",
     "category": "Function",
     "text": "base(base::Integer, n::Integer, pad::Integer=1)\n\nConvert an integer n to a string in the given base, optionally specifying a number of digits to pad to.\n\njulia> base(13,5,4)\n\"0005\"\n\njulia> base(5,13,4)\n\"0023\"\n\n\n\n"
@@ -9218,7 +9218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.digits",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.digits",
     "category": "Function",
     "text": "digits([T<:Integer], n::Integer, base::T=10, pad::Integer=1)\n\nReturns an array with element type T (default Int) of the digits of n in the given base, optionally padded with zeros to a specified size. More significant digits are at higher indexes, such that n == sum([digits[k]*base^(k-1) for k=1:length(digits)]).\n\nExamples\n\njulia> digits(10, 10)\n2-element Array{Int64,1}:\n 0\n 1\n\njulia> digits(10, 2)\n4-element Array{Int64,1}:\n 0\n 1\n 0\n 1\n\njulia> digits(10, 2, 6)\n6-element Array{Int64,1}:\n 0\n 1\n 0\n 1\n 0\n 0\n\n\n\n"
@@ -9226,7 +9226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.digits!",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.digits!",
     "category": "Function",
     "text": "digits!(array, n::Integer, base::Integer=10)\n\nFills an array of the digits of n in the given base. More significant digits are at higher indexes. If the array length is insufficient, the least significant digits are filled up to the array length. If the array length is excessive, the excess portion is filled with zeros.\n\nExamples\n\njulia> digits!([2,2,2,2], 10, 2)\n4-element Array{Int64,1}:\n 0\n 1\n 0\n 1\n\njulia> digits!([2,2,2,2,2,2], 10, 2)\n6-element Array{Int64,1}:\n 0\n 1\n 0\n 1\n 0\n 0\n\n\n\n"
@@ -9234,7 +9234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.bits",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.bits",
     "category": "Function",
     "text": "bits(n)\n\nA string giving the literal bit representation of a number.\n\nExample\n\njulia> bits(4)\n\"0000000000000000000000000000000000000000000000000000000000000100\"\n\njulia> bits(2.2)\n\"0100000000000001100110011001100110011001100110011001100110011010\"\n\n\n\n"
@@ -9242,7 +9242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.parse-Tuple{Type,Any,Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.parse",
     "category": "Method",
     "text": "parse(type, str, [base])\n\nParse a string as a number. If the type is an integer type, then a base can be specified (the default is 10). If the type is a floating point type, the string is parsed as a decimal floating point number. If the string does not contain a valid number, an error is raised.\n\njulia> parse(Int, \"1234\")\n1234\n\njulia> parse(Int, \"1234\", 5)\n194\n\njulia> parse(Int, \"afc\", 16)\n2812\n\njulia> parse(Float64, \"1.2e-3\")\n0.0012\n\n\n\n"
@@ -9250,7 +9250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.tryparse",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.tryparse",
     "category": "Function",
     "text": "tryparse(type, str, [base])\n\nLike parse, but returns a Nullable of the requested type. The result will be null if the string does not contain a valid number.\n\n\n\n"
@@ -9258,7 +9258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.big",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.big",
     "category": "Function",
     "text": "big(x)\n\nConvert a number to a maximum precision representation (typically BigInt or BigFloat). See BigFloat for information about some pitfalls with floating-point numbers.\n\n\n\n"
@@ -9266,7 +9266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.signed",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.signed",
     "category": "Function",
     "text": "signed(x)\n\nConvert a number to a signed integer. If the argument is unsigned, it is reinterpreted as signed without checking for overflow.\n\n\n\n"
@@ -9274,7 +9274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.unsigned",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.unsigned",
     "category": "Function",
     "text": "unsigned(x) -> Unsigned\n\nConvert a number to an unsigned integer. If the argument is signed, it is reinterpreted as unsigned without checking for negative values.\n\nExamples\n\njulia> unsigned(-2)\n0xfffffffffffffffe\n\njulia> unsigned(2)\n0x0000000000000002\n\njulia> signed(unsigned(-2))\n-2\n\n\n\n"
@@ -9282,7 +9282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.float-Tuple{Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.float",
     "category": "Method",
     "text": "float(x)\n\nConvert a number or array to a floating point data type. When passed a string, this function is equivalent to parse(Float64, x).\n\n\n\n"
@@ -9290,7 +9290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Math.significand",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Math.significand",
     "category": "Function",
     "text": "significand(x)\n\nExtract the significand(s) (a.k.a. mantissa), in binary representation, of a floating-point number. If x is a non-zero finite number, then the result will be a number of the same type on the interval 12). Otherwise x is returned.\n\nExamples\n\njulia> significand(15.2)/15.2\n0.125\n\njulia> significand(15.2)*8\n15.2\n\n\n\n"
@@ -9298,7 +9298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Math.exponent",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Math.exponent",
     "category": "Function",
     "text": "exponent(x) -> Int\n\nGet the exponent of a normalized floating-point number.\n\n\n\n"
@@ -9306,7 +9306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.complex-Tuple{Complex}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.complex",
     "category": "Method",
     "text": "complex(r, [i])\n\nConvert real numbers or arrays to complex. i defaults to zero.\n\n\n\n"
@@ -9314,7 +9314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.bswap",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.bswap",
     "category": "Function",
     "text": "bswap(n)\n\nByte-swap an integer. Flip the bits of its binary representation.\n\nExamples\n\njulia> a = bswap(4)\n288230376151711744\n\njulia> bswap(a)\n4\n\njulia> bin(1)\n\"1\"\n\njulia> bin(bswap(1))\n\"100000000000000000000000000000000000000000000000000000000\"\n\n\n\n"
@@ -9322,7 +9322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.num2hex",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.num2hex",
     "category": "Function",
     "text": "num2hex(f)\n\nGet a hexadecimal string of the binary representation of a floating point number.\n\nExample\n\njulia> num2hex(2.2)\n\"400199999999999a\"\n\n\n\n"
@@ -9330,7 +9330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.hex2num",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.hex2num",
     "category": "Function",
     "text": "hex2num(str)\n\nConvert a hexadecimal string to the floating point number it represents.\n\n\n\n"
@@ -9338,7 +9338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.hex2bytes",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.hex2bytes",
     "category": "Function",
     "text": "hex2bytes(s::AbstractString)\n\nConvert an arbitrarily long hexadecimal string to its binary representation. Returns an Array{UInt8,1}, i.e. an array of bytes.\n\njulia> a = hex(12345)\n\"3039\"\n\njulia> hex2bytes(a)\n2-element Array{UInt8,1}:\n 0x30\n 0x39\n\n\n\n"
@@ -9346,23 +9346,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.bytes2hex",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.bytes2hex",
     "category": "Function",
     "text": "bytes2hex(bin_arr::Array{UInt8, 1}) -> String\n\nConvert an array of bytes to its hexadecimal representation. All characters are in lower-case.\n\njulia> a = hex(12345)\n\"3039\"\n\njulia> b = hex2bytes(a)\n2-element Array{UInt8,1}:\n 0x30\n 0x39\n\njulia> bytes2hex(b)\n\"3039\"\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#Data-Formats-1",
-    "page": "Numbers",
-    "title": "Data Formats",
+    "location": "stdlib/numbers.html#Formatos-de-Datos-1",
+    "page": "Números",
+    "title": "Formatos de Datos",
     "category": "section",
     "text": "Base.bin\nBase.hex\nBase.dec\nBase.oct\nBase.base\nBase.digits\nBase.digits!\nBase.bits\nBase.parse(::Type, ::Any, ::Any)\nBase.tryparse\nBase.big\nBase.signed\nBase.unsigned\nBase.float(::Any)\nBase.Math.significand\nBase.Math.exponent\nBase.complex(::Complex)\nBase.bswap\nBase.num2hex\nBase.hex2num\nBase.hex2bytes\nBase.bytes2hex"
 },
 
 {
     "location": "stdlib/numbers.html#Base.one",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.one",
     "category": "Function",
     "text": "one(x)\none(T::type)\n\nReturn a multiplicative identity for x: a value such that one(x)*x == x*one(x) == x.  Alternatively one(T) can take a type T, in which case one returns a multiplicative identity for any x of type T.\n\nIf possible, one(x) returns a value of the same type as x, and one(T) returns a value of type T.  However, this may not be the case for types representing dimensionful quantities (e.g. time in days), since the multiplicative identity must be dimensionless.  In that case, one(x) should return an identity value of the same precision (and shape, for matrices) as x.\n\nIf you want a quantity that is of the same type as x, or of type T, even if x is dimensionful, use oneunit instead.\n\njulia> one(3.7)\n1.0\n\njulia> one(Int)\n1\n\njulia> one(Dates.Day(1))\n1\n\n\n\n"
@@ -9370,7 +9370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.oneunit",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.oneunit",
     "category": "Function",
     "text": "oneunit(x::T)\noneunit(T::Type)\n\nReturns T(one(x)), where T is either the type of the argument or (if a type is passed) the argument.  This differs from one for dimensionful quantities: one is dimensionless (a multiplicative identity) while oneunit is dimensionful (of the same type as x, or of type T).\n\njulia> oneunit(3.7)\n1.0\n\njulia> oneunit(Dates.Day)\n1 day\n\n\n\n"
@@ -9378,7 +9378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.zero",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.zero",
     "category": "Function",
     "text": "zero(x)\n\nGet the additive identity element for the type of x (x can also specify the type itself).\n\njulia> zero(1)\n0\n\njulia> zero(big\"2.0\")\n0.000000000000000000000000000000000000000000000000000000000000000000000000000000\n\njulia> zero(rand(2,2))\n2×2 Array{Float64,2}:\n 0.0  0.0\n 0.0  0.0\n\n\n\n"
@@ -9386,7 +9386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.pi",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.pi",
     "category": "Constant",
     "text": "pi\nπ\n\nThe constant pi.\n\njulia> pi\nπ = 3.1415926535897...\n\n\n\n"
@@ -9394,7 +9394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.im",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.im",
     "category": "Constant",
     "text": "im\n\nThe imaginary unit.\n\n\n\n"
@@ -9402,7 +9402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.eu",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.eu",
     "category": "Constant",
     "text": "e\neu\n\nThe constant e.\n\njulia> e\ne = 2.7182818284590...\n\n\n\n"
@@ -9410,7 +9410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.catalan",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.catalan",
     "category": "Constant",
     "text": "catalan\n\nCatalan's constant.\n\njulia> catalan\ncatalan = 0.9159655941772...\n\n\n\n"
@@ -9418,7 +9418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.eulergamma",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.eulergamma",
     "category": "Constant",
     "text": "γ\neulergamma\n\nEuler's constant.\n\njulia> eulergamma\nγ = 0.5772156649015...\n\n\n\n"
@@ -9426,7 +9426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.golden",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.golden",
     "category": "Constant",
     "text": "φ\ngolden\n\nThe golden ratio.\n\njulia> golden\nφ = 1.6180339887498...\n\n\n\n"
@@ -9434,7 +9434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Inf",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Inf",
     "category": "Constant",
     "text": "Inf\n\nPositive infinity of type Float64.\n\n\n\n"
@@ -9442,7 +9442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Inf32",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Inf32",
     "category": "Constant",
     "text": "Inf32\n\nPositive infinity of type Float32.\n\n\n\n"
@@ -9450,7 +9450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Inf16",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Inf16",
     "category": "Constant",
     "text": "Inf16\n\nPositive infinity of type Float16.\n\n\n\n"
@@ -9458,7 +9458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.NaN",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.NaN",
     "category": "Constant",
     "text": "NaN\n\nA not-a-number value of type Float64.\n\n\n\n"
@@ -9466,7 +9466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.NaN32",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.NaN32",
     "category": "Constant",
     "text": "NaN32\n\nA not-a-number value of type Float32.\n\n\n\n"
@@ -9474,7 +9474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.NaN16",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.NaN16",
     "category": "Constant",
     "text": "NaN16\n\nA not-a-number value of type Float16.\n\n\n\n"
@@ -9482,7 +9482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.issubnormal",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.issubnormal",
     "category": "Function",
     "text": "issubnormal(f) -> Bool\n\nTest whether a floating point number is subnormal.\n\n\n\n"
@@ -9490,7 +9490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isfinite",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isfinite",
     "category": "Function",
     "text": "isfinite(f) -> Bool\n\nTest whether a number is finite.\n\njulia> isfinite(5)\ntrue\n\njulia> isfinite(NaN32)\nfalse\n\n\n\n"
@@ -9498,7 +9498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isinf",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isinf",
     "category": "Function",
     "text": "isinf(f) -> Bool\n\nTest whether a number is infinite.\n\n\n\n"
@@ -9506,7 +9506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isnan",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isnan",
     "category": "Function",
     "text": "isnan(f) -> Bool\n\nTest whether a floating point number is not a number (NaN).\n\n\n\n"
@@ -9514,7 +9514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.iszero",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.iszero",
     "category": "Function",
     "text": "iszero(x)\n\nReturn true if x == zero(x); if x is an array, this checks whether all of the elements of x are zero.\n\n\n\n"
@@ -9522,7 +9522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.nextfloat",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.nextfloat",
     "category": "Function",
     "text": "nextfloat(x::AbstractFloat, n::Integer)\n\nThe result of n iterative applications of nextfloat to x if n >= 0, or -n applications of prevfloat if n < 0.\n\n\n\nnextfloat(x::AbstractFloat)\n\nReturns the smallest floating point number y of the same type as x such x < y. If no such y exists (e.g. if x is Inf or NaN), then returns x.\n\n\n\n"
@@ -9530,7 +9530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.prevfloat",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.prevfloat",
     "category": "Function",
     "text": "prevfloat(x::AbstractFloat)\n\nReturns the largest floating point number y of the same type as x such y < x. If no such y exists (e.g. if x is -Inf or NaN), then returns x.\n\n\n\n"
@@ -9538,7 +9538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isinteger",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isinteger",
     "category": "Function",
     "text": "isinteger(x) -> Bool\n\nTest whether x is numerically equal to some integer.\n\njulia> isinteger(4.0)\ntrue\n\n\n\n"
@@ -9546,7 +9546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isreal",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isreal",
     "category": "Function",
     "text": "isreal(x) -> Bool\n\nTest whether x or all its elements are numerically equal to some real number.\n\njulia> isreal(5.)\ntrue\n\njulia> isreal([4.; complex(0,1)])\nfalse\n\n\n\n"
@@ -9554,7 +9554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Float32-Tuple{Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Float32",
     "category": "Method",
     "text": "Float32(x [, mode::RoundingMode])\n\nCreate a Float32 from x. If x is not exactly representable then mode determines how x is rounded.\n\nExamples\n\njulia> Float32(1/3, RoundDown)\n0.3333333f0\n\njulia> Float32(1/3, RoundUp)\n0.33333334f0\n\nSee RoundingMode for available rounding modes.\n\n\n\n"
@@ -9562,7 +9562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Core.Float64-Tuple{Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Core.Float64",
     "category": "Method",
     "text": "Float64(x [, mode::RoundingMode])\n\nCreate a Float64 from x. If x is not exactly representable then mode determines how x is rounded.\n\nExamples\n\njulia> Float64(pi, RoundDown)\n3.141592653589793\n\njulia> Float64(pi, RoundUp)\n3.1415926535897936\n\nSee RoundingMode for available rounding modes.\n\n\n\n"
@@ -9570,7 +9570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.GMP.BigInt-Tuple{Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.GMP.BigInt",
     "category": "Method",
     "text": "BigInt(x)\n\nCreate an arbitrary precision integer. x may be an Int (or anything that can be converted to an Int). The usual mathematical operators are defined for this type, and results are promoted to a BigInt.\n\nInstances can be constructed from strings via parse, or using the big string literal.\n\njulia> parse(BigInt, \"42\")\n42\n\njulia> big\"313\"\n313\n\n\n\n"
@@ -9578,7 +9578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat-Tuple{Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Method",
     "text": "BigFloat(x)\n\nCreate an arbitrary precision floating point number. x may be an Integer, a Float64 or a BigInt. The usual mathematical operators are defined for this type, and results are promoted to a BigFloat.\n\nNote that because decimal literals are converted to floating point numbers when parsed, BigFloat(2.1) may not yield what you expect. You may instead prefer to initialize constants from strings via parse, or using the big string literal.\n\njulia> BigFloat(2.1)\n2.100000000000000088817841970012523233890533447265625000000000000000000000000000\n\njulia> big\"2.1\"\n2.099999999999999999999999999999999999999999999999999999999999999999999999999986\n\n\n\n"
@@ -9586,7 +9586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rounding.rounding",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rounding.rounding",
     "category": "Function",
     "text": "rounding(T)\n\nGet the current floating point rounding mode for type T, controlling the rounding of basic arithmetic functions (+, -, *, / and sqrt) and type conversion.\n\nSee RoundingMode for available modes.\n\n\n\n"
@@ -9594,7 +9594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rounding.setrounding-Tuple{Type,Any}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rounding.setrounding",
     "category": "Method",
     "text": "setrounding(T, mode)\n\nSet the rounding mode of floating point type T, controlling the rounding of basic arithmetic functions (+, -, *, / and sqrt) and type conversion. Other numerical functions may give incorrect or invalid values when using rounding modes other than the default RoundNearest.\n\nNote that this may affect other types, for instance changing the rounding mode of Float64 will change the rounding mode of Float32. See RoundingMode for available modes.\n\nwarning: Warning\nThis feature is still experimental, and may give unexpected or incorrect values.\n\n\n\n"
@@ -9602,7 +9602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rounding.setrounding-Tuple{Function,Type,RoundingMode}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rounding.setrounding",
     "category": "Method",
     "text": "setrounding(f::Function, T, mode)\n\nChange the rounding mode of floating point type T for the duration of f. It is logically equivalent to:\n\nold = rounding(T)\nsetrounding(T, mode)\nf()\nsetrounding(T, old)\n\nSee RoundingMode for available rounding modes.\n\nwarning: Warning\nThis feature is still experimental, and may give unexpected or incorrect values. A known problem is the interaction with compiler optimisations, e.g.julia> setrounding(Float64,RoundDown) do\n           1.1 + 0.1\n       end\n1.2000000000000002Here the compiler is constant folding, that is evaluating a known constant expression at compile time, however the rounding mode is only changed at runtime, so this is not reflected in the function result. This can be avoided by moving constants outside the expression, e.g.julia> x = 1.1; y = 0.1;\n\njulia> setrounding(Float64,RoundDown) do\n           x + y\n       end\n1.2\n\n\n\n"
@@ -9610,7 +9610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rounding.get_zero_subnormals",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rounding.get_zero_subnormals",
     "category": "Function",
     "text": "get_zero_subnormals() -> Bool\n\nReturns false if operations on subnormal floating-point values (\"denormals\") obey rules for IEEE arithmetic, and true if they might be converted to zeros.\n\n\n\n"
@@ -9618,23 +9618,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Rounding.set_zero_subnormals",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Rounding.set_zero_subnormals",
     "category": "Function",
     "text": "set_zero_subnormals(yes::Bool) -> Bool\n\nIf yes is false, subsequent floating-point operations follow rules for IEEE arithmetic on subnormal values (\"denormals\"). Otherwise, floating-point operations are permitted (but not required) to convert subnormal inputs or outputs to zero. Returns true unless yes==true but the hardware does not support zeroing of subnormal numbers.\n\nset_zero_subnormals(true) can speed up some computations on some hardware. However, it can break identities such as (x-y==0) == (x==y).\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#General-Number-Functions-and-Constants-1",
-    "page": "Numbers",
-    "title": "General Number Functions and Constants",
+    "location": "stdlib/numbers.html#Constantes-y-Funciones-de-Números-Generales-1",
+    "page": "Números",
+    "title": "Constantes y Funciones de Números Generales",
     "category": "section",
     "text": "Base.one\nBase.oneunit\nBase.zero\nBase.pi\nBase.im\nBase.eu\nBase.catalan\nBase.eulergamma\nBase.golden\nBase.Inf\nBase.Inf32\nBase.Inf16\nBase.NaN\nBase.NaN32\nBase.NaN16\nBase.issubnormal\nBase.isfinite\nBase.isinf\nBase.isnan\nBase.iszero\nBase.nextfloat\nBase.prevfloat\nBase.isinteger\nBase.isreal\nCore.Float32(::Any)\nCore.Float64(::Any)\nBase.GMP.BigInt(::Any)\nBase.MPFR.BigFloat(::Any)\nBase.Rounding.rounding\nBase.Rounding.setrounding(::Type, ::Any)\nBase.Rounding.setrounding(::Function, ::Type, ::RoundingMode)\nBase.Rounding.get_zero_subnormals\nBase.Rounding.set_zero_subnormals"
 },
 
 {
     "location": "stdlib/numbers.html#Base.count_ones",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.count_ones",
     "category": "Function",
     "text": "count_ones(x::Integer) -> Integer\n\nNumber of ones in the binary representation of x.\n\njulia> count_ones(7)\n3\n\n\n\n"
@@ -9642,7 +9642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.count_zeros",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.count_zeros",
     "category": "Function",
     "text": "count_zeros(x::Integer) -> Integer\n\nNumber of zeros in the binary representation of x.\n\njulia> count_zeros(Int32(2 ^ 16 - 1))\n16\n\n\n\n"
@@ -9650,7 +9650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.leading_zeros",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.leading_zeros",
     "category": "Function",
     "text": "leading_zeros(x::Integer) -> Integer\n\nNumber of zeros leading the binary representation of x.\n\njulia> leading_zeros(Int32(1))\n31\n\n\n\n"
@@ -9658,7 +9658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.leading_ones",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.leading_ones",
     "category": "Function",
     "text": "leading_ones(x::Integer) -> Integer\n\nNumber of ones leading the binary representation of x.\n\njulia> leading_ones(UInt32(2 ^ 32 - 2))\n31\n\n\n\n"
@@ -9666,7 +9666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.trailing_zeros",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.trailing_zeros",
     "category": "Function",
     "text": "trailing_zeros(x::Integer) -> Integer\n\nNumber of zeros trailing the binary representation of x.\n\njulia> trailing_zeros(2)\n1\n\n\n\n"
@@ -9674,7 +9674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.trailing_ones",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.trailing_ones",
     "category": "Function",
     "text": "trailing_ones(x::Integer) -> Integer\n\nNumber of ones trailing the binary representation of x.\n\njulia> trailing_ones(3)\n2\n\n\n\n"
@@ -9682,7 +9682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.isodd",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.isodd",
     "category": "Function",
     "text": "isodd(x::Integer) -> Bool\n\nReturns true if x is odd (that is, not divisible by 2), and false otherwise.\n\njulia> isodd(9)\ntrue\n\njulia> isodd(10)\nfalse\n\n\n\n"
@@ -9690,23 +9690,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.iseven",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.iseven",
     "category": "Function",
     "text": "iseven(x::Integer) -> Bool\n\nReturns true is x is even (that is, divisible by 2), and false otherwise.\n\njulia> iseven(9)\nfalse\n\njulia> iseven(10)\ntrue\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#Integers-1",
-    "page": "Numbers",
-    "title": "Integers",
+    "location": "stdlib/numbers.html#Enteros-1",
+    "page": "Números",
+    "title": "Enteros",
     "category": "section",
     "text": "Base.count_ones\nBase.count_zeros\nBase.leading_zeros\nBase.leading_ones\nBase.trailing_zeros\nBase.trailing_ones\nBase.isodd\nBase.iseven"
 },
 
 {
     "location": "stdlib/numbers.html#Base.precision",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.precision",
     "category": "Function",
     "text": "precision(num::AbstractFloat)\n\nGet the precision of a floating point number, as defined by the effective number of bits in the mantissa.\n\n\n\n"
@@ -9714,7 +9714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.precision-Tuple{Type{BigFloat}}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.precision",
     "category": "Method",
     "text": "precision(BigFloat)\n\nGet the precision (in bits) currently used for BigFloat arithmetic.\n\n\n\n"
@@ -9722,7 +9722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.setprecision",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.setprecision",
     "category": "Function",
     "text": "setprecision([T=BigFloat,] precision::Int)\n\nSet the precision (in bits) to be used for T arithmetic.\n\n\n\nsetprecision(f::Function, [T=BigFloat,] precision::Integer)\n\nChange the T arithmetic precision (in bits) for the duration of f. It is logically equivalent to:\n\nold = precision(BigFloat)\nsetprecision(BigFloat, precision)\nf()\nsetprecision(BigFloat, old)\n\nOften used as setprecision(T, precision) do ... end\n\n\n\n"
@@ -9730,7 +9730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat-Tuple{Any,Int64}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Method",
     "text": "BigFloat(x, prec::Int)\n\nCreate a representation of x as a BigFloat with precision prec.\n\n\n\n"
@@ -9738,7 +9738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat-Tuple{Union{AbstractFloat, Integer, String},RoundingMode}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Method",
     "text": "BigFloat(x, rounding::RoundingMode)\n\nCreate a representation of x as a BigFloat with the current global precision and rounding mode rounding.\n\n\n\n"
@@ -9746,7 +9746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat-Tuple{Any,Int64,RoundingMode}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Method",
     "text": "BigFloat(x, prec::Int, rounding::RoundingMode)\n\nCreate a representation of x as a BigFloat with precision prec and rounding mode rounding.\n\n\n\n"
@@ -9754,7 +9754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.MPFR.BigFloat-Tuple{String}",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.MPFR.BigFloat",
     "category": "Method",
     "text": "BigFloat(x::String)\n\nCreate a representation of the string x as a BigFloat.\n\n\n\n"
@@ -9762,15 +9762,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#BigFloats-1",
-    "page": "Numbers",
+    "page": "Números",
     "title": "BigFloats",
     "category": "section",
-    "text": "The BigFloat type implements arbitrary-precision floating-point arithmetic using the GNU MPFR library.Base.precision\nBase.MPFR.precision(::Type{BigFloat})\nBase.MPFR.setprecision\nBase.MPFR.BigFloat(x, prec::Int)\nBigFloat(x::Union{Integer, AbstractFloat, String}, rounding::RoundingMode)\nBase.MPFR.BigFloat(x, prec::Int, rounding::RoundingMode)\nBase.MPFR.BigFloat(x::String)"
+    "text": "El tipo BigFloat implementa el punto flotante de precisión arbitraria usando la librería GNU MPFR library.Base.precision\nBase.MPFR.precision(::Type{BigFloat})\nBase.MPFR.setprecision\nBase.MPFR.BigFloat(x, prec::Int)\nBigFloat(x::Union{Integer, AbstractFloat, String}, rounding::RoundingMode)\nBase.MPFR.BigFloat(x, prec::Int, rounding::RoundingMode)\nBase.MPFR.BigFloat(x::String)"
 },
 
 {
     "location": "stdlib/numbers.html#Base.Random.srand",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.srand",
     "category": "Function",
     "text": "srand([rng=GLOBAL_RNG], [seed]) -> rng\nsrand([rng=GLOBAL_RNG], filename, n=4) -> rng\n\nReseed the random number generator. If a seed is provided, the RNG will give a reproducible sequence of numbers, otherwise Julia will get entropy from the system. For MersenneTwister, the seed may be a non-negative integer, a vector of UInt32 integers or a filename, in which case the seed is read from a file (4n bytes are read from the file, where n is an optional argument). RandomDevice does not support seeding.\n\n\n\n"
@@ -9778,7 +9778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.MersenneTwister",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.MersenneTwister",
     "category": "Type",
     "text": "MersenneTwister(seed)\n\nCreate a MersenneTwister RNG object. Different RNG objects can have their own seeds, which may be useful for generating different streams of random numbers.\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\n\n\n"
@@ -9786,7 +9786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.RandomDevice",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.RandomDevice",
     "category": "Type",
     "text": "RandomDevice()\n\nCreate a RandomDevice RNG object. Two such objects will always generate different streams of random numbers.\n\n\n\n"
@@ -9794,7 +9794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.rand",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.rand",
     "category": "Function",
     "text": "rand([rng=GLOBAL_RNG], [S], [dims...])\n\nPick a random element or array of random elements from the set of values specified by S; S can be\n\nan indexable collection (for example 1:n or ['x','y','z']), or\na type: the set of values to pick from is then equivalent to typemin(S):typemax(S) for integers (this is not applicable to BigInt), and to 0 1) for floating point numbers;\n\nS defaults to Float64.\n\n\n\n"
@@ -9802,7 +9802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.rand!",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.rand!",
     "category": "Function",
     "text": "rand!([rng=GLOBAL_RNG], A, [coll])\n\nPopulate the array A with random values. If the indexable collection coll is specified, the values are picked randomly from coll. This is equivalent to copy!(A, rand(rng, coll, size(A))) or copy!(A, rand(rng, eltype(A), size(A))) but without allocating a new array.\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\njulia> rand!(rng, zeros(5))\n5-element Array{Float64,1}:\n 0.590845\n 0.766797\n 0.566237\n 0.460085\n 0.794026\n\n\n\n"
@@ -9810,7 +9810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.bitrand",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.bitrand",
     "category": "Function",
     "text": "bitrand([rng=GLOBAL_RNG], [dims...])\n\nGenerate a BitArray of random boolean values.\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\njulia> bitrand(rng, 10)\n10-element BitArray{1}:\n  true\n  true\n  true\n false\n  true\n false\n false\n  true\n false\n  true\n\n\n\n"
@@ -9818,7 +9818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.randn",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.randn",
     "category": "Function",
     "text": "randn([rng=GLOBAL_RNG], [T=Float64], [dims...])\n\nGenerate a normally-distributed random number of type T with mean 0 and standard deviation 1. Optionally generate an array of normally-distributed random numbers. The Base module currently provides an implementation for the types Float16, Float32, and Float64 (the default).\n\nExamples\n\njulia> rng = MersenneTwister(1234);\n\njulia> randn(rng, Float64)\n0.8673472019512456\n\njulia> randn(rng, Float32, (2, 4))\n2×4 Array{Float32,2}:\n -0.901744  -0.902914  2.21188   -0.271735\n -0.494479   0.864401  0.532813   0.502334\n\n\n\n"
@@ -9826,7 +9826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.randn!",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.randn!",
     "category": "Function",
     "text": "randn!([rng=GLOBAL_RNG], A::AbstractArray) -> A\n\nFill the array A with normally-distributed (mean 0, standard deviation 1) random numbers. Also see the rand function.\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\njulia> randn!(rng, zeros(5))\n5-element Array{Float64,1}:\n  0.867347\n -0.901744\n -0.494479\n -0.902914\n  0.864401\n\n\n\n"
@@ -9834,7 +9834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.randexp",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.randexp",
     "category": "Function",
     "text": "randexp([rng=GLOBAL_RNG], [T=Float64], [dims...])\n\nGenerate a random number of type T according to the exponential distribution with scale 1. Optionally generate an array of such random numbers. The Base module currently provides an implementation for the types Float16, Float32, and Float64 (the default).\n\nExamples\n\njulia> rng = MersenneTwister(1234);\n\njulia> randexp(rng, Float32)\n2.4835055f0\n\njulia> randexp(rng, 3, 3)\n3×3 Array{Float64,2}:\n 1.5167    1.30652   0.344435\n 0.604436  2.78029   0.418516\n 0.695867  0.693292  0.643644\n\n\n\n"
@@ -9842,7 +9842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.randexp!",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.randexp!",
     "category": "Function",
     "text": "randexp!([rng=GLOBAL_RNG], A::AbstractArray) -> A\n\nFill the array A with random numbers following the exponential distribution (with scale 1).\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\njulia> randexp!(rng, zeros(5))\n5-element Array{Float64,1}:\n 2.48351\n 1.5167\n 0.604436\n 0.695867\n 1.30652\n\n\n\n"
@@ -9850,31 +9850,31 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/numbers.html#Base.Random.randjump",
-    "page": "Numbers",
+    "page": "Números",
     "title": "Base.Random.randjump",
     "category": "Function",
     "text": "randjump(r::MersenneTwister, jumps::Integer, [jumppoly::AbstractString=dSFMT.JPOLY1e21]) -> Vector{MersenneTwister}\n\nCreate an array of the size jumps of initialized MersenneTwister RNG objects. The first RNG object given as a parameter and following MersenneTwister RNGs in the array are initialized such that a state of the RNG object in the array would be moved forward (without generating numbers) from a previous RNG object array element on a particular number of steps encoded by the jump polynomial jumppoly.\n\nDefault jump polynomial moves forward MersenneTwister RNG state by 10^20 steps.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/numbers.html#Random-Numbers-1",
-    "page": "Numbers",
-    "title": "Random Numbers",
+    "location": "stdlib/numbers.html#random-numbers-1",
+    "page": "Números",
+    "title": "Números Aleatorios",
     "category": "section",
-    "text": "Random number generation in Julia uses the Mersenne Twister library via MersenneTwister objects. Julia has a global RNG, which is used by default. Other RNG types can be plugged in by inheriting the AbstractRNG type; they can then be used to have multiple streams of random numbers. Besides MersenneTwister, Julia also provides the RandomDevice RNG type, which is a wrapper over the OS provided entropy.Most functions related to random generation accept an optional AbstractRNG as the first argument, rng , which defaults to the global one if not provided. Morever, some of them accept optionally dimension specifications dims... (which can be given as a tuple) to generate arrays of random values.A MersenneTwister or RandomDevice RNG can generate random numbers of the following types: Float16, Float32, Float64, Bool, Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Int128, UInt128, BigInt (or complex numbers of those types). Random floating point numbers are generated uniformly in 0 1). As BigInt represents unbounded integers, the interval must be specified (e.g. rand(big(1:6))).Base.Random.srand\nBase.Random.MersenneTwister\nBase.Random.RandomDevice\nBase.Random.rand\nBase.Random.rand!\nBase.Random.bitrand\nBase.Random.randn\nBase.Random.randn!\nBase.Random.randexp\nBase.Random.randexp!\nBase.Random.randjump"
+    "text": "La generación de números aleatorios en Julia utiliza la librería Mersenne Twister a través de objetos MersenneTwister. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo AbstractRNG; ellos pueden ser usados entonces para tener multiples flujos de numeros aleatorios. Ademas de MersenneTwister, Julia proporciona el tipo RNG RandomDevice que es un wrapper sobre la entropía proporcionada por el SO.La mayoría de las funciones relacionadas con la generación aleatoria aceptan un AbstractRNG opcional como primer argumento,rng, que se predetermina al global si no se proporciona. Además, algunos de ellos aceptan opcionalmente especificaciones de dimensión dims ... (que pueden darse como una tupla) para generar matrices de valores aleatorios.Un RNG de tipo MersenneTwister o RandomDevice puede generar números aleatorios de los siguientes tipos: Float16, Float32, Float64, Bool, Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Int128, UInt128, BigInt (o números complejos de estos tipos). Los números aleatorio en punto flotante son generados uniformemente en 0 1). Como BigInt representa números sin límite, el intervalo debe ser especificado (por ejemplo, rand(big(1:6))).Base.Random.srand\nBase.Random.MersenneTwister\nBase.Random.RandomDevice\nBase.Random.rand\nBase.Random.rand!\nBase.Random.bitrand\nBase.Random.randn\nBase.Random.randn!\nBase.Random.randexp\nBase.Random.randexp!\nBase.Random.randjump"
 },
 
 {
     "location": "stdlib/strings.html#",
-    "page": "Strings",
-    "title": "Strings",
+    "page": "Cadenas",
+    "title": "Cadenas",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/strings.html#Base.length-Tuple{AbstractString}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.length",
     "category": "Method",
     "text": "length(s::AbstractString)\n\nThe number of characters in string s.\n\nExample\n\njulia> length(\"jμΛIα\")\n5\n\n\n\n"
@@ -9882,7 +9882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.sizeof-Tuple{AbstractString}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.sizeof",
     "category": "Method",
     "text": "sizeof(s::AbstractString)\n\nThe number of bytes in string s.\n\nExample\n\njulia> sizeof(\"❤\")\n3\n\n\n\n"
@@ -9890,7 +9890,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.:*-Tuple{AbstractString,Vararg{Any,N} where N}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.:*",
     "category": "Method",
     "text": "*(x, y...)\n\nMultiplication operator. x*y*z*... calls this function with all arguments, i.e. *(x, y, z, ...).\n\n\n\n"
@@ -9898,7 +9898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.:^-Tuple{AbstractString,Integer}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.:^",
     "category": "Method",
     "text": "^(s::AbstractString, n::Integer)\n\nRepeat n times the string s. The repeat function is an alias to this operator.\n\njulia> \"Test \"^3\n\"Test Test Test \"\n\n\n\n"
@@ -9906,7 +9906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.string",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.string",
     "category": "Function",
     "text": "string(xs...)\n\nCreate a string from any values using the print function.\n\njulia> string(\"a\", 1, true)\n\"a1true\"\n\n\n\n"
@@ -9914,7 +9914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.repr",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.repr",
     "category": "Function",
     "text": "repr(x)\n\nCreate a string from any value using the showall function.\n\n\n\n"
@@ -9922,7 +9922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Core.String-Tuple{AbstractString}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Core.String",
     "category": "Method",
     "text": "String(s::AbstractString)\n\nConvert a string to a contiguous byte array representation encoded as UTF-8 bytes. This representation is often appropriate for passing strings to C.\n\n\n\n"
@@ -9930,7 +9930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.transcode",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.transcode",
     "category": "Function",
     "text": "transcode(T, src)\n\nConvert string data between Unicode encodings. src is either a String or a Vector{UIntXX} of UTF-XX code units, where XX is 8, 16, or 32. T indicates the encoding of the return value: String to return a (UTF-8 encoded) String or UIntXX to return a Vector{UIntXX} of UTF-XX data.   (The alias Cwchar_t can also be used as the integer type, for converting wchar_t* strings used by external C libraries.)\n\nThe transcode function succeeds as long as the input data can be reasonably represented in the target encoding; it always succeeds for conversions between UTF-XX encodings, even for invalid Unicode data.\n\nOnly conversion to/from UTF-8 is currently supported.\n\n\n\n"
@@ -9938,7 +9938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.unsafe_string",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.unsafe_string",
     "category": "Function",
     "text": "unsafe_string(p::Ptr{UInt8}, [length::Integer])\n\nCopy a string from the address of a C-style (NUL-terminated) string encoded as UTF-8. (The pointer can be safely freed afterwards.) If length is specified (the length of the data in bytes), the string does not have to be NUL-terminated.\n\nThis function is labelled \"unsafe\" because it will crash if p is not a valid memory address to data of the requested length.\n\n\n\n"
@@ -9946,7 +9946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.codeunit-Tuple{AbstractString,Integer}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.codeunit",
     "category": "Method",
     "text": "codeunit(s::AbstractString, i::Integer)\n\nGet the ith code unit of an encoded string. For example, returns the ith byte of the representation of a UTF-8 string.\n\n\n\n"
@@ -9954,7 +9954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.ascii",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.ascii",
     "category": "Function",
     "text": "ascii(s::AbstractString)\n\nConvert a string to String type and check that it contains only ASCII data, otherwise throwing an ArgumentError indicating the position of the first non-ASCII byte.\n\njulia> ascii(\"abcdeγfgh\")\nERROR: ArgumentError: invalid ASCII at index 6 in \"abcdeγfgh\"\nStacktrace:\n [1] ascii(::String) at ./strings/util.jl:479\n\njulia> ascii(\"abcdefgh\")\n\"abcdefgh\"\n\n\n\n"
@@ -9962,7 +9962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.@r_str",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.@r_str",
     "category": "Macro",
     "text": "@r_str -> Regex\n\nConstruct a regex, such as r\"^[a-z]*$\". The regex also accepts one or more flags, listed after the ending quote, to change its behaviour:\n\ni enables case-insensitive matching\nm treats the ^ and $ tokens as matching the start and end of individual lines, as opposed to the whole string.\ns allows the . modifier to match newlines.\nx enables \"comment mode\": whitespace is enabled except when escaped with \\, and # is treated as starting a comment.\n\nFor example, this regex has all three flags enabled:\n\njulia> match(r\"a+.*b+.*?d$\"ism, \"Goodbye,\\nOh, angry,\\nBad world\\n\")\nRegexMatch(\"angry,\\nBad world\")\n\n\n\n"
@@ -9970,7 +9970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.Docs.@html_str",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.Docs.@html_str",
     "category": "Macro",
     "text": "@html_str -> Docs.HTML\n\nCreate an HTML object from a literal string.\n\n\n\n"
@@ -9978,7 +9978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.Docs.@text_str",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.Docs.@text_str",
     "category": "Macro",
     "text": "@text_str -> Docs.Text\n\nCreate a Text object from a literal string.\n\n\n\n"
@@ -9986,7 +9986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.normalize_string",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.normalize_string",
     "category": "Function",
     "text": "normalize_string(s::AbstractString, normalform::Symbol)\n\nNormalize the string s according to one of the four \"normal forms\" of the Unicode standard: normalform can be :NFC, :NFD, :NFKC, or :NFKD.  Normal forms C (canonical composition) and D (canonical decomposition) convert different visually identical representations of the same abstract string into a single canonical form, with form C being more compact.  Normal forms KC and KD additionally canonicalize \"compatibility equivalents\": they convert characters that are abstractly similar but visually distinct into a single canonical choice (e.g. they expand ligatures into the individual characters), with form KC being more compact.\n\nAlternatively, finer control and additional transformations may be be obtained by calling normalize_string(s; keywords...), where any number of the following boolean keywords options (which all default to false except for compose) are specified:\n\ncompose=false: do not perform canonical composition\ndecompose=true: do canonical decomposition instead of canonical composition (compose=true is ignored if present)\ncompat=true: compatibility equivalents are canonicalized\ncasefold=true: perform Unicode case folding, e.g. for case-insensitive string comparison\nnewline2lf=true, newline2ls=true, or newline2ps=true: convert various newline sequences (LF, CRLF, CR, NEL) into a linefeed (LF), line-separation (LS), or paragraph-separation (PS) character, respectively\nstripmark=true: strip diacritical marks (e.g. accents)\nstripignore=true: strip Unicode's \"default ignorable\" characters (e.g. the soft hyphen or the left-to-right marker)\nstripcc=true: strip control characters; horizontal tabs and form feeds are converted to spaces; newlines are also converted to spaces unless a newline-conversion flag was specified\nrejectna=true: throw an error if unassigned code points are found\nstable=true: enforce Unicode Versioning Stability\n\nFor example, NFKC corresponds to the options compose=true, compat=true, stable=true.\n\n\n\n"
@@ -9994,7 +9994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.graphemes",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.graphemes",
     "category": "Function",
     "text": "graphemes(s::AbstractString) -> GraphemeIterator\n\nReturns an iterator over substrings of s that correspond to the extended graphemes in the string, as defined by Unicode UAX #29. (Roughly, these are what users would perceive as single characters, even though they may contain more than one codepoint; for example a letter combined with an accent mark is a single grapheme.)\n\n\n\n"
@@ -10002,7 +10002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.isvalid-Tuple{Any}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.isvalid",
     "category": "Method",
     "text": "isvalid(value) -> Bool\n\nReturns true if the given value is valid for its type, which currently can be either Char or String.\n\n\n\n"
@@ -10010,7 +10010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.isvalid-Tuple{Any,Any}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.isvalid",
     "category": "Method",
     "text": "isvalid(T, value) -> Bool\n\nReturns true if the given value is valid for that type. Types currently can be either Char or String. Values for Char can be of type Char or UInt32. Values for String can be of that type, or Vector{UInt8}.\n\n\n\n"
@@ -10018,7 +10018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.isvalid-Tuple{AbstractString,Integer}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.isvalid",
     "category": "Method",
     "text": "isvalid(str::AbstractString, i::Integer)\n\nTells whether index i is valid for the given string.\n\nExamples\n\njulia> str = \"αβγdef\";\n\njulia> isvalid(str, 1)\ntrue\n\njulia> str[1]\n'α': Unicode U+03b1 (category Ll: Letter, lowercase)\n\njulia> isvalid(str, 2)\nfalse\n\njulia> str[2]\nERROR: UnicodeError: invalid character index\n[...]\n\n\n\n"
@@ -10026,7 +10026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.is_assigned_char",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.is_assigned_char",
     "category": "Function",
     "text": "is_assigned_char(c) -> Bool\n\nReturns true if the given char or integer is an assigned Unicode code point.\n\n\n\n"
@@ -10034,7 +10034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.ismatch",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.ismatch",
     "category": "Function",
     "text": "ismatch(r::Regex, s::AbstractString) -> Bool\n\nTest whether a string contains a match of the given regular expression.\n\n\n\n"
@@ -10042,7 +10042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.match",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.match",
     "category": "Function",
     "text": "match(r::Regex, s::AbstractString[, idx::Integer[, addopts]])\n\nSearch for the first match of the regular expression r in s and return a RegexMatch object containing the match, or nothing if the match failed. The matching substring can be retrieved by accessing m.match and the captured sequences can be retrieved by accessing m.captures The optional idx argument specifies an index at which to start the search.\n\n\n\n"
@@ -10050,7 +10050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.eachmatch",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.eachmatch",
     "category": "Function",
     "text": "eachmatch(r::Regex, s::AbstractString[, overlap::Bool=false])\n\nSearch for all matches of a the regular expression r in s and return a iterator over the matches. If overlap is true, the matching sequences are allowed to overlap indices in the original string, otherwise they must be from distinct character ranges.\n\n\n\n"
@@ -10058,7 +10058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.matchall",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.matchall",
     "category": "Function",
     "text": "matchall(r::Regex, s::AbstractString[, overlap::Bool=false]) -> Vector{AbstractString}\n\nReturn a vector of the matching substrings from eachmatch.\n\n\n\n"
@@ -10066,7 +10066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.lpad",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.lpad",
     "category": "Function",
     "text": "lpad(s, n::Integer, p::AbstractString=\" \")\n\nMake a string at least n columns wide when printed by padding s on the left with copies of p.\n\njulia> lpad(\"March\",10)\n\"     March\"\n\n\n\n"
@@ -10074,7 +10074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.rpad",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.rpad",
     "category": "Function",
     "text": "rpad(s, n::Integer, p::AbstractString=\" \")\n\nMake a string at least n columns wide when printed by padding s on the right with copies of p.\n\njulia> rpad(\"March\",20)\n\"March               \"\n\n\n\n"
@@ -10082,7 +10082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.search",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.search",
     "category": "Function",
     "text": "search(string::AbstractString, chars::Chars, [start::Integer])\n\nSearch for the first occurrence of the given characters within the given string. The second argument may be a single character, a vector or a set of characters, a string, or a regular expression (though regular expressions are only allowed on contiguous strings, such as ASCII or UTF-8 strings). The third argument optionally specifies a starting index. The return value is a range of indexes where the matching sequence is found, such that s[search(s,x)] == x:\n\nsearch(string, \"substring\") = start:end such that string[start:end] == \"substring\", or 0:-1 if unmatched.\n\nsearch(string, 'c') = index such that string[index] == 'c', or 0 if unmatched.\n\njulia> search(\"Hello to the world\", \"z\")\n0:-1\n\njulia> search(\"JuliaLang\",\"Julia\")\n1:5\n\n\n\n"
@@ -10090,7 +10090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.rsearch",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.rsearch",
     "category": "Function",
     "text": "rsearch(s::AbstractString, chars::Chars, [start::Integer])\n\nSimilar to search, but returning the last occurrence of the given characters within the given string, searching in reverse from start.\n\njulia> rsearch(\"aaabbb\",\"b\")\n6:6\n\n\n\n"
@@ -10098,7 +10098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.searchindex",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.searchindex",
     "category": "Function",
     "text": "searchindex(s::AbstractString, substring, [start::Integer])\n\nSimilar to search, but return only the start index at which the substring is found, or 0 if it is not.\n\njulia> searchindex(\"Hello to the world\", \"z\")\n0\n\njulia> searchindex(\"JuliaLang\",\"Julia\")\n1\n\njulia> searchindex(\"JuliaLang\",\"Lang\")\n6\n\n\n\n"
@@ -10106,7 +10106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.rsearchindex",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.rsearchindex",
     "category": "Function",
     "text": "rsearchindex(s::AbstractString, substring, [start::Integer])\n\nSimilar to rsearch, but return only the start index at which the substring is found, or 0 if it is not.\n\njulia> rsearchindex(\"aaabbb\",\"b\")\n6\n\njulia> rsearchindex(\"aaabbb\",\"a\")\n3\n\n\n\n"
@@ -10114,7 +10114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.contains-Tuple{AbstractString,AbstractString}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.contains",
     "category": "Method",
     "text": "contains(haystack::AbstractString, needle::AbstractString)\n\nDetermine whether the second argument is a substring of the first.\n\njulia> contains(\"JuliaLang is pretty cool!\", \"Julia\")\ntrue\n\n\n\n"
@@ -10122,7 +10122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.reverse-Tuple{AbstractString}",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.reverse",
     "category": "Method",
     "text": "reverse(s::AbstractString) -> AbstractString\n\nReverses a string.\n\njulia> reverse(\"JuliaLang\")\n\"gnaLailuJ\"\n\n\n\n"
@@ -10130,7 +10130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.replace",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.replace",
     "category": "Function",
     "text": "replace(string::AbstractString, pat, r[, n::Integer=0])\n\nSearch for the given pattern pat, and replace each occurrence with r. If n is provided, replace at most n occurrences. As with search, the second argument may be a single character, a vector or a set of characters, a string, or a regular expression. If r is a function, each occurrence is replaced with r(s) where s is the matched substring. If pat is a regular expression and r is a SubstitutionString, then capture group references in r are replaced with the corresponding matched text.\n\n\n\n"
@@ -10138,7 +10138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.split",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.split",
     "category": "Function",
     "text": "split(s::AbstractString, [chars]; limit::Integer=0, keep::Bool=true)\n\nReturn an array of substrings by splitting the given string on occurrences of the given character delimiters, which may be specified in any of the formats allowed by search's second argument (i.e. a single character, collection of characters, string, or regular expression). If chars is omitted, it defaults to the set of all space characters, and keep is taken to be false. The two keyword arguments are optional: they are a maximum size for the result and a flag determining whether empty fields should be kept in the result.\n\njulia> a = \"Ma.rch\"\n\"Ma.rch\"\n\njulia> split(a,\".\")\n2-element Array{SubString{String},1}:\n \"Ma\"\n \"rch\"\n\n\n\n"
@@ -10146,7 +10146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.rsplit",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.rsplit",
     "category": "Function",
     "text": "rsplit(s::AbstractString, [chars]; limit::Integer=0, keep::Bool=true)\n\nSimilar to split, but starting from the end of the string.\n\njulia> a = \"M.a.r.c.h\"\n\"M.a.r.c.h\"\n\njulia> rsplit(a,\".\")\n5-element Array{SubString{String},1}:\n \"M\"\n \"a\"\n \"r\"\n \"c\"\n \"h\"\n\njulia> rsplit(a,\".\";limit=1)\n1-element Array{SubString{String},1}:\n \"M.a.r.c.h\"\n\njulia> rsplit(a,\".\";limit=2)\n2-element Array{SubString{String},1}:\n \"M.a.r.c\"\n \"h\"\n\n\n\n"
@@ -10154,7 +10154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.strip",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.strip",
     "category": "Function",
     "text": "strip(s::AbstractString, [chars::Chars])\n\nReturn s with any leading and trailing whitespace removed. If chars (a character, or vector or set of characters) is provided, instead remove characters contained in it.\n\njulia> strip(\"{3, 5}\\n\", ['{', '}', '\\n'])\n\"3, 5\"\n\n\n\n"
@@ -10162,7 +10162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.lstrip",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.lstrip",
     "category": "Function",
     "text": "lstrip(s::AbstractString[, chars::Chars])\n\nReturn s with any leading whitespace and delimiters removed. The default delimiters to remove are ' ', \\t, \\n, \\v, \\f, and \\r. If chars (a character, or vector or set of characters) is provided, instead remove characters contained in it.\n\njulia> a = lpad(\"March\", 20)\n\"               March\"\n\njulia> lstrip(a)\n\"March\"\n\n\n\n"
@@ -10170,7 +10170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.rstrip",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.rstrip",
     "category": "Function",
     "text": "rstrip(s::AbstractString[, chars::Chars])\n\nReturn s with any trailing whitespace and delimiters removed. The default delimiters to remove are ' ', \\t, \\n, \\v, \\f, and \\r. If chars (a character, or vector or set of characters) is provided, instead remove characters contained in it.\n\njulia> a = rpad(\"March\", 20)\n\"March               \"\n\njulia> rstrip(a)\n\"March\"\n\n\n\n"
@@ -10178,7 +10178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.startswith",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.startswith",
     "category": "Function",
     "text": "startswith(s::AbstractString, prefix::AbstractString)\n\nReturns true if s starts with prefix. If prefix is a vector or set of characters, tests whether the first character of s belongs to that set.\n\nSee also endswith.\n\njulia> startswith(\"JuliaLang\", \"Julia\")\ntrue\n\n\n\n"
@@ -10186,7 +10186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.endswith",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.endswith",
     "category": "Function",
     "text": "endswith(s::AbstractString, suffix::AbstractString)\n\nReturns true if s ends with suffix. If suffix is a vector or set of characters, tests whether the last character of s belongs to that set.\n\nSee also startswith.\n\njulia> endswith(\"Sunday\", \"day\")\ntrue\n\n\n\n"
@@ -10194,7 +10194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.uppercase",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.uppercase",
     "category": "Function",
     "text": "uppercase(s::AbstractString)\n\nReturns s with all characters converted to uppercase.\n\nExample\n\njulia> uppercase(\"Julia\")\n\"JULIA\"\n\n\n\n"
@@ -10202,7 +10202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.lowercase",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.lowercase",
     "category": "Function",
     "text": "lowercase(s::AbstractString)\n\nReturns s with all characters converted to lowercase.\n\nExample\n\njulia> lowercase(\"STRINGS AND THINGS\")\n\"strings and things\"\n\n\n\n"
@@ -10210,7 +10210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.titlecase",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.titlecase",
     "category": "Function",
     "text": "titlecase(s::AbstractString)\n\nCapitalizes the first character of each word in s.\n\nExample\n\njulia> titlecase(\"the julia programming language\")\n\"The Julia Programming Language\"\n\n\n\n"
@@ -10218,7 +10218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.ucfirst",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.ucfirst",
     "category": "Function",
     "text": "ucfirst(s::AbstractString)\n\nReturns string with the first character converted to uppercase.\n\nExample\n\njulia> ucfirst(\"python\")\n\"Python\"\n\n\n\n"
@@ -10226,7 +10226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.lcfirst",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.lcfirst",
     "category": "Function",
     "text": "lcfirst(s::AbstractString)\n\nReturns string with the first character converted to lowercase.\n\nExample\n\njulia> lcfirst(\"Julia\")\n\"julia\"\n\n\n\n"
@@ -10234,7 +10234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.join",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.join",
     "category": "Function",
     "text": "join(io::IO, strings, delim, [last])\n\nJoin an array of strings into a single string, inserting the given delimiter between adjacent strings. If last is given, it will be used instead of delim between the last two strings. For example,\n\njulia> join([\"apples\", \"bananas\", \"pineapples\"], \", \", \" and \")\n\"apples, bananas and pineapples\"\n\nstrings can be any iterable over elements x which are convertible to strings via print(io::IOBuffer, x). strings will be printed to io.\n\n\n\n"
@@ -10242,7 +10242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.chop",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.chop",
     "category": "Function",
     "text": "chop(s::AbstractString)\n\nRemove the last character from s.\n\njulia> a = \"March\"\n\"March\"\n\njulia> chop(a)\n\"Marc\"\n\n\n\n"
@@ -10250,7 +10250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.chomp",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.chomp",
     "category": "Function",
     "text": "chomp(s::AbstractString)\n\nRemove a single trailing newline from a string.\n\njulia> chomp(\"Hello\\n\")\n\"Hello\"\n\n\n\n"
@@ -10258,7 +10258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.ind2chr",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.ind2chr",
     "category": "Function",
     "text": "ind2chr(s::AbstractString, i::Integer)\n\nConvert a byte index i to a character index with respect to string s.\n\nSee also chr2ind.\n\nExample\n\njulia> str = \"αβγdef\";\n\njulia> ind2chr(str, 3)\n2\n\njulia> chr2ind(str, 2)\n3\n\n\n\n"
@@ -10266,7 +10266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.chr2ind",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.chr2ind",
     "category": "Function",
     "text": "chr2ind(s::AbstractString, i::Integer)\n\nConvert a character index i to a byte index.\n\nSee also ind2chr.\n\nExample\n\njulia> str = \"αβγdef\";\n\njulia> chr2ind(str, 2)\n3\n\njulia> ind2chr(str, 3)\n2\n\n\n\n"
@@ -10274,7 +10274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.nextind",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.nextind",
     "category": "Function",
     "text": "nextind(str::AbstractString, i::Integer)\n\nGet the next valid string index after i. Returns a value greater than endof(str) at or after the end of the string.\n\nExamples\n\njulia> str = \"αβγdef\";\n\njulia> nextind(str, 1)\n3\n\njulia> endof(str)\n9\n\njulia> nextind(str, 9)\n10\n\n\n\n"
@@ -10282,7 +10282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.prevind",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.prevind",
     "category": "Function",
     "text": "prevind(str::AbstractString, i::Integer)\n\nGet the previous valid string index before i. Returns a value less than 1 at the beginning of the string.\n\nExamples\n\njulia> prevind(\"αβγdef\", 3)\n1\n\njulia> prevind(\"αβγdef\", 1)\n0\n\n\n\n"
@@ -10290,7 +10290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.Random.randstring",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.Random.randstring",
     "category": "Function",
     "text": "randstring([rng,] len=8)\n\nCreate a random ASCII string of length len, consisting of upper- and lower-case letters and the digits 0-9. The optional rng argument specifies a random number generator, see Random Numbers.\n\nExample\n\njulia> rng = MersenneTwister(1234);\n\njulia> randstring(rng, 4)\n\"mbDd\"\n\n\n\n"
@@ -10298,7 +10298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.charwidth",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.charwidth",
     "category": "Function",
     "text": "charwidth(c)\n\nGives the number of columns needed to print a character.\n\n\n\n"
@@ -10306,7 +10306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.strwidth",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.strwidth",
     "category": "Function",
     "text": "strwidth(s::AbstractString)\n\nGives the number of columns needed to print a string.\n\nExample\n\njulia> strwidth(\"March\")\n5\n\n\n\n"
@@ -10314,7 +10314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isalnum",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isalnum",
     "category": "Function",
     "text": "isalnum(c::Char) -> Bool\n\nTests whether a character is alphanumeric. A character is classified as alphabetic if it belongs to the Unicode general category Letter or Number, i.e. a character whose category code begins with 'L' or 'N'.\n\n\n\n"
@@ -10322,7 +10322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isalpha",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isalpha",
     "category": "Function",
     "text": "isalpha(c::Char) -> Bool\n\nTests whether a character is alphabetic. A character is classified as alphabetic if it belongs to the Unicode general category Letter, i.e. a character whose category code begins with 'L'.\n\n\n\n"
@@ -10330,7 +10330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.isascii",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.isascii",
     "category": "Function",
     "text": "isascii(c::Union{Char,AbstractString}) -> Bool\n\nTests whether a character belongs to the ASCII character set, or whether this is true for all elements of a string.\n\n\n\n"
@@ -10338,7 +10338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.iscntrl",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.iscntrl",
     "category": "Function",
     "text": "iscntrl(c::Char) -> Bool\n\nTests whether a character is a control character. Control characters are the non-printing characters of the Latin-1 subset of Unicode.\n\n\n\n"
@@ -10346,7 +10346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isdigit",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isdigit",
     "category": "Function",
     "text": "isdigit(c::Char) -> Bool\n\nTests whether a character is a numeric digit (0-9).\n\n\n\n"
@@ -10354,7 +10354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isgraph",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isgraph",
     "category": "Function",
     "text": "isgraph(c::Char) -> Bool\n\nTests whether a character is printable, and not a space. Any character that would cause a printer to use ink should be classified with isgraph(c)==true.\n\n\n\n"
@@ -10362,7 +10362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.islower",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.islower",
     "category": "Function",
     "text": "islower(c::Char) -> Bool\n\nTests whether a character is a lowercase letter. A character is classified as lowercase if it belongs to Unicode category Ll, Letter: Lowercase.\n\n\n\n"
@@ -10370,7 +10370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isnumber",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isnumber",
     "category": "Function",
     "text": "isnumber(c::Char) -> Bool\n\nTests whether a character is numeric. A character is classified as numeric if it belongs to the Unicode general category Number, i.e. a character whose category code begins with 'N'.\n\n\n\n"
@@ -10378,7 +10378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isprint",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isprint",
     "category": "Function",
     "text": "isprint(c::Char) -> Bool\n\nTests whether a character is printable, including spaces, but not a control character.\n\n\n\n"
@@ -10386,7 +10386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.ispunct",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.ispunct",
     "category": "Function",
     "text": "ispunct(c::Char) -> Bool\n\nTests whether a character belongs to the Unicode general category Punctuation, i.e. a character whose category code begins with 'P'.\n\n\n\n"
@@ -10394,7 +10394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isspace",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isspace",
     "category": "Function",
     "text": "isspace(c::Char) -> Bool\n\nTests whether a character is any whitespace character. Includes ASCII characters '\\t', '\\n', '\\v', '\\f', '\\r', and ' ', Latin-1 character U+0085, and characters in Unicode category Zs.\n\n\n\n"
@@ -10402,7 +10402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.UTF8proc.isupper",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.UTF8proc.isupper",
     "category": "Function",
     "text": "isupper(c::Char) -> Bool\n\nTests whether a character is an uppercase letter. A character is classified as uppercase if it belongs to Unicode category Lu, Letter: Uppercase, or Lt, Letter: Titlecase.\n\n\n\n"
@@ -10410,7 +10410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.isxdigit",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.isxdigit",
     "category": "Function",
     "text": "isxdigit(c::Char) -> Bool\n\nTests whether a character is a valid hexadecimal digit. Note that this does not include x (as in the standard 0x prefix).\n\nExample\n\njulia> isxdigit('a')\ntrue\n\njulia> isxdigit('x')\nfalse\n\n\n\n"
@@ -10418,7 +10418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Core.Symbol",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Core.Symbol",
     "category": "Type",
     "text": "Symbol(x...) -> Symbol\n\nCreate a Symbol by concatenating the string representations of the arguments together.\n\n\n\n"
@@ -10426,7 +10426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.escape_string",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.escape_string",
     "category": "Function",
     "text": "escape_string([io,] str::AbstractString[, esc::AbstractString]) -> AbstractString\n\nGeneral escaping of traditional C and Unicode escape sequences. Any characters in esc are also escaped (with a backslash). See also unescape_string.\n\n\n\n"
@@ -10434,7 +10434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#Base.unescape_string",
-    "page": "Strings",
+    "page": "Cadenas",
     "title": "Base.unescape_string",
     "category": "Function",
     "text": "unescape_string([io,] s::AbstractString) -> AbstractString\n\nGeneral unescaping of traditional C and Unicode escape sequences. Reverse of escape_string.\n\n\n\n"
@@ -10442,8 +10442,8 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/strings.html#lib-strings-1",
-    "page": "Strings",
-    "title": "Strings",
+    "page": "Cadenas",
+    "title": "Cadenas",
     "category": "section",
     "text": "Base.length(::AbstractString)\nBase.sizeof(::AbstractString)\nBase.:*(::AbstractString, ::Any...)\nBase.:^(::AbstractString, ::Integer)\nBase.string\nBase.repr\nCore.String(::AbstractString)\nBase.transcode\nBase.unsafe_string\nBase.codeunit(::AbstractString, ::Integer)\nBase.ascii\nBase.@r_str\nBase.Docs.@html_str\nBase.Docs.@text_str\nBase.UTF8proc.normalize_string\nBase.UTF8proc.graphemes\nBase.isvalid(::Any)\nBase.isvalid(::Any, ::Any)\nBase.isvalid(::AbstractString, ::Integer)\nBase.UTF8proc.is_assigned_char\nBase.ismatch\nBase.match\nBase.eachmatch\nBase.matchall\nBase.lpad\nBase.rpad\nBase.search\nBase.rsearch\nBase.searchindex\nBase.rsearchindex\nBase.contains(::AbstractString, ::AbstractString)\nBase.reverse(::AbstractString)\nBase.replace\nBase.split\nBase.rsplit\nBase.strip\nBase.lstrip\nBase.rstrip\nBase.startswith\nBase.endswith\nBase.uppercase\nBase.lowercase\nBase.titlecase\nBase.ucfirst\nBase.lcfirst\nBase.join\nBase.chop\nBase.chomp\nBase.ind2chr\nBase.chr2ind\nBase.nextind\nBase.prevind\nBase.Random.randstring\nBase.UTF8proc.charwidth\nBase.strwidth\nBase.UTF8proc.isalnum\nBase.UTF8proc.isalpha\nBase.isascii\nBase.UTF8proc.iscntrl\nBase.UTF8proc.isdigit\nBase.UTF8proc.isgraph\nBase.UTF8proc.islower\nBase.UTF8proc.isnumber\nBase.UTF8proc.isprint\nBase.UTF8proc.ispunct\nBase.UTF8proc.isspace\nBase.UTF8proc.isupper\nBase.isxdigit\nCore.Symbol\nBase.escape_string\nBase.unescape_string"
 },
@@ -10601,9 +10601,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Constructors-and-Types-1",
+    "location": "stdlib/arrays.html#Constructores-y-Tipos-1",
     "page": "Arrays",
-    "title": "Constructors and Types",
+    "title": "Constructores y Tipos",
     "category": "section",
     "text": "Core.AbstractArray\nCore.Array\nBase.getindex(::Type, ::Any...)\nBase.zeros\nBase.ones\nBase.BitArray\nBase.trues\nBase.falses\nBase.fill\nBase.fill!\nBase.similar(::AbstractArray)\nBase.similar(::Any, ::Tuple)\nBase.eye\nBase.linspace\nBase.logspace\nBase.Random.randsubseq\nBase.Random.randsubseq!"
 },
@@ -10729,9 +10729,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Basic-functions-1",
+    "location": "stdlib/arrays.html#Funciones-básicas-1",
     "page": "Arrays",
-    "title": "Basic functions",
+    "title": "Funciones básicas",
     "category": "section",
     "text": "Base.ndims\nBase.size\nBase.indices(::Any)\nBase.indices(::AbstractArray, ::Any)\nBase.length(::AbstractArray)\nBase.eachindex\nBase.linearindices\nBase.IndexStyle\nBase.countnz\nBase.conj!\nBase.stride\nBase.strides\nBase.ind2sub\nBase.sub2ind\nBase.LinAlg.checksquare"
 },
@@ -10777,11 +10777,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Broadcast-and-vectorization-1",
+    "location": "stdlib/arrays.html#Retransmisión-y-Vectorización-1",
     "page": "Arrays",
-    "title": "Broadcast and vectorization",
+    "title": "Retransmisión y Vectorización",
     "category": "section",
-    "text": "See also the dot syntax for vectorizing functions; for example, f.(args...) implicitly calls broadcast(f, args...). Rather than relying on \"vectorized\" methods of functions like sin to operate on arrays, you should use sin.(a) to vectorize via broadcast.Base.broadcast\nBase.Broadcast.broadcast!\nBase.@__dot__\nBase.Broadcast.broadcast_getindex\nBase.Broadcast.broadcast_setindex!"
+    "text": "Ver también la sintaxis de puntos para vectorizar funciones; por ejemplo, f. (args ...) llama implícitamente a broadcast(f, args...). En lugar de confiar en los métodos \"vectorizados\" de funciones como sin para operar en arrays, debe usar sin.(A) para vectorizar a través de broadcast.Base.broadcast\nBase.Broadcast.broadcast!\nBase.@__dot__\nBase.Broadcast.broadcast_getindex\nBase.Broadcast.broadcast_setindex!"
 },
 
 {
@@ -10865,9 +10865,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Indexing-and-assignment-1",
+    "location": "stdlib/arrays.html#Indexación-y-Asignación-1",
     "page": "Arrays",
-    "title": "Indexing and assignment",
+    "title": "Indexación y Asignación",
     "category": "section",
     "text": "Base.getindex(::AbstractArray, ::Any...)\nBase.setindex!(::AbstractArray, ::Any, ::Any...)\nBase.copy!(::AbstractArray, ::CartesianRange, ::AbstractArray, ::CartesianRange)\nBase.isassigned\nBase.Colon\nBase.CartesianIndex\nBase.CartesianRange\nBase.to_indices\nBase.checkbounds\nBase.checkindex"
 },
@@ -10953,9 +10953,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Views-(SubArrays-and-other-view-types)-1",
+    "location": "stdlib/arrays.html#Vistas-(SubArrays-y-otros-tipos-de-vistas)-1",
     "page": "Arrays",
-    "title": "Views (SubArrays and other view types)",
+    "title": "Vistas (SubArrays y otros tipos de vistas)",
     "category": "section",
     "text": "Base.view\nBase.@view\nBase.@views\nBase.parent\nBase.parentindexes\nBase.slicedim\nBase.reinterpret\nBase.reshape\nBase.squeeze\nBase.vec"
 },
@@ -11193,9 +11193,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Concatenation-and-permutation-1",
+    "location": "stdlib/arrays.html#Concatenación-and-permutación-1",
     "page": "Arrays",
-    "title": "Concatenation and permutation",
+    "title": "Concatenación and permutación",
     "category": "section",
     "text": "Base.cat\nBase.vcat\nBase.hcat\nBase.hvcat\nBase.flipdim\nBase.circshift\nBase.circshift!\nBase.circcopy!\nBase.contains(::Function, ::Any, ::Any)\nBase.find(::Any)\nBase.find(::Function, ::Any)\nBase.findn\nBase.findnz\nBase.findfirst(::Any)\nBase.findfirst(::Any, ::Any)\nBase.findfirst(::Function, ::Any)\nBase.findlast(::Any)\nBase.findlast(::Any, ::Any)\nBase.findlast(::Function, ::Any)\nBase.findnext(::Any, ::Integer)\nBase.findnext(::Function, ::Any, ::Integer)\nBase.findnext(::Any, ::Any, ::Integer)\nBase.findprev(::Any, ::Integer)\nBase.findprev(::Function, ::Any, ::Integer)\nBase.findprev(::Any, ::Any, ::Integer)\nBase.permutedims\nBase.permutedims!\nBase.PermutedDimsArray\nBase.promote_shape"
 },
@@ -11329,9 +11329,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Array-functions-1",
+    "location": "stdlib/arrays.html#Funciones-de-Arrays-1",
     "page": "Arrays",
-    "title": "Array functions",
+    "title": "Funciones de Arrays",
     "category": "section",
     "text": "Base.accumulate(::Any, ::Any, ::Integer)\nBase.accumulate!\nBase.cumprod\nBase.cumprod!\nBase.cumsum\nBase.cumsum!\nBase.cumsum_kbn\nBase.LinAlg.diff\nBase.LinAlg.gradient\nBase.rot180\nBase.rotl90\nBase.rotr90\nBase.reducedim\nBase.mapreducedim\nBase.mapslices\nBase.sum_kbn"
 },
@@ -11425,9 +11425,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Combinatorics-1",
+    "location": "stdlib/arrays.html#Combinatoria-1",
     "page": "Arrays",
-    "title": "Combinatorics",
+    "title": "Combinatoria",
     "category": "section",
     "text": "Base.Random.randperm\nBase.invperm\nBase.isperm\nBase.permute!(::Any, ::AbstractVector)\nBase.ipermute!\nBase.Random.randcycle\nBase.Random.shuffle\nBase.Random.shuffle!\nBase.reverse\nBase.reverseind\nBase.reverse!"
 },
@@ -11477,7 +11477,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Arrays",
     "title": "BitArrays",
     "category": "section",
-    "text": "BitArrays are space-efficient \"packed\" boolean arrays, which store one bit per boolean value.  They can be used similarly to Array{Bool} arrays (which store one byte per boolean value), and can be converted to/from the latter via Array(bitarray) and BitArray(array), respectively.Base.flipbits!\nBase.rol!\nBase.rol\nBase.ror!\nBase.ror"
+    "text": "BitArrays son matrices booleanas \"compactas\" eficientes en el uso del espacio, que almacenan un bit por valor booleano. Se pueden usar de forma similar a los arrays Array{Bool} (que almacenan un byte por valor booleano), y se pueden convertir a/desde este último a través de Array(bitarray) y BitArray(array), respectivamente.Base.flipbits!\nBase.rol!\nBase.rol\nBase.ror!\nBase.ror"
 },
 
 {
@@ -11667,30 +11667,30 @@ var documenterSearchIndex = {"docs": [
 {
     "location": "stdlib/arrays.html#stdlib-sparse-arrays-1",
     "page": "Arrays",
-    "title": "Sparse Vectors and Matrices",
+    "title": "Matrices y Vectores Sparse",
     "category": "section",
-    "text": "Sparse vectors and matrices largely support the same set of operations as their dense counterparts. The following functions are specific to sparse arrays.Base.SparseArrays.SparseVector\nBase.SparseArrays.SparseMatrixCSC\nBase.SparseArrays.sparse\nBase.SparseArrays.sparsevec\nBase.SparseArrays.issparse\nBase.full\nBase.SparseArrays.nnz\nBase.SparseArrays.spzeros\nBase.SparseArrays.spones\nBase.SparseArrays.speye(::Type, ::Integer, ::Integer)\nBase.SparseArrays.speye(::SparseMatrixCSC)\nBase.SparseArrays.spdiagm\nBase.SparseArrays.sprand\nBase.SparseArrays.sprandn\nBase.SparseArrays.nonzeros\nBase.SparseArrays.rowvals\nBase.SparseArrays.nzrange\nBase.SparseArrays.dropzeros!(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros!(::SparseVector, ::Bool)\nBase.SparseArrays.dropzeros(::SparseVector, ::Bool)\nBase.SparseArrays.permute\nBase.permute!{Tv, Ti, Tp <: Integer, Tq <: Integer}(::SparseMatrixCSC{Tv,Ti}, ::SparseMatrixCSC{Tv,Ti}, ::AbstractArray{Tp,1}, ::AbstractArray{Tq,1})"
+    "text": "Los vectores y las matrices sparse soportan ampliamente el mismo conjunto de operaciones que sus contrapartidas densas. las siguientes funcioens son específicas para arrays sparse.Base.SparseArrays.SparseVector\nBase.SparseArrays.SparseMatrixCSC\nBase.SparseArrays.sparse\nBase.SparseArrays.sparsevec\nBase.SparseArrays.issparse\nBase.full\nBase.SparseArrays.nnz\nBase.SparseArrays.spzeros\nBase.SparseArrays.spones\nBase.SparseArrays.speye(::Type, ::Integer, ::Integer)\nBase.SparseArrays.speye(::SparseMatrixCSC)\nBase.SparseArrays.spdiagm\nBase.SparseArrays.sprand\nBase.SparseArrays.sprandn\nBase.SparseArrays.nonzeros\nBase.SparseArrays.rowvals\nBase.SparseArrays.nzrange\nBase.SparseArrays.dropzeros!(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros!(::SparseVector, ::Bool)\nBase.SparseArrays.dropzeros(::SparseVector, ::Bool)\nBase.SparseArrays.permute\nBase.permute!{Tv, Ti, Tp <: Integer, Tq <: Integer}(::SparseMatrixCSC{Tv,Ti}, ::SparseMatrixCSC{Tv,Ti}, ::AbstractArray{Tp,1}, ::AbstractArray{Tq,1})"
 },
 
 {
     "location": "stdlib/parallel.html#",
-    "page": "Tasks and Parallel Computing",
-    "title": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
+    "title": "Tareas y Computación Paralela",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/parallel.html#tasks-and-parallel-computing-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
+    "title": "Tareas y Computación Paralela",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/parallel.html#Core.Task",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Core.Task",
     "category": "Type",
     "text": "Task(func)\n\nCreate a Task (i.e. coroutine) to execute the given function (which must be callable with no arguments). The task exits when this function returns.\n\nExample\n\njulia> a() = det(rand(1000, 1000));\n\njulia> b = Task(a);\n\nIn this example, b is a runnable Task that hasn't started yet.\n\n\n\n"
@@ -11698,7 +11698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.current_task",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.current_task",
     "category": "Function",
     "text": "current_task()\n\nGet the currently running Task.\n\n\n\n"
@@ -11706,7 +11706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.istaskdone",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.istaskdone",
     "category": "Function",
     "text": "istaskdone(t::Task) -> Bool\n\nDetermine whether a task has exited.\n\njulia> a2() = det(rand(1000, 1000));\n\njulia> b = Task(a2);\n\njulia> istaskdone(b)\nfalse\n\njulia> schedule(b);\n\njulia> yield();\n\njulia> istaskdone(b)\ntrue\n\n\n\n"
@@ -11714,7 +11714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.istaskstarted",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.istaskstarted",
     "category": "Function",
     "text": "istaskstarted(t::Task) -> Bool\n\nDetermine whether a task has started executing.\n\njulia> a3() = det(rand(1000, 1000));\n\njulia> b = Task(a3);\n\njulia> istaskstarted(b)\nfalse\n\n\n\n"
@@ -11722,7 +11722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.yield",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.yield",
     "category": "Function",
     "text": "yield()\n\nSwitch to the scheduler to allow another scheduled task to run. A task that calls this function is still runnable, and will be restarted immediately if there are no other runnable tasks.\n\n\n\nyield(t::Task, arg = nothing)\n\nA fast, unfair-scheduling version of schedule(t, arg); yield() which immediately yields to t before calling the scheduler.\n\n\n\n"
@@ -11730,7 +11730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.yieldto",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.yieldto",
     "category": "Function",
     "text": "yieldto(t::Task, arg = nothing)\n\nSwitch to the given task. The first time a task is switched to, the task's function is called with no arguments. On subsequent switches, arg is returned from the task's last call to yieldto. This is a low-level call that only switches tasks, not considering states or scheduling in any way. Its use is discouraged.\n\n\n\n"
@@ -11738,7 +11738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.task_local_storage-Tuple{Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.task_local_storage",
     "category": "Method",
     "text": "task_local_storage(key)\n\nLook up the value of a key in the current task's task-local storage.\n\n\n\n"
@@ -11746,7 +11746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.task_local_storage-Tuple{Any,Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.task_local_storage",
     "category": "Method",
     "text": "task_local_storage(key, value)\n\nAssign a value to a key in the current task's task-local storage.\n\n\n\n"
@@ -11754,7 +11754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.task_local_storage-Tuple{Function,Any,Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.task_local_storage",
     "category": "Method",
     "text": "task_local_storage(body, key, value)\n\nCall the function body with a modified task-local storage, in which value is assigned to key; the previous value of key, or lack thereof, is restored afterwards. Useful for emulating dynamic scoping.\n\n\n\n"
@@ -11762,7 +11762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Condition",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Condition",
     "category": "Type",
     "text": "Condition()\n\nCreate an edge-triggered event source that tasks can wait for. Tasks that call wait on a Condition are suspended and queued. Tasks are woken up when notify is later called on the Condition. Edge triggering means that only tasks waiting at the time notify is called can be woken up. For level-triggered notifications, you must keep extra state to keep track of whether a notification has happened. The Channel type does this, and so can be used for level-triggered events.\n\n\n\n"
@@ -11770,7 +11770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.notify",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.notify",
     "category": "Function",
     "text": "notify(condition, val=nothing; all=true, error=false)\n\nWake up tasks waiting for a condition, passing them val. If all is true (the default), all waiting tasks are woken, otherwise only one is. If error is true, the passed value is raised as an exception in the woken tasks.\n\nReturns the count of tasks woken up. Returns 0 if no tasks are waiting on condition.\n\n\n\n"
@@ -11778,7 +11778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.schedule",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.schedule",
     "category": "Function",
     "text": "schedule(t::Task, [val]; error=false)\n\nAdd a Task to the scheduler's queue. This causes the task to run constantly when the system is otherwise idle, unless the task performs a blocking operation such as wait.\n\nIf a second argument val is provided, it will be passed to the task (via the return value of yieldto) when it runs again. If error is true, the value is raised as an exception in the woken task.\n\njulia> a5() = det(rand(1000, 1000));\n\njulia> b = Task(a5);\n\njulia> istaskstarted(b)\nfalse\n\njulia> schedule(b);\n\njulia> yield();\n\njulia> istaskstarted(b)\ntrue\n\njulia> istaskdone(b)\ntrue\n\n\n\n"
@@ -11786,7 +11786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.@schedule",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.@schedule",
     "category": "Macro",
     "text": "@schedule\n\nWrap an expression in a Task and add it to the local machine's scheduler queue. Similar to @async except that an enclosing @sync does NOT wait for tasks started with an @schedule.\n\n\n\n"
@@ -11794,7 +11794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.@task",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.@task",
     "category": "Macro",
     "text": "@task\n\nWrap an expression in a Task without executing it, and return the Task. This only creates a task, and does not run it.\n\njulia> a1() = det(rand(1000, 1000));\n\njulia> b = @task a1();\n\njulia> istaskstarted(b)\nfalse\n\njulia> schedule(b);\n\njulia> yield();\n\njulia> istaskdone(b)\ntrue\n\n\n\n"
@@ -11802,7 +11802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.sleep",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.sleep",
     "category": "Function",
     "text": "sleep(seconds)\n\nBlock the current task for a specified number of seconds. The minimum sleep time is 1 millisecond or input of 0.001.\n\n\n\n"
@@ -11810,7 +11810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Channel",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Channel",
     "category": "Type",
     "text": "Channel{T}(sz::Int)\n\nConstructs a Channel with an internal buffer that can hold a maximum of sz objects of type T. put! calls on a full channel block until an object is removed with take!.\n\nChannel(0) constructs an unbuffered channel. put! blocks until a matching take! is called. And vice-versa.\n\nOther constructors:\n\nChannel(Inf): equivalent to Channel{Any}(typemax(Int))\nChannel(sz): equivalent to Channel{Any}(sz)\n\n\n\n"
@@ -11818,7 +11818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.put!-Tuple{Channel,Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.put!",
     "category": "Method",
     "text": "put!(c::Channel, v)\n\nAppends an item v to the channel c. Blocks if the channel is full.\n\nFor unbuffered channels, blocks until a take! is performed by a different task.\n\n\n\n"
@@ -11826,7 +11826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.take!-Tuple{Channel}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.take!",
     "category": "Method",
     "text": "take!(c::Channel)\n\nRemoves and returns a value from a Channel. Blocks until data is available.\n\nFor unbuffered channels, blocks until a put! is performed by a different task.\n\n\n\n"
@@ -11834,7 +11834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.isready-Tuple{Channel}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.isready",
     "category": "Method",
     "text": "isready(c::Channel)\n\nDetermine whether a Channel has a value stored to it. Returns immediately, does not block.\n\nFor unbuffered channels returns true if there are tasks waiting on a put!.\n\n\n\n"
@@ -11842,7 +11842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.fetch-Tuple{Channel}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.fetch",
     "category": "Method",
     "text": "fetch(c::Channel)\n\nWaits for and gets the first available item from the channel. Does not remove the item. fetch is unsupported on an unbuffered (0-size) channel.\n\n\n\n"
@@ -11850,7 +11850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.close-Tuple{Channel}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.close",
     "category": "Method",
     "text": "close(c::Channel)\n\nCloses a channel. An exception is thrown by:\n\nput! on a closed channel.\ntake! and fetch on an empty, closed channel.\n\n\n\n"
@@ -11858,7 +11858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.bind-Tuple{Channel,Task}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.bind",
     "category": "Method",
     "text": "bind(chnl::Channel, task::Task)\n\nAssociates the lifetime of chnl with a task. Channel chnl is automatically closed when the task terminates. Any uncaught exception in the task is propagated to all waiters on chnl.\n\nThe chnl object can be explicitly closed independent of task termination. Terminating tasks have no effect on already closed Channel objects.\n\nWhen a channel is bound to multiple tasks, the first task to terminate will close the channel. When multiple channels are bound to the same task, termination of the task will close all of the bound channels.\n\njulia> c = Channel(0);\n\njulia> task = @schedule foreach(i->put!(c, i), 1:4);\n\njulia> bind(c,task);\n\njulia> for i in c\n           @show i\n       end;\ni = 1\ni = 2\ni = 3\ni = 4\n\njulia> isopen(c)\nfalse\n\njulia> c = Channel(0);\n\njulia> task = @schedule (put!(c,1);error(\"foo\"));\n\njulia> bind(c,task);\n\njulia> take!(c)\n1\n\njulia> put!(c,1);\nERROR: foo\nStacktrace:\n [1] check_channel_state(::Channel{Any}) at ./channels.jl:131\n [2] put!(::Channel{Any}, ::Int64) at ./channels.jl:261\n\n\n\n"
@@ -11866,7 +11866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.asyncmap",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.asyncmap",
     "category": "Function",
     "text": "asyncmap(f, c...; ntasks=0, batch_size=nothing)\n\nUses multiple concurrent tasks to map f over a collection (or multiple equal length collections). For multiple collection arguments, f is applied elementwise.\n\nntasks specifies the number of tasks to run concurrently. Depending on the length of the collections, if ntasks is unspecified, up to 100 tasks will be used for concurrent mapping.\n\nntasks can also be specified as a zero-arg function. In this case, the number of tasks to run in parallel is checked before processing every element and a new task started if the value of ntasks_func() is less than the current number of tasks.\n\nIf batch_size is specified, the collection is processed in batch mode. f must then be a function that must accept a Vector of argument tuples and must return a vector of results. The input vector will have a length of batch_size or less.\n\nThe following examples highlight execution in different tasks by returning the object_id of the tasks in which the mapping function is executed.\n\nFirst, with ntasks undefined, each element is processed in a different task.\n\njulia> tskoid() = object_id(current_task());\n\njulia> asyncmap(x->tskoid(), 1:5)\n5-element Array{UInt64,1}:\n 0x6e15e66c75c75853\n 0x440f8819a1baa682\n 0x9fb3eeadd0c83985\n 0xebd3e35fe90d4050\n 0x29efc93edce2b961\n\njulia> length(unique(asyncmap(x->tskoid(), 1:5)))\n5\n\nWith ntasks=2 all elements are processed in 2 tasks.\n\njulia> asyncmap(x->tskoid(), 1:5; ntasks=2)\n5-element Array{UInt64,1}:\n 0x027ab1680df7ae94\n 0xa23d2f80cd7cf157\n 0x027ab1680df7ae94\n 0xa23d2f80cd7cf157\n 0x027ab1680df7ae94\n\njulia> length(unique(asyncmap(x->tskoid(), 1:5; ntasks=2)))\n2\n\nWith batch_size defined, the mapping function needs to be changed to accept an array of argument tuples and return an array of results. map is used in the modified mapping function to achieve this.\n\njulia> batch_func(input) = map(x->string(\"args_tuple: \", x, \", element_val: \", x[1], \", task: \", tskoid()), input)\nbatch_func (generic function with 1 method)\n\njulia> asyncmap(batch_func, 1:5; ntasks=2, batch_size=2)\n5-element Array{String,1}:\n \"args_tuple: (1,), element_val: 1, task: 9118321258196414413\"\n \"args_tuple: (2,), element_val: 2, task: 4904288162898683522\"\n \"args_tuple: (3,), element_val: 3, task: 9118321258196414413\"\n \"args_tuple: (4,), element_val: 4, task: 4904288162898683522\"\n \"args_tuple: (5,), element_val: 5, task: 9118321258196414413\"\n\nnote: Note\nCurrently, all tasks in Julia are executed in a single OS thread co-operatively. Consequently, ayncmap is beneficial only when the mapping function involves any I/O - disk, network, remote worker invocation, etc.\n\n\n\n"
@@ -11874,23 +11874,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.asyncmap!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.asyncmap!",
     "category": "Function",
     "text": "asyncmap!(f, results, c...; ntasks=0, batch_size=nothing)\n\nLike asyncmap(), but stores output in results rather than returning a collection.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/parallel.html#Tasks-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "Tasks",
+    "location": "stdlib/parallel.html#Tareas-1",
+    "page": "Tareas y Computación Paralela",
+    "title": "Tareas",
     "category": "section",
     "text": "Core.Task\nBase.current_task\nBase.istaskdone\nBase.istaskstarted\nBase.yield\nBase.yieldto\nBase.task_local_storage(::Any)\nBase.task_local_storage(::Any, ::Any)\nBase.task_local_storage(::Function, ::Any, ::Any)\nBase.Condition\nBase.notify\nBase.schedule\nBase.@schedule\nBase.@task\nBase.sleep\nBase.Channel\nBase.put!(::Channel, ::Any)\nBase.take!(::Channel)\nBase.isready(::Channel)\nBase.fetch(::Channel)\nBase.close(::Channel)\nBase.bind(c::Channel, task::Task)\nBase.asyncmap\nBase.asyncmap!"
 },
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.addprocs",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.addprocs",
     "category": "Function",
     "text": "addprocs(manager::ClusterManager; kwargs...) -> List of process identifiers\n\nLaunches worker processes via the specified cluster manager.\n\nFor example, Beowulf clusters are supported via a custom cluster manager implemented in the package ClusterManagers.jl.\n\nThe number of seconds a newly launched worker waits for connection establishment from the master can be specified via variable JULIA_WORKER_TIMEOUT in the worker process's environment. Relevant only when using TCP/IP as transport.\n\n\n\naddprocs(machines; tunnel=false, sshflags=``, max_parallel=10, kwargs...) -> List of process identifiers\n\nAdd processes on remote machines via SSH. Requires julia to be installed in the same location on each node, or to be available via a shared file system.\n\nmachines is a vector of machine specifications. Workers are started for each specification.\n\nA machine specification is either a string machine_spec or a tuple - (machine_spec, count).\n\nmachine_spec is a string of the form [user@]host[:port] [bind_addr[:port]]. user defaults to current user, port to the standard ssh port. If [bind_addr[:port]] is specified, other workers will connect to this worker at the specified bind_addr and port.\n\ncount is the number of workers to be launched on the specified host. If specified as :auto it will launch as many workers as the number of cores on the specific host.\n\nKeyword arguments:\n\ntunnel: if true then SSH tunneling will be used to connect to the worker from the master process. Default is false.\nsshflags: specifies additional ssh options, e.g. sshflags=`-i /home/foo/bar.pem`\nmax_parallel: specifies the maximum number of workers connected to in parallel at a host. Defaults to 10.\ndir: specifies the working directory on the workers. Defaults to the host's current directory (as found by pwd())\nenable_threaded_blas: if true then  BLAS will run on multiple threads in added processes. Default is false.\nexename: name of the julia executable. Defaults to \"$JULIA_HOME/julia\" or \"$JULIA_HOME/julia-debug\" as the case may be.\nexeflags: additional flags passed to the worker processes.\ntopology: Specifies how the workers connect to each other. Sending a message between unconnected workers results in an error.\ntopology=:all_to_all: All processes are connected to each other. The default.\ntopology=:master_slave: Only the driver process, i.e. pid 1 connects to the workers. The workers do not connect to each other.\ntopology=:custom: The launch method of the cluster manager specifies the connection topology via fields ident and connect_idents in WorkerConfig. A worker with a cluster manager identity ident will connect to all workers specified in connect_idents.\n\nEnvironment variables :\n\nIf the master process fails to establish a connection with a newly launched worker within 60.0 seconds, the worker treats it as a fatal situation and terminates. This timeout can be controlled via environment variable JULIA_WORKER_TIMEOUT. The value of JULIA_WORKER_TIMEOUT on the master process specifies the number of seconds a newly launched worker waits for connection establishment.\n\n\n\naddprocs(; kwargs...) -> List of process identifiers\n\nEquivalent to addprocs(Sys.CPU_CORES; kwargs...)\n\nNote that workers do not run a .juliarc.jl startup script, nor do they synchronize their global state (such as global variables, new method definitions, and loaded modules) with any of the other running processes.\n\n\n\naddprocs(np::Integer; restrict=true, kwargs...) -> List of process identifiers\n\nLaunches workers using the in-built LocalManager which only launches workers on the local host. This can be used to take advantage of multiple cores. addprocs(4) will add 4 processes on the local machine. If restrict is true, binding is restricted to 127.0.0.1. Keyword args dir, exename, exeflags, topology, and enable_threaded_blas have the same effect as documented for addprocs(machines).\n\n\n\n"
@@ -11898,7 +11898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.nprocs",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.nprocs",
     "category": "Function",
     "text": "nprocs()\n\nGet the number of available processes.\n\n\n\n"
@@ -11906,7 +11906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.nworkers",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.nworkers",
     "category": "Function",
     "text": "nworkers()\n\nGet the number of available worker processes. This is one less than nprocs(). Equal to nprocs() if nprocs() == 1.\n\n\n\n"
@@ -11914,7 +11914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.procs-Tuple{}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.procs",
     "category": "Method",
     "text": "procs()\n\nReturns a list of all process identifiers.\n\n\n\n"
@@ -11922,7 +11922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.procs-Tuple{Integer}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.procs",
     "category": "Method",
     "text": "procs(pid::Integer)\n\nReturns a list of all process identifiers on the same physical node. Specifically all workers bound to the same ip-address as pid are returned.\n\n\n\n"
@@ -11930,7 +11930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.workers",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.workers",
     "category": "Function",
     "text": "workers()\n\nReturns a list of all worker process identifiers.\n\n\n\n"
@@ -11938,7 +11938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.rmprocs",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.rmprocs",
     "category": "Function",
     "text": "rmprocs(pids...; waitfor=typemax(Int))\n\nRemoves the specified workers. Note that only process 1 can add or remove workers.\n\nArgument waitfor specifies how long to wait for the workers to shut down:     - If unspecified, rmprocs will wait until all requested pids are removed.     - An ErrorException is raised if all workers cannot be terminated before       the requested waitfor seconds.     - With a waitfor value of 0, the call returns immediately with the workers       scheduled for removal in a different task. The scheduled Task object is       returned. The user should call wait on the task before invoking any other       parallel calls.\n\n\n\n"
@@ -11946,7 +11946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.interrupt",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.interrupt",
     "category": "Function",
     "text": "interrupt(pids::Integer...)\n\nInterrupt the current executing task on the specified workers. This is equivalent to pressing Ctrl-C on the local machine. If no arguments are given, all workers are interrupted.\n\n\n\ninterrupt(pids::AbstractVector=workers())\n\nInterrupt the current executing task on the specified workers. This is equivalent to pressing Ctrl-C on the local machine. If no arguments are given, all workers are interrupted.\n\n\n\n"
@@ -11954,7 +11954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.myid",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.myid",
     "category": "Function",
     "text": "myid()\n\nGet the id of the current process.\n\n\n\n"
@@ -11962,7 +11962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.pmap",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.pmap",
     "category": "Function",
     "text": "pmap([::AbstractWorkerPool], f, c...; distributed=true, batch_size=1, on_error=nothing, retry_delays=[]), retry_check=nothing) -> collection\n\nTransform collection c by applying f to each element using available workers and tasks.\n\nFor multiple collection arguments, apply f elementwise.\n\nNote that f must be made available to all worker processes; see Code Availability and Loading Packages for details.\n\nIf a worker pool is not specified, all available workers, i.e., the default worker pool is used.\n\nBy default, pmap distributes the computation over all specified workers. To use only the local process and distribute over tasks, specify distributed=false. This is equivalent to using asyncmap. For example, pmap(f, c; distributed=false) is equivalent to asyncmap(f,c; ntasks=()->nworkers())\n\npmap can also use a mix of processes and tasks via the batch_size argument. For batch sizes greater than 1, the collection is processed in multiple batches, each of length batch_size or less. A batch is sent as a single request to a free worker, where a local asyncmap processes elements from the batch using multiple concurrent tasks.\n\nAny error stops pmap from processing the remainder of the collection. To override this behavior you can specify an error handling function via argument on_error which takes in a single argument, i.e., the exception. The function can stop the processing by rethrowing the error, or, to continue, return any value which is then returned inline with the results to the caller.\n\nConsider the following two examples. The first one returns the exception object inline, the second a 0 in place of any exception:\n\njulia> pmap(x->iseven(x) ? error(\"foo\") : x, 1:4; on_error=identity)\n4-element Array{Any,1}:\n 1\n  ErrorException(\"foo\")\n 3\n  ErrorException(\"foo\")\n\njulia> pmap(x->iseven(x) ? error(\"foo\") : x, 1:4; on_error=ex->0)\n4-element Array{Int64,1}:\n 1\n 0\n 3\n 0\n\nErrors can also be handled by retrying failed computations. Keyword arguments retry_delays and retry_check are passed through to retry as keyword arguments delays and check respectively. If batching is specified, and an entire batch fails, all items in the batch are retried.\n\nNote that if both on_error and retry_delays are specified, the on_error hook is called before retrying. If on_error does not throw (or rethrow) an exception, the element will not be retried.\n\nExample: On errors, retry f on an element a maximum of 3 times without any delay between retries.\n\npmap(f, c; retry_delays = zeros(3))\n\nExample: Retry f only if the exception is not of type InexactError, with exponentially increasing delays up to 3 times. Return a NaN in place for all InexactError occurrences.\n\npmap(f, c; on_error = e->(isa(e, InexactError) ? NaN : rethrow(e)), retry_delays = ExponentialBackOff(n = 3))\n\n\n\n"
@@ -11970,7 +11970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.RemoteException",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.RemoteException",
     "category": "Type",
     "text": "RemoteException(captured)\n\nExceptions on remote computations are captured and rethrown locally.  A RemoteException wraps the pid of the worker and a captured exception. A CapturedException captures the remote exception and a serializable form of the call stack when the exception was raised.\n\n\n\n"
@@ -11978,7 +11978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.Future",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.Future",
     "category": "Type",
     "text": "Future(pid::Integer=myid())\n\nCreate a Future on process pid. The default pid is the current process.\n\n\n\n"
@@ -11986,7 +11986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.RemoteChannel-Tuple{Integer}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.RemoteChannel",
     "category": "Method",
     "text": "RemoteChannel(pid::Integer=myid())\n\nMake a reference to a Channel{Any}(1) on process pid. The default pid is the current process.\n\n\n\n"
@@ -11994,7 +11994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.RemoteChannel-Tuple{Function,Integer}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.RemoteChannel",
     "category": "Method",
     "text": "RemoteChannel(f::Function, pid::Integer=myid())\n\nCreate references to remote channels of a specific size and type. f() is a function that when executed on pid must return an implementation of an AbstractChannel.\n\nFor example, RemoteChannel(()->Channel{Int}(10), pid), will return a reference to a channel of type Int and size 10 on pid.\n\nThe default pid is the current process.\n\n\n\n"
@@ -12002,7 +12002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.wait",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.wait",
     "category": "Function",
     "text": "wait([x])\n\nBlock the current task until some event occurs, depending on the type of the argument:\n\nRemoteChannel : Wait for a value to become available on the specified remote channel.\nFuture : Wait for a value to become available for the specified future.\nChannel: Wait for a value to be appended to the channel.\nCondition: Wait for notify on a condition.\nProcess: Wait for a process or process chain to exit. The exitcode field of a process can be used to determine success or failure.\nTask: Wait for a Task to finish, returning its result value. If the task fails with an exception, the exception is propagated (re-thrown in the task that called wait).\nRawFD: Wait for changes on a file descriptor (see poll_fd for keyword arguments and return code)\n\nIf no argument is passed, the task blocks for an undefined period. A task can only be restarted by an explicit call to schedule or yieldto.\n\nOften wait is called within a while loop to ensure a waited-for condition is met before proceeding.\n\n\n\n"
@@ -12010,7 +12010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.fetch-Tuple{Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.fetch",
     "category": "Method",
     "text": "fetch(x)\n\nWaits and fetches a value from x depending on the type of x:\n\nFuture: Wait for and get the value of a Future. The fetched value is cached locally. Further calls to fetch on the same reference return the cached value. If the remote value is an exception, throws a RemoteException which captures the remote exception and backtrace.\nRemoteChannel: Wait for and get the value of a remote reference. Exceptions raised are same as for a Future .\n\nDoes not remove the item fetched.\n\n\n\n"
@@ -12018,7 +12018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall-Tuple{Any,Integer,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall",
     "category": "Method",
     "text": "remotecall(f, id::Integer, args...; kwargs...) -> Future\n\nCall a function f asynchronously on the given arguments on the specified process. Returns a Future. Keyword arguments, if any, are passed through to f.\n\n\n\n"
@@ -12026,7 +12026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall_wait-Tuple{Any,Integer,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall_wait",
     "category": "Method",
     "text": "remotecall_wait(f, id::Integer, args...; kwargs...)\n\nPerform a faster wait(remotecall(...)) in one message on the Worker specified by worker id id. Keyword arguments, if any, are passed through to f.\n\nSee also wait and remotecall.\n\n\n\n"
@@ -12034,7 +12034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall_fetch-Tuple{Any,Integer,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall_fetch",
     "category": "Method",
     "text": "remotecall_fetch(f, id::Integer, args...; kwargs...)\n\nPerform fetch(remotecall(...)) in one message. Keyword arguments, if any, are passed through to f. Any remote exceptions are captured in a RemoteException and thrown.\n\nSee also fetch and remotecall.\n\n\n\n"
@@ -12042,7 +12042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remote_do-Tuple{Any,Integer,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remote_do",
     "category": "Method",
     "text": "remote_do(f, id::Integer, args...; kwargs...) -> nothing\n\nExecutes f on worker id asynchronously. Unlike remotecall, it does not store the result of computation, nor is there a way to wait for its completion.\n\nA successful invocation indicates that the request has been accepted for execution on the remote node.\n\nWhile consecutive remotecalls to the same worker are serialized in the order they are invoked, the order of executions on the remote worker is undetermined. For example, remote_do(f1, 2); remotecall(f2, 2); remote_do(f3, 2) will serialize the call to f1, followed by f2 and f3 in that order. However, it is not guaranteed that f1 is executed before f3 on worker 2.\n\nAny exceptions thrown by f are printed to STDERR on the remote worker.\n\nKeyword arguments, if any, are passed through to f.\n\n\n\n"
@@ -12050,7 +12050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.put!-Tuple{RemoteChannel,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.put!",
     "category": "Method",
     "text": "put!(rr::RemoteChannel, args...)\n\nStore a set of values to the RemoteChannel. If the channel is full, blocks until space is available. Returns its first argument.\n\n\n\n"
@@ -12058,7 +12058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.put!-Tuple{Future,Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.put!",
     "category": "Method",
     "text": "put!(rr::Future, v)\n\nStore a value to a Future rr. Futures are write-once remote references. A put! on an already set Future throws an Exception. All asynchronous remote calls return Futures and set the value to the return value of the call upon completion.\n\n\n\n"
@@ -12066,7 +12066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.take!-Tuple{RemoteChannel,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.take!",
     "category": "Method",
     "text": "take!(rr::RemoteChannel, args...)\n\nFetch value(s) from a RemoteChannel rr, removing the value(s) in the processs.\n\n\n\n"
@@ -12074,7 +12074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.isready-Tuple{RemoteChannel,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.isready",
     "category": "Method",
     "text": "isready(rr::RemoteChannel, args...)\n\nDetermine whether a RemoteChannel has a value stored to it. Note that this function can cause race conditions, since by the time you receive its result it may no longer be true. However, it can be safely used on a Future since they are assigned only once.\n\n\n\n"
@@ -12082,7 +12082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.isready-Tuple{Future}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.isready",
     "category": "Method",
     "text": "isready(rr::Future)\n\nDetermine whether a Future has a value stored to it.\n\nIf the argument Future is owned by a different node, this call will block to wait for the answer. It is recommended to wait for rr in a separate task instead or to use a local Channel as a proxy:\n\nc = Channel(1)\n@async put!(c, remotecall_fetch(long_computation, p))\nisready(c)  # will not block\n\n\n\n"
@@ -12090,7 +12090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.WorkerPool",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.WorkerPool",
     "category": "Type",
     "text": "WorkerPool(workers::Vector{Int})\n\nCreate a WorkerPool from a vector of worker ids.\n\n\n\n"
@@ -12098,7 +12098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.CachingPool",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.CachingPool",
     "category": "Type",
     "text": "CachingPool(workers::Vector{Int})\n\nAn implementation of an AbstractWorkerPool. remote, remotecall_fetch, pmap (and other remote calls which execute functions remotely) benefit from caching the serialized/deserialized functions on the worker nodes, especially closures (which may capture large amounts of data).\n\nThe remote cache is maintained for the lifetime of the returned CachingPool object. To clear the cache earlier, use clear!(pool).\n\nFor global variables, only the bindings are captured in a closure, not the data. let blocks can be used to capture global data.\n\nFor example:\n\nconst foo=rand(10^8);\nwp=CachingPool(workers())\nlet foo=foo\n    pmap(wp, i->sum(foo)+i, 1:100);\nend\n\nThe above would transfer foo only once to each worker.\n\n\n\n"
@@ -12106,7 +12106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.default_worker_pool",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.default_worker_pool",
     "category": "Function",
     "text": "default_worker_pool()\n\nWorkerPool containing idle workers() - used by remote(f) and pmap (by default).\n\n\n\n"
@@ -12114,7 +12114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.clear!-Tuple{CachingPool}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.clear!",
     "category": "Method",
     "text": "clear!(pool::CachingPool) -> pool\n\nRemoves all cached functions from all participating workers.\n\n\n\n"
@@ -12122,7 +12122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remote",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remote",
     "category": "Function",
     "text": "remote([::AbstractWorkerPool], f) -> Function\n\nReturns an anonymous function that executes function f on an available worker using remotecall_fetch.\n\n\n\n"
@@ -12130,7 +12130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall-Tuple{Any,Base.Distributed.AbstractWorkerPool,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall",
     "category": "Method",
     "text": "remotecall(f, pool::AbstractWorkerPool, args...; kwargs...) -> Future\n\nWorkerPool variant of remotecall(f, pid, ....). Waits for and takes a free worker from pool and performs a remotecall on it.\n\n\n\n"
@@ -12138,7 +12138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall_wait-Tuple{Any,Base.Distributed.AbstractWorkerPool,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall_wait",
     "category": "Method",
     "text": "remotecall_wait(f, pool::AbstractWorkerPool, args...; kwargs...) -> Future\n\nWorkerPool variant of remotecall_wait(f, pid, ....). Waits for and takes a free worker from pool and performs a remotecall_wait on it.\n\n\n\n"
@@ -12146,7 +12146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remotecall_fetch-Tuple{Any,Base.Distributed.AbstractWorkerPool,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remotecall_fetch",
     "category": "Method",
     "text": "remotecall_fetch(f, pool::AbstractWorkerPool, args...; kwargs...) -> result\n\nWorkerPool variant of remotecall_fetch(f, pid, ....). Waits for and takes a free worker from pool and performs a remotecall_fetch on it.\n\n\n\n"
@@ -12154,7 +12154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remote_do-Tuple{Any,Base.Distributed.AbstractWorkerPool,Vararg{Any,N} where N}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remote_do",
     "category": "Method",
     "text": "remote_do(f, pool::AbstractWorkerPool, args...; kwargs...) -> nothing\n\nWorkerPool variant of remote_do(f, pid, ....). Waits for and takes a free worker from pool and performs a remote_do on it.\n\n\n\n"
@@ -12162,7 +12162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.timedwait",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.timedwait",
     "category": "Function",
     "text": "timedwait(testcb::Function, secs::Float64; pollint::Float64=0.1)\n\nWaits until testcb returns true or for secs seconds, whichever is earlier. testcb is polled every pollint seconds.\n\n\n\n"
@@ -12170,7 +12170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@spawn",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@spawn",
     "category": "Macro",
     "text": "@spawn\n\nCreates a closure around an expression and runs it on an automatically-chosen process, returning a Future to the result.\n\n\n\n"
@@ -12178,7 +12178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@spawnat",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@spawnat",
     "category": "Macro",
     "text": "@spawnat\n\nAccepts two arguments, p and an expression. A closure is created around the expression and run asynchronously on process p. Returns a Future to the result.\n\n\n\n"
@@ -12186,7 +12186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@fetch",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@fetch",
     "category": "Macro",
     "text": "@fetch\n\nEquivalent to fetch(@spawn expr). See fetch and @spawn.\n\n\n\n"
@@ -12194,7 +12194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@fetchfrom",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@fetchfrom",
     "category": "Macro",
     "text": "@fetchfrom\n\nEquivalent to fetch(@spawnat p expr). See fetch and @spawnat.\n\n\n\n"
@@ -12202,7 +12202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.@async",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.@async",
     "category": "Macro",
     "text": "@async\n\nLike @schedule, @async wraps an expression in a Task and adds it to the local machine's scheduler queue. Additionally it adds the task to the set of items that the nearest enclosing @sync waits for.\n\n\n\n"
@@ -12210,7 +12210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.@sync",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.@sync",
     "category": "Macro",
     "text": "@sync\n\nWait until all dynamically-enclosed uses of @async, @spawn, @spawnat and @parallel are complete. All exceptions thrown by enclosed async operations are collected and thrown as a CompositeException.\n\n\n\n"
@@ -12218,7 +12218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@parallel",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@parallel",
     "category": "Macro",
     "text": "@parallel\n\nA parallel for loop of the form :\n\n@parallel [reducer] for var = range\n    body\nend\n\nThe specified range is partitioned and locally executed across all workers. In case an optional reducer function is specified, @parallel performs local reductions on each worker with a final reduction on the calling process.\n\nNote that without a reducer function, @parallel executes asynchronously, i.e. it spawns independent tasks on all available workers and returns immediately without waiting for completion. To wait for completion, prefix the call with @sync, like :\n\n@sync @parallel for var = range\n    body\nend\n\n\n\n"
@@ -12226,7 +12226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.@everywhere",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.@everywhere",
     "category": "Macro",
     "text": "@everywhere expr\n\nExecute an expression under Main everywhere. Equivalent to calling eval(Main, expr) on all processes. Errors on any of the processes are collected into a CompositeException and thrown. For example :\n\n@everywhere bar=1\n\nwill define Main.bar on all processes.\n\nUnlike @spawn and @spawnat, @everywhere does not capture any local variables. Prefixing @everywhere with @eval allows us to broadcast local variables using interpolation :\n\nfoo = 1\n@eval @everywhere bar=$foo\n\nThe expression is evaluated under Main irrespective of where @everywhere is called from. For example :\n\nmodule FooBar\n    foo() = @everywhere bar()=myid()\nend\nFooBar.foo()\n\nwill result in Main.bar being defined on all processes and not FooBar.bar.\n\n\n\n"
@@ -12234,7 +12234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.clear!-Tuple{Any,Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.clear!",
     "category": "Method",
     "text": "clear!(syms, pids=workers(); mod=Main)\n\nClears global bindings in modules by initializing them to nothing. syms should be of type Symbol or a collection of Symbols . pids and mod identify the processes and the module in which global variables are to be reinitialized. Only those names found to be defined under mod are cleared.\n\nAn exception is raised if a global constant is requested to be cleared.\n\n\n\n"
@@ -12242,7 +12242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.remoteref_id",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.remoteref_id",
     "category": "Function",
     "text": "Base.remoteref_id(r::AbstractRemoteRef) -> RRID\n\nFutures and RemoteChannels are identified by fields:\n\nwhere - refers to the node where the underlying object/storage referred to by the reference actually exists.\nwhence - refers to the node the remote reference was created from. Note that this is different from the node where the underlying object referred to actually exists. For example calling RemoteChannel(2) from the master process would result in a where value of 2 and a whence value of 1.\nid is unique across all references created from the worker specified by whence.\n\nTaken together,  whence and id uniquely identify a reference across all workers.\n\nBase.remoteref_id is a low-level API which returns a Base.RRID object that wraps whence and id values of a remote reference.\n\n\n\n"
@@ -12250,7 +12250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.channel_from_id",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.channel_from_id",
     "category": "Function",
     "text": "Base.channel_from_id(id) -> c\n\nA low-level API which returns the backing AbstractChannel for an id returned by remoteref_id. The call is valid only on the node where the backing channel exists.\n\n\n\n"
@@ -12258,7 +12258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.worker_id_from_socket",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.worker_id_from_socket",
     "category": "Function",
     "text": "Base.worker_id_from_socket(s) -> pid\n\nA low-level API which given a IO connection or a Worker, returns the pid of the worker it is connected to. This is useful when writing custom serialize methods for a type, which optimizes the data written out depending on the receiving process id.\n\n\n\n"
@@ -12266,7 +12266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.cluster_cookie-Tuple{}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.cluster_cookie",
     "category": "Method",
     "text": "Base.cluster_cookie() -> cookie\n\nReturns the cluster cookie.\n\n\n\n"
@@ -12274,23 +12274,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.cluster_cookie-Tuple{Any}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.cluster_cookie",
     "category": "Method",
     "text": "Base.cluster_cookie(cookie) -> cookie\n\nSets the passed cookie as the cluster cookie, then returns it.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/parallel.html#General-Parallel-Computing-Support-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "General Parallel Computing Support",
+    "location": "stdlib/parallel.html#Soporte-General-a-la-Computación-Paralela-1",
+    "page": "Tareas y Computación Paralela",
+    "title": "Soporte General a la Computación Paralela",
     "category": "section",
     "text": "Base.addprocs\nBase.nprocs\nBase.nworkers\nBase.procs()\nBase.procs(::Integer)\nBase.workers\nBase.rmprocs\nBase.interrupt\nBase.myid\nBase.pmap\nBase.RemoteException\nBase.Future\nBase.RemoteChannel(::Integer)\nBase.RemoteChannel(::Function, ::Integer)\nBase.wait\nBase.fetch(::Any)\nBase.remotecall(::Any, ::Integer, ::Any...)\nBase.remotecall_wait(::Any, ::Integer, ::Any...)\nBase.remotecall_fetch(::Any, ::Integer, ::Any...)\nBase.remote_do(::Any, ::Integer, ::Any...)\nBase.put!(::RemoteChannel, ::Any...)\nBase.put!(::Future, ::Any)\nBase.take!(::RemoteChannel, ::Any...)\nBase.isready(::RemoteChannel, ::Any...)\nBase.isready(::Future)\nBase.WorkerPool\nBase.CachingPool\nBase.default_worker_pool\nBase.clear!(::CachingPool)\nBase.remote\nBase.remotecall(::Any, ::Base.Distributed.AbstractWorkerPool, ::Any...)\nBase.remotecall_wait(::Any, ::Base.Distributed.AbstractWorkerPool, ::Any...)\nBase.remotecall_fetch(::Any, ::Base.Distributed.AbstractWorkerPool, ::Any...)\nBase.remote_do(::Any, ::Base.Distributed.AbstractWorkerPool, ::Any...)\nBase.timedwait\nBase.@spawn\nBase.@spawnat\nBase.@fetch\nBase.@fetchfrom\nBase.@async\nBase.@sync\nBase.@parallel\nBase.@everywhere\nBase.clear!(::Any, ::Any; ::Any)\nBase.remoteref_id\nBase.channel_from_id\nBase.worker_id_from_socket\nBase.cluster_cookie()\nBase.cluster_cookie(::Any)"
 },
 
 {
     "location": "stdlib/parallel.html#Base.SharedArray",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.SharedArray",
     "category": "Type",
     "text": "SharedArray{T}(dims::NTuple; init=false, pids=Int[])\nSharedArray{T,N}(...)\n\nConstruct a SharedArray of a bits type T and size dims across the processes specified by pids - all of which have to be on the same host.  If N is specified by calling SharedArray{T,N}(dims), then N must match the length of dims.\n\nIf pids is left unspecified, the shared array will be mapped across all processes on the current host, including the master. But, localindexes and indexpids will only refer to worker processes. This facilitates work distribution code to use workers for actual computation with the master process acting as a driver.\n\nIf an init function of the type initfn(S::SharedArray) is specified, it is called on all the participating workers.\n\nThe shared array is valid as long as a reference to the SharedArray object exists on the node which created the mapping.\n\nSharedArray{T}(filename::AbstractString, dims::NTuple, [offset=0]; mode=nothing, init=false, pids=Int[])\nSharedArray{T,N}(...)\n\nConstruct a SharedArray backed by the file filename, with element type T (must be a bits type) and size dims, across the processes specified by pids - all of which have to be on the same host. This file is mmapped into the host memory, with the following consequences:\n\nThe array data must be represented in binary format (e.g., an ASCII format like CSV cannot be supported)\nAny changes you make to the array values (e.g., A[3] = 0) will also change the values on disk\n\nIf pids is left unspecified, the shared array will be mapped across all processes on the current host, including the master. But, localindexes and indexpids will only refer to worker processes. This facilitates work distribution code to use workers for actual computation with the master process acting as a driver.\n\nmode must be one of \"r\", \"r+\", \"w+\", or \"a+\", and defaults to \"r+\" if the file specified by filename already exists, or \"w+\" if not. If an init function of the type initfn(S::SharedArray) is specified, it is called on all the participating workers. You cannot specify an init function if the file is not writable.\n\noffset allows you to skip the specified number of bytes at the beginning of the file.\n\n\n\n"
@@ -12298,7 +12298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.procs-Tuple{SharedArray}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.procs",
     "category": "Method",
     "text": "procs(S::SharedArray)\n\nGet the vector of processes mapping the shared array.\n\n\n\n"
@@ -12306,7 +12306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.sdata",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.sdata",
     "category": "Function",
     "text": "sdata(S::SharedArray)\n\nReturns the actual Array object backing S.\n\n\n\n"
@@ -12314,7 +12314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.indexpids",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.indexpids",
     "category": "Function",
     "text": "indexpids(S::SharedArray)\n\nReturns the current worker's index in the list of workers mapping the SharedArray (i.e. in the same list returned by procs(S)), or 0 if the SharedArray is not mapped locally.\n\n\n\n"
@@ -12322,23 +12322,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.localindexes",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.localindexes",
     "category": "Function",
     "text": "localindexes(S::SharedArray)\n\nReturns a range describing the \"default\" indexes to be handled by the current process.  This range should be interpreted in the sense of linear indexing, i.e., as a sub-range of 1:length(S).  In multi-process contexts, returns an empty range in the parent process (or any process for which indexpids returns 0).\n\nIt's worth emphasizing that localindexes exists purely as a convenience, and you can partition work on the array among workers any way you wish. For a SharedArray, all indexes should be equally fast for each worker process.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/parallel.html#Shared-Arrays-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "Shared Arrays",
+    "location": "stdlib/parallel.html#Arrays-Compartidos-1",
+    "page": "Tareas y Computación Paralela",
+    "title": "Arrays Compartidos",
     "category": "section",
     "text": "Base.SharedArray\nBase.procs(::SharedArray)\nBase.sdata\nBase.indexpids\nBase.localindexes"
 },
 
 {
     "location": "stdlib/parallel.html#Base.Threads.threadid",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.threadid",
     "category": "Function",
     "text": "Threads.threadid()\n\nGet the ID number of the current thread of execution. The master thread has ID 1.\n\n\n\n"
@@ -12346,7 +12346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.nthreads",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.nthreads",
     "category": "Function",
     "text": "Threads.nthreads()\n\nGet the number of threads available to the Julia process. This is the inclusive upper bound on threadid().\n\n\n\n"
@@ -12354,7 +12354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.@threads",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.@threads",
     "category": "Macro",
     "text": "Threads.@threads\n\nA macro to parallelize a for-loop to run with multiple threads. This spawns nthreads() number of threads, splits the iteration space amongst them, and iterates in parallel. A barrier is placed at the end of the loop which waits for all the threads to finish execution, and the loop returns.\n\n\n\n"
@@ -12362,7 +12362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.Atomic",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.Atomic",
     "category": "Type",
     "text": "Threads.Atomic{T}\n\nHolds a reference to an object of type T, ensuring that it is only accessed atomically, i.e. in a thread-safe manner.\n\nOnly certain \"simple\" types can be used atomically, namely the primitive integer and float-point types. These are Int8...Int128, UInt8...UInt128, and Float16...Float64.\n\nNew atomic objects can be created from a non-atomic values; if none is specified, the atomic object is initialized with zero.\n\nAtomic objects can be accessed using the [] notation:\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> x[] = 1\n1\n\njulia> x[]\n1\n\nAtomic operations use an atomic_ prefix, such as atomic_add!, atomic_xchg!, etc.\n\n\n\n"
@@ -12370,7 +12370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_cas!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_cas!",
     "category": "Function",
     "text": "Threads.atomic_cas!{T}(x::Atomic{T}, cmp::T, newval::T)\n\nAtomically compare-and-set x\n\nAtomically compares the value in x with cmp. If equal, write newval to x. Otherwise, leaves x unmodified. Returns the old value in x. By comparing the returned value to cmp (via ===) one knows whether x was modified and now holds the new value newval.\n\nFor further details, see LLVM's cmpxchg instruction.\n\nThis function can be used to implement transactional semantics. Before the transaction, one records the value in x. After the transaction, the new value is stored only if x has not been modified in the mean time.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_cas!(x, 4, 2);\n\njulia> x\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_cas!(x, 3, 2);\n\njulia> x\nBase.Threads.Atomic{Int64}(2)\n\n\n\n"
@@ -12378,7 +12378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_xchg!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_xchg!",
     "category": "Function",
     "text": "Threads.atomic_xchg!{T}(x::Atomic{T}, newval::T)\n\nAtomically exchange the value in x\n\nAtomically exchanges the value in x with newval. Returns the old value.\n\nFor further details, see LLVM's atomicrmw xchg instruction.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_xchg!(x, 2)\n3\n\njulia> x[]\n2\n\n\n\n"
@@ -12386,7 +12386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_add!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_add!",
     "category": "Function",
     "text": "Threads.atomic_add!{T}(x::Atomic{T}, val::T)\n\nAtomically add val to x\n\nPerforms x[] += val atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw add instruction.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_add!(x, 2)\n3\n\njulia> x[]\n5\n\n\n\n"
@@ -12394,7 +12394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_sub!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_sub!",
     "category": "Function",
     "text": "Threads.atomic_sub!{T}(x::Atomic{T}, val::T)\n\nAtomically subtract val from x\n\nPerforms x[] -= val atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw sub instruction.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_sub!(x, 2)\n3\n\njulia> x[]\n1\n\n\n\n"
@@ -12402,7 +12402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_and!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_and!",
     "category": "Function",
     "text": "Threads.atomic_and!{T}(x::Atomic{T}, val::T)\n\nAtomically bitwise-and x with val\n\nPerforms x[] &= val atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw and instruction.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_and!(x, 2)\n3\n\njulia> x[]\n2\n\n\n\n"
@@ -12410,7 +12410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_nand!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_nand!",
     "category": "Function",
     "text": "Threads.atomic_nand!{T}(x::Atomic{T}, val::T)\n\nAtomically bitwise-nand (not-and) x with val\n\nPerforms x[] = ~(x[] & val) atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw nand instruction.\n\njulia> x = Threads.Atomic{Int}(3)\nBase.Threads.Atomic{Int64}(3)\n\njulia> Threads.atomic_nand!(x, 2)\n3\n\njulia> x[]\n-3\n\n\n\n"
@@ -12418,7 +12418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_or!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_or!",
     "category": "Function",
     "text": "Threads.atomic_or!{T}(x::Atomic{T}, val::T)\n\nAtomically bitwise-or x with val\n\nPerforms x[] |= val atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw or instruction.\n\njulia> x = Threads.Atomic{Int}(5)\nBase.Threads.Atomic{Int64}(5)\n\njulia> Threads.atomic_or!(x, 7)\n5\n\njulia> x[]\n7\n\n\n\n"
@@ -12426,7 +12426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_xor!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_xor!",
     "category": "Function",
     "text": "Threads.atomic_xor!{T}(x::Atomic{T}, val::T)\n\nAtomically bitwise-xor (exclusive-or) x with val\n\nPerforms x[] $= val atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw xor instruction.\n\njulia> x = Threads.Atomic{Int}(5)\nBase.Threads.Atomic{Int64}(5)\n\njulia> Threads.atomic_xor!(x, 7)\n5\n\njulia> x[]\n2\n\n\n\n"
@@ -12434,7 +12434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_max!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_max!",
     "category": "Function",
     "text": "Threads.atomic_max!{T}(x::Atomic{T}, val::T)\n\nAtomically store the maximum of x and val in x\n\nPerforms x[] = max(x[], val) atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw max instruction.\n\njulia> x = Threads.Atomic{Int}(5)\nBase.Threads.Atomic{Int64}(5)\n\njulia> Threads.atomic_max!(x, 7)\n5\n\njulia> x[]\n7\n\n\n\n"
@@ -12442,7 +12442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_min!",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_min!",
     "category": "Function",
     "text": "Threads.atomic_min!{T}(x::Atomic{T}, val::T)\n\nAtomically store the minimum of x and val in x\n\nPerforms x[] = min(x[], val) atomically. Returns the old value.\n\nFor further details, see LLVM's atomicrmw min instruction.\n\njulia> x = Threads.Atomic{Int}(7)\nBase.Threads.Atomic{Int64}(7)\n\njulia> Threads.atomic_min!(x, 5)\n7\n\njulia> x[]\n5\n\n\n\n"
@@ -12450,7 +12450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.atomic_fence",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.atomic_fence",
     "category": "Function",
     "text": "Threads.atomic_fence()\n\nInsert a sequential-consistency memory fence\n\nInserts a memory fence with sequentially-consistent ordering semantics. There are algorithms where this is needed, i.e. where an acquire/release ordering is insufficient.\n\nThis is likely a very expensive operation. Given that all other atomic operations in Julia already have acquire/release semantics, explicit fences should not be necessary in most cases.\n\nFor further details, see LLVM's fence instruction.\n\n\n\n"
@@ -12458,15 +12458,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Multi-Threading-1",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Multi-Threading",
     "category": "section",
-    "text": "This experimental interface supports Julia's multi-threading capabilities. Types and functions described here might (and likely will) change in the future.Base.Threads.threadid\nBase.Threads.nthreads\nBase.Threads.@threads\nBase.Threads.Atomic\nBase.Threads.atomic_cas!\nBase.Threads.atomic_xchg!\nBase.Threads.atomic_add!\nBase.Threads.atomic_sub!\nBase.Threads.atomic_and!\nBase.Threads.atomic_nand!\nBase.Threads.atomic_or!\nBase.Threads.atomic_xor!\nBase.Threads.atomic_max!\nBase.Threads.atomic_min!\nBase.Threads.atomic_fence"
+    "text": "Este interfaz experimental soporta las capacidades multi-hilo de Julia. Los tipos y funciones descritos aquí pueden cambiar en el futuro (y probablemente lo harán).Base.Threads.threadid\nBase.Threads.nthreads\nBase.Threads.@threads\nBase.Threads.Atomic\nBase.Threads.atomic_cas!\nBase.Threads.atomic_xchg!\nBase.Threads.atomic_add!\nBase.Threads.atomic_sub!\nBase.Threads.atomic_and!\nBase.Threads.atomic_nand!\nBase.Threads.atomic_or!\nBase.Threads.atomic_xor!\nBase.Threads.atomic_max!\nBase.Threads.atomic_min!\nBase.Threads.atomic_fence"
 },
 
 {
     "location": "stdlib/parallel.html#Base.@threadcall",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.@threadcall",
     "category": "Macro",
     "text": "@threadcall((cfunc, clib), rettype, (argtypes...), argvals...)\n\nThe @threadcall macro is called in the same way as ccall but does the work in a different thread. This is useful when you want to call a blocking C function without causing the main julia thread to become blocked. Concurrency is limited by size of the libuv thread pool, which defaults to 4 threads but can be increased by setting the UV_THREADPOOL_SIZE environment variable and restarting the julia process.\n\nNote that the called function should never call back into Julia.\n\n\n\n"
@@ -12474,7 +12474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#ccall-using-a-threadpool-(Experimental)-1",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "ccall using a threadpool (Experimental)",
     "category": "section",
     "text": "Base.@threadcall"
@@ -12482,7 +12482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.AbstractLock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.AbstractLock",
     "category": "Type",
     "text": "AbstractLock\n\nAbstract supertype describing types that implement the thread-safe synchronization primitives: lock, trylock, unlock, and islocked\n\n\n\n"
@@ -12490,7 +12490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.lock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.lock",
     "category": "Function",
     "text": "lock(the_lock)\n\nAcquires the lock when it becomes available. If the lock is already locked by a different task/thread, it waits for it to become available.\n\nEach lock must be matched by an unlock.\n\n\n\n"
@@ -12498,7 +12498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.unlock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.unlock",
     "category": "Function",
     "text": "unlock(the_lock)\n\nReleases ownership of the lock.\n\nIf this is a recursive lock which has been acquired before, it just decrements an internal counter and returns immediately.\n\n\n\n"
@@ -12506,7 +12506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.trylock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.trylock",
     "category": "Function",
     "text": "trylock(the_lock) -> Success (Boolean)\n\nAcquires the lock if it is available, returning true if successful. If the lock is already locked by a different task/thread, returns false.\n\nEach successful trylock must be matched by an unlock.\n\n\n\n"
@@ -12514,7 +12514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.islocked",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.islocked",
     "category": "Function",
     "text": "islocked(the_lock) -> Status (Boolean)\n\nCheck whether the lock is held by any task/thread. This should not be used for synchronization (see instead trylock).\n\n\n\n"
@@ -12522,7 +12522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.ReentrantLock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.ReentrantLock",
     "category": "Type",
     "text": "ReentrantLock()\n\nCreates a reentrant lock for synchronizing Tasks. The same task can acquire the lock as many times as required. Each lock must be matched with an unlock.\n\nThis lock is NOT threadsafe. See Threads.Mutex for a threadsafe lock.\n\n\n\n"
@@ -12530,7 +12530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.Mutex",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.Mutex",
     "category": "Type",
     "text": "Mutex()\n\nThese are standard system mutexes for locking critical sections of logic.\n\nOn Windows, this is a critical section object, on pthreads, this is a pthread_mutex_t.\n\nSee also SpinLock for a lighter-weight lock.\n\n\n\n"
@@ -12538,7 +12538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.SpinLock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.SpinLock",
     "category": "Type",
     "text": "SpinLock()\n\nCreates a non-reentrant lock. Recursive use will result in a deadlock. Each lock must be matched with an unlock.\n\nTest-and-test-and-set spin locks are quickest up to about 30ish contending threads. If you have more contention than that, perhaps a lock is the wrong way to synchronize.\n\nSee also RecursiveSpinLock for a version that permits recursion.\n\nSee also Mutex for a more efficient version on one core or if the lock may be held for a considerable length of time.\n\n\n\n"
@@ -12546,7 +12546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Threads.RecursiveSpinLock",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Threads.RecursiveSpinLock",
     "category": "Type",
     "text": "RecursiveSpinLock()\n\nCreates a reentrant lock. The same thread can acquire the lock as many times as required. Each lock must be matched with an unlock.\n\nSee also SpinLock for a slightly faster version.\n\nSee also Mutex for a more efficient version on one core or if the lock may be held for a considerable length of time.\n\n\n\n"
@@ -12554,7 +12554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Semaphore",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Semaphore",
     "category": "Type",
     "text": "Semaphore(sem_size)\n\nCreates a counting semaphore that allows at most sem_size acquires to be in use at any time. Each acquire must be mached with a release.\n\nThis construct is NOT threadsafe.\n\n\n\n"
@@ -12562,7 +12562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.acquire",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.acquire",
     "category": "Function",
     "text": "acquire(s::Semaphore)\n\nWait for one of the sem_size permits to be available, blocking until one can be acquired.\n\n\n\n"
@@ -12570,23 +12570,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.release",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.release",
     "category": "Function",
     "text": "release(s::Semaphore)\n\nReturn one permit to the pool, possibly allowing another task to acquire it and resume execution.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/parallel.html#Synchronization-Primitives-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "Synchronization Primitives",
+    "location": "stdlib/parallel.html#Primitivas-de-Sincronización-1",
+    "page": "Tareas y Computación Paralela",
+    "title": "Primitivas de Sincronización",
     "category": "section",
     "text": "Base.Threads.AbstractLock\nBase.lock\nBase.unlock\nBase.trylock\nBase.islocked\nBase.ReentrantLock\nBase.Threads.Mutex\nBase.Threads.SpinLock\nBase.Threads.RecursiveSpinLock\nBase.Semaphore\nBase.acquire\nBase.release"
 },
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.launch",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.launch",
     "category": "Function",
     "text": "launch(manager::ClusterManager, params::Dict, launched::Array, launch_ntfy::Condition)\n\nImplemented by cluster managers. For every Julia worker launched by this function, it should append a WorkerConfig entry to launched and notify launch_ntfy. The function MUST exit once all workers, requested by manager have been launched. params is a dictionary of all keyword arguments addprocs was called with.\n\n\n\n"
@@ -12594,7 +12594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.manage",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.manage",
     "category": "Function",
     "text": "manage(manager::ClusterManager, id::Integer, config::WorkerConfig. op::Symbol)\n\nImplemented by cluster managers. It is called on the master process, during a worker's lifetime, with appropriate op values:\n\nwith :register/:deregister when a worker is added / removed from the Julia worker pool.\nwith :interrupt when interrupt(workers) is called. The ClusterManager should signal the appropriate worker with an interrupt signal.\nwith :finalize for cleanup purposes.\n\n\n\n"
@@ -12602,7 +12602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.kill-Tuple{ClusterManager,Int64,WorkerConfig}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.kill",
     "category": "Method",
     "text": "kill(manager::ClusterManager, pid::Int, config::WorkerConfig)\n\nImplemented by cluster managers. It is called on the master process, by rmprocs. It should cause the remote worker specified by pid to exit. kill(manager::ClusterManager.....) executes a remote exit() on pid.\n\n\n\n"
@@ -12610,7 +12610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.init_worker",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.init_worker",
     "category": "Function",
     "text": "init_worker(cookie::AbstractString, manager::ClusterManager=DefaultClusterManager())\n\nCalled by cluster managers implementing custom transports. It initializes a newly launched process as a worker. Command line argument --worker has the effect of initializing a process as a worker using TCP/IP sockets for transport. cookie is a cluster_cookie.\n\n\n\n"
@@ -12618,7 +12618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.connect-Tuple{ClusterManager,Int64,WorkerConfig}",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.connect",
     "category": "Method",
     "text": "connect(manager::ClusterManager, pid::Int, config::WorkerConfig) -> (instrm::IO, outstrm::IO)\n\nImplemented by cluster managers using custom transports. It should establish a logical connection to worker with id pid, specified by config and return a pair of IO objects. Messages from pid to current process will be read off instrm, while messages to be sent to pid will be written to outstrm. The custom transport implementation must ensure that messages are delivered and received completely and in order. connect(manager::ClusterManager.....) sets up TCP/IP socket connections in-between workers.\n\n\n\n"
@@ -12626,39 +12626,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/parallel.html#Base.Distributed.process_messages",
-    "page": "Tasks and Parallel Computing",
+    "page": "Tareas y Computación Paralela",
     "title": "Base.Distributed.process_messages",
     "category": "Function",
     "text": "Base.process_messages(r_stream::IO, w_stream::IO, incoming::Bool=true)\n\nCalled by cluster managers using custom transports. It should be called when the custom transport implementation receives the first message from a remote worker. The custom transport must manage a logical connection to the remote worker and provide two IO objects, one for incoming messages and the other for messages addressed to the remote worker. If incoming is true, the remote peer initiated the connection. Whichever of the pair initiates the connection sends the cluster cookie and its Julia version number to perform the authentication handshake.\n\nSee also cluster_cookie.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/parallel.html#Cluster-Manager-Interface-1",
-    "page": "Tasks and Parallel Computing",
-    "title": "Cluster Manager Interface",
+    "location": "stdlib/parallel.html#Interfaz-de-Administración-de-Cluster-1",
+    "page": "Tareas y Computación Paralela",
+    "title": "Interfaz de Administración de Cluster",
     "category": "section",
-    "text": "This interface provides a mechanism to launch and manage Julia workers on different cluster environments. There are two types of managers present in Base: LocalManager, for launching additional workers on the same host, and SSHManager, for launching on remote hosts via ssh. TCP/IP sockets are used to connect and transport messages between processes. It is possible for Cluster Managers to provide a different transport.Base.launch\nBase.manage\nBase.kill(::ClusterManager, ::Int, ::WorkerConfig)\nBase.init_worker\nBase.connect(::ClusterManager, ::Int, ::WorkerConfig)\nBase.process_messages"
+    "text": "Esta interfaz proporciona un mecanismo para lanzar y gestionar workers Julia sobre diferentes entornos cluster. Hay dos tipos de administrafores presentes en Base: LocalManager, para lanzar workers adicionales sobre el mismo host, y SSHManager, para lanzarlos sobre hosts remotos vía ssh. Para conectar y transportar mensajes entre procesos se usan los sockets TCP/IP. Es posible que los administradores de clusters proporcionen un transporte diferente.Base.launch\nBase.manage\nBase.kill(::ClusterManager, ::Int, ::WorkerConfig)\nBase.init_worker\nBase.connect(::ClusterManager, ::Int, ::WorkerConfig)\nBase.process_messages"
 },
 
 {
     "location": "stdlib/linalg.html#",
-    "page": "Linear Algebra",
-    "title": "Linear Algebra",
+    "page": "Álgebra Lineal",
+    "title": "Álgebra Lineal",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/linalg.html#lib-linear-algebra-1",
-    "page": "Linear Algebra",
-    "title": "Linear Algebra",
+    "page": "Álgebra Lineal",
+    "title": "Álgebra Lineal",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/linalg.html#Base.:*-Tuple{AbstractArray,AbstractArray}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.:*",
     "category": "Method",
     "text": "*(x, y...)\n\nMultiplication operator. x*y*z*... calls this function with all arguments, i.e. *(x, y, z, ...).\n\n\n\n"
@@ -12666,7 +12666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.:\\-Tuple{AbstractArray,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.:\\",
     "category": "Method",
     "text": "\\(x, y)\n\nLeft division operator: multiplication of y by the inverse of x on the left. Gives floating-point results for integer arguments.\n\njulia> 3 \\ 6\n2.0\n\njulia> inv(3) * 6\n2.0\n\njulia> A = [1 2; 3 4]; x = [5, 6];\n\njulia> A \\ x\n2-element Array{Float64,1}:\n -4.0\n  4.5\n\njulia> inv(A) * x\n2-element Array{Float64,1}:\n -4.0\n  4.5\n\n\n\n"
@@ -12674,7 +12674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.dot",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.dot",
     "category": "Function",
     "text": "dot(n, X, incx, Y, incy)\n\nDot product of two vectors consisting of n elements of array X with stride incx and n elements of array Y with stride incy.\n\nExample:\n\njulia> dot(10, ones(10), 1, ones(20), 2)\n10.0\n\n\n\n"
@@ -12682,7 +12682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.vecdot",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.vecdot",
     "category": "Function",
     "text": "vecdot(x, y)\n\nFor any iterable containers x and y (including arrays of any dimension) of numbers (or any element type for which dot is defined), compute the Euclidean dot product (the sum of dot(x[i],y[i])) as if they were vectors.\n\nExamples\n\njulia> vecdot(1:5, 2:6)\n70\n\njulia> x = fill(2., (5,5));\n\njulia> y = fill(3., (5,5));\n\njulia> vecdot(x, y)\n150.0\n\n\n\n"
@@ -12690,7 +12690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.cross",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cross",
     "category": "Function",
     "text": "cross(x, y)\n×(x,y)\n\nCompute the cross product of two 3-vectors.\n\nExample\n\njulia> a = [0;1;0]\n3-element Array{Int64,1}:\n 0\n 1\n 0\n\njulia> b = [0;0;1]\n3-element Array{Int64,1}:\n 0\n 0\n 1\n\njulia> cross(a,b)\n3-element Array{Int64,1}:\n 1\n 0\n 0\n\n\n\n"
@@ -12698,7 +12698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.factorize",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.factorize",
     "category": "Function",
     "text": "factorize(A)\n\nCompute a convenient factorization of A, based upon the type of the input matrix. factorize checks A to see if it is symmetric/triangular/etc. if A is passed as a generic matrix. factorize checks every element of A to verify/rule out each property. It will short-circuit as soon as it can rule out symmetry/triangular structure. The return value can be reused for efficient solving of multiple systems. For example: A=factorize(A); x=A\\b; y=A\\C.\n\nProperties of A type of factorization\nPositive-definite Cholesky (see cholfact)\nDense Symmetric/Hermitian Bunch-Kaufman (see bkfact)\nSparse Symmetric/Hermitian LDLt (see ldltfact)\nTriangular Triangular\nDiagonal Diagonal\nBidiagonal Bidiagonal\nTridiagonal LU (see lufact)\nSymmetric real tridiagonal LDLt (see ldltfact)\nGeneral square LU (see lufact)\nGeneral non-square QR (see qrfact)\n\nIf factorize is called on a Hermitian positive-definite matrix, for instance, then factorize will return a Cholesky factorization.\n\nExample\n\njulia> A = Array(Bidiagonal(ones(5, 5), true))\n5×5 Array{Float64,2}:\n 1.0  1.0  0.0  0.0  0.0\n 0.0  1.0  1.0  0.0  0.0\n 0.0  0.0  1.0  1.0  0.0\n 0.0  0.0  0.0  1.0  1.0\n 0.0  0.0  0.0  0.0  1.0\n\njulia> factorize(A) # factorize will check to see that A is already factorized\n5×5 Bidiagonal{Float64}:\n 1.0  1.0   ⋅    ⋅    ⋅\n  ⋅   1.0  1.0   ⋅    ⋅\n  ⋅    ⋅   1.0  1.0   ⋅\n  ⋅    ⋅    ⋅   1.0  1.0\n  ⋅    ⋅    ⋅    ⋅   1.0\n\nThis returns a 5×5 Bidiagonal{Float64}, which can now be passed to other linear algebra functions (e.g. eigensolvers) which will use specialized methods for Bidiagonal types.\n\n\n\n"
@@ -12706,7 +12706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Diagonal",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Diagonal",
     "category": "Type",
     "text": "Diagonal(A::AbstractMatrix)\n\nConstructs a matrix from the diagonal of A.\n\nExample\n\njulia> A = [1 2 3; 4 5 6; 7 8 9]\n3×3 Array{Int64,2}:\n 1  2  3\n 4  5  6\n 7  8  9\n\njulia> Diagonal(A)\n3×3 Diagonal{Int64}:\n 1  ⋅  ⋅\n ⋅  5  ⋅\n ⋅  ⋅  9\n\n\n\nDiagonal(V::AbstractVector)\n\nConstructs a matrix with V as its diagonal.\n\nExample\n\njulia> V = [1; 2]\n2-element Array{Int64,1}:\n 1\n 2\n\njulia> Diagonal(V)\n2×2 Diagonal{Int64}:\n 1  ⋅\n ⋅  2\n\n\n\n"
@@ -12714,7 +12714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Bidiagonal",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Bidiagonal",
     "category": "Type",
     "text": "Bidiagonal(dv, ev, isupper::Bool)\n\nConstructs an upper (isupper=true) or lower (isupper=false) bidiagonal matrix using the given diagonal (dv) and off-diagonal (ev) vectors.  The result is of type Bidiagonal and provides efficient specialized linear solvers, but may be converted into a regular matrix with convert(Array, _) (or Array(_) for short). ev's length must be one less than the length of dv.\n\nExample\n\njulia> dv = [1; 2; 3; 4]\n4-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n\njulia> ev = [7; 8; 9]\n3-element Array{Int64,1}:\n 7\n 8\n 9\n\njulia> Bu = Bidiagonal(dv, ev, true) # ev is on the first superdiagonal\n4×4 Bidiagonal{Int64}:\n 1  7  ⋅  ⋅\n ⋅  2  8  ⋅\n ⋅  ⋅  3  9\n ⋅  ⋅  ⋅  4\n\njulia> Bl = Bidiagonal(dv, ev, false) # ev is on the first subdiagonal\n4×4 Bidiagonal{Int64}:\n 1  ⋅  ⋅  ⋅\n 7  2  ⋅  ⋅\n ⋅  8  3  ⋅\n ⋅  ⋅  9  4\n\n\n\nBidiagonal(dv, ev, uplo::Char)\n\nConstructs an upper (uplo='U') or lower (uplo='L') bidiagonal matrix using the given diagonal (dv) and off-diagonal (ev) vectors.  The result is of type Bidiagonal and provides efficient specialized linear solvers, but may be converted into a regular matrix with convert(Array, _) (or Array(_) for short). ev's length must be one less than the length of dv.\n\nExample\n\njulia> dv = [1; 2; 3; 4]\n4-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n\njulia> ev = [7; 8; 9]\n3-element Array{Int64,1}:\n 7\n 8\n 9\n\njulia> Bu = Bidiagonal(dv, ev, 'U') #e is on the first superdiagonal\n4×4 Bidiagonal{Int64}:\n 1  7  ⋅  ⋅\n ⋅  2  8  ⋅\n ⋅  ⋅  3  9\n ⋅  ⋅  ⋅  4\n\njulia> Bl = Bidiagonal(dv, ev, 'L') #e is on the first subdiagonal\n4×4 Bidiagonal{Int64}:\n 1  ⋅  ⋅  ⋅\n 7  2  ⋅  ⋅\n ⋅  8  3  ⋅\n ⋅  ⋅  9  4\n\n\n\nBidiagonal(A, isupper::Bool)\n\nConstruct a Bidiagonal matrix from the main diagonal of A and its first super- (if isupper=true) or sub-diagonal (if isupper=false).\n\nExample\n\njulia> A = [1 1 1 1; 2 2 2 2; 3 3 3 3; 4 4 4 4]\n4×4 Array{Int64,2}:\n 1  1  1  1\n 2  2  2  2\n 3  3  3  3\n 4  4  4  4\n\njulia> Bidiagonal(A, true) #contains the main diagonal and first superdiagonal of A\n4×4 Bidiagonal{Int64}:\n 1  1  ⋅  ⋅\n ⋅  2  2  ⋅\n ⋅  ⋅  3  3\n ⋅  ⋅  ⋅  4\n\njulia> Bidiagonal(A, false) #contains the main diagonal and first subdiagonal of A\n4×4 Bidiagonal{Int64}:\n 1  ⋅  ⋅  ⋅\n 2  2  ⋅  ⋅\n ⋅  3  3  ⋅\n ⋅  ⋅  4  4\n\n\n\n"
@@ -12722,7 +12722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.SymTridiagonal",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.SymTridiagonal",
     "category": "Type",
     "text": "SymTridiagonal(dv, ev)\n\nConstruct a symmetric tridiagonal matrix from the diagonal and first sub/super-diagonal, respectively. The result is of type SymTridiagonal and provides efficient specialized eigensolvers, but may be converted into a regular matrix with convert(Array, _) (or Array(_) for short).\n\nExample\n\njulia> dv = [1; 2; 3; 4]\n4-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n\njulia> ev = [7; 8; 9]\n3-element Array{Int64,1}:\n 7\n 8\n 9\n\njulia> SymTridiagonal(dv, ev)\n4×4 SymTridiagonal{Int64}:\n 1  7  ⋅  ⋅\n 7  2  8  ⋅\n ⋅  8  3  9\n ⋅  ⋅  9  4\n\n\n\n"
@@ -12730,7 +12730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Tridiagonal",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Tridiagonal",
     "category": "Type",
     "text": "Tridiagonal(dl, d, du)\n\nConstruct a tridiagonal matrix from the first subdiagonal, diagonal, and first superdiagonal, respectively.  The result is of type Tridiagonal and provides efficient specialized linear solvers, but may be converted into a regular matrix with convert(Array, _) (or Array(_) for short). The lengths of dl and du must be one less than the length of d.\n\nExample\n\njulia> dl = [1; 2; 3]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> du = [4; 5; 6]\n3-element Array{Int64,1}:\n 4\n 5\n 6\n\njulia> d = [7; 8; 9; 0]\n4-element Array{Int64,1}:\n 7\n 8\n 9\n 0\n\njulia> Tridiagonal(dl, d, du)\n4×4 Tridiagonal{Int64}:\n 7  4  ⋅  ⋅\n 1  8  5  ⋅\n ⋅  2  9  6\n ⋅  ⋅  3  0\n\n\n\nTridiagonal(A)\n\nreturns a Tridiagonal array based on (abstract) matrix A, using its first lower diagonal, main diagonal, and first upper diagonal.\n\nExample\n\njulia> A = [1 2 3 4; 1 2 3 4; 1 2 3 4; 1 2 3 4]\n4×4 Array{Int64,2}:\n 1  2  3  4\n 1  2  3  4\n 1  2  3  4\n 1  2  3  4\n\njulia> Tridiagonal(A)\n4×4 Tridiagonal{Int64}:\n 1  2  ⋅  ⋅\n 1  2  3  ⋅\n ⋅  2  3  4\n ⋅  ⋅  3  4\n\n\n\n"
@@ -12738,7 +12738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Symmetric",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Symmetric",
     "category": "Type",
     "text": "Symmetric(A, uplo=:U)\n\nConstruct a Symmetric view of the upper (if uplo = :U) or lower (if uplo = :L) triangle of the matrix A.\n\nExample\n\njulia> A = [1 0 2 0 3; 0 4 0 5 0; 6 0 7 0 8; 0 9 0 1 0; 2 0 3 0 4]\n5×5 Array{Int64,2}:\n 1  0  2  0  3\n 0  4  0  5  0\n 6  0  7  0  8\n 0  9  0  1  0\n 2  0  3  0  4\n\njulia> Supper = Symmetric(A)\n5×5 Symmetric{Int64,Array{Int64,2}}:\n 1  0  2  0  3\n 0  4  0  5  0\n 2  0  7  0  8\n 0  5  0  1  0\n 3  0  8  0  4\n\njulia> Slower = Symmetric(A, :L)\n5×5 Symmetric{Int64,Array{Int64,2}}:\n 1  0  6  0  2\n 0  4  0  9  0\n 6  0  7  0  3\n 0  9  0  1  0\n 2  0  3  0  4\n\nNote that Supper will not be equal to Slower unless A is itself symmetric (e.g. if A == A.').\n\n\n\n"
@@ -12746,7 +12746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Hermitian",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Hermitian",
     "category": "Type",
     "text": "Hermitian(A, uplo=:U)\n\nConstruct a Hermitian view of the upper (if uplo = :U) or lower (if uplo = :L) triangle of the matrix A.\n\nExample\n\njulia> A = [1 0 2+2im 0 3-3im; 0 4 0 5 0; 6-6im 0 7 0 8+8im; 0 9 0 1 0; 2+2im 0 3-3im 0 4];\n\njulia> Hupper = Hermitian(A)\n5×5 Hermitian{Complex{Int64},Array{Complex{Int64},2}}:\n 1+0im  0+0im  2+2im  0+0im  3-3im\n 0+0im  4+0im  0+0im  5+0im  0+0im\n 2-2im  0+0im  7+0im  0+0im  8+8im\n 0+0im  5+0im  0+0im  1+0im  0+0im\n 3+3im  0+0im  8-8im  0+0im  4+0im\n\njulia> Hlower = Hermitian(A, :L)\n5×5 Hermitian{Complex{Int64},Array{Complex{Int64},2}}:\n 1+0im  0+0im  6+6im  0+0im  2-2im\n 0+0im  4+0im  0+0im  9+0im  0+0im\n 6-6im  0+0im  7+0im  0+0im  3+3im\n 0+0im  9+0im  0+0im  1+0im  0+0im\n 2+2im  0+0im  3-3im  0+0im  4+0im\n\nNote that Hupper will not be equal to Hlower unless A is itself Hermitian (e.g. if A == A').\n\n\n\n"
@@ -12754,7 +12754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LowerTriangular",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LowerTriangular",
     "category": "Type",
     "text": "LowerTriangular(A::AbstractMatrix)\n\nConstruct a LowerTriangular view of the the matrix A.\n\nExample\n\njulia> A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 9.0]\n3×3 Array{Float64,2}:\n 1.0  2.0  3.0\n 4.0  5.0  6.0\n 7.0  8.0  9.0\n\njulia> LowerTriangular(A)\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n 1.0   ⋅    ⋅\n 4.0  5.0   ⋅\n 7.0  8.0  9.0\n\n\n\n"
@@ -12762,7 +12762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.UpperTriangular",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.UpperTriangular",
     "category": "Type",
     "text": "UpperTriangular(A::AbstractMatrix)\n\nConstruct an UpperTriangular view of the the matrix A.\n\nExample\n\njulia> A = [1.0 2.0 3.0; 4.0 5.0 6.0; 7.0 8.0 9.0]\n3×3 Array{Float64,2}:\n 1.0  2.0  3.0\n 4.0  5.0  6.0\n 7.0  8.0  9.0\n\njulia> UpperTriangular(A)\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 1.0  2.0  3.0\n  ⋅   5.0  6.0\n  ⋅    ⋅   9.0\n\n\n\n"
@@ -12770,7 +12770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lu",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lu",
     "category": "Function",
     "text": "lu(A, pivot=Val{true}) -> L, U, p\n\nCompute the LU factorization of A, such that A[p,:] = L*U. By default, pivoting is used. This can be overridden by passing Val{false} for the second argument.\n\nSee also lufact.\n\nExample\n\njulia> A = [4. 3.; 6. 3.]\n2×2 Array{Float64,2}:\n 4.0  3.0\n 6.0  3.0\n\njulia> L, U, p = lu(A)\n([1.0 0.0; 0.666667 1.0], [6.0 3.0; 0.0 1.0], [2, 1])\n\njulia> A[p, :] == L * U\ntrue\n\n\n\n"
@@ -12778,7 +12778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lufact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lufact",
     "category": "Function",
     "text": "lufact(A [,pivot=Val{true}]) -> F::LU\n\nCompute the LU factorization of A.\n\nIn most cases, if A is a subtype S of AbstractMatrix{T} with an element type T supporting +, -, * and /, the return type is LU{T,S{T}}. If pivoting is chosen (default) the element type should also support abs and <.\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] (right) permutation Vector\nF[:P] (right) permutation Matrix\n\nThe relationship between F and A is\n\nF[:L]*F[:U] == A[F[:p], :]\n\nF further supports the following functions:\n\nSupported function LU LU{T,Tridiagonal{T}}\n/ ✓ \n\\ ✓ ✓\ncond ✓ \ninv ✓ ✓\ndet ✓ ✓\nlogdet ✓ ✓\nlogabsdet ✓ ✓\nsize ✓ ✓\n\nExample\n\njulia> A = [4 3; 6 3]\n2×2 Array{Int64,2}:\n 4  3\n 6  3\n\njulia> F = lufact(A)\nBase.LinAlg.LU{Float64,Array{Float64,2}} with factors L and U:\n[1.0 0.0; 1.5 1.0]\n[4.0 3.0; 0.0 -1.5]\n\njulia> F[:L] * F[:U] == A[F[:p], :]\ntrue\n\n\n\nlufact(A::SparseMatrixCSC) -> F::UmfpackLU\n\nCompute the LU factorization of a sparse matrix A.\n\nFor sparse A with real or complex element type, the return type of F is UmfpackLU{Tv, Ti}, with Tv = Float64 or Complex128 respectively and Ti is an integer type (Int32 or Int64).\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] right permutation Vector\nF[:q] left permutation Vector\nF[:Rs] Vector of scaling factors\nF[:(:)] (L,U,p,q,Rs) components\n\nThe relation between F and A is\n\nF[:L]*F[:U] == (F[:Rs] .* A)[F[:p], F[:q]]\n\nF further supports the following functions:\n\n\\\ncond\ndet\n\nnote: Note\nlufact(A::SparseMatrixCSC) uses the UMFPACK library that is part of SuiteSparse. As this library only supports sparse matrices with Float64 or Complex128 elements, lufact converts A into a copy that is of type SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
@@ -12786,7 +12786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lufact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lufact!",
     "category": "Function",
     "text": "lufact!(A, pivot=Val{true}) -> LU\n\nlufact! is the same as lufact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\n"
@@ -12794,7 +12794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.chol",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.chol",
     "category": "Function",
     "text": "chol(A) -> U\n\nCompute the Cholesky factorization of a positive definite matrix A and return the UpperTriangular matrix U such that A = U'U.\n\nExample\n\njulia> A = [1. 2.; 2. 50.]\n2×2 Array{Float64,2}:\n 1.0   2.0\n 2.0  50.0\n\njulia> U = chol(A)\n2×2 UpperTriangular{Float64,Array{Float64,2}}:\n 1.0  2.0\n  ⋅   6.78233\n\njulia> U'U\n2×2 Array{Float64,2}:\n 1.0   2.0\n 2.0  50.0\n\n\n\nchol(x::Number) -> y\n\nCompute the square root of a non-negative number x.\n\nExample\n\njulia> chol(16)\n4.0\n\n\n\n"
@@ -12802,23 +12802,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.cholfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cholfact",
     "category": "Function",
-    "text": "cholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\ncholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
+    "text": "cholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\ncholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\n"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.cholfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cholfact!",
     "category": "Function",
-    "text": "cholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\ncholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
+    "text": "cholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\n"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lowrankupdate",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lowrankupdate",
     "category": "Function",
     "text": "lowrankupdate(C::Cholesky, v::StridedVector) -> CC::Cholesky\n\nUpdate a Cholesky factorization C with the vector v. If A = C[:U]'C[:U] then CC = cholfact(C[:U]'C[:U] + v*v') but the computation of CC only uses O(n^2) operations.\n\n\n\n"
@@ -12826,7 +12826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lowrankdowndate",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lowrankdowndate",
     "category": "Function",
     "text": "lowrankdowndate(C::Cholesky, v::StridedVector) -> CC::Cholesky\n\nDowndate a Cholesky factorization C with the vector v. If A = C[:U]'C[:U] then CC = cholfact(C[:U]'C[:U] - v*v') but the computation of CC only uses O(n^2) operations.\n\n\n\n"
@@ -12834,7 +12834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lowrankupdate!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lowrankupdate!",
     "category": "Function",
     "text": "lowrankupdate!(C::Cholesky, v::StridedVector) -> CC::Cholesky\n\nUpdate a Cholesky factorization C with the vector v. If A = C[:U]'C[:U] then CC = cholfact(C[:U]'C[:U] + v*v') but the computation of CC only uses O(n^2) operations. The input factorization C is updated in place such that on exit C == CC. The vector v is destroyed during the computation.\n\n\n\n"
@@ -12842,7 +12842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lowrankdowndate!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lowrankdowndate!",
     "category": "Function",
     "text": "lowrankdowndate!(C::Cholesky, v::StridedVector) -> CC::Cholesky\n\nDowndate a Cholesky factorization C with the vector v. If A = C[:U]'C[:U] then CC = cholfact(C[:U]'C[:U] - v*v') but the computation of CC only uses O(n^2) operations. The input factorization C is updated in place such that on exit C == CC. The vector v is destroyed during the computation.\n\n\n\n"
@@ -12850,23 +12850,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ldltfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ldltfact",
     "category": "Function",
-    "text": "ldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\nldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
+    "text": "ldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\nldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\n"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ldltfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ldltfact!",
     "category": "Function",
-    "text": "ldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\nldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
+    "text": "ldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\nldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\n"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.qr",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.qr",
     "category": "Function",
     "text": "qr(A, pivot=Val{false}; thin::Bool=true) -> Q, R, [p]\n\nCompute the (pivoted) QR factorization of A such that either A = Q*R or A[:,p] = Q*R. Also see qrfact. The default is to compute a thin factorization. Note that R is not extended with zeros when the full Q is requested.\n\n\n\nqr(v::AbstractVector) -> w, r\n\nComputes the polar decomposition of a vector. Returns w, a unit vector in the direction of v, and r, the norm of v.\n\nSee also normalize, normalize!, and LinAlg.qr!.\n\nExample\n\njulia> v = [1; 2]\n2-element Array{Int64,1}:\n 1\n 2\n\njulia> w, r = qr(v)\n([0.447214, 0.894427], 2.23606797749979)\n\njulia> w*r == v\ntrue\n\n\n\n"
@@ -12874,7 +12874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.qr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.qr!",
     "category": "Function",
     "text": "LinAlg.qr!(v::AbstractVector) -> w, r\n\nComputes the polar decomposition of a vector. Instead of returning a new vector as qr(v::AbstractVector), this function mutates the input vector v in place. Returns w, a unit vector in the direction of v (this is a mutation of v), and r, the norm of v.\n\nSee also normalize, normalize!, and qr.\n\n\n\n"
@@ -12882,15 +12882,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.qrfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.qrfact",
     "category": "Function",
-    "text": "qrfact(A, pivot=Val{false}) -> F\n\nCompute the QR factorization of the matrix A: an orthogonal (or unitary if A is complex-valued) matrix Q, and an upper triangular matrix R such that\n\nA = Q R\n\nThe returned object F stores the factorization in a packed format:\n\nif pivot == Val{true} then F is a QRPivoted object,\notherwise if the element type of A is a BLAS type (Float32, Float64, Complex64 or Complex128), then F is a QRCompactWY object,\notherwise F is a QR object.\n\nThe individual components of the factorization F can be accessed by indexing with a symbol:\n\nF[:Q]: the orthogonal/unitary matrix Q\nF[:R]: the upper triangular matrix R\nF[:p]: the permutation vector of the pivot (QRPivoted only)\nF[:P]: the permutation matrix of the pivot (QRPivoted only)\n\nThe following functions are available for the QR objects: inv, size, and \\. When A is rectangular, \\ will return a least squares solution and if the solution is not unique, the one with smallest norm is returned.\n\nMultiplication with respect to either thin or full Q is allowed, i.e. both F[:Q]*F[:R] and F[:Q]*A are supported. A Q matrix can be converted into a regular matrix with full which has a named argument thin.\n\nExample\n\njulia> A = [3.0 -6.0; 4.0 -8.0; 0.0 1.0]\n3×2 Array{Float64,2}:\n 3.0  -6.0\n 4.0  -8.0\n 0.0   1.0\n\njulia> F = qrfact(A)\nBase.LinAlg.QRCompactWY{Float64,Array{Float64,2}} with factors Q and R:\n[-0.6 0.0 0.8; -0.8 0.0 -0.6; 0.0 -1.0 0.0]\n[-5.0 10.0; 0.0 -1.0]\n\njulia> F[:Q] * F[:R] == A\ntrue\n\nnote: Note\nqrfact returns multiple types because LAPACK uses several representations that minimize the memory storage requirements of products of Householder elementary reflectors, so that the Q and R matrices can be stored compactly rather as two separate dense matrices.\n\n\n\nqrfact(A) -> SPQR.Factorization\n\nCompute the QR factorization of a sparse matrix A. A fill-reducing permutation is used. The main application of this type is to solve least squares problems with \\. The function calls the C library SPQR and a few additional functions from the library are wrapped but not exported.\n\n\n\n"
+    "text": "qrfact(A) -> SPQR.Factorization\n\nCompute the QR factorization of a sparse matrix A. A fill-reducing permutation is used. The main application of this type is to solve least squares problems with \\. The function calls the C library SPQR and a few additional functions from the library are wrapped but not exported.\n\n\n\nqrfact(A, pivot=Val{false}) -> F\n\nCompute the QR factorization of the matrix A: an orthogonal (or unitary if A is complex-valued) matrix Q, and an upper triangular matrix R such that\n\nA = Q R\n\nThe returned object F stores the factorization in a packed format:\n\nif pivot == Val{true} then F is a QRPivoted object,\notherwise if the element type of A is a BLAS type (Float32, Float64, Complex64 or Complex128), then F is a QRCompactWY object,\notherwise F is a QR object.\n\nThe individual components of the factorization F can be accessed by indexing with a symbol:\n\nF[:Q]: the orthogonal/unitary matrix Q\nF[:R]: the upper triangular matrix R\nF[:p]: the permutation vector of the pivot (QRPivoted only)\nF[:P]: the permutation matrix of the pivot (QRPivoted only)\n\nThe following functions are available for the QR objects: inv, size, and \\. When A is rectangular, \\ will return a least squares solution and if the solution is not unique, the one with smallest norm is returned.\n\nMultiplication with respect to either thin or full Q is allowed, i.e. both F[:Q]*F[:R] and F[:Q]*A are supported. A Q matrix can be converted into a regular matrix with full which has a named argument thin.\n\nExample\n\njulia> A = [3.0 -6.0; 4.0 -8.0; 0.0 1.0]\n3×2 Array{Float64,2}:\n 3.0  -6.0\n 4.0  -8.0\n 0.0   1.0\n\njulia> F = qrfact(A)\nBase.LinAlg.QRCompactWY{Float64,Array{Float64,2}} with factors Q and R:\n[-0.6 0.0 0.8; -0.8 0.0 -0.6; 0.0 -1.0 0.0]\n[-5.0 10.0; 0.0 -1.0]\n\njulia> F[:Q] * F[:R] == A\ntrue\n\nnote: Note\nqrfact returns multiple types because LAPACK uses several representations that minimize the memory storage requirements of products of Householder elementary reflectors, so that the Q and R matrices can be stored compactly rather as two separate dense matrices.\n\n\n\n"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.qrfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.qrfact!",
     "category": "Function",
     "text": "qrfact!(A, pivot=Val{false})\n\nqrfact! is the same as qrfact when A is a subtype of StridedMatrix, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\n"
@@ -12898,7 +12898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.QR",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.QR",
     "category": "Type",
     "text": "QR <: Factorization\n\nA QR matrix factorization stored in a packed format, typically obtained from qrfact. If A is an m×n matrix, then\n\nA = Q R\n\nwhere Q is an orthogonal/unitary matrix and R is upper triangular. The matrix Q is stored as a sequence of Householder reflectors v_i and coefficients tau_i where:\n\nQ = prod_i=1^min(mn) (I - tau_i v_i v_i^T)\n\nThe object has two fields:\n\nfactors is an m×n matrix.\nThe upper triangular part contains the elements of R, that is R = triu(F.factors) for a QR object F.\nThe subdiagonal part contains the reflectors v_i stored in a packed format where v_i is the ith column of the matrix V = eye(m,n) + tril(F.factors,-1).\nτ is a vector  of length min(m,n) containing the coefficients au_i.\n\n\n\n"
@@ -12906,7 +12906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.QRCompactWY",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.QRCompactWY",
     "category": "Type",
     "text": "QRCompactWY <: Factorization\n\nA QR matrix factorization stored in a compact blocked format, typically obtained from qrfact. If A is an m×n matrix, then\n\nA = Q R\n\nwhere Q is an orthogonal/unitary matrix and R is upper triangular. It is similar to the QR format except that the orthogonal/unitary matrix Q is stored in Compact WY format [Schreiber1989], as a lower trapezoidal matrix V and an upper triangular matrix T where\n\nQ = prod_i=1^min(mn) (I - tau_i v_i v_i^T) = I - V T V^T\n\nsuch that v_i is the ith column of V, and au_i is the ith diagonal element of T.\n\nThe object has two fields:\n\nfactors, as in the QR type, is an m×n matrix.\nThe upper triangular part contains the elements of R, that is R = triu(F.factors) for a QR object F.\nThe subdiagonal part contains the reflectors v_i stored in a packed format such that V = eye(m,n) + tril(F.factors,-1).\nT is a square matrix with min(m,n) columns, whose upper triangular part gives the matrix T above (the subdiagonal elements are ignored).\n\nnote: Note\nThis format should not to be confused with the older WY representation [Bischof1987].\n\n[Bischof1987]: C Bischof and C Van Loan, \"The WY representation for products of Householder matrices\", SIAM J Sci Stat Comput 8 (1987), s2-s13. doi:10.1137/0908009\n\n[Schreiber1989]: R Schreiber and C Van Loan, \"A storage-efficient WY representation for products of Householder transformations\", SIAM J Sci Stat Comput 10 (1989), 53-57. doi:10.1137/0910005\n\n\n\n"
@@ -12914,7 +12914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.QRPivoted",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.QRPivoted",
     "category": "Type",
     "text": "QRPivoted <: Factorization\n\nA QR matrix factorization with column pivoting in a packed format, typically obtained from qrfact. If A is an m×n matrix, then\n\nA P = Q R\n\nwhere P is a permutation matrix, Q is an orthogonal/unitary matrix and R is upper triangular. The matrix Q is stored as a sequence of Householder reflectors:\n\nQ = prod_i=1^min(mn) (I - tau_i v_i v_i^T)\n\nThe object has three fields:\n\nfactors is an m×n matrix.\nThe upper triangular part contains the elements of R, that is R = triu(F.factors) for a QR object F.\nThe subdiagonal part contains the reflectors v_i stored in a packed format where v_i is the ith column of the matrix V = eye(m,n) + tril(F.factors,-1).\nτ is a vector of length min(m,n) containing the coefficients au_i.\njpvt is an integer vector of length n corresponding to the permutation P.\n\n\n\n"
@@ -12922,7 +12922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lqfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lqfact!",
     "category": "Function",
     "text": "lqfact!(A) -> LQ\n\nCompute the LQ factorization of A, using the input matrix as a workspace. See also lq.\n\n\n\n"
@@ -12930,7 +12930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lqfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lqfact",
     "category": "Function",
     "text": "lqfact(A) -> LQ\n\nCompute the LQ factorization of A. See also lq.\n\n\n\n"
@@ -12938,7 +12938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lq",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lq",
     "category": "Function",
     "text": "lq(A; [thin=true]) -> L, Q\n\nPerform an LQ factorization of A such that A = L*Q. The default is to compute a thin factorization. The LQ factorization is the QR factorization of A.'. L is not extended with zeros if the full Q is requested.\n\n\n\n"
@@ -12946,7 +12946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.bkfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.bkfact",
     "category": "Function",
     "text": "bkfact(A, uplo::Symbol=:U, symmetric::Bool=issymmetric(A), rook::Bool=false) -> BunchKaufman\n\nCompute the Bunch-Kaufman [Bunch1977] factorization of a symmetric or Hermitian matrix A and return a BunchKaufman object. uplo indicates which triangle of matrix A to reference. If symmetric is true, A is assumed to be symmetric. If symmetric is false, A is assumed to be Hermitian. If rook is true, rook pivoting is used. If rook is false, rook pivoting is not used. The following functions are available for BunchKaufman objects: size, \\, inv, issymmetric, ishermitian.\n\n[Bunch1977]: J R Bunch and L Kaufman, Some stable methods for calculating inertia and solving symmetric linear systems, Mathematics of Computation 31:137 (1977), 163-179. url.\n\n\n\n"
@@ -12954,7 +12954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.bkfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.bkfact!",
     "category": "Function",
     "text": "bkfact!(A, uplo::Symbol=:U, symmetric::Bool=issymmetric(A), rook::Bool=false) -> BunchKaufman\n\nbkfact! is the same as bkfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\n"
@@ -12962,7 +12962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eig",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eig",
     "category": "Function",
     "text": "eig(A::Union{SymTridiagonal, Hermitian, Symmetric}, irange::UnitRange) -> D, V\neig(A::Union{SymTridiagonal, Hermitian, Symmetric}, vl::Real, vu::Real) -> D, V\neig(A, permute::Bool=true, scale::Bool=true) -> D, V\n\nComputes eigenvalues (D) and eigenvectors (V) of A. See eigfact for details on the irange, vl, and vu arguments (for SymTridiagonal, Hermitian, and Symmetric matrices) and the permute and scale keyword arguments. The eigenvectors are returned columnwise.\n\nExample\n\njulia> eig([1.0 0.0 0.0; 0.0 3.0 0.0; 0.0 0.0 18.0])\n([1.0, 3.0, 18.0], [1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0])\n\neig is a wrapper around eigfact, extracting all parts of the factorization to a tuple; where possible, using eigfact is recommended.\n\n\n\neig(A, B) -> D, V\n\nComputes generalized eigenvalues (D) and vectors (V) of A with respect to B.\n\neig is a wrapper around eigfact, extracting all parts of the factorization to a tuple; where possible, using eigfact is recommended.\n\nExample\n\njulia> A = [1 0; 0 -1]\n2×2 Array{Int64,2}:\n 1   0\n 0  -1\n\njulia> B = [0 1; 1 0]\n2×2 Array{Int64,2}:\n 0  1\n 1  0\n\njulia> eig(A, B)\n(Complex{Float64}[0.0+1.0im, 0.0-1.0im], Complex{Float64}[0.0-1.0im 0.0+1.0im; -1.0-0.0im -1.0+0.0im])\n\n\n\n"
@@ -12970,7 +12970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigvals",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigvals",
     "category": "Function",
     "text": "eigvals(A; permute::Bool=true, scale::Bool=true) -> values\n\nReturns the eigenvalues of A.\n\nFor general non-symmetric matrices it is possible to specify how the matrix is balanced before the eigenvalue calculation. The option permute=true permutes the matrix to become closer to upper triangular, and scale=true scales the matrix by its diagonal elements to make rows and columns more equal in norm. The default is true for both options.\n\n\n\neigvals(A, B) -> values\n\nComputes the generalized eigenvalues of A and B.\n\nExample\n\njulia> A = [1 0; 0 -1]\n2×2 Array{Int64,2}:\n 1   0\n 0  -1\n\njulia> B = [0 1; 1 0]\n2×2 Array{Int64,2}:\n 0  1\n 1  0\n\njulia> eigvals(A,B)\n2-element Array{Complex{Float64},1}:\n 0.0+1.0im\n 0.0-1.0im\n\n\n\neigvals(A::Union{SymTridiagonal, Hermitian, Symmetric}, irange::UnitRange) -> values\n\nReturns the eigenvalues of A. It is possible to calculate only a subset of the eigenvalues by specifying a UnitRange irange covering indices of the sorted eigenvalues, e.g. the 2nd to 8th eigenvalues.\n\njulia> A = SymTridiagonal([1.; 2.; 1.], [2.; 3.])\n3×3 SymTridiagonal{Float64}:\n 1.0  2.0   ⋅\n 2.0  2.0  3.0\n  ⋅   3.0  1.0\n\njulia> eigvals(A, 2:2)\n1-element Array{Float64,1}:\n 1.0\n\njulia> eigvals(A)\n3-element Array{Float64,1}:\n -2.14005\n  1.0\n  5.14005\n\n\n\neigvals(A::Union{SymTridiagonal, Hermitian, Symmetric}, vl::Real, vu::Real) -> values\n\nReturns the eigenvalues of A. It is possible to calculate only a subset of the eigenvalues by specifying a pair vl and vu for the lower and upper boundaries of the eigenvalues.\n\njulia> A = SymTridiagonal([1.; 2.; 1.], [2.; 3.])\n3×3 SymTridiagonal{Float64}:\n 1.0  2.0   ⋅\n 2.0  2.0  3.0\n  ⋅   3.0  1.0\n\njulia> eigvals(A, -1, 2)\n1-element Array{Float64,1}:\n 1.0\n\njulia> eigvals(A)\n3-element Array{Float64,1}:\n -2.14005\n  1.0\n  5.14005\n\n\n\n"
@@ -12978,7 +12978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigvals!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigvals!",
     "category": "Function",
     "text": "eigvals!(A; permute::Bool=true, scale::Bool=true) -> values\n\nSame as eigvals, but saves space by overwriting the input A, instead of creating a copy. The option permute=true permutes the matrix to become closer to upper triangular, and scale=true scales the matrix by its diagonal elements to make rows and columns more equal in norm.\n\n\n\neigvals!(A, B) -> values\n\nSame as eigvals, but saves space by overwriting the input A (and B), instead of creating copies.\n\n\n\neigvals!(A::Union{SymTridiagonal, Hermitian, Symmetric}, irange::UnitRange) -> values\n\nSame as eigvals, but saves space by overwriting the input A, instead of creating a copy. irange is a range of eigenvalue indices to search for - for instance, the 2nd to 8th eigenvalues.\n\n\n\neigvals!(A::Union{SymTridiagonal, Hermitian, Symmetric}, vl::Real, vu::Real) -> values\n\nSame as eigvals, but saves space by overwriting the input A, instead of creating a copy. vl is the lower bound of the interval to search for eigenvalues, and vu is the upper bound.\n\n\n\n"
@@ -12986,7 +12986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigmax",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigmax",
     "category": "Function",
     "text": "eigmax(A; permute::Bool=true, scale::Bool=true)\n\nReturns the largest eigenvalue of A. The option permute=true permutes the matrix to become closer to upper triangular, and scale=true scales the matrix by its diagonal elements to make rows and columns more equal in norm. Note that if the eigenvalues of A are complex, this method will fail, since complex numbers cannot be sorted.\n\nExample\n\njulia> A = [0 im; -im 0]\n2×2 Array{Complex{Int64},2}:\n 0+0im  0+1im\n 0-1im  0+0im\n\njulia> eigmax(A)\n1.0\n\njulia> A = [0 im; -1 0]\n2×2 Array{Complex{Int64},2}:\n  0+0im  0+1im\n -1+0im  0+0im\n\njulia> eigmax(A)\nERROR: DomainError:\nStacktrace:\n [1] #eigmax#46(::Bool, ::Bool, ::Function, ::Array{Complex{Int64},2}) at ./linalg/eigen.jl:238\n [2] eigmax(::Array{Complex{Int64},2}) at ./linalg/eigen.jl:236\n\n\n\n"
@@ -12994,7 +12994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigmin",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigmin",
     "category": "Function",
     "text": "eigmin(A; permute::Bool=true, scale::Bool=true)\n\nReturns the smallest eigenvalue of A. The option permute=true permutes the matrix to become closer to upper triangular, and scale=true scales the matrix by its diagonal elements to make rows and columns more equal in norm. Note that if the eigenvalues of A are complex, this method will fail, since complex numbers cannot be sorted.\n\nExample\n\njulia> A = [0 im; -im 0]\n2×2 Array{Complex{Int64},2}:\n 0+0im  0+1im\n 0-1im  0+0im\n\njulia> eigmin(A)\n-1.0\n\njulia> A = [0 im; -1 0]\n2×2 Array{Complex{Int64},2}:\n  0+0im  0+1im\n -1+0im  0+0im\n\njulia> eigmin(A)\nERROR: DomainError:\nStacktrace:\n [1] #eigmin#47(::Bool, ::Bool, ::Function, ::Array{Complex{Int64},2}) at ./linalg/eigen.jl:280\n [2] eigmin(::Array{Complex{Int64},2}) at ./linalg/eigen.jl:278\n\n\n\n"
@@ -13002,7 +13002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigvecs",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigvecs",
     "category": "Function",
     "text": "eigvecs(A::SymTridiagonal[, eigvals]) -> Matrix\n\nReturns a matrix M whose columns are the eigenvectors of A. (The kth eigenvector can be obtained from the slice M[:, k].)\n\nIf the optional vector of eigenvalues eigvals is specified, eigvecs returns the specific corresponding eigenvectors.\n\nExample\n\njulia> A = SymTridiagonal([1.; 2.; 1.], [2.; 3.])\n3×3 SymTridiagonal{Float64}:\n 1.0  2.0   ⋅\n 2.0  2.0  3.0\n  ⋅   3.0  1.0\n\njulia> eigvals(A)\n3-element Array{Float64,1}:\n -2.14005\n  1.0\n  5.14005\n\njulia> eigvecs(A)\n3×3 Array{Float64,2}:\n  0.418304  -0.83205      0.364299\n -0.656749  -7.39009e-16  0.754109\n  0.627457   0.5547       0.546448\n\njulia> eigvecs(A, [1.])\n3×1 Array{Float64,2}:\n  0.83205\n  4.26351e-17\n -0.5547\n\n\n\neigvecs(A; permute::Bool=true, scale::Bool=true) -> Matrix\n\nReturns a matrix M whose columns are the eigenvectors of A. (The kth eigenvector can be obtained from the slice M[:, k].) The permute and scale keywords are the same as for eigfact.\n\nExample\n\njulia> eigvecs([1.0 0.0 0.0; 0.0 3.0 0.0; 0.0 0.0 18.0])\n3×3 Array{Float64,2}:\n 1.0  0.0  0.0\n 0.0  1.0  0.0\n 0.0  0.0  1.0\n\n\n\neigvecs(A, B) -> Matrix\n\nReturns a matrix M whose columns are the generalized eigenvectors of A and B. (The kth eigenvector can be obtained from the slice M[:, k].)\n\nExample\n\njulia> A = [1 0; 0 -1]\n2×2 Array{Int64,2}:\n 1   0\n 0  -1\n\njulia> B = [0 1; 1 0]\n2×2 Array{Int64,2}:\n 0  1\n 1  0\n\njulia> eigvecs(A, B)\n2×2 Array{Complex{Float64},2}:\n  0.0-1.0im   0.0+1.0im\n -1.0-0.0im  -1.0+0.0im\n\n\n\n"
@@ -13010,7 +13010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigfact",
     "category": "Function",
     "text": "eigfact(A; permute::Bool=true, scale::Bool=true) -> Eigen\n\nComputes the eigenvalue decomposition of A, returning an Eigen factorization object F which contains the eigenvalues in F[:values] and the eigenvectors in the columns of the matrix F[:vectors]. (The kth eigenvector can be obtained from the slice F[:vectors][:, k].)\n\nThe following functions are available for Eigen objects: inv, det, and isposdef.\n\nFor general nonsymmetric matrices it is possible to specify how the matrix is balanced before the eigenvector calculation. The option permute=true permutes the matrix to become closer to upper triangular, and scale=true scales the matrix by its diagonal elements to make rows and columns more equal in norm. The default is true for both options.\n\nExample\n\njulia> F = eigfact([1.0 0.0 0.0; 0.0 3.0 0.0; 0.0 0.0 18.0])\nBase.LinAlg.Eigen{Float64,Float64,Array{Float64,2},Array{Float64,1}}([1.0, 3.0, 18.0], [1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0])\n\njulia> F[:values]\n3-element Array{Float64,1}:\n  1.0\n  3.0\n 18.0\n\njulia> F[:vectors]\n3×3 Array{Float64,2}:\n 1.0  0.0  0.0\n 0.0  1.0  0.0\n 0.0  0.0  1.0\n\n\n\neigfact(A, B) -> GeneralizedEigen\n\nComputes the generalized eigenvalue decomposition of A and B, returning a GeneralizedEigen factorization object F which contains the generalized eigenvalues in F[:values] and the generalized eigenvectors in the columns of the matrix F[:vectors]. (The kth generalized eigenvector can be obtained from the slice F[:vectors][:, k].)\n\n\n\neigfact(A::Union{SymTridiagonal, Hermitian, Symmetric}, irange::UnitRange) -> Eigen\n\nComputes the eigenvalue decomposition of A, returning an Eigen factorization object F which contains the eigenvalues in F[:values] and the eigenvectors in the columns of the matrix F[:vectors]. (The kth eigenvector can be obtained from the slice F[:vectors][:, k].)\n\nThe following functions are available for Eigen objects: inv, det, and isposdef.\n\nThe UnitRange irange specifies indices of the sorted eigenvalues to search for.\n\nnote: Note\nIf irange is not 1:n, where n is the dimension of A, then the returned factorization will be a truncated factorization.\n\n\n\neigfact(A::Union{SymTridiagonal, Hermitian, Symmetric}, vl::Real, vu::Real) -> Eigen\n\nComputes the eigenvalue decomposition of A, returning an Eigen factorization object F which contains the eigenvalues in F[:values] and the eigenvectors in the columns of the matrix F[:vectors]. (The kth eigenvector can be obtained from the slice F[:vectors][:, k].)\n\nThe following functions are available for Eigen objects: inv, det, and isposdef.\n\nvl is the lower bound of the window of eigenvalues to search for, and vu is the upper bound.\n\nnote: Note\nIf [vl, vu] does not contain all eigenvalues of A, then the returned factorization will be a truncated factorization.\n\n\n\n"
@@ -13018,7 +13018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigfact!",
     "category": "Function",
     "text": "eigfact!(A, [B])\n\nSame as eigfact, but saves space by overwriting the input A (and B), instead of creating a copy.\n\n\n\n"
@@ -13026,7 +13026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.hessfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.hessfact",
     "category": "Function",
     "text": "hessfact(A) -> Hessenberg\n\nCompute the Hessenberg decomposition of A and return a Hessenberg object. If F is the factorization object, the unitary matrix can be accessed with F[:Q] and the Hessenberg matrix with F[:H]. When Q is extracted, the resulting type is the HessenbergQ object, and may be converted to a regular matrix with convert(Array, _)  (or Array(_) for short).\n\nExample\n\njulia> A = [4. 9. 7.; 4. 4. 1.; 4. 3. 2.]\n3×3 Array{Float64,2}:\n 4.0  9.0  7.0\n 4.0  4.0  1.0\n 4.0  3.0  2.0\n\njulia> F = hessfact(A);\n\njulia> F[:Q] * F[:H] * F[:Q]'\n3×3 Array{Float64,2}:\n 4.0  9.0  7.0\n 4.0  4.0  1.0\n 4.0  3.0  2.0\n\n\n\n"
@@ -13034,7 +13034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.hessfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.hessfact!",
     "category": "Function",
     "text": "hessfact!(A) -> Hessenberg\n\nhessfact! is the same as hessfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\n"
@@ -13042,7 +13042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.schurfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.schurfact",
     "category": "Function",
     "text": "schurfact(A::StridedMatrix) -> F::Schur\n\nComputes the Schur factorization of the matrix A. The (quasi) triangular Schur factor can be obtained from the Schur object F with either F[:Schur] or F[:T] and the orthogonal/unitary Schur vectors can be obtained with F[:vectors] or F[:Z] such that A = F[:vectors]*F[:Schur]*F[:vectors]'. The eigenvalues of A can be obtained with F[:values].\n\nExample\n\njulia> A = [-2. 1. 3.; 2. 1. -1.; -7. 2. 7.]\n3×3 Array{Float64,2}:\n -2.0  1.0   3.0\n  2.0  1.0  -1.0\n -7.0  2.0   7.0\n\njulia> F = schurfact(A)\nBase.LinAlg.Schur{Float64,Array{Float64,2}} with factors T and Z:\n[2.0 0.801792 6.63509; -8.55988e-11 2.0 8.08286; 0.0 0.0 1.99999]\n[0.577351 0.154299 -0.801784; 0.577346 -0.77152 0.267262; 0.577354 0.617211 0.534522]\nand values:\nComplex{Float64}[2.0+8.28447e-6im, 2.0-8.28447e-6im, 1.99999+0.0im]\n\njulia> F[:vectors] * F[:Schur] * F[:vectors]'\n3×3 Array{Float64,2}:\n -2.0  1.0   3.0\n  2.0  1.0  -1.0\n -7.0  2.0   7.0\n\n\n\nschurfact(A::StridedMatrix, B::StridedMatrix) -> F::GeneralizedSchur\n\nComputes the Generalized Schur (or QZ) factorization of the matrices A and B. The (quasi) triangular Schur factors can be obtained from the Schur object F with F[:S] and F[:T], the left unitary/orthogonal Schur vectors can be obtained with F[:left] or F[:Q] and the right unitary/orthogonal Schur vectors can be obtained with F[:right] or F[:Z] such that A=F[:left]*F[:S]*F[:right]' and B=F[:left]*F[:T]*F[:right]'. The generalized eigenvalues of A and B can be obtained with F[:alpha]./F[:beta].\n\n\n\n"
@@ -13050,7 +13050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.schurfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.schurfact!",
     "category": "Function",
     "text": "schurfact!(A::StridedMatrix) -> F::Schur\n\nSame as schurfact but uses the input argument as workspace.\n\n\n\nschurfact!(A::StridedMatrix, B::StridedMatrix) -> F::GeneralizedSchur\n\nSame as schurfact but uses the input matrices A and B as workspace.\n\n\n\n"
@@ -13058,7 +13058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.schur",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.schur",
     "category": "Function",
     "text": "schur(A::StridedMatrix) -> T::Matrix, Z::Matrix, λ::Vector\n\nComputes the Schur factorization of the matrix A. The methods return the (quasi) triangular Schur factor T and the orthogonal/unitary Schur vectors Z such that A = Z*T*Z'. The eigenvalues of A are returned in the vector λ.\n\nSee schurfact.\n\nExample\n\njulia> A = [-2. 1. 3.; 2. 1. -1.; -7. 2. 7.]\n3×3 Array{Float64,2}:\n -2.0  1.0   3.0\n  2.0  1.0  -1.0\n -7.0  2.0   7.0\n\njulia> T, Z, lambda = schur(A)\n([2.0 0.801792 6.63509; -8.55988e-11 2.0 8.08286; 0.0 0.0 1.99999], [0.577351 0.154299 -0.801784; 0.577346 -0.77152 0.267262; 0.577354 0.617211 0.534522], Complex{Float64}[2.0+8.28447e-6im, 2.0-8.28447e-6im, 1.99999+0.0im])\n\njulia> Z * T * Z'\n3×3 Array{Float64,2}:\n -2.0  1.0   3.0\n  2.0  1.0  -1.0\n -7.0  2.0   7.0\n\n\n\nschur(A::StridedMatrix, B::StridedMatrix) -> S::StridedMatrix, T::StridedMatrix, Q::StridedMatrix, Z::StridedMatrix, α::Vector, β::Vector\n\nSee schurfact.\n\n\n\n"
@@ -13066,7 +13066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ordschur",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ordschur",
     "category": "Function",
     "text": "ordschur(F::Schur, select::Union{Vector{Bool},BitVector}) -> F::Schur\n\nReorders the Schur factorization F of a matrix A = Z*T*Z' according to the logical array select returning the reordered factorization F object. The selected eigenvalues appear in the leading diagonal of F[:Schur] and the corresponding leading columns of F[:vectors] form an orthogonal/unitary basis of the corresponding right invariant subspace. In the real case, a complex conjugate pair of eigenvalues must be either both included or both excluded via select.\n\n\n\nordschur(T::StridedMatrix, Z::StridedMatrix, select::Union{Vector{Bool},BitVector}) -> T::StridedMatrix, Z::StridedMatrix, λ::Vector\n\nReorders the Schur factorization of a real matrix A = Z*T*Z' according to the logical array select returning the reordered matrices T and Z as well as the vector of eigenvalues λ. The selected eigenvalues appear in the leading diagonal of T and the corresponding leading columns of Z form an orthogonal/unitary basis of the corresponding right invariant subspace. In the real case, a complex conjugate pair of eigenvalues must be either both included or both excluded via select.\n\n\n\nordschur(F::GeneralizedSchur, select::Union{Vector{Bool},BitVector}) -> F::GeneralizedSchur\n\nReorders the Generalized Schur factorization F of a matrix pair (A, B) = (Q*S*Z', Q*T*Z') according to the logical array select and returns a GeneralizedSchur object F. The selected eigenvalues appear in the leading diagonal of both F[:S] and F[:T], and the left and right orthogonal/unitary Schur vectors are also reordered such that (A, B) = F[:Q]*(F[:S], F[:T])*F[:Z]' still holds and the generalized eigenvalues of A and B can still be obtained with F[:alpha]./F[:beta].\n\n\n\nordschur(S::StridedMatrix, T::StridedMatrix, Q::StridedMatrix, Z::StridedMatrix, select) -> S::StridedMatrix, T::StridedMatrix, Q::StridedMatrix, Z::StridedMatrix, α::Vector, β::Vector\n\nReorders the Generalized Schur factorization of a matrix pair (A, B) = (Q*S*Z', Q*T*Z') according to the logical array select and returns the matrices S, T, Q, Z and vectors α and β.  The selected eigenvalues appear in the leading diagonal of both S and T, and the left and right unitary/orthogonal Schur vectors are also reordered such that (A, B) = Q*(S, T)*Z' still holds and the generalized eigenvalues of A and B can still be obtained with α./β.\n\n\n\n"
@@ -13074,7 +13074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ordschur!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ordschur!",
     "category": "Function",
     "text": "ordschur!(F::Schur, select::Union{Vector{Bool},BitVector}) -> F::Schur\n\nSame as ordschur but overwrites the factorization F.\n\n\n\nordschur!(T::StridedMatrix, Z::StridedMatrix, select::Union{Vector{Bool},BitVector}) -> T::StridedMatrix, Z::StridedMatrix, λ::Vector\n\nSame as ordschur but overwrites the input arguments.\n\n\n\nordschur!(F::GeneralizedSchur, select::Union{Vector{Bool},BitVector}) -> F::GeneralizedSchur\n\nSame as ordschur but overwrites the factorization F.\n\n\n\nordschur!(S::StridedMatrix, T::StridedMatrix, Q::StridedMatrix, Z::StridedMatrix, select) -> S::StridedMatrix, T::StridedMatrix, Q::StridedMatrix, Z::StridedMatrix, α::Vector, β::Vector\n\nSame as ordschur but overwrites the factorization the input arguments.\n\n\n\n"
@@ -13082,7 +13082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.svdfact",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.svdfact",
     "category": "Function",
     "text": "svdfact(A; thin::Bool=true) -> SVD\n\nCompute the singular value decomposition (SVD) of A and return an SVD object.\n\nU, S, V and Vt can be obtained from the factorization F with F[:U], F[:S], F[:V] and F[:Vt], such that A = U*diagm(S)*Vt. The algorithm produces Vt and hence Vt is more efficient to extract than V. The singular values in S are sorted in descending order.\n\nIf thin=true (default), a thin SVD is returned. For a M times N matrix A, U is M times M for a full SVD (thin=false) and M times min(M N) for a thin SVD.\n\nExample\n\njulia> A = [1. 0. 0. 0. 2.; 0. 0. 3. 0. 0.; 0. 0. 0. 0. 0.; 0. 2. 0. 0. 0.]\n4×5 Array{Float64,2}:\n 1.0  0.0  0.0  0.0  2.0\n 0.0  0.0  3.0  0.0  0.0\n 0.0  0.0  0.0  0.0  0.0\n 0.0  2.0  0.0  0.0  0.0\n\njulia> F = svdfact(A)\nBase.LinAlg.SVD{Float64,Float64,Array{Float64,2}}([0.0 1.0 0.0 0.0; 1.0 0.0 0.0 0.0; 0.0 0.0 0.0 -1.0; 0.0 0.0 1.0 0.0], [3.0, 2.23607, 2.0, 0.0], [-0.0 0.0 … -0.0 0.0; 0.447214 0.0 … 0.0 0.894427; -0.0 1.0 … -0.0 0.0; 0.0 0.0 … 1.0 0.0])\n\njulia> F[:U] * diagm(F[:S]) * F[:Vt]\n4×5 Array{Float64,2}:\n 1.0  0.0  0.0  0.0  2.0\n 0.0  0.0  3.0  0.0  0.0\n 0.0  0.0  0.0  0.0  0.0\n 0.0  2.0  0.0  0.0  0.0\n\n\n\nsvdfact(A, B) -> GeneralizedSVD\n\nCompute the generalized SVD of A and B, returning a GeneralizedSVD factorization object F, such that A = F[:U]*F[:D1]*F[:R0]*F[:Q]' and B = F[:V]*F[:D2]*F[:R0]*F[:Q]'.\n\nFor an M-by-N matrix A and P-by-N matrix B,\n\nF[:U] is a M-by-M orthogonal matrix,\nF[:V] is a P-by-P orthogonal matrix,\nF[:Q] is a N-by-N orthogonal matrix,\nF[:R0] is a (K+L)-by-N matrix whose rightmost (K+L)-by-(K+L) block is          nonsingular upper block triangular,\nF[:D1] is a M-by-(K+L) diagonal matrix with 1s in the first K entries,\nF[:D2] is a P-by-(K+L) matrix whose top right L-by-L block is diagonal,\n\nK+L is the effective numerical rank of the matrix [A; B].\n\nThe entries of F[:D1] and F[:D2] are related, as explained in the LAPACK documentation for the generalized SVD and the xGGSVD3 routine which is called underneath (in LAPACK 3.6.0 and newer).\n\n\n\n"
@@ -13090,7 +13090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.svdfact!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.svdfact!",
     "category": "Function",
     "text": "svdfact!(A, thin::Bool=true) -> SVD\n\nsvdfact! is the same as svdfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\nsvdfact!(A, B) -> GeneralizedSVD\n\nsvdfact! is the same as svdfact, but modifies the arguments A and B in-place, instead of making copies.\n\n\n\n"
@@ -13098,7 +13098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.svd",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.svd",
     "category": "Function",
     "text": "svd(A; thin::Bool=true) -> U, S, V\n\nComputes the SVD of A, returning U, vector S, and V such that A == U*diagm(S)*V'. The singular values in S are sorted in descending order.\n\nIf thin=true (default), a thin SVD is returned. For a M times N matrix A, U is M times M for a full SVD (thin=false) and M times min(M N) for a thin SVD.\n\nsvd is a wrapper around svdfact, extracting all parts of the SVD factorization to a tuple. Direct use of svdfact is therefore more efficient.\n\nExample\n\njulia> A = [1. 0. 0. 0. 2.; 0. 0. 3. 0. 0.; 0. 0. 0. 0. 0.; 0. 2. 0. 0. 0.]\n4×5 Array{Float64,2}:\n 1.0  0.0  0.0  0.0  2.0\n 0.0  0.0  3.0  0.0  0.0\n 0.0  0.0  0.0  0.0  0.0\n 0.0  2.0  0.0  0.0  0.0\n\njulia> U, S, V = svd(A)\n([0.0 1.0 0.0 0.0; 1.0 0.0 0.0 0.0; 0.0 0.0 0.0 -1.0; 0.0 0.0 1.0 0.0], [3.0, 2.23607, 2.0, 0.0], [-0.0 0.447214 -0.0 0.0; 0.0 0.0 1.0 0.0; … ; -0.0 0.0 -0.0 1.0; 0.0 0.894427 0.0 0.0])\n\njulia> U*diagm(S)*V'\n4×5 Array{Float64,2}:\n 1.0  0.0  0.0  0.0  2.0\n 0.0  0.0  3.0  0.0  0.0\n 0.0  0.0  0.0  0.0  0.0\n 0.0  2.0  0.0  0.0  0.0\n\n\n\nsvd(A, B) -> U, V, Q, D1, D2, R0\n\nWrapper around svdfact extracting all parts of the factorization to a tuple. Direct use of svdfact is therefore generally more efficient. The function returns the generalized SVD of A and B, returning U, V, Q, D1, D2, and R0 such that A = U*D1*R0*Q' and B = V*D2*R0*Q'.\n\n\n\n"
@@ -13106,7 +13106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.svdvals",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.svdvals",
     "category": "Function",
     "text": "svdvals(A)\n\nReturns the singular values of A in descending order.\n\nExample\n\njulia> A = [1. 0. 0. 0. 2.; 0. 0. 3. 0. 0.; 0. 0. 0. 0. 0.; 0. 2. 0. 0. 0.]\n4×5 Array{Float64,2}:\n 1.0  0.0  0.0  0.0  2.0\n 0.0  0.0  3.0  0.0  0.0\n 0.0  0.0  0.0  0.0  0.0\n 0.0  2.0  0.0  0.0  0.0\n\njulia> svdvals(A)\n4-element Array{Float64,1}:\n 3.0\n 2.23607\n 2.0\n 0.0\n\n\n\nsvdvals(A, B)\n\nReturn the generalized singular values from the generalized singular value decomposition of A and B. See also svdfact.\n\n\n\n"
@@ -13114,7 +13114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Givens",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Givens",
     "category": "Type",
     "text": "LinAlg.Givens(i1,i2,c,s) -> G\n\nA Givens rotation linear operator. The fields c and s represent the cosine and sine of the rotation angle, respectively. The Givens type supports left multiplication G*A and conjugated transpose right multiplication A*G'. The type doesn't have a size and can therefore be multiplied with matrices of arbitrary size as long as i2<=size(A,2) for G*A or i2<=size(A,1) for A*G'.\n\nSee also: givens\n\n\n\n"
@@ -13122,7 +13122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.givens",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.givens",
     "category": "Function",
     "text": "givens{T}(f::T, g::T, i1::Integer, i2::Integer) -> (G::Givens, r::T)\n\nComputes the Givens rotation G and scalar r such that for any vector x where\n\nx[i1] = f\nx[i2] = g\n\nthe result of the multiplication\n\ny = G*x\n\nhas the property that\n\ny[i1] = r\ny[i2] = 0\n\nSee also: LinAlg.Givens\n\n\n\ngivens(A::AbstractArray, i1::Integer, i2::Integer, j::Integer) -> (G::Givens, r)\n\nComputes the Givens rotation G and scalar r such that the result of the multiplication\n\nB = G*A\n\nhas the property that\n\nB[i1,j] = r\nB[i2,j] = 0\n\nSee also: LinAlg.Givens\n\n\n\ngivens(x::AbstractVector, i1::Integer, i2::Integer) -> (G::Givens, r)\n\nComputes the Givens rotation G and scalar r such that the result of the multiplication\n\nB = G*x\n\nhas the property that\n\nB[i1] = r\nB[i2] = 0\n\nSee also: LinAlg.Givens\n\n\n\n"
@@ -13130,7 +13130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.triu",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.triu",
     "category": "Function",
     "text": "triu(M)\n\nUpper triangle of a matrix.\n\nExample\n\njulia> a = ones(4,4)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\njulia> triu(a)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 0.0  1.0  1.0  1.0\n 0.0  0.0  1.0  1.0\n 0.0  0.0  0.0  1.0\n\n\n\ntriu(M, k::Integer)\n\nReturns the upper triangle of M starting from the kth superdiagonal.\n\nExample\n\njulia> a = ones(4,4)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\njulia> triu(a,3)\n4×4 Array{Float64,2}:\n 0.0  0.0  0.0  1.0\n 0.0  0.0  0.0  0.0\n 0.0  0.0  0.0  0.0\n 0.0  0.0  0.0  0.0\n\njulia> triu(a,-3)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\n\n\n"
@@ -13138,7 +13138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.triu!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.triu!",
     "category": "Function",
     "text": "triu!(M)\n\nUpper triangle of a matrix, overwriting M in the process. See also triu.\n\n\n\ntriu!(M, k::Integer)\n\nReturns the upper triangle of M starting from the kth superdiagonal, overwriting M in the process.\n\nExample\n\njulia> M = [1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5]\n5×5 Array{Int64,2}:\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n\njulia> triu!(M, 1)\n5×5 Array{Int64,2}:\n 0  2  3  4  5\n 0  0  3  4  5\n 0  0  0  4  5\n 0  0  0  0  5\n 0  0  0  0  0\n\n\n\n"
@@ -13146,7 +13146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.tril",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.tril",
     "category": "Function",
     "text": "tril(M)\n\nLower triangle of a matrix.\n\nExample\n\njulia> a = ones(4,4)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\njulia> tril(a)\n4×4 Array{Float64,2}:\n 1.0  0.0  0.0  0.0\n 1.0  1.0  0.0  0.0\n 1.0  1.0  1.0  0.0\n 1.0  1.0  1.0  1.0\n\n\n\ntril(M, k::Integer)\n\nReturns the lower triangle of M starting from the kth superdiagonal.\n\nExample\n\njulia> a = ones(4,4)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\njulia> tril(a,3)\n4×4 Array{Float64,2}:\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n 1.0  1.0  1.0  1.0\n\njulia> tril(a,-3)\n4×4 Array{Float64,2}:\n 0.0  0.0  0.0  0.0\n 0.0  0.0  0.0  0.0\n 0.0  0.0  0.0  0.0\n 1.0  0.0  0.0  0.0\n\n\n\n"
@@ -13154,7 +13154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.tril!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.tril!",
     "category": "Function",
     "text": "tril!(M)\n\nLower triangle of a matrix, overwriting M in the process. See also tril.\n\n\n\ntril!(M, k::Integer)\n\nReturns the lower triangle of M starting from the kth superdiagonal, overwriting M in the process.\n\nExample\n\njulia> M = [1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5; 1 2 3 4 5]\n5×5 Array{Int64,2}:\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n\njulia> tril!(M, 2)\n5×5 Array{Int64,2}:\n 1  2  3  0  0\n 1  2  3  4  0\n 1  2  3  4  5\n 1  2  3  4  5\n 1  2  3  4  5\n\n\n\n"
@@ -13162,7 +13162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.diagind",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.diagind",
     "category": "Function",
     "text": "diagind(M, k::Integer=0)\n\nA Range giving the indices of the kth diagonal of the matrix M.\n\nExample\n\njulia> A = [1 2 3; 4 5 6; 7 8 9]\n3×3 Array{Int64,2}:\n 1  2  3\n 4  5  6\n 7  8  9\n\njulia> diagind(A,-1)\n2:4:6\n\n\n\n"
@@ -13170,7 +13170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.diag",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.diag",
     "category": "Function",
     "text": "diag(M, k::Integer=0)\n\nThe kth diagonal of a matrix, as a vector. Use diagm to construct a diagonal matrix.\n\nExample\n\njulia> A = [1 2 3; 4 5 6; 7 8 9]\n3×3 Array{Int64,2}:\n 1  2  3\n 4  5  6\n 7  8  9\n\njulia> diag(A,1)\n2-element Array{Int64,1}:\n 2\n 6\n\n\n\n"
@@ -13178,7 +13178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.diagm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.diagm",
     "category": "Function",
     "text": "diagm(v, k::Integer=0)\n\nConstruct a matrix by placing v on the kth diagonal.\n\nExample\n\njulia> diagm([1,2,3],1)\n4×4 Array{Int64,2}:\n 0  1  0  0\n 0  0  2  0\n 0  0  0  3\n 0  0  0  0\n\n\n\n"
@@ -13186,7 +13186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.scale!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.scale!",
     "category": "Function",
     "text": "scale!(A, b)\nscale!(b, A)\n\nScale an array A by a scalar b overwriting A in-place.\n\nIf A is a matrix and b is a vector, then scale!(A,b) scales each column i of A by b[i] (similar to A*Diagonal(b)), while scale!(b,A) scales each row i of A by b[i] (similar to Diagonal(b)*A), again operating in-place on A. An InexactError exception is thrown if the scaling produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> a = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> b = [1; 2]\n2-element Array{Int64,1}:\n 1\n 2\n\njulia> scale!(a,b)\n2×2 Array{Int64,2}:\n 1  4\n 3  8\n\njulia> a = [1 2; 3 4];\n\njulia> b = [1; 2];\n\njulia> scale!(b,a)\n2×2 Array{Int64,2}:\n 1  2\n 6  8\n\n\n\n"
@@ -13194,7 +13194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.rank",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.rank",
     "category": "Function",
     "text": "rank(M[, tol::Real])\n\nCompute the rank of a matrix by counting how many singular values of M have magnitude greater than tol. By default, the value of tol is the largest dimension of M multiplied by the eps of the eltype of M.\n\nExample\n\njulia> rank(eye(3))\n3\n\njulia> rank(diagm([1, 0, 2]))\n2\n\njulia> rank(diagm([1, 0.001, 2]), 0.1)\n2\n\njulia> rank(diagm([1, 0.001, 2]), 0.00001)\n3\n\n\n\n"
@@ -13202,7 +13202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.norm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.norm",
     "category": "Function",
     "text": "norm(A::AbstractArray, p::Real=2)\n\nCompute the p-norm of a vector or the operator norm of a matrix A, defaulting to the 2-norm.\n\nnorm(A::AbstractVector, p::Real=2)\n\nFor vectors, this is equivalent to vecnorm and equal to:\n\nA_p = left( sum_i=1^n  a_i  ^p right)^1p\n\nwith a_i the entries of A and n its length.\n\np can assume any numeric value (even though not all values produce a mathematically valid vector norm). In particular, norm(A, Inf) returns the largest value in abs(A), whereas norm(A, -Inf) returns the smallest.\n\nExample\n\njulia> v = [3, -2, 6]\n3-element Array{Int64,1}:\n  3\n -2\n  6\n\njulia> norm(v)\n7.0\n\njulia> norm(v, Inf)\n6.0\n\n\n\nnorm(A::AbstractMatrix, p::Real=2)\n\nFor matrices, the matrix norm induced by the vector p-norm is used, where valid values of p are 1, 2, or Inf. (Note that for sparse matrices, p=2 is currently not implemented.) Use vecnorm to compute the Frobenius norm.\n\nWhen p=1, the matrix norm is the maximum absolute column sum of A:\n\nA_1 = max_1  j  n sum_i=1^m  a_ij \n\nwith a_ij the entries of A, and m and n its dimensions.\n\nWhen p=2, the matrix norm is the spectral norm, equal to the largest singular value of A.\n\nWhen p=Inf, the matrix norm is the maximum absolute row sum of A:\n\nA_infty = max_1  i  m sum _j=1^n  a_ij \n\nExample\n\njulia> A = [1 -2 -3; 2 3 -1]\n2×3 Array{Int64,2}:\n 1  -2  -3\n 2   3  -1\n\njulia> norm(A, Inf)\n6.0\n\n\n\nnorm(x::Number, p::Real=2)\n\nFor numbers, return left( x^p right)^1p. This is equivalent to vecnorm.\n\n\n\nnorm(A::RowVector, q::Real=2)\n\nFor row vectors, return the q-norm of A, which is equivalent to the p-norm with value p = q/(q-1). They coincide at p = q = 2.\n\nThe difference in norm between a vector space and its dual arises to preserve the relationship between duality and the inner product, and the result is consistent with the p-norm of 1 × n matrix.\n\n\n\n"
@@ -13210,7 +13210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.vecnorm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.vecnorm",
     "category": "Function",
     "text": "vecnorm(A, p::Real=2)\n\nFor any iterable container A (including arrays of any dimension) of numbers (or any element type for which norm is defined), compute the p-norm (defaulting to p=2) as if A were a vector of the corresponding length.\n\nThe p-norm is defined as:\n\nA_p = left( sum_i=1^n  a_i  ^p right)^1p\n\nwith a_i the entries of A and n its length.\n\np can assume any numeric value (even though not all values produce a mathematically valid vector norm). In particular, vecnorm(A, Inf) returns the largest value in abs(A), whereas vecnorm(A, -Inf) returns the smallest. If A is a matrix and p=2, then this is equivalent to the Frobenius norm.\n\nExample\n\njulia> vecnorm([1 2 3; 4 5 6; 7 8 9])\n16.881943016134134\n\njulia> vecnorm([1 2 3 4 5 6 7 8 9])\n16.881943016134134\n\n\n\nvecnorm(x::Number, p::Real=2)\n\nFor numbers, return left( x^p right) ^1p.\n\n\n\n"
@@ -13218,7 +13218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.normalize!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.normalize!",
     "category": "Function",
     "text": "normalize!(v::AbstractVector, p::Real=2)\n\nNormalize the vector v in-place so that its p-norm equals unity, i.e. norm(v, p) == 1. See also normalize and vecnorm.\n\n\n\n"
@@ -13226,7 +13226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.normalize",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.normalize",
     "category": "Function",
     "text": "normalize(v::AbstractVector, p::Real=2)\n\nNormalize the vector v so that its p-norm equals unity, i.e. norm(v, p) == vecnorm(v, p) == 1. See also normalize! and vecnorm.\n\nExamples\n\njulia> a = [1,2,4];\n\njulia> b = normalize(a)\n3-element Array{Float64,1}:\n 0.218218\n 0.436436\n 0.872872\n\njulia> norm(b)\n1.0\n\njulia> c = normalize(a, 1)\n3-element Array{Float64,1}:\n 0.142857\n 0.285714\n 0.571429\n\njulia> norm(c, 1)\n1.0\n\n\n\n"
@@ -13234,7 +13234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.cond",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cond",
     "category": "Function",
     "text": "cond(M, p::Real=2)\n\nCondition number of the matrix M, computed using the operator p-norm. Valid values for p are 1, 2 (default), or Inf.\n\n\n\n"
@@ -13242,7 +13242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.condskeel",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.condskeel",
     "category": "Function",
     "text": "condskeel(M, [x, p::Real=Inf])\n\nkappa_S(M p) = leftVert leftvert M rightvert leftvert M^-1 rightvert rightVert_p \nkappa_S(M x p) = leftVert leftvert M rightvert leftvert M^-1 rightvert leftvert x rightvert rightVert_p\n\nSkeel condition number kappa_S of the matrix M, optionally with respect to the vector x, as computed using the operator p-norm. leftvert M rightvert denotes the matrix of (entry wise) absolute values of M; leftvert M rightvert_ij = leftvert M_ij rightvert. Valid values for p are 1, 2 and Inf (default).\n\nThis quantity is also known in the literature as the Bauer condition number, relative condition number, or componentwise relative condition number.\n\n\n\n"
@@ -13250,7 +13250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.trace",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.trace",
     "category": "Function",
     "text": "trace(M)\n\nMatrix trace. Sums the diagonal elements of M.\n\nExample\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> trace(A)\n5\n\n\n\n"
@@ -13258,7 +13258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.det",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.det",
     "category": "Function",
     "text": "det(M)\n\nMatrix determinant.\n\nExample\n\njulia> M = [1 0; 2 2]\n2×2 Array{Int64,2}:\n 1  0\n 2  2\n\njulia> det(M)\n2.0\n\n\n\n"
@@ -13266,7 +13266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.logdet",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.logdet",
     "category": "Function",
     "text": "logdet(M)\n\nLog of matrix determinant. Equivalent to log(det(M)), but may provide increased accuracy and/or speed.\n\nExamples\n\njulia> M = [1 0; 2 2]\n2×2 Array{Int64,2}:\n 1  0\n 2  2\n\njulia> logdet(M)\n0.6931471805599453\n\njulia> logdet(eye(3))\n0.0\n\n\n\n"
@@ -13274,7 +13274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.logabsdet",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.logabsdet",
     "category": "Function",
     "text": "logabsdet(M)\n\nLog of absolute value of matrix determinant. Equivalent to (log(abs(det(M))), sign(det(M))), but may provide increased accuracy and/or speed.\n\n\n\n"
@@ -13282,7 +13282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.inv",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.inv",
     "category": "Function",
     "text": "inv(M)\n\nMatrix inverse. Computes matrix N such that M * N = I, where I is the identity matrix. Computed by solving the left-division N = M \\ I.\n\nExample\n\njulia> M = [2 5; 1 3]\n2×2 Array{Int64,2}:\n 2  5\n 1  3\n\njulia> N = inv(M)\n2×2 Array{Float64,2}:\n  3.0  -5.0\n -1.0   2.0\n\njulia> M*N == N*M == eye(2)\ntrue\n\n\n\n"
@@ -13290,7 +13290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.pinv",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.pinv",
     "category": "Function",
     "text": "pinv(M[, tol::Real])\n\nComputes the Moore-Penrose pseudoinverse.\n\nFor matrices M with floating point elements, it is convenient to compute the pseudoinverse by inverting only singular values above a given threshold, tol.\n\nThe optimal choice of tol varies both with the value of M and the intended application of the pseudoinverse. The default value of tol is eps(real(float(one(eltype(M)))))*maximum(size(A)), which is essentially machine epsilon for the real part of a matrix element multiplied by the larger matrix dimension. For inverting dense ill-conditioned matrices in a least-squares sense, tol = sqrt(eps(real(float(one(eltype(M)))))) is recommended.\n\nFor more information, see [issue8859], [B96], [S84], [KY88].\n\nExample\n\njulia> M = [1.5 1.3; 1.2 1.9]\n2×2 Array{Float64,2}:\n 1.5  1.3\n 1.2  1.9\n\njulia> N = pinv(M)\n2×2 Array{Float64,2}:\n  1.47287   -1.00775\n -0.930233   1.16279\n\njulia> M * N\n2×2 Array{Float64,2}:\n 1.0          -2.22045e-16\n 4.44089e-16   1.0\n\n[issue8859]: Issue 8859, \"Fix least squares\", https://github.com/JuliaLang/julia/pull/8859\n\n[B96]: Åke Björck, \"Numerical Methods for Least Squares Problems\",  SIAM Press, Philadelphia, 1996, \"Other Titles in Applied Mathematics\", Vol. 51. doi:10.1137/1.9781611971484\n\n[S84]: G. W. Stewart, \"Rank Degeneracy\", SIAM Journal on Scientific and Statistical Computing, 5(2), 1984, 403-413. doi:10.1137/0905030\n\n[KY88]: Konstantinos Konstantinides and Kung Yao, \"Statistical analysis of effective singular values in matrix rank determination\", IEEE Transactions on Acoustics, Speech and Signal Processing, 36(5), 1988, 757-763. doi:10.1109/29.1585\n\n\n\n"
@@ -13298,7 +13298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.nullspace",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.nullspace",
     "category": "Function",
     "text": "nullspace(M)\n\nBasis for nullspace of M.\n\nExample\n\njulia> M = [1 0 0; 0 1 0; 0 0 0]\n3×3 Array{Int64,2}:\n 1  0  0\n 0  1  0\n 0  0  0\n\njulia> nullspace(M)\n3×1 Array{Float64,2}:\n 0.0\n 0.0\n 1.0\n\n\n\n"
@@ -13306,7 +13306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.repmat",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.repmat",
     "category": "Function",
     "text": "repmat(A, m::Integer, n::Integer=1)\n\nConstruct a matrix by repeating the given matrix (or vector) m times in dimension 1 and n times in dimension 2.\n\nExamples\n\njulia> repmat([1, 2, 3], 2)\n6-element Array{Int64,1}:\n 1\n 2\n 3\n 1\n 2\n 3\n\njulia> repmat([1, 2, 3], 2, 3)\n6×3 Array{Int64,2}:\n 1  1  1\n 2  2  2\n 3  3  3\n 1  1  1\n 2  2  2\n 3  3  3\n\n\n\n"
@@ -13314,7 +13314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.repeat",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.repeat",
     "category": "Function",
     "text": "repeat(A::AbstractArray; inner=ntuple(x->1, ndims(A)), outer=ntuple(x->1, ndims(A)))\n\nConstruct an array by repeating the entries of A. The i-th element of inner specifies the number of times that the individual entries of the i-th dimension of A should be repeated. The i-th element of outer specifies the number of times that a slice along the i-th dimension of A should be repeated. If inner or outer are omitted, no repetition is performed.\n\nExamples\n\njulia> repeat(1:2, inner=2)\n4-element Array{Int64,1}:\n 1\n 1\n 2\n 2\n\njulia> repeat(1:2, outer=2)\n4-element Array{Int64,1}:\n 1\n 2\n 1\n 2\n\njulia> repeat([1 2; 3 4], inner=(2, 1), outer=(1, 3))\n4×6 Array{Int64,2}:\n 1  2  1  2  1  2\n 1  2  1  2  1  2\n 3  4  3  4  3  4\n 3  4  3  4  3  4\n\n\n\n"
@@ -13322,7 +13322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.kron",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.kron",
     "category": "Function",
     "text": "kron(A, B)\n\nKronecker tensor product of two vectors or two matrices.\n\nExample\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> B = [im 1; 1 -im]\n2×2 Array{Complex{Int64},2}:\n 0+1im  1+0im\n 1+0im  0-1im\n\njulia> kron(A, B)\n4×4 Array{Complex{Int64},2}:\n 0+1im  1+0im  0+2im  2+0im\n 1+0im  0-1im  2+0im  0-2im\n 0+3im  3+0im  0+4im  4+0im\n 3+0im  0-3im  4+0im  0-4im\n\n\n\n"
@@ -13330,7 +13330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.SparseArrays.blkdiag",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.SparseArrays.blkdiag",
     "category": "Function",
     "text": "blkdiag(A...)\n\nConcatenate matrices block-diagonally. Currently only implemented for sparse matrices.\n\nExample\n\njulia> blkdiag(speye(3), 2*speye(2))\n5×5 SparseMatrixCSC{Float64,Int64} with 5 stored entries:\n  [1, 1]  =  1.0\n  [2, 2]  =  1.0\n  [3, 3]  =  1.0\n  [4, 4]  =  2.0\n  [5, 5]  =  2.0\n\n\n\n"
@@ -13338,7 +13338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.linreg",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.linreg",
     "category": "Function",
     "text": "linreg(x, y)\n\nPerform simple linear regression using Ordinary Least Squares. Returns a and b such that a + b*x is the closest straight line to the given points (x, y), i.e., such that the squared error between y and a + b*x is minimized.\n\nExamples:\n\nusing PyPlot\nx = 1.0:12.0\ny = [5.5, 6.3, 7.6, 8.8, 10.9, 11.79, 13.48, 15.02, 17.77, 20.81, 22.0, 22.99]\na, b = linreg(x, y)          # Linear regression\nplot(x, y, \"o\")              # Plot (x, y) points\nplot(x, a + b*x)             # Plot line determined by linear regression\n\nSee also:\n\n\\, cov, std, mean.\n\n\n\n"
@@ -13346,7 +13346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.expm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.expm",
     "category": "Function",
     "text": "expm(A)\n\nCompute the matrix exponential of A, defined by\n\ne^A = sum_n=0^infty fracA^nn\n\nFor symmetric or Hermitian A, an eigendecomposition (eigfact) is used, otherwise the scaling and squaring algorithm (see [H05]) is chosen.\n\n[H05]: Nicholas J. Higham, \"The squaring and scaling method for the matrix exponential revisited\", SIAM Journal on Matrix Analysis and Applications, 26(4), 2005, 1179-1193. doi:10.1137/090768539\n\nExample\n\njulia> A = eye(2, 2)\n2×2 Array{Float64,2}:\n 1.0  0.0\n 0.0  1.0\n\njulia> expm(A)\n2×2 Array{Float64,2}:\n 2.71828  0.0\n 0.0      2.71828\n\n\n\n"
@@ -13354,7 +13354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.logm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.logm",
     "category": "Function",
     "text": "logm(A{T}::StridedMatrix{T})\n\nIf A has no negative real eigenvalue, compute the principal matrix logarithm of A, i.e. the unique matrix X such that e^X = A and -pi  Im(lambda)  pi for all the eigenvalues lambda of X. If A has nonpositive eigenvalues, a nonprincipal matrix function is returned whenever possible.\n\nIf A is symmetric or Hermitian, its eigendecomposition (eigfact) is used, if A is triangular an improved version of the inverse scaling and squaring method is employed (see [AH12] and [AHR13]). For general matrices, the complex Schur form (schur) is computed and the triangular algorithm is used on the triangular factor.\n\n[AH12]: Awad H. Al-Mohy and Nicholas J. Higham, \"Improved inverse  scaling and squaring algorithms for the matrix logarithm\", SIAM Journal on Scientific Computing, 34(4), 2012, C153-C169. doi:10.1137/110852553\n\n[AHR13]: Awad H. Al-Mohy, Nicholas J. Higham and Samuel D. Relton, \"Computing the Fréchet derivative of the matrix logarithm and estimating the condition number\", SIAM Journal on Scientific Computing, 35(4), 2013, C394-C410. doi:10.1137/120885991\n\nExample\n\njulia> A = 2.7182818 * eye(2)\n2×2 Array{Float64,2}:\n 2.71828  0.0\n 0.0      2.71828\n\njulia> logm(A)\n2×2 Symmetric{Float64,Array{Float64,2}}:\n 1.0  0.0\n 0.0  1.0\n\n\n\n"
@@ -13362,7 +13362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.sqrtm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.sqrtm",
     "category": "Function",
     "text": "sqrtm(A)\n\nIf A has no negative real eigenvalues, compute the principal matrix square root of A, that is the unique matrix X with eigenvalues having positive real part such that X^2 = A. Otherwise, a nonprincipal square root is returned.\n\nIf A is symmetric or Hermitian, its eigendecomposition (eigfact) is used to compute the square root. Otherwise, the square root is determined by means of the Björck-Hammarling method [BH83], which computes the complex Schur form (schur) and then the complex square root of the triangular factor.\n\n[BH83]: Åke Björck and Sven Hammarling, \"A Schur method for the square root of a matrix\", Linear Algebra and its Applications, 52-53, 1983, 127-140. doi:10.1016/0024-3795(83)80010-X\n\nExample\n\njulia> A = [4 0; 0 4]\n2×2 Array{Int64,2}:\n 4  0\n 0  4\n\njulia> sqrtm(A)\n2×2 Array{Float64,2}:\n 2.0  0.0\n 0.0  2.0\n\n\n\n"
@@ -13370,7 +13370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.lyap",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lyap",
     "category": "Function",
     "text": "lyap(A, C)\n\nComputes the solution X to the continuous Lyapunov equation AX + XA' + C = 0, where no eigenvalue of A has a zero real part and no two eigenvalues are negative complex conjugates of each other.\n\n\n\n"
@@ -13378,7 +13378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.sylvester",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.sylvester",
     "category": "Function",
     "text": "sylvester(A, B, C)\n\nComputes the solution X to the Sylvester equation AX + XB + C = 0, where A, B and C have compatible dimensions and A and -B have no eigenvalues with equal real part.\n\n\n\n"
@@ -13386,7 +13386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.issymmetric",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.issymmetric",
     "category": "Function",
     "text": "issymmetric(A) -> Bool\n\nTest whether a matrix is symmetric.\n\nExamples\n\njulia> a = [1 2; 2 -1]\n2×2 Array{Int64,2}:\n 1   2\n 2  -1\n\njulia> issymmetric(a)\ntrue\n\njulia> b = [1 im; -im 1]\n2×2 Array{Complex{Int64},2}:\n 1+0im  0+1im\n 0-1im  1+0im\n\njulia> issymmetric(b)\nfalse\n\n\n\n"
@@ -13394,7 +13394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.isposdef",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.isposdef",
     "category": "Function",
     "text": "isposdef(A) -> Bool\n\nTest whether a matrix is positive definite.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> isposdef(A)\ntrue\n\n\n\n"
@@ -13402,7 +13402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.isposdef!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.isposdef!",
     "category": "Function",
     "text": "isposdef!(A) -> Bool\n\nTest whether a matrix is positive definite, overwriting A in the process.\n\nExample\n\njulia> A = [1. 2.; 2. 50.];\n\njulia> isposdef!(A)\ntrue\n\njulia> A\n2×2 Array{Float64,2}:\n 1.0  2.0\n 2.0  6.78233\n\n\n\n"
@@ -13410,7 +13410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.istril",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.istril",
     "category": "Function",
     "text": "istril(A) -> Bool\n\nTest whether a matrix is lower triangular.\n\nExamples\n\njulia> a = [1 2; 2 -1]\n2×2 Array{Int64,2}:\n 1   2\n 2  -1\n\njulia> istril(a)\nfalse\n\njulia> b = [1 0; -im -1]\n2×2 Array{Complex{Int64},2}:\n 1+0im   0+0im\n 0-1im  -1+0im\n\njulia> istril(b)\ntrue\n\n\n\n"
@@ -13418,7 +13418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.istriu",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.istriu",
     "category": "Function",
     "text": "istriu(A) -> Bool\n\nTest whether a matrix is upper triangular.\n\nExamples\n\njulia> a = [1 2; 2 -1]\n2×2 Array{Int64,2}:\n 1   2\n 2  -1\n\njulia> istriu(a)\nfalse\n\njulia> b = [1 im; 0 -1]\n2×2 Array{Complex{Int64},2}:\n 1+0im   0+1im\n 0+0im  -1+0im\n\njulia> istriu(b)\ntrue\n\n\n\n"
@@ -13426,7 +13426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.isdiag",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.isdiag",
     "category": "Function",
     "text": "isdiag(A) -> Bool\n\nTest whether a matrix is diagonal.\n\nExamples\n\njulia> a = [1 2; 2 -1]\n2×2 Array{Int64,2}:\n 1   2\n 2  -1\n\njulia> isdiag(a)\nfalse\n\njulia> b = [im 0; 0 -im]\n2×2 Array{Complex{Int64},2}:\n 0+1im  0+0im\n 0+0im  0-1im\n\njulia> isdiag(b)\ntrue\n\n\n\n"
@@ -13434,7 +13434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ishermitian",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ishermitian",
     "category": "Function",
     "text": "ishermitian(A) -> Bool\n\nTest whether a matrix is Hermitian.\n\nExamples\n\njulia> a = [1 2; 2 -1]\n2×2 Array{Int64,2}:\n 1   2\n 2  -1\n\njulia> ishermitian(a)\ntrue\n\njulia> b = [1 im; -im 1]\n2×2 Array{Complex{Int64},2}:\n 1+0im  0+1im\n 0-1im  1+0im\n\njulia> ishermitian(b)\ntrue\n\n\n\n"
@@ -13442,7 +13442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.RowVector",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.RowVector",
     "category": "Type",
     "text": "RowVector(vector)\n\nA lazy-view wrapper of an AbstractVector, which turns a length-n vector into a 1×n shaped row vector and represents the transpose of a vector (the elements are also transposed recursively). This type is usually constructed (and unwrapped) via the transpose function or .' operator (or related ctranspose or ' operator).\n\nBy convention, a vector can be multiplied by a matrix on its left (A * v) whereas a row vector can be multiplied by a matrix on its right (such that v.' * A = (A.' * v).'). It differs from a 1×n-sized matrix by the facts that its transpose returns a vector and the inner product v1.' * v2 returns a scalar, but will otherwise behave similarly.\n\n\n\n"
@@ -13450,7 +13450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ConjArray",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ConjArray",
     "category": "Type",
     "text": "ConjArray(array)\n\nA lazy-view wrapper of an AbstractArray, taking the elementwise complex conjugate. This type is usually constructed (and unwrapped) via the conj function (or related ctranspose), but currently this is the default behavior for RowVector only. For other arrays, the ConjArray constructor can be used directly.\n\nExamples\n\njulia> [1+im, 1-im]'\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\njulia> ConjArray([1+im 0; 0 1-im])\n2×2 ConjArray{Complex{Int64},2,Array{Complex{Int64},2}}:\n 1-1im  0+0im\n 0+0im  1+1im\n\n\n\n"
@@ -13458,7 +13458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.transpose",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.transpose",
     "category": "Function",
     "text": "transpose(A::AbstractMatrix)\n\nThe transposition operator (.').\n\nExample\n\njulia> A = [1 2 3; 4 5 6; 7 8 9]\n3×3 Array{Int64,2}:\n 1  2  3\n 4  5  6\n 7  8  9\n\njulia> transpose(A)\n3×3 Array{Int64,2}:\n 1  4  7\n 2  5  8\n 3  6  9\n\n\n\ntranspose(v::AbstractVector)\n\nThe transposition operator (.').\n\nExample\n\njulia> v = [1,2,3]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> transpose(v)\n1×3 RowVector{Int64,Array{Int64,1}}:\n 1  2  3\n\n\n\n"
@@ -13466,7 +13466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.transpose!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.transpose!",
     "category": "Function",
     "text": "transpose!(dest,src)\n\nTranspose array src and store the result in the preallocated array dest, which should have a size corresponding to (size(src,2),size(src,1)). No in-place transposition is supported and unexpected results will happen if src and dest have overlapping memory regions.\n\n\n\n"
@@ -13474,7 +13474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.ctranspose",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.ctranspose",
     "category": "Function",
     "text": "ctranspose(A)\n\nThe conjugate transposition operator (').\n\nExample\n\njulia> A =  [3+2im 9+2im; 8+7im  4+6im]\n2×2 Array{Complex{Int64},2}:\n 3+2im  9+2im\n 8+7im  4+6im\n\njulia> ctranspose(A)\n2×2 Array{Complex{Int64},2}:\n 3-2im  8-7im\n 9-2im  4-6im\n\n\n\n"
@@ -13482,7 +13482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.ctranspose!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ctranspose!",
     "category": "Function",
     "text": "ctranspose!(dest,src)\n\nConjugate transpose array src and store the result in the preallocated array dest, which should have a size corresponding to (size(src,2),size(src,1)). No in-place transposition is supported and unexpected results will happen if src and dest have overlapping memory regions.\n\n\n\n"
@@ -13490,7 +13490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigs-Tuple{Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigs",
     "category": "Method",
     "text": "eigs(A; nev=6, ncv=max(20,2*nev+1), which=:LM, tol=0.0, maxiter=300, sigma=nothing, ritzvec=true, v0=zeros((0,))) -> (d,[v,],nconv,niter,nmult,resid)\n\nComputes eigenvalues d of A using implicitly restarted Lanczos or Arnoldi iterations for real symmetric or general nonsymmetric matrices respectively.\n\nThe following keyword arguments are supported:\n\nnev: Number of eigenvalues\nncv: Number of Krylov vectors used in the computation; should satisfy nev+1 <= ncv <= n for real symmetric problems and nev+2 <= ncv <= n for other problems, where n is the size of the input matrix A. The default is ncv = max(20,2*nev+1). Note that these restrictions limit the input matrix A to be of dimension at least 2.\nwhich: type of eigenvalues to compute. See the note below.\n\nwhich type of eigenvalues\n:LM eigenvalues of largest magnitude (default)\n:SM eigenvalues of smallest magnitude\n:LR eigenvalues of largest real part\n:SR eigenvalues of smallest real part\n:LI eigenvalues of largest imaginary part (nonsymmetric or complex A only)\n:SI eigenvalues of smallest imaginary part (nonsymmetric or complex A only)\n:BE compute half of the eigenvalues from each end of the spectrum, biased in favor of the high end. (real symmetric A only)\n\ntol: parameter defining the relative tolerance for convergence of Ritz values (eigenvalue estimates).    A Ritz value  is considered converged when its associated residual    is less than or equal to the product of tol and max(^23 ),    where ɛ = eps(real(eltype(A)))/2 is LAPACK's machine epsilon.    The residual associated with  and its corresponding Ritz vector v    is defined as the norm Av - v.    The specified value of tol should be positive; otherwise, it is ignored    and  is used instead.    Default: .\nmaxiter: Maximum number of iterations (default = 300)\nsigma: Specifies the level shift used in inverse iteration. If nothing (default), defaults to ordinary (forward) iterations. Otherwise, find eigenvalues close to sigma using shift and invert iterations.\nritzvec: Returns the Ritz vectors v (eigenvectors) if true\nv0: starting vector from which to start the iterations\n\neigs returns the nev requested eigenvalues in d, the corresponding Ritz vectors v (only if ritzvec=true), the number of converged eigenvalues nconv, the number of iterations niter and the number of matrix vector multiplications nmult, as well as the final residual vector resid.\n\nExample\n\njulia> A = spdiagm(1:4);\n\njulia> λ, ϕ = eigs(A, nev = 2);\n\njulia> λ\n2-element Array{Float64,1}:\n 4.0\n 3.0\n\nnote: Note\nThe sigma and which keywords interact: the description of eigenvalues searched for by which do not necessarily refer to the eigenvalues of A, but rather the linear operator constructed by the specification of the iteration mode implied by sigma.sigma iteration mode which refers to eigenvalues of\nnothing ordinary (forward) A\nreal or complex inverse with level shift sigma (A - sigma I )^-1\n\nnote: Note\nAlthough tol has a default value, the best choice depends strongly on the matrix A. We recommend that users _always_ specify a value for tol which suits their specific needs.For details of how the errors in the computed eigenvalues are estimated, see:B. N. Parlett, \"The Symmetric Eigenvalue Problem\", SIAM: Philadelphia, 2/e (1998), Ch. 13.2, \"Accessing Accuracy in Lanczos Problems\", pp. 290-292 ff.\nR. B. Lehoucq and D. C. Sorensen, \"Deflation Techniques for an Implicitly Restarted Arnoldi Iteration\", SIAM Journal on Matrix Analysis and Applications (1996), 17(4), 789–821.  doi:10.1137/S0895479895281484\n\n\n\n"
@@ -13498,7 +13498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.eigs-Tuple{Any,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.eigs",
     "category": "Method",
     "text": "eigs(A, B; nev=6, ncv=max(20,2*nev+1), which=:LM, tol=0.0, maxiter=300, sigma=nothing, ritzvec=true, v0=zeros((0,))) -> (d,[v,],nconv,niter,nmult,resid)\n\nComputes generalized eigenvalues d of A and B using implicitly restarted Lanczos or Arnoldi iterations for real symmetric or general nonsymmetric matrices respectively.\n\nThe following keyword arguments are supported:\n\nnev: Number of eigenvalues\nncv: Number of Krylov vectors used in the computation; should satisfy nev+1 <= ncv <= n for real symmetric problems and nev+2 <= ncv <= n for other problems, where n is the size of the input matrices A and B. The default is ncv = max(20,2*nev+1). Note that these restrictions limit the input matrix A to be of dimension at least 2.\nwhich: type of eigenvalues to compute. See the note below.\n\nwhich type of eigenvalues\n:LM eigenvalues of largest magnitude (default)\n:SM eigenvalues of smallest magnitude\n:LR eigenvalues of largest real part\n:SR eigenvalues of smallest real part\n:LI eigenvalues of largest imaginary part (nonsymmetric or complex A only)\n:SI eigenvalues of smallest imaginary part (nonsymmetric or complex A only)\n:BE compute half of the eigenvalues from each end of the spectrum, biased in favor of the high end. (real symmetric A only)\n\ntol: relative tolerance used in the convergence criterion for eigenvalues, similar to    tol in the eigs(A) method for the ordinary eigenvalue    problem, but effectively for the eigenvalues of B^-1 A instead of A.    See the documentation for the ordinary eigenvalue problem in    eigs(A) and the accompanying note about tol.\nmaxiter: Maximum number of iterations (default = 300)\nsigma: Specifies the level shift used in inverse iteration. If nothing (default), defaults to ordinary (forward) iterations. Otherwise, find eigenvalues close to sigma using shift and invert iterations.\nritzvec: Returns the Ritz vectors v (eigenvectors) if true\nv0: starting vector from which to start the iterations\n\neigs returns the nev requested eigenvalues in d, the corresponding Ritz vectors v (only if ritzvec=true), the number of converged eigenvalues nconv, the number of iterations niter and the number of matrix vector multiplications nmult, as well as the final residual vector resid.\n\nExample\n\njulia> A = speye(4, 4); B = spdiagm(1:4);\n\njulia> λ, ϕ = eigs(A, B, nev = 2);\n\njulia> λ\n2-element Array{Float64,1}:\n 1.0\n 0.5\n\nnote: Note\nThe sigma and which keywords interact: the description of eigenvalues searched for by which do not necessarily refer to the eigenvalue problem Av = Bvlambda, but rather the linear operator constructed by the specification of the iteration mode implied by sigma.sigma iteration mode which refers to the problem\nnothing ordinary (forward) Av = Bvlambda\nreal or complex inverse with level shift sigma (A - sigma B )^-1B = vnu\n\n\n\n"
@@ -13506,7 +13506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.svds",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.svds",
     "category": "Function",
     "text": "svds(A; nsv=6, ritzvec=true, tol=0.0, maxiter=1000, ncv=2*nsv, u0=zeros((0,)), v0=zeros((0,))) -> (SVD([left_sv,] s, [right_sv,]), nconv, niter, nmult, resid)\n\nComputes the largest singular values s of A using implicitly restarted Lanczos iterations derived from eigs.\n\nInputs\n\nA: Linear operator whose singular values are desired. A may be represented as a subtype of AbstractArray, e.g., a sparse matrix, or any other type supporting the four methods size(A), eltype(A), A * vector, and A' * vector.\nnsv: Number of singular values. Default: 6.\nritzvec: If true, return the left and right singular vectors left_sv and right_sv.  If false, omit the singular vectors. Default: true.\ntol: tolerance, see eigs.\nmaxiter: Maximum number of iterations, see eigs. Default: 1000.\nncv: Maximum size of the Krylov subspace, see eigs (there called nev). Default: 2*nsv.\nu0: Initial guess for the first left Krylov vector. It may have length m (the first dimension of A), or 0.\nv0: Initial guess for the first right Krylov vector. It may have length n (the second dimension of A), or 0.\n\nOutputs\n\nsvd: An SVD object containing the left singular vectors, the requested values, and the right singular vectors. If ritzvec = false, the left and right singular vectors will be empty.\nnconv: Number of converged singular values.\nniter: Number of iterations.\nnmult: Number of matrix–vector products used.\nresid: Final residual vector.\n\nExample\n\njulia> A = spdiagm(1:4);\n\njulia> s = svds(A, nsv = 2)[1];\n\njulia> s[:S]\n2-element Array{Float64,1}:\n 4.0\n 3.0\n\nnote: Implementation\nsvds(A) is formally equivalent to calling eigs to perform implicitly restarted Lanczos tridiagonalization on the Hermitian matrix beginpmatrix 0  A^prime  A  0 endpmatrix, whose eigenvalues are plus and minus the singular values of A.\n\n\n\n"
@@ -13514,23 +13514,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.peakflops",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.peakflops",
     "category": "Function",
     "text": "peakflops(n::Integer=2000; parallel::Bool=false)\n\npeakflops computes the peak flop rate of the computer by using double precision gemm!. By default, if no arguments are specified, it multiplies a matrix of size n x n, where n = 2000. If the underlying BLAS is using multiple threads, higher flop rates are realized. The number of BLAS threads can be set with BLAS.set_num_threads(n).\n\nIf the keyword argument parallel is set to true, peakflops is run in parallel on all the worker processors. The flop rate of the entire parallel computer is returned. When running in parallel, only 1 BLAS thread is used. The argument n still refers to the size of the problem that is solved on each processor.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/linalg.html#Standard-Functions-1",
-    "page": "Linear Algebra",
-    "title": "Standard Functions",
+    "location": "stdlib/linalg.html#Funciones-Estándar-1",
+    "page": "Álgebra Lineal",
+    "title": "Funciones Estándar",
     "category": "section",
-    "text": "Linear algebra functions in Julia are largely implemented by calling functions from LAPACK.  Sparse factorizations call functions from SuiteSparse.Base.:*(::AbstractArray, ::AbstractArray)\nBase.:\\(::AbstractArray, ::Any)\nBase.LinAlg.dot\nBase.LinAlg.vecdot\nBase.LinAlg.cross\nBase.LinAlg.factorize\nBase.LinAlg.Diagonal\nBase.LinAlg.Bidiagonal\nBase.LinAlg.SymTridiagonal\nBase.LinAlg.Tridiagonal\nBase.LinAlg.Symmetric\nBase.LinAlg.Hermitian\nBase.LinAlg.LowerTriangular\nBase.LinAlg.UpperTriangular\nBase.LinAlg.lu\nBase.LinAlg.lufact\nBase.LinAlg.lufact!\nBase.LinAlg.chol\nBase.LinAlg.cholfact\nBase.LinAlg.cholfact!\nBase.LinAlg.lowrankupdate\nBase.LinAlg.lowrankdowndate\nBase.LinAlg.lowrankupdate!\nBase.LinAlg.lowrankdowndate!\nBase.LinAlg.ldltfact\nBase.LinAlg.ldltfact!\nBase.LinAlg.qr\nBase.LinAlg.qr!\nBase.LinAlg.qrfact\nBase.LinAlg.qrfact!\nBase.LinAlg.QR\nBase.LinAlg.QRCompactWY\nBase.LinAlg.QRPivoted\nBase.LinAlg.lqfact!\nBase.LinAlg.lqfact\nBase.LinAlg.lq\nBase.LinAlg.bkfact\nBase.LinAlg.bkfact!\nBase.LinAlg.eig\nBase.LinAlg.eigvals\nBase.LinAlg.eigvals!\nBase.LinAlg.eigmax\nBase.LinAlg.eigmin\nBase.LinAlg.eigvecs\nBase.LinAlg.eigfact\nBase.LinAlg.eigfact!\nBase.LinAlg.hessfact\nBase.LinAlg.hessfact!\nBase.LinAlg.schurfact\nBase.LinAlg.schurfact!\nBase.LinAlg.schur\nBase.LinAlg.ordschur\nBase.LinAlg.ordschur!\nBase.LinAlg.svdfact\nBase.LinAlg.svdfact!\nBase.LinAlg.svd\nBase.LinAlg.svdvals\nBase.LinAlg.Givens\nBase.LinAlg.givens\nBase.LinAlg.triu\nBase.LinAlg.triu!\nBase.LinAlg.tril\nBase.LinAlg.tril!\nBase.LinAlg.diagind\nBase.LinAlg.diag\nBase.LinAlg.diagm\nBase.LinAlg.scale!\nBase.LinAlg.rank\nBase.LinAlg.norm\nBase.LinAlg.vecnorm\nBase.LinAlg.normalize!\nBase.LinAlg.normalize\nBase.LinAlg.cond\nBase.LinAlg.condskeel\nBase.LinAlg.trace\nBase.LinAlg.det\nBase.LinAlg.logdet\nBase.LinAlg.logabsdet\nBase.inv\nBase.LinAlg.pinv\nBase.LinAlg.nullspace\nBase.repmat\nBase.repeat\nBase.kron\nBase.SparseArrays.blkdiag\nBase.LinAlg.linreg\nBase.LinAlg.expm\nBase.LinAlg.logm\nBase.LinAlg.sqrtm\nBase.LinAlg.lyap\nBase.LinAlg.sylvester\nBase.LinAlg.issymmetric\nBase.LinAlg.isposdef\nBase.LinAlg.isposdef!\nBase.LinAlg.istril\nBase.LinAlg.istriu\nBase.LinAlg.isdiag\nBase.LinAlg.ishermitian\nBase.LinAlg.RowVector\nBase.LinAlg.ConjArray\nBase.transpose\nBase.transpose!\nBase.ctranspose\nBase.ctranspose!\nBase.LinAlg.eigs(::Any)\nBase.LinAlg.eigs(::Any, ::Any)\nBase.LinAlg.svds\nBase.LinAlg.peakflops"
+    "text": "Las funciones de álgebra lineal en Julia está ampliamente implementadas llamando a funciones de LAPACK. Las factorizaciones sparse llaman a funciones de SuiteSparseBase.:*(::AbstractArray, ::AbstractArray)\nBase.:\\(::AbstractArray, ::Any)\nBase.LinAlg.dot\nBase.LinAlg.vecdot\nBase.LinAlg.cross\nBase.LinAlg.factorize\nBase.LinAlg.Diagonal\nBase.LinAlg.Bidiagonal\nBase.LinAlg.SymTridiagonal\nBase.LinAlg.Tridiagonal\nBase.LinAlg.Symmetric\nBase.LinAlg.Hermitian\nBase.LinAlg.LowerTriangular\nBase.LinAlg.UpperTriangular\nBase.LinAlg.lu\nBase.LinAlg.lufact\nBase.LinAlg.lufact!\nBase.LinAlg.chol\nBase.LinAlg.cholfact\nBase.LinAlg.cholfact!\nBase.LinAlg.lowrankupdate\nBase.LinAlg.lowrankdowndate\nBase.LinAlg.lowrankupdate!\nBase.LinAlg.lowrankdowndate!\nBase.LinAlg.ldltfact\nBase.LinAlg.ldltfact!\nBase.LinAlg.qr\nBase.LinAlg.qr!\nBase.LinAlg.qrfact\nBase.LinAlg.qrfact!\nBase.LinAlg.QR\nBase.LinAlg.QRCompactWY\nBase.LinAlg.QRPivoted\nBase.LinAlg.lqfact!\nBase.LinAlg.lqfact\nBase.LinAlg.lq\nBase.LinAlg.bkfact\nBase.LinAlg.bkfact!\nBase.LinAlg.eig\nBase.LinAlg.eigvals\nBase.LinAlg.eigvals!\nBase.LinAlg.eigmax\nBase.LinAlg.eigmin\nBase.LinAlg.eigvecs\nBase.LinAlg.eigfact\nBase.LinAlg.eigfact!\nBase.LinAlg.hessfact\nBase.LinAlg.hessfact!\nBase.LinAlg.schurfact\nBase.LinAlg.schurfact!\nBase.LinAlg.schur\nBase.LinAlg.ordschur\nBase.LinAlg.ordschur!\nBase.LinAlg.svdfact\nBase.LinAlg.svdfact!\nBase.LinAlg.svd\nBase.LinAlg.svdvals\nBase.LinAlg.Givens\nBase.LinAlg.givens\nBase.LinAlg.triu\nBase.LinAlg.triu!\nBase.LinAlg.tril\nBase.LinAlg.tril!\nBase.LinAlg.diagind\nBase.LinAlg.diag\nBase.LinAlg.diagm\nBase.LinAlg.scale!\nBase.LinAlg.rank\nBase.LinAlg.norm\nBase.LinAlg.vecnorm\nBase.LinAlg.normalize!\nBase.LinAlg.normalize\nBase.LinAlg.cond\nBase.LinAlg.condskeel\nBase.LinAlg.trace\nBase.LinAlg.det\nBase.LinAlg.logdet\nBase.LinAlg.logabsdet\nBase.inv\nBase.LinAlg.pinv\nBase.LinAlg.nullspace\nBase.repmat\nBase.repeat\nBase.kron\nBase.SparseArrays.blkdiag\nBase.LinAlg.linreg\nBase.LinAlg.expm\nBase.LinAlg.logm\nBase.LinAlg.sqrtm\nBase.LinAlg.lyap\nBase.LinAlg.sylvester\nBase.LinAlg.issymmetric\nBase.LinAlg.isposdef\nBase.LinAlg.isposdef!\nBase.LinAlg.istril\nBase.LinAlg.istriu\nBase.LinAlg.isdiag\nBase.LinAlg.ishermitian\nBase.LinAlg.RowVector\nBase.LinAlg.ConjArray\nBase.transpose\nBase.transpose!\nBase.ctranspose\nBase.ctranspose!\nBase.LinAlg.eigs(::Any)\nBase.LinAlg.eigs(::Any, ::Any)\nBase.LinAlg.svds\nBase.LinAlg.peakflops"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.A_ldiv_B!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.A_ldiv_B!",
     "category": "Function",
     "text": "A_ldiv_B!([Y,] A, B) -> Y\n\nCompute A \\ B in-place and store the result in Y, returning the result. If only two arguments are passed, then A_ldiv_B!(A, B) overwrites B with the result.\n\nThe argument A should not be a matrix.  Rather, instead of matrices it should be a factorization object (e.g. produced by factorize or cholfact). The reason for this is that factorization itself is both expensive and typically allocates memory (although it can also be done in-place via, e.g., lufact!), and performance-critical situations requiring A_ldiv_B! usually also require fine-grained control over the factorization of A.\n\n\n\n"
@@ -13538,7 +13538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_ldiv_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_ldiv_Bc",
     "category": "Function",
     "text": "A_ldiv_Bc(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13546,7 +13546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_ldiv_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_ldiv_Bt",
     "category": "Function",
     "text": "A_ldiv_Bt(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13554,7 +13554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.A_mul_B!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.A_mul_B!",
     "category": "Function",
     "text": "A_mul_B!(Y, A, B) -> Y\n\nCalculates the matrix-matrix or matrix-vector product AB and stores the result in Y, overwriting the existing value of Y. Note that Y must not be aliased with either A or B.\n\nExample\n\njulia> A=[1.0 2.0; 3.0 4.0]; B=[1.0 1.0; 1.0 1.0]; Y = similar(B); A_mul_B!(Y, A, B);\n\njulia> Y\n2×2 Array{Float64,2}:\n 3.0  3.0\n 7.0  7.0\n\n\n\n"
@@ -13562,7 +13562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_mul_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_mul_Bc",
     "category": "Function",
     "text": "A_mul_Bc(A, B)\n\nFor matrices or vectors A and B, calculates AB.\n\n\n\n"
@@ -13570,7 +13570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_mul_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_mul_Bt",
     "category": "Function",
     "text": "A_mul_Bt(A, B)\n\nFor matrices or vectors A and B, calculates AB.\n\n\n\n"
@@ -13578,7 +13578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_rdiv_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_rdiv_Bc",
     "category": "Function",
     "text": "A_rdiv_Bc(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
@@ -13586,7 +13586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.A_rdiv_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.A_rdiv_Bt",
     "category": "Function",
     "text": "A_rdiv_Bt(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
@@ -13594,7 +13594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_ldiv_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_ldiv_B",
     "category": "Function",
     "text": "Ac_ldiv_B(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13602,7 +13602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.Ac_ldiv_B!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.Ac_ldiv_B!",
     "category": "Function",
     "text": "Ac_ldiv_B!([Y,] A, B) -> Y\n\nSimilar to A_ldiv_B!, but return A \\ B, computing the result in-place in Y (or overwriting B if Y is not supplied).\n\n\n\n"
@@ -13610,7 +13610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_ldiv_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_ldiv_Bc",
     "category": "Function",
     "text": "Ac_ldiv_Bc(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13618,7 +13618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_mul_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_mul_B",
     "category": "Function",
     "text": "Ac_mul_B(A, B)\n\nFor matrices or vectors A and B, calculates AB.\n\n\n\n"
@@ -13626,7 +13626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_mul_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_mul_Bc",
     "category": "Function",
     "text": "Ac_mul_Bc(A, B)\n\nFor matrices or vectors A and B, calculates A B.\n\n\n\n"
@@ -13634,7 +13634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_rdiv_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_rdiv_B",
     "category": "Function",
     "text": "Ac_rdiv_B(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
@@ -13642,7 +13642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.Ac_rdiv_Bc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.Ac_rdiv_Bc",
     "category": "Function",
     "text": "Ac_rdiv_Bc(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
@@ -13650,7 +13650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_ldiv_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_ldiv_B",
     "category": "Function",
     "text": "At_ldiv_B(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13658,7 +13658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.At_ldiv_B!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.At_ldiv_B!",
     "category": "Function",
     "text": "At_ldiv_B!([Y,] A, B) -> Y\n\nSimilar to A_ldiv_B!, but return A \\ B, computing the result in-place in Y (or overwriting B if Y is not supplied).\n\n\n\n"
@@ -13666,7 +13666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_ldiv_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_ldiv_Bt",
     "category": "Function",
     "text": "At_ldiv_Bt(A, B)\n\nFor matrices or vectors A and B, calculates A \\ B.\n\n\n\n"
@@ -13674,7 +13674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_mul_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_mul_B",
     "category": "Function",
     "text": "At_mul_B(A, B)\n\nFor matrices or vectors A and B, calculates AB.\n\n\n\n"
@@ -13682,7 +13682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_mul_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_mul_Bt",
     "category": "Function",
     "text": "At_mul_Bt(A, B)\n\nFor matrices or vectors A and B, calculates AB.\n\n\n\n"
@@ -13690,7 +13690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_rdiv_B",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_rdiv_B",
     "category": "Function",
     "text": "At_rdiv_B(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
@@ -13698,63 +13698,63 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.At_rdiv_Bt",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.At_rdiv_Bt",
     "category": "Function",
     "text": "At_rdiv_Bt(A, B)\n\nFor matrices or vectors A and B, calculates A  B.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/linalg.html#Low-level-matrix-operations-1",
-    "page": "Linear Algebra",
-    "title": "Low-level matrix operations",
+    "location": "stdlib/linalg.html#Operaciones-matriciales-de-bajo-nivel-1",
+    "page": "Álgebra Lineal",
+    "title": "Operaciones matriciales de bajo nivel",
     "category": "section",
-    "text": "Matrix operations involving transpositions operations like A' \\ B are converted by the Julia parser into calls to specially named functions like Ac_ldiv_B. If you want to overload these operations for your own types, then it is useful to know the names of these functions.Also, in many cases there are in-place versions of matrix operations that allow you to supply a pre-allocated output vector or matrix.  This is useful when optimizing critical code in order to avoid the overhead of repeated allocations. These in-place operations are suffixed with ! below (e.g. A_mul_B!) according to the usual Julia convention.Base.LinAlg.A_ldiv_B!\nBase.A_ldiv_Bc\nBase.A_ldiv_Bt\nBase.LinAlg.A_mul_B!\nBase.A_mul_Bc\nBase.A_mul_Bt\nBase.A_rdiv_Bc\nBase.A_rdiv_Bt\nBase.Ac_ldiv_B\nBase.LinAlg.Ac_ldiv_B!\nBase.Ac_ldiv_Bc\nBase.Ac_mul_B\nBase.Ac_mul_Bc\nBase.Ac_rdiv_B\nBase.Ac_rdiv_Bc\nBase.At_ldiv_B\nBase.LinAlg.At_ldiv_B!\nBase.At_ldiv_Bt\nBase.At_mul_B\nBase.At_mul_Bt\nBase.At_rdiv_B\nBase.At_rdiv_Bt"
+    "text": "Las operaciones de matrices que involucran operaciones de transposición como A' \\ B son convertidas por el analizador de Julia en llamadas a funciones especialmente nombradas como Ac_ldiv_B. Si desea sobrecargar estas operaciones para sus propios tipos, será útil conocer los nombres de estas funciones.Además, en muchos casos, hay versiones in situ de operaciones matriciales que le permiten suministrar un vector o matriz de salida preasignada. Esto es útil cuando se optimiza código crítico para evitar la sobrecarga de las asignaciones repetidas. Estas operaciones in situ tienen el sufijo ! a continuación (por ejemplo, A_mul_B!) de acuerdo con la convención habitual de Julia.Base.LinAlg.A_ldiv_B!\nBase.A_ldiv_Bc\nBase.A_ldiv_Bt\nBase.LinAlg.A_mul_B!\nBase.A_mul_Bc\nBase.A_mul_Bt\nBase.A_rdiv_Bc\nBase.A_rdiv_Bt\nBase.Ac_ldiv_B\nBase.LinAlg.Ac_ldiv_B!\nBase.Ac_ldiv_Bc\nBase.Ac_mul_B\nBase.Ac_mul_Bc\nBase.Ac_rdiv_B\nBase.Ac_rdiv_Bc\nBase.At_ldiv_B\nBase.LinAlg.At_ldiv_B!\nBase.At_ldiv_Bt\nBase.At_mul_B\nBase.At_mul_Bt\nBase.At_rdiv_B\nBase.At_rdiv_Bt"
 },
 
 {
-    "location": "stdlib/linalg.html#BLAS-Functions-1",
-    "page": "Linear Algebra",
-    "title": "BLAS Functions",
+    "location": "stdlib/linalg.html#Funciones-BLAS-1",
+    "page": "Álgebra Lineal",
+    "title": "Funciones BLAS",
     "category": "section",
-    "text": "In Julia (as in much of scientific computation), dense linear-algebra operations are based on the LAPACK library, which in turn is built on top of basic linear-algebra building-blocks known as the BLAS. There are highly optimized implementations of BLAS available for every computer architecture, and sometimes in high-performance linear algebra routines it is useful to call the BLAS functions directly.Base.LinAlg.BLAS provides wrappers for some of the BLAS functions. Those BLAS functions that overwrite one of the input arrays have names ending in '!'.  Usually, a BLAS function has four methods defined, for Float64, Float32, Complex128, and Complex64 arrays."
+    "text": "En Julia (como en gran parte de la computación científica), las operaciones  de álgebra lineal densa se basan en la biblioteca LAPACK, que a su vez se construye sobre bloques de construcción básicos de álgebra lineal conocidos como BLAS. Hay implementaciones altamente optimizadas de BLAS disponibles para cada arquitectura de computadora, y algunas veces en rutinas de álgebra lineal de alto rendimiento, es útil llamar directamente a las funciones de BLAS.Base.LinAlg.BLAS proporciona envoltorios para algunas de las funciones de BLAS. Esas funciones de BLAS que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'. Normalmente, una función BLAS tiene cuatro métodos definidos, para las arrays Float64, Float32, Complex128 yComplex64."
 },
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-chars-1",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "BLAS Character Arguments",
     "category": "section",
-    "text": "Many BLAS functions accept arguments that determine whether to transpose an argument (trans), which triangle of a matrix to reference (uplo or ul), whether the diagonal of a triangular matrix can be assumed to be all ones (dA) or which side of a matrix multiplication the input argument belongs on (side). The possiblities are:"
+    "text": "Muchas funciones BLAS aceptan argumentos que determinan si se debe transponer un argumento (trans), qué triángulo de una matriz referenciar (uplo o ul), si se puede suponer que la diagonal de una matriz triangular está formada por unos (dA) o a qué lado de una multiplicación de matrices pertenece el argumento de entrada (side). Las posibilidades son:"
 },
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-side-1",
-    "page": "Linear Algebra",
-    "title": "Multplication Order",
+    "page": "Álgebra Lineal",
+    "title": "Orden de Multiplicación",
     "category": "section",
-    "text": "side Meaning\n'L' The argument goes on the left side of a matrix-matrix operation.\n'R' The argument goes on the right side of a matrix-matrix operation."
+    "text": "side Meaning\n'L' El argumento va al lado izquierdo de una operación matriz-matriz.\n'R' El argumento va al lado derecho de una operación matriz-matriz."
 },
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-uplo-1",
-    "page": "Linear Algebra",
-    "title": "Triangle Referencing",
+    "page": "Álgebra Lineal",
+    "title": "Referencia sobre el Triángulo",
     "category": "section",
-    "text": "uplo/ul Meaning\n'U' Only the upper triangle of the matrix will be used.\n'L' Only the lower triangle of the matrix will be used."
+    "text": "uplo/ul Meaning\n'U'       Sólo se usará el triángulo superior de la matriz.\n'L' Sólo se usará el triángulo inferior de la matriz."
 },
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-trans-1",
-    "page": "Linear Algebra",
-    "title": "Transposition Operation",
+    "page": "Álgebra Lineal",
+    "title": "Operación de Transposición",
     "category": "section",
-    "text": "trans/tX Meaning\n'N' The input matrix X is not transposed or conjugated.\n'T' The input matrix X will be transposed.\n'C' The input matrix X will be conjugated and transposed."
+    "text": "trans/tX Meaning\n'N' La matriz de entrada X no es transpuesta ni conjugada.\n'T'       La matriz de entrada X será transpuesta.             \n'C'       La matriz de entrada X será conjugada y transpuesta."
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.dotu",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.dotu",
     "category": "Function",
     "text": "dotu(n, X, incx, Y, incy)\n\nDot function for two complex vectors consisting of n elements of array X with stride incx and n elements of array Y with stride incy.\n\nExample:\n\njulia> Base.BLAS.dotu(10, im*ones(10), 1, complex.(ones(20), ones(20)), 2)\n-10.0 + 10.0im\n\n\n\n"
@@ -13762,7 +13762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.dotc",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.dotc",
     "category": "Function",
     "text": "dotc(n, X, incx, U, incy)\n\nDot function for two complex vectors, consisting of n elements of array X with stride incx and n elements of array U with stride incy, conjugating the first vector.\n\nExample:\n\njulia> Base.BLAS.dotc(10, im*ones(10), 1, complex.(ones(20), ones(20)), 2)\n10.0 - 10.0im\n\n\n\n"
@@ -13770,7 +13770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.blascopy!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.blascopy!",
     "category": "Function",
     "text": "blascopy!(n, X, incx, Y, incy)\n\nCopy n elements of array X with stride incx to array Y with stride incy. Returns Y.\n\n\n\n"
@@ -13778,7 +13778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.nrm2",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.nrm2",
     "category": "Function",
     "text": "nrm2(n, X, incx)\n\n2-norm of a vector consisting of n elements of array X with stride incx.\n\nExample:\n\njulia> Base.BLAS.nrm2(4, ones(8), 2)\n2.0\n\njulia> Base.BLAS.nrm2(1, ones(8), 2)\n1.0\n\n\n\n"
@@ -13786,7 +13786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.asum",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.asum",
     "category": "Function",
     "text": "asum(n, X, incx)\n\nSum of the absolute values of the first n elements of array X with stride incx.\n\nExample:\n\njulia> Base.BLAS.asum(5, im*ones(10), 2)\n5.0\n\njulia> Base.BLAS.asum(2, im*ones(10), 5)\n2.0\n\n\n\n"
@@ -13794,7 +13794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.axpy!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.axpy!",
     "category": "Function",
     "text": "axpy!(a, X, Y)\n\nOverwrite Y with a*X + Y, where a is a scalar. Returns Y.\n\nExample:\n\njulia> x = [1; 2; 3];\n\njulia> y = [4; 5; 6];\n\njulia> Base.BLAS.axpy!(2, x, y)\n3-element Array{Int64,1}:\n  6\n  9\n 12\n\n\n\n"
@@ -13802,7 +13802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.scal!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.scal!",
     "category": "Function",
     "text": "scal!(n, a, X, incx)\n\nOverwrite X with a*X for the first n elements of array X with stride incx. Returns X.\n\n\n\n"
@@ -13810,7 +13810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.scal",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.scal",
     "category": "Function",
     "text": "scal(n, a, X, incx)\n\nReturns X scaled by a for the first n elements of array X with stride incx.\n\n\n\n"
@@ -13818,7 +13818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.ger!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.ger!",
     "category": "Function",
     "text": "ger!(alpha, x, y, A)\n\nRank-1 update of the matrix A with vectors x and y as alpha*x*y' + A.\n\n\n\n"
@@ -13826,7 +13826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.syr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.syr!",
     "category": "Function",
     "text": "syr!(uplo, alpha, x, A)\n\nRank-1 update of the symmetric matrix A with vector x as alpha*x*x.' + A. uplo controls which triangle of A is updated. Returns A.\n\n\n\n"
@@ -13834,7 +13834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.syrk!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.syrk!",
     "category": "Function",
     "text": "syrk!(uplo, trans, alpha, A, beta, C)\n\nRank-k update of the symmetric matrix C as alpha*A*A.' + beta*C or alpha*A.'*A + beta*C according to trans. Only the uplo triangle of C is used. Returns C.\n\n\n\n"
@@ -13842,7 +13842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.syrk",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.syrk",
     "category": "Function",
     "text": "syrk(uplo, trans, alpha, A)\n\nReturns either the upper triangle or the lower triangle of A, according to uplo, of alpha*A*A.' or alpha*A.'*A, according to trans.\n\n\n\n"
@@ -13850,7 +13850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.her!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.her!",
     "category": "Function",
     "text": "her!(uplo, alpha, x, A)\n\nMethods for complex arrays only. Rank-1 update of the Hermitian matrix A with vector x as alpha*x*x' + A. uplo controls which triangle of A is updated. Returns A.\n\n\n\n"
@@ -13858,7 +13858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.herk!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.herk!",
     "category": "Function",
     "text": "herk!(uplo, trans, alpha, A, beta, C)\n\nMethods for complex arrays only. Rank-k update of the Hermitian matrix C as alpha*A*A' + beta*C or alpha*A'*A + beta*C according to trans. Only the uplo triangle of C is updated. Returns C.\n\n\n\n"
@@ -13866,7 +13866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.herk",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.herk",
     "category": "Function",
     "text": "herk(uplo, trans, alpha, A)\n\nMethods for complex arrays only. Returns the uplo triangle of alpha*A*A' or alpha*A'*A, according to trans.\n\n\n\n"
@@ -13874,7 +13874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gbmv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gbmv!",
     "category": "Function",
     "text": "gbmv!(trans, m, kl, ku, alpha, A, x, beta, y)\n\nUpdate vector y as alpha*A*x + beta*y or alpha*A'*x + beta*y according to trans. The matrix A is a general band matrix of dimension m by size(A,2) with kl sub-diagonals and ku super-diagonals. alpha and beta are scalars. Returns the updated y.\n\n\n\n"
@@ -13882,7 +13882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gbmv",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gbmv",
     "category": "Function",
     "text": "gbmv(trans, m, kl, ku, alpha, A, x)\n\nReturns alpha*A*x or alpha*A'*x according to trans. The matrix A is a general band matrix of dimension m by size(A,2) with kl sub-diagonals and ku super-diagonals, and alpha is a scalar.\n\n\n\n"
@@ -13890,7 +13890,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.sbmv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.sbmv!",
     "category": "Function",
     "text": "sbmv!(uplo, k, alpha, A, x, beta, y)\n\nUpdate vector y as alpha*A*x + beta*y where A is a a symmetric band matrix of order size(A,2) with k super-diagonals stored in the argument A. The storage layout for A is described the reference BLAS module, level-2 BLAS at http://www.netlib.org/lapack/explore-html/. Only the uplo triangle of A is used.\n\nReturns the updated y.\n\n\n\n"
@@ -13898,7 +13898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.sbmv-NTuple{5,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.sbmv",
     "category": "Method",
     "text": "sbmv(uplo, k, alpha, A, x)\n\nReturns alpha*A*x where A is a symmetric band matrix of order size(A,2) with k super-diagonals stored in the argument A. Only the uplo triangle of A is used.\n\n\n\n"
@@ -13906,7 +13906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.sbmv-NTuple{4,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.sbmv",
     "category": "Method",
     "text": "sbmv(uplo, k, A, x)\n\nReturns A*x where A is a symmetric band matrix of order size(A,2) with k super-diagonals stored in the argument A. Only the uplo triangle of A is used.\n\n\n\n"
@@ -13914,7 +13914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemm!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemm!",
     "category": "Function",
     "text": "gemm!(tA, tB, alpha, A, B, beta, C)\n\nUpdate C as alpha*A*B + beta*C or the other three variants according to tA and tB. Returns the updated C.\n\n\n\n"
@@ -13922,7 +13922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemm-NTuple{5,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemm",
     "category": "Method",
     "text": "gemm(tA, tB, alpha, A, B)\n\nReturns alpha*A*B or the other three variants according to tA and tB.\n\n\n\n"
@@ -13930,7 +13930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemm-NTuple{4,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemm",
     "category": "Method",
     "text": "gemm(tA, tB, A, B)\n\nReturns A*B or the other three variants according to tA and tB.\n\n\n\n"
@@ -13938,7 +13938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemv!",
     "category": "Function",
     "text": "gemv!(tA, alpha, A, x, beta, y)\n\nUpdate the vector y as alpha*A*x + beta*y or alpha*A'x + beta*y according to tA. alpha and beta are scalars. Returns the updated y.\n\n\n\n"
@@ -13946,7 +13946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemv-NTuple{4,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemv",
     "category": "Method",
     "text": "gemv(tA, alpha, A, x)\n\nReturns alpha*A*x or alpha*A'x according to tA. alpha is a scalar.\n\n\n\n"
@@ -13954,7 +13954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.gemv-Tuple{Any,Any,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.gemv",
     "category": "Method",
     "text": "gemv(tA, A, x)\n\nReturns A*x or A'x according to tA.\n\n\n\n"
@@ -13962,7 +13962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symm!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symm!",
     "category": "Function",
     "text": "symm!(side, ul, alpha, A, B, beta, C)\n\nUpdate C as alpha*A*B + beta*C or alpha*B*A + beta*C according to side. A is assumed to be symmetric. Only the ul triangle of A is used. Returns the updated C.\n\n\n\n"
@@ -13970,7 +13970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symm-NTuple{5,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symm",
     "category": "Method",
     "text": "symm(side, ul, alpha, A, B)\n\nReturns alpha*A*B or alpha*B*A according to side. A is assumed to be symmetric. Only the ul triangle of A is used.\n\n\n\n"
@@ -13978,7 +13978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symm-NTuple{4,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symm",
     "category": "Method",
     "text": "symm(side, ul, A, B)\n\nReturns A*B or B*A according to side. A is assumed to be symmetric. Only the ul triangle of A is used.\n\n\n\n"
@@ -13986,7 +13986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symv!",
     "category": "Function",
     "text": "symv!(ul, alpha, A, x, beta, y)\n\nUpdate the vector y as alpha*A*x + beta*y. A is assumed to be symmetric. Only the ul triangle of A is used. alpha and beta are scalars. Returns the updated y.\n\n\n\n"
@@ -13994,7 +13994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symv-NTuple{4,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symv",
     "category": "Method",
     "text": "symv(ul, alpha, A, x)\n\nReturns alpha*A*x. A is assumed to be symmetric. Only the ul triangle of A is used. alpha is a scalar.\n\n\n\n"
@@ -14002,7 +14002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.symv-Tuple{Any,Any,Any}",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.symv",
     "category": "Method",
     "text": "symv(ul, A, x)\n\nReturns A*x. A is assumed to be symmetric. Only the ul triangle of A is used.\n\n\n\n"
@@ -14010,7 +14010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trmm!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trmm!",
     "category": "Function",
     "text": "trmm!(side, ul, tA, dA, alpha, A, B)\n\nUpdate B as alpha*A*B or one of the other three variants determined by side and tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones. Returns the updated B.\n\n\n\n"
@@ -14018,7 +14018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trmm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trmm",
     "category": "Function",
     "text": "trmm(side, ul, tA, dA, alpha, A, B)\n\nReturns alpha*A*B or one of the other three variants determined by side and tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones.\n\n\n\n"
@@ -14026,7 +14026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trsm!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trsm!",
     "category": "Function",
     "text": "trsm!(side, ul, tA, dA, alpha, A, B)\n\nOverwrite B with the solution to A*X = alpha*B or one of the other three variants determined by side and tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones. Returns the updated B.\n\n\n\n"
@@ -14034,7 +14034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trsm",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trsm",
     "category": "Function",
     "text": "trsm(side, ul, tA, dA, alpha, A, B)\n\nReturns the solution to A*X = alpha*B or one of the other three variants determined by determined by side and tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones.\n\n\n\n"
@@ -14042,7 +14042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trmv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trmv!",
     "category": "Function",
     "text": "trmv!(ul, tA, dA, A, b)\n\nReturns op(A)*b, where op is determined by tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones. The multiplication occurs in-place on b.\n\n\n\n"
@@ -14050,7 +14050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trmv",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trmv",
     "category": "Function",
     "text": "trmv(ul, tA, dA, A, b)\n\nReturns op(A)*b, where op is determined by tA. Only the ul triangle of A is used. dA determines if the diagonal values are read or are assumed to be all ones.\n\n\n\n"
@@ -14058,7 +14058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trsv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trsv!",
     "category": "Function",
     "text": "trsv!(ul, tA, dA, A, b)\n\nOverwrite b with the solution to A*x = b or one of the other two variants determined by tA and ul. dA determines if the diagonal values are read or are assumed to be all ones. Returns the updated b.\n\n\n\n"
@@ -14066,7 +14066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.trsv",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.trsv",
     "category": "Function",
     "text": "trsv(ul, tA, dA, A, b)\n\nReturns the solution to A*x = b or one of the other two variants determined by tA and ul. dA determines if the diagonal values are read or are assumed to be all ones.\n\n\n\n"
@@ -14074,7 +14074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.BLAS.set_num_threads",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.BLAS.set_num_threads",
     "category": "Function",
     "text": "set_num_threads(n)\n\nSet the number of threads the BLAS library should use.\n\n\n\n"
@@ -14082,7 +14082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.I",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.I",
     "category": "Constant",
     "text": "I\n\nAn object of type UniformScaling, representing an identity matrix of any size.\n\nExample\n\njulia> ones(5, 6) * I == ones(5, 6)\ntrue\n\njulia> [1 2im 3; 1im 2 3] * I\n2×3 Array{Complex{Int64},2}:\n 1+0im  0+2im  3+0im\n 0+1im  2+0im  3+0im\n\n\n\n"
@@ -14090,15 +14090,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-diag-1",
-    "page": "Linear Algebra",
-    "title": "Unit Diagonal",
+    "page": "Álgebra Lineal",
+    "title": "Unidades en la Diagonal",
     "category": "section",
-    "text": "diag/dX Meaning\n'N' The diagonal values of the matrix X will be read.\n'U' The diagonal of the matrix X is assumed to be all ones.Base.LinAlg.BLAS.dotu\nBase.LinAlg.BLAS.dotc\nBase.LinAlg.BLAS.blascopy!\nBase.LinAlg.BLAS.nrm2\nBase.LinAlg.BLAS.asum\nBase.LinAlg.axpy!\nBase.LinAlg.BLAS.scal!\nBase.LinAlg.BLAS.scal\nBase.LinAlg.BLAS.ger!\nBase.LinAlg.BLAS.syr!\nBase.LinAlg.BLAS.syrk!\nBase.LinAlg.BLAS.syrk\nBase.LinAlg.BLAS.her!\nBase.LinAlg.BLAS.herk!\nBase.LinAlg.BLAS.herk\nBase.LinAlg.BLAS.gbmv!\nBase.LinAlg.BLAS.gbmv\nBase.LinAlg.BLAS.sbmv!\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm!\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv!\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm!\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv!\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.trmm!\nBase.LinAlg.BLAS.trmm\nBase.LinAlg.BLAS.trsm!\nBase.LinAlg.BLAS.trsm\nBase.LinAlg.BLAS.trmv!\nBase.LinAlg.BLAS.trmv\nBase.LinAlg.BLAS.trsv!\nBase.LinAlg.BLAS.trsv\nBase.LinAlg.BLAS.set_num_threads\nBase.LinAlg.I"
+    "text": "diag/dX Meaning\n'N'       Los valores diagonales de la matriz Xserán leídos.\n'U' Se supone que los elementos de la diagonal de la matriz X son todos unos.Base.LinAlg.BLAS.dotu\nBase.LinAlg.BLAS.dotc\nBase.LinAlg.BLAS.blascopy!\nBase.LinAlg.BLAS.nrm2\nBase.LinAlg.BLAS.asum\nBase.LinAlg.axpy!\nBase.LinAlg.BLAS.scal!\nBase.LinAlg.BLAS.scal\nBase.LinAlg.BLAS.ger!\nBase.LinAlg.BLAS.syr!\nBase.LinAlg.BLAS.syrk!\nBase.LinAlg.BLAS.syrk\nBase.LinAlg.BLAS.her!\nBase.LinAlg.BLAS.herk!\nBase.LinAlg.BLAS.herk\nBase.LinAlg.BLAS.gbmv!\nBase.LinAlg.BLAS.gbmv\nBase.LinAlg.BLAS.sbmv!\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm!\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv!\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm!\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv!\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.trmm!\nBase.LinAlg.BLAS.trmm\nBase.LinAlg.BLAS.trsm!\nBase.LinAlg.BLAS.trsm\nBase.LinAlg.BLAS.trmv!\nBase.LinAlg.BLAS.trmv\nBase.LinAlg.BLAS.trsv!\nBase.LinAlg.BLAS.trsv\nBase.LinAlg.BLAS.set_num_threads\nBase.LinAlg.I"
 },
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gbtrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gbtrf!",
     "category": "Function",
     "text": "gbtrf!(kl, ku, m, AB) -> (AB, ipiv)\n\nCompute the LU factorization of a banded matrix AB. kl is the first subdiagonal containing a nonzero band, ku is the last superdiagonal containing one, and m is the first dimension of the matrix AB. Returns the LU factorization in-place and ipiv, the vector of pivots used.\n\n\n\n"
@@ -14106,7 +14106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gbtrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gbtrs!",
     "category": "Function",
     "text": "gbtrs!(trans, kl, ku, m, AB, ipiv, B)\n\nSolve the equation AB * X = B. trans determines the orientation of AB. It may be N (no transpose), T (transpose), or C (conjugate transpose). kl is the first subdiagonal containing a nonzero band, ku is the last superdiagonal containing one, and m is the first dimension of the matrix AB. ipiv is the vector of pivots returned from gbtrf!. Returns the vector or matrix X, overwriting B in-place.\n\n\n\n"
@@ -14114,7 +14114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gebal!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gebal!",
     "category": "Function",
     "text": "gebal!(job, A) -> (ilo, ihi, scale)\n\nBalance the matrix A before computing its eigensystem or Schur factorization. job can be one of N (A will not be permuted or scaled), P (A will only be permuted), S (A will only be scaled), or B (A will be both permuted and scaled). Modifies A in-place and returns ilo, ihi, and scale. If permuting was turned on, A[i,j] = 0 if j > i and 1 < j < ilo or j > ihi. scale contains information about the scaling/permutations performed.\n\n\n\n"
@@ -14122,7 +14122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gebak!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gebak!",
     "category": "Function",
     "text": "gebak!(job, side, ilo, ihi, scale, V)\n\nTransform the eigenvectors V of a matrix balanced using gebal! to the unscaled/unpermuted eigenvectors of the original matrix. Modifies V in-place. side can be L (left eigenvectors are transformed) or R (right eigenvectors are transformed).\n\n\n\n"
@@ -14130,7 +14130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gebrd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gebrd!",
     "category": "Function",
     "text": "gebrd!(A) -> (A, d, e, tauq, taup)\n\nReduce A in-place to bidiagonal form A = QBP'. Returns A, containing the bidiagonal matrix B; d, containing the diagonal elements of B; e, containing the off-diagonal elements of B; tauq, containing the elementary reflectors representing Q; and taup, containing the elementary reflectors representing P.\n\n\n\n"
@@ -14138,7 +14138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gelqf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gelqf!",
     "category": "Function",
     "text": "gelqf!(A, tau)\n\nCompute the LQ factorization of A, A = LQ. tau contains scalars which parameterize the elementary reflectors of the factorization. tau must have length greater than or equal to the smallest dimension of A.\n\nReturns A and tau modified in-place.\n\n\n\ngelqf!(A) -> (A, tau)\n\nCompute the LQ factorization of A, A = LQ.\n\nReturns A, modified in-place, and tau, which contains scalars which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14146,7 +14146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geqlf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geqlf!",
     "category": "Function",
     "text": "geqlf!(A, tau)\n\nCompute the QL factorization of A, A = QL. tau contains scalars which parameterize the elementary reflectors of the factorization. tau must have length greater than or equal to the smallest dimension of A.\n\nReturns A and tau modified in-place.\n\n\n\ngeqlf!(A) -> (A, tau)\n\nCompute the QL factorization of A, A = QL.\n\nReturns A, modified in-place, and tau, which contains scalars which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14154,7 +14154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geqrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geqrf!",
     "category": "Function",
     "text": "geqrf!(A, tau)\n\nCompute the QR factorization of A, A = QR. tau contains scalars which parameterize the elementary reflectors of the factorization. tau must have length greater than or equal to the smallest dimension of A.\n\nReturns A and tau modified in-place.\n\n\n\ngeqrf!(A) -> (A, tau)\n\nCompute the QR factorization of A, A = QR.\n\nReturns A, modified in-place, and tau, which contains scalars which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14162,7 +14162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geqp3!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geqp3!",
     "category": "Function",
     "text": "geqp3!(A, jpvt, tau)\n\nCompute the pivoted QR factorization of A, AP = QR using BLAS level 3. P is a pivoting matrix, represented by jpvt. tau stores the elementary reflectors. jpvt must have length length greater than or equal to n if A is an (m x n) matrix. tau must have length greater than or equal to the smallest dimension of A.\n\nA, jpvt, and tau are modified in-place.\n\n\n\ngeqp3!(A, jpvt) -> (A, jpvt, tau)\n\nCompute the pivoted QR factorization of A, AP = QR using BLAS level 3. P is a pivoting matrix, represented by jpvt. jpvt must have length greater than or equal to n if A is an (m x n) matrix.\n\nReturns A and jpvt, modified in-place, and tau, which stores the elementary reflectors.\n\n\n\ngeqp3!(A) -> (A, jpvt, tau)\n\nCompute the pivoted QR factorization of A, AP = QR using BLAS level 3.\n\nReturns A, modified in-place, jpvt, which represents the pivoting matrix P, and tau, which stores the elementary reflectors.\n\n\n\n"
@@ -14170,7 +14170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gerqf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gerqf!",
     "category": "Function",
     "text": "gerqf!(A, tau)\n\nCompute the RQ factorization of A, A = RQ. tau contains scalars which parameterize the elementary reflectors of the factorization. tau must have length greater than or equal to the smallest dimension of A.\n\nReturns A and tau modified in-place.\n\n\n\ngerqf!(A) -> (A, tau)\n\nCompute the RQ factorization of A, A = RQ.\n\nReturns A, modified in-place, and tau, which contains scalars which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14178,7 +14178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geqrt!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geqrt!",
     "category": "Function",
     "text": "geqrt!(A, T)\n\nCompute the blocked QR factorization of A, A = QR. T contains upper triangular block reflectors which parameterize the elementary reflectors of the factorization. The first dimension of T sets the block size and it must be between 1 and n. The second dimension of T must equal the smallest dimension of A.\n\nReturns A and T modified in-place.\n\n\n\ngeqrt!(A, nb) -> (A, T)\n\nCompute the blocked QR factorization of A, A = QR. nb sets the block size and it must be between 1 and n, the second dimension of A.\n\nReturns A, modified in-place, and T, which contains upper triangular block reflectors which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14186,7 +14186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geqrt3!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geqrt3!",
     "category": "Function",
     "text": "geqrt3!(A, T)\n\nRecursively computes the blocked QR factorization of A, A = QR. T contains upper triangular block reflectors which parameterize the elementary reflectors of the factorization.  The first dimension of T sets the block size and it must be between 1 and n. The second dimension of T must equal the smallest dimension of A.\n\nReturns A and T modified in-place.\n\n\n\ngeqrt3!(A) -> (A, T)\n\nRecursively computes the blocked QR factorization of A, A = QR.\n\nReturns A, modified in-place, and T, which contains upper triangular block reflectors which parameterize the elementary reflectors of the factorization.\n\n\n\n"
@@ -14194,7 +14194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.getrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.getrf!",
     "category": "Function",
     "text": "getrf!(A) -> (A, ipiv, info)\n\nCompute the pivoted LU factorization of A, A = LU.\n\nReturns A, modified in-place, ipiv, the pivoting information, and an info code which indicates success (info = 0), a singular value in U (info = i, in which case U[i,i] is singular), or an error code (info < 0).\n\n\n\n"
@@ -14202,7 +14202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.tzrzf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.tzrzf!",
     "category": "Function",
     "text": "tzrzf!(A) -> (A, tau)\n\nTransforms the upper trapezoidal matrix A to upper triangular form in-place. Returns A and tau, the scalar parameters for the elementary reflectors of the transformation.\n\n\n\n"
@@ -14210,7 +14210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ormrz!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ormrz!",
     "category": "Function",
     "text": "ormrz!(side, trans, A, tau, C)\n\nMultiplies the matrix C by Q from the transformation supplied by tzrzf!. Depending on side or trans the multiplication can be left-sided (side = L, Q*C) or right-sided (side = R, C*Q) and Q can be unmodified (trans = N), transposed (trans = T), or conjugate transposed (trans = C). Returns matrix C which is modified in-place with the result of the multiplication.\n\n\n\n"
@@ -14218,7 +14218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gels!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gels!",
     "category": "Function",
     "text": "gels!(trans, A, B) -> (F, B, ssr)\n\nSolves the linear equation A * X = B, A.' * X =B, or A' * X = B using a QR or LQ factorization. Modifies the matrix/vector B in place with the solution. A is overwritten with its QR or LQ factorization. trans may be one of N (no modification), T (transpose), or C (conjugate transpose). gels! searches for the minimum norm/least squares solution. A may be under or over determined. The solution is returned in B.\n\n\n\n"
@@ -14226,7 +14226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gesv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gesv!",
     "category": "Function",
     "text": "gesv!(A, B) -> (B, A, ipiv)\n\nSolves the linear equation A * X = B where A is a square matrix using the LU factorization of A. A is overwritten with its LU factorization and B is overwritten with the solution X. ipiv contains the pivoting information for the LU factorization of A.\n\n\n\n"
@@ -14234,7 +14234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.getrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.getrs!",
     "category": "Function",
     "text": "getrs!(trans, A, ipiv, B)\n\nSolves the linear equation A * X = B, A.' * X =B, or A' * X = B for square A. Modifies the matrix/vector B in place with the solution. A is the LU factorization from getrf!, with ipiv the pivoting information. trans may be one of N (no modification), T (transpose), or C (conjugate transpose).\n\n\n\n"
@@ -14242,7 +14242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.getri!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.getri!",
     "category": "Function",
     "text": "getri!(A, ipiv)\n\nComputes the inverse of A, using its LU factorization found by getrf!. ipiv is the pivot information output and A contains the LU factorization of getrf!. A is overwritten with its inverse.\n\n\n\n"
@@ -14250,7 +14250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gesvx!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gesvx!",
     "category": "Function",
     "text": "gesvx!(fact, trans, A, AF, ipiv, equed, R, C, B) -> (X, equed, R, C, B, rcond, ferr, berr, work)\n\nSolves the linear equation A * X = B (trans = N), A.' * X =B (trans = T), or A' * X = B (trans = C) using the LU factorization of A. fact may be E, in which case A will be equilibrated and copied to AF; F, in which case AF and ipiv from a previous LU factorization are inputs; or N, in which case A will be copied to AF and then factored. If fact = F, equed may be N, meaning A has not been equilibrated; R, meaning A was multiplied by diagm(R) from the left; C, meaning A was multiplied by diagm(C) from the right; or B, meaning A was multiplied by diagm(R) from the left and diagm(C) from the right. If fact = F and equed = R or B the elements of R must all be positive. If fact = F and equed = C or B the elements of C must all be positive.\n\nReturns the solution X; equed, which is an output if fact is not N, and describes the equilibration that was performed; R, the row equilibration diagonal; C, the column equilibration diagonal; B, which may be overwritten with its equilibrated form diagm(R)*B (if trans = N and equed = R,B) or diagm(C)*B (if trans = T,C and equed = C,B); rcond, the reciprocal condition number of A after equilbrating; ferr, the forward error bound for each solution vector in X; berr, the forward error bound for each solution vector in X; and work, the reciprocal pivot growth factor.\n\n\n\ngesvx!(A, B)\n\nThe no-equilibration, no-transpose simplification of gesvx!.\n\n\n\n"
@@ -14258,7 +14258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gelsd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gelsd!",
     "category": "Function",
     "text": "gelsd!(A, B, rcond) -> (B, rnk)\n\nComputes the least norm solution of A * X = B by finding the SVD factorization of A, then dividing-and-conquering the problem. B is overwritten with the solution X. Singular values below rcond will be treated as zero. Returns the solution in B and the effective rank of A in rnk.\n\n\n\n"
@@ -14266,7 +14266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gelsy!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gelsy!",
     "category": "Function",
     "text": "gelsy!(A, B, rcond) -> (B, rnk)\n\nComputes the least norm solution of A * X = B by finding the full QR factorization of A, then dividing-and-conquering the problem. B is overwritten with the solution X. Singular values below rcond will be treated as zero. Returns the solution in B and the effective rank of A in rnk.\n\n\n\n"
@@ -14274,7 +14274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gglse!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gglse!",
     "category": "Function",
     "text": "gglse!(A, c, B, d) -> (X,res)\n\nSolves the equation A * x = c where x is subject to the equality constraint B * x = d. Uses the formula ||c - A*x||^2 = 0 to solve. Returns X and the residual sum-of-squares.\n\n\n\n"
@@ -14282,7 +14282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geev!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geev!",
     "category": "Function",
     "text": "geev!(jobvl, jobvr, A) -> (W, VL, VR)\n\nFinds the eigensystem of A. If jobvl = N, the left eigenvectors of A aren't computed. If jobvr = N, the right eigenvectors of A aren't computed. If jobvl = V or jobvr = V, the corresponding eigenvectors are computed. Returns the eigenvalues in W, the right eigenvectors in VR, and the left eigenvectors in VL.\n\n\n\n"
@@ -14290,7 +14290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gesdd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gesdd!",
     "category": "Function",
     "text": "gesdd!(job, A) -> (U, S, VT)\n\nFinds the singular value decomposition of A, A = U * S * V', using a divide and conquer approach. If job = A, all the columns of U and the rows of V' are computed. If job = N, no columns of U or rows of V' are computed. If job = O, A is overwritten with the columns of (thin) U and the rows of (thin) V'. If job = S, the columns of (thin) U and the rows of (thin) V' are computed and returned separately.\n\n\n\n"
@@ -14298,7 +14298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gesvd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gesvd!",
     "category": "Function",
     "text": "gesvd!(jobu, jobvt, A) -> (U, S, VT)\n\nFinds the singular value decomposition of A, A = U * S * V'. If jobu = A, all the columns of U are computed. If jobvt = A all the rows of V' are computed. If jobu = N, no columns of U are computed. If jobvt = N no rows of V' are computed. If jobu = O, A is overwritten with the columns of (thin) U. If jobvt = O, A is overwritten with the rows of (thin) V'. If jobu = S, the columns of (thin) U are computed and returned separately. If jobvt = S the rows of (thin) V' are computed and returned separately. jobu and jobvt can't both be O.\n\nReturns U, S, and Vt, where S are the singular values of A.\n\n\n\n"
@@ -14306,7 +14306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ggsvd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ggsvd!",
     "category": "Function",
     "text": "ggsvd!(jobu, jobv, jobq, A, B) -> (U, V, Q, alpha, beta, k, l, R)\n\nFinds the generalized singular value decomposition of A and B, U'*A*Q = D1*R and V'*B*Q = D2*R. D1 has alpha on its diagonal and D2 has beta on its diagonal. If jobu = U, the orthogonal/unitary matrix U is computed. If jobv = V the orthogonal/unitary matrix V is computed. If jobq = Q, the orthogonal/unitary matrix Q is computed. If jobu, jobv or jobq is N, that matrix is not computed. This function is only available in LAPACK versions prior to 3.6.0.\n\n\n\n"
@@ -14314,7 +14314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ggsvd3!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ggsvd3!",
     "category": "Function",
     "text": "ggsvd3!(jobu, jobv, jobq, A, B) -> (U, V, Q, alpha, beta, k, l, R)\n\nFinds the generalized singular value decomposition of A and B, U'*A*Q = D1*R and V'*B*Q = D2*R. D1 has alpha on its diagonal and D2 has beta on its diagonal. If jobu = U, the orthogonal/unitary matrix U is computed. If jobv = V the orthogonal/unitary matrix V is computed. If jobq = Q, the orthogonal/unitary matrix Q is computed. If jobu, jobv, or jobq is N, that matrix is not computed. This function requires LAPACK 3.6.0.\n\n\n\n"
@@ -14322,7 +14322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.geevx!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.geevx!",
     "category": "Function",
     "text": "geevx!(balanc, jobvl, jobvr, sense, A) -> (A, w, VL, VR, ilo, ihi, scale, abnrm, rconde, rcondv)\n\nFinds the eigensystem of A with matrix balancing. If jobvl = N, the left eigenvectors of A aren't computed. If jobvr = N, the right eigenvectors of A aren't computed. If jobvl = V or jobvr = V, the corresponding eigenvectors are computed. If balanc = N, no balancing is performed. If balanc = P, A is permuted but not scaled. If balanc = S, A is scaled but not permuted. If balanc = B, A is permuted and scaled. If sense = N, no reciprocal condition numbers are computed. If sense = E, reciprocal condition numbers are computed for the eigenvalues only. If sense = V, reciprocal condition numbers are computed for the right eigenvectors only. If sense = B, reciprocal condition numbers are computed for the right eigenvectors and the eigenvectors. If sense = E,B, the right and left eigenvectors must be computed.\n\n\n\n"
@@ -14330,7 +14330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ggev!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ggev!",
     "category": "Function",
     "text": "ggev!(jobvl, jobvr, A, B) -> (alpha, beta, vl, vr)\n\nFinds the generalized eigendecomposition of A and B. If jobvl = N, the left eigenvectors aren't computed. If jobvr = N, the right eigenvectors aren't computed. If jobvl = V or jobvr = V, the corresponding eigenvectors are computed.\n\n\n\n"
@@ -14338,7 +14338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gtsv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gtsv!",
     "category": "Function",
     "text": "gtsv!(dl, d, du, B)\n\nSolves the equation A * X = B where A is a tridiagonal matrix with dl on the subdiagonal, d on the diagonal, and du on the superdiagonal.\n\nOverwrites B with the solution X and returns it.\n\n\n\n"
@@ -14346,7 +14346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gttrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gttrf!",
     "category": "Function",
     "text": "gttrf!(dl, d, du) -> (dl, d, du, du2, ipiv)\n\nFinds the LU factorization of a tridiagonal matrix with dl on the subdiagonal, d on the diagonal, and du on the superdiagonal.\n\nModifies dl, d, and du in-place and returns them and the second superdiagonal du2 and the pivoting vector ipiv.\n\n\n\n"
@@ -14354,7 +14354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gttrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gttrs!",
     "category": "Function",
     "text": "gttrs!(trans, dl, d, du, du2, ipiv, B)\n\nSolves the equation A * X = B (trans = N), A.' * X = B (trans = T), or A' * X = B (trans = C) using the LU factorization computed by gttrf!. B is overwritten with the solution X.\n\n\n\n"
@@ -14362,7 +14362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.orglq!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.orglq!",
     "category": "Function",
     "text": "orglq!(A, tau, k = length(tau))\n\nExplicitly finds the matrix Q of a LQ factorization after calling gelqf! on A. Uses the output of gelqf!. A is overwritten by Q.\n\n\n\n"
@@ -14370,7 +14370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.orgqr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.orgqr!",
     "category": "Function",
     "text": "orgqr!(A, tau, k = length(tau))\n\nExplicitly finds the matrix Q of a QR factorization after calling geqrf! on A. Uses the output of geqrf!. A is overwritten by Q.\n\n\n\n"
@@ -14378,7 +14378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.orgql!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.orgql!",
     "category": "Function",
     "text": "orgql!(A, tau, k = length(tau))\n\nExplicitly finds the matrix Q of a QL factorization after calling geqlf! on A. Uses the output of geqlf!. A is overwritten by Q.\n\n\n\n"
@@ -14386,7 +14386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.orgrq!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.orgrq!",
     "category": "Function",
     "text": "orgrq!(A, tau, k = length(tau))\n\nExplicitly finds the matrix Q of a RQ factorization after calling gerqf! on A. Uses the output of gerqf!. A is overwritten by Q.\n\n\n\n"
@@ -14394,7 +14394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ormlq!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ormlq!",
     "category": "Function",
     "text": "ormlq!(side, trans, A, tau, C)\n\nComputes Q * C (trans = N), Q.' * C (trans = T), Q' * C (trans = C) for side = L or the equivalent right-sided multiplication for side = R using Q from a LQ factorization of A computed using gelqf!. C is overwritten.\n\n\n\n"
@@ -14402,7 +14402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ormqr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ormqr!",
     "category": "Function",
     "text": "ormqr!(side, trans, A, tau, C)\n\nComputes Q * C (trans = N), Q.' * C (trans = T), Q' * C (trans = C) for side = L or the equivalent right-sided multiplication for side = R using Q from a QR factorization of A computed using geqrf!. C is overwritten.\n\n\n\n"
@@ -14410,7 +14410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ormql!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ormql!",
     "category": "Function",
     "text": "ormql!(side, trans, A, tau, C)\n\nComputes Q * C (trans = N), Q.' * C (trans = T), Q' * C (trans = C) for side = L or the equivalent right-sided multiplication for side = R using Q from a QL factorization of A computed using geqlf!. C is overwritten.\n\n\n\n"
@@ -14418,7 +14418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ormrq!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ormrq!",
     "category": "Function",
     "text": "ormrq!(side, trans, A, tau, C)\n\nComputes Q * C (trans = N), Q.' * C (trans = T), Q' * C (trans = C) for side = L or the equivalent right-sided multiplication for side = R using Q from a RQ factorization of A computed using gerqf!. C is overwritten.\n\n\n\n"
@@ -14426,7 +14426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gemqrt!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gemqrt!",
     "category": "Function",
     "text": "gemqrt!(side, trans, V, T, C)\n\nComputes Q * C (trans = N), Q.' * C (trans = T), Q' * C (trans = C) for side = L or the equivalent right-sided multiplication for side = R using Q from a QR factorization of A computed using geqrt!. C is overwritten.\n\n\n\n"
@@ -14434,7 +14434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.posv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.posv!",
     "category": "Function",
     "text": "posv!(uplo, A, B) -> (A, B)\n\nFinds the solution to A * X = B where A is a symmetric or Hermitian positive definite matrix. If uplo = U the upper Cholesky decomposition of A is computed. If uplo = L the lower Cholesky decomposition of A is computed. A is overwritten by its Cholesky decomposition. B is overwritten with the solution X.\n\n\n\n"
@@ -14442,7 +14442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.potrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.potrf!",
     "category": "Function",
     "text": "potrf!(uplo, A)\n\nComputes the Cholesky (upper if uplo = U, lower if uplo = L) decomposition of positive-definite matrix A. A is overwritten and returned with an info code.\n\n\n\n"
@@ -14450,7 +14450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.potri!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.potri!",
     "category": "Function",
     "text": "potri!(uplo, A)\n\nComputes the inverse of positive-definite matrix A after calling potrf! to find its (upper if uplo = U, lower if uplo = L) Cholesky decomposition.\n\nA is overwritten by its inverse and returned.\n\n\n\n"
@@ -14458,7 +14458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.potrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.potrs!",
     "category": "Function",
     "text": "potrs!(uplo, A, B)\n\nFinds the solution to A * X = B where A is a symmetric or Hermitian positive definite matrix whose Cholesky decomposition was computed by potrf!. If uplo = U the upper Cholesky decomposition of A was computed. If uplo = L the lower Cholesky decomposition of A was computed. B is overwritten with the solution X.\n\n\n\n"
@@ -14466,7 +14466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.pstrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.pstrf!",
     "category": "Function",
     "text": "pstrf!(uplo, A, tol) -> (A, piv, rank, info)\n\nComputes the (upper if uplo = U, lower if uplo = L) pivoted Cholesky decomposition of positive-definite matrix A with a user-set tolerance tol. A is overwritten by its Cholesky decomposition.\n\nReturns A, the pivots piv, the rank of A, and an info code. If info = 0, the factorization succeeded. If info = i > 0, then A is indefinite or rank-deficient.\n\n\n\n"
@@ -14474,7 +14474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.ptsv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.ptsv!",
     "category": "Function",
     "text": "ptsv!(D, E, B)\n\nSolves A * X = B for positive-definite tridiagonal A. D is the diagonal of A and E is the off-diagonal. B is overwritten with the solution X and returned.\n\n\n\n"
@@ -14482,7 +14482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.pttrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.pttrf!",
     "category": "Function",
     "text": "pttrf!(D, E)\n\nComputes the LDLt factorization of a positive-definite tridiagonal matrix with D as diagonal and E as off-diagonal. D and E are overwritten and returned.\n\n\n\n"
@@ -14490,7 +14490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.pttrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.pttrs!",
     "category": "Function",
     "text": "pttrs!(D, E, B)\n\nSolves A * X = B for positive-definite tridiagonal A with diagonal D and off-diagonal E after computing A's LDLt factorization using pttrf!. B is overwritten with the solution X.\n\n\n\n"
@@ -14498,7 +14498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trtri!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trtri!",
     "category": "Function",
     "text": "trtri!(uplo, diag, A)\n\nFinds the inverse of (upper if uplo = U, lower if uplo = L) triangular matrix A. If diag = N, A has non-unit diagonal elements. If diag = U, all diagonal elements of A are one. A is overwritten with its inverse.\n\n\n\n"
@@ -14506,7 +14506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trtrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trtrs!",
     "category": "Function",
     "text": "trtrs!(uplo, trans, diag, A, B)\n\nSolves A * X = B (trans = N), A.' * X = B (trans = T), or A' * X = B (trans = C) for (upper if uplo = U, lower if uplo = L) triangular matrix A. If diag = N, A has non-unit diagonal elements. If diag = U, all diagonal elements of A are one. B is overwritten with the solution X.\n\n\n\n"
@@ -14514,7 +14514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trcon!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trcon!",
     "category": "Function",
     "text": "trcon!(norm, uplo, diag, A)\n\nFinds the reciprocal condition number of (upper if uplo = U, lower if uplo = L) triangular matrix A. If diag = N, A has non-unit diagonal elements. If diag = U, all diagonal elements of A are one. If norm = I, the condition number is found in the infinity norm. If norm = O or 1, the condition number is found in the one norm.\n\n\n\n"
@@ -14522,7 +14522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trevc!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trevc!",
     "category": "Function",
     "text": "trevc!(side, howmny, select, T, VL = similar(T), VR = similar(T))\n\nFinds the eigensystem of an upper triangular matrix T. If side = R, the right eigenvectors are computed. If side = L, the left eigenvectors are computed. If side = B, both sets are computed. If howmny = A, all eigenvectors are found. If howmny = B, all eigenvectors are found and backtransformed using VL and VR. If howmny = S, only the eigenvectors corresponding to the values in select are computed.\n\n\n\n"
@@ -14530,7 +14530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trrfs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trrfs!",
     "category": "Function",
     "text": "trrfs!(uplo, trans, diag, A, B, X, Ferr, Berr) -> (Ferr, Berr)\n\nEstimates the error in the solution to A * X = B (trans = N), A.' * X = B (trans = T), A' * X = B (trans = C) for side = L, or the equivalent equations a right-handed side = R X * A after computing X using trtrs!. If uplo = U, A is upper triangular. If uplo = L, A is lower triangular. If diag = N, A has non-unit diagonal elements. If diag = U, all diagonal elements of A are one. Ferr and Berr are optional inputs. Ferr is the forward error and Berr is the backward error, each component-wise.\n\n\n\n"
@@ -14538,7 +14538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.stev!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.stev!",
     "category": "Function",
     "text": "stev!(job, dv, ev) -> (dv, Zmat)\n\nComputes the eigensystem for a symmetric tridiagonal matrix with dv as diagonal and ev as off-diagonal. If job = N only the eigenvalues are found and returned in dv. If job = V then the eigenvectors are also found and returned in Zmat.\n\n\n\n"
@@ -14546,7 +14546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.stebz!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.stebz!",
     "category": "Function",
     "text": "stebz!(range, order, vl, vu, il, iu, abstol, dv, ev) -> (dv, iblock, isplit)\n\nComputes the eigenvalues for a symmetric tridiagonal matrix with dv as diagonal and ev as off-diagonal. If range = A, all the eigenvalues are found. If range = V, the eigenvalues in the half-open interval (vl, vu] are found. If range = I, the eigenvalues with indices between il and iu are found. If order = B, eigvalues are ordered within a block. If order = E, they are ordered across all the blocks. abstol can be set as a tolerance for convergence.\n\n\n\n"
@@ -14554,7 +14554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.stegr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.stegr!",
     "category": "Function",
     "text": "stegr!(jobz, range, dv, ev, vl, vu, il, iu) -> (w, Z)\n\nComputes the eigenvalues (jobz = N) or eigenvalues and eigenvectors (jobz = V) for a symmetric tridiagonal matrix with dv as diagonal and ev as off-diagonal. If range = A, all the eigenvalues are found. If range = V, the eigenvalues in the half-open interval (vl, vu] are found. If range = I, the eigenvalues with indices between il and iu are found. The eigenvalues are returned in w and the eigenvectors in Z.\n\n\n\n"
@@ -14562,7 +14562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.stein!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.stein!",
     "category": "Function",
     "text": "stein!(dv, ev_in, w_in, iblock_in, isplit_in)\n\nComputes the eigenvectors for a symmetric tridiagonal matrix with dv as diagonal and ev_in as off-diagonal. w_in specifies the input eigenvalues for which to find corresponding eigenvectors. iblock_in specifies the submatrices corresponding to the eigenvalues in w_in. isplit_in specifies the splitting points between the submatrix blocks.\n\n\n\n"
@@ -14570,7 +14570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.syconv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.syconv!",
     "category": "Function",
     "text": "syconv!(uplo, A, ipiv) -> (A, work)\n\nConverts a symmetric matrix A (which has been factorized into a triangular matrix) into two matrices L and D. If uplo = U, A is upper triangular. If uplo = L, it is lower triangular. ipiv is the pivot vector from the triangular factorization. A is overwritten by L and D.\n\n\n\n"
@@ -14578,7 +14578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.sysv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.sysv!",
     "category": "Function",
     "text": "sysv!(uplo, A, B) -> (B, A, ipiv)\n\nFinds the solution to A * X = B for symmetric matrix A. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. B is overwritten by the solution X. A is overwritten by its Bunch-Kaufman factorization. ipiv contains pivoting information about the factorization.\n\n\n\n"
@@ -14586,7 +14586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.sytrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.sytrf!",
     "category": "Function",
     "text": "sytrf!(uplo, A) -> (A, ipiv, info)\n\nComputes the Bunch-Kaufman factorization of a symmetric matrix A. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored.\n\nReturns A, overwritten by the factorization, a pivot vector ipiv, and the error code info which is a non-negative integer. If info is positive the matrix is singular and the diagonal part of the factorization is exactly zero at position info.\n\n\n\n"
@@ -14594,7 +14594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.sytri!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.sytri!",
     "category": "Function",
     "text": "sytri!(uplo, A, ipiv)\n\nComputes the inverse of a symmetric matrix A using the results of sytrf!. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. A is overwritten by its inverse.\n\n\n\n"
@@ -14602,7 +14602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.sytrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.sytrs!",
     "category": "Function",
     "text": "sytrs!(uplo, A, ipiv, B)\n\nSolves the equation A * X = B for a symmetric matrix A using the results of sytrf!. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. B is overwritten by the solution X.\n\n\n\n"
@@ -14610,7 +14610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.hesv!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.hesv!",
     "category": "Function",
     "text": "hesv!(uplo, A, B) -> (B, A, ipiv)\n\nFinds the solution to A * X = B for Hermitian matrix A. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. B is overwritten by the solution X. A is overwritten by its Bunch-Kaufman factorization. ipiv contains pivoting information about the factorization.\n\n\n\n"
@@ -14618,7 +14618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.hetrf!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.hetrf!",
     "category": "Function",
     "text": "hetrf!(uplo, A) -> (A, ipiv, info)\n\nComputes the Bunch-Kaufman factorization of a Hermitian matrix A. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored.\n\nReturns A, overwritten by the factorization, a pivot vector ipiv, and the error code info which is a non-negative integer. If info is positive the matrix is singular and the diagonal part of the factorization is exactly zero at position info.\n\n\n\n"
@@ -14626,7 +14626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.hetri!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.hetri!",
     "category": "Function",
     "text": "hetri!(uplo, A, ipiv)\n\nComputes the inverse of a Hermitian matrix A using the results of sytrf!. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. A is overwritten by its inverse.\n\n\n\n"
@@ -14634,7 +14634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.hetrs!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.hetrs!",
     "category": "Function",
     "text": "hetrs!(uplo, A, ipiv, B)\n\nSolves the equation A * X = B for a Hermitian matrix A using the results of sytrf!. If uplo = U, the upper half of A is stored. If uplo = L, the lower half is stored. B is overwritten by the solution X.\n\n\n\n"
@@ -14642,7 +14642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.syev!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.syev!",
     "category": "Function",
     "text": "syev!(jobz, uplo, A)\n\nFinds the eigenvalues (jobz = N) or eigenvalues and eigenvectors (jobz = V) of a symmetric matrix A. If uplo = U, the upper triangle of A is used. If uplo = L, the lower triangle of A is used.\n\n\n\n"
@@ -14650,7 +14650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.syevr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.syevr!",
     "category": "Function",
     "text": "syevr!(jobz, range, uplo, A, vl, vu, il, iu, abstol) -> (W, Z)\n\nFinds the eigenvalues (jobz = N) or eigenvalues and eigenvectors (jobz = V) of a symmetric matrix A. If uplo = U, the upper triangle of A is used. If uplo = L, the lower triangle of A is used. If range = A, all the eigenvalues are found. If range = V, the eigenvalues in the half-open interval (vl, vu] are found. If range = I, the eigenvalues with indices between il and iu are found. abstol can be set as a tolerance for convergence.\n\nThe eigenvalues are returned in W and the eigenvectors in Z.\n\n\n\n"
@@ -14658,7 +14658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.sygvd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.sygvd!",
     "category": "Function",
     "text": "sygvd!(itype, jobz, uplo, A, B) -> (w, A, B)\n\nFinds the generalized eigenvalues (jobz = N) or eigenvalues and eigenvectors (jobz = V) of a symmetric matrix A and symmetric positive-definite matrix B. If uplo = U, the upper triangles of A and B are used. If uplo = L, the lower triangles of A and B are used. If itype = 1, the problem to solve is A * x = lambda * B * x. If itype = 2, the problem to solve is A * B * x = lambda * x. If itype = 3, the problem to solve is B * A * x = lambda * x.\n\n\n\n"
@@ -14666,7 +14666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.bdsqr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.bdsqr!",
     "category": "Function",
     "text": "bdsqr!(uplo, d, e_, Vt, U, C) -> (d, Vt, U, C)\n\nComputes the singular value decomposition of a bidiagonal matrix with d on the diagonal and e_ on the off-diagonal. If uplo = U, e_ is the superdiagonal. If uplo = L, e_ is the subdiagonal. Can optionally also compute the product Q' * C.\n\nReturns the singular values in d, and the matrix C overwritten with Q' * C.\n\n\n\n"
@@ -14674,7 +14674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.bdsdc!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.bdsdc!",
     "category": "Function",
     "text": "bdsdc!(uplo, compq, d, e_) -> (d, e, u, vt, q, iq)\n\nComputes the singular value decomposition of a bidiagonal matrix with d on the diagonal and e_ on the off-diagonal using a divide and conqueq method. If uplo = U, e_ is the superdiagonal. If uplo = L, e_ is the subdiagonal. If compq = N, only the singular values are found. If compq = I, the singular values and vectors are found. If compq = P, the singular values and vectors are found in compact form. Only works for real types.\n\nReturns the singular values in d, and if compq = P, the compact singular vectors in iq.\n\n\n\n"
@@ -14682,7 +14682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gecon!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gecon!",
     "category": "Function",
     "text": "gecon!(normtype, A, anorm)\n\nFinds the reciprocal condition number of matrix A. If normtype = I, the condition number is found in the infinity norm. If normtype = O or 1, the condition number is found in the one norm. A must be the result of getrf! and anorm is the norm of A in the relevant norm.\n\n\n\n"
@@ -14690,7 +14690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gehrd!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gehrd!",
     "category": "Function",
     "text": "gehrd!(ilo, ihi, A) -> (A, tau)\n\nConverts a matrix A to Hessenberg form. If A is balanced with gebal! then ilo and ihi are the outputs of gebal!. Otherwise they should be ilo = 1 and ihi = size(A,2). tau contains the elementary reflectors of the factorization.\n\n\n\n"
@@ -14698,7 +14698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.orghr!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.orghr!",
     "category": "Function",
     "text": "orghr!(ilo, ihi, A, tau)\n\nExplicitly finds Q, the orthogonal/unitary matrix from gehrd!. ilo, ihi, A, and tau must correspond to the input/output to gehrd!.\n\n\n\n"
@@ -14706,7 +14706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gees!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gees!",
     "category": "Function",
     "text": "gees!(jobvs, A) -> (A, vs, w)\n\nComputes the eigenvalues (jobvs = N) or the eigenvalues and Schur vectors (jobvs = V) of matrix A. A is overwritten by its Schur form.\n\nReturns A, vs containing the Schur vectors, and w, containing the eigenvalues.\n\n\n\n"
@@ -14714,7 +14714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.gges!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.gges!",
     "category": "Function",
     "text": "gges!(jobvsl, jobvsr, A, B) -> (A, B, alpha, beta, vsl, vsr)\n\nComputes the generalized eigenvalues, generalized Schur form, left Schur vectors (jobsvl = V), or right Schur vectors (jobvsr = V) of A and B.\n\nThe generalized eigenvalues are returned in alpha and beta. The left Schur vectors are returned in vsl and the right Schur vectors are returned in vsr.\n\n\n\n"
@@ -14722,7 +14722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trexc!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trexc!",
     "category": "Function",
     "text": "trexc!(compq, ifst, ilst, T, Q) -> (T, Q)\n\nReorder the Schur factorization of a matrix. If compq = V, the Schur vectors Q are reordered. If compq = N they are not modified. ifst and ilst specify the reordering of the vectors.\n\n\n\n"
@@ -14730,7 +14730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trsen!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trsen!",
     "category": "Function",
     "text": "trsen!(compq, job, select, T, Q) -> (T, Q, w)\n\nReorder the Schur factorization of a matrix and optionally finds reciprocal condition numbers. If job = N, no condition numbers are found. If job = E, only the condition number for this cluster of eigenvalues is found. If job = V, only the condition number for the invariant subspace is found. If job = B then the condition numbers for the cluster and subspace are found. If compq = V the Schur vectors Q are updated. If compq = N the Schur vectors are not modified. select determines which eigenvalues are in the cluster.\n\nReturns T, Q, and reordered eigenvalues in w.\n\n\n\n"
@@ -14738,7 +14738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.tgsen!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.tgsen!",
     "category": "Function",
     "text": "tgsen!(select, S, T, Q, Z) -> (S, T, alpha, beta, Q, Z)\n\nReorders the vectors of a generalized Schur decomposition. select specifices the eigenvalues in each cluster.\n\n\n\n"
@@ -14746,7 +14746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#Base.LinAlg.LAPACK.trsyl!",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "Base.LinAlg.LAPACK.trsyl!",
     "category": "Function",
     "text": "trsyl!(transa, transb, A, B, C, isgn=1) -> (C, scale)\n\nSolves the Sylvester matrix equation A * X +/- X * B = scale*C where A and B are both quasi-upper triangular. If transa = N, A is not modified. If transa = T, A is transposed. If transa = C, A is conjugate transposed. Similarly for transb and B. If isgn = 1, the equation A * X + X * B = scale * C is solved. If isgn = -1, the equation A * X - X * B = scale * C is solved.\n\nReturns X (overwriting C) and scale.\n\n\n\n"
@@ -14754,23 +14754,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/linalg.html#LAPACK-Functions-1",
-    "page": "Linear Algebra",
+    "page": "Álgebra Lineal",
     "title": "LAPACK Functions",
     "category": "section",
-    "text": "Base.LinAlg.LAPACK provides wrappers for some of the LAPACK functions for linear algebra.  Those functions that overwrite one of the input arrays have names ending in '!'.Usually a function has 4 methods defined, one each for Float64, Float32, Complex128 and Complex64 arrays.Note that the LAPACK API provided by Julia can and will change in the future. Since this API is not user-facing, there is no commitment to support/deprecate this specific set of functions in future releases.Base.LinAlg.LAPACK.gbtrf!\nBase.LinAlg.LAPACK.gbtrs!\nBase.LinAlg.LAPACK.gebal!\nBase.LinAlg.LAPACK.gebak!\nBase.LinAlg.LAPACK.gebrd!\nBase.LinAlg.LAPACK.gelqf!\nBase.LinAlg.LAPACK.geqlf!\nBase.LinAlg.LAPACK.geqrf!\nBase.LinAlg.LAPACK.geqp3!\nBase.LinAlg.LAPACK.gerqf!\nBase.LinAlg.LAPACK.geqrt!\nBase.LinAlg.LAPACK.geqrt3!\nBase.LinAlg.LAPACK.getrf!\nBase.LinAlg.LAPACK.tzrzf!\nBase.LinAlg.LAPACK.ormrz!\nBase.LinAlg.LAPACK.gels!\nBase.LinAlg.LAPACK.gesv!\nBase.LinAlg.LAPACK.getrs!\nBase.LinAlg.LAPACK.getri!\nBase.LinAlg.LAPACK.gesvx!\nBase.LinAlg.LAPACK.gelsd!\nBase.LinAlg.LAPACK.gelsy!\nBase.LinAlg.LAPACK.gglse!\nBase.LinAlg.LAPACK.geev!\nBase.LinAlg.LAPACK.gesdd!\nBase.LinAlg.LAPACK.gesvd!\nBase.LinAlg.LAPACK.ggsvd!\nBase.LinAlg.LAPACK.ggsvd3!\nBase.LinAlg.LAPACK.geevx!\nBase.LinAlg.LAPACK.ggev!\nBase.LinAlg.LAPACK.gtsv!\nBase.LinAlg.LAPACK.gttrf!\nBase.LinAlg.LAPACK.gttrs!\nBase.LinAlg.LAPACK.orglq!\nBase.LinAlg.LAPACK.orgqr!\nBase.LinAlg.LAPACK.orgql!\nBase.LinAlg.LAPACK.orgrq!\nBase.LinAlg.LAPACK.ormlq!\nBase.LinAlg.LAPACK.ormqr!\nBase.LinAlg.LAPACK.ormql!\nBase.LinAlg.LAPACK.ormrq!\nBase.LinAlg.LAPACK.gemqrt!\nBase.LinAlg.LAPACK.posv!\nBase.LinAlg.LAPACK.potrf!\nBase.LinAlg.LAPACK.potri!\nBase.LinAlg.LAPACK.potrs!\nBase.LinAlg.LAPACK.pstrf!\nBase.LinAlg.LAPACK.ptsv!\nBase.LinAlg.LAPACK.pttrf!\nBase.LinAlg.LAPACK.pttrs!\nBase.LinAlg.LAPACK.trtri!\nBase.LinAlg.LAPACK.trtrs!\nBase.LinAlg.LAPACK.trcon!\nBase.LinAlg.LAPACK.trevc!\nBase.LinAlg.LAPACK.trrfs!\nBase.LinAlg.LAPACK.stev!\nBase.LinAlg.LAPACK.stebz!\nBase.LinAlg.LAPACK.stegr!\nBase.LinAlg.LAPACK.stein!\nBase.LinAlg.LAPACK.syconv!\nBase.LinAlg.LAPACK.sysv!\nBase.LinAlg.LAPACK.sytrf!\nBase.LinAlg.LAPACK.sytri!\nBase.LinAlg.LAPACK.sytrs!\nBase.LinAlg.LAPACK.hesv!\nBase.LinAlg.LAPACK.hetrf!\nBase.LinAlg.LAPACK.hetri!\nBase.LinAlg.LAPACK.hetrs!\nBase.LinAlg.LAPACK.syev!\nBase.LinAlg.LAPACK.syevr!\nBase.LinAlg.LAPACK.sygvd!\nBase.LinAlg.LAPACK.bdsqr!\nBase.LinAlg.LAPACK.bdsdc!\nBase.LinAlg.LAPACK.gecon!\nBase.LinAlg.LAPACK.gehrd!\nBase.LinAlg.LAPACK.orghr!\nBase.LinAlg.LAPACK.gees!\nBase.LinAlg.LAPACK.gges!\nBase.LinAlg.LAPACK.trexc!\nBase.LinAlg.LAPACK.trsen!\nBase.LinAlg.LAPACK.tgsen!\nBase.LinAlg.LAPACK.trsyl!"
+    "text": "Base.LinAlg.LAPACK proporciona wrappers para algunas de las funciones LAPACK para álgebra lineal. Las funciones que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'.Por lo general, una función tiene 4 métodos definidos, uno para las arrays Float64, Float32, Complex128 y Complex64.Tenga en cuenta que la API LAPACK proporcionada por Julia puede y va a cambiar en el futuro. Dado que esta API no está orientada al usuario, no existe el compromiso de admitir/desaprobar este conjunto específico de funciones en futuras versiones.Base.LinAlg.LAPACK.gbtrf!\nBase.LinAlg.LAPACK.gbtrs!\nBase.LinAlg.LAPACK.gebal!\nBase.LinAlg.LAPACK.gebak!\nBase.LinAlg.LAPACK.gebrd!\nBase.LinAlg.LAPACK.gelqf!\nBase.LinAlg.LAPACK.geqlf!\nBase.LinAlg.LAPACK.geqrf!\nBase.LinAlg.LAPACK.geqp3!\nBase.LinAlg.LAPACK.gerqf!\nBase.LinAlg.LAPACK.geqrt!\nBase.LinAlg.LAPACK.geqrt3!\nBase.LinAlg.LAPACK.getrf!\nBase.LinAlg.LAPACK.tzrzf!\nBase.LinAlg.LAPACK.ormrz!\nBase.LinAlg.LAPACK.gels!\nBase.LinAlg.LAPACK.gesv!\nBase.LinAlg.LAPACK.getrs!\nBase.LinAlg.LAPACK.getri!\nBase.LinAlg.LAPACK.gesvx!\nBase.LinAlg.LAPACK.gelsd!\nBase.LinAlg.LAPACK.gelsy!\nBase.LinAlg.LAPACK.gglse!\nBase.LinAlg.LAPACK.geev!\nBase.LinAlg.LAPACK.gesdd!\nBase.LinAlg.LAPACK.gesvd!\nBase.LinAlg.LAPACK.ggsvd!\nBase.LinAlg.LAPACK.ggsvd3!\nBase.LinAlg.LAPACK.geevx!\nBase.LinAlg.LAPACK.ggev!\nBase.LinAlg.LAPACK.gtsv!\nBase.LinAlg.LAPACK.gttrf!\nBase.LinAlg.LAPACK.gttrs!\nBase.LinAlg.LAPACK.orglq!\nBase.LinAlg.LAPACK.orgqr!\nBase.LinAlg.LAPACK.orgql!\nBase.LinAlg.LAPACK.orgrq!\nBase.LinAlg.LAPACK.ormlq!\nBase.LinAlg.LAPACK.ormqr!\nBase.LinAlg.LAPACK.ormql!\nBase.LinAlg.LAPACK.ormrq!\nBase.LinAlg.LAPACK.gemqrt!\nBase.LinAlg.LAPACK.posv!\nBase.LinAlg.LAPACK.potrf!\nBase.LinAlg.LAPACK.potri!\nBase.LinAlg.LAPACK.potrs!\nBase.LinAlg.LAPACK.pstrf!\nBase.LinAlg.LAPACK.ptsv!\nBase.LinAlg.LAPACK.pttrf!\nBase.LinAlg.LAPACK.pttrs!\nBase.LinAlg.LAPACK.trtri!\nBase.LinAlg.LAPACK.trtrs!\nBase.LinAlg.LAPACK.trcon!\nBase.LinAlg.LAPACK.trevc!\nBase.LinAlg.LAPACK.trrfs!\nBase.LinAlg.LAPACK.stev!\nBase.LinAlg.LAPACK.stebz!\nBase.LinAlg.LAPACK.stegr!\nBase.LinAlg.LAPACK.stein!\nBase.LinAlg.LAPACK.syconv!\nBase.LinAlg.LAPACK.sysv!\nBase.LinAlg.LAPACK.sytrf!\nBase.LinAlg.LAPACK.sytri!\nBase.LinAlg.LAPACK.sytrs!\nBase.LinAlg.LAPACK.hesv!\nBase.LinAlg.LAPACK.hetrf!\nBase.LinAlg.LAPACK.hetri!\nBase.LinAlg.LAPACK.hetrs!\nBase.LinAlg.LAPACK.syev!\nBase.LinAlg.LAPACK.syevr!\nBase.LinAlg.LAPACK.sygvd!\nBase.LinAlg.LAPACK.bdsqr!\nBase.LinAlg.LAPACK.bdsdc!\nBase.LinAlg.LAPACK.gecon!\nBase.LinAlg.LAPACK.gehrd!\nBase.LinAlg.LAPACK.orghr!\nBase.LinAlg.LAPACK.gees!\nBase.LinAlg.LAPACK.gges!\nBase.LinAlg.LAPACK.trexc!\nBase.LinAlg.LAPACK.trsen!\nBase.LinAlg.LAPACK.tgsen!\nBase.LinAlg.LAPACK.trsyl!"
 },
 
 {
     "location": "stdlib/constants.html#",
-    "page": "Constants",
-    "title": "Constants",
+    "page": "Constantes",
+    "title": "Constantes",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/constants.html#Core.nothing",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Core.nothing",
     "category": "Constant",
     "text": "nothing\n\nThe singleton instance of type Void, used by convention when there is no value to return (as in a C void function). Can be converted to an empty Nullable value.\n\n\n\n"
@@ -14778,7 +14778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.PROGRAM_FILE",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.PROGRAM_FILE",
     "category": "Constant",
     "text": "PROGRAM_FILE\n\nA string containing the script name passed to Julia from the command line. Note that the script name remains unchanged from within included files. Alternatively see @__FILE__.\n\n\n\n"
@@ -14786,7 +14786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.ARGS",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.ARGS",
     "category": "Constant",
     "text": "ARGS\n\nAn array of the command line arguments passed to Julia, as strings.\n\n\n\n"
@@ -14794,7 +14794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.C_NULL",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.C_NULL",
     "category": "Constant",
     "text": "C_NULL\n\nThe C null pointer constant, sometimes used when calling external code.\n\n\n\n"
@@ -14802,7 +14802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.VERSION",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.VERSION",
     "category": "Constant",
     "text": "VERSION\n\nA VersionNumber object describing which version of Julia is in use. For details see Version Number Literals.\n\n\n\n"
@@ -14810,7 +14810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.LOAD_PATH",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.LOAD_PATH",
     "category": "Constant",
     "text": "LOAD_PATH\n\nAn array of paths as strings or custom loader objects for the require function and using and import statements to consider when loading code. To create a custom loader type, define the type and then add appropriate methods to the Base.load_hook function with the following signature:\n\nBase.load_hook(loader::Loader, name::String, found::Any)\n\nThe loader argument is the current value in LOAD_PATH, name is the name of the module to load, and found is the path of any previously found code to provide name. If no provider has been found earlier in LOAD_PATH then the value of found will be nothing. Custom loader functionality is experimental and may break or change in Julia 1.0.\n\n\n\n"
@@ -14818,7 +14818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.JULIA_HOME",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.JULIA_HOME",
     "category": "Constant",
     "text": "JULIA_HOME\n\nA string containing the full path to the directory containing the julia executable.\n\n\n\n"
@@ -14826,7 +14826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Core.ANY",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Core.ANY",
     "category": "Constant",
     "text": "ANY\n\nEquivalent to Any for dispatch purposes, but signals the compiler to skip code generation specialization for that field.\n\n\n\n"
@@ -14834,7 +14834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.Sys.CPU_CORES",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.Sys.CPU_CORES",
     "category": "Constant",
     "text": "Sys.CPU_CORES\n\nThe number of logical CPU cores available in the system.\n\nSee the Hwloc.jl package for extended information, including number of physical cores.\n\n\n\n"
@@ -14842,7 +14842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.Sys.WORD_SIZE",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.Sys.WORD_SIZE",
     "category": "Constant",
     "text": "Sys.WORD_SIZE\n\nStandard word size on the current machine, in bits.\n\n\n\n"
@@ -14850,7 +14850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.Sys.KERNEL",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.Sys.KERNEL",
     "category": "Constant",
     "text": "Sys.KERNEL\n\nA symbol representing the name of the operating system, as returned by uname of the build configuration.\n\n\n\n"
@@ -14858,7 +14858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.Sys.ARCH",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.Sys.ARCH",
     "category": "Constant",
     "text": "Sys.ARCH\n\nA symbol representing the architecture of the build configuration.\n\n\n\n"
@@ -14866,7 +14866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#Base.Sys.MACHINE",
-    "page": "Constants",
+    "page": "Constantes",
     "title": "Base.Sys.MACHINE",
     "category": "Constant",
     "text": "Sys.MACHINE\n\nA string containing the build triple.\n\n\n\n"
@@ -14874,23 +14874,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/constants.html#lib-constants-1",
-    "page": "Constants",
-    "title": "Constants",
+    "page": "Constantes",
+    "title": "Constantes",
     "category": "section",
-    "text": "Core.nothing\nBase.PROGRAM_FILE\nBase.ARGS\nBase.C_NULL\nBase.VERSION\nBase.LOAD_PATH\nBase.JULIA_HOME\nCore.ANY\nBase.Sys.CPU_CORES\nBase.Sys.WORD_SIZE\nBase.Sys.KERNEL\nBase.Sys.ARCH\nBase.Sys.MACHINESee also:STDIN\nSTDOUT\nSTDERR\nENV\nENDIAN_BOM\nLibc.MS_ASYNC\nLibc.MS_INVALIDATE\nLibc.MS_SYNC\nLibdl.DL_LOAD_PATH\nLibdl.RTLD_DEEPBIND\nLibdl.RTLD_LOCAL\nLibdl.RTLD_NOLOAD\nLibdl.RTLD_LAZY\nLibdl.RTLD_NOW\nLibdl.RTLD_GLOBAL\nLibdl.RTLD_NODELETE\nLibdl.RTLD_FIRST"
+    "text": "Core.nothing\nBase.PROGRAM_FILE\nBase.ARGS\nBase.C_NULL\nBase.VERSION\nBase.LOAD_PATH\nBase.JULIA_HOME\nCore.ANY\nBase.Sys.CPU_CORES\nBase.Sys.WORD_SIZE\nBase.Sys.KERNEL\nBase.Sys.ARCH\nBase.Sys.MACHINEVer también:STDIN\nSTDOUT\nSTDERR\nENV\nENDIAN_BOM\nLibc.MS_ASYNC\nLibc.MS_INVALIDATE\nLibc.MS_SYNC\nLibdl.DL_LOAD_PATH\nLibdl.RTLD_DEEPBIND\nLibdl.RTLD_LOCAL\nLibdl.RTLD_NOLOAD\nLibdl.RTLD_LAZY\nLibdl.RTLD_NOW\nLibdl.RTLD_GLOBAL\nLibdl.RTLD_NODELETE\nLibdl.RTLD_FIRST"
 },
 
 {
     "location": "stdlib/file.html#",
-    "page": "Filesystem",
-    "title": "Filesystem",
+    "page": "Sistema de Ficheros",
+    "title": "Sistema de Ficheros",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/file.html#Base.Filesystem.pwd",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.pwd",
     "category": "Function",
     "text": "pwd() -> AbstractString\n\nGet the current working directory.\n\n\n\n"
@@ -14898,7 +14898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.cd-Tuple{AbstractString}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.cd",
     "category": "Method",
     "text": "cd(dir::AbstractString=homedir())\n\nSet the current working directory.\n\n\n\n"
@@ -14906,7 +14906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.cd-Tuple{Function}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.cd",
     "category": "Method",
     "text": "cd(f::Function, dir::AbstractString=homedir())\n\nTemporarily changes the current working directory and applies function f before returning.\n\n\n\n"
@@ -14914,7 +14914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.readdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.readdir",
     "category": "Function",
     "text": "readdir(dir::AbstractString=\".\") -> Vector{String}\n\nReturns the files and directories in the directory dir (or the current working directory if not given).\n\n\n\n"
@@ -14922,7 +14922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.walkdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.walkdir",
     "category": "Function",
     "text": "walkdir(dir; topdown=true, follow_symlinks=false, onerror=throw)\n\nThe walkdir method returns an iterator that walks the directory tree of a directory. The iterator returns a tuple containing (rootpath, dirs, files). The directory tree can be traversed top-down or bottom-up. If walkdir encounters a SystemError it will rethrow the error by default. A custom error handling function can be provided through onerror keyword argument. onerror is called with a SystemError as argument.\n\nfor (root, dirs, files) in walkdir(\".\")\n    println(\"Directories in $root\")\n    for dir in dirs\n        println(joinpath(root, dir)) # path to directories\n    end\n    println(\"Files in $root\")\n    for file in files\n        println(joinpath(root, file)) # path to files\n    end\nend\n\n\n\n"
@@ -14930,7 +14930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mkdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mkdir",
     "category": "Function",
     "text": "mkdir(path::AbstractString, mode::Unsigned=0o777)\n\nMake a new directory with name path and permissions mode. mode defaults to 0o777, modified by the current file creation mask. This function never creates more than one directory. If the directory already exists, or some intermediate directories do not exist, this function throws an error. See mkpath for a function which creates all required intermediate directories.\n\n\n\n"
@@ -14938,7 +14938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mkpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mkpath",
     "category": "Function",
     "text": "mkpath(path::AbstractString, mode::Unsigned=0o777)\n\nCreate all directories in the given path, with permissions mode. mode defaults to 0o777, modified by the current file creation mask.\n\n\n\n"
@@ -14946,7 +14946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.symlink",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.symlink",
     "category": "Function",
     "text": "symlink(target::AbstractString, link::AbstractString)\n\nCreates a symbolic link to target with the name link.\n\nnote: Note\nThis function raises an error under operating systems that do not support soft symbolic links, such as Windows XP.\n\n\n\n"
@@ -14954,7 +14954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.readlink",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.readlink",
     "category": "Function",
     "text": "readlink(path::AbstractString) -> AbstractString\n\nReturns the target location a symbolic link path points to.\n\n\n\n"
@@ -14962,7 +14962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.chmod",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.chmod",
     "category": "Function",
     "text": "chmod(path::AbstractString, mode::Integer; recursive::Bool=false)\n\nChange the permissions mode of path to mode. Only integer modes (e.g. 0o777) are currently supported. If recursive=true and the path is a directory all permissions in that directory will be recursively changed.\n\n\n\n"
@@ -14970,7 +14970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.chown",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.chown",
     "category": "Function",
     "text": "chown(path::AbstractString, owner::Integer, group::Integer=-1)\n\nChange the owner and/or group of path to owner and/or group. If the value entered for owner or group is -1 the corresponding ID will not change. Only integer owners and groups are currently supported.\n\n\n\n"
@@ -14978,7 +14978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.stat",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.stat",
     "category": "Function",
     "text": "stat(file)\n\nReturns a structure whose fields contain information about the file. The fields of the structure are:\n\nName Description\nsize The size (in bytes) of the file\ndevice ID of the device that contains the file\ninode The inode number of the file\nmode The protection mode of the file\nnlink The number of hard links to the file\nuid The user id of the owner of the file\ngid The group id of the file owner\nrdev If this file refers to a device, the ID of the device it refers to\nblksize The file-system preferred block size for the file\nblocks The number of such blocks allocated\nmtime Unix timestamp of when the file was last modified\nctime Unix timestamp of when the file was created\n\n\n\n"
@@ -14986,7 +14986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.lstat",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.lstat",
     "category": "Function",
     "text": "lstat(file)\n\nLike stat, but for symbolic links gets the info for the link itself rather than the file it refers to. This function must be called on a file path rather than a file object or a file descriptor.\n\n\n\n"
@@ -14994,7 +14994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.ctime",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.ctime",
     "category": "Function",
     "text": "ctime(file)\n\nEquivalent to stat(file).ctime\n\n\n\n"
@@ -15002,7 +15002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mtime",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mtime",
     "category": "Function",
     "text": "mtime(file)\n\nEquivalent to stat(file).mtime.\n\n\n\n"
@@ -15010,7 +15010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.filemode",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.filemode",
     "category": "Function",
     "text": "filemode(file)\n\nEquivalent to stat(file).mode\n\n\n\n"
@@ -15018,7 +15018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.filesize",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.filesize",
     "category": "Function",
     "text": "filesize(path...)\n\nEquivalent to stat(file).size.\n\n\n\n"
@@ -15026,7 +15026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.uperm",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.uperm",
     "category": "Function",
     "text": "uperm(file)\n\nGets the permissions of the owner of the file as a bitfield of\n\nValue Description\n01 Execute Permission\n02 Write Permission\n04 Read Permission\n\nFor allowed arguments, see stat.\n\n\n\n"
@@ -15034,7 +15034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.gperm",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.gperm",
     "category": "Function",
     "text": "gperm(file)\n\nLike uperm but gets the permissions of the group owning the file.\n\n\n\n"
@@ -15042,7 +15042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.operm",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.operm",
     "category": "Function",
     "text": "operm(file)\n\nLike uperm but gets the permissions for people who neither own the file nor are a member of the group owning the file\n\n\n\n"
@@ -15050,7 +15050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.cp",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.cp",
     "category": "Function",
     "text": "cp(src::AbstractString, dst::AbstractString; remove_destination::Bool=false, follow_symlinks::Bool=false)\n\nCopy the file, link, or directory from src to dest. remove_destination=true will first remove an existing dst.\n\nIf follow_symlinks=false, and src is a symbolic link, dst will be created as a symbolic link. If follow_symlinks=true and src is a symbolic link, dst will be a copy of the file or directory src refers to.\n\n\n\n"
@@ -15058,7 +15058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.download",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.download",
     "category": "Function",
     "text": "download(url::AbstractString, [localfile::AbstractString])\n\nDownload a file from the given url, optionally renaming it to the given local file name. Note that this function relies on the availability of external tools such as curl, wget or fetch to download the file and is provided for convenience. For production use or situations in which more options are needed, please use a package that provides the desired functionality instead.\n\n\n\n"
@@ -15066,7 +15066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mv",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mv",
     "category": "Function",
     "text": "mv(src::AbstractString, dst::AbstractString; remove_destination::Bool=false)\n\nMove the file, link, or directory from src to dst. remove_destination=true will first remove an existing dst.\n\n\n\n"
@@ -15074,7 +15074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.rm",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.rm",
     "category": "Function",
     "text": "rm(path::AbstractString; force::Bool=false, recursive::Bool=false)\n\nDelete the file, link, or empty directory at the given path. If force=true is passed, a non-existing path is not treated as error. If recursive=true is passed and the path is a directory, then all contents are removed recursively.\n\n\n\n"
@@ -15082,7 +15082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.touch",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.touch",
     "category": "Function",
     "text": "touch(path::AbstractString)\n\nUpdate the last-modified timestamp on a file to the current time.\n\n\n\n"
@@ -15090,7 +15090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.tempname",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.tempname",
     "category": "Function",
     "text": "tempname()\n\nGenerate a unique temporary file path.\n\n\n\n"
@@ -15098,7 +15098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.tempdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.tempdir",
     "category": "Function",
     "text": "tempdir()\n\nObtain the path of a temporary directory (possibly shared with other processes).\n\n\n\n"
@@ -15106,7 +15106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mktemp-Tuple{Any}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mktemp",
     "category": "Method",
     "text": "mktemp(parent=tempdir())\n\nReturns (path, io), where path is the path of a new temporary file in parent and io is an open file object for this path.\n\n\n\n"
@@ -15114,7 +15114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mktemp-Tuple{Function,Any}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mktemp",
     "category": "Method",
     "text": "mktemp(f::Function, parent=tempdir())\n\nApply the function f to the result of mktemp(parent) and remove the temporary file upon completion.\n\n\n\n"
@@ -15122,7 +15122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mktempdir-Tuple{Any}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mktempdir",
     "category": "Method",
     "text": "mktempdir(parent=tempdir())\n\nCreate a temporary directory in the parent directory and return its path. If parent does not exist, throw an error.\n\n\n\n"
@@ -15130,7 +15130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.mktempdir-Tuple{Function,Any}",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.mktempdir",
     "category": "Method",
     "text": "mktempdir(f::Function, parent=tempdir())\n\nApply the function f to the result of mktempdir(parent) and remove the temporary directory upon completion.\n\n\n\n"
@@ -15138,7 +15138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isblockdev",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isblockdev",
     "category": "Function",
     "text": "isblockdev(path) -> Bool\n\nReturns true if path is a block device, false otherwise.\n\n\n\n"
@@ -15146,7 +15146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.ischardev",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.ischardev",
     "category": "Function",
     "text": "ischardev(path) -> Bool\n\nReturns true if path is a character device, false otherwise.\n\n\n\n"
@@ -15154,7 +15154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isdir",
     "category": "Function",
     "text": "isdir(path) -> Bool\n\nReturns true if path is a directory, false otherwise.\n\n\n\n"
@@ -15162,7 +15162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isfifo",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isfifo",
     "category": "Function",
     "text": "isfifo(path) -> Bool\n\nReturns true if path is a FIFO, false otherwise.\n\n\n\n"
@@ -15170,7 +15170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isfile",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isfile",
     "category": "Function",
     "text": "isfile(path) -> Bool\n\nReturns true if path is a regular file, false otherwise.\n\n\n\n"
@@ -15178,7 +15178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.islink",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.islink",
     "category": "Function",
     "text": "islink(path) -> Bool\n\nReturns true if path is a symbolic link, false otherwise.\n\n\n\n"
@@ -15186,7 +15186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.ismount",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.ismount",
     "category": "Function",
     "text": "ismount(path) -> Bool\n\nReturns true if path is a mount point, false otherwise.\n\n\n\n"
@@ -15194,7 +15194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.ispath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.ispath",
     "category": "Function",
     "text": "ispath(path) -> Bool\n\nReturns true if path is a valid filesystem path, false otherwise.\n\n\n\n"
@@ -15202,7 +15202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.issetgid",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.issetgid",
     "category": "Function",
     "text": "issetgid(path) -> Bool\n\nReturns true if path has the setgid flag set, false otherwise.\n\n\n\n"
@@ -15210,7 +15210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.issetuid",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.issetuid",
     "category": "Function",
     "text": "issetuid(path) -> Bool\n\nReturns true if path has the setuid flag set, false otherwise.\n\n\n\n"
@@ -15218,7 +15218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.issocket",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.issocket",
     "category": "Function",
     "text": "issocket(path) -> Bool\n\nReturns true if path is a socket, false otherwise.\n\n\n\n"
@@ -15226,7 +15226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.issticky",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.issticky",
     "category": "Function",
     "text": "issticky(path) -> Bool\n\nReturns true if path has the sticky bit set, false otherwise.\n\n\n\n"
@@ -15234,7 +15234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.homedir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.homedir",
     "category": "Function",
     "text": "homedir() -> AbstractString\n\nReturn the current user's home directory.\n\nnote: Note\nhomedir determines the home directory via libuv's uv_os_homedir. For details (for example on how to specify the home directory via environment variables), see the uv_os_homedir documentation.\n\n\n\n"
@@ -15242,7 +15242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.dirname",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.dirname",
     "category": "Function",
     "text": "dirname(path::AbstractString) -> AbstractString\n\nGet the directory part of a path.\n\njulia> dirname(\"/home/myuser\")\n\"/home\"\n\nSee also: basename\n\n\n\n"
@@ -15250,7 +15250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.basename",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.basename",
     "category": "Function",
     "text": "basename(path::AbstractString) -> AbstractString\n\nGet the file name part of a path.\n\njulia> basename(\"/home/myuser/example.jl\")\n\"example.jl\"\n\nSee also: dirname\n\n\n\n"
@@ -15258,7 +15258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.@__FILE__",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.@__FILE__",
     "category": "Macro",
     "text": "@__FILE__ -> AbstractString\n\n@__FILE__ expands to a string with the absolute file path of the file containing the macro. Returns nothing if run from a REPL or an empty string if evaluated by julia -e <expr>. Alternatively see PROGRAM_FILE.\n\n\n\n"
@@ -15266,7 +15266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.@__DIR__",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.@__DIR__",
     "category": "Macro",
     "text": "@__DIR__ -> AbstractString\n\n@__DIR__ expands to a string with the directory part of the absolute path of the file containing the macro. Returns nothing if run from a REPL or an empty string if evaluated by julia -e <expr>.\n\n\n\n"
@@ -15274,7 +15274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#@__LINE__",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "@__LINE__",
     "category": "Macro",
     "text": "@__LINE__ -> Int\n\n@__LINE__ expands to the line number of the call-site.\n\n\n\n"
@@ -15282,7 +15282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isabspath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isabspath",
     "category": "Function",
     "text": "isabspath(path::AbstractString) -> Bool\n\nDetermines whether a path is absolute (begins at the root directory).\n\njulia> isabspath(\"/home\")\ntrue\n\njulia> isabspath(\"home\")\nfalse\n\n\n\n"
@@ -15290,7 +15290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.isdirpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.isdirpath",
     "category": "Function",
     "text": "isdirpath(path::AbstractString) -> Bool\n\nDetermines whether a path refers to a directory (for example, ends with a path separator).\n\njulia> isdirpath(\"/home\")\nfalse\n\njulia> isdirpath(\"/home/\")\ntrue\n\n\n\n"
@@ -15298,7 +15298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.joinpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.joinpath",
     "category": "Function",
     "text": "joinpath(parts...) -> AbstractString\n\nJoin path components into a full path. If some argument is an absolute path, then prior components are dropped.\n\njulia> joinpath(\"/home/myuser\",\"example.jl\")\n\"/home/myuser/example.jl\"\n\n\n\n"
@@ -15306,7 +15306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.abspath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.abspath",
     "category": "Function",
     "text": "abspath(path::AbstractString) -> AbstractString\n\nConvert a path to an absolute path by adding the current directory if necessary.\n\n\n\nabspath(path::AbstractString, paths::AbstractString...) -> AbstractString\n\nConvert a set of paths to an absolute path by joining them together and adding the current directory if necessary. Equivalent to abspath(joinpath(path, paths...)).\n\n\n\n"
@@ -15314,7 +15314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.normpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.normpath",
     "category": "Function",
     "text": "normpath(path::AbstractString) -> AbstractString\n\nNormalize a path, removing \".\" and \"..\" entries.\n\njulia> normpath(\"/home/myuser/../example.jl\")\n\"/home/example.jl\"\n\n\n\n"
@@ -15322,7 +15322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.realpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.realpath",
     "category": "Function",
     "text": "realpath(path::AbstractString) -> AbstractString\n\nCanonicalize a path by expanding symbolic links and removing \".\" and \"..\" entries.\n\n\n\n"
@@ -15330,7 +15330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.relpath",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.relpath",
     "category": "Function",
     "text": "relpath(path::AbstractString, startpath::AbstractString = \".\") -> AbstractString\n\nReturn a relative filepath to path either from the current directory or from an optional start directory. This is a path computation: the filesystem is not accessed to confirm the existence or nature of path or startpath.\n\n\n\n"
@@ -15338,7 +15338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.expanduser",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.expanduser",
     "category": "Function",
     "text": "expanduser(path::AbstractString) -> AbstractString\n\nOn Unix systems, replace a tilde character at the start of a path with the current user's home directory.\n\n\n\n"
@@ -15346,7 +15346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.splitdir",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.splitdir",
     "category": "Function",
     "text": "splitdir(path::AbstractString) -> (AbstractString, AbstractString)\n\nSplit a path into a tuple of the directory name and file name.\n\njulia> splitdir(\"/home/myuser\")\n(\"/home\", \"myuser\")\n\n\n\n"
@@ -15354,7 +15354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.splitdrive",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.splitdrive",
     "category": "Function",
     "text": "splitdrive(path::AbstractString) -> (AbstractString, AbstractString)\n\nOn Windows, split a path into the drive letter part and the path part. On Unix systems, the first component is always the empty string.\n\n\n\n"
@@ -15362,7 +15362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#Base.Filesystem.splitext",
-    "page": "Filesystem",
+    "page": "Sistema de Ficheros",
     "title": "Base.Filesystem.splitext",
     "category": "Function",
     "text": "splitext(path::AbstractString) -> (AbstractString, AbstractString)\n\nIf the last component of a path contains a dot, split the path into everything before the dot and everything including and after the dot. Otherwise, return a tuple of the argument unmodified and the empty string.\n\njulia> splitext(\"/home/myuser/example.jl\")\n(\"/home/myuser/example\", \".jl\")\n\njulia> splitext(\"/home/myuser/example\")\n(\"/home/myuser/example\", \"\")\n\n\n\n"
@@ -15370,31 +15370,31 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/file.html#filesystem-1",
-    "page": "Filesystem",
-    "title": "Filesystem",
+    "page": "Sistema de Ficheros",
+    "title": "Sistema de Ficheros",
     "category": "section",
     "text": "Base.Filesystem.pwd\nBase.Filesystem.cd(::AbstractString)\nBase.Filesystem.cd(::Function)\nBase.Filesystem.readdir\nBase.Filesystem.walkdir\nBase.Filesystem.mkdir\nBase.Filesystem.mkpath\nBase.Filesystem.symlink\nBase.Filesystem.readlink\nBase.Filesystem.chmod\nBase.Filesystem.chown\nBase.stat\nBase.Filesystem.lstat\nBase.Filesystem.ctime\nBase.Filesystem.mtime\nBase.Filesystem.filemode\nBase.Filesystem.filesize\nBase.Filesystem.uperm\nBase.Filesystem.gperm\nBase.Filesystem.operm\nBase.Filesystem.cp\nBase.download\nBase.Filesystem.mv\nBase.Filesystem.rm\nBase.Filesystem.touch\nBase.Filesystem.tempname\nBase.Filesystem.tempdir\nBase.Filesystem.mktemp(::Any)\nBase.Filesystem.mktemp(::Function, ::Any)\nBase.Filesystem.mktempdir(::Any)\nBase.Filesystem.mktempdir(::Function, ::Any)\nBase.Filesystem.isblockdev\nBase.Filesystem.ischardev\nBase.Filesystem.isdir\nBase.Filesystem.isfifo\nBase.Filesystem.isfile\nBase.Filesystem.islink\nBase.Filesystem.ismount\nBase.Filesystem.ispath\nBase.Filesystem.issetgid\nBase.Filesystem.issetuid\nBase.Filesystem.issocket\nBase.Filesystem.issticky\nBase.Filesystem.homedir\nBase.Filesystem.dirname\nBase.Filesystem.basename\nBase.@__FILE__\nBase.@__DIR__\n@__LINE__\nBase.Filesystem.isabspath\nBase.Filesystem.isdirpath\nBase.Filesystem.joinpath\nBase.Filesystem.abspath\nBase.Filesystem.normpath\nBase.Filesystem.realpath\nBase.Filesystem.relpath\nBase.Filesystem.expanduser\nBase.Filesystem.splitdir\nBase.Filesystem.splitdrive\nBase.Filesystem.splitext"
 },
 
 {
     "location": "stdlib/io-network.html#",
-    "page": "I/O and Network",
-    "title": "I/O and Network",
+    "page": "E/S y Redes",
+    "title": "E/S y Redes",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/io-network.html#io-network-1",
-    "page": "I/O and Network",
-    "title": "I/O and Network",
+    "page": "E/S y Redes",
+    "title": "E/S y Redes",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/io-network.html#Base.STDOUT",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.STDOUT",
     "category": "Constant",
     "text": "STDOUT\n\nGlobal variable referring to the standard out stream.\n\n\n\n"
@@ -15402,7 +15402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.STDERR",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.STDERR",
     "category": "Constant",
     "text": "STDERR\n\nGlobal variable referring to the standard error stream.\n\n\n\n"
@@ -15410,7 +15410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.STDIN",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.STDIN",
     "category": "Constant",
     "text": "STDIN\n\nGlobal variable referring to the standard input stream.\n\n\n\n"
@@ -15418,7 +15418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.open",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.open",
     "category": "Function",
     "text": "open(filename::AbstractString, [read::Bool, write::Bool, create::Bool, truncate::Bool, append::Bool]) -> IOStream\n\nOpen a file in a mode specified by five boolean arguments. The default is to open files for reading only. Returns a stream for accessing the file.\n\n\n\nopen(filename::AbstractString, [mode::AbstractString]) -> IOStream\n\nAlternate syntax for open, where a string-based mode specifier is used instead of the five booleans. The values of mode correspond to those from fopen(3) or Perl open, and are equivalent to setting the following boolean groups:\n\nMode Description\nr read\nr+ read, write\nw write, create, truncate\nw+ read, write, create, truncate\na write, create, append\na+ read, write, create, append\n\n\n\nopen(f::Function, args...)\n\nApply the function f to the result of open(args...) and close the resulting file descriptor upon completion.\n\nExample: open(readstring, \"file.txt\")\n\n\n\nopen(command, mode::AbstractString=\"r\", stdio=DevNull)\n\nStart running command asynchronously, and return a tuple (stream,process).  If mode is \"r\", then stream reads from the process's standard output and stdio optionally specifies the process's standard input stream.  If mode is \"w\", then stream writes to the process's standard input and stdio optionally specifies the process's standard output stream.\n\n\n\nopen(f::Function, command, mode::AbstractString=\"r\", stdio=DevNull)\n\nSimilar to open(command, mode, stdio), but calls f(stream) on the resulting read or write stream, then closes the stream and waits for the process to complete.  Returns the value returned by f.\n\n\n\n"
@@ -15426,7 +15426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IOBuffer",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IOBuffer",
     "category": "Type",
     "text": "IOBuffer([data,],[readable::Bool=true, writable::Bool=true, [maxsize::Int=typemax(Int)]])\n\nCreate an IOBuffer, which may optionally operate on a pre-existing array. If the readable/writable arguments are given, they restrict whether or not the buffer may be read from or written to respectively. The last argument optionally specifies a size beyond which the buffer may not be grown.\n\n\n\nIOBuffer() -> IOBuffer\n\nCreate an in-memory I/O stream.\n\n\n\nIOBuffer(size::Int)\n\nCreate a fixed size IOBuffer. The buffer will not grow dynamically.\n\n\n\nIOBuffer(string::String)\n\nCreate a read-only IOBuffer on the data underlying the given string.\n\njulia> io = IOBuffer(\"Haho\");\n\njulia> String(take!(io))\n\"Haho\"\n\njulia> String(take!(io))\n\"Haho\"\n\n\n\n"
@@ -15434,7 +15434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.take!-Tuple{Base.AbstractIOBuffer}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.take!",
     "category": "Method",
     "text": "take!(b::IOBuffer)\n\nObtain the contents of an IOBuffer as an array, without copying. Afterwards, the IOBuffer is reset to its initial state.\n\n\n\n"
@@ -15442,7 +15442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.fdio",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.fdio",
     "category": "Function",
     "text": "fdio([name::AbstractString, ]fd::Integer[, own::Bool=false]) -> IOStream\n\nCreate an IOStream object from an integer file descriptor. If own is true, closing this object will close the underlying descriptor. By default, an IOStream is closed when it is garbage collected. name allows you to associate the descriptor with a named file.\n\n\n\n"
@@ -15450,7 +15450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.flush",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.flush",
     "category": "Function",
     "text": "flush(stream)\n\nCommit all currently buffered writes to the given stream.\n\n\n\n"
@@ -15458,7 +15458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.close",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.close",
     "category": "Function",
     "text": "close(stream)\n\nClose an I/O stream. Performs a flush first.\n\n\n\n"
@@ -15466,7 +15466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.write",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.write",
     "category": "Function",
     "text": "write(stream::IO, x)\nwrite(filename::AbstractString, x)\n\nWrite the canonical binary representation of a value to the given I/O stream or file. Returns the number of bytes written into the stream.\n\nYou can write multiple values with the same write call. i.e. the following are equivalent:\n\nwrite(stream, x, y...)\nwrite(stream, x) + write(stream, y...)\n\n\n\n"
@@ -15474,7 +15474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.read",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.read",
     "category": "Function",
     "text": "read(filename::AbstractString, args...)\n\nOpen a file and read its contents. args is passed to read: this is equivalent to open(io->read(io, args...), filename).\n\n\n\nread(stream::IO, T, dims)\n\nRead a series of values of type T from stream, in canonical binary representation. dims is either a tuple or a series of integer arguments specifying the size of the Array{T} to return.\n\n\n\nread(s::IO, nb=typemax(Int))\n\nRead at most nb bytes from s, returning a Vector{UInt8} of the bytes read.\n\n\n\nread(s::IOStream, nb::Integer; all=true)\n\nRead at most nb bytes from s, returning a Vector{UInt8} of the bytes read.\n\nIf all is true (the default), this function will block repeatedly trying to read all requested bytes, until an error or end-of-file occurs. If all is false, at most one read call is performed, and the amount of data returned is device-dependent. Note that not all stream types support the all option.\n\n\n\nread(stream::IO, T)\n\nRead a single value of type T from stream, in canonical binary representation.\n\n\n\n"
@@ -15482,7 +15482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.read!",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.read!",
     "category": "Function",
     "text": "read!(stream::IO, array::Union{Array, BitArray})\nread!(filename::AbstractString, array::Union{Array, BitArray})\n\nRead binary data from an I/O stream or file, filling in array.\n\n\n\n"
@@ -15490,7 +15490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readbytes!",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readbytes!",
     "category": "Function",
     "text": "readbytes!(stream::IO, b::AbstractVector{UInt8}, nb=length(b))\n\nRead at most nb bytes from stream into b, returning the number of bytes read. The size of b will be increased if needed (i.e. if nb is greater than length(b) and enough bytes could be read), but it will never be decreased.\n\n\n\nreadbytes!(stream::IOStream, b::AbstractVector{UInt8}, nb=length(b); all::Bool=true)\n\nRead at most nb bytes from stream into b, returning the number of bytes read. The size of b will be increased if needed (i.e. if nb is greater than length(b) and enough bytes could be read), but it will never be decreased.\n\nSee read for a description of the all option.\n\n\n\n"
@@ -15498,7 +15498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.unsafe_read",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.unsafe_read",
     "category": "Function",
     "text": "unsafe_read(io::IO, ref, nbytes::UInt)\n\nCopy nbytes from the IO stream object into ref (converted to a pointer).\n\nIt is recommended that subtypes T<:IO override the following method signature to provide more efficient implementations: unsafe_read(s::T, p::Ptr{UInt8}, n::UInt)\n\n\n\n"
@@ -15506,7 +15506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.unsafe_write",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.unsafe_write",
     "category": "Function",
     "text": "unsafe_write(io::IO, ref, nbytes::UInt)\n\nCopy nbytes from ref (converted to a pointer) into the IO object.\n\nIt is recommended that subtypes T<:IO override the following method signature to provide more efficient implementations: unsafe_write(s::T, p::Ptr{UInt8}, n::UInt)\n\n\n\n"
@@ -15514,7 +15514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.position",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.position",
     "category": "Function",
     "text": "position(s)\n\nGet the current position of a stream.\n\n\n\n"
@@ -15522,7 +15522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.seek",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.seek",
     "category": "Function",
     "text": "seek(s, pos)\n\nSeek a stream to the given position.\n\n\n\n"
@@ -15530,7 +15530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.seekstart",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.seekstart",
     "category": "Function",
     "text": "seekstart(s)\n\nSeek a stream to its beginning.\n\n\n\n"
@@ -15538,7 +15538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.seekend",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.seekend",
     "category": "Function",
     "text": "seekend(s)\n\nSeek a stream to its end.\n\n\n\n"
@@ -15546,7 +15546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.skip",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.skip",
     "category": "Function",
     "text": "skip(s, offset)\n\nSeek a stream relative to the current position.\n\n\n\n"
@@ -15554,7 +15554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.mark",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.mark",
     "category": "Function",
     "text": "mark(s)\n\nAdd a mark at the current position of stream s. Returns the marked position.\n\nSee also unmark, reset, ismarked.\n\n\n\n"
@@ -15562,7 +15562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.unmark",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.unmark",
     "category": "Function",
     "text": "unmark(s)\n\nRemove a mark from stream s. Returns true if the stream was marked, false otherwise.\n\nSee also mark, reset, ismarked.\n\n\n\n"
@@ -15570,7 +15570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.reset",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.reset",
     "category": "Function",
     "text": "reset(s)\n\nReset a stream s to a previously marked position, and remove the mark. Returns the previously marked position. Throws an error if the stream is not marked.\n\nSee also mark, unmark, ismarked.\n\n\n\n"
@@ -15578,7 +15578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.ismarked",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.ismarked",
     "category": "Function",
     "text": "ismarked(s)\n\nReturns true if stream s is marked.\n\nSee also mark, unmark, reset.\n\n\n\n"
@@ -15586,7 +15586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.eof",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.eof",
     "category": "Function",
     "text": "eof(stream) -> Bool\n\nTests whether an I/O stream is at end-of-file. If the stream is not yet exhausted, this function will block to wait for more data if necessary, and then return false. Therefore it is always safe to read one byte after seeing eof return false. eof will return false as long as buffered data is still available, even if the remote end of a connection is closed.\n\n\n\n"
@@ -15594,7 +15594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.isreadonly",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.isreadonly",
     "category": "Function",
     "text": "isreadonly(stream) -> Bool\n\nDetermine whether a stream is read-only.\n\n\n\n"
@@ -15602,7 +15602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.iswritable",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.iswritable",
     "category": "Function",
     "text": "iswritable(io) -> Bool\n\nReturns true if the specified IO object is writable (if that can be determined).\n\n\n\n"
@@ -15610,7 +15610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.isreadable",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.isreadable",
     "category": "Function",
     "text": "isreadable(io) -> Bool\n\nReturns true if the specified IO object is readable (if that can be determined).\n\n\n\n"
@@ -15618,7 +15618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.isopen",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.isopen",
     "category": "Function",
     "text": "isopen(object) -> Bool\n\nDetermine whether an object - such as a stream, timer, or mmap – is not yet closed. Once an object is closed, it will never produce a new event. However, a closed stream may still have data to read in its buffer, use eof to check for the ability to read data. Use poll_fd to be notified when a stream might be writable or readable.\n\n\n\n"
@@ -15626,7 +15626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Serializer.serialize",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Serializer.serialize",
     "category": "Function",
     "text": "serialize(stream, value)\n\nWrite an arbitrary value to a stream in an opaque format, such that it can be read back by deserialize. The read-back value will be as identical as possible to the original. In general, this process will not work if the reading and writing are done by different versions of Julia, or an instance of Julia with a different system image. Ptr values are serialized as all-zero bit patterns (NULL).\n\n\n\n"
@@ -15634,7 +15634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Serializer.deserialize",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Serializer.deserialize",
     "category": "Function",
     "text": "deserialize(stream)\n\nRead a value written by serialize. deserialize assumes the binary data read from stream is correct and has been serialized by a compatible implementation of serialize. It has been designed with simplicity and performance as a goal and does not validate the data read. Malformed data can result in process termination. The caller has to ensure the integrity and correctness of data read from stream.\n\n\n\n"
@@ -15642,7 +15642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Grisu.print_shortest",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Grisu.print_shortest",
     "category": "Function",
     "text": "print_shortest(io, x)\n\nPrint the shortest possible representation, with the minimum number of consecutive non-zero digits, of number x, ensuring that it would parse to the exact same number.\n\n\n\n"
@@ -15650,7 +15650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.fd",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.fd",
     "category": "Function",
     "text": "fd(stream)\n\nReturns the file descriptor backing the stream or file. Note that this function only applies to synchronous File's and IOStream's not to any of the asynchronous streams.\n\n\n\n"
@@ -15658,7 +15658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stdout",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stdout",
     "category": "Function",
     "text": "redirect_stdout([stream]) -> (rd, wr)\n\nCreate a pipe to which all C and Julia level STDOUT output will be redirected. Returns a tuple (rd, wr) representing the pipe ends. Data written to STDOUT may now be read from the rd end of the pipe. The wr end is given for convenience in case the old STDOUT object was cached by the user and needs to be replaced elsewhere.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15666,7 +15666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stdout-Tuple{Function,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stdout",
     "category": "Method",
     "text": "redirect_stdout(f::Function, stream)\n\nRun the function f while redirecting STDOUT to stream. Upon completion, STDOUT is restored to its prior setting.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15674,7 +15674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stderr",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stderr",
     "category": "Function",
     "text": "redirect_stderr([stream]) -> (rd, wr)\n\nLike redirect_stdout, but for STDERR.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15682,7 +15682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stderr-Tuple{Function,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stderr",
     "category": "Method",
     "text": "redirect_stderr(f::Function, stream)\n\nRun the function f while redirecting STDERR to stream. Upon completion, STDERR is restored to its prior setting.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15690,7 +15690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stdin",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stdin",
     "category": "Function",
     "text": "redirect_stdin([stream]) -> (rd, wr)\n\nLike redirect_stdout, but for STDIN. Note that the order of the return tuple is still (rd, wr), i.e. data to be read from STDIN may be written to wr.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15698,7 +15698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.redirect_stdin-Tuple{Function,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.redirect_stdin",
     "category": "Method",
     "text": "redirect_stdin(f::Function, stream)\n\nRun the function f while redirecting STDIN to stream. Upon completion, STDIN is restored to its prior setting.\n\nnote: Note\nstream must be a TTY, a Pipe, or a TCPSocket.\n\n\n\n"
@@ -15706,7 +15706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readchomp",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readchomp",
     "category": "Function",
     "text": "readchomp(x)\n\nRead the entirety of x as a string and remove a single trailing newline. Equivalent to chomp!(readstring(x)).\n\n\n\n"
@@ -15714,7 +15714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.truncate",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.truncate",
     "category": "Function",
     "text": "truncate(file,n)\n\nResize the file or buffer given by the first argument to exactly n bytes, filling previously unallocated space with '\\0' if the file or buffer is grown.\n\n\n\n"
@@ -15722,7 +15722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.skipchars",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.skipchars",
     "category": "Function",
     "text": "skipchars(stream, predicate; linecomment::Char)\n\nAdvance the stream until before the first character for which predicate returns false. For example skipchars(stream, isspace) will skip all whitespace. If keyword argument linecomment is specified, characters from that character through the end of a line will also be skipped.\n\n\n\n"
@@ -15730,7 +15730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.countlines",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.countlines",
     "category": "Function",
     "text": "countlines(io::IO, eol::Char='\\n')\n\nRead io until the end of the stream/file and count the number of lines. To specify a file pass the filename as the first argument. EOL markers other than '\\n' are supported by passing them as the second argument.\n\n\n\n"
@@ -15738,7 +15738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.PipeBuffer",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.PipeBuffer",
     "category": "Function",
     "text": "PipeBuffer(data::Vector{UInt8}=UInt8[],[maxsize::Int=typemax(Int)])\n\nAn IOBuffer that allows reading and performs writes by appending. Seeking and truncating are not supported. See IOBuffer for the available constructors. If data is given, creates a PipeBuffer to operate on a data vector, optionally specifying a size beyond which the underlying Array may not be grown.\n\n\n\n"
@@ -15746,7 +15746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readavailable",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readavailable",
     "category": "Function",
     "text": "readavailable(stream)\n\nRead all available data on the stream, blocking the task only if no data is available. The result is a Vector{UInt8,1}.\n\n\n\n"
@@ -15754,7 +15754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IOContext",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IOContext",
     "category": "Type",
     "text": "IOContext\n\nIOContext provides a mechanism for passing output configuration settings among show methods.\n\nIn short, it is an immutable dictionary that is a subclass of IO. It supports standard dictionary operations such as getindex, and can also be used as an I/O stream.\n\n\n\n"
@@ -15762,7 +15762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IOContext-Tuple{IO,Pair}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IOContext",
     "category": "Method",
     "text": "IOContext(io::IO, KV::Pair)\n\nCreate an IOContext that wraps a given stream, adding the specified key=>value pair to the properties of that stream (note that io can itself be an IOContext).\n\nuse (key => value) in dict to see if this particular combination is in the properties set\nuse get(dict, key, default) to retrieve the most recent value for a particular key\n\nThe following properties are in common use:\n\n:compact: Boolean specifying that small values should be printed more compactly, e.g. that numbers should be printed with fewer digits. This is set when printing array elements.\n:limit: Boolean specifying that containers should be truncated, e.g. showing … in place of most elements.\n:displaysize: A Tuple{Int,Int} giving the size in rows and columns to use for text output. This can be used to override the display size for called functions, but to get the size of the screen use the displaysize function.\n\njulia> function f(io::IO)\n           if get(io, :short, false)\n               print(io, \"short\")\n           else\n               print(io, \"loooooong\")\n           end\n       end\nf (generic function with 1 method)\n\njulia> f(STDOUT)\nloooooong\njulia> f(IOContext(STDOUT, :short => true))\nshort\n\n\n\n"
@@ -15770,23 +15770,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IOContext-Tuple{IO,IOContext}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IOContext",
     "category": "Method",
     "text": "IOContext(io::IO, context::IOContext)\n\nCreate an IOContext that wraps an alternate IO but inherits the properties of context.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/io-network.html#General-I/O-1",
-    "page": "I/O and Network",
-    "title": "General I/O",
+    "location": "stdlib/io-network.html#E/S-General-1",
+    "page": "E/S y Redes",
+    "title": "E/S General",
     "category": "section",
     "text": "Base.STDOUT\nBase.STDERR\nBase.STDIN\nBase.open\nBase.IOBuffer\nBase.take!(::Base.AbstractIOBuffer)\nBase.fdio\nBase.flush\nBase.close\nBase.write\nBase.read\nBase.read!\nBase.readbytes!\nBase.unsafe_read\nBase.unsafe_write\nBase.position\nBase.seek\nBase.seekstart\nBase.seekend\nBase.skip\nBase.mark\nBase.unmark\nBase.reset\nBase.ismarked\nBase.eof\nBase.isreadonly\nBase.iswritable\nBase.isreadable\nBase.isopen\nBase.Serializer.serialize\nBase.Serializer.deserialize\nBase.Grisu.print_shortest\nBase.fd\nBase.redirect_stdout\nBase.redirect_stdout(::Function, ::Any)\nBase.redirect_stderr\nBase.redirect_stderr(::Function, ::Any)\nBase.redirect_stdin\nBase.redirect_stdin(::Function, ::Any)\nBase.readchomp\nBase.truncate\nBase.skipchars\nBase.DataFmt.countlines\nBase.PipeBuffer\nBase.readavailable\nBase.IOContext\nBase.IOContext(::IO, ::Pair)\nBase.IOContext(::IO, ::IOContext)"
 },
 
 {
     "location": "stdlib/io-network.html#Base.show-Tuple{Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.show",
     "category": "Method",
     "text": "show(x)\n\nWrite an informative text representation of a value to the current output stream. New types should overload show(io, x) where the first argument is a stream. The representation used by show generally includes Julia-specific formatting and type information.\n\n\n\n"
@@ -15794,7 +15794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.showcompact",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.showcompact",
     "category": "Function",
     "text": "showcompact(x)\n\nShow a compact representation of a value.\n\nThis is used for printing array elements without repeating type information (which would be redundant with that printed once for the whole array), and without line breaks inside the representation of an element.\n\nTo offer a compact representation different from its standard one, a custom type should test get(io, :compact, false) in its normal show method.\n\n\n\n"
@@ -15802,7 +15802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.showall",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.showall",
     "category": "Function",
     "text": "showall(x)\n\nSimilar to show, except shows all elements of arrays.\n\n\n\n"
@@ -15810,7 +15810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.summary",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.summary",
     "category": "Function",
     "text": "summary(x)\n\nReturn a string giving a brief description of a value. By default returns string(typeof(x)), e.g. Int64.\n\nFor arrays, returns a string of size and type info, e.g. 10-element Array{Int64,1}.\n\njulia> summary(1)\n\"Int64\"\n\njulia> summary(zeros(2))\n\"2-element Array{Float64,1}\"\n\n\n\n"
@@ -15818,7 +15818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.print",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.print",
     "category": "Function",
     "text": "print(io::IO, x)\n\nWrite to io (or to the default output stream STDOUT if io is not given) a canonical (un-decorated) text representation of a value if there is one, otherwise call show. The representation used by print includes minimal formatting and tries to avoid Julia-specific details.\n\njulia> print(\"Hello World!\")\nHello World!\njulia> io = IOBuffer();\n\njulia> print(io, \"Hello World!\")\n\njulia> String(take!(io))\n\"Hello World!\"\n\n\n\n"
@@ -15826,7 +15826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.println",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.println",
     "category": "Function",
     "text": "println(io::IO, xs...)\n\nPrint (using print) xs followed by a newline. If io is not supplied, prints to STDOUT.\n\n\n\n"
@@ -15834,7 +15834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.print_with_color",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.print_with_color",
     "category": "Function",
     "text": "print_with_color(color::Union{Symbol, Int}, [io], xs...; bold::Bool = false)\n\nPrint xs in a color specified as a symbol.\n\ncolor may take any of the values :normal, :default, :bold, :black, :blue, :cyan, :green, :light_black, :light_blue, :light_cyan, :light_green, :light_magenta, :light_red, :light_yellow, :magenta, :nothing, :red, :white, or  :yellow or an integer between 0 and 255 inclusive. Note that not all terminals support 256 colors. If the keyword bold is given as true, the result will be printed in bold.\n\n\n\n"
@@ -15842,7 +15842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.info",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.info",
     "category": "Function",
     "text": "info([io, ] msg..., [prefix=\"INFO: \"])\n\nDisplay an informational message. Argument msg is a string describing the information to be displayed. The prefix keyword argument can be used to override the default prepending of msg.\n\njulia> info(\"hello world\")\nINFO: hello world\n\njulia> info(\"hello world\"; prefix=\"MY INFO: \")\nMY INFO: hello world\n\nSee also logging.\n\n\n\n"
@@ -15850,7 +15850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.warn",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.warn",
     "category": "Function",
     "text": "warn([io, ] msg..., [prefix=\"WARNING: \", once=false, key=nothing, bt=nothing, filename=nothing, lineno::Int=0])\n\nDisplay a warning. Argument msg is a string describing the warning to be displayed.  Set once to true and specify a key to only display msg the first time warn is called.  If bt is not nothing a backtrace is displayed. If filename is not nothing both it and lineno are displayed.\n\nSee also logging.\n\n\n\nwarn(msg)\n\nDisplay a warning. Argument msg is a string describing the warning to be displayed.\n\njulia> warn(\"Beep Beep\")\nWARNING: Beep Beep\n\n\n\n"
@@ -15858,7 +15858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.logging",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.logging",
     "category": "Function",
     "text": "logging(io [, m [, f]][; kind=:all])\nlogging([; kind=:all])\n\nStream output of informational, warning, and/or error messages to io, overriding what was otherwise specified.  Optionally, divert stream only for module m, or specifically function f within m.  kind can be :all (the default), :info, :warn, or :error.  See Base.log_{info,warn,error}_to for the current set of redirections.  Call logging with no arguments (or just the kind) to reset everything.\n\n\n\n"
@@ -15866,7 +15866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Printf.@printf",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Printf.@printf",
     "category": "Macro",
     "text": "@printf([io::IOStream], \"%Fmt\", args...)\n\nPrint args using C printf() style format specification string, with some caveats: Inf and NaN are printed consistently as Inf and NaN for flags %a, %A, %e, %E, %f, %F, %g, and %G. Furthermore, if a floating point number is equally close to the numeric values of two possible output strings, the output string further away from zero is chosen.\n\nOptionally, an IOStream may be passed as the first argument to redirect output.\n\nExamples\n\njulia> @printf(\"%f %F %f %F\\n\", Inf, Inf, NaN, NaN)\nInf Inf NaN NaN\n\n\njulia> @printf \"%.0f %.1f %f\\n\" 0.5 0.025 -0.0078125\n1 0.0 -0.007813\n\n\n\n"
@@ -15874,7 +15874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Printf.@sprintf",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Printf.@sprintf",
     "category": "Macro",
     "text": "@sprintf(\"%Fmt\", args...)\n\nReturn @printf formatted output as string.\n\nExamples\n\njulia> s = @sprintf \"this is a %s %15.1f\" \"test\" 34.567;\n\njulia> println(s)\nthis is a test            34.6\n\n\n\n"
@@ -15882,7 +15882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.sprint",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.sprint",
     "category": "Function",
     "text": "sprint(f::Function, args...)\n\nCall the given function with an I/O stream and the supplied extra arguments. Everything written to this I/O stream is returned as a string.\n\njulia> sprint(showcompact, 66.66666)\n\"66.6667\"\n\n\n\n"
@@ -15890,7 +15890,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.showerror",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.showerror",
     "category": "Function",
     "text": "showerror(io, e)\n\nShow a descriptive representation of an exception object.\n\n\n\n"
@@ -15898,7 +15898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.dump",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.dump",
     "category": "Function",
     "text": "dump(x)\n\nShow every part of the representation of a value.\n\n\n\n"
@@ -15906,7 +15906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readstring",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readstring",
     "category": "Function",
     "text": "readstring(stream::IO)\nreadstring(filename::AbstractString)\n\nRead the entire contents of an I/O stream or a file as a string. The text is assumed to be encoded in UTF-8.\n\n\n\n"
@@ -15914,7 +15914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readline",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readline",
     "category": "Function",
     "text": "readline(stream::IO=STDIN; chomp::Bool=true)\nreadline(filename::AbstractString; chomp::Bool=true)\n\nRead a single line of text from the given I/O stream or file (defaults to STDIN). When reading from a file, the text is assumed to be encoded in UTF-8. Lines in the input end with '\\n' or \"\\r\\n\" or the end of an input stream. When chomp is true (as it is by default), these trailing newline characters are removed from the line before it is returned. When chomp is false, they are returned as part of the line.\n\n\n\n"
@@ -15922,7 +15922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readuntil",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readuntil",
     "category": "Function",
     "text": "readuntil(stream::IO, delim)\nreaduntil(filename::AbstractString, delim)\n\nRead a string from an I/O stream or a file, up to and including the given delimiter byte. The text is assumed to be encoded in UTF-8.\n\n\n\n"
@@ -15930,7 +15930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.readlines",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.readlines",
     "category": "Function",
     "text": "readlines(stream::IO=STDIN; chomp::Bool=true)\nreadlines(filename::AbstractString; chomp::Bool=true)\n\nRead all lines of an I/O stream or a file as a vector of strings. Behavior is equivalent to saving the result of reading readline repeatedly with the same arguments and saving the resulting lines as a vector of strings.\n\n\n\n"
@@ -15938,7 +15938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.eachline",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.eachline",
     "category": "Function",
     "text": "eachline(stream::IO=STDIN; chomp::Bool=true)\neachline(filename::AbstractString; chomp::Bool=true)\n\nCreate an iterable EachLine object that will yield each line from an I/O stream or a file. Iteration calls readline on the stream argument repeatedly with chomp passed through, determining whether trailing end-of-line characters are removed. When called with a file name, the file is opened once at the beginning of iteration and closed at the end. If iteration is interrupted, the file will be closed when the EachLine object is garbage collected.\n\n\n\n"
@@ -15946,7 +15946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any,Char,Type,Char}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source, delim::Char, T::Type, eol::Char; header=false, skipstart=0, skipblanks=true, use_mmap, quotes=true, dims, comments=true, comment_char='#')\n\nRead a matrix from the source where each line (separated by eol) gives one row, with elements separated by the given delimiter. The source can be a text file, stream or byte array. Memory mapped files can be used by passing the byte array representation of the mapped segment as source.\n\nIf T is a numeric type, the result is an array of that type, with any non-numeric elements as NaN for floating-point types, or zero. Other useful values of T include String, AbstractString, and Any.\n\nIf header is true, the first row of data will be read as header and the tuple (data_cells, header_cells) is returned instead of only data_cells.\n\nSpecifying skipstart will ignore the corresponding number of initial lines from the input.\n\nIf skipblanks is true, blank lines in the input will be ignored.\n\nIf use_mmap is true, the file specified by source is memory mapped for potential speedups. Default is true except on Windows. On Windows, you may want to specify true if the file is large, and is only read once and not written to.\n\nIf quotes is true, columns enclosed within double-quote (\") characters are allowed to contain new lines and column delimiters. Double-quote characters within a quoted field must be escaped with another double-quote.  Specifying dims as a tuple of the expected rows and columns (including header, if any) may speed up reading of large files.  If comments is true, lines beginning with comment_char and text following comment_char in any line are ignored.\n\n\n\n"
@@ -15954,7 +15954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any,Char,Char}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source, delim::Char, eol::Char; options...)\n\nIf all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a heterogeneous array of numbers and strings is returned.\n\n\n\n"
@@ -15962,7 +15962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any,Char,Type}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source, delim::Char, T::Type; options...)\n\nThe end of line delimiter is taken as \\n.\n\n\n\n"
@@ -15970,7 +15970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any,Char}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source, delim::Char; options...)\n\nThe end of line delimiter is taken as \\n. If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a heterogeneous array of numbers and strings is returned.\n\n\n\n"
@@ -15978,7 +15978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any,Type}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source, T::Type; options...)\n\nThe columns are assumed to be separated by one or more whitespaces. The end of line delimiter is taken as \\n.\n\n\n\n"
@@ -15986,7 +15986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readdlm-Tuple{Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readdlm",
     "category": "Method",
     "text": "readdlm(source; options...)\n\nThe columns are assumed to be separated by one or more whitespaces. The end of line delimiter is taken as \\n. If all data is numeric, the result will be a numeric array. If some elements cannot be parsed as numbers, a heterogeneous array of numbers and strings is returned.\n\n\n\n"
@@ -15994,7 +15994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.writedlm",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.writedlm",
     "category": "Function",
     "text": "writedlm(f, A, delim='\\t'; opts)\n\nWrite A (a vector, matrix, or an iterable collection of iterable rows) as text to f (either a filename string or an IO stream) using the given delimiter delim (which defaults to tab, but can be any printable Julia object, typically a Char or AbstractString).\n\nFor example, two vectors x and y of the same length can be written as two columns of tab-delimited text to f by either writedlm(f, [x y]) or by writedlm(f, zip(x, y)).\n\n\n\n"
@@ -16002,7 +16002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.readcsv",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.readcsv",
     "category": "Function",
     "text": "readcsv(source, [T::Type]; options...)\n\nEquivalent to readdlm with delim set to comma, and type optionally defined by T.\n\n\n\n"
@@ -16010,7 +16010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.DataFmt.writecsv",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.DataFmt.writecsv",
     "category": "Function",
     "text": "writecsv(filename, A; opts)\n\nEquivalent to writedlm with delim set to comma.\n\n\n\n"
@@ -16018,7 +16018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Base64.Base64EncodePipe",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Base64.Base64EncodePipe",
     "category": "Type",
     "text": "Base64EncodePipe(ostream)\n\nReturns a new write-only I/O stream, which converts any bytes written to it into base64-encoded ASCII bytes written to ostream. Calling close on the Base64EncodePipe stream is necessary to complete the encoding (but does not close ostream).\n\njulia> io = IOBuffer();\n\njulia> iob64_encode = Base64EncodePipe(io);\n\njulia> write(iob64_encode, \"Hello!\")\n6\n\njulia> close(iob64_encode);\n\njulia> str = String(take!(io))\n\"SGVsbG8h\"\n\njulia> String(base64decode(str))\n\"Hello!\"\n\n\n\n"
@@ -16026,7 +16026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Base64.Base64DecodePipe",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Base64.Base64DecodePipe",
     "category": "Type",
     "text": "Base64DecodePipe(istream)\n\nReturns a new read-only I/O stream, which decodes base64-encoded data read from istream.\n\njulia> io = IOBuffer();\n\njulia> iob64_decode = Base64DecodePipe(io);\n\njulia> write(io, \"SGVsbG8h\")\n8\n\njulia> seekstart(io);\n\njulia> String(read(iob64_decode))\n\"Hello!\"\n\n\n\n"
@@ -16034,7 +16034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Base64.base64encode",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Base64.base64encode",
     "category": "Function",
     "text": "base64encode(writefunc, args...)\nbase64encode(args...)\n\nGiven a write-like function writefunc, which takes an I/O stream as its first argument, base64encode(writefunc, args...) calls writefunc to write args... to a base64-encoded string, and returns the string. base64encode(args...) is equivalent to base64encode(write, args...): it converts its arguments into bytes using the standard write functions and returns the base64-encoded string.\n\nSee also base64decode.\n\n\n\n"
@@ -16042,7 +16042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Base64.base64decode",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Base64.base64decode",
     "category": "Function",
     "text": "base64decode(string)\n\nDecodes the base64-encoded string and returns a Vector{UInt8} of the decoded bytes.\n\nSee also base64encode\n\njulia> b = base64decode(\"SGVsbG8h\")\n6-element Array{UInt8,1}:\n 0x48\n 0x65\n 0x6c\n 0x6c\n 0x6f\n 0x21\n\njulia> String(b)\n\"Hello!\"\n\n\n\n"
@@ -16050,23 +16050,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.displaysize",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.displaysize",
     "category": "Function",
     "text": "displaysize(io) -> (lines, columns)\n\nReturn the nominal size of the screen that may be used for rendering output to this io object\n\n\n\n"
 },
 
 {
-    "location": "stdlib/io-network.html#Text-I/O-1",
-    "page": "I/O and Network",
-    "title": "Text I/O",
+    "location": "stdlib/io-network.html#E/S-Texto-1",
+    "page": "E/S y Redes",
+    "title": "E/S Texto",
     "category": "section",
     "text": "Base.show(::Any)\nBase.showcompact\nBase.showall\nBase.summary\nBase.print\nBase.println\nBase.print_with_color\nBase.info\nBase.warn\nBase.logging\nBase.Printf.@printf\nBase.Printf.@sprintf\nBase.sprint\nBase.showerror\nBase.dump\nBase.readstring\nBase.readline\nBase.readuntil\nBase.readlines\nBase.eachline\nBase.DataFmt.readdlm(::Any, ::Char, ::Type, ::Char)\nBase.DataFmt.readdlm(::Any, ::Char, ::Char)\nBase.DataFmt.readdlm(::Any, ::Char, ::Type)\nBase.DataFmt.readdlm(::Any, ::Char)\nBase.DataFmt.readdlm(::Any, ::Type)\nBase.DataFmt.readdlm(::Any)\nBase.DataFmt.writedlm\nBase.DataFmt.readcsv\nBase.DataFmt.writecsv\nBase.Base64.Base64EncodePipe\nBase.Base64.Base64DecodePipe\nBase.Base64.base64encode\nBase.Base64.base64decode\nBase.displaysize"
 },
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.display",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.display",
     "category": "Function",
     "text": "display(x)\ndisplay(d::Display, x)\ndisplay(mime, x)\ndisplay(d::Display, mime, x)\n\nDisplay x using the topmost applicable display in the display stack, typically using the richest supported multimedia output for x, with plain-text STDOUT output as a fallback. The display(d, x) variant attempts to display x on the given display d only, throwing a MethodError if d cannot display objects of this type.\n\nThere are also two variants with a mime argument (a MIME type string, such as \"image/png\"), which attempt to display x using the requested MIME type only, throwing a MethodError if this type is not supported by either the display(s) or by x. With these variants, one can also supply the \"raw\" data in the requested MIME type by passing x::AbstractString (for MIME types with text-based storage, such as text/html or application/postscript) or x::Vector{UInt8} (for binary MIME types).\n\n\n\n"
@@ -16074,7 +16074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.redisplay",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.redisplay",
     "category": "Function",
     "text": "redisplay(x)\nredisplay(d::Display, x)\nredisplay(mime, x)\nredisplay(d::Display, mime, x)\n\nBy default, the redisplay functions simply call display. However, some display backends may override redisplay to modify an existing display of x (if any). Using redisplay is also a hint to the backend that x may be redisplayed several times, and the backend may choose to defer the display until (for example) the next interactive prompt.\n\n\n\n"
@@ -16082,7 +16082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.displayable",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.displayable",
     "category": "Function",
     "text": "displayable(mime) -> Bool\ndisplayable(d::Display, mime) -> Bool\n\nReturns a boolean value indicating whether the given mime type (string) is displayable by any of the displays in the current display stack, or specifically by the display d in the second variant.\n\n\n\n"
@@ -16090,7 +16090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.show-Tuple{Any,Any,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.show",
     "category": "Method",
     "text": "show(stream, mime, x)\n\nThe display functions ultimately call show in order to write an object x as a given mime type to a given I/O stream (usually a memory buffer), if possible. In order to provide a rich multimedia representation of a user-defined type T, it is only necessary to define a new show method for T, via: show(stream, ::MIME\"mime\", x::T) = ..., where mime is a MIME-type string and the function body calls write (or similar) to write that representation of x to stream. (Note that the MIME\"\" notation only supports literal strings; to construct MIME types in a more flexible manner use MIME{Symbol(\"\")}.)\n\nFor example, if you define a MyImage type and know how to write it to a PNG file, you could define a function show(stream, ::MIME\"image/png\", x::MyImage) = ... to allow your images to be displayed on any PNG-capable Display (such as IJulia). As usual, be sure to import Base.show in order to add new methods to the built-in Julia function show.\n\nThe default MIME type is MIME\"text/plain\". There is a fallback definition for text/plain output that calls show with 2 arguments. Therefore, this case should be handled by defining a 2-argument show(stream::IO, x::MyType) method.\n\nTechnically, the MIME\"mime\" macro defines a singleton type for the given mime string, which allows us to exploit Julia's dispatch mechanisms in determining how to display objects of any given type.\n\nThe first argument to show can be an IOContext specifying output format properties. See IOContext for details.\n\n\n\n"
@@ -16098,7 +16098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.mimewritable",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.mimewritable",
     "category": "Function",
     "text": "mimewritable(mime, x)\n\nReturns a boolean value indicating whether or not the object x can be written as the given mime type. (By default, this is determined automatically by the existence of the corresponding show method for typeof(x).)\n\n\n\n"
@@ -16106,7 +16106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.reprmime",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.reprmime",
     "category": "Function",
     "text": "reprmime(mime, x)\n\nReturns an AbstractString or Vector{UInt8} containing the representation of x in the requested mime type, as written by show (throwing a MethodError if no appropriate show is available). An AbstractString is returned for MIME types with textual representations (such as \"text/html\" or \"application/postscript\"), whereas binary data is returned as Vector{UInt8}. (The function istextmime(mime) returns whether or not Julia treats a given mime type as text.)\n\nAs a special case, if x is an AbstractString (for textual MIME types) or a Vector{UInt8} (for binary MIME types), the reprmime function assumes that x is already in the requested mime format and simply returns x. This special case does not apply to the \"text/plain\" MIME type. This is useful so that raw data can be passed to display(m::MIME, x).\n\n\n\n"
@@ -16114,7 +16114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.stringmime",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.stringmime",
     "category": "Function",
     "text": "stringmime(mime, x)\n\nReturns an AbstractString containing the representation of x in the requested mime type. This is similar to reprmime except that binary data is base64-encoded as an ASCII string.\n\n\n\n"
@@ -16122,7 +16122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.pushdisplay",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.pushdisplay",
     "category": "Function",
     "text": "pushdisplay(d::Display)\n\nPushes a new display d on top of the global display-backend stack. Calling display(x) or display(mime, x) will display x on the topmost compatible backend in the stack (i.e., the topmost backend that does not throw a MethodError).\n\n\n\n"
@@ -16130,7 +16130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.popdisplay",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.popdisplay",
     "category": "Function",
     "text": "popdisplay()\npopdisplay(d::Display)\n\nPop the topmost backend off of the display-backend stack, or the topmost copy of d in the second variant.\n\n\n\n"
@@ -16138,7 +16138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.TextDisplay",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.TextDisplay",
     "category": "Type",
     "text": "TextDisplay(io::IO)\n\nReturns a TextDisplay <: Display, which displays any object as the text/plain MIME type (by default), writing the text representation to the given I/O stream. (This is how objects are printed in the Julia REPL.)\n\n\n\n"
@@ -16146,23 +16146,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Multimedia.istextmime",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Multimedia.istextmime",
     "category": "Function",
     "text": "istextmime(m::MIME)\n\nDetermine whether a MIME type is text data. MIME types are assumed to be binary data except for a set of types known to be text data (possibly Unicode).\n\n\n\n"
 },
 
 {
-    "location": "stdlib/io-network.html#Multimedia-I/O-1",
-    "page": "I/O and Network",
-    "title": "Multimedia I/O",
+    "location": "stdlib/io-network.html#multimedia-io-1",
+    "page": "E/S y Redes",
+    "title": "E/S Multimedia",
     "category": "section",
-    "text": "Just as text output is performed by print and user-defined types can indicate their textual representation by overloading show, Julia provides a standardized mechanism for rich multimedia output (such as images, formatted text, or even audio and video), consisting of three parts:A function display(x) to request the richest available multimedia display of a Julia object x (with a plain-text fallback).\nOverloading show allows one to indicate arbitrary multimedia representations (keyed by standard MIME types) of user-defined types.\nMultimedia-capable display backends may be registered by subclassing a generic Display type and pushing them onto a stack of display backends via pushdisplay.The base Julia runtime provides only plain-text display, but richer displays may be enabled by loading external modules or by using graphical Julia environments (such as the IPython-based IJulia notebook).Base.Multimedia.display\nBase.Multimedia.redisplay\nBase.Multimedia.displayable\nBase.show(::Any, ::Any, ::Any)\nBase.Multimedia.mimewritable\nBase.Multimedia.reprmime\nBase.Multimedia.stringmimeAs mentioned above, one can also define new display backends. For example, a module that can display PNG images in a window can register this capability with Julia, so that calling display(x) on types with PNG representations will automatically display the image using the module's window.In order to define a new display backend, one should first create a subtype D of the abstract class Display.  Then, for each MIME type (mime string) that can be displayed on D, one should define a function display(d::D, ::MIME\"mime\", x) = ... that displays x as that MIME type, usually by calling reprmime(mime, x).  A MethodError should be thrown if x cannot be displayed as that MIME type; this is automatic if one calls reprmime. Finally, one should define a function display(d::D, x) that queries mimewritable(mime, x) for the mime types supported by D and displays the \"best\" one; a MethodError should be thrown if no supported MIME types are found for x.  Similarly, some subtypes may wish to override redisplay(d::D, ...). (Again, one should import Base.display to add new methods to display.) The return values of these functions are up to the implementation (since in some cases it may be useful to return a display \"handle\" of some type).  The display functions for D can then be called directly, but they can also be invoked automatically from display(x) simply by pushing a new display onto the display-backend stack with:Base.Multimedia.pushdisplay\nBase.Multimedia.popdisplay\nBase.Multimedia.TextDisplay\nBase.Multimedia.istextmime"
+    "text": "Del mismo modo que la salida de texto se realiza mediante print y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando show, Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video) que consta de tres partes:Una función display(x) para solicitar la visualización multimedia más completa disponible de un objeto Julia x (con una reserva de texto sin formato).\nSobrecargar show permite indicar representaciones multimedia arbitrarias (codificadas mediante tipos MIME estándar) de tipos definidos por el usuario.\nPueden registrarse backends de visualización con capacidad multimedia subclasificando un tipo genérico de Display y poniéndolos en una pila de backends de visualización mediante pushdisplay.El tiempo de ejecución base de Julia proporciona solo visualización de texto sin formato, pero las pantallas más ricas pueden habilitarse cargando módulos externos o utilizando entornos gráficos de Julia (como el notebook IJulia, basado en IPython).Base.Multimedia.display\nBase.Multimedia.redisplay\nBase.Multimedia.displayable\nBase.show(::Any, ::Any, ::Any)\nBase.Multimedia.mimewritable\nBase.Multimedia.reprmime\nBase.Multimedia.stringmimeComo se mencionó anteriormente, también se pueden definir nuevos backends de pantalla. Por ejemplo, un módulo que puede mostrar imágenes PNG en una ventana puede registrar esta capacidad con Julia, de modo que llamar a display(x) en tipos con representaciones PNG mostrará automáticamente la imagen usando la ventana del módulo.Para definir un nuevo backend de pantalla, primero se debe crear un subtipo D de la clase abstracta Display. Luego, para cada tipo MIME (cadena mime) que se puede mostrar en D, uno debe definir una función display(d::D, ::MIME\"mime\", x) = ... que muestra x como ese tipo MIME, generalmente llamando a reprmime(mime, x). Se debe lanzar MethodError si x no se puede mostrar como ese tipo MIME; esto es automático si uno llama a reprmime. Finalmente, se debe definir una función display(d::D, x) que consulte mimewritable(mime,x) para los tipos mime soportados por D y muestre el \"mejor\"; debe lanzarse un MethodError si no se encuentran tipos MIME soportados para x. Del mismo modo, algunos subtipos pueden sobreescribir redisplay(d::D, ...). (De nuevo, uno debe hacer import Base.display para agregar nuevos métodos a display.) Los valores de retorno de estas funciones dependen de la implementación (ya que en algunos casos puede ser útil devolver un \"manejador\" handle de visualización de algunos tipo). Las funciones de visualización para D se pueden llamar directamente, pero también se pueden invocar automáticamente desde display(x) simplemente presionando una nueva pantalla en la pila display-backend con:Base.Multimedia.pushdisplay\nBase.Multimedia.popdisplay\nBase.Multimedia.TextDisplay\nBase.Multimedia.istextmime"
 },
 
 {
     "location": "stdlib/io-network.html#Base.Mmap.Anonymous",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Mmap.Anonymous",
     "category": "Type",
     "text": "Mmap.Anonymous(name, readonly, create)\n\nCreate an IO-like object for creating zeroed-out mmapped-memory that is not tied to a file for use in Mmap.mmap. Used by SharedArray for creating shared memory arrays.\n\n\n\n"
@@ -16170,7 +16170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Mmap.mmap-Tuple{Any,Type,Any,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Mmap.mmap",
     "category": "Method",
     "text": "Mmap.mmap(io::Union{IOStream,AbstractString,Mmap.AnonymousMmap}[, type::Type{Array{T,N}}, dims, offset]; grow::Bool=true, shared::Bool=true)\n       Mmap.mmap(type::Type{Array{T,N}}, dims)\n\nCreate an Array whose values are linked to a file, using memory-mapping. This provides a convenient way of working with data too large to fit in the computer's memory.\n\nThe type is an Array{T,N} with a bits-type element of T and dimension N that determines how the bytes of the array are interpreted. Note that the file must be stored in binary format, and no format conversions are possible (this is a limitation of operating systems, not Julia).\n\ndims is a tuple or single Integer specifying the size or length of the array.\n\nThe file is passed via the stream argument, either as an open IOStream or filename string. When you initialize the stream, use \"r\" for a \"read-only\" array, and \"w+\" to create a new array used to write values to disk.\n\nIf no type argument is specified, the default is Vector{UInt8}.\n\nOptionally, you can specify an offset (in bytes) if, for example, you want to skip over a header in the file. The default value for the offset is the current stream position for an IOStream.\n\nThe grow keyword argument specifies whether the disk file should be grown to accommodate the requested size of array (if the total file size is < requested array size). Write privileges are required to grow the file.\n\nThe shared keyword argument specifies whether the resulting Array and changes made to it will be visible to other processes mapping the same file.\n\nFor example, the following code\n\n# Create a file for mmapping\n# (you could alternatively use mmap to do this step, too)\nA = rand(1:20, 5, 30)\ns = open(\"/tmp/mmap.bin\", \"w+\")\n# We'll write the dimensions of the array as the first two Ints in the file\nwrite(s, size(A,1))\nwrite(s, size(A,2))\n# Now write the data\nwrite(s, A)\nclose(s)\n\n# Test by reading it back in\ns = open(\"/tmp/mmap.bin\")   # default is read-only\nm = read(s, Int)\nn = read(s, Int)\nA2 = Mmap.mmap(s, Matrix{Int}, (m,n))\n\ncreates a m-by-n Matrix{Int}, linked to the file associated with stream s.\n\nA more portable file would need to encode the word size – 32 bit or 64 bit – and endianness information in the header. In practice, consider encoding binary data using standard formats like HDF5 (which can be used with memory-mapping).\n\n\n\n"
@@ -16178,7 +16178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Mmap.mmap-Tuple{Any,BitArray,Any,Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Mmap.mmap",
     "category": "Method",
     "text": "Mmap.mmap(io, BitArray, [dims, offset])\n\nCreate a BitArray whose values are linked to a file, using memory-mapping; it has the same purpose, works in the same way, and has the same arguments, as mmap, but the byte representation is different.\n\nExample: B = Mmap.mmap(s, BitArray, (25,30000))\n\nThis would create a 25-by-30000 BitArray, linked to the file associated with stream s.\n\n\n\n"
@@ -16186,23 +16186,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Mmap.sync!",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Mmap.sync!",
     "category": "Function",
     "text": "Mmap.sync!(array)\n\nForces synchronization between the in-memory version of a memory-mapped Array or BitArray and the on-disk version.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/io-network.html#Memory-mapped-I/O-1",
-    "page": "I/O and Network",
-    "title": "Memory-mapped I/O",
+    "location": "stdlib/io-network.html#E/S-Mapeada-en-Memoria-1",
+    "page": "E/S y Redes",
+    "title": "E/S Mapeada en Memoria",
     "category": "section",
     "text": "Base.Mmap.Anonymous\nBase.Mmap.mmap(::Any, ::Type, ::Any, ::Any)\nBase.Mmap.mmap(::Any, ::BitArray, ::Any, ::Any)\nBase.Mmap.sync!"
 },
 
 {
     "location": "stdlib/io-network.html#Base.connect-Tuple{TCPSocket,Integer}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.connect",
     "category": "Method",
     "text": "connect([host], port::Integer) -> TCPSocket\n\nConnect to the host host on port port.\n\n\n\n"
@@ -16210,7 +16210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.connect-Tuple{AbstractString}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.connect",
     "category": "Method",
     "text": "connect(path::AbstractString) -> PipeEndpoint\n\nConnect to the named pipe / UNIX domain socket at path.\n\n\n\n"
@@ -16218,7 +16218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.listen-Tuple{Any}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.listen",
     "category": "Method",
     "text": "listen([addr, ]port::Integer; backlog::Integer=BACKLOG_DEFAULT) -> TCPServer\n\nListen on port on the address specified by addr. By default this listens on localhost only. To listen on all interfaces pass IPv4(0) or IPv6(0) as appropriate. backlog determines how many connections can be pending (not having called accept) before the server will begin to reject them. The default value of backlog is 511.\n\n\n\n"
@@ -16226,7 +16226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.listen-Tuple{AbstractString}",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.listen",
     "category": "Method",
     "text": "listen(path::AbstractString) -> PipeServer\n\nCreate and listen on a named pipe / UNIX domain socket.\n\n\n\n"
@@ -16234,7 +16234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.getaddrinfo",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.getaddrinfo",
     "category": "Function",
     "text": "getaddrinfo(host::AbstractString) -> IPAddr\n\nGets the IP address of the host (may have to do a DNS lookup)\n\n\n\n"
@@ -16242,7 +16242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.getsockname",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.getsockname",
     "category": "Function",
     "text": "getsockname(sock::Union{TCPServer, TCPSocket}) -> (IPAddr, UInt16)\n\nGet the IP address and the port that the given TCPSocket is connected to (or bound to, in the case of TCPServer).\n\n\n\n"
@@ -16250,7 +16250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IPv4",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IPv4",
     "category": "Type",
     "text": "IPv4(host::Integer) -> IPv4\n\nReturns an IPv4 object from ip address host formatted as an Integer.\n\njulia> IPv4(3223256218)\nip\"192.30.252.154\"\n\n\n\n"
@@ -16258,7 +16258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.IPv6",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.IPv6",
     "category": "Type",
     "text": "IPv6(host::Integer) -> IPv6\n\nReturns an IPv6 object from ip address host formatted as an Integer.\n\njulia> IPv6(3223256218)\nip\"::c01e:fc9a\"\n\n\n\n"
@@ -16266,7 +16266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.nb_available",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.nb_available",
     "category": "Function",
     "text": "nb_available(stream)\n\nReturns the number of bytes available for reading before a read from this stream or buffer will block.\n\n\n\n"
@@ -16274,7 +16274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.accept",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.accept",
     "category": "Function",
     "text": "accept(server[,client])\n\nAccepts a connection on the given server and returns a connection to the client. An uninitialized client stream may be provided, in which case it will be used instead of creating a new stream.\n\n\n\n"
@@ -16282,7 +16282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.listenany",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.listenany",
     "category": "Function",
     "text": "listenany([host::IPAddr,] port_hint) -> (UInt16, TCPServer)\n\nCreate a TCPServer on any port, using hint as a starting point. Returns a tuple of the actual port that the server was created on and the server itself.\n\n\n\n"
@@ -16290,7 +16290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Filesystem.poll_fd",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Filesystem.poll_fd",
     "category": "Function",
     "text": "poll_fd(fd, timeout_s::Real=-1; readable=false, writable=false)\n\nMonitor a file descriptor fd for changes in the read or write availability, and with a timeout given by timeout_s seconds.\n\nThe keyword arguments determine which of read and/or write status should be monitored; at least one of them must be set to true.\n\nThe returned value is an object with boolean fields readable, writable, and timedout, giving the result of the polling.\n\n\n\n"
@@ -16298,7 +16298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Filesystem.poll_file",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Filesystem.poll_file",
     "category": "Function",
     "text": "poll_file(path::AbstractString, interval_s::Real=5.007, timeout_s::Real=-1) -> (previous::StatStruct, current::StatStruct)\n\nMonitor a file for changes by polling every interval_s seconds until a change occurs or timeout_s seconds have elapsed. The interval_s should be a long period; the default is 5.007 seconds.\n\nReturns a pair of StatStruct objects (previous, current) when a change is detected.\n\nTo determine when a file was modified, compare mtime(prev) != mtime(current) to detect notification of changes. However, using watch_file for this operation is preferred, since it is more reliable and efficient, although in some situations it may not be available.\n\n\n\n"
@@ -16306,7 +16306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.Filesystem.watch_file",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.Filesystem.watch_file",
     "category": "Function",
     "text": "watch_file(path::AbstractString, timeout_s::Real=-1)\n\nWatch file or directory path for changes until a change occurs or timeout_s seconds have elapsed.\n\nThe returned value is an object with boolean fields changed, renamed, and timedout, giving the result of watching the file.\n\nThis behavior of this function varies slightly across platforms. See https://nodejs.org/api/fs.html#fs_caveats for more detailed information.\n\n\n\n"
@@ -16314,7 +16314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.bind",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.bind",
     "category": "Function",
     "text": "bind(socket::Union{UDPSocket, TCPSocket}, host::IPAddr, port::Integer; ipv6only=false, reuseaddr=false, kws...)\n\nBind socket to the given host:port. Note that 0.0.0.0 will listen on all devices.\n\nThe ipv6only parameter disables dual stack mode. If ipv6only=true, only an IPv6 stack is created.\nIf reuseaddr=true, multiple threads or processes can bind to the same address without error if they all set reuseaddr=true, but only the last to bind will receive any traffic.\n\n\n\nbind(chnl::Channel, task::Task)\n\nAssociates the lifetime of chnl with a task. Channel chnl is automatically closed when the task terminates. Any uncaught exception in the task is propagated to all waiters on chnl.\n\nThe chnl object can be explicitly closed independent of task termination. Terminating tasks have no effect on already closed Channel objects.\n\nWhen a channel is bound to multiple tasks, the first task to terminate will close the channel. When multiple channels are bound to the same task, termination of the task will close all of the bound channels.\n\njulia> c = Channel(0);\n\njulia> task = @schedule foreach(i->put!(c, i), 1:4);\n\njulia> bind(c,task);\n\njulia> for i in c\n           @show i\n       end;\ni = 1\ni = 2\ni = 3\ni = 4\n\njulia> isopen(c)\nfalse\n\njulia> c = Channel(0);\n\njulia> task = @schedule (put!(c,1);error(\"foo\"));\n\njulia> bind(c,task);\n\njulia> take!(c)\n1\n\njulia> put!(c,1);\nERROR: foo\nStacktrace:\n [1] check_channel_state(::Channel{Any}) at ./channels.jl:131\n [2] put!(::Channel{Any}, ::Int64) at ./channels.jl:261\n\n\n\n"
@@ -16322,7 +16322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.send",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.send",
     "category": "Function",
     "text": "send(socket::UDPSocket, host, port::Integer, msg)\n\nSend msg over socket to host:port.\n\n\n\n"
@@ -16330,7 +16330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.recv",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.recv",
     "category": "Function",
     "text": "recv(socket::UDPSocket)\n\nRead a UDP packet from the specified socket, and return the bytes received. This call blocks.\n\n\n\n"
@@ -16338,7 +16338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.recvfrom",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.recvfrom",
     "category": "Function",
     "text": "recvfrom(socket::UDPSocket) -> (address, data)\n\nRead a UDP packet from the specified socket, returning a tuple of (address, data), where address will be either IPv4 or IPv6 as appropriate.\n\n\n\n"
@@ -16346,7 +16346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.setopt",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.setopt",
     "category": "Function",
     "text": "setopt(sock::UDPSocket; multicast_loop = nothing, multicast_ttl=nothing, enable_broadcast=nothing, ttl=nothing)\n\nSet UDP socket options.\n\nmulticast_loop: loopback for multicast packets (default: true).\nmulticast_ttl: TTL for multicast packets (default: nothing).\nenable_broadcast: flag must be set to true if socket will be used for broadcast messages, or else the UDP system will return an access error (default: false).\nttl: Time-to-live of packets sent on the socket (default: nothing).\n\n\n\n"
@@ -16354,7 +16354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.ntoh",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.ntoh",
     "category": "Function",
     "text": "ntoh(x)\n\nConverts the endianness of a value from Network byte order (big-endian) to that used by the Host.\n\n\n\n"
@@ -16362,7 +16362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.hton",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.hton",
     "category": "Function",
     "text": "hton(x)\n\nConverts the endianness of a value from that used by the Host to Network byte order (big-endian).\n\n\n\n"
@@ -16370,7 +16370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.ltoh",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.ltoh",
     "category": "Function",
     "text": "ltoh(x)\n\nConverts the endianness of a value from Little-endian to that used by the Host.\n\n\n\n"
@@ -16378,7 +16378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.htol",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.htol",
     "category": "Function",
     "text": "htol(x)\n\nConverts the endianness of a value from that used by the Host to Little-endian.\n\n\n\n"
@@ -16386,55 +16386,55 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/io-network.html#Base.ENDIAN_BOM",
-    "page": "I/O and Network",
+    "page": "E/S y Redes",
     "title": "Base.ENDIAN_BOM",
     "category": "Constant",
     "text": "ENDIAN_BOM\n\nThe 32-bit byte-order-mark indicates the native byte order of the host machine. Little-endian machines will contain the value 0x04030201. Big-endian machines will contain the value 0x01020304.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/io-network.html#Network-I/O-1",
-    "page": "I/O and Network",
-    "title": "Network I/O",
+    "location": "stdlib/io-network.html#E/S-por-Red-1",
+    "page": "E/S y Redes",
+    "title": "E/S por Red",
     "category": "section",
     "text": "Base.connect(::TCPSocket, ::Integer)\nBase.connect(::AbstractString)\nBase.listen(::Any)\nBase.listen(::AbstractString)\nBase.getaddrinfo\nBase.getsockname\nBase.IPv4\nBase.IPv6\nBase.nb_available\nBase.accept\nBase.listenany\nBase.Filesystem.poll_fd\nBase.Filesystem.poll_file\nBase.Filesystem.watch_file\nBase.bind\nBase.send\nBase.recv\nBase.recvfrom\nBase.setopt\nBase.ntoh\nBase.hton\nBase.ltoh\nBase.htol\nBase.ENDIAN_BOM"
 },
 
 {
     "location": "stdlib/punctuation.html#",
-    "page": "Punctuation",
-    "title": "Punctuation",
+    "page": "Puntuación",
+    "title": "Puntuación",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/punctuation.html#punctuation-1",
-    "page": "Punctuation",
-    "title": "Punctuation",
+    "page": "Puntuación",
+    "title": "Puntuación",
     "category": "section",
-    "text": "Extended documentation for mathematical symbols & functions is here.symbol meaning\n@m invoke macro m; followed by space-separated expressions\n! prefix \"not\" operator\na!( ) at the end of a function name, ! indicates that a function modifies its argument(s)\n# begin single line comment\n#= begin multi-line comment (these are nestable)\n=# end multi-line comment\n$ string and expression interpolation\n% remainder operator\n^ exponent operator\n& bitwise and\n&& short-circuiting boolean and\n| bitwise or\n|| short-circuiting boolean or\n⊻ bitwise xor operator\n* multiply, or matrix multiply\n() the empty tuple\n~ bitwise not operator\n\\ backslash operator\n' complex transpose operator Aᴴ\na[] array indexing\n[,] vertical concatenation\n[;] also vertical concatenation\n[    ] with space-separated expressions, horizontal concatenation\nT{ } parametric type instantiation\n; statement separator\n, separate function arguments or tuple components\n? 3-argument conditional operator (conditional ? if_true : if_false)\n\"\" delimit string literals\n'' delimit character literals\n` ` delimit external process (command) specifications\n... splice arguments into a function call or declare a varargs function or type\n. access named fields in objects/modules, also prefixes elementwise operator/function calls\na:b range a, a+1, a+2, ..., b\na:s:b range a, a+s, a+2s, ..., b\n: index an entire dimension (1:end)\n:: type annotation, depending on context\n:( ) quoted expression\n:a symbol a\n<: subtype operator\n>: supertype operator (reverse of subtype operator)\n=== egal comparison operator"
+    "text": "Puede encontrar documentación extendida sobre símbolos y funciones matemáticas aquí.symbol meaning\n@m Invoca la macro m; seguido de expresiones separadas por espacios\n! Operador \"not\" prefijo\na!( )     Al final de un nombre de función, ! indica que la función modifica su(s) argumento(s)    \n#         Inicio de un comentario de una sola línea                                                 \n#= Inicio de un comentario multilínea (ellos son anidables)\n=# Final de un comentario multilínea\n$         Interpolación de cadena y expresión                                                       \n% Operador resto\n^ Operador exponenente\n&         Operador and bit-a-bit                                                                     \n&& Operador and booleano (en corto-circuito)\n| Operador or bit-a-bit\n|| Operador or booleano (en corto-circuito)\n⊻ Operador xor bit-a-bit\n*         Multiplicación o producto matricial                                                         \n()       Tupla vacía                                                                            \n~ Operador not bit-a-bit\n\\ Operador backslash\n' Operador transpuesto complejo Aᴴ\na[]       Indexación de array                                                                       \n[,]       Concatenación vertical                                                                    \n[;]       Concatenación vertical (también)                                                          \n[    ]   Con expresiones separadas por espacios, concatenación horizontal                          \nT{ }     Instanciación de tipo paramétrico                                                          \n; Separador de instrucciones\n,         Separador de argumentos de función o de componentes de una tupla                          \n? Operador condicional ternario (conditional ? if_true : if_false)\n\"\" Delimitador de literales cadena\n''       Delimitador de literales carácter                                                          \n` ` Delimitador de especificaciones de proceso externo (mandato)\n... splice arguments into a function call or declare a varargs function or type\n.         Acceso nombrado a campos en objectos/módulos, también llamadas a operator/function vectorizadas\na:b Rango a, a+1, a+2, ..., b\na:s:b Rango a, a+s, a+2s, ..., b\n:         Indexa una dimensión entera (1:end)                                                        \n::       Anotación de tipo ,dependiendo del contexto                                                \n:( )     Expresión citada                                                                          \n:a       símbolo a                                                                                 \n<: subtype operator\n>: supertype operator (reverse of subtype operator)\n=== egal comparison operator"
 },
 
 {
     "location": "stdlib/sort.html#",
-    "page": "Sorting and Related Functions",
-    "title": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
+    "title": "Ordenación y Funciones Relacionadas",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/sort.html#sort-1",
-    "page": "Sorting and Related Functions",
-    "title": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
+    "title": "Ordenación y Funciones Relacionadas",
     "category": "section",
-    "text": "Julia has an extensive, flexible API for sorting and interacting with already-sorted arrays of values. By default, Julia picks reasonable algorithms and sorts in standard ascending order:julia> sort([2,3,1])\n3-element Array{Int64,1}:\n 1\n 2\n 3You can easily sort in reverse order as well:julia> sort([2,3,1], rev=true)\n3-element Array{Int64,1}:\n 3\n 2\n 1To sort an array in-place, use the \"bang\" version of the sort function:julia> a = [2,3,1];\n\njulia> sort!(a);\n\njulia> a\n3-element Array{Int64,1}:\n 1\n 2\n 3Instead of directly sorting an array, you can compute a permutation of the array's indices that puts the array into sorted order:julia> v = randn(5)\n5-element Array{Float64,1}:\n  0.297288\n  0.382396\n -0.597634\n -0.0104452\n -0.839027\n\njulia> p = sortperm(v)\n5-element Array{Int64,1}:\n 5\n 3\n 4\n 1\n 2\n\njulia> v[p]\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Arrays can easily be sorted according to an arbitrary transformation of their values:julia> sort(v, by=abs)\n5-element Array{Float64,1}:\n -0.0104452\n  0.297288\n  0.382396\n -0.597634\n -0.839027Or in reverse order by a transformation:julia> sort(v, by=abs, rev=true)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n  0.382396\n  0.297288\n -0.0104452If needed, the sorting algorithm can be chosen:julia> sort(v, alg=InsertionSort)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396All the sorting and order related functions rely on a \"less than\" relation defining a total order on the values to be manipulated. The isless function is invoked by default, but the relation can be specified via the lt keyword."
+    "text": "Julia tiene una API amplia y flexible para ordenar e interactuar con matrices de valores ya ordenados. Por defecto, Julia selecciona algoritmos y ordenaciones razonables en orden ascendente estándar:julia> sort([2,3,1])\n3-element Array{Int64,1}:\n 1\n 2\n 3Uno también puede ordenar en orden inverso:julia> sort([2,3,1], rev=true)\n3-element Array{Int64,1}:\n 3\n 2\n 1Para ordenar un array en el lugar, use la versión con admiración de la función de ordenación:julia> a = [2,3,1];\n\njulia> sort!(a);\n\njulia> a\n3-element Array{Int64,1}:\n 1\n 2\n 3En lugar de ordenar un array directamente, podemos computar una preemutación de los índices del array que ponen el array en un orden determinado:julia> v = randn(5)\n5-element Array{Float64,1}:\n  0.297288\n  0.382396\n -0.597634\n -0.0104452\n -0.839027\n\njulia> p = sortperm(v)\n5-element Array{Int64,1}:\n 5\n 3\n 4\n 1\n 2\n\njulia> v[p]\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Los arrays pueden ser ordenados fácilmente de acuerdo a una transformacin arbitraria de sus valores:julia> sort(v, by=abs)\n5-element Array{Float64,1}:\n -0.0104452\n  0.297288\n  0.382396\n -0.597634\n -0.839027O en orden reverso mediante una transformaciónjulia> sort(v, by=abs, rev=true)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n  0.382396\n  0.297288\n -0.0104452Si es necesario, puede elegirse el algoritmo de ordenación:julia> sort(v, alg=InsertionSort)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Todas las funciones de ordenación y relacionadas con orden se basan en una relación \"menor que\" que define un orden total sobre los valores que van a manipularse. La función isless es la invocada por defecto, pero la relación puede ser especificada mediante la palabra clave lt."
 },
 
 {
     "location": "stdlib/sort.html#Base.sort!",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.sort!",
     "category": "Function",
     "text": "sort!(v; alg::Algorithm=defalg(v), lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward)\n\nSort the vector v in place. QuickSort is used by default for numeric arrays while MergeSort is used for other arrays. You can specify an algorithm to use via the alg keyword (see Sorting Algorithms for available algorithms). The by keyword lets you provide a function that will be applied to each element before comparison; the lt keyword allows providing a custom \"less than\" function; use rev=true to reverse the sorting order. These options are independent and can be used together in all possible combinations: if both by and lt are specified, the lt function is applied to the result of the by function; rev=true reverses whatever ordering specified via the by and lt keywords.\n\nExamples\n\njulia> v = [3, 1, 2]; sort!(v); v\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> v = [3, 1, 2]; sort!(v, rev = true); v\n3-element Array{Int64,1}:\n 3\n 2\n 1\n\njulia> v = [(1, \"c\"), (3, \"a\"), (2, \"b\")]; sort!(v, by = x -> x[1]); v\n3-element Array{Tuple{Int64,String},1}:\n (1, \"c\")\n (2, \"b\")\n (3, \"a\")\n\njulia> v = [(1, \"c\"), (3, \"a\"), (2, \"b\")]; sort!(v, by = x -> x[2]); v\n3-element Array{Tuple{Int64,String},1}:\n (3, \"a\")\n (2, \"b\")\n (1, \"c\")\n\n\n\n"
@@ -16442,7 +16442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.sort",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.sort",
     "category": "Function",
     "text": "sort(v; alg::Algorithm=defalg(v), lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward)\n\nVariant of sort! that returns a sorted copy of v leaving v itself unmodified.\n\nExamples\n\njulia> v = [3, 1, 2];\n\njulia> sort(v)\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\njulia> v\n3-element Array{Int64,1}:\n 3\n 1\n 2\n\n\n\nsort(A, dim::Integer; alg::Algorithm=DEFAULT_UNSTABLE, lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward, initialized::Bool=false)\n\nSort a multidimensional array A along the given dimension. See sort! for a description of possible keyword arguments.\n\nExamples\n\njulia> A = [4 3; 1 2]\n2×2 Array{Int64,2}:\n 4  3\n 1  2\n\njulia> sort(A, 1)\n2×2 Array{Int64,2}:\n 1  2\n 4  3\n\njulia> sort(A, 2)\n2×2 Array{Int64,2}:\n 3  4\n 1  2\n\n\n\n"
@@ -16450,7 +16450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.sortperm",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.sortperm",
     "category": "Function",
     "text": "sortperm(v; alg::Algorithm=DEFAULT_UNSTABLE, lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward)\n\nReturn a permutation vector of indices of v that puts it in sorted order. Specify alg to choose a particular sorting algorithm (see Sorting Algorithms). MergeSort is used by default, and since it is stable, the resulting permutation will be the lexicographically first one that puts the input array into sorted order – i.e. indices of equal elements appear in ascending order. If you choose a non-stable sorting algorithm such as QuickSort, a different permutation that puts the array into order may be returned. The order is specified using the same keywords as sort!.\n\nSee also sortperm!.\n\nExamples\n\njulia> v = [3, 1, 2];\n\njulia> p = sortperm(v)\n3-element Array{Int64,1}:\n 2\n 3\n 1\n\njulia> v[p]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\n\n\n"
@@ -16458,7 +16458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.sortperm!",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.sortperm!",
     "category": "Function",
     "text": "sortperm!(ix, v; alg::Algorithm=DEFAULT_UNSTABLE, lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward, initialized::Bool=false)\n\nLike sortperm, but accepts a preallocated index vector ix.  If initialized is false (the default), ix is initialized to contain the values 1:length(v).\n\nExamples\n\njulia> v = [3, 1, 2]; p = zeros(Int, 3);\n\njulia> sortperm!(p, v); p\n3-element Array{Int64,1}:\n 2\n 3\n 1\n\njulia> v[p]\n3-element Array{Int64,1}:\n 1\n 2\n 3\n\n\n\n"
@@ -16466,7 +16466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.sortrows",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.sortrows",
     "category": "Function",
     "text": "sortrows(A; alg::Algorithm=DEFAULT_UNSTABLE, lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward)\n\nSort the rows of matrix A lexicographically. See sort! for a description of possible keyword arguments.\n\nExamples\n\njulia> sortrows([7 3 5; -1 6 4; 9 -2 8])\n3×3 Array{Int64,2}:\n -1   6  4\n  7   3  5\n  9  -2  8\n\njulia> sortrows([7 3 5; -1 6 4; 9 -2 8], lt=(x,y)->isless(x[2],y[2]))\n3×3 Array{Int64,2}:\n  9  -2  8\n  7   3  5\n -1   6  4\n\njulia> sortrows([7 3 5; -1 6 4; 9 -2 8], rev=true)\n3×3 Array{Int64,2}:\n  9  -2  8\n  7   3  5\n -1   6  4\n\n\n\n"
@@ -16474,23 +16474,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.sortcols",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.sortcols",
     "category": "Function",
     "text": "sortcols(A; alg::Algorithm=DEFAULT_UNSTABLE, lt=isless, by=identity, rev::Bool=false, order::Ordering=Forward)\n\nSort the columns of matrix A lexicographically. See sort! for a description of possible keyword arguments.\n\nExamples\n\njulia> sortcols([7 3 5; 6 -1 -4; 9 -2 8])\n3×3 Array{Int64,2}:\n  3   5  7\n -1  -4  6\n -2   8  9\n\njulia> sortcols([7 3 5; 6 -1 -4; 9 -2 8], alg=InsertionSort, lt=(x,y)->isless(x[2],y[2]))\n3×3 Array{Int64,2}:\n  5   3  7\n -4  -1  6\n  8  -2  9\n\njulia> sortcols([7 3 5; 6 -1 -4; 9 -2 8], rev=true)\n3×3 Array{Int64,2}:\n 7   5   3\n 6  -4  -1\n 9   8  -2\n\n\n\n"
 },
 
 {
-    "location": "stdlib/sort.html#Sorting-Functions-1",
-    "page": "Sorting and Related Functions",
-    "title": "Sorting Functions",
+    "location": "stdlib/sort.html#Funciones-de-Ordenación-1",
+    "page": "Ordenación y Funciones Relacionadas",
+    "title": "Funciones de Ordenación",
     "category": "section",
     "text": "Base.sort!\nBase.sort\nBase.sortperm\nBase.Sort.sortperm!\nBase.Sort.sortrows\nBase.Sort.sortcols"
 },
 
 {
     "location": "stdlib/sort.html#Base.issorted",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.issorted",
     "category": "Function",
     "text": "issorted(v, lt=isless, by=identity, rev:Bool=false, order::Ordering=Forward)\n\nTest whether a vector is in sorted order. The lt, by and rev keywords modify what order is considered to be sorted just as they do for sort.\n\nExamples\n\njulia> issorted([1, 2, 3])\ntrue\n\njulia> issorted([(1, \"b\"), (2, \"a\")], by = x -> x[1])\ntrue\n\njulia> issorted([(1, \"b\"), (2, \"a\")], by = x -> x[2])\nfalse\n\njulia> issorted([(1, \"b\"), (2, \"a\")], by = x -> x[2], rev=true)\ntrue\n\n\n\n"
@@ -16498,7 +16498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.searchsorted",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.searchsorted",
     "category": "Function",
     "text": "searchsorted(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nReturns the range of indices of a which compare as equal to x (using binary search) according to the order specified by the by, lt and rev keywords, assuming that a is already sorted in that order. Returns an empty range located at the insertion point if a does not contain values equal to x.\n\nExamples\n\njulia> a = [4, 3, 2, 1]\n4-element Array{Int64,1}:\n 4\n 3\n 2\n 1\n\njulia> searchsorted(a, 4)\n5:4\n\njulia> searchsorted(a, 4, rev=true)\n1:1\n\n\n\n"
@@ -16506,7 +16506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.searchsortedfirst",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.searchsortedfirst",
     "category": "Function",
     "text": "searchsortedfirst(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nReturns the index of the first value in a greater than or equal to x, according to the specified order. Returns length(a)+1 if x is greater than all values in a. a is assumed to be sorted.\n\nExamples\n\njulia> searchsortedfirst([1, 2, 4, 5, 14], 4)\n3\n\njulia> searchsortedfirst([1, 2, 4, 5, 14], 4, rev=true)\n1\n\njulia> searchsortedfirst([1, 2, 4, 5, 14], 15)\n6\n\n\n\n"
@@ -16514,7 +16514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.searchsortedlast",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.searchsortedlast",
     "category": "Function",
     "text": "searchsortedlast(a, x, [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nReturns the index of the last value in a less than or equal to x, according to the specified order. Returns 0 if x is less than all values in a. a is assumed to be sorted.\n\nExamples\n\njulia> searchsortedlast([1, 2, 4, 5, 14], 4)\n3\n\njulia> searchsortedlast([1, 2, 4, 5, 14], 4, rev=true)\n5\n\njulia> searchsortedlast([1, 2, 4, 5, 14], -1)\n0\n\n\n\n"
@@ -16522,7 +16522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.select!",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.select!",
     "category": "Function",
     "text": "select!(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nPartially sort the vector v in place, according to the order specified by by, lt and rev so that the value at index k (or range of adjacent values if k is a range) occurs at the position where it would appear if the array were fully sorted via a non-stable algorithm. If k is a single index, that value is returned; if k is a range, an array of values at those indices is returned. Note that select! does not fully sort the input array.\n\nExamples\n\njulia> a = [1, 2, 4, 3, 4]\n5-element Array{Int64,1}:\n 1\n 2\n 4\n 3\n 4\n\njulia> select!(a, 4)\n4\n\njulia> a\n5-element Array{Int64,1}:\n 1\n 2\n 3\n 4\n 4\n\njulia> a = [1, 2, 4, 3, 4]\n5-element Array{Int64,1}:\n 1\n 2\n 4\n 3\n 4\n\njulia> select!(a, 4, rev=true)\n2\n\njulia> a\n5-element Array{Int64,1}:\n 4\n 4\n 3\n 2\n 1\n\n\n\n"
@@ -16530,7 +16530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.select",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.select",
     "category": "Function",
     "text": "select(v, k, [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nVariant of select! which copies v before partially sorting it, thereby returning the same thing as select! but leaving v unmodified.\n\n\n\n"
@@ -16538,7 +16538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.selectperm",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.selectperm",
     "category": "Function",
     "text": "selectperm(v, k, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false])\n\nReturn a partial permutation of the vector v, according to the order specified by by, lt and rev, so that v[output] returns the first k (or range of adjacent values if k is a range) values of a fully sorted version of v. If k is a single index (Integer), an array of the first k indices is returned; if k is a range, an array of those indices is returned. Note that the handling of integer values for k is different from select in that it returns a vector of k elements instead of just the k th element. Also note that this is equivalent to, but more efficient than, calling sortperm(...)[k].\n\n\n\n"
@@ -16546,39 +16546,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/sort.html#Base.Sort.selectperm!",
-    "page": "Sorting and Related Functions",
+    "page": "Ordenación y Funciones Relacionadas",
     "title": "Base.Sort.selectperm!",
     "category": "Function",
     "text": "selectperm!(ix, v, k, [alg=<algorithm>,] [by=<transform>,] [lt=<comparison>,] [rev=false,] [initialized=false])\n\nLike selectperm, but accepts a preallocated index vector ix. If initialized is false (the default), ix is initialized to contain the values 1:length(ix).\n\n\n\n"
 },
 
 {
-    "location": "stdlib/sort.html#Order-Related-Functions-1",
-    "page": "Sorting and Related Functions",
-    "title": "Order-Related Functions",
+    "location": "stdlib/sort.html#Funciones-relacionadas-con-Orden-1",
+    "page": "Ordenación y Funciones Relacionadas",
+    "title": "Funciones relacionadas con Orden",
     "category": "section",
     "text": "Base.issorted\nBase.Sort.searchsorted\nBase.Sort.searchsortedfirst\nBase.Sort.searchsortedlast\nBase.Sort.select!\nBase.Sort.select\nBase.Sort.selectperm\nBase.Sort.selectperm!"
 },
 
 {
-    "location": "stdlib/sort.html#Sorting-Algorithms-1",
-    "page": "Sorting and Related Functions",
-    "title": "Sorting Algorithms",
+    "location": "stdlib/sort.html#Algoritmos-de-Ordenación-1",
+    "page": "Ordenación y Funciones Relacionadas",
+    "title": "Algoritmos de Ordenación",
     "category": "section",
-    "text": "There are currently four sorting algorithms available in base Julia:InsertionSort\nQuickSort\nPartialQuickSort(k)\nMergeSortInsertionSort is an O(n^2) stable sorting algorithm. It is efficient for very small n, and is used internally by QuickSort.QuickSort is an O(n log n) sorting algorithm which is in-place, very fast, but not stable – i.e. elements which are considered equal will not remain in the same order in which they originally appeared in the array to be sorted. QuickSort is the default algorithm for numeric values, including integers and floats.PartialQuickSort(k) is similar to QuickSort, but the output array is only sorted up to index k if k is an integer, or in the range of k if k is an OrdinalRange. For example:x = rand(1:500, 100)\nk = 50\nk2 = 50:100\ns = sort(x; alg=QuickSort)\nps = sort(x; alg=PartialQuickSort(k))\nqs = sort(x; alg=PartialQuickSort(k2))\nmap(issorted, (s, ps, qs))             # => (true, false, false)\nmap(x->issorted(x[1:k]), (s, ps, qs))  # => (true, true, false)\nmap(x->issorted(x[k2]), (s, ps, qs))   # => (true, false, true)\ns[1:k] == ps[1:k]                      # => true\ns[k2] == qs[k2]                        # => trueMergeSort is an O(n log n) stable sorting algorithm but is not in-place – it requires a temporary array of half the size of the input array – and is typically not quite as fast as QuickSort. It is the default algorithm for non-numeric data.The default sorting algorithms are chosen on the basis that they are fast and stable, or appear to be so. For numeric types indeed, QuickSort is selected as it is faster and indistinguishable in this case from a stable sort (unless the array records its mutations in some way). The stability property comes at a non-negligible cost, so if you don't need it, you may want to explicitly specify your preferred algorithm, e.g. sort!(v, alg=QuickSort).The mechanism by which Julia picks default sorting algorithms is implemented via the Base.Sort.defalg function. It allows a particular algorithm to be registered as the default in all sorting functions for specific arrays. For example, here are the two default methods from sort.jl:defalg(v::AbstractArray) = MergeSort\ndefalg{T<:Number}(v::AbstractArray{T}) = QuickSortAs for numeric arrays, choosing a non-stable default algorithm for array types for which the notion of a stable sort is meaningless (i.e. when two values comparing equal can not be distinguished) may make sense."
+    "text": "Actualmente hay cuatro algoritmos de ordenación disponibles en Julia base:InsertionSort\nQuickSort\nPartialQuickSort(k)\nMergeSortInsertionSort es un algoritmo de ordenación estable cuyo coste es O(n^2). Es eficiente para n muy pequeños, y es usado internamente por QuickSort.QuickSort es un algoritmo de ordenación que es in-place muy rápido pero no estable (es decir, los elementos que son considerados iguales no permanecerán en el mismo orden en que se encontraban originalmente en el array antes de ser ordenados. Su coste computacional es O(n log n). QuickSort es el algoritmo por defecto para valores numéricos, incluyendo enteros y punto flotante.PartialQuickSort(k) es similar a QuickSort, pero el array de salida es sólo ordenado hasta el índice  k si k es un entero, o en el rango de k si k es un OrdinalRange. Por ejemplo:x = rand(1:500, 100)\nk = 50\nk2 = 50:100\ns = sort(x; alg=QuickSort)\nps = sort(x; alg=PartialQuickSort(k))\nqs = sort(x; alg=PartialQuickSort(k2))\nmap(issorted, (s, ps, qs))             # => (true, false, false)\nmap(x->issorted(x[1:k]), (s, ps, qs))  # => (true, true, false)\nmap(x->issorted(x[k2]), (s, ps, qs))   # => (true, false, true)\ns[1:k] == ps[1:k]                      # => true\ns[k2] == qs[k2]                        # => trueMergeSort es un algoritmo de ordenación estable, pero no in-place (requiere un array temporal de la mitad del tamaño del array de entrada), de coste O(n log n) y no suele ser tan rapido como QuickSort. Es el algoritmo por defecto para datos no numéricos.Los algoritmos de clasificación por defecto se eligen sobre la base de que son rápidos y estables, o parezcan serlo. Para los tipos numéricos, de hecho, se selecciona QuickSort ya que es más rápido e indistinguible en este caso de un tipo estable (a menos que la matriz registre sus mutaciones de alguna manera). La propiedad de estabilidad tiene un costo no despreciable, por lo que si no la necesita, puede especificar explícitamente su algoritmo preferido, p. sort!(v, alg=QuickSort).El mecanismo por el cual Julia selecciona los algoritmos de clasificación predeterminados se implementa a través de la función Base.Sort.defalg. Permite que un algoritmo particular se registre como el predeterminado en todas las funciones de ordenación para arrays específicos. Por ejemplo, aquí están los dos métodos predeterminados de sort.jl:defalg(v::AbstractArray) = MergeSort\ndefalg{T<:Number}(v::AbstractArray{T}) = QuickSortEn cuanto a los arrays numéricos, la elección de un algoritmo predeterminado no estable para los tipos de array para los cuales la noción de ordenación estable no tiene sentido (es decir, cuando dos valores que comparan iguales no se pueden distinguir) puede tener sentido."
 },
 
 {
     "location": "stdlib/pkg.html#",
-    "page": "Package Manager Functions",
-    "title": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
+    "title": "Funciones del Administrador de Paquetes",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.dir",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.dir",
     "category": "Function",
     "text": "dir() -> AbstractString\n\nReturns the absolute path of the package directory. This defaults to joinpath(homedir(),\".julia\",\"v$(VERSION.major).$(VERSION.minor)\") on all platforms (i.e. ~/.julia/v0.6 in UNIX shell syntax). If the JULIA_PKGDIR environment variable is set, then that path is used in the returned value as joinpath(ENV[\"JULIA_PKGDIR\"],\"v$(VERSION.major).$(VERSION.minor)\"). If JULIA_PKGDIR is a relative path, it is interpreted relative to whatever the current working directory is.\n\n\n\ndir(names...) -> AbstractString\n\nEquivalent to normpath(Pkg.dir(),names...) – i.e. it appends path components to the package directory and normalizes the resulting path. In particular, Pkg.dir(pkg) returns the path to the package pkg.\n\n\n\n"
@@ -16586,7 +16586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.init",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.init",
     "category": "Function",
     "text": "init(meta::AbstractString=DEFAULT_META, branch::AbstractString=META_BRANCH)\n\nInitialize Pkg.dir() as a package directory. This will be done automatically when the JULIA_PKGDIR is not set and Pkg.dir() uses its default value. As part of this process, clones a local METADATA git repository from the site and branch specified by its arguments, which are typically not provided. Explicit (non-default) arguments can be used to support a custom METADATA setup.\n\n\n\n"
@@ -16594,7 +16594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.resolve",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.resolve",
     "category": "Function",
     "text": "resolve()\n\nDetermines an optimal, consistent set of package versions to install or upgrade to. The optimal set of package versions is based on the contents of Pkg.dir(\"REQUIRE\") and the state of installed packages in Pkg.dir(), Packages that are no longer required are moved into Pkg.dir(\".trash\").\n\n\n\n"
@@ -16602,7 +16602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.edit",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.edit",
     "category": "Function",
     "text": "edit()\n\nOpens Pkg.dir(\"REQUIRE\") in the editor specified by the VISUAL or EDITOR environment variables; when the editor command returns, it runs Pkg.resolve() to determine and install a new optimal set of installed package versions.\n\n\n\n"
@@ -16610,7 +16610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.add",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.add",
     "category": "Function",
     "text": "add(pkg, vers...)\n\nAdd a requirement entry for pkg to Pkg.dir(\"REQUIRE\") and call Pkg.resolve(). If vers are given, they must be VersionNumber objects and they specify acceptable version intervals for pkg.\n\n\n\n"
@@ -16618,7 +16618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.rm",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.rm",
     "category": "Function",
     "text": "rm(pkg)\n\nRemove all requirement entries for pkg from Pkg.dir(\"REQUIRE\") and call Pkg.resolve().\n\n\n\n"
@@ -16626,7 +16626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.clone",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.clone",
     "category": "Function",
     "text": "clone(pkg)\n\nIf pkg has a URL registered in Pkg.dir(\"METADATA\"), clone it from that URL on the default branch. The package does not need to have any registered versions.\n\n\n\nclone(url, [pkg])\n\nClone a package directly from the git URL url. The package does not need to be registered in Pkg.dir(\"METADATA\"). The package repo is cloned by the name pkg if provided; if not provided, pkg is determined automatically from url.\n\n\n\n"
@@ -16634,7 +16634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.setprotocol!",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.setprotocol!",
     "category": "Function",
     "text": "setprotocol!(proto)\n\nSet the protocol used to access GitHub-hosted packages. Defaults to 'https', with a blank proto delegating the choice to the package developer.\n\n\n\n"
@@ -16642,7 +16642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.available",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.available",
     "category": "Function",
     "text": "available() -> Vector{String}\n\nReturns the names of available packages.\n\n\n\navailable(pkg) -> Vector{VersionNumber}\n\nReturns the version numbers available for package pkg.\n\n\n\n"
@@ -16650,7 +16650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.installed",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.installed",
     "category": "Function",
     "text": "installed() -> Dict{String,VersionNumber}\n\nReturns a dictionary mapping installed package names to the installed version number of each package.\n\n\n\ninstalled(pkg) -> Void | VersionNumber\n\nIf pkg is installed, return the installed version number. If pkg is registered, but not installed, return nothing.\n\n\n\n"
@@ -16658,7 +16658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.status",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.status",
     "category": "Function",
     "text": "status()\n\nPrints out a summary of what packages are installed and what version and state they're in.\n\n\n\nstatus(pkg)\n\nPrints out a summary of what version and state pkg, specifically, is in.\n\n\n\n"
@@ -16666,7 +16666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.update",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.update",
     "category": "Function",
     "text": "update(pkgs...)\n\nUpdate the metadata repo – kept in Pkg.dir(\"METADATA\") – then update any fixed packages that can safely be pulled from their origin; then call Pkg.resolve() to determine a new optimal set of packages versions.\n\nWithout arguments, updates all installed packages. When one or more package names are provided as arguments, only those packages and their dependencies are updated.\n\n\n\n"
@@ -16674,7 +16674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.checkout",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.checkout",
     "category": "Function",
     "text": "checkout(pkg, [branch=\"master\"]; merge=true, pull=true)\n\nCheckout the Pkg.dir(pkg) repo to the branch branch. Defaults to checking out the \"master\" branch. To go back to using the newest compatible released version, use Pkg.free(pkg). Changes are merged (fast-forward only) if the keyword argument merge == true, and the latest version is pulled from the upstream repo if pull == true.\n\n\n\n"
@@ -16682,7 +16682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.pin",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.pin",
     "category": "Function",
     "text": "pin(pkg)\n\nPin pkg at the current version. To go back to using the newest compatible released version, use Pkg.free(pkg)\n\n\n\npin(pkg, version)\n\nPin pkg at registered version version.\n\n\n\n"
@@ -16690,7 +16690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.free",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.free",
     "category": "Function",
     "text": "free(pkg)\n\nFree the package pkg to be managed by the package manager again. It calls Pkg.resolve() to determine optimal package versions after. This is an inverse for both Pkg.checkout and Pkg.pin.\n\nYou can also supply an iterable collection of package names, e.g., Pkg.free((\"Pkg1\", \"Pkg2\")) to free multiple packages at once.\n\n\n\n"
@@ -16698,7 +16698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.build",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.build",
     "category": "Function",
     "text": "build()\n\nRun the build scripts for all installed packages in depth-first recursive order.\n\n\n\nbuild(pkgs...)\n\nRun the build script in deps/build.jl for each package in pkgs and all of their dependencies in depth-first recursive order. This is called automatically by Pkg.resolve() on all installed or updated packages.\n\n\n\n"
@@ -16706,7 +16706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.test",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.test",
     "category": "Function",
     "text": "test(; coverage=false)\n\nRun the tests for all installed packages ensuring that each package's test dependencies are installed for the duration of the test. A package is tested by running its test/runtests.jl file and test dependencies are specified in test/REQUIRE. Coverage statistics for the packages may be generated by passing coverage=true. The default behavior is not to run coverage.\n\n\n\ntest(pkgs...; coverage=false)\n\nRun the tests for each package in pkgs ensuring that each package's test dependencies are installed for the duration of the test. A package is tested by running its test/runtests.jl file and test dependencies are specified in test/REQUIRE. Coverage statistics for the packages may be generated by passing coverage=true. The default behavior is not to run coverage.\n\n\n\n"
@@ -16714,7 +16714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#Base.Pkg.dependents",
-    "page": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
     "title": "Base.Pkg.dependents",
     "category": "Function",
     "text": "dependents(pkg)\n\nList the packages that have pkg as a dependency.\n\n\n\n"
@@ -16722,31 +16722,31 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/pkg.html#pkg-1",
-    "page": "Package Manager Functions",
-    "title": "Package Manager Functions",
+    "page": "Funciones del Administrador de Paquetes",
+    "title": "Funciones del Administrador de Paquetes",
     "category": "section",
-    "text": "All package manager functions are defined in the Pkg module. None of the Pkg module's functions are exported; to use them, you'll need to prefix each function call with an explicit Pkg., e.g. Pkg.status() or Pkg.dir().Functions for package development (e.g. tag, publish, etc.) have been moved to the PkgDev package. See PkgDev README for the documentation of those functions.Base.Pkg.dir\nBase.Pkg.init\nBase.Pkg.resolve\nBase.Pkg.edit\nBase.Pkg.add\nBase.Pkg.rm\nBase.Pkg.clone\nBase.Pkg.setprotocol!\nBase.Pkg.available\nBase.Pkg.installed\nBase.Pkg.status\nBase.Pkg.update\nBase.Pkg.checkout\nBase.Pkg.pin\nBase.Pkg.free\nBase.Pkg.build\nBase.Pkg.test\nBase.Pkg.dependents"
+    "text": "Todas las funciones del administrador de paquetes están definidas en el módulo Pkg. Ninguna de las funciones del módulo  Pkg están exportadas. Por tanto, para usarlas, necesotamps prefijar cada llamada a función con un Pkg. explícito, por ejemplo Pkg.status() or Pkg.dir().Las funciones para desarrollo de de paquetes (por ejemplo, tag, publish, etc.) se han movido al paquete PkgDev. Ver PkgDev README para la documentación de estas funciones.Base.Pkg.dir\nBase.Pkg.init\nBase.Pkg.resolve\nBase.Pkg.edit\nBase.Pkg.add\nBase.Pkg.rm\nBase.Pkg.clone\nBase.Pkg.setprotocol!\nBase.Pkg.available\nBase.Pkg.installed\nBase.Pkg.status\nBase.Pkg.update\nBase.Pkg.checkout\nBase.Pkg.pin\nBase.Pkg.free\nBase.Pkg.build\nBase.Pkg.test\nBase.Pkg.dependents"
 },
 
 {
     "location": "stdlib/dates.html#",
-    "page": "Dates and Time",
-    "title": "Dates and Time",
+    "page": "Fechas y  Tiempo",
+    "title": "Fechas y  Tiempo",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/dates.html#stdlib-dates-1",
-    "page": "Dates and Time",
-    "title": "Dates and Time",
+    "page": "Fechas y  Tiempo",
+    "title": "Fechas y  Tiempo",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.Period",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Period",
     "category": "Type",
     "text": "Period\nYear\nMonth\nWeek\nDay\nHour\nMinute\nSecond\nMillisecond\nMicrosecond\nNanosecond\n\nPeriod types represent discrete, human representations of time.\n\n\n\n"
@@ -16754,7 +16754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.CompoundPeriod",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.CompoundPeriod",
     "category": "Type",
     "text": "CompoundPeriod\n\nA CompoundPeriod is useful for expressing time periods that are not a fixed multiple of smaller periods. For example, \"a year and a  day\" is not a fixed number of days, but can be expressed using a CompoundPeriod. In fact, a CompoundPeriod is automatically generated by addition of different period types, e.g. Year(1) + Day(1) produces a CompoundPeriod result.\n\n\n\n"
@@ -16762,7 +16762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Instant",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Instant",
     "category": "Type",
     "text": "Instant\n\nInstant types represent integer-based, machine representations of time as continuous timelines starting from an epoch.\n\n\n\n"
@@ -16770,7 +16770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.UTInstant",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.UTInstant",
     "category": "Type",
     "text": "UTInstant{T}\n\nThe UTInstant represents a machine timeline based on UT time (1 day = one revolution of the earth). The T is a Period parameter that indicates the resolution or precision of the instant.\n\n\n\n"
@@ -16778,7 +16778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.TimeType",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.TimeType",
     "category": "Type",
     "text": "TimeType\n\nTimeType types wrap Instant machine instances to provide human representations of the machine instant. Time, DateTime and Date are subtypes of TimeType.\n\n\n\n"
@@ -16786,7 +16786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Type",
     "text": "DateTime\n\nDateTime wraps a UTInstant{Millisecond} and interprets it according to the proleptic Gregorian calendar.\n\n\n\n"
@@ -16794,7 +16794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Type",
     "text": "Date\n\nDate wraps a UTInstant{Day} and interprets it according to the proleptic Gregorian calendar.\n\n\n\n"
@@ -16802,23 +16802,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Time",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Time",
     "category": "Type",
     "text": "Time\n\nTime wraps a Nanosecond and represents a specific moment in a 24-hour day.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Dates-and-Time-Types-1",
-    "page": "Dates and Time",
-    "title": "Dates and Time Types",
+    "location": "stdlib/dates.html#Tipos-para-Fechas-y-Tiempo-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Tipos para Fechas y Tiempo",
     "category": "section",
     "text": "Base.Dates.Period\nBase.Dates.CompoundPeriod\nBase.Dates.Instant\nBase.Dates.UTInstant\nBase.Dates.TimeType\nBase.Dates.DateTime\nBase.Dates.Date\nBase.Dates.Time"
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-NTuple{7,Int64}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(y, [m, d, h, mi, s, ms]) -> DateTime\n\nConstruct a DateTime type by parts. Arguments must be convertible to Int64.\n\n\n\n"
@@ -16826,7 +16826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-Tuple{Vararg{Base.Dates.Period,N} where N}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(periods::Period...) -> DateTime\n\nConstruct a DateTime type by Period type parts. Arguments may be in any order. DateTime parts not provided will default to the value of Dates.default(period).\n\n\n\n"
@@ -16834,7 +16834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-Tuple{Function,Vararg{Any,N} where N}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(f::Function, y[, m, d, h, mi, s]; step=Day(1), limit=10000) -> DateTime\n\nCreate a DateTime through the adjuster API. The starting point will be constructed from the provided y, m, d... arguments, and will be adjusted until f::Function returns true. The step size in adjusting can be provided manually through the step keyword. limit provides a limit to the max number of iterations the adjustment API will pursue before throwing an error (in the case that f::Function is never satisfied).\n\n\n\n"
@@ -16842,7 +16842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(dt::Date) -> DateTime\n\nConverts a Date to a DateTime. The hour, minute, second, and millisecond parts of the new DateTime are assumed to be zero.\n\n\n\n"
@@ -16850,7 +16850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-Tuple{AbstractString,AbstractString}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(dt::AbstractString, format::AbstractString; locale=\"english\") -> DateTime\n\nConstruct a DateTime by parsing the dt date string following the pattern given in the format string.\n\nThis method creates a DateFormat object each time it is called. If you are parsing many date strings of the same format, consider creating a DateFormat object once and using that as the second argument instead.\n\n\n\n"
@@ -16858,7 +16858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.format-Tuple{Base.Dates.TimeType,AbstractString}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.format",
     "category": "Method",
     "text": "format(dt::TimeType, format::AbstractString; locale=\"english\") -> AbstractString\n\nConstruct a string by using a TimeType object and applying the provided format. The following character codes can be used to construct the format string:\n\nCode Examples Comment\ny 6 Numeric year with a fixed width\nY 1996 Numeric year with a minimum width\nm 1, 12 Numeric month with a minimum width\nu Jan Month name shortened to 3-chars according to the locale\nU January Full month name according to the locale keyword\nd 1, 31 Day of the month with a minimum width\nH 0, 23 Hour (24-hour clock) with a minimum width\nM 0, 59 Minute with a minimum width\nS 0, 59 Second with a minimum width\ns 000, 500 Millisecond with a minimum width of 3\ne Mon, Tue Abbreviated days of the week\nE Monday Full day of week name\n\nThe number of sequential code characters indicate the width of the code. A format of yyyy-mm specifies that the code y should have a width of four while m a width of two. Codes that yield numeric digits have an associated mode: fixed-width or minimum-width. The fixed-width mode left-pads the value with zeros when it is shorter than the specified width and truncates the value when longer. Minimum-width mode works the same as fixed-width except that it does not truncate values longer than the width.\n\nWhen creating a format you can use any non-code characters as a separator. For example to generate the string \"1996-01-15T00:00:00\" you could use format: \"yyyy-mm-ddTHH:MM:SS\". Note that if you need to use a code character as a literal you can use the escape character backslash. The string \"1996y01m\" can be produced with the format \"yyyy\\ymm\\m\".\n\n\n\n"
@@ -16866,7 +16866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateFormat",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateFormat",
     "category": "Type",
     "text": "DateFormat(format::AbstractString, locale=\"english\") -> DateFormat\n\nConstruct a date formatting object that can be used for parsing date strings or formatting a date object as a string. The following character codes can be used to construct the format string:\n\nCode Matches Comment\ny 1996, 96 Returns year of 1996, 0096\nY 1996, 96 Returns year of 1996, 0096. Equivalent to y\nm 1, 01 Matches 1 or 2-digit months\nu Jan Matches abbreviated months according to the locale keyword\nU January Matches full month names according to the locale keyword\nd 1, 01 Matches 1 or 2-digit days\nH 00 Matches hours\nM 00 Matches minutes\nS 00 Matches seconds\ns .500 Matches milliseconds\ne Mon, Tues Matches abbreviated days of the week\nE Monday Matches full name days of the week\nyyyymmdd 19960101 Matches fixed-width year, month, and day\n\nCharacters not listed above are normally treated as delimiters between date and time slots. For example a dt string of \"1996-01-15T00:00:00.0\" would have a format string like \"y-m-dTH:M:S.s\". If you need to use a code character as a delimiter you can escape it using backslash. The date \"1995y01m\" would have the format \"y\\ym\\m\".\n\nCreating a DateFormat object is expensive. Whenever possible, create it once and use it many times or try the dateformat\"\" string macro. Using this macro creates the DateFormat object once at macro expansion time and reuses it later. see @dateformat_str.\n\nSee DateTime and format for how to use a DateFormat object to parse and write Date strings respectively.\n\n\n\n"
@@ -16874,7 +16874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.@dateformat_str",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.@dateformat_str",
     "category": "Macro",
     "text": "dateformat\"Y-m-d H:M:S\"\n\nCreate a DateFormat object. Similar to DateFormat(\"Y-m-d H:M:S\") but creates the DateFormat object once during macro expansion.\n\nSee DateFormat for details about format specifiers.\n\n\n\n"
@@ -16882,7 +16882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.DateTime-Tuple{AbstractString,DateFormat}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.DateTime",
     "category": "Method",
     "text": "DateTime(dt::AbstractString, df::DateFormat) -> DateTime\n\nConstruct a DateTime by parsing the dt date string following the pattern given in the DateFormat object. Similar to DateTime(::AbstractString, ::AbstractString) but more efficient when repeatedly parsing similarly formatted date strings with a pre-created DateFormat object.\n\n\n\n"
@@ -16890,7 +16890,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{Int64,Int64,Int64}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(y, [m, d]) -> Date\n\nConstruct a Date type by parts. Arguments must be convertible to Int64.\n\n\n\n"
@@ -16898,7 +16898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{Vararg{Base.Dates.Period,N} where N}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(period::Period...) -> Date\n\nConstruct a Date type by Period type parts. Arguments may be in any order. Date parts not provided will default to the value of Dates.default(period).\n\n\n\n"
@@ -16906,7 +16906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{Function,Any,Any,Any}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(f::Function, y[, m, d]; step=Day(1), limit=10000) -> Date\n\nCreate a Date through the adjuster API. The starting point will be constructed from the provided y, m, d arguments, and will be adjusted until f::Function returns true. The step size in adjusting can be provided manually through the step keyword. limit provides a limit to the max number of iterations the adjustment API will pursue before throwing an error (given that f::Function is never satisfied).\n\n\n\n"
@@ -16914,7 +16914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(dt::DateTime) -> Date\n\nConverts a DateTime to a Date. The hour, minute, second, and millisecond parts of the DateTime are truncated, so only the year, month and day parts are used in construction.\n\n\n\n"
@@ -16922,7 +16922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{AbstractString,AbstractString}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(dt::AbstractString, format::AbstractString; locale=\"english\") -> Date\n\nConstruct a Date object by parsing a dt date string following the pattern given in the format string. Follows the same conventions as DateTime(::AbstractString, ::AbstractString).\n\n\n\n"
@@ -16930,7 +16930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Date-Tuple{AbstractString,DateFormat}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Date",
     "category": "Method",
     "text": "Date(dt::AbstractString, df::DateFormat) -> Date\n\nParse a date from a date string dt using a DateFormat object df.\n\n\n\n"
@@ -16938,7 +16938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Time-NTuple{5,Int64}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Time",
     "category": "Method",
     "text": "Time(h, [mi, s, ms, us, ns]) -> Time\n\nConstruct a Time type by parts. Arguments must be convertible to Int64.\n\n\n\n"
@@ -16946,7 +16946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Time-Tuple{Vararg{Base.Dates.TimePeriod,N} where N}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Time",
     "category": "Method",
     "text": "Time(period::TimePeriod...) -> Time\n\nConstruct a Time type by Period type parts. Arguments may be in any order. Time parts not provided will default to the value of Dates.default(period).\n\n\n\n"
@@ -16954,7 +16954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Time-Tuple{Function,Vararg{Any,N} where N}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Time",
     "category": "Method",
     "text": "Time(f::Function, h, mi=0; step::Period=Second(1), limit::Int=10000)\nTime(f::Function, h, mi, s; step::Period=Millisecond(1), limit::Int=10000)\nTime(f::Function, h, mi, s, ms; step::Period=Microsecond(1), limit::Int=10000)\nTime(f::Function, h, mi, s, ms, us; step::Period=Nanosecond(1), limit::Int=10000)\n\nCreate a Time through the adjuster API. The starting point will be constructed from the provided h, mi, s, ms, us arguments, and will be adjusted until f::Function returns true. The step size in adjusting can be provided manually through the step keyword. limit provides a limit to the max number of iterations the adjustment API will pursue before throwing an error (in the case that f::Function is never satisfied). Note that the default step will adjust to allow for greater precision for the given arguments; i.e. if hour, minute, and second arguments are provided, the default step will be Millisecond(1) instead of Second(1).\n\n\n\n"
@@ -16962,7 +16962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Time-Tuple{DateTime}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Time",
     "category": "Method",
     "text": "Time(dt::DateTime) -> Time\n\nConverts a DateTime to a Time. The hour, minute, second, and millisecond parts of the DateTime are used to create the new Time. Microsecond and nanoseconds are zero by default.\n\n\n\n"
@@ -16970,7 +16970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.now-Tuple{}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.now",
     "category": "Method",
     "text": "now() -> DateTime\n\nReturns a DateTime corresponding to the user's system time including the system timezone locale.\n\n\n\n"
@@ -16978,7 +16978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.now-Tuple{Type{Base.Dates.UTC}}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.now",
     "category": "Method",
     "text": "now(::Type{UTC}) -> DateTime\n\nReturns a DateTime corresponding to the user's system time as UTC/GMT.\n\n\n\n"
@@ -16986,23 +16986,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.eps",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.eps",
     "category": "Function",
     "text": "eps(::DateTime) -> Millisecond\neps(::Date) -> Day\neps(::Time) -> Nanosecond\n\nReturns Millisecond(1) for DateTime values, Day(1) for Date values, and Nanosecond(1) for Time values.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Dates-Functions-1",
-    "page": "Dates and Time",
-    "title": "Dates Functions",
+    "location": "stdlib/dates.html#Funciones-para-Fechas-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones para Fechas",
     "category": "section",
-    "text": "All Dates functions are defined in the Dates module; note that only the Date, DateTime, and now functions are exported; to use all other Dates functions, you'll need to prefix each function call with an explicit Dates., e.g. Dates.dayofweek(dt). Alternatively, you can write using Base.Dates to bring all exported functions into Main to be used without the Dates. prefix.Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.DateTime(::Base.Dates.Period...)\nBase.Dates.DateTime(::Function, ::Any...)\nBase.Dates.DateTime(::Base.Dates.TimeType)\nBase.Dates.DateTime(::AbstractString, ::AbstractString)\nBase.Dates.format(::Base.Dates.TimeType, ::AbstractString)\nBase.Dates.DateFormat\nBase.Dates.@dateformat_str\nBase.Dates.DateTime(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Date(::Int64, ::Int64, ::Int64)\nBase.Dates.Date(::Base.Dates.Period...)\nBase.Dates.Date(::Function, ::Any, ::Any, ::Any)\nBase.Dates.Date(::Base.Dates.TimeType)\nBase.Dates.Date(::AbstractString, ::AbstractString)\nBase.Dates.Date(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Time(::Int64::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.Time(::Base.Dates.TimePeriod...)\nBase.Dates.Time(::Function, ::Any...)\nBase.Dates.Time(::Base.Dates.DateTime)\nBase.Dates.now()\nBase.Dates.now(::Type{Base.Dates.UTC})\nBase.eps"
+    "text": "Todas las funciones para fechas están definidas en el módulo Dates; nótese que sólo se han exportado las funciones Date, DateTime y now; para usar todas las dems funciones de Dates, es necesario prefijar cada llamada a funcion con Dates., por ejemplo,Dates.dayofweek(dt). Alternativamente, uno puede escribir using Base.Dates para llevar todas las funciones exportadas en Main para ser usadas sin el prefijo Dates.Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.DateTime(::Base.Dates.Period...)\nBase.Dates.DateTime(::Function, ::Any...)\nBase.Dates.DateTime(::Base.Dates.TimeType)\nBase.Dates.DateTime(::AbstractString, ::AbstractString)\nBase.Dates.format(::Base.Dates.TimeType, ::AbstractString)\nBase.Dates.DateFormat\nBase.Dates.@dateformat_str\nBase.Dates.DateTime(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Date(::Int64, ::Int64, ::Int64)\nBase.Dates.Date(::Base.Dates.Period...)\nBase.Dates.Date(::Function, ::Any, ::Any, ::Any)\nBase.Dates.Date(::Base.Dates.TimeType)\nBase.Dates.Date(::AbstractString, ::AbstractString)\nBase.Dates.Date(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Time(::Int64::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.Time(::Base.Dates.TimePeriod...)\nBase.Dates.Time(::Function, ::Any...)\nBase.Dates.Time(::Base.Dates.DateTime)\nBase.Dates.now()\nBase.Dates.now(::Type{Base.Dates.UTC})\nBase.eps"
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.year",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.year",
     "category": "Function",
     "text": "year(dt::TimeType) -> Int64\n\nThe year of a Date or DateTime as an Int64.\n\n\n\n"
@@ -17010,7 +17010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.month",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.month",
     "category": "Function",
     "text": "month(dt::TimeType) -> Int64\n\nThe month of a Date or DateTime as an Int64.\n\n\n\n"
@@ -17018,7 +17018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.week",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.week",
     "category": "Function",
     "text": "week(dt::TimeType) -> Int64\n\nReturn the ISO week date of a Date or DateTime as an Int64. Note that the first week of a year is the week that contains the first Thursday of the year which can result in dates prior to January 4th being in the last week of the previous year. For example week(Date(2005,1,1)) is the 53rd week of 2004.\n\n\n\n"
@@ -17026,7 +17026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.day",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.day",
     "category": "Function",
     "text": "day(dt::TimeType) -> Int64\n\nThe day of month of a Date or DateTime as an Int64.\n\n\n\n"
@@ -17034,7 +17034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.hour",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.hour",
     "category": "Function",
     "text": "hour(dt::DateTime) -> Int64\n\nThe hour of day of a DateTime as an Int64.\n\n\n\nhour(t::Time) -> Int64\n\nThe hour of a Time as an Int64.\n\n\n\n"
@@ -17042,7 +17042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.minute",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.minute",
     "category": "Function",
     "text": "minute(dt::DateTime) -> Int64\n\nThe minute of a DateTime as an Int64.\n\n\n\nminute(t::Time) -> Int64\n\nThe minute of a Time as an Int64.\n\n\n\n"
@@ -17050,7 +17050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.second",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.second",
     "category": "Function",
     "text": "second(dt::DateTime) -> Int64\n\nThe second of a DateTime as an Int64.\n\n\n\nsecond(t::Time) -> Int64\n\nThe second of a Time as an Int64.\n\n\n\n"
@@ -17058,7 +17058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.millisecond",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.millisecond",
     "category": "Function",
     "text": "millisecond(dt::DateTime) -> Int64\n\nThe millisecond of a DateTime as an Int64.\n\n\n\nmillisecond(t::Time) -> Int64\n\nThe millisecond of a Time as an Int64.\n\n\n\n"
@@ -17066,7 +17066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.microsecond",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.microsecond",
     "category": "Function",
     "text": "microsecond(t::Time) -> Int64\n\nThe microsecond of a Time as an Int64.\n\n\n\n"
@@ -17074,7 +17074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.nanosecond",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.nanosecond",
     "category": "Function",
     "text": "nanosecond(t::Time) -> Int64\n\nThe nanosecond of a Time as an Int64.\n\n\n\n"
@@ -17082,7 +17082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Year-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Year",
     "category": "Method",
     "text": "Year(v)\n\nConstruct a Year object with the given v value. Input must be losslessly convertible to an Int64.\n\n\n\n"
@@ -17090,7 +17090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Month-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Month",
     "category": "Method",
     "text": "Month(v)\n\nConstruct a Month object with the given v value. Input must be losslessly convertible to an Int64.\n\n\n\n"
@@ -17098,7 +17098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Week-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Week",
     "category": "Method",
     "text": "Week(v)\n\nConstruct a Week object with the given v value. Input must be losslessly convertible to an Int64.\n\n\n\n"
@@ -17106,7 +17106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Day-Tuple{Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Day",
     "category": "Method",
     "text": "Day(v)\n\nConstruct a Day object with the given v value. Input must be losslessly convertible to an Int64.\n\n\n\n"
@@ -17114,7 +17114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Hour-Tuple{DateTime}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Hour",
     "category": "Method",
     "text": "Hour(dt::DateTime) -> Hour\n\nThe hour part of a DateTime as a Hour.\n\n\n\n"
@@ -17122,7 +17122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Minute-Tuple{DateTime}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Minute",
     "category": "Method",
     "text": "Minute(dt::DateTime) -> Minute\n\nThe minute part of a DateTime as a Minute.\n\n\n\n"
@@ -17130,7 +17130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Second-Tuple{DateTime}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Second",
     "category": "Method",
     "text": "Second(dt::DateTime) -> Second\n\nThe second part of a DateTime as a Second.\n\n\n\n"
@@ -17138,7 +17138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Millisecond-Tuple{DateTime}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Millisecond",
     "category": "Method",
     "text": "Millisecond(dt::DateTime) -> Millisecond\n\nThe millisecond part of a DateTime as a Millisecond.\n\n\n\n"
@@ -17146,7 +17146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Microsecond-Tuple{Base.Dates.Time}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Microsecond",
     "category": "Method",
     "text": "Microsecond(dt::Time) -> Microsecond\n\nThe microsecond part of a Time as a Microsecond.\n\n\n\n"
@@ -17154,7 +17154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.Nanosecond-Tuple{Base.Dates.Time}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Nanosecond",
     "category": "Method",
     "text": "Nanosecond(dt::Time) -> Nanosecond\n\nThe nanosecond part of a Time as a Nanosecond.\n\n\n\n"
@@ -17162,7 +17162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.yearmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.yearmonth",
     "category": "Function",
     "text": "yearmonth(dt::TimeType) -> (Int64, Int64)\n\nSimultaneously return the year and month parts of a Date or DateTime.\n\n\n\n"
@@ -17170,7 +17170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.monthday",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.monthday",
     "category": "Function",
     "text": "monthday(dt::TimeType) -> (Int64, Int64)\n\nSimultaneously return the month and day parts of a Date or DateTime.\n\n\n\n"
@@ -17178,23 +17178,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.yearmonthday",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.yearmonthday",
     "category": "Function",
     "text": "yearmonthday(dt::TimeType) -> (Int64, Int64, Int64)\n\nSimultaneously return the year, month and day parts of a Date or DateTime.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Accessor-Functions-1",
-    "page": "Dates and Time",
-    "title": "Accessor Functions",
+    "location": "stdlib/dates.html#Funciones-Accesoras-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones Accesoras",
     "category": "section",
     "text": "Base.Dates.year\nBase.Dates.month\nBase.Dates.week\nBase.Dates.day\nBase.Dates.hour\nBase.Dates.minute\nBase.Dates.second\nBase.Dates.millisecond\nBase.Dates.microsecond\nBase.Dates.nanosecond\nBase.Dates.Year(::Base.Dates.TimeType)\nBase.Dates.Month(::Base.Dates.TimeType)\nBase.Dates.Week(::Base.Dates.TimeType)\nBase.Dates.Day(::Base.Dates.TimeType)\nBase.Dates.Hour(::DateTime)\nBase.Dates.Minute(::DateTime)\nBase.Dates.Second(::DateTime)\nBase.Dates.Millisecond(::DateTime)\nBase.Dates.Microsecond(::Dates.Time)\nBase.Dates.Nanosecond(::Dates.Time)\nBase.Dates.yearmonth\nBase.Dates.monthday\nBase.Dates.yearmonthday"
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayname",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayname",
     "category": "Function",
     "text": "dayname(dt::TimeType; locale=\"english\") -> AbstractString\n\nReturn the full day name corresponding to the day of the week of the Date or DateTime in the given locale.\n\n\n\n"
@@ -17202,7 +17202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayabbr",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayabbr",
     "category": "Function",
     "text": "dayabbr(dt::TimeType; locale=\"english\") -> AbstractString\n\nReturn the abbreviated name corresponding to the day of the week of the Date or DateTime in the given locale.\n\n\n\n"
@@ -17210,7 +17210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayofweek",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayofweek",
     "category": "Function",
     "text": "dayofweek(dt::TimeType) -> Int64\n\nReturns the day of the week as an Int64 with 1 = Monday, 2 = Tuesday, etc..\n\n\n\n"
@@ -17218,7 +17218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayofmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayofmonth",
     "category": "Function",
     "text": "dayofmonth(dt::TimeType) -> Int64\n\nThe day of month of a Date or DateTime as an Int64.\n\n\n\n"
@@ -17226,7 +17226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayofweekofmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayofweekofmonth",
     "category": "Function",
     "text": "dayofweekofmonth(dt::TimeType) -> Int\n\nFor the day of week of dt, returns which number it is in dt's month. So if the day of the week of dt is Monday, then 1 = First Monday of the month, 2 = Second Monday of the month, etc. In the range 1:5.\n\n\n\n"
@@ -17234,7 +17234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.daysofweekinmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.daysofweekinmonth",
     "category": "Function",
     "text": "daysofweekinmonth(dt::TimeType) -> Int\n\nFor the day of week of dt, returns the total number of that day of the week in dt's month. Returns 4 or 5. Useful in temporal expressions for specifying the last day of a week in a month by including dayofweekofmonth(dt) == daysofweekinmonth(dt) in the adjuster function.\n\n\n\n"
@@ -17242,7 +17242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.monthname",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.monthname",
     "category": "Function",
     "text": "monthname(dt::TimeType; locale=\"english\") -> AbstractString\n\nReturn the full name of the month of the Date or DateTime in the given locale.\n\n\n\n"
@@ -17250,7 +17250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.monthabbr",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.monthabbr",
     "category": "Function",
     "text": "monthabbr(dt::TimeType; locale=\"english\") -> AbstractString\n\nReturn the abbreviated month name of the Date or DateTime in the given locale.\n\n\n\n"
@@ -17258,7 +17258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.daysinmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.daysinmonth",
     "category": "Function",
     "text": "daysinmonth(dt::TimeType) -> Int\n\nReturns the number of days in the month of dt. Value will be 28, 29, 30, or 31.\n\n\n\n"
@@ -17266,7 +17266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.isleapyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.isleapyear",
     "category": "Function",
     "text": "isleapyear(dt::TimeType) -> Bool\n\nReturns true if the year of dt is a leap year.\n\n\n\n"
@@ -17274,7 +17274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayofyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayofyear",
     "category": "Function",
     "text": "dayofyear(dt::TimeType) -> Int\n\nReturns the day of the year for dt with January 1st being day 1.\n\n\n\n"
@@ -17282,7 +17282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.daysinyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.daysinyear",
     "category": "Function",
     "text": "daysinyear(dt::TimeType) -> Int\n\nReturns 366 if the year of dt is a leap year, otherwise returns 365.\n\n\n\n"
@@ -17290,7 +17290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.quarterofyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.quarterofyear",
     "category": "Function",
     "text": "quarterofyear(dt::TimeType) -> Int\n\nReturns the quarter that dt resides in. Range of value is 1:4.\n\n\n\n"
@@ -17298,23 +17298,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.dayofquarter",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.dayofquarter",
     "category": "Function",
     "text": "dayofquarter(dt::TimeType) -> Int\n\nReturns the day of the current quarter of dt. Range of value is 1:92.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Query-Functions-1",
-    "page": "Dates and Time",
-    "title": "Query Functions",
+    "location": "stdlib/dates.html#Funciones-de-Consulta-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones de Consulta",
     "category": "section",
     "text": "Base.Dates.dayname\nBase.Dates.dayabbr\nBase.Dates.dayofweek\nBase.Dates.dayofmonth\nBase.Dates.dayofweekofmonth\nBase.Dates.daysofweekinmonth\nBase.Dates.monthname\nBase.Dates.monthabbr\nBase.Dates.daysinmonth\nBase.Dates.isleapyear\nBase.Dates.dayofyear\nBase.Dates.daysinyear\nBase.Dates.quarterofyear\nBase.Dates.dayofquarter"
 },
 
 {
     "location": "stdlib/dates.html#Base.trunc-Tuple{Base.Dates.TimeType,Type{Base.Dates.Period}}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.trunc",
     "category": "Method",
     "text": "trunc(dt::TimeType, ::Type{Period}) -> TimeType\n\nTruncates the value of dt according to the provided Period type. E.g. if dt is 1996-01-01T12:30:00, then trunc(dt,Day) == 1996-01-01T00:00:00.\n\n\n\n"
@@ -17322,7 +17322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.firstdayofweek",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.firstdayofweek",
     "category": "Function",
     "text": "firstdayofweek(dt::TimeType) -> TimeType\n\nAdjusts dt to the Monday of its week.\n\n\n\n"
@@ -17330,7 +17330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.lastdayofweek",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.lastdayofweek",
     "category": "Function",
     "text": "lastdayofweek(dt::TimeType) -> TimeType\n\nAdjusts dt to the Sunday of its week.\n\n\n\n"
@@ -17338,7 +17338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.firstdayofmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.firstdayofmonth",
     "category": "Function",
     "text": "firstdayofmonth(dt::TimeType) -> TimeType\n\nAdjusts dt to the first day of its month.\n\n\n\n"
@@ -17346,7 +17346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.lastdayofmonth",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.lastdayofmonth",
     "category": "Function",
     "text": "lastdayofmonth(dt::TimeType) -> TimeType\n\nAdjusts dt to the last day of its month.\n\n\n\n"
@@ -17354,7 +17354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.firstdayofyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.firstdayofyear",
     "category": "Function",
     "text": "firstdayofyear(dt::TimeType) -> TimeType\n\nAdjusts dt to the first day of its year.\n\n\n\n"
@@ -17362,7 +17362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.lastdayofyear",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.lastdayofyear",
     "category": "Function",
     "text": "lastdayofyear(dt::TimeType) -> TimeType\n\nAdjusts dt to the last day of its year.\n\n\n\n"
@@ -17370,7 +17370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.firstdayofquarter",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.firstdayofquarter",
     "category": "Function",
     "text": "firstdayofquarter(dt::TimeType) -> TimeType\n\nAdjusts dt to the first day of its quarter.\n\n\n\n"
@@ -17378,7 +17378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.lastdayofquarter",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.lastdayofquarter",
     "category": "Function",
     "text": "lastdayofquarter(dt::TimeType) -> TimeType\n\nAdjusts dt to the last day of its quarter.\n\n\n\n"
@@ -17386,7 +17386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.tonext-Tuple{Base.Dates.TimeType,Int64}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.tonext",
     "category": "Method",
     "text": "tonext(dt::TimeType, dow::Int; same::Bool=false) -> TimeType\n\nAdjusts dt to the next day of week corresponding to dow with 1 = Monday, 2 = Tuesday, etc. Setting same=true allows the current dt to be considered as the next dow, allowing for no adjustment to occur.\n\n\n\n"
@@ -17394,7 +17394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.toprev-Tuple{Base.Dates.TimeType,Int64}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.toprev",
     "category": "Method",
     "text": "toprev(dt::TimeType, dow::Int; same::Bool=false) -> TimeType\n\nAdjusts dt to the previous day of week corresponding to dow with 1 = Monday, 2 = Tuesday, etc. Setting same=true allows the current dt to be considered as the previous dow, allowing for no adjustment to occur.\n\n\n\n"
@@ -17402,7 +17402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.tofirst",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.tofirst",
     "category": "Function",
     "text": "tofirst(dt::TimeType, dow::Int; of=Month) -> TimeType\n\nAdjusts dt to the first dow of its month. Alternatively, of=Year will adjust to the first dow of the year.\n\n\n\n"
@@ -17410,7 +17410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.tolast",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.tolast",
     "category": "Function",
     "text": "tolast(dt::TimeType, dow::Int; of=Month) -> TimeType\n\nAdjusts dt to the last dow of its month. Alternatively, of=Year will adjust to the last dow of the year.\n\n\n\n"
@@ -17418,7 +17418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.tonext-Tuple{Function,Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.tonext",
     "category": "Method",
     "text": "tonext(func::Function, dt::TimeType; step=Day(1), limit=10000, same=false) -> TimeType\n\nAdjusts dt by iterating at most limit iterations by step increments until func returns true. func must take a single TimeType argument and return a Bool. same allows dt to be considered in satisfying func.\n\n\n\n"
@@ -17426,23 +17426,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.toprev-Tuple{Function,Base.Dates.TimeType}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.toprev",
     "category": "Method",
     "text": "toprev(func::Function, dt::TimeType; step=Day(-1), limit=10000, same=false) -> TimeType\n\nAdjusts dt by iterating at most limit iterations by step increments until func returns true. func must take a single TimeType argument and return a Bool. same allows dt to be considered in satisfying func.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Adjuster-Functions-1",
-    "page": "Dates and Time",
-    "title": "Adjuster Functions",
+    "location": "stdlib/dates.html#Funciones-de-Ajuste-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones de Ajuste",
     "category": "section",
     "text": "Base.trunc(::Base.Dates.TimeType, ::Type{Base.Dates.Period})\nBase.Dates.firstdayofweek\nBase.Dates.lastdayofweek\nBase.Dates.firstdayofmonth\nBase.Dates.lastdayofmonth\nBase.Dates.firstdayofyear\nBase.Dates.lastdayofyear\nBase.Dates.firstdayofquarter\nBase.Dates.lastdayofquarter\nBase.Dates.tonext(::Base.Dates.TimeType, ::Int)\nBase.Dates.toprev(::Base.Dates.TimeType, ::Int)\nBase.Dates.tofirst\nBase.Dates.tolast\nBase.Dates.tonext(::Function, ::Base.Dates.TimeType)\nBase.Dates.toprev(::Function, ::Base.Dates.TimeType)"
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.Period-Tuple{Any}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.Period",
     "category": "Method",
     "text": "Year(v)\nMonth(v)\nWeek(v)\nDay(v)\nHour(v)\nMinute(v)\nSecond(v)\nMillisecond(v)\nMicrosecond(v)\nNanosecond(v)\n\nConstruct a Period type with the given v value. Input must be losslessly convertible to an Int64.\n\n\n\n"
@@ -17450,7 +17450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.CompoundPeriod-Tuple{Array{#s27,1} where #s27<:Base.Dates.Period}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.CompoundPeriod",
     "category": "Method",
     "text": "CompoundPeriod(periods) -> CompoundPeriod\n\nConstruct a CompoundPeriod from a Vector of Periods. All Periods of the same type will be added together.\n\nExamples\n\njulia> Dates.CompoundPeriod(Dates.Hour(12), Dates.Hour(13))\n25 hours\n\njulia> Dates.CompoundPeriod(Dates.Hour(-1), Dates.Minute(1))\n-1 hour, 1 minute\n\njulia> Dates.CompoundPeriod(Dates.Month(1), Dates.Week(-2))\n1 month, -2 weeks\n\njulia> Dates.CompoundPeriod(Dates.Minute(50000))\n50000 minutes\n\n\n\n"
@@ -17458,23 +17458,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.default",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.default",
     "category": "Function",
     "text": "default(p::Period) -> Period\n\nReturns a sensible \"default\" value for the input Period by returning T(1) for Year, Month, and Day, and T(0) for Hour, Minute, Second, and Millisecond.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Periods-1",
-    "page": "Dates and Time",
-    "title": "Periods",
+    "location": "stdlib/dates.html#Períodos-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Períodos",
     "category": "section",
     "text": "Base.Dates.Period(::Any)\nBase.Dates.CompoundPeriod(::Vector{<:Base.Dates.Period})\nBase.Dates.default"
 },
 
 {
     "location": "stdlib/dates.html#Base.floor-Tuple{Base.Dates.TimeType,Base.Dates.Period}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.floor",
     "category": "Method",
     "text": "floor(dt::TimeType, p::Period) -> TimeType\n\nReturns the nearest Date or DateTime less than or equal to dt at resolution p.\n\nFor convenience, p may be a type instead of a value: floor(dt, Dates.Hour) is a shortcut for floor(dt, Dates.Hour(1)).\n\njulia> floor(Date(1985, 8, 16), Dates.Month)\n1985-08-01\n\njulia> floor(DateTime(2013, 2, 13, 0, 31, 20), Dates.Minute(15))\n2013-02-13T00:30:00\n\njulia> floor(DateTime(2016, 8, 6, 12, 0, 0), Dates.Day)\n2016-08-06T00:00:00\n\n\n\n"
@@ -17482,7 +17482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.ceil-Tuple{Base.Dates.TimeType,Base.Dates.Period}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.ceil",
     "category": "Method",
     "text": "ceil(dt::TimeType, p::Period) -> TimeType\n\nReturns the nearest Date or DateTime greater than or equal to dt at resolution p.\n\nFor convenience, p may be a type instead of a value: ceil(dt, Dates.Hour) is a shortcut for ceil(dt, Dates.Hour(1)).\n\njulia> ceil(Date(1985, 8, 16), Dates.Month)\n1985-09-01\n\njulia> ceil(DateTime(2013, 2, 13, 0, 31, 20), Dates.Minute(15))\n2013-02-13T00:45:00\n\njulia> ceil(DateTime(2016, 8, 6, 12, 0, 0), Dates.Day)\n2016-08-07T00:00:00\n\n\n\n"
@@ -17490,7 +17490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.round-Tuple{Base.Dates.TimeType,Base.Dates.Period,RoundingMode{:NearestTiesUp}}",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.round",
     "category": "Method",
     "text": "round(dt::TimeType, p::Period, [r::RoundingMode]) -> TimeType\n\nReturns the Date or DateTime nearest to dt at resolution p. By default (RoundNearestTiesUp), ties (e.g., rounding 9:30 to the nearest hour) will be rounded up.\n\nFor convenience, p may be a type instead of a value: round(dt, Dates.Hour) is a shortcut for round(dt, Dates.Hour(1)).\n\njulia> round(Date(1985, 8, 16), Dates.Month)\n1985-08-01\n\njulia> round(DateTime(2013, 2, 13, 0, 31, 20), Dates.Minute(15))\n2013-02-13T00:30:00\n\njulia> round(DateTime(2016, 8, 6, 12, 0, 0), Dates.Day)\n2016-08-07T00:00:00\n\nValid rounding modes for round(::TimeType, ::Period, ::RoundingMode) are RoundNearestTiesUp (default), RoundDown (floor), and RoundUp (ceil).\n\n\n\n"
@@ -17498,7 +17498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.floorceil",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.floorceil",
     "category": "Function",
     "text": "floorceil(dt::TimeType, p::Period) -> (TimeType, TimeType)\n\nSimultaneously return the floor and ceil of a Date or DateTime at resolution p. More efficient than calling both floor and ceil individually.\n\n\n\n"
@@ -17506,7 +17506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.epochdays2date",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.epochdays2date",
     "category": "Function",
     "text": "epochdays2date(days) -> Date\n\nTakes the number of days since the rounding epoch (0000-01-01T00:00:00) and returns the corresponding Date.\n\n\n\n"
@@ -17514,7 +17514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.epochms2datetime",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.epochms2datetime",
     "category": "Function",
     "text": "epochms2datetime(milliseconds) -> DateTime\n\nTakes the number of milliseconds since the rounding epoch (0000-01-01T00:00:00) and returns the corresponding DateTime.\n\n\n\n"
@@ -17522,7 +17522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.date2epochdays",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.date2epochdays",
     "category": "Function",
     "text": "date2epochdays(dt::Date) -> Int64\n\nTakes the given Date and returns the number of days since the rounding epoch (0000-01-01T00:00:00) as an Int64.\n\n\n\n"
@@ -17530,23 +17530,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.datetime2epochms",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.datetime2epochms",
     "category": "Function",
     "text": "datetime2epochms(dt::DateTime) -> Int64\n\nTakes the given DateTime and returns the number of milliseconds since the rounding epoch (0000-01-01T00:00:00) as an Int64.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Rounding-Functions-1",
-    "page": "Dates and Time",
-    "title": "Rounding Functions",
+    "location": "stdlib/dates.html#Funciones-de-Redondeo-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones de Redondeo",
     "category": "section",
-    "text": "Date and DateTime values can be rounded to a specified resolution (e.g., 1 month or 15 minutes) with floor, ceil, or round.Base.floor(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.ceil(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.round(::Base.Dates.TimeType, ::Base.Dates.Period, ::RoundingMode{:NearestTiesUp})The following functions are not exported:Base.Dates.floorceil\nBase.Dates.epochdays2date\nBase.Dates.epochms2datetime\nBase.Dates.date2epochdays\nBase.Dates.datetime2epochms"
+    "text": "Date and DateTime values can be rounded to a specified resolution (e.g., 1 month or 15 minutes) with floor, ceil, or round.Base.floor(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.ceil(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.round(::Base.Dates.TimeType, ::Base.Dates.Period, ::RoundingMode{:NearestTiesUp})Las siguientes funciones no están exportadas:Base.Dates.floorceil\nBase.Dates.epochdays2date\nBase.Dates.epochms2datetime\nBase.Dates.date2epochdays\nBase.Dates.datetime2epochms"
 },
 
 {
     "location": "stdlib/dates.html#Base.Dates.today",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.today",
     "category": "Function",
     "text": "today() -> Date\n\nReturns the date portion of now().\n\n\n\n"
@@ -17554,7 +17554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.unix2datetime",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.unix2datetime",
     "category": "Function",
     "text": "unix2datetime(x) -> DateTime\n\nTakes the number of seconds since unix epoch 1970-01-01T00:00:00 and converts to the corresponding DateTime.\n\n\n\n"
@@ -17562,7 +17562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.datetime2unix",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.datetime2unix",
     "category": "Function",
     "text": "datetime2unix(dt::DateTime) -> Float64\n\nTakes the given DateTime and returns the number of seconds since the unix epoch 1970-01-01T00:00:00 as a Float64.\n\n\n\n"
@@ -17570,7 +17570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.julian2datetime",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.julian2datetime",
     "category": "Function",
     "text": "julian2datetime(julian_days) -> DateTime\n\nTakes the number of Julian calendar days since epoch -4713-11-24T12:00:00 and returns the corresponding DateTime.\n\n\n\n"
@@ -17578,7 +17578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.datetime2julian",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.datetime2julian",
     "category": "Function",
     "text": "datetime2julian(dt::DateTime) -> Float64\n\nTakes the given DateTime and returns the number of Julian calendar days since the julian epoch -4713-11-24T12:00:00 as a Float64.\n\n\n\n"
@@ -17586,7 +17586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.rata2datetime",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.rata2datetime",
     "category": "Function",
     "text": "rata2datetime(days) -> DateTime\n\nTakes the number of Rata Die days since epoch 0000-12-31T00:00:00 and returns the corresponding DateTime.\n\n\n\n"
@@ -17594,39 +17594,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/dates.html#Base.Dates.datetime2rata",
-    "page": "Dates and Time",
+    "page": "Fechas y  Tiempo",
     "title": "Base.Dates.datetime2rata",
     "category": "Function",
     "text": "datetime2rata(dt::TimeType) -> Int64\n\nReturns the number of Rata Die days since epoch from the given Date or DateTime.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/dates.html#Conversion-Functions-1",
-    "page": "Dates and Time",
-    "title": "Conversion Functions",
+    "location": "stdlib/dates.html#Funciones-de-Conversión-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Funciones de Conversión",
     "category": "section",
     "text": "Base.Dates.today\nBase.Dates.unix2datetime\nBase.Dates.datetime2unix\nBase.Dates.julian2datetime\nBase.Dates.datetime2julian\nBase.Dates.rata2datetime\nBase.Dates.datetime2rata"
 },
 
 {
-    "location": "stdlib/dates.html#Constants-1",
-    "page": "Dates and Time",
-    "title": "Constants",
+    "location": "stdlib/dates.html#Constantes-1",
+    "page": "Fechas y  Tiempo",
+    "title": "Constantes",
     "category": "section",
-    "text": "Days of the Week:Variable Abbr. Value (Int)\nMonday Mon 1\nTuesday Tue 2\nWednesday Wed 3\nThursday Thu 4\nFriday Fri 5\nSaturday Sat 6\nSunday Sun 7Months of the Year:Variable Abbr. Value (Int)\nJanuary Jan 1\nFebruary Feb 2\nMarch Mar 3\nApril Apr 4\nMay May 5\nJune Jun 6\nJuly Jul 7\nAugust Aug 8\nSeptember Sep 9\nOctober Oct 10\nNovember Nov 11\nDecember Dec 12"
+    "text": "Días de la semana:Variable Abbr. Value (Int)\nMonday Mon 1\nTuesday Tue 2\nWednesday Wed 3\nThursday Thu 4\nFriday Fri 5\nSaturday Sat 6\nSunday Sun 7Meses del Año:Variable Abbr. Value (Int)\nJanuary Jan 1\nFebruary Feb 2\nMarch Mar 3\nApril Apr 4\nMay May 5\nJune Jun 6\nJuly Jul 7\nAugust Aug 8\nSeptember Sep 9\nOctober Oct 10\nNovember Nov 11\nDecember Dec 12"
 },
 
 {
     "location": "stdlib/iterators.html#",
-    "page": "Iteration utilities",
-    "title": "Iteration utilities",
+    "page": "Utilidades para Iteración",
+    "title": "Utilidades para Iteración",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.zip",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.zip",
     "category": "Function",
     "text": "zip(iters...)\n\nFor a set of iterable objects, returns an iterable of tuples, where the ith tuple contains the ith component of each input iterable.\n\nNote that zip is its own inverse: collect(zip(zip(a...)...)) == collect(a).\n\nExample\n\njulia> a = 1:5\n1:5\n\njulia> b = [\"e\",\"d\",\"b\",\"c\",\"a\"]\n5-element Array{String,1}:\n \"e\"\n \"d\"\n \"b\"\n \"c\"\n \"a\"\n\njulia> c = zip(a,b)\nBase.Iterators.Zip2{UnitRange{Int64},Array{String,1}}(1:5, String[\"e\", \"d\", \"b\", \"c\", \"a\"])\n\njulia> length(c)\n5\n\njulia> first(c)\n(1, \"e\")\n\n\n\n"
@@ -17634,7 +17634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.enumerate",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.enumerate",
     "category": "Function",
     "text": "enumerate(iter)\n\nAn iterator that yields (i, x) where i is a counter starting at 1, and x is the ith value from the given iterator. It's useful when you need not only the values x over which you are iterating, but also the number of iterations so far. Note that i may not be valid for indexing iter; it's also possible that x != iter[i], if iter has indices that do not start at 1. See the enumerate(IndexLinear(), iter) method if you want to ensure that i is an index.\n\nExample\n\njulia> a = [\"a\", \"b\", \"c\"];\n\njulia> for (index, value) in enumerate(a)\n           println(\"$index $value\")\n       end\n1 a\n2 b\n3 c\n\n\n\nenumerate(IndexLinear(), A)\nenumerate(IndexCartesian(), A)\nenumerate(IndexStyle(A), A)\n\nAn iterator that accesses each element of the array A, returning (i, x), where i is the index for the element and x = A[i].  This is similar to enumerate(A), except i will always be a valid index for A.\n\nSpecifying IndexLinear() ensures that i will be an integer; specifying IndexCartesian() ensures that i will be a CartesianIndex; specifying IndexStyle(A) chooses whichever has been defined as the native indexing style for array A.\n\nExamples\n\njulia> A = [\"a\" \"d\"; \"b\" \"e\"; \"c\" \"f\"];\n\njulia> for (index, value) in enumerate(IndexStyle(A), A)\n           println(\"$index $value\")\n       end\n1 a\n2 b\n3 c\n4 d\n5 e\n6 f\n\njulia> S = view(A, 1:2, :);\n\njulia> for (index, value) in enumerate(IndexStyle(S), S)\n           println(\"$index $value\")\n       end\nCartesianIndex{2}((1, 1)) a\nCartesianIndex{2}((2, 1)) b\nCartesianIndex{2}((1, 2)) d\nCartesianIndex{2}((2, 2)) e\n\nNote that enumerate(A) returns i as a counter (always starting at 1), whereas enumerate(IndexLinear(), A) returns i as an index (starting at the first linear index of A, which may or may not be 1).\n\nSee also: IndexStyle, indices.\n\n\n\n"
@@ -17642,7 +17642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.rest",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.rest",
     "category": "Function",
     "text": "rest(iter, state)\n\nAn iterator that yields the same elements as iter, but starting at the given state.\n\n\n\n"
@@ -17650,7 +17650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.countfrom",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.countfrom",
     "category": "Function",
     "text": "countfrom(start=1, step=1)\n\nAn iterator that counts forever, starting at start and incrementing by step.\n\n\n\n"
@@ -17658,7 +17658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.take",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.take",
     "category": "Function",
     "text": "take(iter, n)\n\nAn iterator that generates at most the first n elements of iter.\n\nExample\n\njulia> a = 1:2:11\n1:2:11\n\njulia> collect(a)\n6-element Array{Int64,1}:\n  1\n  3\n  5\n  7\n  9\n 11\n\njulia> collect(Iterators.take(a,3))\n3-element Array{Int64,1}:\n 1\n 3\n 5\n\n\n\n"
@@ -17666,7 +17666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.drop",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.drop",
     "category": "Function",
     "text": "drop(iter, n)\n\nAn iterator that generates all but the first n elements of iter.\n\nExample\n\njulia> a = 1:2:11\n1:2:11\n\njulia> collect(a)\n6-element Array{Int64,1}:\n  1\n  3\n  5\n  7\n  9\n 11\n\njulia> collect(Iterators.drop(a,4))\n2-element Array{Int64,1}:\n  9\n 11\n\n\n\n"
@@ -17674,7 +17674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.cycle",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.cycle",
     "category": "Function",
     "text": "cycle(iter)\n\nAn iterator that cycles through iter forever.\n\n\n\n"
@@ -17682,7 +17682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.repeated",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.repeated",
     "category": "Function",
     "text": "repeated(x[, n::Int])\n\nAn iterator that generates the value x forever. If n is specified, generates x that many times (equivalent to take(repeated(x), n)).\n\nExample\n\njulia> a = Iterators.repeated([1 2], 4);\n\njulia> collect(a)\n4-element Array{Array{Int64,2},1}:\n [1 2]\n [1 2]\n [1 2]\n [1 2]\n\n\n\n"
@@ -17690,7 +17690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.product",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.product",
     "category": "Function",
     "text": "product(iters...)\n\nReturns an iterator over the product of several iterators. Each generated element is a tuple whose ith element comes from the ith argument iterator. The first iterator changes the fastest. Example:\n\nExample\n\njulia> collect(Iterators.product(1:2,3:5))\n2×3 Array{Tuple{Int64,Int64},2}:\n (1, 3)  (1, 4)  (1, 5)\n (2, 3)  (2, 4)  (2, 5)\n\n\n\n"
@@ -17698,7 +17698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.flatten",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.flatten",
     "category": "Function",
     "text": "flatten(iter)\n\nGiven an iterator that yields iterators, return an iterator that yields the elements of those iterators. Put differently, the elements of the argument iterator are concatenated.\n\nExample\n\njulia> collect(Iterators.flatten((1:2, 8:9)))\n4-element Array{Int64,1}:\n 1\n 2\n 8\n 9\n\n\n\n"
@@ -17706,7 +17706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#Base.Iterators.partition",
-    "page": "Iteration utilities",
+    "page": "Utilidades para Iteración",
     "title": "Base.Iterators.partition",
     "category": "Function",
     "text": "partition(collection, n)\n\nIterate over a collection n elements at a time.\n\nExample\n\njulia> collect(Iterators.partition([1,2,3,4,5], 2))\n3-element Array{Array{Int64,1},1}:\n [1, 2]\n [3, 4]\n [5]\n\n\n\n"
@@ -17714,47 +17714,47 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/iterators.html#iterators-1",
-    "page": "Iteration utilities",
-    "title": "Iteration utilities",
+    "page": "Utilidades para Iteración",
+    "title": "Utilidades para Iteración",
     "category": "section",
     "text": "Base.Iterators.zip\nBase.Iterators.enumerate\nBase.Iterators.rest\nBase.Iterators.countfrom\nBase.Iterators.take\nBase.Iterators.drop\nBase.Iterators.cycle\nBase.Iterators.repeated\nBase.Iterators.product\nBase.Iterators.flatten\nBase.Iterators.partition"
 },
 
 {
     "location": "stdlib/test.html#",
-    "page": "Unit Testing",
-    "title": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Haciendo Pruebas Unitarias",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/test.html#test-1",
-    "page": "Unit Testing",
-    "title": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Haciendo Pruebas Unitarias",
     "category": "section",
     "text": "DocTestSetup = quote\n    using Base.Test\nend"
 },
 
 {
     "location": "stdlib/test.html#Base.runtests",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.runtests",
     "category": "Function",
     "text": "runtests([tests=[\"all\"] [, numcores=ceil(Int, Sys.CPU_CORES / 2) ]])\n\nRun the Julia unit tests listed in tests, which can be either a string or an array of strings, using numcores processors. (not exported)\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Testing-Base-Julia-1",
-    "page": "Unit Testing",
-    "title": "Testing Base Julia",
+    "location": "stdlib/test.html#Probando-Julia-Base-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Probando Julia Base",
     "category": "section",
-    "text": "Julia is under rapid development and has an extensive test suite to verify functionality across multiple platforms. If you build Julia from source, you can run this test suite with make test. In a binary install, you can run the test suite using Base.runtests().Base.runtests"
+    "text": "Julia está en rápido desarrollo y cuenta con un amplio conjunto de pruebas para verificar su funcionalidad en múltiples plataformas. Si compila Julia desde el origen, puede ejecutar este conjunto de pruebas con make test. En una instalación binaria, puede ejecutar el conjunto de pruebas utilizando Base.runtests().Base.runtests"
 },
 
 {
     "location": "stdlib/test.html#Base.Test.@test",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test",
     "category": "Macro",
     "text": "@test ex\n@test f(args...) key=val ...\n\nTests that the expression ex evaluates to true. Returns a Pass Result if it does, a Fail Result if it is false, and an Error Result if it could not be evaluated.\n\nThe @test f(args...) key=val... form is equivalent to writing @test f(args..., key=val...) which can be useful when the expression is a call using infix syntax such as approximate comparisons:\n\n@test a ≈ b atol=ε\n\nThis is equivalent to the uglier test @test ≈(a, b, atol=ε). It is an error to supply more than one expression unless the first is a call expression and the rest are assignments (k=v).\n\n\n\n"
@@ -17762,39 +17762,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.@test_throws",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test_throws",
     "category": "Macro",
     "text": "@test_throws extype ex\n\nTests that the expression ex throws an exception of type extype. Note that @test_throws does not support a trailing keyword form.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Basic-Unit-Tests-1",
-    "page": "Unit Testing",
-    "title": "Basic Unit Tests",
+    "location": "stdlib/test.html#Pruebas-Unitarias-Básicas-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Pruebas Unitarias Básicas",
     "category": "section",
-    "text": "The Base.Test module provides simple unit testing functionality. Unit testing is a way to see if your code is correct by checking that the results are what you expect. It can be helpful to ensure your code still works after you make changes, and can be used when developing as a way of specifying the behaviors your code should have when complete.Simple unit testing can be performed with the @test() and @test_throws() macros:Base.Test.@test\nBase.Test.@test_throwsFor example, suppose we want to check our new function foo(x) works as expected:julia> using Base.Test\n\njulia> foo(x) = length(x)^2\nfoo (generic function with 1 method)If the condition is true, a Pass is returned:julia> @test foo(\"bar\") == 9\nTest Passed\n\njulia> @test foo(\"fizz\") >= 10\nTest PassedIf the condition is false, then a Fail is returned and an exception is thrown:julia> @test foo(\"f\") == 20\nTest Failed\n  Expression: foo(\"f\") == 20\n   Evaluated: 1 == 20\nERROR: There was an error during testingIf the condition could not be evaluated because an exception was thrown, which occurs in this case because length() is not defined for symbols, an Error object is returned and an exception is thrown:julia> @test foo(:cat) == 1\nError During Test\n  Test threw an exception of type MethodError\n  Expression: foo(:cat) == 1\n  MethodError: no method matching length(::Symbol)\n  Closest candidates are:\n    length(::SimpleVector) at essentials.jl:256\n    length(::Base.MethodList) at reflection.jl:521\n    length(::MethodTable) at reflection.jl:597\n    ...\n  Stacktrace:\n   [...]\nERROR: There was an error during testingIf we expect that evaluating an expression should throw an exception, then we can use @test_throws() to check that this occurs:julia> @test_throws MethodError foo(:cat)\nTest Passed\n      Thrown: MethodError"
+    "text": "El módulo Base.Test proporciona una funcionalidad simple de realización de pruebas unitarias. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollarlo como una forma de especificar los comportamientos que su código debería tener cuando se complete.Se pueden realizar pruebas unitarias simples con las macros @test () y @test_throws ():Base.Test.@test\nBase.Test.@test_throwsPor ejemplo, supongamos que queremos comprobar que nuestra nueva función foo(x) funciona como se esperaba:julia> using Base.Test\n\njulia> foo(x) = length(x)^2\nfoo (generic function with 1 method)Si la condición es cierta, se devuelve un Pass:julia> @test foo(\"bar\") == 9\nTest Passed\n\njulia> @test foo(\"fizz\") >= 10\nTest PassedSi la condición es falsa, se devuelve un Fail y se lanza una excepción:julia> @test foo(\"f\") == 20\nTest Failed\n  Expression: foo(\"f\") == 20\n   Evaluated: 1 == 20\nERROR: There was an error during testingSi la condición no pudo ser evaluada porque se lanzó una excepción, lo que ocurre en este caso porque length() no está definido para símbolos, se devuelve un objeto Error y se lanza una excepción:julia> @test foo(:cat) == 1\nError During Test\n  Test threw an exception of type MethodError\n  Expression: foo(:cat) == 1\n  MethodError: no method matching length(::Symbol)\n  Closest candidates are:\n    length(::SimpleVector) at essentials.jl:256\n    length(::Base.MethodList) at reflection.jl:521\n    length(::MethodTable) at reflection.jl:597\n    ...\n  Stacktrace:\n   [...]\nERROR: There was an error during testingSi esperamos que al evaluar una expresión deberían lanzarse una excepción, entonces podemos usar @test_throws() para comprobar que esto es lo que ocurre:julia> @test_throws MethodError foo(:cat)\nTest Passed\n      Thrown: MethodError"
 },
 
 {
     "location": "stdlib/test.html#Base.Test.@testset",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@testset",
     "category": "Macro",
     "text": "@testset [CustomTestSet] [option=val  ...] [\"description\"] begin ... end\n@testset [CustomTestSet] [option=val  ...] [\"description $v\"] for v in (...) ... end\n@testset [CustomTestSet] [option=val  ...] [\"description $v, $w\"] for v in (...), w in (...) ... end\n\nStarts a new test set, or multiple test sets if a for loop is provided.\n\nIf no custom testset type is given it defaults to creating a DefaultTestSet. DefaultTestSet records all the results and, if there are any Fails or Errors, throws an exception at the end of the top-level (non-nested) test set, along with a summary of the test results.\n\nAny custom testset type (subtype of AbstractTestSet) can be given and it will also be used for any nested @testset invocations. The given options are only applied to the test set where they are given. The default test set type does not take any options.\n\nThe description string accepts interpolation from the loop indices. If no description is provided, one is constructed based on the variables.\n\nBy default the @testset macro will return the testset object itself, though this behavior can be customized in other testset types. If a for loop is used then the macro collects and returns a list of the return values of the finish method, which by default will return a list of the testset objects used in each iteration.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Working-with-Test-Sets-1",
-    "page": "Unit Testing",
-    "title": "Working with Test Sets",
+    "location": "stdlib/test.html#Trabajando-con-Conjuntos-de-Test-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Trabajando con Conjuntos de Test",
     "category": "section",
-    "text": "Typically a large number of tests are used to make sure functions work correctly over a range of inputs. In the event a test fails, the default behavior is to throw an exception immediately. However, it is normally preferable to run the rest of the tests first to get a better picture of how many errors there are in the code being tested.The @testset() macro can be used to group tests into sets. All the tests in a test set will be run, and at the end of the test set a summary will be printed. If any of the tests failed, or could not be evaluated due to an error, the test set will then throw a TestSetException.Base.Test.@testsetWe can put our tests for the foo(x) function in a test set:julia> @testset \"Foo Tests\" begin\n           @test foo(\"a\")   == 1\n           @test foo(\"ab\")  == 4\n           @test foo(\"abc\") == 9\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    3      3Test sets can also be nested:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @test foo(\"cat\") == 9\n               @test foo(\"dog\") == foo(\"cat\")\n           end\n           @testset \"Arrays $i\" for i in 1:3\n               @test foo(zeros(i)) == i^2\n               @test foo(ones(i)) == i^2\n           end\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    8      8In the event that a nested test set has no failures, as happened here, it will be hidden in the summary. If we do have a test failure, only the details for the failed test sets will be shown:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @testset \"Felines\" begin\n                   @test foo(\"cat\") == 9\n               end\n               @testset \"Canines\" begin\n                   @test foo(\"dog\") == 9\n               end\n           end\n           @testset \"Arrays\" begin\n               @test foo(zeros(2)) == 4\n               @test foo(ones(4)) == 15\n           end\n       end\n\nArrays: Test Failed\n  Expression: foo(ones(4)) == 15\n   Evaluated: 16 == 15\nStacktrace:\n    [...]\nTest Summary: | Pass  Fail  Total\nFoo Tests     |    3     1      4\n  Animals     |    2            2\n  Arrays      |    1     1      2\nERROR: Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."
+    "text": "Normalmente, se utiliza una gran cantidad de pruebas para garantizar que las funciones trabajan correctamente sobre distintas entradas. En el caso de que una prueba falle, el comportamiento predeterminado es lanzar una excepción de inmediato. Sin embargo, normalmente es preferible ejecutar el resto de las pruebas primero para obtener una mejor idea de cuántos errores hay en el código que se prueba.La macro @testset() se puede usar para agrupar las pruebas en conjuntos. En un conjunto de pruebas, se ejecutarán variasy al final de su realización se imprimirá un resumen. Si alguna de las pruebas falla o no se puede evaluar debido a un error, el conjunto de prueba arrojará una TestSetException.Base.Test.@testsetPodemos poner nuestros tests para la función foo(x) en un conjuntos de tests:julia> @testset \"Foo Tests\" begin\n           @test foo(\"a\")   == 1\n           @test foo(\"ab\")  == 4\n           @test foo(\"abc\") == 9\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    3      3Los conjuntos de pruebas pueden también anidarse:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @test foo(\"cat\") == 9\n               @test foo(\"dog\") == foo(\"cat\")\n           end\n           @testset \"Arrays $i\" for i in 1:3\n               @test foo(zeros(i)) == i^2\n               @test foo(ones(i)) == i^2\n           end\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    8      8En el caso de que un conjunto de pruebas anidado no tenga fallos, como pasa aquí, ello se ocultará en el resumen. Si tenemos un test que falle, sólo se mostrarán los detalles para este conjunto de tests que ha fallado:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @testset \"Felines\" begin\n                   @test foo(\"cat\") == 9\n               end\n               @testset \"Canines\" begin\n                   @test foo(\"dog\") == 9\n               end\n           end\n           @testset \"Arrays\" begin\n               @test foo(zeros(2)) == 4\n               @test foo(ones(4)) == 15\n           end\n       end\n\nArrays: Test Failed\n  Expression: foo(ones(4)) == 15\n   Evaluated: 16 == 15\nStacktrace:\n    [...]\nTest Summary: | Pass  Fail  Total\nFoo Tests     |    3     1      4\n  Animals     |    2            2\n  Arrays      |    1     1      2\nERROR: Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."
 },
 
 {
     "location": "stdlib/test.html#Base.Test.@inferred",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@inferred",
     "category": "Macro",
     "text": "@inferred f(x)\n\nTests that the call expression f(x) returns a value of the same type inferred by the compiler. It is useful to check for type stability.\n\nf(x) can be any call expression. Returns the result of f(x) if the types match, and an Error Result if it finds different types.\n\njulia> using Base.Test\n\njulia> f(a,b,c) = b > 1 ? 1 : 1.0\nf (generic function with 1 method)\n\njulia> typeof(f(1,2,3))\nInt64\n\njulia> @code_warntype f(1,2,3)\nVariables:\n  #self# <optimized out>\n  a <optimized out>\n  b::Int64\n  c <optimized out>\n\nBody:\n  begin\n      unless (Base.slt_int)(1, b::Int64)::Bool goto 3\n      return 1\n      3:\n      return 1.0\n  end::UNION{FLOAT64, INT64}\n\njulia> @inferred f(1,2,3)\nERROR: return type Int64 does not match inferred return type Union{Float64, Int64}\nStacktrace:\n [1] error(::String) at ./error.jl:21\n\njulia> @inferred max(1,2)\n2\n\n\n\n"
@@ -17802,7 +17802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.@test_warn",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test_warn",
     "category": "Macro",
     "text": "@test_warn msg expr\n\nTest whether evaluating expr results in STDERR output that contains the msg string or matches the msg regular expression.  If msg is a boolean function, tests whether msg(output) returns true.  If msg is a tuple or array, checks that the error output contains/matches each item in msg. Returns the result of evaluating expr.\n\nSee also @test_nowarn to check for the absence of error output.\n\n\n\n"
@@ -17810,23 +17810,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.@test_nowarn",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test_nowarn",
     "category": "Macro",
     "text": "@test_nowarn expr\n\nTest whether evaluating expr results in empty STDERR output (no warnings or other messages).  Returns the result of evaluating expr.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Other-Test-Macros-1",
-    "page": "Unit Testing",
-    "title": "Other Test Macros",
+    "location": "stdlib/test.html#Otras-Macros-para-Tests-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Otras Macros para Tests",
     "category": "section",
-    "text": "As calculations on floating-point values can be imprecise, you can perform approximate equality checks using either @test a ≈ b (where ≈, typed via tab completion of \\approx, is the isapprox() function) or use isapprox() directly.julia> @test 1 ≈ 0.999999999\nTest Passed\n\njulia> @test 1 ≈ 0.999999\nTest Failed\n  Expression: 1 ≈ 0.999999\n   Evaluated: 1 ≈ 0.999999\nERROR: There was an error during testingBase.Test.@inferred\nBase.Test.@test_warn\nBase.Test.@test_nowarn"
+    "text": "Como los cálculos sobre valores en punto flotane pueden ser imprecisos, podemos realizar comprobaciones de igualdad aproximada usando @test a ≈ b (donde ≈, se obtiene mediante terminación con tabulador de \\approx, es la función isapprox()) o usar directamente isapprox().julia> @test 1 ≈ 0.999999999\nTest Passed\n\njulia> @test 1 ≈ 0.999999\nTest Failed\n  Expression: 1 ≈ 0.999999\n   Evaluated: 1 ≈ 0.999999\nERROR: There was an error during testingBase.Test.@inferred\nBase.Test.@test_warn\nBase.Test.@test_nowarn"
 },
 
 {
     "location": "stdlib/test.html#Base.Test.@test_broken",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test_broken",
     "category": "Macro",
     "text": "@test_broken ex\n@test_broken f(args...) key=val ...\n\nIndicates a test that should pass but currently consistently fails. Tests that the expression ex evaluates to false or causes an exception. Returns a Broken Result if it does, or an Error Result if the expression evaluates to true.\n\nThe @test_broken f(args...) key=val... form works as for the @test macro.\n\n\n\n"
@@ -17834,23 +17834,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.@test_skip",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.@test_skip",
     "category": "Macro",
     "text": "@test_skip ex\n@test_skip f(args...) key=val ...\n\nMarks a test that should not be executed but should be included in test summary reporting as Broken. This can be useful for tests that intermittently fail, or tests of not-yet-implemented functionality.\n\nThe @test_skip f(args...) key=val... form works as for the @test macro.\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Broken-Tests-1",
-    "page": "Unit Testing",
-    "title": "Broken Tests",
+    "location": "stdlib/test.html#Tests-Rotos-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Tests Rotos",
     "category": "section",
-    "text": "If a test fails consistently it can be changed to use the @test_broken() macro. This will denote the test as Broken if the test continues to fail and alerts the user via an Error if the test succeeds.Base.Test.@test_broken@test_skip() is also available to skip a test without evaluation, but counting the skipped test in the test set reporting. The test will not run but gives a Broken Result.Base.Test.@test_skip"
+    "text": "Si un test falla consistentemente puede ser cambiado para utilizar la macro @test_broken(). Esto denotará el test como Roto  (Broken) si el test continua fallando y alterta al usuaria a traves de un Error si el test tiene éxito.Base.Test.@test_broken@test_skip() está también disponible para saltar un test sin evaluación, pero contando el test que se ha saltado en el informe del conjunto de tests. El test no se ejecutará pero da un Broken Result.Base.Test.@test_skip"
 },
 
 {
     "location": "stdlib/test.html#Base.Test.record",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.record",
     "category": "Function",
     "text": "record(ts::AbstractTestSet, res::Result)\n\nRecord a result to a testset. This function is called by the @testset infrastructure each time a contained @test macro completes, and is given the test result (which could be an Error). This will also be called with an Error if an exception is thrown inside the test block but outside of a @test context.\n\n\n\n"
@@ -17858,7 +17858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.finish",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.finish",
     "category": "Function",
     "text": "finish(ts::AbstractTestSet)\n\nDo any final processing necessary for the given testset. This is called by the @testset infrastructure after a test block executes. One common use for this function is to record the testset to the parent's results list, using get_testset.\n\n\n\n"
@@ -17866,7 +17866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.get_testset",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.get_testset",
     "category": "Function",
     "text": "get_testset()\n\nRetrieve the active test set from the task's local storage. If no test set is active, use the fallback default test set.\n\n\n\n"
@@ -17874,31 +17874,31 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/test.html#Base.Test.get_testset_depth",
-    "page": "Unit Testing",
+    "page": "Haciendo Pruebas Unitarias",
     "title": "Base.Test.get_testset_depth",
     "category": "Function",
     "text": "get_testset_depth()\n\nReturns the number of active test sets, not including the defaut test set\n\n\n\n"
 },
 
 {
-    "location": "stdlib/test.html#Creating-Custom-AbstractTestSet-Types-1",
-    "page": "Unit Testing",
-    "title": "Creating Custom AbstractTestSet Types",
+    "location": "stdlib/test.html#Creando-Tipos-AbstractTestSet-Personalizados-1",
+    "page": "Haciendo Pruebas Unitarias",
+    "title": "Creando Tipos AbstractTestSet Personalizados",
     "category": "section",
-    "text": "Packages can create their own AbstractTestSet subtypes by implementing the record and finish methods. The subtype should have a one-argument constructor taking a description string, with any options passed in as keyword arguments.Base.Test.record\nBase.Test.finishBase.Test takes responsibility for maintaining a stack of nested testsets as they are executed, but any result accumulation is the responsibility of the AbstractTestSet subtype. You can access this stack with the get_testset and get_testset_depth methods. Note that these functions are not exported.Base.Test.get_testset\nBase.Test.get_testset_depthBase.Test also makes sure that nested @testset invocations use the same AbstractTestSet subtype as their parent unless it is set explicitly. It does not propagate any properties of the testset. Option inheritance behavior can be implemented by packages using the stack infrastructure that Base.Test provides.Defining a basic AbstractTestSet subtype might look like:import Base.Test: record, finish\nusing Base.Test: AbstractTestSet, Result, Pass, Fail, Error\nusing Base.Test: get_testset_depth, get_testset\nstruct CustomTestSet <: Base.Test.AbstractTestSet\n    description::AbstractString\n    foo::Int\n    results::Vector\n    # constructor takes a description string and options keyword arguments\n    CustomTestSet(desc; foo=1) = new(desc, foo, [])\nend\n\nrecord(ts::CustomTestSet, child::AbstractTestSet) = push!(ts.results, child)\nrecord(ts::CustomTestSet, res::Result) = push!(ts.results, res)\nfunction finish(ts::CustomTestSet)\n    # just record if we're not the top-level parent\n    if get_testset_depth() > 0\n        record(get_testset(), ts)\n    end\n    ts\nendAnd using that testset looks like:@testset CustomTestSet foo=4 \"custom testset inner 2\" begin\n    # this testset should inherit the type, but not the argument.\n    @testset \"custom testset inner\" begin\n        @test true\n    end\nendDocTestSetup = nothing"
+    "text": "Los paquetes pueden crear sus propios subtipos AbstractTestSet implementando los métodos record y finish. El subtipo debe tener un constructor de un argumento que tome una cadena de descripción, con todas las opciones pasadas como argumentos  palabra clave.Base.Test.record\nBase.Test.finishBase.Test asume la responsabilidad de mantener una pila de conjuntos de pruebas anidados a medida que se ejecutan, pero cualquier acumulación de resultados es responsabilidad del subtipoAbstractTestSet. Puede acceder a esta pila con los métodos get_testset yget_testset_depth. Tenga en cuenta que estas funciones no se exportan.Base.Test.get_testset\nBase.Test.get_testset_depthBase.Test también se asegura de que las invocaciones @testset anidadas utilicen el mismo subtipo AbstractTestSet que sus padres a menos que se establezca explícitamente. Él no propaga ninguna propiedad del conjunto de pruebas. El comportamiento de herencia de opciones se puede implementar mediante paquetes que usan la infraestructura de pila que proporciona Base.Test.La definición de un subtipo básico de 'AbstractTestSet` podría verse así:import Base.Test: record, finish\nusing Base.Test: AbstractTestSet, Result, Pass, Fail, Error\nusing Base.Test: get_testset_depth, get_testset\nstruct CustomTestSet <: Base.Test.AbstractTestSet\n    description::AbstractString\n    foo::Int\n    results::Vector\n    # constructor takes a description string and options keyword arguments\n    CustomTestSet(desc; foo=1) = new(desc, foo, [])\nend\n\nrecord(ts::CustomTestSet, child::AbstractTestSet) = push!(ts.results, child)\nrecord(ts::CustomTestSet, res::Result) = push!(ts.results, res)\nfunction finish(ts::CustomTestSet)\n    # just record if we're not the top-level parent\n    if get_testset_depth() > 0\n        record(get_testset(), ts)\n    end\n    ts\nendY usar este conjunto de test tiene el siguiente aspecto:@testset CustomTestSet foo=4 \"custom testset inner 2\" begin\n    # this testset should inherit the type, but not the argument.\n    @testset \"custom testset inner\" begin\n        @test true\n    end\nendDocTestSetup = nothing"
 },
 
 {
     "location": "stdlib/c.html#",
-    "page": "C Interface",
-    "title": "C Interface",
+    "page": "Interfaz C",
+    "title": "Interfaz C",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/c.html#ccall",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "ccall",
     "category": "Keyword",
     "text": "ccall((symbol, library) or function_pointer, ReturnType, (ArgumentType1, ...), ArgumentValue1, ...)\n\nCall function in C-exported shared library, specified by (function name, library) tuple, where each component is a string or symbol.\n\nNote that the argument type tuple must be a literal tuple, and not a tuple-valued variable or expression. Alternatively, ccall may also be used to call a function pointer, such as one returned by dlsym.\n\nEach ArgumentValue to the ccall will be converted to the corresponding ArgumentType, by automatic insertion of calls to unsafe_convert(ArgumentType, cconvert(ArgumentType, ArgumentValue)). (See also the documentation for each of these functions for further details.) In most cases, this simply results in a call to convert(ArgumentType, ArgumentValue).\n\n\n\n"
@@ -17906,7 +17906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Core.Intrinsics.cglobal",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Core.Intrinsics.cglobal",
     "category": "Function",
     "text": "cglobal((symbol, library) [, type=Void])\n\nObtain a pointer to a global variable in a C-exported shared library, specified exactly as in ccall. Returns a Ptr{Type}, defaulting to Ptr{Void} if no Type argument is supplied. The values can be read or written by unsafe_load or unsafe_store!, respectively.\n\n\n\n"
@@ -17914,7 +17914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.cfunction",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.cfunction",
     "category": "Function",
     "text": "cfunction(function::Function, ReturnType::Type, ArgumentTypes::Type)\n\nGenerate C-callable function pointer from Julia function. Type annotation of the return value in the callback function is a must for situations where Julia cannot infer the return type automatically.\n\nExamples\n\njulia> function foo(x::Int, y::Int)\n           return x + y\n       end\n\njulia> cfunction(foo, Int, Tuple{Int,Int})\nPtr{Void} @0x000000001b82fcd0\n\n\n\n"
@@ -17922,7 +17922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_convert",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_convert",
     "category": "Function",
     "text": "unsafe_convert(T,x)\n\nConvert x to a value of type T\n\nIn cases where convert would need to take a Julia object and turn it into a Ptr, this function should be used to define and perform that conversion.\n\nBe careful to ensure that a Julia reference to x exists as long as the result of this function will be used. Accordingly, the argument x to this function should never be an expression, only a variable name or field reference. For example, x=a.b.c is acceptable, but x=[a,b,c] is not.\n\nThe unsafe prefix on this function indicates that using the result of this function after the x argument to this function is no longer accessible to the program may cause undefined behavior, including program corruption or segfaults, at any later time.\n\n\n\n"
@@ -17930,7 +17930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.cconvert",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.cconvert",
     "category": "Function",
     "text": "cconvert(T,x)\n\nConvert x to a value of type T, typically by calling convert(T,x)\n\nIn cases where x cannot be safely converted to T, unlike convert, cconvert may return an object of a type different from T, which however is suitable for unsafe_convert to handle.\n\nNeither convert nor cconvert should take a Julia object and turn it into a Ptr.\n\n\n\n"
@@ -17938,7 +17938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_load",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_load",
     "category": "Function",
     "text": "unsafe_load(p::Ptr{T}, i::Integer=1)\n\nLoad a value of type T from the address of the ith element (1-indexed) starting at p. This is equivalent to the C expression p[i-1].\n\nThe unsafe prefix on this function indicates that no validation is performed on the pointer p to ensure that it is valid. Incorrect usage may segfault your program or return garbage answers, in the same manner as C.\n\n\n\n"
@@ -17946,7 +17946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_store!",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_store!",
     "category": "Function",
     "text": "unsafe_store!(p::Ptr{T}, x, i::Integer=1)\n\nStore a value of type T to the address of the ith element (1-indexed) starting at p. This is equivalent to the C expression p[i-1] = x.\n\nThe unsafe prefix on this function indicates that no validation is performed on the pointer p to ensure that it is valid. Incorrect usage may corrupt or segfault your program, in the same manner as C.\n\n\n\n"
@@ -17954,7 +17954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_copy!-Union{Tuple{Ptr{T},Ptr{T},Any}, Tuple{T}} where T",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_copy!",
     "category": "Method",
     "text": "unsafe_copy!(dest::Ptr{T}, src::Ptr{T}, N)\n\nCopy N elements from a source pointer to a destination, with no checking. The size of an element is determined by the type of the pointers.\n\nThe unsafe prefix on this function indicates that no validation is performed on the pointers dest and src to ensure that they are valid. Incorrect usage may corrupt or segfault your program, in the same manner as C.\n\n\n\n"
@@ -17962,7 +17962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_copy!-Tuple{Array,Any,Array,Any,Any}",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_copy!",
     "category": "Method",
     "text": "unsafe_copy!(dest::Array, do, src::Array, so, N)\n\nCopy N elements from a source array to a destination, starting at offset so in the source and do in the destination (1-indexed).\n\nThe unsafe prefix on this function indicates that no validation is performed to ensure that N is inbounds on either array. Incorrect usage may corrupt or segfault your program, in the same manner as C.\n\n\n\n"
@@ -17970,7 +17970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.copy!-Tuple{Any,Any}",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.copy!",
     "category": "Method",
     "text": "copy!(dest, src) -> dest\n\nCopy all elements from collection src to array dest.\n\n\n\n"
@@ -17978,7 +17978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.copy!-NTuple{5,Any}",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.copy!",
     "category": "Method",
     "text": "copy!(dest, do, src, so, N)\n\nCopy N elements from collection src starting at offset so, to array dest starting at offset do. Returns dest.\n\n\n\n"
@@ -17986,7 +17986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.pointer",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.pointer",
     "category": "Function",
     "text": "pointer(array [, index])\n\nGet the native address of an array or string element. Be careful to ensure that a Julia reference to a exists as long as this pointer will be used. This function is \"unsafe\" like unsafe_convert.\n\nCalling Ref(array[, index]) is generally preferable to this function.\n\n\n\n"
@@ -17994,7 +17994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_wrap-Union{Tuple{N}, Tuple{T}, Tuple{Union{Type{Array{T,N} where N}, Type{Array{T,N}}, Type{Array}},Ptr{T},Tuple{Vararg{Int64,N}}}} where N where T",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_wrap",
     "category": "Method",
     "text": "unsafe_wrap(Array, pointer::Ptr{T}, dims, own=false)\n\nWrap a Julia Array object around the data at the address given by pointer, without making a copy.  The pointer element type T determines the array element type. dims is either an integer (for a 1d array) or a tuple of the array dimensions. own optionally specifies whether Julia should take ownership of the memory, calling free on the pointer when the array is no longer referenced.\n\nThis function is labelled \"unsafe\" because it will crash if pointer is not a valid memory address to data of the requested length.\n\n\n\n"
@@ -18002,7 +18002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.pointer_from_objref",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.pointer_from_objref",
     "category": "Function",
     "text": "pointer_from_objref(x)\n\nGet the memory address of a Julia object as a Ptr. The existence of the resulting Ptr will not protect the object from garbage collection, so you must ensure that the object remains referenced for the whole time that the Ptr will be used.\n\n\n\n"
@@ -18010,7 +18010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.unsafe_pointer_to_objref",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.unsafe_pointer_to_objref",
     "category": "Function",
     "text": "unsafe_pointer_to_objref(p::Ptr)\n\nConvert a Ptr to an object reference. Assumes the pointer refers to a valid heap-allocated Julia object. If this is not the case, undefined behavior results, hence this function is considered \"unsafe\" and should be used with care.\n\n\n\n"
@@ -18018,7 +18018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.disable_sigint",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.disable_sigint",
     "category": "Function",
     "text": "disable_sigint(f::Function)\n\nDisable Ctrl-C handler during execution of a function on the current task, for calling external code that may call julia code that is not interrupt safe. Intended to be called using do block syntax as follows:\n\ndisable_sigint() do\n    # interrupt-unsafe code\n    ...\nend\n\nThis is not needed on worker threads (Threads.threadid() != 1) since the InterruptException will only be delivered to the master thread. External functions that do not call julia code or julia runtime automatically disable sigint during their execution.\n\n\n\n"
@@ -18026,7 +18026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.reenable_sigint",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.reenable_sigint",
     "category": "Function",
     "text": "reenable_sigint(f::Function)\n\nRe-enable Ctrl-C handler during execution of a function. Temporarily reverses the effect of disable_sigint.\n\n\n\n"
@@ -18034,7 +18034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.systemerror",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.systemerror",
     "category": "Function",
     "text": "systemerror(sysfunc, iftrue)\n\nRaises a SystemError for errno with the descriptive string sysfunc if iftrue is true\n\n\n\n"
@@ -18042,7 +18042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Core.Ptr",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Core.Ptr",
     "category": "Type",
     "text": "Ptr{T}\n\nA memory address referring to data of type T.  However, there is no guarantee that the memory is actually valid, or that it actually represents data of the specified type.\n\n\n\n"
@@ -18050,7 +18050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Core.Ref",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Core.Ref",
     "category": "Type",
     "text": "Ref{T}\n\nAn object that safely references data of type T. This type is guaranteed to point to valid, Julia-allocated memory of the correct type. The underlying data is protected from freeing by the garbage collector as long as the Ref itself is referenced.\n\nWhen passed as a ccall argument (either as a Ptr or Ref type), a Ref object will be converted to a native pointer to the data it references.\n\nThere is no invalid (NULL) Ref.\n\n\n\n"
@@ -18058,7 +18058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cchar",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cchar",
     "category": "Type",
     "text": "Cchar\n\nEquivalent to the native char c-type.\n\n\n\n"
@@ -18066,7 +18066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cuchar",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cuchar",
     "category": "Type",
     "text": "Cuchar\n\nEquivalent to the native unsigned char c-type (UInt8).\n\n\n\n"
@@ -18074,7 +18074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cshort",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cshort",
     "category": "Type",
     "text": "Cshort\n\nEquivalent to the native signed short c-type (Int16).\n\n\n\n"
@@ -18082,7 +18082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cushort",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cushort",
     "category": "Type",
     "text": "Cushort\n\nEquivalent to the native unsigned short c-type (UInt16).\n\n\n\n"
@@ -18090,7 +18090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cint",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cint",
     "category": "Type",
     "text": "Cint\n\nEquivalent to the native signed int c-type (Int32).\n\n\n\n"
@@ -18098,7 +18098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cuint",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cuint",
     "category": "Type",
     "text": "Cuint\n\nEquivalent to the native unsigned int c-type (UInt32).\n\n\n\n"
@@ -18106,7 +18106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Clong",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Clong",
     "category": "Type",
     "text": "Clong\n\nEquivalent to the native signed long c-type.\n\n\n\n"
@@ -18114,7 +18114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Culong",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Culong",
     "category": "Type",
     "text": "Culong\n\nEquivalent to the native unsigned long c-type.\n\n\n\n"
@@ -18122,7 +18122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Clonglong",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Clonglong",
     "category": "Type",
     "text": "Clonglong\n\nEquivalent to the native signed long long c-type (Int64).\n\n\n\n"
@@ -18130,7 +18130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Culonglong",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Culonglong",
     "category": "Type",
     "text": "Culonglong\n\nEquivalent to the native unsigned long long c-type (UInt64).\n\n\n\n"
@@ -18138,7 +18138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cintmax_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cintmax_t",
     "category": "Type",
     "text": "Cintmax_t\n\nEquivalent to the native intmax_t c-type (Int64).\n\n\n\n"
@@ -18146,7 +18146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cuintmax_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cuintmax_t",
     "category": "Type",
     "text": "Cuintmax_t\n\nEquivalent to the native uintmax_t c-type (UInt64).\n\n\n\n"
@@ -18154,7 +18154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Csize_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Csize_t",
     "category": "Type",
     "text": "Csize_t\n\nEquivalent to the native size_t c-type (UInt).\n\n\n\n"
@@ -18162,7 +18162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cssize_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cssize_t",
     "category": "Type",
     "text": "Cssize_t\n\nEquivalent to the native ssize_t c-type.\n\n\n\n"
@@ -18170,7 +18170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cptrdiff_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cptrdiff_t",
     "category": "Type",
     "text": "Cptrdiff_t\n\nEquivalent to the native ptrdiff_t c-type (Int).\n\n\n\n"
@@ -18178,7 +18178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cwchar_t",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cwchar_t",
     "category": "Type",
     "text": "Cwchar_t\n\nEquivalent to the native wchar_t c-type (Int32).\n\n\n\n"
@@ -18186,7 +18186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cfloat",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cfloat",
     "category": "Type",
     "text": "Cfloat\n\nEquivalent to the native float c-type (Float32).\n\n\n\n"
@@ -18194,7 +18194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#Base.Cdouble",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Base.Cdouble",
     "category": "Type",
     "text": "Cdouble\n\nEquivalent to the native double c-type (Float64).\n\n\n\n"
@@ -18202,15 +18202,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#c-1",
-    "page": "C Interface",
-    "title": "C Interface",
+    "page": "Interfaz C",
+    "title": "Interfaz C",
     "category": "section",
     "text": "ccall\nCore.Intrinsics.cglobal\nBase.cfunction\nBase.unsafe_convert\nBase.cconvert\nBase.unsafe_load\nBase.unsafe_store!\nBase.unsafe_copy!{T}(::Ptr{T}, ::Ptr{T}, ::Any)\nBase.unsafe_copy!(::Array, ::Any, ::Array, ::Any, ::Any)\nBase.copy!(::Any, ::Any)\nBase.copy!(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.pointer\nBase.unsafe_wrap{T,N}(::Union{Type{Array},Type{Array{T}},Type{Array{T,N}}}, ::Ptr{T}, ::NTuple{N,Int})\nBase.pointer_from_objref\nBase.unsafe_pointer_to_objref\nBase.disable_sigint\nBase.reenable_sigint\nBase.systemerror\nCore.Ptr\nCore.Ref\nBase.Cchar\nBase.Cuchar\nBase.Cshort\nBase.Cushort\nBase.Cint\nBase.Cuint\nBase.Clong\nBase.Culong\nBase.Clonglong\nBase.Culonglong\nBase.Cintmax_t\nBase.Cuintmax_t\nBase.Csize_t\nBase.Cssize_t\nBase.Cptrdiff_t\nBase.Cwchar_t\nBase.Cfloat\nBase.Cdouble"
 },
 
 {
     "location": "stdlib/c.html#Core.Intrinsics.llvmcall",
-    "page": "C Interface",
+    "page": "Interfaz C",
     "title": "Core.Intrinsics.llvmcall",
     "category": "Function",
     "text": "llvmcall(IR::String, ReturnType, (ArgumentType1, ...), ArgumentValue1, ...)\nllvmcall((declarations::String, IR::String), ReturnType, (ArgumentType1, ...), ArgumentValue1, ...)\n\nCall LLVM IR string in the first argument. Similar to an LLVM function define block, arguments are available as consecutive unnamed SSA variables (%0, %1, etc.).\n\nThe optional declarations string contains external functions declarations that are necessary for llvm to compile the IR string. Multiple declarations can be passed in by separating them with line breaks.\n\nNote that the argument type tuple must be a literal tuple, and not a tuple-valued variable or expression.\n\nEach ArgumentValue to llvmcall will be converted to the corresponding ArgumentType, by automatic insertion of calls to unsafe_convert(ArgumentType, cconvert(ArgumentType, ArgumentValue)). (see also the documentation for each of these functions for further details). In most cases, this simply results in a call to convert(ArgumentType, ArgumentValue).\n\nSee test/llvmcall.jl for usage examples.\n\n\n\n"
@@ -18218,23 +18218,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/c.html#llvm-interface-1",
-    "page": "C Interface",
-    "title": "LLVM Interface",
+    "page": "Interfaz C",
+    "title": "Interfaz LLVM",
     "category": "section",
     "text": "Core.Intrinsics.llvmcall"
 },
 
 {
     "location": "stdlib/libc.html#",
-    "page": "C Standard Library",
-    "title": "C Standard Library",
+    "page": "Librería Estándar C",
+    "title": "Librería Estándar C",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/libc.html#Base.Libc.malloc",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.malloc",
     "category": "Function",
     "text": "malloc(size::Integer) -> Ptr{Void}\n\nCall malloc from the C standard library.\n\n\n\n"
@@ -18242,7 +18242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.calloc",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.calloc",
     "category": "Function",
     "text": "calloc(num::Integer, size::Integer) -> Ptr{Void}\n\nCall calloc from the C standard library.\n\n\n\n"
@@ -18250,7 +18250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.realloc",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.realloc",
     "category": "Function",
     "text": "realloc(addr::Ptr, size::Integer) -> Ptr{Void}\n\nCall realloc from the C standard library.\n\nSee warning in the documentation for free regarding only using this on memory originally obtained from malloc.\n\n\n\n"
@@ -18258,7 +18258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.free",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.free",
     "category": "Function",
     "text": "free(addr::Ptr)\n\nCall free from the C standard library. Only use this on memory obtained from malloc, not on pointers retrieved from other C libraries. Ptr objects obtained from C libraries should be freed by the free functions defined in that library, to avoid assertion failures if multiple libc libraries exist on the system.\n\n\n\n"
@@ -18266,7 +18266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.errno",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.errno",
     "category": "Function",
     "text": "errno([code])\n\nGet the value of the C library's errno. If an argument is specified, it is used to set the value of errno.\n\nThe value of errno is only valid immediately after a ccall to a C library routine that sets it. Specifically, you cannot call errno at the next prompt in a REPL, because lots of code is executed between prompts.\n\n\n\n"
@@ -18274,7 +18274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.strerror",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.strerror",
     "category": "Function",
     "text": "strerror(n=errno())\n\nConvert a system call error code to a descriptive string\n\n\n\n"
@@ -18282,7 +18282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.GetLastError",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.GetLastError",
     "category": "Function",
     "text": "GetLastError()\n\nCall the Win32 GetLastError function [only available on Windows].\n\n\n\n"
@@ -18290,7 +18290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.FormatMessage",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.FormatMessage",
     "category": "Function",
     "text": "FormatMessage(n=GetLastError())\n\nConvert a Win32 system call error code to a descriptive string [only available on Windows].\n\n\n\n"
@@ -18298,7 +18298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.time-Tuple{Base.Libc.TmStruct}",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.time",
     "category": "Method",
     "text": "time(t::TmStruct)\n\nConverts a TmStruct struct to a number of seconds since the epoch.\n\n\n\n"
@@ -18306,7 +18306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.strftime",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.strftime",
     "category": "Function",
     "text": "strftime([format], time)\n\nConvert time, given as a number of seconds since the epoch or a TmStruct, to a formatted string using the given format. Supported formats are the same as those in the standard C library.\n\n\n\n"
@@ -18314,7 +18314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.strptime",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.strptime",
     "category": "Function",
     "text": "strptime([format], timestr)\n\nParse a formatted time string into a TmStruct giving the seconds, minute, hour, date, etc. Supported formats are the same as those in the standard C library. On some platforms, timezones will not be parsed correctly. If the result of this function will be passed to time to convert it to seconds since the epoch, the isdst field should be filled in manually. Setting it to -1 will tell the C library to use the current system settings to determine the timezone.\n\n\n\n"
@@ -18322,7 +18322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.TmStruct",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.TmStruct",
     "category": "Type",
     "text": "TmStruct([seconds])\n\nConvert a number of seconds since the epoch to broken-down format, with fields sec, min, hour, mday, month, year, wday, yday, and isdst.\n\n\n\n"
@@ -18330,7 +18330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#Base.Libc.flush_cstdio",
-    "page": "C Standard Library",
+    "page": "Librería Estándar C",
     "title": "Base.Libc.flush_cstdio",
     "category": "Function",
     "text": "flush_cstdio()\n\nFlushes the C stdout and stderr streams (which may have been written to by external C code).\n\n\n\n"
@@ -18338,23 +18338,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libc.html#libc-1",
-    "page": "C Standard Library",
-    "title": "C Standard Library",
+    "page": "Librería Estándar C",
+    "title": "Librería Estándar C",
     "category": "section",
     "text": "Base.Libc.malloc\nBase.Libc.calloc\nBase.Libc.realloc\nBase.Libc.free\nBase.Libc.errno\nBase.Libc.strerror\nBase.Libc.GetLastError\nBase.Libc.FormatMessage\nBase.Libc.time(::Base.Libc.TmStruct)\nBase.Libc.strftime\nBase.Libc.strptime\nBase.Libc.TmStruct\nBase.Libc.flush_cstdio"
 },
 
 {
     "location": "stdlib/libdl.html#",
-    "page": "Dynamic Linker",
-    "title": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
+    "title": "Enlazador Dinámico",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlopen",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlopen",
     "category": "Function",
     "text": "dlopen(libfile::AbstractString [, flags::Integer])\n\nLoad a shared library, returning an opaque handle.\n\nThe extension given by the constant dlext (.so, .dll, or .dylib) can be omitted from the libfile string, as it is automatically appended if needed.   If libfile is not an absolute path name, then the paths in the array DL_LOAD_PATH are searched for libfile, followed by the system load path.\n\nThe optional flags argument is a bitwise-or of zero or more of RTLD_LOCAL, RTLD_GLOBAL, RTLD_LAZY, RTLD_NOW, RTLD_NODELETE, RTLD_NOLOAD, RTLD_DEEPBIND, and RTLD_FIRST. These are converted to the corresponding flags of the POSIX (and/or GNU libc and/or MacOS) dlopen command, if possible, or are ignored if the specified functionality is not available on the current platform. The default flags are platform specific. On MacOS the default dlopen flags are RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL while on other platforms the defaults are RTLD_LAZY|RTLD_DEEPBIND|RTLD_LOCAL. An important usage of these flags is to specify non default behavior for when the dynamic library loader binds library references to exported symbols and if the bound references are put into process local or global scope. For instance RTLD_LAZY|RTLD_DEEPBIND|RTLD_GLOBAL allows the library's symbols to be available for usage in other shared libraries, addressing situations where there are dependencies between shared libraries.\n\n\n\n"
@@ -18362,7 +18362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlopen_e",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlopen_e",
     "category": "Function",
     "text": "dlopen_e(libfile::AbstractString [, flags::Integer])\n\nSimilar to dlopen, except returns a NULL pointer instead of raising errors.\n\n\n\n"
@@ -18370,7 +18370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.RTLD_NOW",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.RTLD_NOW",
     "category": "Constant",
     "text": "RTLD_DEEPBIND\nRTLD_FIRST\nRTLD_GLOBAL\nRTLD_LAZY\nRTLD_LOCAL\nRTLD_NODELETE\nRTLD_NOLOAD\nRTLD_NOW\n\nEnum constant for dlopen. See your platform man page for details, if applicable.\n\n\n\n"
@@ -18378,7 +18378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlsym",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlsym",
     "category": "Function",
     "text": "dlsym(handle, sym)\n\nLook up a symbol from a shared library handle, return callable function pointer on success.\n\n\n\n"
@@ -18386,7 +18386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlsym_e",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlsym_e",
     "category": "Function",
     "text": "dlsym_e(handle, sym)\n\nLook up a symbol from a shared library handle, silently return NULL pointer on lookup failure.\n\n\n\n"
@@ -18394,7 +18394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlclose",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlclose",
     "category": "Function",
     "text": "dlclose(handle)\n\nClose shared library referenced by handle.\n\n\n\n"
@@ -18402,7 +18402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.dlext",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.dlext",
     "category": "Constant",
     "text": "dlext\n\nFile extension for dynamic libraries (e.g. dll, dylib, so) on the current platform.\n\n\n\n"
@@ -18410,7 +18410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.find_library",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.find_library",
     "category": "Function",
     "text": "find_library(names, locations)\n\nSearches for the first library in names in the paths in the locations list, DL_LOAD_PATH, or system library paths (in that order) which can successfully be dlopen'd. On success, the return value will be one of the names (potentially prefixed by one of the paths in locations). This string can be assigned to a global const and used as the library name in future ccall's. On failure, it returns the empty string.\n\n\n\n"
@@ -18418,7 +18418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#Base.Libdl.DL_LOAD_PATH",
-    "page": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
     "title": "Base.Libdl.DL_LOAD_PATH",
     "category": "Constant",
     "text": "DL_LOAD_PATH\n\nWhen calling dlopen, the paths in this list will be searched first, in order, before searching the system locations for a valid library handle.\n\n\n\n"
@@ -18426,8 +18426,8 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/libdl.html#dynamic-linker-1",
-    "page": "Dynamic Linker",
-    "title": "Dynamic Linker",
+    "page": "Enlazador Dinámico",
+    "title": "Enlazador Dinámico",
     "category": "section",
     "text": "The names in Base.Libdl are not exported and need to be called e.g. as Libdl.dlopen().Base.Libdl.dlopen\nBase.Libdl.dlopen_e\nBase.Libdl.RTLD_NOW\nBase.Libdl.dlsym\nBase.Libdl.dlsym_e\nBase.Libdl.dlclose\nBase.Libdl.dlext\nBase.Libdl.find_library\nBase.Libdl.DL_LOAD_PATH"
 },
@@ -18573,23 +18573,23 @@ var documenterSearchIndex = {"docs": [
     "page": "StackTraces",
     "title": "StackTraces",
     "category": "section",
-    "text": "Base.StackTraces.StackFrame\nBase.StackTraces.StackTrace\nBase.StackTraces.stacktrace\nBase.StackTraces.catch_stacktraceThe following methods and types in Base.StackTraces are not exported and need to be called e.g. as StackTraces.lookup(ptr).Base.StackTraces.lookup\nBase.StackTraces.remove_frames!"
+    "text": "Base.StackTraces.StackFrame\nBase.StackTraces.StackTrace\nBase.StackTraces.stacktrace\nBase.StackTraces.catch_stacktraceLos siguientes métodos y tipos de Base.StackTraces no son exportados y, por tanto, deben ser prefijados en sus invocaciones. Por ejemplo, StackTraces.lookup(ptr).Base.StackTraces.lookup\nBase.StackTraces.remove_frames!"
 },
 
 {
     "location": "stdlib/simd-types.html#",
-    "page": "SIMD Support",
-    "title": "SIMD Support",
+    "page": "Soporte SIMD",
+    "title": "Soporte SIMD",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/simd-types.html#simd-support-1",
-    "page": "SIMD Support",
-    "title": "SIMD Support",
+    "page": "Soporte SIMD",
+    "title": "Soporte SIMD",
     "category": "section",
-    "text": "Type VecElement{T} is intended for building libraries of SIMD operations. Practical use of it requires using llvmcall. The type is defined as:struct VecElement{T}\n    value::T\nendIt has a special compilation rule: a homogeneous tuple of VecElement{T} maps to an LLVM vector type when T is a primitive bits type and the tuple length is in the set {2-6,8-10,16}.At -O3, the compiler might automatically vectorize operations on such tuples. For example, the following program, when compiled with julia -O3 generates two SIMD addition instructions (addps) on x86 systems:const m128 = NTuple{4,VecElement{Float32}}\n\nfunction add(a::m128, b::m128)\n    (VecElement(a[1].value+b[1].value),\n     VecElement(a[2].value+b[2].value),\n     VecElement(a[3].value+b[3].value),\n     VecElement(a[4].value+b[4].value))\nend\n\ntriple(c::m128) = add(add(c,c),c)\n\ncode_native(triple,(m128,))However, since the automatic vectorization cannot be relied upon, future use will mostly be via libraries that use llvmcall."
+    "text": "El tipo VecElement{T} está pensado para construir librerías de operaciones SIMD operations. El uso práctico de él requiere usar llvmcall. El tipo está definido como:struct VecElement{T}\n    value::T\nendÉl tiene una regla de compilación especial: una tupla homogénea de VecElement{T} se corresponde con un tipo vector LLVM cuando T un tipo de bits primitivo y la longitud de la tupla está en el conjunto {2-6,8-10,16}.En -O3, el compilador podría automáticamente vectorizar operaciones sobre tales tuplas. Por ejemplo, el siguiente programa, cuando se compila con julia -O3 genera dos instrucciones de adición SIMD (addps) sobre los sistemas x86:const m128 = NTuple{4,VecElement{Float32}}\n\nfunction add(a::m128, b::m128)\n    (VecElement(a[1].value+b[1].value),\n     VecElement(a[2].value+b[2].value),\n     VecElement(a[3].value+b[3].value),\n     VecElement(a[4].value+b[4].value))\nend\n\ntriple(c::m128) = add(add(c,c),c)\n\ncode_native(triple,(m128,))Sin embargo, dado que no se puede confiar en la vectorización automática, el uso futuro se realizará principalmente a través de bibliotecas que usen llvmcall."
 },
 
 {
