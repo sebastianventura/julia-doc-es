@@ -129,7 +129,7 @@ Base.MPFR.BigFloat(x, prec::Int, rounding::RoundingMode)
 Base.MPFR.BigFloat(x::String)
 ```
 
-## Números Aleatorios
+## [Números Aleatorios](@id random-numbers)
 
 La generación de números aleatorios en Julia utiliza la [librería Mersenne Twister](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT) a través de objetos `MersenneTwister`. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo `AbstractRNG`; ellos pueden ser usados entonces para tener multiples flujos de numeros aleatorios. Ademas de `MersenneTwister`, Julia proporciona el tipo RNG `RandomDevice` que es un *wrapper* sobre la entropía proporcionada por el SO.
 
