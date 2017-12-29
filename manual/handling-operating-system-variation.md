@@ -1,9 +1,6 @@
-# [Handling Operating System Variation](@id handling-operating-system-variation)
+# [Manejando variaciones en el Sistema Operativo](@id handling-operating-system-variation)
 
-When dealing with platform libraries, it is often necessary to provide special cases for various
-platforms. The variable `Sys.KERNEL` can be used to write these special cases. There are several
-functions intended to make this easier: `is_unix`, `is_linux`, `is_apple`, `is_bsd`, and `is_windows`.
-These may be used as follows:
+Cuando se trata con librerías de plataforma, es frecuentemente necesario proporcionar casos especiales para distintas plataformas. La variable `Sys.KERNEL` puede utilizarse para escribir estos casos especiales. Hay varias funciones con intención de hacer esto más sencillo: `is_unix`, `is_linux`, `is_apple`, `is_bsd` e `is_windows`. Ellas pueden usarse de la siguiente forma:
 
 ```julia
 if is_windows()
@@ -11,17 +8,15 @@ if is_windows()
 end
 ```
 
-Note that `is_linux` and `is_apple` are mutually exclusive subsets of `is_unix`. Additionally,
-there is a macro `@static` which makes it possible to use these functions to conditionally hide
-invalid code, as demonstrated in the following examples.
+Note que `is_linux`e `is_apple` son subconjuntos mutuamente exclusivos de `is_unix`. Adicionalmente, existe una macro `@static` que hace posible usar estas funciones para ocultar código inválido condicionalmente, como demuestran los siguientes ejemplos:
 
-Simple blocks:
+Bloques simples:
 
 ```
 ccall( (@static is_windows() ? :_fopen : :fopen), ...)
 ```
 
-Complex blocks:
+Bloques complejos:
 
 ```julia
 @static if is_linux()
@@ -31,8 +26,7 @@ else
 end
 ```
 
-When chaining conditionals (including if/elseif/end), the `@static` must be repeated for each
-level (parentheses optional, but recommended for readability):
+Cuando se encadenan condicionales (incluyendo if/elsif/end) `@static` debe ser repetido por cada nivel (paréntesis opcional, pero recomendado por legibilidad):
 
 ```julia
 @static is_windows() ? :a : (@static is_apple() ? :b : :c)
