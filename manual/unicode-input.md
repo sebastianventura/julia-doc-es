@@ -1,4 +1,4 @@
-# [Unicode Input](@id unicode-input)
+# [Entrada Unicode](@id unicode-input)
 
 La siguiente tabla enumera los caracteres Unicode que pueden ingresarse mediante la terminación de pestañas de las abreviaturas similares a LaTeX en Julia REPL (y en otros entornos de edición). También puede obtener información sobre cómo escribir un símbolo ingresándolo en la ayuda REPL, es decir, escribiendo `?` Y luego ingresando el símbolo en REPL (por ejemplo, mediante copiar y pegar desde algún lugar donde vio el símbolo).
 
