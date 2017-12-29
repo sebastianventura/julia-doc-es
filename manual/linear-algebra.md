@@ -1,8 +1,6 @@
-# [Linear algebra](@id linear-algebra)
+# [Álgebra Lineal](@id linear-algebra)
 
-In addition to (and as part of) its support for multi-dimensional arrays, Julia provides native implementations
-of many common and useful linear algebra operations. Basic operations, such as [`trace`](@ref), [`det`](@ref),
-and [`inv`](@ref) are all supported:
+Además de (y como parte de) su soporte a los arrays multidimensionales, Julia proporciona implementaciones nativas de muchas operaciones de álgebra lineal comunes y útiles. Las operaciones básicas tales como la traza ([`trace`](@ref)), el determinante ([`det`](@ref)) y la inversa ([`inv`](@ref)) están todas soportadas:
 
 ```jldoctest
 julia> A = [1 2 3; 4 1 6; 7 8 1]
@@ -24,7 +22,7 @@ julia> inv(A)
   0.240385   0.0576923  -0.0673077
 ```
 
-As well as other useful operations, such as finding eigenvalues or eigenvectors:
+Así como otras operaciones útiles, como buscar autovalores o autovectores:
 
 ```jldoctest
 julia> A = [1.5 2 -4; 3 -1 -6; -10 2.3 4]
@@ -46,10 +44,7 @@ julia> eigvecs(A)
    0.68501+0.0im  0.254058-0.513301im  0.254058+0.513301im
 ```
 
-In addition, Julia provides many [factorizations](@ref man-linalg-factorizations) which can be used to
-speed up problems such as linear solve or matrix exponentiation by pre-factorizing a matrix into a form
-more amenable (for performance or memory reasons) to the problem. See the documentation on [`factorize`](@ref)
-for more information. As an example:
+Además, Julia proporciona muchas [factorizaciones](@ref man-linalg-factorizations) que pueden usarse para acelerar problemas como la resolución lineal o la exponenciación de matrices mediante la pre-factorización de una matriz en una forma más adecuada (por razones de rendimiento o memoria) ) al problema. Consulte la documentación en [`factorize`](@ref) para obtener más información. Como ejemplo:
 
 ```jldoctest
 julia> A = [1.5 2 -4; 3 -1 -6; -10 2.3 4]
@@ -64,8 +59,7 @@ Base.LinAlg.LU{Float64,Array{Float64,2}} with factors L and U:
 [-10.0 2.3 4.0; 0.0 2.345 -3.4; 0.0 0.0 -5.24947]
 ```
 
-Since `A` is not Hermitian, symmetric, triangular, tridiagonal, or bidiagonal, an LU factorization may be the
-best we can do. Compare with:
+Como `A` no es hermítica, simétrica, triangular o bidiagonal, una factorización LU puede ser lo mejor que podemos hacer. Compara con:
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -78,10 +72,7 @@ julia> factorize(B)
 Base.LinAlg.BunchKaufman{Float64,Array{Float64,2}}([-1.64286 0.142857 -0.8; 2.0 -2.8 -0.6; -4.0 -3.0 5.0], [1, 2, 3], 'U', true, false, 0)
 ```
 
-Here, Julia was able to detect that `B` is in fact symmetric, and used a more appropriate factorization.
-Often it's possible to write more efficient code for a matrix that is known to have certain properties e.g.
-it is symmetric, or tridiagonal. Julia provides some special types so that you can "tag" matrices as having
-these properties. For instance:
+Aquí, Julia fue capaz de detectar que `B` es de hecho simetrica, y usa una factorizacíon más apropiada. Frecuentemente es posible escribir código ms eficiente para una matriz de la que se conocen ciertas propiedades como que sea simétrica o diagonal. Julia proporciona algunos tipos especiales para que uno pueda "etiquetar" las matrices que tengan estas propiedades. Por ejemplo:
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -97,9 +88,7 @@ julia> sB = Symmetric(B)
  -4.0  -3.0   5.0
 ```
 
-`sB` has been tagged as a matrix that's (real) symmetric, so for later operations we might perform on it,
-such as eigenfactorization or computing matrix-vector products, efficiencies can be found by only referencing
-half of it. For example:
+`sB` ha sido etiquetada como una matriz que es simétrica (real) por lo que para algunas operacioneas que podríamos hacer sobre ella, tal como la autofactorización o calbular productos matriz-vector, pueden encontrarse eficiencias sólo referenciando la mitad de ella. Por ejemplo:
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -126,38 +115,29 @@ julia> sB\x
  -1.1087
  -1.45652
 ```
-The `\` operation here performs the linear solution. Julia's parser provides convenient dispatch
-to specialized methods for the *transpose* of a matrix left-divided by a vector, or for the various combinations
-of transpose operations in matrix-matrix solutions. Many of these are further specialized for certain special
-matrix types. For example, `A\B` will end up calling [`Base.LinAlg.A_ldiv_B!`](@ref) while `A'\B` will end up calling
-[`Base.LinAlg.Ac_ldiv_B`](@ref), even though we used the same left-division operator. This works for matrices too: `A.'\B.'`
-would call [`Base.LinAlg.At_ldiv_Bt`](@ref). The left-division operator is pretty powerful and it's easy to write compact,
-readable code that is flexible enough to solve all sorts of systems of linear equations.
 
-## Special matrices
+La operación `\` realiza aquí la resolución de la ecuación lineal. El analizador sintáctico de Julia proporciona un despacho conveniente para métodos especializados para la *transpuesta* de una matriz o una matriz dividida por la izquierda por un vector, o para las distintas combinaciones u operacioneas de transposición en soluciones matriz-matriz. Muchas de ellas son incluso más especializadas para ciertos tipos especiales de matrices. Por ejemplo, `A\B` acabará llamando a [`Base.LinAlg.A_ldiv_B!`](@ref) mientras que `A'\B` acabará llamando a [`Base.LinAlg.Ac_ldiv_B`](@ref), incluso aunque usáramos el mismo operador de división por la izquierda. Esto funcionea también para matrices: `A.'\B.'` invocará a [`Base.LinAlg.At_ldiv_Bt`](@ref). El operador de división por la izquierda es muy potente y es fácil escribir código compacto y bastante legible para resolver todo tipo de sistemas de ecuaciones lineales.
 
-[Matrices with special symmetries and structures](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274)
-arise often in linear algebra and are frequently associated with various matrix factorizations.
-Julia features a rich collection of special matrix types, which allow for fast computation with
-specialized routines that are specially developed for particular matrix types.
+## Matrices Especiales
 
-The following tables summarize the types of special matrices that have been implemented in Julia,
-as well as whether hooks to various optimized methods for them in LAPACK are available.
+[Las matrices con simetrías y estructuras especiales](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274) surgen a menudo en el álgebra lineal y frecuentemente se asocian con varias factorizaciones matriciales. Julia presenta una rica colección de tipos de matrices especiales, que permiten un cálculo rápido con rutinas especializadas que están especialmente desarrolladas para estos tipos particuales de matrices.
+
+Las siguientes tablas resumen los tipos de matrices especiales que se han implementado en Julia, así como si están disponibles ganchos para varios métodos optimizados para ellos en LAPACK.
 
 | Type                      | Description                                                                      |
 |:------------------------- |:-------------------------------------------------------------------------------- |
-| [`Hermitian`](@ref)       | [Hermitian matrix](https://en.wikipedia.org/wiki/Hermitian_matrix)               |
-| [`UpperTriangular`](@ref) | Upper [triangular matrix](https://en.wikipedia.org/wiki/Triangular_matrix)       |
-| [`LowerTriangular`](@ref) | Lower [triangular matrix](https://en.wikipedia.org/wiki/Triangular_matrix)       |
-| [`Tridiagonal`](@ref)     | [Tridiagonal matrix](https://en.wikipedia.org/wiki/Tridiagonal_matrix)           |
-| [`SymTridiagonal`](@ref)  | Symmetric tridiagonal matrix                                                     |
-| [`Bidiagonal`](@ref)      | Upper/lower [bidiagonal matrix](https://en.wikipedia.org/wiki/Bidiagonal_matrix) |
-| [`Diagonal`](@ref)        | [Diagonal matrix](https://en.wikipedia.org/wiki/Diagonal_matrix)                 |
-| `UniformScaling`          | [Uniform scaling operator](https://en.wikipedia.org/wiki/Uniform_scaling)        |
+| [`Hermitian`](@ref)       | [Matriz hermítica](https://en.wikipedia.org/wiki/Hermitian_matrix)               |
+| [`UpperTriangular`](@ref) | [Matriz triangular](https://en.wikipedia.org/wiki/Triangular_matrix) superior    |
+| [`LowerTriangular`](@ref) | [Matriz triangular](https://en.wikipedia.org/wiki/Triangular_matrix) inferior    |
+| [`Tridiagonal`](@ref)     | [Matriz tridiagonal](https://en.wikipedia.org/wiki/Tridiagonal_matrix)           |
+| [`SymTridiagonal`](@ref)  | Matriz tridiagonal simétrica                                                     |
+| [`Bidiagonal`](@ref)      | [Matriz bidiagonal](https://en.wikipedia.org/wiki/Bidiagonal_matrix) superior/inferior |
+| [`Diagonal`](@ref)        | [Matriz diagonal](https://en.wikipedia.org/wiki/Diagonal_matrix)                 |
+| [`UniformScaling`](@ref)  | [Operador escalado uniforme](https://en.wikipedia.org/wiki/Uniform_scaling)      |
 
-### Elementary operations
+### Operaciones elementales
 
-| Matrix type               | `+` | `-` | `*` | `\` | Other functions with optimized methods                              |
+| Tipo de matriz            | `+` | `-` | `*` | `\` | Otras funciones con métodos optimizados                             |
 |:------------------------- |:--- |:--- |:--- |:--- |:------------------------------------------------------------------- |
 | [`Hermitian`](@ref)       |     |     |     | MV  | [`inv()`](@ref), [`sqrtm()`](@ref), [`expm()`](@ref)                |
 | [`UpperTriangular`](@ref) |     |     | MV  | MV  | [`inv()`](@ref), [`det()`](@ref)                                    |
@@ -166,17 +146,17 @@ as well as whether hooks to various optimized methods for them in LAPACK are ava
 | [`Tridiagonal`](@ref)     | M   | M   | MS  | MV  |                                                                     |
 | [`Bidiagonal`](@ref)      | M   | M   | MS  | MV  |                                                                     |
 | [`Diagonal`](@ref)        | M   | M   | MV  | MV  | [`inv()`](@ref), [`det()`](@ref), [`logdet()`](@ref), [`/()`](@ref) |
-| `UniformScaling`          | M   | M   | MVS | MVS | [`/()`](@ref)                                                       |
+| [`UniformScaling`](@ref)  | M   | M   | MVS | MVS | [`/()`](@ref)                                                       |
 
 Legend:
 
-| Key        | Description                                                   |
+| Clave      | Descripción                                                   |
 |:---------- |:------------------------------------------------------------- |
 | M (matrix) | An optimized method for matrix-matrix operations is available |
 | V (vector) | An optimized method for matrix-vector operations is available |
 | S (scalar) | An optimized method for matrix-scalar operations is available |
 
-### Matrix factorizations
+### Factorizaciones de matrices
 
 | Matrix type               | LAPACK | [`eig()`](@ref) | [`eigvals()`](@ref) | [`eigvecs()`](@ref) | [`svd()`](@ref) | [`svdvals()`](@ref) |
 |:------------------------- |:------ |:--------------- |:------------------- |:------------------- |:--------------- |:------------------- |
@@ -197,24 +177,16 @@ Legend:
 | I (interval) | An optimized method to find the characteristic values in the interval [`vl`, `vh`] is available                                 | `eigvals(M, vl, vh)` |
 | V (vectors)  | An optimized method to find the characteristic vectors corresponding to the characteristic values `x=[x1, x2,...]` is available | `eigvecs(M, x)`      |
 
-### The uniform scaling operator
+### El operador de escalado uniforme
 
-A `UniformScaling` operator represents a scalar times the identity operator, `λ*I`. The identity
-operator  `I` is defined as a constant and is an instance of `UniformScaling`. The size of these
-operators are generic and match the other matrix in the binary operations [`+`](@ref), [`-`](@ref),
-[`*`](@ref) and [`\`](@ref). For `A+I` and `A-I` this means that `A` must be square. Multiplication
-with the identity operator `I` is a noop (except for checking that the scaling factor is one)
-and therefore almost without overhead.
+Un operador [`UniformScaling`](@ref) representa un escalar multiplicado por el operador de identidad, `λ*I`. El operador de identidad `I` se define como una constante y es una instancia de `UniformScaling`. El tamaño de estos operadores es genérico y coincide con la otra matriz en las operaciones binarias [`+`](@ref), [`-`](@ref), [`*`](@ref) y [`\`](@ref). Para `A+I` y` A-I` esto significa que `A` debe ser cuadrado. La multiplicación con el operador de identidad `I` es un *noop* (excepto para comprobar que el factor de escala es uno) y, por lo tanto, casi sin sobrecarga.
 
-## [Matrix factorizations](@id man-linalg-factorizations)
+## [Factorizaciones de matrices](@id man-linalg-factorizations)
 
-[Matrix factorizations (a.k.a. matrix decompositions)](https://en.wikipedia.org/wiki/Matrix_decomposition)
-compute the factorization of a matrix into a product of matrices, and are one of the central concepts
-in linear algebra.
+[las factorizaciones de matrices (a.k.a. descomposiciones de matrices)](https://en.wikipedia.org/wiki/Matrix_decomposition)
+calculan la factorizacin de una matriz en un producto de matrices, y son uno de los conceptos centrales del álgebra lineal.
 
-The following table summarizes the types of matrix factorizations that have been implemented in
-Julia. Details of their associated methods can be found in the [Linear Algebra](@ref lib-linear-algebra) section
-of the standard library documentation.
+La siguiente tabla resume los tipos de factorizaciones de matrices que han sido implementados en Julia. En la sección [Linear Algebra](@ref) de la documentación de la librería estándar pueden encontrarse más detalles de los métodos asociados.
 
 | Type              | Description                                                                                                    |
 |:----------------- |:-------------------------------------------------------------------------------------------------------------- |
