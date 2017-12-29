@@ -264,10 +264,9 @@ La función `===` confirma que las dos instancias construidas de `NoFields` son 
 
 Hay mucho más que decir sobre cómo se crean las instancias de los tipos compuestos, pero esta discusión depende de los [Tipos Paramétricos](@ref parametric-types) y de los [Métodos](@ref methods), y es suficientemente importante para ser tratada en su propia sección: [Constructores](@ref man-constructors).
 
-## Mutable Composite Types
+## Tipos Compuestos Mutables
 
-If a composite type is declared with `mutable struct` instead of `struct`, then instances of
-it can be modified:
+Si un tipo compuesto es declarado como `mutable struct` en lugar de como `struct`, sus instancias pueden ser modificadas:
 
 ```jldoctest bartype
 julia> mutable struct Bar
@@ -284,43 +283,26 @@ julia> bar.baz = 1//2
 1//2
 ```
 
-In order to support mutation, such objects are generally allocated on the heap, and have
-stable memory addresses.
-A mutable object is like a little container that might hold different values over time,
-and so can only be reliably identified with its address.
-In contrast, an instance of an immutable type is associated with specific field values ---
-the field values alone tell you everything about the object.
-In deciding whether to make a type mutable, ask whether two instances
-with the same field values would be considered identical, or if they might need to change independently
-over time. If they would be considered identical, the type should probably be immutable.
+Para soportar la mutación, tales objetos se alojan generalmente en el montón y tienen direcciones de memoria estables. Un objeto mutable es como un pequeño contenedor que podría almacenar distintos valores en el tiempo, y por tanto sólo puede ser identificado de forma confiable con su dirección. En contraste, una instancia de un tipo inmutable está asociada con valores de campos específicos - los valores de campos solos te dicen todo sobre el objeto. En decidir si hacer un tipo mutable, pregúntat si dos instanciasa con los mismos valores de campos tendrían que ser consideradas idénticas, o si ellas podrían necesitar cambiar independientemente con el tiempo. Si ellas fueran consideradas idénticas, el tipo probablemente debería ser inmutable. 
 
-To recap, two essential properties define immutability in Julia:
+Para recapitular, dos propiedades esenciales definen la inmutabilidad en Julia:
 
-  * An object with an immutable type is passed around (both in assignment statements and in function
-    calls) by copying, whereas a mutable type is passed around by reference.
-  * It is not permitted to modify the fields of a composite immutable type.
+* Un objeto con un tipo inmutable es pasado (tanto en instrucciones de asignación como en llamadas a función) mediante copia, mientras que un tipo mutable es pasado mediante referencia.
+* No está permitido modificar los campos de un tipo compuesto inmutable.
 
-It is instructive, particularly for readers whose background is C/C++, to consider why these two
-properties go hand in hand.  If they were separated, i.e., if the fields of objects passed around
-by copying could be modified, then it would become more difficult to reason about certain instances
-of generic code.  For example, suppose `x` is a function argument of an abstract type, and suppose
-that the function changes a field: `x.isprocessed = true`.  Depending on whether `x` is passed
-by copying or by reference, this statement may or may not alter the actual argument in the calling
-routine.  Julia sidesteps the possibility of creating functions with unknown effects in this scenario
-by forbidding modification of fields of objects passed around by copying.
+Es instructivo, particularmente para lectores cuyo background es C/C++, considerar por qué estas dos propiedades van juntas. Si fueran separadas, es decir, si los campos de los objetos pasados mediante copia pudieran ser modificados, entonces sería más difícil razonar sobre ciertas instancias de código genérico. Por ejemplo, supongamos que `x` es un argumento de función de un tipo abstracto, y supongamos que la función cambia un campo: `x.isprocessed = true`. Dependiendo de si `x`se pasa mediante copia o mediante referencia, esta instrucción puede alterar o no el argumento actual en la rutina que hace la llamada. Julia evita la posibilidad de crear funciones con efectos desconocidos en este escenario prohibiendo modificación de campos de objetos pasados mediante copia. 
 
-## Declared Types
 
-The three kinds of types discussed in the previous three sections are actually all closely related.
-They share the same key properties:
+## Tipos declarados
 
-  * They are explicitly declared.
-  * They have names.
-  * They have explicitly declared supertypes.
-  * They may have parameters.
+Las tres clases de tipos discutidos en las tres secciones anteriores están muy relacionados. Ellos comparten las mismas propiedades clave:
 
-Because of these shared properties, these types are internally represented as instances of the
-same concept, `DataType`, which is the type of any of these types:
+* Ellos son declarados explícitamente.
+* Ellos tienen nombres.
+* Ellos tienen supertipos declarados explícitamente.
+* Ellos pueden tener parámeros.
+
+Debido a estas propiedades compartidas, estos tipos son representados internamene  como instancias del mismo concepto, `DataType` , que es el tipo de cualquiera de estos tipos:
 
 ```jldoctest
 julia> typeof(Real)
@@ -330,16 +312,13 @@ julia> typeof(Int)
 DataType
 ```
 
-A `DataType` may be abstract or concrete. If it is concrete, it has a specified size, storage
-layout, and (optionally) field names. Thus a bits type is a `DataType` with nonzero size, but
-no field names. A composite type is a `DataType` that has field names or is empty (zero size).
+Un `DataType` puede ser abstracto o concreto. Si es concreto, tiene un tamaño, disposición de almacenamiento y (opcionalmente) nombres de campos especificados. Por tanto, un tipo bits es un `DataType` con tamaño no nulo, pero sin nombres de campos. Un tipo compuesto es un `DataType` que tiene nombres de campos o es acío (tamaño cero).
 
-Every concrete value in the system is an instance of some `DataType`.
+Cada valor concreto en el sistema es una instancia de algún `DataType`.
 
-## Type Unions
+## Uniones de Tipos
 
-A type union is a special abstract type which includes as objects all instances of any of its
-argument types, constructed using the special `Union` function:
+Una unión de tipos es un tipo abstracto especial que incluye como objetos todas las instancias de alguno de sus tipos argumentos, construidos usando la función especial `Union`:
 
 ```jldoctest
 julia> IntOrString = Union{Int,AbstractString}
@@ -355,33 +334,17 @@ julia> 1.0 :: IntOrString
 ERROR: TypeError: typeassert: expected Union{AbstractString, Int64}, got Float64
 ```
 
-The compilers for many languages have an internal union construct for reasoning about types; Julia
-simply exposes it to the programmer.
+Los compiladores de muchos lenguajes tienen una construcción unión interna para razonar sobre los tipos; Julia simplemente la pone a disposición del programador.
 
-## [Parametric Types](@id parametric-types)
+## [Tipos Paramétricos](@id parametric-types)
 
-An important and powerful feature of Julia's type system is that it is parametric: types can take
-parameters, so that type declarations actually introduce a whole family of new types -- one for
-each possible combination of parameter values. There are many languages that support some version
-of [generic programming](https://en.wikipedia.org/wiki/Generic_programming), wherein data structures
-and algorithms to manipulate them may be specified without specifying the exact types involved.
-For example, some form of generic programming exists in ML, Haskell, Ada, Eiffel, C++, Java, C#,
-F#, and Scala, just to name a few. Some of these languages support true parametric polymorphism
-(e.g. ML, Haskell, Scala), while others support ad-hoc, template-based styles of generic programming
-(e.g. C++, Java). With so many different varieties of generic programming and parametric types
-in various languages, we won't even attempt to compare Julia's parametric types to other languages,
-but will instead focus on explaining Julia's system in its own right. We will note, however, that
-because Julia is a dynamically typed language and doesn't need to make all type decisions at compile
-time, many traditional difficulties encountered in static parametric type systems can be relatively
-easily handled.
+Una característica importante y potente del sistema de tipos de Julia es que es paramétrico: los tipos pueden toomar parámetros, por lo que las declaraciones de tipo introducen de hecho un afamilia completa de nuevos tipos (uno por cada posible combinación de valores de parámetros). Hay muchos lenguajes que soportan alguna versión de la [programación genérica](https://en.wikipedia.org/wiki/Generic_programming), donde las estructuras de datos y algoritmos para manipularlos pueden ser especificadas sin especificar los tipos exactos implicados. Por ejemplo, existe alguna forma de programación genérica en ML, Haskell, Ada, Eiffel, C++, Java, C#, F# y Scala, por nombrar unos pocos. Algunos de estos lenguajes soportan un verdadero polimorfismo paramétrico (Por ej., ML, Haskell, Scala) mientras otros soportan estilos de programación genérica *ad-hoc*, basados en plantillas (Por eje., C++ y Java). Con tantas variedades diferentes de programación genérica y de tipos paramétricos en los distintos lenguajes, no queremos ni siquiera intentar comparar los tipos paramétricos de Julia a otros lenguajes, sino que nos centraremos en explicar el propio sistema de Julia. Notaremos, sin embargo, que como Julia es un lenguaje tipado dinámicamente y no necesita hacer todas las decisiones de tipos en tiempo de compilacíon, muchas dificultades tradicionales encontradas en los sistemas de tipos paramétricos estáticos pueden ser manejadas con relativa facilidad.
 
-All declared types (the `DataType` variety) can be parameterized, with the same syntax in each
-case. We will discuss them in the following order: first, parametric composite types, then parametric
-abstract types, and finally parametric bits types.
+Todos los tipos declarados (la variedad `DataType`)  pueden ser parametrizados, con la misma sintaxis en cada caso. Los discutiremos en el siguiente orden: primero tipos compuestos paramétricos, luego tipos abstractos paramétricos y por último tipos bits paramétricos.
 
-### Parametric Composite Types
+### Tipos compuestos paramétricos
 
-Type parameters are introduced immediately after the type name, surrounded by curly braces:
+Los parámetros de tipo se introducen inmediatamente después del nombre de tipo, rodeado por llaves:
 
 ```jldoctest pointtype
 julia> struct Point{T}
@@ -390,13 +353,7 @@ julia> struct Point{T}
        end
 ```
 
-This declaration defines a new parametric type, `Point{T}`, holding two "coordinates" of type
-`T`. What, one may ask, is `T`? Well, that's precisely the point of parametric types: it can be
-any type at all (or a value of any bits type, actually, although here it's clearly used as a type).
-`Point{Float64}` is a concrete type equivalent to the type defined by replacing `T` in the definition
-of `Point` with [`Float64`](@ref). Thus, this single declaration actually declares an unlimited
-number of types: `Point{Float64}`, `Point{AbstractString}`, `Point{Int64}`, etc. Each of these
-is now a usable concrete type:
+Esta declaración define un nuevo tipo paramétrico, `Point{T}`, que almacena dos coordenadas de tipo `T`. Uno podría preguntarse, ¿qué es `T`? Bien, este es precisamente la clave de los tipos paramétricos: puede ser cualquier tipo (o un valor de cualquier tipo bits, aunque en esta ocasión usado como un tipo, claramente). `Point{Float64}` es un tipo concreto equivalente al tipo definido reemplazando `T` en la definición de `Point` con [`Float64`](@ref). Por tanto, esta única  declaración declara un número de tipos ilimitado: `Point{Float64}`, `Point{AbstractString}`, `Point{Int64}`, etc. Cada uno de ellos es un tipo concreto usable: 
 
 ```jldoctest pointtype
 julia> Point{Float64}
@@ -406,11 +363,9 @@ julia> Point{AbstractString}
 Point{AbstractString}
 ```
 
-The type `Point{Float64}` is a point whose coordinates are 64-bit floating-point values, while
-the type `Point{AbstractString}` is a "point" whose "coordinates" are string objects (see [Strings](@ref)).
+El tipo `Point{Float64}` es un punto cuyas coordenadas son valores en punto flotante de 64-bits, mientras que el tipo `Point{AbstractString}` es un “punto” cuyas “coordenadas” son objetos `String` (see [Strings](@ref)).
 
-`Point` itself is also a valid type object, containing all instances `Point{Float64}`, `Point{AbstractString}`,
-etc. as subtypes:
+`Point` es en si mismo un tipo objeto válido también, que contiene todas las instancias `Point{Float64}`, `Point{AbstractString}`, etc. como subtipos:
 
 ```jldoctest pointtype
 julia> Point{Float64} <: Point
@@ -420,7 +375,7 @@ julia> Point{AbstractString} <: Point
 true
 ```
 
-Other types, of course, are not subtypes of it:
+Otros tipos, por supuesto, no son subtipos de él:
 
 ```jldoctest pointtype
 julia> Float64 <: Point
@@ -430,7 +385,7 @@ julia> AbstractString <: Point
 false
 ```
 
-Concrete `Point` types with different values of `T` are never subtypes of each other:
+Los tipos `Point` concretos con valores diferentes de `T` no son nunca subtipos uno de otro:
 
 ```jldoctest pointtype
 julia> Point{Float64} <: Point{Int64}
@@ -441,30 +396,19 @@ false
 ```
 
 !!! warning
-    This last point is *very* important: even though `Float64 <: Real` we **DO NOT** have `Point{Float64} <: Point{Real}`.
+    Este último punto es importante: **Incluso aunque `Float64 <: Real` no es cierto que `Point{Float64} <: Point{Real}`**. 
 
-In other words, in the parlance of type theory, Julia's type parameters are *invariant*, rather
-than being [covariant (or even contravariant)](https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29). This is for practical reasons: while any instance
-of `Point{Float64}` may conceptually be like an instance of `Point{Real}` as well, the two types
-have different representations in memory:
+En otras palabras, en términos de teoría de tipos, los parámetros de tipo de Julia son *invariantes*, en lugar de ser [covariantes (o incluso contravariantes)](https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29). Esto es por razones prácticas: aunque alguna instancia de `Point{Float64}` puede ser conceptualmente como una instancia de `Point{Real}`, los dos tipos tienen representaciones diferentes en memoria:
 
-  * An instance of `Point{Float64}` can be represented compactly and efficiently as an immediate pair
-    of 64-bit values;
-  * An instance of `Point{Real}` must be able to hold any pair of instances of [`Real`](@ref).
-    Since objects that are instances of `Real` can be of arbitrary size and structure, in
-    practice an instance of `Point{Real}` must be represented as a pair of pointers to
-    individually allocated `Real` objects.
+  * Una instancia de `Point{Float64}` puede ser representada compactamente y eficientemente como un par  
+    de valores de 64 bits inmediatos
+  * Una instancia de `Point{Real}` debe ser capaz de alojar cualquier par de instancias de [`Real`](@ref). Como los 
+    objetos son instancias de `Real` pueden ser de tamaño y estructura arbitrarios, en la práctica una instancia de
+    `Point{Real}` debe ser representada como un par de punteros a objetos `Real` asignados individualmente.
 
-The efficiency gained by being able to store `Point{Float64}` objects with immediate values is
-magnified enormously in the case of arrays: an `Array{Float64}` can be stored as a contiguous
-memory block of 64-bit floating-point values, whereas an `Array{Real}` must be an array of pointers
-to individually allocated [`Real`](@ref) objects -- which may well be
-[boxed](https://en.wikipedia.org/wiki/Object_type_%28object-oriented_programming%29#Boxing)
-64-bit floating-point values, but also might be arbitrarily large, complex objects, which are
-declared to be implementations of the `Real` abstract type.
+La eficiencia ganada por ser capaz de almacenar objetos `Point{Float64}` con valores inmediatos es magnificada enormemente en el caso de arrays: un `Array{Float64}` puede almacenarse como un bloque contiguo de memoria de valores en punto flotante de 64 bits, mientras que un `Array{Real}` debe ser un array de punteros a objetos [`Real`](@ref) asignados individualmente (que puede ser valores en punto flotante de 64 bits [envueltos (*boxed*)](https://en.wikipedia.org/wiki/Object_type_%28object-oriented_programming%29#Boxing), pero que también pueden ser objetos complejos, arbitrariamente grandes, que han sido declarados como implementaciones del tipo abstracto `Real`.
 
-Since `Point{Float64}` is not a subtype of `Point{Real}`, the following method can't be applied
-to arguments of type `Point{Float64}`:
+Como `Point{Float64}` no es un subtipo de `Point{Real}`,  el siguiente método no puede ser aplicado a argumentos de tipo `Point{Float64}`:
 
 ```julia
 function norm(p::Point{Real})
@@ -472,8 +416,7 @@ function norm(p::Point{Real})
 end
 ```
 
-A correct way to define a method that accepts all arguments of type `Point{T}` where `T` is
-a subtype of [`Real`](@ref) is:
+Una forma correcta de definir un método que acepte todos los argumentos de tipo `Point{T}`, donde `T` es un subtipo de [`Real`](@ref) es:
 
 ```julia
 function norm(p::Point{<:Real})
@@ -481,19 +424,13 @@ function norm(p::Point{<:Real})
 end
 ```
 
-(Equivalently, one could define `function norm{T<:Real}(p::Point{T})` or
-`function norm(p::Point{T} where T<:Real)`; see [UnionAll Types](@ref).)
+(Equivalentemente, uno podría definir `function norm{T<:Real}(p::Point{T})` o `function norm(p::Point{T} where T<:Real)`; ver [tipos UnionAll](@ref).)
 
-More examples will be discussed later in [Methods](@ref methods).
+Más ejemplos se discutirán después en [Métodos](@ref methods).
 
-How does one construct a `Point` object? It is possible to define custom constructors for composite
-types, which will be discussed in detail in [Constructors](@ref man-constructors), but in the absence of any special
-constructor declarations, there are two default ways of creating new composite objects, one in
-which the type parameters are explicitly given and the other in which they are implied by the
-arguments to the object constructor.
+¿Cómo construye uno un objeto `Point`? Es posible definir constructores personalizados para tipos compuestos, que serán discutidos en detalle en el capítulo [Constructores](@ref man-constructors), pero en ausencia de ninguna declaración especial de constructor, hay dos formas por defecto de crear nuevos objetos compuestos, uno en el que se dan explícitamente los parámetros de tipo y otro en el que ellos son implicados por los argumentos al objeto constructor.
 
-Since the type `Point{Float64}` is a concrete type equivalent to `Point` declared with [`Float64`](@ref)
-in place of `T`, it can be applied as a constructor accordingly:
+Como el tipo `Point{Float64}` es un tipo concreto equivalente a `Point` declarado con [`Float64`](@ref) en lugar de `T`, se puede aplicar como un constructor ede acuerdo a ésto:
 
 ```jldoctest pointtype
 julia> Point{Float64}(1.0, 2.0)
@@ -503,7 +440,7 @@ julia> typeof(ans)
 Point{Float64}
 ```
 
-For the default constructor, exactly one argument must be supplied for each field:
+Para el constructor por defecto, debe proporcionarse exactamente un argumento por cada campo: 
 
 ```jldoctest pointtype
 julia> Point{Float64}(1.0)
@@ -517,13 +454,9 @@ julia> Point{Float64}(1.0,2.0,3.0)
 ERROR: MethodError: no method matching Point{Float64}(::Float64, ::Float64, ::Float64)
 ```
 
-Only one default constructor is generated for parametric types, since overriding it is not possible.
-This constructor accepts any arguments and converts them to the field types.
+Sólo se ha generado un constructor por defecto para tipos paramétricos, ya que sobreescribirlo no es posible. Este constructor acepta cualquier argumento y los convierte a los tipos de los campos.
 
-In many cases, it is redundant to provide the type of `Point` object one wants to construct, since
-the types of arguments to the constructor call already implicitly provide type information. For
-that reason, you can also apply `Point` itself as a constructor, provided that the implied value
-of the parameter type `T` is unambiguous:
+En muchos casos es redundante proporcionar el tipo del objeto `Point` que uno quiere construir, ya que los tipos de los argumentos en la llamada al constructor ya proporcionan la información de tipos de forma implícita. Por esta razón, también podemos aplicar el propio `Point` como un constructor, dado que el valor implícito del parámetro de tipo `T` no es ambiguo:
 
 ```jldoctest pointtype
 julia> Point(1.0,2.0)
@@ -539,8 +472,7 @@ julia> typeof(ans)
 Point{Int64}
 ```
 
-In the case of `Point`, the type of `T` is unambiguously implied if and only if the two arguments
-to `Point` have the same type. When this isn't the case, the constructor will fail with a [`MethodError`](@ref):
+En el caso de `Point` es implicado sin ambigüedad si y sólo si los dos argumentos a `Point` tienen el mismo tipo. Cuando este no es el caso, el constructor fallará con un [`MethodError`](@ref):
 
 ```jldoctest pointtype
 julia> Point(1,2.5)
@@ -549,20 +481,17 @@ Closest candidates are:
   Point(::T, !Matched::T) where T at none:2
 ```
 
-Constructor methods to appropriately handle such mixed cases can be defined, but that will not
-be discussed until later on in [Constructors](@ref man-constructors).
+Los método constructores para manejar apropiadamente estos casos mixtos pueden ser definidos, pero esto no será discutido hasta después en [Constructores](@ref man-constructors).
 
-### Parametric Abstract Types
+### Tipos Abstractos Paramétricos
 
-Parametric abstract type declarations declare a collection of abstract types, in much the same
-way:
+Las declaraciones de tipos abstractos paramétricos declaran una colección de tipos abstractos, de la misma forma:
 
 ```jldoctest pointytype
 julia> abstract type Pointy{T} end
 ```
 
-With this declaration, `Pointy{T}` is a distinct abstract type for each type or integer value
-of `T`. As with parametric composite types, each such instance is a subtype of `Pointy`:
+Con esta declaración, `Pointy{T}` es un tipo abstracto distinto para cada tipo o valor entero de `T`. Como con los tipos compuestos paramétricos, cada una de tales instancias es un subtipo de `Pointy`:
 
 ```jldoctest pointytype
 julia> Pointy{Int64} <: Pointy
@@ -572,7 +501,7 @@ julia> Pointy{1} <: Pointy
 true
 ```
 
-Parametric abstract types are invariant, much as parametric composite types are:
+Los tipos abstractos paramétricos son invariantes, tal como los tipos compuestos paramétricos:
 
 ```jldoctest pointytype
 julia> Pointy{Float64} <: Pointy{Real}
@@ -582,9 +511,8 @@ julia> Pointy{Real} <: Pointy{Float64}
 false
 ```
 
-The notation `Pointy{<:Real}` can be used to express the Julia analogue of a
-*covariant* type, while `Pointy{>:Int}` the analogue of a *contravariant* type,
-but technically these represent *sets* of types (see [UnionAll Types](@ref)).
+La notación `Pointy{<:Real}` puede usarse para expresar el análogo Julia de un tipo *covariante*, mientras que  `Pointy{>:Int}` es el análogo de un tipo *contravariante*, pero técnicamente estos representan *conjuntos* de tipos (ver [tipos UnionAll](@ref)).
+
 ```jldoctest pointytype
 julia> Pointy{Float64} <: Pointy{<:Real}
 true
@@ -593,9 +521,7 @@ julia> Pointy{Real} <: Pointy{>:Int}
 true
 ```
 
-Much as plain old abstract types serve to create a useful hierarchy of types over concrete types,
-parametric abstract types serve the same purpose with respect to parametric composite types. We
-could, for example, have declared `Point{T}` to be a subtype of `Pointy{T}` as follows:
+De la misma manera que los tipos abstractos antiguos sirven para crear una jerarquía útil de tipos sobre tipos concretos, los tipos abstractos paramétricos tienen el mismo propósito con respecto a los tipos compuestos paramétricos. Podríamos, por ejemplo, haber declarado `Point {T}` ser un subtipo de `Pointy {T}` de la siguiente manera:
 
 ```jldoctest pointytype
 julia> struct Point{T} <: Pointy{T}
@@ -604,7 +530,7 @@ julia> struct Point{T} <: Pointy{T}
        end
 ```
 
-Given such a declaration, for each choice of `T`, we have `Point{T}` as a subtype of `Pointy{T}`:
+Dada tal declaración, para cada elección de `T` tenemos `Point{T}` como un subtipo de `Pointy{T}`:
 
 ```jldoctest pointytype
 julia> Point{Float64} <: Pointy{Float64}
@@ -617,7 +543,7 @@ julia> Point{AbstractString} <: Pointy{AbstractString}
 true
 ```
 
-This relationship is also invariant:
+Esta relación es también invariante:
 
 ```jldoctest pointytype
 julia> Point{Float64} <: Pointy{Real}
@@ -627,9 +553,7 @@ julia> Point{Float64} <: Pointy{<:Real}
 true
 ```
 
-What purpose do parametric abstract types like `Pointy` serve? Consider if we create a point-like
-implementation that only requires a single coordinate because the point is on the diagonal line
-*x = y*:
+¿A qué propósito sirven los tipos abstractos paramétricos como `Pointy`? Considere si creamos una implementación tipo punto que sólo necesita una coordenada debido a que el punto se encuentra en la diagonal del primer cuadrante (*y = x*):
 
 ```jldoctest pointytype
 julia> struct DiagPoint{T} <: Pointy{T}
@@ -637,21 +561,16 @@ julia> struct DiagPoint{T} <: Pointy{T}
        end
 ```
 
-Now both `Point{Float64}` and `DiagPoint{Float64}` are implementations of the `Pointy{Float64}`
-abstraction, and similarly for every other possible choice of type `T`. This allows programming
-to a common interface shared by all `Pointy` objects, implemented for both `Point` and `DiagPoint`.
-This cannot be fully demonstrated, however, until we have introduced methods and dispatch in the
-next section, [Methods](@ref methods).
+Ahora tanto `Point{Float64}` como `DiagPoint{Float64}` son implementaciones de la abstracción `Pointy{Float64}` y, similarmente, para cada otra posible elección del tipo `T`. Esto permite programar a un interfaz común compartido por todos los objetos `Pointy`, implementedo tanto por `Point`como por `DiagPoint`. Esto no puede ser totalmente demostrado, sin embargo, hasta que no hayamos introducidos los métodos y el despacho en la siguiente sección, [Methods](@ref methods).
 
-There are situations where it may not make sense for type parameters to range freely over all
-possible types. In such situations, one can constrain the range of `T` like so:
+Hay situaciones donde puede no tener sentido para los parámetros de tipo varíen libremente sobre todos los tipos posibles. En tales situaciones, uno puede restringir el rango de `T` como aquí:
 
 ```jldoctest realpointytype
 julia> abstract type Pointy{T<:Real} end
 ```
 
-With such a declaration, it is acceptable to use any type that is a subtype of
-[`Real`](@ref) in place of `T`, but not types that are not subtypes of `Real`:
+Hay situaciones donde puede no tener sentido para los parámetros de tipo varíen libremente sobre todos los tipos posibles. En tales situaciones, uno puede restringir el rango de `T` como aquí:
+
 
 ```jldoctest realpointytype
 julia> Pointy{Float64}
@@ -667,7 +586,7 @@ julia> Pointy{1}
 ERROR: TypeError: Pointy: in T, expected T<:Real, got Int64
 ```
 
-Type parameters for parametric composite types can be restricted in the same manner:
+Los parámetros de tipo para tipos compuestos paramétricos pueden ser restringidos de la misma manera:
 
 ```julia
 struct Point{T<:Real} <: Pointy{T}
@@ -676,9 +595,7 @@ struct Point{T<:Real} <: Pointy{T}
 end
 ```
 
-To give a real-world example of how all this parametric type machinery can be useful, here is
-the actual definition of Julia's [`Rational`](@ref) immutable type (except that we omit the
-constructor here for simplicity), representing an exact ratio of integers:
+Para dar un ejemplo del mundo real de cómo toda esta maquinaria de tipos paramétricos puede ser útil, he aquí la definición actual del tipo inmutable `Rational` [`Rational`](@ref) de Julia (omitiendo el constructor por simplicidad), que representa una relacíon exacta de enteros:
 
 ```julia
 struct Rational{T<:Integer} <: Real
@@ -687,16 +604,11 @@ struct Rational{T<:Integer} <: Real
 end
 ```
 
-It only makes sense to take ratios of integer values, so the parameter type `T` is restricted
-to being a subtype of [`Integer`](@ref), and a ratio of integers represents a value on the
-real number line, so any [`Rational`](@ref) is an instance of the [`Real`](@ref) abstraction.
+Sólo tiene sentido tomar relaciones de valores enteros, por lo que el tipo parametrizado `T` está restringido a ser un subtipo de [`Integer`](@ref), y una razón de enteros representa un valor sobre la línea de los números reales, por lo que cualquier [`Rational`](@ref) es una instancia de la abstracción [`Real`](@ref).
 
-### Tuple Types
+### Tipos tupla
 
-Tuples are an abstraction of the arguments of a function -- without the function itself. The salient
-aspects of a function's arguments are their order and their types. Therefore a tuple type is similar
-to a parameterized immutable type where each parameter is the type of one field. For example,
-a 2-element tuple type resembles the following immutable type:
+Las tuplas son una abstracción de los argumentos de una función (sin la propia función). Los aspectos salientes de los argumentos de una funcíon son su orden y sus tipos. Por tanto, un tipo tupla es muy similar a un tipo inmutable parametrizado donde cada parámetro es el tupo de un campo. Por ejemplo, un tipo tupla de dos elementos se parece al siguiente tipo inmutable:
 
 ```julia
 struct Tuple2{A,B}
@@ -705,23 +617,20 @@ struct Tuple2{A,B}
 end
 ```
 
-However, there are three key differences:
+Sin embargo, hay tres diferencias clave:
 
-  * Tuple types may have any number of parameters.
-  * Tuple types are *covariant* in their parameters: `Tuple{Int}` is a subtype of `Tuple{Any}`. Therefore
-    `Tuple{Any}` is considered an abstract type, and tuple types are only concrete if their parameters
-    are.
-  * Tuples do not have field names; fields are only accessed by index.
+* Los tipos tupla pueden tener cualquier número de parámetros.
+* Los tipos tupla son *covariantes* en sus parámetros: `Tuple{Int}` es un subtipo of `Tuple{Any}`. Por tanto `Tuple{Any}` es considerado un tipo abstracto, y los tipos tupla son solo concretos si sus parámetros lo son.
+* Las tuplas no tienen nombres de campo; los campos son sólo accedidos mediante índices.
 
-Tuple values are written with parentheses and commas. When a tuple is constructed, an appropriate
-tuple type is generated on demand:
+Los valores tupla son escritos con paréntesis y comas. Cuando se construye una tupla, se genera un tipo tupla apropiado bajo demanda:
 
 ```jldoctest
 julia> typeof((1,"foo",2.5))
 Tuple{Int64,String,Float64}
 ```
 
-Note the implications of covariance:
+Note las implicaciones de  covarianza:
 
 ```jldoctest
 julia> Tuple{Int,AbstractString} <: Tuple{Real,Any}
@@ -734,13 +643,11 @@ julia> Tuple{Int,AbstractString} <: Tuple{Real,}
 false
 ```
 
-Intuitively, this corresponds to the type of a function's arguments being a subtype of the function's
-signature (when the signature matches).
+Intuitivamente, esto corresponde al tipo de los argumentos de una función, siendo un subtipo de la signatura de la función (cuando la signatura se corresponde).
 
-### Vararg Tuple Types
+### Tipos Tupla Vararg
 
-The last parameter of a tuple type can be the special type `Vararg`, which denotes any number
-of trailing elements:
+El último parámetro de un tipo tupla puede ser el tipo especial `Vararg`, que denota cualquier número de elementos arrastrados:
 
 ```jldoctest
 julia> mytupletype = Tuple{AbstractString,Vararg{Int}}
@@ -759,17 +666,13 @@ julia> isa(("1",1,2,3.0), mytupletype)
 false
 ```
 
-Notice that `Vararg{T}` corresponds to zero or more elements of type `T`. Vararg tuple types are
-used to represent the arguments accepted by varargs methods (see [Varargs Functions](@ref)).
+Notese que `Varags{T}` corresponde a cero o más elementos del tipo `T`. Los tipos tupla vararg se usan para representar los argumentos aceptados por los métodos vararg (ver [Funciones Vararg](@ref)).
 
-The type `Vararg{T,N}` corresponds to exactly `N` elements of type `T`.  `NTuple{N,T}` is a convenient
-alias for `Tuple{Vararg{T,N}}`, i.e. a tuple type containing exactly `N` elements of type `T`.
+El tipo `Vararg{T,N}` se corresponde a exactamente `N` elementos de tipo `T`. `NTuple{N,T}` es un alias conveniente para `Tuple{Vararg{T,N}}`, es decir, un tipo tupla conteniendo exactamente `N` elementos de tipo `T`.
 
-#### [Singleton Types](@id man-singleton-types)
+#### [Tipos Singleton](@id man-singleton-types)
 
-There is a special kind of abstract parametric type that must be mentioned here: singleton types.
-For each type, `T`, the "singleton type" `Type{T}` is an abstract type whose only instance is
-the object `T`. Since the definition is a little difficult to parse, let's look at some examples:
+Hay una clase especial de tipo paramétrico abstracto que hay que mencionar aquí: los tipos singleton. Para cada tipo `T` el tipo singleton `Type{T}` es un tipo abstracto cuya única instancia es el objeto `T`.  Como la definición es un poco difícil de analizar, echemos un vistazo a los siguientes ejemplos:
 
 ```jldoctest
 julia> isa(Float64, Type{Float64})
@@ -785,9 +688,7 @@ julia> isa(Float64, Type{Real})
 false
 ```
 
-In other words, [`isa(A,Type{B})`](@ref) is true if and only if `A` and `B` are the same object
-and that object is a type. Without the parameter, `Type` is simply an abstract type which has
-all type objects as its instances, including, of course, singleton types:
+En otras palabras, [`isa(A,Type{B})`](@ref) es `true` si y solo si `A` y `B` son el mismo objeto y este objeto es un tipo. Sin el parámetro, `Type` es simplemente un tipo abstracto que tiene como instancias todos los objetos tipo, incluyendo, por supuesto, los tipos singleton:
 
 ```jldoctest
 julia> isa(Type{Float64}, Type)
@@ -800,7 +701,7 @@ julia> isa(Real, Type)
 true
 ```
 
-Any object that is not a type is not an instance of `Type`:
+Cualquier objeto que no es un tipo no es una instancia de `Type`:
 
 ```jldoctest
 julia> isa(1, Type)
@@ -810,21 +711,13 @@ julia> isa("foo", Type)
 false
 ```
 
-Until we discuss [Parametric Methods](@ref) and [conversions](@ref conversion-and-promotion), it is difficult to explain
-the utility of the singleton type construct, but in short, it allows one to specialize function
-behavior on specific type *values*. This is useful for writing methods (especially parametric
-ones) whose behavior depends on a type that is given as an explicit argument rather than implied
-by the type of one of its arguments.
+Hasta que discutamos loa [métodos paramétricos](@ref) y las [conversiones](@ref conversion-and-promotion), , es difícil explicar la utilidad de la construcción tipo singleton, pero abreviando, permite a uno especializar el comportamiento de una función sobre *valores* de un tipo específico. Esto es útil para escribir métodos (especialmente paramétricos) cuy ocomportamiento dependa de un tipo que es dado como un argumento explícito en lugar de implicado por el tipo de un o de sus argumentos.
 
-A few popular languages have singleton types, including Haskell, Scala and Ruby. In general usage,
-the term "singleton type" refers to a type whose only instance is a single value. This meaning
-applies to Julia's singleton types, but with that caveat that only type objects have singleton
-types.
+Unos pocos lenguajes de programación tienen tipos singleton, incluyendo Haskell, Scala y Ruby. En uso general, el término "tipo singleton" se refiere a un tipo cuya única instancia es un solo valor. Este significado se aplicaa a los tipos singleton de Julia, pero con la advertencia de que sólo los objetos tipo tienen tipos singleton.
 
-### Parametric Primitive Types
+### Tipos primitivos paramétricos
 
-Primitive types can also be declared parametrically. For example, pointers are represented as
-primitive types which would be declared in Julia like this:
+Los tipos bits pueden ser declarados paramétricamente. Por ejemplo, los punteros son reprentados como tipos bits encajados que serían declarados en Julia de esta forma:
 
 ```julia
 # 32-bit system:
@@ -834,12 +727,7 @@ primitive type Ptr{T} 32 end
 primitive type Ptr{T} 64 end
 ```
 
-The slightly odd feature of these declarations as compared to typical parametric composite types,
-is that the type parameter `T` is not used in the definition of the type itself -- it is just
-an abstract tag, essentially defining an entire family of types with identical structure, differentiated
-only by their type parameter. Thus, `Ptr{Float64}` and `Ptr{Int64}` are distinct types, even though
-they have identical representations. And of course, all specific pointer types are subtypes of
-the umbrella `Ptr` type:
+La característica ligeramente extraña de estas declaraciones comparadas con los tipos compuestos paramétricos típicos es que el parámetro de tipo `T` no se usa en la definición del propio tipo (es justo un *tag* abstracto, esencialmente definiendo una familia entera de tipos con idéntica estructura, diferenciada sólo por su parámetro de tipo. Por tanto `Ptr{Float}` y `Ptr{Int64}` son tipos distintos, incluso auntque ellos tengan representaciones idénticas. Y, por supuesto, todos los tipos puntero específicos son subtipo del tipo sombrilla `Ptr`:
 
 ```jldoctest
 julia> Ptr{Float64} <: Ptr
@@ -849,47 +737,19 @@ julia> Ptr{Int64} <: Ptr
 true
 ```
 
-## UnionAll Types
+## Tipos UnionAll
 
-We have said that a parametric type like `Ptr` acts as a supertype of all its instances
-(`Ptr{Int64}` etc.). How does this work? `Ptr` itself cannot be a normal data type, since without
-knowing the type of the referenced data the type clearly cannot be used for memory operations.
-The answer is that `Ptr` (or other parametric types like `Array`) is a different kind of type called a
-`UnionAll` type. Such a type expresses the *iterated union* of types for all values of some parameter.
+Hemos dicho que un tipo paramétrico como `Ptr` actúa como un supertipo de todas sus instancias (Ptr{Int64} etc.). ¿Cómo funciona esto? `Ptr` en si mismo no puede ser un tipo normal, ya que sin saber el tipo de los datos referenciados el tipo claramente no puede ser usado para operaciones en memoria. La respuesta es que `Ptr` (u otros tipos paramétricos como `Array`) es una clase diferente de tipo llamado `UnionAll`. Tal tipo expresa la unión iterada de tipos para todos los valores de algún parámetro.
 
-`UnionAll` types are usually written using the keyword `where`. For example `Ptr` could be more
-accurately written as `Ptr{T} where T`, meaning all values whose type is `Ptr{T}` for some value
-of `T`. In this context, the parameter `T` is also often called a "type variable" since it is
-like a variable that ranges over types.
-Each `where` introduces a single type variable, so these expressions are nested for types with
-multiple parameters, for example `Array{T,N} where N where T`.
+Los tipos `UnionAll`suelen ser escritos usando la palabra clave `where`. Por ejemplo, `Ptr` podría ser escrito de forma más exacta como `Ptr{T} where T`, lo que significa que todos los valores cuyo tipo es `Ptr{T}` para algún valor de `T`. En este contexto, el parámetro `T` suele llamarse también una "variable tipo", ya que es como una variable que se extiende sobre los tipos. Cada `where` introduce una sola variable tipo, por lo que estas expresiones están anidadas para tipos con múltiples parámetros, por ejemplo `Array{T,N} where N where T`.
 
-The type application syntax `A{B,C}` requires `A` to be a `UnionAll` type, and first substitutes `B`
-for the outermost type variable in `A`.
-The result is expected to be another `UnionAll` type, into which `C` is then substituted.
-So `A{B,C}` is equivalent to `A{B}{C}`.
-This explains why it is possible to partially instantiate a type, as in `Array{Float64}`: the first
-parameter value has been fixed, but the second still ranges over all possible values.
-Using explicit `where` syntax, any subset of parameters can be fixed. For example, the type of all
-1-dimensional arrays can be written as `Array{T,1} where T`.
+La sintaxis de la aplicación de tipo `A{B, C}` requiere que `A` sea un tipo `UnionAll` y primero sustituye `B`  por la variable de tipo más externa en `A`. Se espera que el resultado sea otro tipo `UnionAll` en el cuál `C` será sustituido. Por tanto, `A{B,C}` es equivalente a  `A{B}{C}`. Esto explica por qué es posible instanciar parcialmente un tipo, como en `Array{Float64}`: El primer valor de parámetro ha sido fijado, pero el segundo aún se extiende sobre todos os posibles valores. Usando explícitamente la sintaxis `where`, cualquier subconjunto de parámetros puede ser fijado. Por ejemplo, el tipo de todos los arrays unidimensionales puede ser escrito como `Array{T,1} where T`.
 
-Type variables can be restricted with subtype relations.
-`Array{T} where T<:Integer` refers to all arrays whose element type is some kind of
-[`Integer`](@ref).
-The syntax `Array{<:Integer}` is a convenient shorthand for `Array{T} where T<:Integer`.
-Type variables can have both lower and upper bounds.
-`Array{T} where Int<:T<:Number` refers to all arrays of [`Number`](@ref)s that are able to
-contain `Int`s (since `T` must be at least as big as `Int`).
-The syntax `where T>:Int` also works to specify only the lower bound of a type variable,
-and `Array{>:Int}` is equivalent to `Array{T} where T>:Int`.
+Las variables de tipo pueden ser restringidas con relaciones de subtipos. `Array{T} where T<:Integer` se refiere a todos los arrays cuyo elemento de tipo es alguna clase de [`Integer`](@ref). La sintaxis `Array{<:Integer}` es una abreviatura conveniente para `Array{T} where T<:Integer`. Las variables tipo pueden tener tanto límites superiores como inferiores. `Array{T} where Int<:T<:Number` se refiere a todos los arrays de [`Number`](@ref)s que son capaces de contener `Int`s (dado que T debe ser al menos tan grande como `Int`). La sintaxis `where T>:Int` también funciona para especificar sólo el límite inferior de una variable de tipo, y `Array{>:Int}` es  equivalente a `Array{T} where T>:Int`.
 
-Since `where` expressions nest, type variable bounds can refer to outer type variables.
-For example `Tuple{T,Array{S}} where S<:AbstractArray{T} where T<:Real` refers to 2-tuples
-whose first element is some [`Real`](@ref), and whose second element is an `Array` of any
-kind of array whose element type contains the type of the first tuple element.
+En el caso de expresiones `where` anidadas, los límites de la variable de tipo  pueden referirse a las variables de tipo más externas. Por ejemplo, `Tuple{T,Array{S}} where S<:AbstractArray{T} where T<:Real` se refiere a dos tuplas cuyo primer elemento es algo [`Real`](@ref) y cuyo segundo elemento es un `Array` de cualquier clase cuyo tipo de elemento contenga el tipo del primero elmento de la tupla.
 
-The `where` keyword itself can be nested inside a more complex declaration. For example,
-consider the two types created by the following declarations:
+La palabra clave `where` en si misma puede ser anidada dentro de una declaración más compleja. Por ejemplo, considere los dos tipos creados por las siguientes declaraciones:
 
 ```jldoctest
 julia> const T1 = Array{Array{T,1} where T, 1}
@@ -899,32 +759,19 @@ julia> const T2 = Array{Array{T,1}, 1} where T
 Array{Array{T,1},1} where T
 ```
 
-Type `T1` defines a 1-dimensional array of 1-dimensional arrays; each
-of the inner arrays consists of objects of the same type, but this type may vary from one inner array to the next.
-On the other hand, type `T2` defines a 1-dimensional array of 1-dimensional arrays all of whose inner arrays must have the
-same type.  Note that `T2` is an abstract type, e.g., `Array{Array{Int,1},1} <: T2`, whereas `T1` is a concrete type. As a consequence, `T1` can be constructed with a zero-argument constructor `a=T1()` but `T2` cannot.
+El tipo `T1` define un array unidimensional de arrays unidimensionales; cada uno de los arrays internos consta de objetos del mismo tipo, pero este tipo puede variar de un array interno al siguiente. Por otra parte, el tipo `T2` define un array unidimensional de arrays unidimensionales de manera que los arrays internos tienen todos el mismo tipo. Notese que `T2` es un tipo abstracto, es decir, `Array{Array{Int,1},1} <: T2`, mientras que `T1` es un tipo concreto. Como consecuencia, `T1` puede ser construido con un constructor de cero argumentos `a=T1()` pero `T2` no puede.
 
-There is a convenient syntax for naming such types, similar to the short form of function
-definition syntax:
+Hay una sintaxis conveniente para nombrar tales tipos, similar a la forma corta de la sintaxis de definición de función:
 
 ```julia
 Vector{T} = Array{T,1}
 ```
 
-This is equivalent to `const Vector = Array{T,1} where T`.
-Writing `Vector{Float64}` is equivalent to writing `Array{Float64,1}`, and the umbrella type
-`Vector` has as instances all `Array` objects where the second parameter -- the number of array
-dimensions -- is 1, regardless of what the element type is. In languages where parametric types
-must always be specified in full, this is not especially helpful, but in Julia, this allows one
-to write just `Vector` for the abstract type including all one-dimensional dense arrays of any
-element type.
+Esto es equivalente a const Vector = Array{T,1} where T. Escribir Vector{Float64} es equivalente a escribir Array{Float64,1}, y el tipo paraguas Vector tiene como instancias todos los objetos Array donde el segundo parámetro (el número de dimensiones del array) es uno, sin importar cuál es el tipo del elemento. En lenguajes donde los tipos paramétricos deben siempre ser especificados por completo, esto no suele ser de ayuda, pero en Julia, esto permite a uno escribir justo Vector para el tipo abstract incluyendo arrays densos unidimensionales de cualquier tipo de elementos.
 
-## Type Aliases
+## Aliases de Tipos
 
-Sometimes it is convenient to introduce a new name for an already expressible type.
-This can be done with a simple assignment statement.
-For example, `UInt` is aliased to either [`UInt32`](@ref) or [`UInt64`](@ref) as is
-appropriate for the size of pointers on the system:
+Algunas veces es conveniente introducir un nuevo nombre para un tipo ya expresable. Para tales ocasiones, Julia proporciona el mecanismo `typealias`. Por ejemplo, `UInt` es un alias de [`UInt32`](@ref) o [`UInt64`](@ref) dependiendo de los punteros de tamaño del sistema:
 
 ```julia-repl
 # 32-bit system:
@@ -936,7 +783,7 @@ julia> UInt
 UInt64
 ```
 
-This is accomplished via the following code in `base/boot.jl`:
+Esto se consigue via el siguiente código en `base/boot.jl`:
 
 ```julia
 if Int === Int64
@@ -946,22 +793,15 @@ else
 end
 ```
 
-Of course, this depends on what `Int` is aliased to -- but that is predefined to be the correct
-type -- either [`Int32`](@ref) or [`Int64`](@ref).
+Por supuesto, esto depende de a qué representa el alias `Int` si a [`Int32`](@ref) o a [`Int64`](@ref).
 
-(Note that unlike `Int`, `Float` does not exist as a type alias for a specific sized
-[`AbstractFloat`](@ref). Unlike with integer registers, the floating point register sizes
-are specified by the IEEE-754 standard. Whereas the size of `Int` reflects the size of a
-native pointer on that machine.)
+(Note que, a diferencia de `Int`, `Float` no existe como un alias de tipo para un tamaño específico de [`AbstractFloat`](@ref). A diferencia de con los registros enteros, los tamaños de los registros en punto flotante están especificados por el estándar IEEE-754 standard. Mientras que el tamaño de `Int` refleja el tamaño de un puntero nativo de esta máquina.)
 
-## Operations on Types
+## Operaciones sobre tipos
 
-Since types in Julia are themselves objects, ordinary functions can operate on them. Some functions
-that are particularly useful for working with or exploring types have already been introduced,
-such as the `<:` operator, which indicates whether its left hand operand is a subtype of its right
-hand operand.
+Como los tipos en Julia son objetos en sí mismos, las funcoines ordinarias pueden operar sobre ellos. Algunas funciones que son particularmente útiles para trabajar con o explorar tipos han sido ya introducidas. Por ejemplo, el operador `<:` que indica si el operando a su izquierda es un subtipo del operando a su derecha.
 
-The [`isa`](@ref) function tests if an object is of a given type and returns true or false:
+La función [`isa`](@ref) comprueba si un objeto es de un tipo dado y devuelve `true` o `false`:
 
 ```jldoctest
 julia> isa(1, Int)
@@ -971,9 +811,7 @@ julia> isa(1, AbstractFloat)
 false
 ```
 
-The [`typeof()`](@ref) function, already used throughout the manual in examples, returns the type
-of its argument. Since, as noted above, types are objects, they also have types, and we can ask
-what their types are:
+La función [`typeof()`](@ref) , ya usada a través del manual en ejemplos, devuelve el tupo de su argumento. Como, con se notó anteriormente, los tipos son objetos, ellos también tienen tipos, y podemos preguntar cuáles son sus tipos:
 
 ```jldoctest
 julia> typeof(Rational{Int})
@@ -986,8 +824,7 @@ julia> typeof(Union{Real,String})
 Union
 ```
 
-What if we repeat the process? What is the type of a type of a type? As it happens, types are
-all composite values and thus all have a type of `DataType`:
+¿Qué pasa si repetimos el proceso? ¿Cuál es el tipo de un tipo de un tipo? Como sucede, los tipos son todos valores compuestos y por tanto todos tendrán un tipo de `DataType`:
 
 ```jldoctest
 julia> typeof(DataType)
@@ -999,8 +836,7 @@ DataType
 
 `DataType` is its own type.
 
-Another operation that applies to some types is [`supertype()`](@ref), which reveals a type's
-supertype. Only declared types (`DataType`) have unambiguous supertypes:
+Otra operación que se aplica a algunos tipos es  [`supertype()`](@ref), que revela el supertipo de un tipo. Sólo los tipos declarados (`DataType`) tienen supertipos no ambiguos:
 
 ```jldoctest
 julia> supertype(Float64)
@@ -1016,8 +852,7 @@ julia> supertype(Any)
 Any
 ```
 
-If you apply [`supertype()`](@ref) to other type objects (or non-type objects), a [`MethodError`](@ref)
-is raised:
+Si aplicamos [`supertype()`](@ref) a otros objetos tipo (u objetos no tipo) se lanzará un [`MethodError`](@ref):
 
 ```jldoctest
 julia> supertype(Union{Float64,Int64})
@@ -1029,9 +864,7 @@ Closest candidates are:
 
 ## Custom pretty-printing
 
-Often, one wants to customize how instances of a type are displayed.  This is accomplished by
-overloading the [`show()`](@ref) function.  For example, suppose we define a type to represent
-complex numbers in polar form:
+Frecuentemente, uno quiere personalizar cómo se mostrarán las instancias de un tipo. Esto se consigue sobrecargando la función [`show()`](@ref). Por ejemplo, supongamos que definimos un tipo para representar número complejos en forma polar:
 
 ```jldoctest polartype
 julia> struct Polar{T<:Real} <: Number
@@ -1043,36 +876,22 @@ julia> Polar(r::Real,Θ::Real) = Polar(promote(r,Θ)...)
 Polar
 ```
 
-Here, we've added a custom constructor function so that it can take arguments of different
-[`Real`](@ref) types and promote them to a common type (see [Constructors](@ref man-constructors)
-and [Conversion and Promotion](@ref conversion-and-promotion)).
-(Of course, we would have to define lots of other methods, too, to make it act like a
-[`Number`](@ref), e.g. `+`, `*`, `one`, `zero`, promotion rules and so on.) By default,
-instances of this type display rather simply, with information about the type name and
-the field values, as e.g. `Polar{Float64}(3.0,4.0)`.
+Aquí, hemos añadido una función constructor personalizado para que pueda tomar argumentos de distinto tipos [`Real`](@ref) y los promocione a un tipo común (ver [Constructores](@ref man-constructors) y [Conversión y Promoción](@ref conversion-and-promotion)). (Por supuesto, tendríamos que definir montones de otros métodos también, para hacer que actíe como un [`Number`](@ref), por ejemplo, `+`, `*`, `one`, `zero`, reglas de promoción y otras cosas). Por defecto, las instancias de este tipo se muestran de forma bastante simple, con información sobre el nombre del tipo y los valores de los campos, como por ejemplo en  `Polar{Float64}(3.0,4.0)`.
 
-If we want it to display instead as `3.0 * exp(4.0im)`, we would define the following method to
-print the object to a given output object `io` (representing a file, terminal, buffer, etcetera;
-see [Networking and Streams](@ref networking-and-streams)):
+Si en lugar de usar este modo de presentacin preferimos que su presentación sea `3.0 * exp(4.0im)`, hay que definir el siguiente método para que imprima el objeto a un objeto de salida `io`dado (que representa un fichero, terminal, buffer, etc.; ver [Networking and Streams](@ref networking-and-streams)):
 
 ```jldoctest polartype
 julia> Base.show(io::IO, z::Polar) = print(io, z.r, " * exp(", z.Θ, "im)")
 ```
 
-More fine-grained control over display of `Polar` objects is possible. In particular, sometimes
-one wants both a verbose multi-line printing format, used for displaying a single object in the
-REPL and other interactive environments, and also a more compact single-line format used for
-[`print()`](@ref) or for displaying the object as part of another object (e.g. in an array). Although
-by default the `show(io, z)` function is called in both cases, you can define a *different* multi-line
-format for displaying an object by overloading a three-argument form of `show` that takes the
-`text/plain` MIME type as its second argument (see [Multimedia I/O](@ref multimedia-io)), for example:
+Es posible un control de grano más fino sobre la visualizacin de los objetos `Polar`. En particular, algunas veces uno desea un formato de impresión detallado multilínea, utilizado para mostrar un solo objeto en REPL y otros entornos interactivos, y también un formato de línea única más compacto utilizado para [`print ()`] @ref) o para mostrar el objeto como parte de otro objeto (por ejemplo, en una matriz). Aunque de forma predeterminada se llama a la función `show (io, z)` en ambos casos, puede definir un formato multilínea *diferente* para mostrar un objeto sobrecargando una forma de tres argumentos de `show` que toma el tipo MIME `text/plain` como su segundo argumento (consulte [E/S multimedia](@ref)), por ejemplo:
 
 ```jldoctest polartype
 julia> Base.show{T}(io::IO, ::MIME"text/plain", z::Polar{T}) =
            print(io, "Polar{$T} complex number:\n   ", z)
 ```
 
-(Note that `print(..., z)` here will call the 2-argument `show(io, z)` method.) This results in:
+(Note que `print(..., z)` aquí invocará al método con dos argumentos `show(io, z)`). Esto dará como resultado:
 
 ```jldoctest polartype
 julia> Polar(3, 4.0)
@@ -1085,14 +904,10 @@ julia> [Polar(3, 4.0), Polar(4.0,5.3)]
  4.0 * exp(5.3im)
 ```
 
-where the single-line `show(io, z)` form is still used for an array of `Polar` values.   Technically,
-the REPL calls `display(z)` to display the result of executing a line, which defaults to `show(STDOUT, MIME("text/plain"), z)`,
-which in turn defaults to `show(STDOUT, z)`, but you should *not* define new [`display()`](@ref)
-methods unless you are defining a new multimedia display handler (see [Multimedia I/O](@ref multimedia-io)).
+donde se sigue utilizando la forma de línea `show(io, z)` para un array de valores  `Polar`. Técnicamente, el REPL llama a  `display(z)` para mostrar el resultado de ejecutar una línea que por defecto es `show (STDOUT, MIME (" text / plain "), z)`,
+ que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [` display () `] (@ ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref)).
 
-Moreover, you can also define `show` methods for other MIME types in order to enable richer display
-(HTML, images, etcetera) of objects in environments that support this (e.g. IJulia).   For example,
-we can define formatted HTML display of `Polar` objects, with superscripts and italics, via:
+Además, también puede definir métodos `show` para otros tipos MIME para permitir una visualización más rica (HTML, imágenes, etc.) de los objetos en entornos que lo admitan (por ejemplo, IJulia). Por ejemplo, podemos definir la visualización HTML formateada de objetos `Polar`, con superíndices y cursiva, a través de:
 
 ```jldoctest polartype
 julia> Base.show{T}(io::IO, ::MIME"text/html", z::Polar{T}) =
@@ -1100,8 +915,7 @@ julia> Base.show{T}(io::IO, ::MIME"text/html", z::Polar{T}) =
                    z.r, " <i>e</i><sup>", z.Θ, " <i>i</i></sup>")
 ```
 
-A `Polar` object will then display automatically using HTML in an environment that supports HTML
-display, but you can call `show` manually to get HTML output if you want:
+Un objeto `Polar` se mostrará entonces automáticament usando HtML en un entorno que soporte pantallas HTML, pero podemos llamar a la función `show` manualmente para obtener una salida HTML si lo deseamos:
 
 ```jldoctest polartype
 julia> show(STDOUT, "text/html", Polar(3.0,4.0))
@@ -1112,28 +926,21 @@ julia> show(STDOUT, "text/html", Polar(3.0,4.0))
 <p>An HTML renderer would display this as: <code>Polar{Float64}</code> complex number: 3.0 <i>e</i><sup>4.0 <i>i</i></sup></p>
 ```
 
-## "Value types"
+## "Valores tipo"
 
-In Julia, you can't dispatch on a *value* such as `true` or `false`. However, you can dispatch
-on parametric types, and Julia allows you to include "plain bits" values (Types, Symbols, Integers,
-floating-point numbers, tuples, etc.) as type parameters.  A common example is the dimensionality
-parameter in `Array{T,N}`, where `T` is a type (e.g., [`Float64`](@ref)) but `N` is just an `Int`.
+En Julia uno no puede despachar sobre un *valor*  tal como `true` o `false`. Sin embargo, se se puede despachar sobre tipos paramétricos, y Julia  permite incluir valores "plain bits" (tipos, símbolos, enteros, números en punto flotante, tuplas, etc.) como parámetros de tipo. Un ejemplo común es el parámetro de dimensionalidad en `Array{T,N}`, donde `T` es un tipo (por ejemplo,  [`Float64`](@ref)) pero `N` es un `Int`.
 
-You can create your own custom types that take values as parameters, and use them to control dispatch
-of custom types. By way of illustration of this idea, let's introduce a parametric type, `Val{T}`,
-which serves as a customary way to exploit this technique for cases where you don't need a more
-elaborate hierarchy.
+Podemos crear nuestros propio tipos personalizados que tomen valores como parámetros, y usarlos para controlar el despacho de los tipos personalizados. A modo de ilustración de esta idea, introduzcamos un tipo paramétrico, `Val{T}` que sirve como una forma tradicional de explotar esta técnica para casos donde tu no necesitas una jerarquía más elaborada.
 
-`Val` is defined as:
+`Val` es definida como:
 
 ```jldoctest valtype
 julia> struct Val{T}
        end
 ```
 
-There is no more to the implementation of `Val` than this.  Some functions in Julia's standard
-library accept `Val` types as arguments, and you can also use it to write your own functions.
- For example:
+No hay más implementaciones de `Val` que esta. Algunas funciones en la librería estándar de Julia aceptan los tipos `Val` como argumentos, y uno también puede usarlos para escribir sus propias funciones. Por ejemplo:
+
 
 ```jldoctest valtype
 julia> firstlast(::Type{Val{true}}) = "First"
@@ -1149,38 +956,29 @@ julia> firstlast(Val{false})
 "Last"
 ```
 
-For consistency across Julia, the call site should always pass a `Val`*type* rather than creating
-an *instance*, i.e., use `foo(Val{:bar})` rather than `foo(Val{:bar}())`.
+Por consistencia con Julia, el sitio de llamada debería siempre pasar un tipo `Val` en lugar de crear una instancia, por ejemplo, usar `foo(Val{:bar})` en lugar de `foo(Val{:bar}())`.
 
-It's worth noting that it's extremely easy to mis-use parametric "value" types, including `Val`;
-in unfavorable cases, you can easily end up making the performance of your code much *worse*.
- In particular, you would never want to write actual code as illustrated above.  For more information
-about the proper (and improper) uses of `Val`, please read the more extensive discussion in [the performance tips](@ref man-performance-tips).
+Vale la pena señalar que es extremadamente sencillo usar mal los tipos "valor" paramétricos, incluyendo `Val`; en caso desfavorables, tu puedes fácilmente acabar haciendo el rendimiento de tu código mucho *peor*. En particular, tu nunca tendrás que querer escribir código actual como ilustramos anteriormente. Para má información sobre el uso apropiado de `Val` consulte por fabor la discusión más extensa en los [consejos de rendimiento](@ref man-performance-tips).
 
-## [Nullable Types: Representing Missing Values](@id man-nullable-types)
+## [Tipos `Nullable`: representando valores perdidos](@id man-nullable-types)
 
-In many settings, you need to interact with a value of type `T` that may or may not exist. To
-handle these settings, Julia provides a parametric type called [`Nullable{T}`](@ref), which can be thought
-of as a specialized container type that can contain either zero or one values. `Nullable{T}` provides
-a minimal interface designed to ensure that interactions with missing values are safe. At present,
-the interface consists of several possible interactions:
+En muchas situaciones, uno necesita interactuar con un valor de tipo `T` que puede o no existir. Para manejar estas situaciones, Julia proporciona un tipo paramétrico denominado [`Nullable{T}`](@ref) que puede ser pensado como un tipo contenedor especializado que puede contener cero o un valores. `Nullable{T}` proporciona una interfaz mínima diseñada para asegurar qué interacciones con valores perdidos son seguras. En la actualidad, la interfaz consiste en varias posibles interacciones:
 
-  * Construct a `Nullable` object.
-  * Check if a `Nullable` object has a missing value.
-  * Access the value of a `Nullable` object with a guarantee that a [`NullException`](@ref)
-    will be thrown if the object's value is missing.
-  * Access the value of a `Nullable` object with a guarantee that a default value of type
-    `T` will be returned if the object's value is missing.
-  * Perform an operation on the value (if it exists) of a `Nullable` object, getting a
-    `Nullable` result. The result will be missing if the original value was missing.
-  * Performing a test on the value (if it exists) of a `Nullable`
-    object, getting a result that is missing if either the `Nullable`
-    itself was missing, or the test failed.
-  * Perform general operations on single `Nullable` objects, propagating the missing data.
+  * Construir un objeto `Nullable`.
+  * Comprobar si un objeto `Nullable` tiene un valor perdido.
+  * Acceder al valor de un objeto `Nullable` con la garantía de que se lanzará una [`NullException`](@ref) si el valor
+    del objeto está perdido.
+  * Acceder al valor de un objeto `Nullable` con una garantía de que el valor por defecto del tipo `T` será devuelto 
+    si el valor del objeto se pierde.
+  * Realizar una operación sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado` Nullable`. 
+    El resultado faltará si falta el valor original.
+  * Realizar una prueba sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado que será perdido
+    si faltaba el` Nullable` o si la prueba falla.
+  * Realizar operaciones generales en objetos individuales `Nullable`, propagando los datos faltantes.
+   
+### Construyendo objetos [`Nullable`](@ref)
 
-### Constructing [`Nullable`](@ref) objects
-
-To construct an object representing a missing value of type `T`, use the `Nullable{T}()` function:
+Para construir un objeto representando un valor perdido de tipo `T`, use la siguiente función `Nullable{T}():
 
 ```jldoctest
 julia> x1 = Nullable{Int64}()
@@ -1193,8 +991,7 @@ julia> x3 = Nullable{Vector{Int64}}()
 Nullable{Array{Int64,1}}()
 ```
 
-To construct an object representing a non-missing value of type `T`, use the `Nullable(x::T)`
-function:
+Para construir un objeto representando un valor no perdido de tipo `T`, use la función `Nullable(x::T)`:
 
 ```jldoctest
 julia> x1 = Nullable(1)
@@ -1207,13 +1004,11 @@ julia> x3 = Nullable([1, 2, 3])
 Nullable{Array{Int64,1}}([1, 2, 3])
 ```
 
-Note the core distinction between these two ways of constructing a `Nullable` object:
-in one style, you provide a type, `T`, as a function parameter; in the other style, you provide
-a single value of type `T` as an argument.
+Note que la distinción clave entre estas dos formas de construir un objeto `Nullable`: en un estilo, tu proporcionas un tipo, `T` como un parámetro a función; en el otro estilo, tu proporcionas un solo valor de tipo `T` como argumento.
 
-### Checking if a `Nullable` object has a value
+###  Comprobar si un objeto `Nullable` tiene un valor
 
-You can check if a `Nullable` object has any value using [`isnull()`](@ref):
+Puedes comprobbar si un objeto `Nullable` tiene algún valor usando [`isnull()`](@ref):
 
 ```jldoctest
 julia> isnull(Nullable{Float64}())
@@ -1223,9 +1018,9 @@ julia> isnull(Nullable(0.0))
 false
 ```
 
-### Safely accessing the value of a `Nullable` object
+### Acceder de forma segura al valor de un objeto `Nullable`
 
-You can safely access the value of a `Nullable` object using [`get()`](@ref):
+Puedes acceder al valor de un objeto `Nullable` usando  [`get()`](@ref):
 
 ```jldoctest
 julia> get(Nullable{Float64}())
@@ -1237,13 +1032,9 @@ julia> get(Nullable(1.0))
 1.0
 ```
 
-If the value is not present, as it would be for `Nullable{Float64}`, a [`NullException`](@ref)
-error will be thrown. The error-throwing nature of the `get()` function ensures that any
-attempt to access a missing value immediately fails.
+Si el valor no está presente, como podría ser para un `Nullable{Float64}` se lanzará un error  [`NullException`](@ref). La naturaleza del error lanzado de la función `get()` asegur aque cualquier intento de acceder al valor perdido falle inmediatamente.
 
-In cases for which a reasonable default value exists that could be used when a `Nullable`
-object's value turns out to be missing, you can provide this default value as a second argument
-to `get()`:
+En los casos para los cuales existe un valor por defecto razonable que podría ser usando cuando el valor de los objetos `Nullable` se volviera perdido, uno puede proporcionar este valos por defecto como un segundo argumento a `get()`:
 
 ```jldoctest
 julia> get(Nullable{Float64}(), 0.0)
@@ -1254,65 +1045,41 @@ julia> get(Nullable(1.0), 0.0)
 ```
 
 !!! tip
-    Make sure the type of the default value passed to `get()` and that of the `Nullable`
-    object match to avoid type instability, which could hurt performance. Use [`convert()`](@ref)
-    manually if needed.
+    Asegúrese de que el tipo de valor predeterminado pasado a `get ()` y el del objeto `Nullable` coincidan para evitar 
+    la inestabilidad de tipo, lo que podría perjudicar el rendimiento. Utilice [`convert ()`] (@ ref) manualmente si 
+    es necesario.
 
-### Performing operations on `Nullable` objects
+### Realizando operaciones sobre objetos `Nullable`
 
-`Nullable` objects represent values that are possibly missing, and it
-is possible to write all code using these objects by first testing to see if
-the value is missing with [`isnull()`](@ref), and then doing an appropriate
-action. However, there are some common use cases where the code could be more
-concise or clear by using a higher-order function.
+Los objetos `Nullable` representan valores que están posiblemente perdidos, y es posible escribir todo el código usando estos objetos primero comprobando para ver si el valor está perdido con [`isnull()`](@ref), y luego realizar la accin apropiada. Sin embargo, hay algunos casos de uso comunes donde el código podría ser ms conciso o claro usando una función de orden superior.
 
-The [`map`](@ref) function takes as arguments a function `f` and a `Nullable` value
-`x`. It produces a `Nullable`:
+La función [`map`](@ref) toma como argumentos una función `f` y un valor `x` de tipo `Nullable`. Ella produce un `Nullable`:
 
- - If `x` is a missing value, then it produces a missing value;
- - If `x` has a value, then it produces a `Nullable` containing
-   `f(get(x))` as value.
+ - Si `x` es un valor perdido, entonces produce un valor perdido;
+ - Si `x` tiene un valor, entonces produce un objeto `Nullable` que contiene `f(get(x))` como valor.
 
-This is useful for performing simple operations on values that might be missing
-if the desired behaviour is to simply propagate the missing values forward.
+Esto es útil para realizar operaciones simples sobre valores que podrían estar perdidos si el comportamiento deseado es simplemente propagar hacia adelante los valores perdidos.
 
-The [`filter`](@ref) function takes as arguments a predicate function `p`
-(that is, a function returning a boolean) and a `Nullable` value `x`.
-It produces a `Nullable` value:
+La función [`filter`](@ref) toma como argumentos una función predicado `p` (es decir, una función que devuelve un boolean) y un valor `x` de tipo `Nullable`. Ella produce un `Nullable`:
 
- - If `x` is a missing value, then it produces a missing value;
- - If `p(get(x))` is true, then it produces the original value `x`;
- - If `p(get(x))` is false, then it produces a missing value.
+ - Si `x` es un valor perdido, entonces produce un valor perdido;
+ - Si `p(get(x))` es true, entoces produce el valor original `x`;
+ - Si `p(get(x))` es false, entonces produce un valor perdido.
 
-In this way, `filter` can be thought of as selecting only allowable
-values, and converting non-allowable values to missing values.
+De esta forma, `filter` puede ser considerado como seleccionar sólo valores permisibles, y convertir valores no permisibles en valores perdidos.
 
-While `map` and `filter` are useful in specific cases, by far the most useful
-higher-order function is [`broadcast`](@ref), which can handle a wide variety of cases,
-including making existing operations work and propagate `Nullable`s. An example
-will motivate the need for `broadcast`. Suppose we have a function that computes the
-greater of two real roots of a quadratic equation, using the quadratic formula:
+Mientras que `map` y `filter` son útiles para casos específicos, la función de orden superior más útil es, con diferencia, [`broadcast`](@ref), que puede manejar una amplia variedad de casos, incluyendo hacer operaciones existentes funcionen y propaguen `Nullable`s. El siguiente ejemplo motivará la necesidad de `broadcast`. Supongamos que tenemos una funcion que calcula la mayor de las dos raices reales de una ecuacion cuadratica, usando la formula cuadratica:
 
 ```jldoctest nullableroot
 julia> root(a::Real, b::Real, c::Real) = (-b + √(b^2 - 4a*c)) / 2a
 root (generic function with 1 method)
 ```
 
-We may verify that the result of `root(1, -9, 20)` is `5.0`, as we expect,
-since `5.0` is the greater of two real roots of the quadratic equation.
+Podemos verificar que el resultado de `root (1, -9, 20)` es `5.0` como esperamos, ya que `5.0` es la mayor de dos raíces reales de la ecuación cuadrática.
 
-Suppose now that we want to find the greatest real root of a quadratic
-equations where the coefficients might be missing values. Having missing values
-in datasets is a common occurrence in real-world data, and so it is important
-to be able to deal with them. But we cannot find the roots of an equation if we
-do not know all the coefficients. The best solution to this will depend on the
-particular use case; perhaps we should throw an error. However, for this
-example, we will assume that the best solution is to propagate the missing
-values forward; that is, if any input is missing, we simply produce a missing
-output.
+Supongamos ahora que queremos encontrar la mayor raíz real de una ecuación cuadrática donde los coeficientes pueden ser valores perdidos. Tener valores perdidos en los conjuntos de datos es una ocurrencia común en los datos del mundo real, por lo que es importante poder tratar con ellos. Pero no podemos encontrar las raíces de una ecuación si no conocemos todos los coeficientes. La mejor solución para esto dependerá del caso de uso particular; quizás deberíamos arrojar un error. Sin embargo, para este ejemplo, asumiremos que la mejor solución es propagar los valores perdidos; es decir, si falta alguna entrada, simplemente producimos una salida faltante.
 
-The `broadcast()` function makes this task easy; we can simply pass the
-`root` function we wrote to `broadcast`:
+La función `broadcast ()` facilita esta tarea; simplemente podemos pasar la función `root` que escribimos a` broadcast`:
 
 ```jldoctest nullableroot
 julia> broadcast(root, Nullable(1), Nullable(-9), Nullable(20))
@@ -1325,19 +1092,16 @@ julia> broadcast(root, Nullable{Int}(), Nullable(-9), Nullable(20))
 Nullable{Float64}()
 ```
 
-If one or more of the inputs is missing, then the output of
-`broadcast()` will be missing.
+Si faltan una o más de las entradas, faltará la salida de `broadcast ()`.
 
-There exists special syntactic sugar for the `broadcast()` function
-using a dot notation:
+Existe un convenio sintáctico especial para la función `broadcast()` usando la notación punto:
 
 ```jldoctest nullableroot
 julia> root.(Nullable(1), Nullable(-9), Nullable(20))
 Nullable{Float64}(5.0)
 ```
 
-In particular, the regular arithmetic operators can be `broadcast()`
-conveniently using `.`-prefixed operators:
+En particular, los operadores aritméticos regulares pueden ser `broadcast ()` convenientemente usando operadores `.`-prefijo:
 
 ```jldoctest
 julia> Nullable(2) ./ Nullable(3) .+ Nullable(1.0)
