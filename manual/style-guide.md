@@ -1,46 +1,37 @@
-# [Style Guide](@id style-guide)
+# [GuÍa de Estilo](@id style-guide)
 
-The following sections explain a few aspects of idiomatic Julia coding style. None of these rules
-are absolute; they are only suggestions to help familiarize you with the language and to help
-you choose among alternative designs.
+Las siguientes secciones explican unos cuantos aspectos del estilo de codificación idiomático de Julia. Ninguna de estas reglas son absolutas; sólo son sugerencias para ayudar a familiarizarte con el lenguaje y ayudarte a elegir entre diseños alternativos.
 
-## Write functions, not just scripts
+## Escribe funciones, no sólo *scripts*
 
-Writing code as a series of steps at the top level is a quick way to get started solving a problem,
-but you should try to divide a program into functions as soon as possible. Functions are more
-reusable and testable, and clarify what steps are being done and what their inputs and outputs
-are. Furthermore, code inside functions tends to run much faster than top level code, due to how
-Julia's compiler works.
+Escribir código como una serie de pasos a nivel superior Es una forma rápida de empezar a 
+resolver un problema, pero uno debería intentar dividir un programa en funciones tan pronto como 
+sea posible. La función son más reusabes y testables, y clarifican qué pasos se están dando y 
+cuáles son sus entradas y sus salidas. Además, el código dentro de las funciones tiende a ejecutar 
+mucho más rápido que el código de nivel superior debido a cómo funciona el compilador de Julia.
 
-It is also worth emphasizing that functions should take arguments, instead of operating directly
-on global variables (aside from constants like [`pi`](@ref)).
+También merece la pena señalar que las funciones deberían tomar argumentos, en lugar de operar
+directamente sobre las variables globales (aparte de constantes como [`pi`](@ref)).
 
-## Avoid writing overly-specific types
+## Evita escribir tipos demasiado específicos
 
-Code should be as generic as possible. Instead of writing:
+El código debería ser tan genérico como sea posible. En lugar de escribir:
 
 ```julia
 convert(Complex{Float64}, x)
 ```
 
-it's better to use available generic functions:
+es mejor usar funciones genéricas disponibles:
 
 ```julia
 complex(float(x))
 ```
 
-The second version will convert `x` to an appropriate type, instead of always the same type.
+La segunda versión convertirá `x` a un tipo apropiado, en lugrar de siempre al mismo tipo. 
 
-This style point is especially relevant to function arguments. For example, don't declare an argument
-to be of type `Int` or [`Int32`](@ref) if it really could be any integer, expressed with the abstract
-type [`Integer`](@ref). In fact, in many cases you can omit the argument type altogether,
-unless it is needed to disambiguate from other method definitions, since a
-[`MethodError`](@ref) will be thrown anyway if a type is passed that does not support any
-of the requisite operations. (This is known as
-[duck typing](https://en.wikipedia.org/wiki/Duck_typing).)
+Este punto de estilo es especialmente relevante para los argumentos de función. Por ejemplo, no declare que un argumento sea de tipo `Int` o [`Int32`](@ref) si realmente pudiera ser cualquier número entero, expresado con el tipo abstracto [`Integer`](@ref). De hecho, en muchos casos puede omitir el tipo de argumento por completo, a menos que sea necesario para eliminar la ambigüedad de otras definiciones de método, ya que se lanzará [`MethodError`](@ref) de todos modos si se pasa un tipo que no admite ninguna de las operaciones requeridas. (Esto se conoce como [*duck typing*] (https://en.wikipedia.org/wiki/Duck_typing).)
 
-For example, consider the following definitions of a function `addone` that returns one plus its
-argument:
+Por ejemplo, considere las siguientes definiciones de una función `addone` que devuelve uno más su argumento:
 
 ```julia
 addone(x::Int) = x + 1                 # works only for Int
@@ -49,18 +40,11 @@ addone(x::Number) = x + oneunit(x)     # any numeric type
 addone(x) = x + oneunit(x)             # any type supporting + and oneunit
 ```
 
-The last definition of `addone` handles any type supporting [`oneunit`](@ref) (which returns 1 in
-the same type as `x`, which avoids unwanted type promotion) and the [`+`](@ref) function with
-those arguments. The key thing to realize is that there is *no performance penalty* to defining
-*only* the general `addone(x) = x + oneunit(x)`, because Julia will automatically compile specialized
-versions as needed. For example, the first time you call `addone(12)`, Julia will automatically
-compile a specialized `addone` function for `x::Int` arguments, with the call to `oneunit`
-replaced by its inlined value `1`. Therefore, the first three definitions of `addone` above are
-completely redundant with the fourth definition.
+La última definición de `addone` maneja cualquier tipo que soporte [`oneunit`](@ref) (que devuelve 1 en el mismo tipo que `x`, lo que evita la promoción de tipos no deseados) y  la función [`+`](@ref) con esos argumentos. La clave para darse cuenta es que no hay *ninguna penalización de rendimiento* para definir *solo* el general `addone (x) = x + oneunit (x)`, porque Julia compilará automáticamente versiones especializadas según sea necesario. Por ejemplo, la primera vez que llame a `addone(12)`, Julia compilará automáticamente una función especializada `addone` para argumentos `x :: Int`, reemplazando la llamada a `oneunit` por su valor` 1`. Por lo tanto, las primeras tres definiciones de 'addone' anteriores son completamente redundantes con la cuarta definición.
 
-## Handle excess argument diversity in the caller
+## Manejar el exceso de diversidad de argumentos en el "código llamador"
 
-Instead of:
+En lugar de:
 
 ```julia
 function foo(x, y)
@@ -79,16 +63,14 @@ end
 foo(Int(x), Int(y))
 ```
 
-This is better style because `foo` does not really accept numbers of all types; it really needs
-`Int` s.
+Este es mucho mejor estilo debido a que `foo` no acepta realmente números de todos los tipos, sino que necesita `Int` s.
 
-One issue here is that if a function inherently requires integers, it might be better to force
-the caller to decide how non-integers should be converted (e.g. floor or ceiling). Another issue
-is that declaring more specific types leaves more "space" for future method definitions.
+Un problema aquí es que si una función requiere números enteros intrínsecamente, podría ser mejor forzar al autor de la llamada a decidir cómo deberían convertirse los no enteros (por ejemplo, redondeando por abajo o por arriba). Otro problema es que la declaración de tipos más específicos deja más "espacio" para las futuras definiciones de métodos.
 
-## Append `!` to names of functions that modify their arguments
+## Añadir `!` para los nombres de funciones que modifican sus argumentos
 
-Instead of:
+En lugar de:
+
 
 ```julia
 function double(a::AbstractArray{<:Number})
@@ -110,18 +92,15 @@ function double!(a::AbstractArray{<:Number})
 end
 ```
 
-The Julia standard library uses this convention throughout and contains examples of functions
-with both copying and modifying forms (e.g., [`sort()`](@ref) and [`sort!()`](@ref)), and others
-which are just modifying (e.g., [`push!()`](@ref), [`pop!()`](@ref), [`splice!()`](@ref)).  It
-is typical for such functions to also return the modified array for convenience.
+La biblioteca estándar de Julia usa esta convención y contiene ejemplos de funciones con formas tanto de copiado como de modificación (por ejemplo, [`sort()`](@ref) y [`sort!()`](@ref)), y otras que simplemente están modificando (por ejemplo, [`push!()`](@ref), [`pop!()`](@ref), [`splice!()`](@ref)). Es típico para tales funciones devolver también la matriz modificada por conveniencia.
 
-## Avoid strange type `Union`s
+## Evitar tipos `Union` extraños
 
-Types such as `Union{Function,AbstractString}` are often a sign that some design could be cleaner.
+Tipos tales como `Union{Function,AbstractString}` son frecuentemente un signo de que hay que limpiar algo en el diseño.
 
-## Avoid type Unions in fields
+## Evitar las Uniones de tipos en campos
 
-When creating a type such as:
+Cuando se crea un tipo tal como :
 
 ```julia
 mutable struct MyType
@@ -130,118 +109,107 @@ mutable struct MyType
 end
 ```
 
-ask whether the option for `x` to be `nothing` (of type `Void`) is really necessary. Here are
-some alternatives to consider:
+pregunte si la opción de `x` para ser `nada` (de tipo `Void`) es realmente necesaria. Aquí hay algunas alternativas a considerar:
 
-  * Find a safe default value to initialize `x` with
-  * Introduce another type that lacks `x`
-  * If there are many fields like `x`, store them in a dictionary
-  * Determine whether there is a simple rule for when `x` is `nothing`. For example, often the field
-    will start as `nothing` but get initialized at some well-defined point. In that case, consider
-    leaving it undefined at first.
-  * If `x` really needs to hold no value at some times, define it as `::Nullable{T}` instead, as this
-    guarantees type-stability in the code accessing this field (see [Nullable types](@ref man-nullable-types)).
+  * Encuentre un valor predeterminado seguro con el que inicializar `x`
+  * Introduce otro tipo del que carece `x`
+  * Si hay muchos campos como `x`, guárdelos en un diccionario
+  * Determine si hay una regla simple para cuando `x` es` nada`. Por ejemplo, a menudo el campo comenzará 
+    como `nada` pero se inicializará en algún punto bien definido. En ese caso, considere dejarlo indefinido 
+    al principio.
+  * Si `x` realmente no necesita contener ningún valor en algún momento, defínalo como `::Nullable{T}` en 
+    su lugar, ya que esto garantiza estabilidad de tipo en el código que accede a este campo 
+    (ver [TiposNullable](@ref man-nullable-types)).
 
-## Avoid elaborate container types
+## Evitar elaborar tipos contenedor
 
-It is usually not much help to construct arrays like the following:
+Usualmente no es de mucha ayuda construir arrays como los siguientes:
 
 ```julia
 a = Array{Union{Int,AbstractString,Tuple,Array}}(n)
 ```
 
-In this case `Array{Any}(n)` is better. It is also more helpful to the compiler to annotate specific
-uses (e.g. `a[i]::Int`) than to try to pack many alternatives into one type.
+En este caso `Array{Any}(n)` es mejor. Es también de más ayuda para el compilador anotar usos específicos (por ejemplo  `a[i]::Int`) que intentar empaquetar muchas alternativas en un tipo.
 
-## Use naming conventions consistent with Julia's `base/`
+## Usar convenciones de nombrado consistentes con el paquete `base/` de Julia
 
-  * modules and type names use capitalization and camel case: `module SparseArrays`, `struct UnitRange`.
-  * functions are lowercase ([`maximum()`](@ref), [`convert()`](@ref)) and, when readable, with multiple
-    words squashed together ([`isequal()`](@ref), [`haskey()`](@ref)). When necessary, use underscores
-    as word separators. Underscores are also used to indicate a combination of concepts ([`remotecall_fetch()`](@ref)
-    as a more efficient implementation of `fetch(remotecall(...))`) or as modifiers ([`sum_kbn()`](@ref)).
-  * conciseness is valued, but avoid abbreviation ([`indexin()`](@ref) rather than `indxin()`) as
-    it becomes difficult to remember whether and how particular words are abbreviated.
+  * Los nombres de los módulos y tipos usan mayúsculas y *came case*: `module SparseArrays`, `struct UnitRange`.
+  * Las funciones van en minúscula ([`maximum()`](@ref), [`convert()`](@ref)) y, cuando es legible, con múltiples
+    palabras pegadas juntas ([`isequal()`](@ref), [`haskey()`](@ref)). Cuando sea necesario, use guiones bajos
+    como separadores de palabra. Los guiones bajos también se usan para indicar una combinacin de conceptos
+    ([`remotecall_fetch()`](@ref) como una implementación más eficiente de `fetch(remotecall(...))`) o como 
+    modificadores ([`sum_kbn()`](@ref)).
+  * Se valora la concisión, pero debe evitarse la abreviatura ([`indexin()`](@ref) en lugar de `indxin()`) ya
+    que se vuelve difícil recordar si se abrevian palabras particulares y cómo se han abreviado.
 
-If a function name requires multiple words, consider whether it might represent more than one
-concept and might be better split into pieces.
+Si el nombre de una función requiere varias palabras, considere si podría representar más de un concepto y podría dividirse mejor en partes.
 
-## Don't overuse try-catch
+## No usar demasiado try-catch
 
-It is better to avoid errors than to rely on catching them.
+Es mejor evitar errores que basarse en atraparlos.
 
-## Don't parenthesize conditions
+## No meter entre paréntesis las condiciones
 
-Julia doesn't require parens around conditions in `if` and `while`. Write:
+Julia no necesita que se rodeen entre paréntesis las condiciones en `if` and `while`. Escriba:
 
 ```julia
 if a == b
 ```
 
-instead of:
+en lugar de:
 
 ```julia
 if (a == b)
 ```
 
-## Don't overuse `...`
+## No usar demasiado `...`
 
-Splicing function arguments can be addictive. Instead of `[a..., b...]`, use simply `[a; b]`,
-which already concatenates arrays. [`collect(a)`](@ref) is better than `[a...]`, but since `a`
-is already iterable it is often even better to leave it alone, and not convert it to an array.
+El uso de `...` en los argumentos de función puede ser adictivo. En lugar de `[a..., b...]`, use `[a; b]`,
+que ya concatena arrays. [`collect(a)`](@ref) es mejor que `[a...]`, pero como `a` ya es iterable suele ser 
+incluso mejor d3jarlo solo, y no convertirlo en array.
 
-## Don't use unnecessary static parameters
+## No usar parámetros estáticos innecesarios
 
-A function signature:
+Una signatura de función:
 
 ```julia
 foo(x::T) where {T<:Real} = ...
 ```
 
-should be written as:
+debería ser escrita como
 
 ```julia
 foo(x::Real) = ...
 ```
 
-instead, especially if `T` is not used in the function body. Even if `T` is used, it can be replaced
-with [`typeof(x)`](@ref) if convenient. There is no performance difference. Note that this is
-not a general caution against static parameters, just against uses where they are not needed.
+especialmente si `T` no se usa en el cuerpo de la función. Incluso si se usa `T`, se puede reemplazar con [`typeof(x)`](@ref) si es conveniente. No hay diferencia de rendimiento. Tenga en cuenta que esto no es una precaución general contra los parámetros estáticos, solo contra uso donde no son necesarios.
 
-Note also that container types, specifically may need type parameters in function calls. See the
-FAQ [Avoid fields with abstract containers](@ref) for more information.
+Tenga en cuenta también que los tipos de contenedores, específicamente pueden necesitar parámetros de tipo en las llamadas a función. Consulte las Preguntas frecuentes [Evitar campos con contenedores abstractos](@ref) para obtener más información.
 
-## Avoid confusion about whether something is an instance or a type
+## Evitar la confusion sobre si algo es una instancia o un tipo
 
-Sets of definitions like the following are confusing:
+Conjuntos de definiciones como las siguientes son confusas:
 
 ```julia
 foo(::Type{MyType}) = ...
 foo(::MyType) = foo(MyType)
 ```
 
-Decide whether the concept in question will be written as `MyType` or `MyType()`, and stick to
-it.
+Decida si el concepto en cuestión se escribirá como `MyType` o `MyType()`, y sígalo.
 
-The preferred style is to use instances by default, and only add methods involving `Type{MyType}`
-later if they become necessary to solve some problem.
+El estilo preferido es usar instancias por defecto, y solo agregue métodos que incluyan `Tipo{MiTipo}` más tarde si se vuelven necesarios para resolver algún problema.
 
-If a type is effectively an enumeration, it should be defined as a single (ideally immutable struct or primitive)
-type, with the enumeration values being instances of it. Constructors and conversions can check
-whether values are valid. This design is preferred over making the enumeration an abstract type,
-with the "values" as subtypes.
+Si un tipo es efectivamente una enumeración, debe definirse como un tipo único (idealmente, `immutable struct` o primitivo), con los valores de enumeración como instancias de este. Los constructores y las conversiones pueden verificar si los valores son válidos. Este diseño es preferible a hacer que la enumeración sea un tipo abstracto, con los "valores" como subtipos.
 
-## Don't overuse macros
+## No abusar de las macros
 
-Be aware of when a macro could really be a function instead.
+Tenga en cuenta cuando una macro realmente podría ser una función en su lugar.
 
-Calling [`eval()`](@ref) inside a macro is a particularly dangerous warning sign; it means the
-macro will only work when called at the top level. If such a macro is written as a function instead,
-it will naturally have access to the run-time values it needs.
+Llamar a [`eval()`](@ref) dentro de una macro es un signo de advertencia particularmente peligroso; significa que la macro solo funcionará cuando se llame al nivel superior. Si tal macro se escribe como una función en su lugar, naturalmente tendrá acceso a los valores en tiempo de ejecución que necesita.
 
-## Don't expose unsafe operations at the interface level
+## No exponer operaciones inseguras al nivel de interfaz
 
-If you have a type that uses a native pointer:
+Si se tiene un tipo que use un puntero nativo:
 
 ```julia
 mutable struct NativeType
@@ -250,40 +218,31 @@ mutable struct NativeType
 end
 ```
 
-don't write definitions like the following:
+no escriba definiciones como la siguiente:
 
 ```julia
 getindex(x::NativeType, i) = unsafe_load(x.p, i)
 ```
 
-The problem is that users of this type can write `x[i]` without realizing that the operation is
-unsafe, and then be susceptible to memory bugs.
+El problema es que los usuarios de este tipo pueden escribir `x[i]` sin darse cuenta de que la operación no es segura y, luego, ser susceptibles a errores de memoria.
 
-Such a function should either check the operation to ensure it is safe, or have `unsafe` somewhere
-in its name to alert callers.
+Dicha función debería verificar la operación para asegurarse de que sea segura, o incluir `unsafe` en alguna parte de su nombre para alertar a las personas que la invocan.
 
-## Don't overload methods of base container types
+## No sobrecargar métodos de tipos de contenedores base
 
-It is possible to write definitions like the following:
+Es posible escribir definiciones como la siguiente:
 
 ```julia
 show(io::IO, v::Vector{MyType}) = ...
 ```
 
-This would provide custom showing of vectors with a specific new element type. While tempting,
-this should be avoided. The trouble is that users will expect a well-known type like `Vector()`
-to behave in a certain way, and overly customizing its behavior can make it harder to work with.
+Esto proporcionaría una muestra personalizada de vectores con un nuevo tipo de elemento específico. Aunque es tentador, es algo que debe evitarse. El problema es que los usuarios esperarán que un tipo conocido como `Vector()` se comporte de cierta manera, y la personalización excesiva de su comportamiento puede dificultar el trabajo.
 
-## Avoid type piracy
+## Evitar la piratería de tipos
 
-"Type piracy" refers to the practice of extending or redefining methods in Base
-or other packages on types that you have not defined. In some cases, you can get away with
-type piracy with little ill effect. In extreme cases, however, you can even crash Julia
-(e.g. if your method extension or redefinition causes invalid input to be passed to a
-`ccall`). Type piracy can complicate reasoning about code, and may introduce
-incompatibilities that are hard to predict and diagnose.
+La "Piratería de Tipos" se refiere a la práctica de extender o redefinir métodos en Base u otros paquetes en tipos que no han definido. En algunos casos, puede la piratería de tipo va a tener un efecto poco negativo. Sin embargo, en casos extremos, incluso puede bloquear Julia (por ejemplo, si la extensión o redefinición de su método hace que se pase una entrada inválida a `ccall`). La piratería de tipos puede complicar el razonamiento sobre el código y puede introducir incompatibilidades que son difíciles de predecir y diagnosticar.
 
-As an example, suppose you wanted to define multiplication on symbols in a module:
+Como ejemplo, suponga que quiere definir la multiplicación en símbolos en un módulo: 
 
 ```julia
 module A
@@ -292,38 +251,23 @@ import Base.*
 end
 ```
 
-The problem is that now any other module that uses `Base.*` will also see this definition.
-Since `Symbol` is defined in Base and is used by other modules, this can change the
-behavior of unrelated code unexpectedly. There are several alternatives here, including
-using a different function name, or wrapping the `Symbol`s in another type that you define.
+El problema es que ahora cualquier otro módulo que use `Base.*` También verá esta definición. Dado que `Symbol` se define en Base y es utilizado por otros módulos, esto puede cambiar el comportamiento del código no relacionado de forma inesperada. Aquí hay varias alternativas, incluido el uso de un nombre de función diferente o el ajuste de `Symbol`s en otro tipo que defina.
 
-Sometimes, coupled packages may engage in type piracy to separate features from definitions,
-especially when the packages were designed by collaborating authors, and when the
-definitions are reusable. For example, one package might provide some types useful for
-working with colors; another package could define methods for those types that enable
-conversions between color spaces. Another example might be a package that acts as a thin
-wrapper for some C code, which another package might then pirate to implement a
-higher-level, Julia-friendly API.
+Algunas veces, los paquetes acoplados pueden involucrarse en la piratería de tipos para separar las características de las definiciones, especialmente cuando los paquetes fueron diseñados por autores colaboradores, y cuando las definiciones son reutilizables. Por ejemplo, un paquete puede proporcionar algunos tipos útiles para trabajar con colores; otro paquete podría definir métodos para aquellos tipos que permiten conversiones entre espacios de color. Otro ejemplo podría ser un paquete que actúa como un envoltorio delgado para algún código C, que otro paquete podría piratear para implementar una API de nivel superior compatible con Julia.
 
-## Be careful with type equality
+## Ser cuidadoso con la igualdad de tipos
 
-You generally want to use [`isa()`](@ref) and `<:` ([`issubtype()`](@ref)) for testing types,
-not `==`. Checking types for exact equality typically only makes sense when comparing to a known
-concrete type (e.g. `T == Float64`), or if you *really, really* know what you're doing.
+Por lo general, uno desea utilizar [`isa()`](@ref) y [`<:`](@ref) para los tipos de prueba, no `==`. La comprobación de los tipos para la igualdad exacta normalmente solo tiene sentido cuando se compara con un tipo concreto conocido (por ejemplo, `T == Float64`), o si *realmente* uno sabe lo que está haciendo.
 
-## Do not write `x->f(x)`
+## No escribir `x->f(x)`
 
-Since higher-order functions are often called with anonymous functions, it is easy to conclude
-that this is desirable or even necessary. But any function can be passed directly, without being
-"wrapped" in an anonymous function. Instead of writing `map(x->f(x), a)`, write [`map(f, a)`](@ref).
+Como las funciones de orden superior a menudo se llaman con funciones anónimas, es fácil concluir que esto es deseable o incluso necesario. Pero cualquier función se puede pasar directamente, sin estar "envuelta" en una función anónima. En lugar de escribir `map (x-> f(x), a)`, escriba [`map(f, a)`](@ref).
 
-## Avoid using floats for numeric literals in generic code when possible
+## Evitar usar floats para literales numericos en codigo generico cuando sea posible
 
-If you write generic code which handles numbers, and which can be expected to run with many different
-numeric type arguments, try using literals of a numeric type that will affect the arguments as
-little as possible through promotion.
+Si escribe código genérico que maneja números, y que se puede esperar que se ejecute con muchos tipos de argumentos numéricos diferentes, intente utilizar literales de un tipo numérico que afectarán los argumentos lo menos posible mediante la promoción.
 
-For example,
+Por ejemplo,
 
 ```jldoctest
 julia> f(x) = 2.0 * x
@@ -339,7 +283,7 @@ julia> f(1)
 2.0
 ```
 
-while
+mientras que
 
 ```jldoctest
 julia> g(x) = 2 * x
@@ -355,10 +299,7 @@ julia> g(1)
 2
 ```
 
-As you can see, the second version, where we used an `Int` literal, preserved the type of the
-input argument, while the first didn't. This is because e.g. `promote_type(Int, Float64) == Float64`,
-and promotion happens with the multiplication. Similarly, [`Rational`](@ref) literals are less type disruptive
-than [`Float64`](@ref) literals, but more disruptive than `Int`s:
+Como puede ver, la segunda versión, donde usamos un literal `Int`, conserva el tipo de argumento de entrada, mientras que la primera no. Esto se debe a, por ejemplo, `promote_type(Int, Float64) == Float64`, y la promoción ocurre con la multiplicación. De manera similar, los literales [`Rational`](@ref) son menos disruptivos que los literales [`Float64`](@ref), pero son más perjudiciales que los `Int`s:
 
 ```jldoctest
 julia> h(x) = 2//1 * x
@@ -374,5 +315,4 @@ julia> h(1)
 2//1
 ```
 
-Thus, use `Int` literals when possible, with `Rational{Int}` for literal non-integer numbers,
-in order to make it easier to use your code.
+Por tanto, use literales `Int` cuando sea posible, con `Rational{Int}` para literales numéricos no enteros, en orden a hacer nuestro código ms fácil de usar.
