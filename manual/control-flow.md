@@ -505,7 +505,7 @@ Uno puede definir sus propias excepciones de la siguiente manera:
 julia> struct MyCustomException <: Exception end
 ```
 
-### TLa función [`throw()`](@ref)
+### La función [`throw()`](@ref)
 
 Las excepciones pueden crearse explícitamente con  [`throw()`](@ref). Por ejemplo, una función definida sólo para número no negativos podría escribirse para que lanzara un [`DomainError`](@ref) si el argumento es negativo:
 
@@ -555,23 +555,20 @@ julia> Base.showerror(io::IO, e::MyUndefVarError) = print(io, e.var, " not defin
     
     `size(A) == size(B) || throw(DimensionMismatch("size of A not equal to size of B"))`
 
-    es preferible a
+   es preferible a
 
     `size(A) == size(B) || throw(DimensionMismatch("Size of A not equal to size of B"))`.
 
-    Sin embargo, algunas veces tiene sentido mantener la primera letra en mayúscula, por 
-    ejemplo, si un argumento a función es una letra mayúscula: 
+   Sin embargo, algunas veces tiene sentido mantener la primera letra en mayúscula, por 
+   ejemplo, si un argumento a función es una letra mayúscula: 
     
     `size(A,1) == size(B,2) || throw(DimensionMismatch("A has first dimension..."))`.
 
-### Errors
+### Errores
 
-The [`error()`](@ref) function is used to produce an [`ErrorException`](@ref) that interrupts
-the normal flow of control.
+La función [`error()`](@ref) se usa para producir una [`ErrorException`](@ref) que interrumpe el flujo de control normal.
 
-Suppose we want to stop execution immediately if the square root of a negative number is taken.
-To do this, we can define a fussy version of the [`sqrt()`](@ref) function that raises an error
-if its argument is negative:
+Supóngase que deseamos detener la ejecución inmediatamente si se toma la raíz cuadrad de un número negativo. Para hacer ésto, podemos definir una versión "quisquillosa" de la función  [`sqrt()`](@ref) que lanza un error si recibe un número negativo:
 
 ```jldoctest fussy_sqrt
 julia> fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
@@ -586,9 +583,7 @@ Stacktrace:
  [1] fussy_sqrt(::Int64) at ./none:1
 ```
 
-If `fussy_sqrt` is called with a negative value from another function, instead of trying to continue
-execution of the calling function, it returns immediately, displaying the error message in the
-interactive session:
+Si `fussy_sqrt()` es invocada con un valor negativo desde otra función, en lugar de intentar continuar la ejecución de la función que la invocó, retorna inmediatamente, mostrando el mensaje de error en la sesión interactiva:
 
 ```jldoctest fussy_sqrt
 julia> function verbose_fussy_sqrt(x)
@@ -612,10 +607,9 @@ Stacktrace:
  [2] verbose_fussy_sqrt(::Int64) at ./none:3
 ```
 
-### Warnings and informational messages
+### Mensajes de aviso y de información
 
-Julia also provides other functions that write messages to the standard error I/O, but do not
-throw any `Exception`s and hence do not interrupt execution:
+Julia también proporciona otras funciones que escriben mensajes a la salida de error estándar, pero no lanzan ninguna `Exception` y, por tanto, no interrumpen la ejecución:
 
 ```jldoctest
 julia> info("Hi"); 1+1
@@ -632,11 +626,9 @@ Stacktrace:
  [1] error(::String) at ./error.jl:21
 ```
 
-### The `try/catch` statement
+### La instrucción `try/catch` 
 
-The `try/catch` statement allows for `Exception`s to be tested for. For example, a customized
-square root function can be written to automatically call either the real or complex square root
-method on demand using `Exception`s :
+La intrucción `try/ catch` permite comprobar a aparición de excepciones. Por ejemplo, puede escribirse una función personalizada para calcular la raíz cuadrada que invoque automáticamente al método de cálculo de la raíz de valores reales y/o complejos en función de la excepción:
 
 ```jldoctest
 julia> f(x) = try
@@ -653,12 +645,9 @@ julia> f(-1)
 0.0 + 1.0im
 ```
 
-It is important to note that in real code computing this function, one would compare `x` to zero
-instead of catching an exception. The exception is much slower than simply comparing and branching.
+Es importante notar que en el código real que computa esta función, uno podría comparar `x` con vero en lugar de atrapar la excepción. De hcho, la opción de la excepción ees mucho más lenta de comparar y ramificar.
 
-`try/catch` statements also allow the `Exception` to be saved in a variable. In this contrived
-example, the following example calculates the square root of the second element of `x` if `x`
-is indexable, otherwise assumes `x` is a real number and returns its square root:
+Las instrucciones `try / catch` también permiten salvar la excepción en una variable. En este ejemplo artificial, se calcula la raíz cuadrada del segundo elemento de `x`.  Si `x` es indexable, en caso contrario asume que `x` es un número real y devuelve su raíz cuadrada:
 
 ```jldoctest
 julia> sqrt_second(x) = try
@@ -687,15 +676,14 @@ Stacktrace:
  [1] sqrt_second(::Int64) at ./none:7
 ```
 
-Note that the symbol following `catch` will always be interpreted as a name for the exception,
-so care is needed when writing `try/catch` expressions on a single line. The following code will
-*not* work to return the value of `x` in case of an error:
+Note que el símbolo que sigue al `catch` siempre será interpretado como el nombre para la excepción, por lo que hay que tener cuidado cuando se escriben expresiones `try / catch` en una sola línea. El siguiente código no funcionará para devolver el
+valor de `x` en caso de error:
 
 ```julia
 try bad() catch x end
 ```
 
-Instead, use a semicolon or insert a line break after `catch`:
+En su lugar, es mejor usar un punto u coma o insertar un salto de línea después del `catch`:
 
 ```julia
 try bad() catch; x end
@@ -706,27 +694,20 @@ catch
 end
 ```
 
-The `catch` clause is not strictly necessary; when omitted, the default return value is `nothing`.
+La cláusula `catch` no es estrictamente necesaria; cuando se omite el valor de retorno por defecto es `nothing`
 
 ```jldoctest
 julia> try error() end # Returns nothing
 ```
 
-The power of the `try/catch` construct lies in the ability to unwind a deeply nested computation
-immediately to a much higher level in the stack of calling functions. There are situations where
-no error has occurred, but the ability to unwind the stack and pass a value to a higher level
-is desirable. Julia provides the [`rethrow()`](@ref), [`backtrace()`](@ref) and [`catch_backtrace()`](@ref)
-functions for more advanced error handling.
+La potencia de la construcción `try / catch` estriba  en la capacidad de desplegar inmediatamente un  cálculo profundamente anidado de hasta un nivel mucho más elevado en la pila de llamadas a función. Hay situacionces donde no ha ocurrido error, pero la capacidad de desplegar la pila y pasar un valor a un nivel superior es deseable. Julia proporciona las funciones 
+ [`rethrow()`](@ref), [`backtrace()`](@ref) and [`catch_backtrace()`](@ref) para un manejo de errores más avanzado.
 
-### `finally` Clauses
+### Cláusulas `finally` 
 
-In code that performs state changes or uses resources like files, there is typically clean-up
-work (such as closing files) that needs to be done when the code is finished. Exceptions potentially
-complicate this task, since they can cause a block of code to exit before reaching its normal
-end. The `finally` keyword provides a way to run some code when a given block of code exits, regardless
-of how it exits.
+En código que realiza cambios de estado o usa recursos como ficheros, hay típicamente un trabajo de limpieza (tal como cerrar ficheros) que necesita ser realizado cuando el código finaliza. Las excepciones complican potencialmente esta tarea, ya que pueden causar que un bloque de código salga antes de alcanzar su final normal. La palabra clave `finally` proporciona una forma de ejecutar código cuando existe un blqoue de código dado, sin preocuparse de cómo salga.
 
-For example, here is how we can guarantee that an opened file is closed:
+Por ejemplo, aquí podemos garantizar que un fichero abierto se cierra:
 
 ```julia
 f = open("file")
@@ -737,41 +718,20 @@ finally
 end
 ```
 
-When control leaves the `try` block (for example due to a `return`, or just finishing normally),
-`close(f)` will be executed. If the `try` block exits due to an exception, the exception will
-continue propagating. A `catch` block may be combined with `try` and `finally` as well. In this
-case the `finally` block will run after `catch` has handled the error.
+Cuando el contro deja el bloque `try` (por ejemplo, debido a un `return`, o finalizando normalmente) se ejecutará `close()`.  Si el bloque `try` saliera debido a una excepción, la excepción continuará propagándose. Un bloque `catch` puede ser combinada con `try` y `finally` también. En este caso el bloque `finally` ejecutará después de que `catch` haya manejado el error.
 
-## [Tasks (aka Coroutines)](@id man-tasks)
+## [Tareas (aka Corutinas)](@id man-tasks)
 
-Tasks are a control flow feature that allows computations to be suspended and resumed in a flexible
-manner. This feature is sometimes called by other names, such as symmetric coroutines, lightweight
-threads, cooperative multitasking, or one-shot continuations.
+Las tareas son una característica de control de flujo que permite que los cálculos sean suspendidos y continuados de una forma flexible. Esta característica es llamada algunas veces con otros nombres, tales como corrutinas simétricas, hilos de peso ligero, multitarea cooperativa o continuaciones de un disparo.
 
-When a piece of computing work (in practice, executing a particular function) is designated as
-a [`Task`](@ref), it becomes possible to interrupt it by switching to another [`Task`](@ref).
-The original [`Task`](@ref) can later be resumed, at which point it will pick up right where it
-left off. At first, this may seem similar to a function call. However there are two key differences.
-First, switching tasks does not use any space, so any number of task switches can occur without
-consuming the call stack. Second, switching among tasks can occur in any order, unlike function
-calls, where the called function must finish executing before control returns to the calling function.
+Cuando una pieza de trabajo de cómputo (en la práctica, ejecutar una función particular) es designada como tarea ([`Task`](@ref)), se hace posible interrumplirla intercambiándola por otra tarea. La tarea original puede ser continuada después, en el punto en que se encontraba justo cuando fue detenida. A primera vista, esto puede parecer similar a una llamada a función. Sin embargo, hay dos diferencias clave. Primero, conmutar tareas no usa ningún espacio, por lo que puede tener lugar cualquier número de intercambios de tarea sin que se consuma la pila de llamadas. Segundo, conmutar entre tareas puede ocurrir en cualquier orden, a diferencia de lo que pasa en las llamadas a función, donde la función invocada debe terminar la ejecución antes de que el control retorne a la función que la llamó.
 
-This kind of control flow can make it much easier to solve certain problems. In some problems,
-the various pieces of required work are not naturally related by function calls; there is no obvious
-"caller" or "callee" among the jobs that need to be done. An example is the producer-consumer
-problem, where one complex procedure is generating values and another complex procedure is consuming
-them. The consumer cannot simply call a producer function to get a value, because the producer
-may have more values to generate and so might not yet be ready to return. With tasks, the producer
-and consumer can both run as long as they need to, passing values back and forth as necessary.
+Esta clase de flujo de control puede hacer mucho más fácil resolver ciertos problemas. En algunos problemas, las distintas piezas de trabajo requerido no están relacionadas naturalmente mediante llamadas a función: no hay un obvio llamador o llamado entre los trabajos que necesitan ser realizados. Un ejemplo es el problema del productor-consumidor, donde un procedimiento complejo está generando valores u otro procedimiento complejo los está consumiendo. El consumidor no puede simplemente llamar a la función productora para obtener un valor, debido a que el productor puede tener más valores que generar y, por tanto, podría no estar listo todavía para retornar. Con las tareas, el productor y el consumidor pueden ambos ejecutarse mientas que lo necesiten, pasando valores adelante y detrás cuando sea necesario.
 
-Julia provides a [`Channel`](@ref) mechanism for solving this problem.
-A [`Channel`](@ref) is a waitable first-in first-out queue which can have
-multiple tasks reading from and writing to it.
+Julia proporciona un mecanismo denominado "canal" ([`Channel`](@ref) para resolver este problema. Un canal es una cola FIFO (primero en entrar, primero en salir) que puede tener múltiples tareas leyendo de y escribiendo en ella. 
 
-Let's define a producer task, which produces values via the [`put!`](@ref) call.
-To consume values, we need to schedule the producer to run in a new task. A special [`Channel`](@ref)
-constructor which accepts a 1-arg function as an argument can be used to run a task bound to a channel.
-We can then [`take!()`](@ref) values repeatedly from the channel object:
+Definamos una tarea productor, que produce valores a través de una llamada [`put!`](@ref). Para consumir valores, necesitamos planificar un productor que ejecute una nueva tarea. Para ejecutar una tarea asociada a un canal utilizaremos un constructor especial [`Channel`](@ref) que recibe como argumento una función de un argumento. Podemos entonce tomar valores repetidamente 
+del objeto canar mediante llamadas a [`take!()`](@ref):
 
 ```jldoctest producer
 julia> function producer(c::Channel)
@@ -803,11 +763,9 @@ julia> take!(chnl)
 "stop"
 ```
 
-One way to think of this behavior is that `producer` was able to return multiple times. Between
-calls to [`put!()`](@ref), the producer's execution is suspended and the consumer has control.
+Una forma de pensar en este comportamiento es que el `producer` era capaz de retornar múltiples veces. Entre las llamadas a [`put!()`](@ref), la ejecución del productor se ha suspendido y el consumidor tiene el control.
 
-The returned [`Channel`](@ref) can be used as an iterable object in a `for` loop, in which case the
-loop variable takes on all the produced values. The loop is terminated when the channel is closed.
+El objeto [`Channel`](@ref) devuelto puede ser usado como un objeto iterable dentro de un bucle `for` loop,  en cuyo caso las variable del bucle tomará todos los objetos producidos. El bucle será terminado cuando el canal se haya cerrado.
 
 ```jldoctest producer
 julia> for x in Channel(producer)
@@ -821,17 +779,12 @@ start
 stop
 ```
 
-Note that we did not have to explicitly close the channel in the producer. This is because
-the act of binding a [`Channel`](@ref) to a [`Task()`](@ref) associates the open lifetime of
-a channel with that of the bound task. The channel object is closed automatically when the task
-terminates. Multiple channels can be bound to a task, and vice-versa.
+Note que nosotros no tuvimos que cerrar explícitamente el canal en el productor. Esto es debido a que el acto de enlazar un canal ([`Channel`](@ref)) a una tarea ([`Task()`](@ref)) asocia el tiempo de vida abierto de un canal con el de la tarea asociada. El objeto canal se cierra automáticamente cuando la tarea termina. Podemos enlazar múltiplos canales a una
+tarea, y viceversa.
 
-While the [`Task()`](@ref) constructor expects a 0-argument function, the [`Channel()`](@ref)
-method which creates a channel bound task expects a function that accepts a single argument of
-type [`Channel`](@ref). A common pattern is for the producer to be parameterized, in which case a partial
-function application is needed to create a 0 or 1 argument [anonymous function](@ref man-anonymous-functions).
+Aunque el constructor de [`Task()`](@ref) espere una función sin argumentos, el método [`Channel()`](@ref) que crea un enlace entre un canal y una tarea espera una función que acepta un solo argumento de tipo [`Channel`](@ref). Un patrón común es que el productor esté parametrizado, en cuyo caso se neceesita una aplicación de función parcial para crear una [función anónima](@ref man-anonymous-functions) con 1 ó 0 argumentos..
 
-For [`Task()`](@ref) objects this can be done either directly or by use of a convenience macro:
+Para objetos [`Task()`](@ref) esto puede hacerse bien directamente o mediante el uso de una macro conveniente:
 
 ```julia
 function mytask(myarg)
@@ -843,71 +796,43 @@ taskHdl = Task(() -> mytask(7))
 taskHdl = @task mytask(7)
 ```
 
-To orchestrate more advanced work distribution patterns, [`bind()`](@ref) and [`schedule()`](@ref)
-can be used in conjunction with [`Task()`](@ref) and [`Channel()`](@ref)
-constructors to explicitly link a set of channels with a set of producer/consumer tasks.
+Para orquestar patrones de distribucióin más avanzados, pueden usarse [`bind()`](@ref) y [`schedule()`](@ref) en conjunción con los constructores de [`Task()`](@ref) y [`Channel()`](@ref) para enlazar explícitamente un conjunto de canales con un conjunto de tareas productor/consumidor.
 
-Note that currently Julia tasks are not scheduled to run on separate CPU cores.
-True kernel threads are discussed under the topic of [Parallel Computing](@ref parallel-computing).
+Note que en la actualidad las tareas Julia no son planificadas para que ejecuten sobre núcleos de CPU separados. Los verdaderos hilos del núcleo se discutirán en la sección [Computación Paralela](@ref).
 
-### Core task operations
+### Operaciones Básicas de Tareas
 
-Let us explore the low level construct [`yieldto()`](@ref) to underestand how task switching works.
-`yieldto(task,value)` suspends the current task, switches to the specified `task`, and causes
-that task's last [`yieldto()`](@ref) call to return the specified `value`. Notice that [`yieldto()`](@ref)
-is the only operation required to use task-style control flow; instead of calling and returning
-we are always just switching to a different task. This is why this feature is also called "symmetric
-coroutines"; each task is switched to and from using the same mechanism.
+Exploremos la construcción de bajo nivel  [`yieldto()`](@ref) para comprender cómo funciona la conmutación de tareas. `yieldto(task,value)` suspende la tarea actual, conmuta a la tarea especificada, y causa que la última llamada a  [`yieldto()`](@ref) devuelva el valor especificado `value`. Nótese que [`yieldto()`](@ref) para usar control de flujo estilo tarea: en lugar de llamar y retornar nos limitamos a conmutar entre las distintas tareas. Esta es la razón por la que esta característica es también llamada "corrutinas simétricas". Cada tarea es conmutada usando el mismo mecanismo.
 
-[`yieldto()`](@ref) is powerful, but most uses of tasks do not invoke it directly. Consider why
-this might be. If you switch away from the current task, you will probably want to switch back
-to it at some point, but knowing when to switch back, and knowing which task has the responsibility
-of switching back, can require considerable coordination. For example, [`put!()`](@ref) and [`take!()`](@ref)
-are blocking operations, which, when used in the context of channels maintain state to remember
-who the consumers are. Not needing to manually keep track of the consuming task is what makes [`put!()`](@ref)
-easier to use than the low-level [`yieldto()`](@ref).
+[`yieldto()`](@ref) es potente, pero la mayoría de los usos de tareas no lo invocan directamente. Consideremos a qué se debe esto. Si tu conmutas desde la tarea actual, probablemente querrás volver a conmutar en otro puento, pero saber cuándo conmutar, y saber qué tarea tiene la responsabilidad de conmutar hacia atrás puede requerir una coordinación considerable. Por 
+ejemplo,  [`put!()`](@ref) y [`take!()`](@ref) son operaciones bloqueantes, las cuales, cuando se usan en el contexto de los canales mantienen un estado para recordar quiénes son los consumidores.  No necesitar mantener manualmente la traza de la tarea es lo que hace que [`put!()`](@ref) sea más sencilla de usar que la instrucción de bajo nivel [`yieldto()`](@ref).
 
-In addition to [`yieldto()`](@ref), a few other basic functions are needed to use tasks effectively.
+Ademas de [`yieldto()`](@ref), se necesitan otras funciones básicas para usar las tareas de forma efectiva:
 
-  * [`current_task()`](@ref) gets a reference to the currently-running task.
-  * [`istaskdone()`](@ref) queries whether a task has exited.
-  * [`istaskstarted()`](@ref) queries whether a task has run yet.
-  * [`task_local_storage()`](@ref) manipulates a key-value store specific to the current task.
+* [`current_task()`](@ref) devuelve una referencia a la tarea que se está ejecutando actualmente.
+* [`istaskdone()`](@ref) consulta para saber si una tarea ha salido.
+* [`istaskstarted()`](@ref) consulta para saber si una tarea se ha iniciado ya.
+* [`task_local_storage()`](@ref) manipula un almacenamiento clave-valor específico a la tarea actual.
 
-### Tasks and events
+### Tareas y Eventos
 
-Most task switches occur as a result of waiting for events such as I/O requests, and are performed
-by a scheduler included in the standard library. The scheduler maintains a queue of runnable tasks,
-and executes an event loop that restarts tasks based on external events such as message arrival.
+Muchos cambios de tarea ocurren como resultado de la espera de eventos tales como peticiones de E/S, y son realizados por un planificador incluido en la librería estándar. El planificador mantiene una cola de tareas ejecutables, y ejecuta un bucle de eventos que reinicia las tareas basándose en eventos externos tales como la llegada de un mensaje.
 
-The basic function for waiting for an event is [`wait()`](@ref). Several objects implement [`wait()`](@ref);
-for example, given a `Process` object, [`wait()`](@ref) will wait for it to exit. [`wait()`](@ref)
-is often implicit; for example, a [`wait()`](@ref) can happen inside a call to [`read()`](@ref)
-to wait for data to be available.
+La función básica para esperar un evento es [`wait()`](@ref). Hay varios objetos que implementan [`wait()`](@ref); por ejemplo, dado un objeto `Process`, [`wait()`](@ref)  esperará a que este salga. [`wait()`](@ref) suele ser implícito; por ejemplo, una llamada a [`wait()`](@ref) puede tener lugar dentro de una llamada a  [`read()`](@ref) para esperar a que haya datos disponibles.
 
-In all of these cases, [`wait()`](@ref) ultimately operates on a [`Condition`](@ref) object, which
-is in charge of queueing and restarting tasks. When a task calls [`wait()`](@ref) on a [`Condition`](@ref),
-the task is marked as non-runnable, added to the condition's queue, and switches to the scheduler.
-The scheduler will then pick another task to run, or block waiting for external events. If all
-goes well, eventually an event handler will call [`notify()`](@ref) on the condition, which causes
-tasks waiting for that condition to become runnable again.
+En todos estos casos,  [`wait()`](@ref) opera últimamente sobre un objeto  [`Condition`](@ref) que es responsable de encolar y reiniciar las tareas. Cuando una tarea llama a [`wait()`](@ref) sobre un objeto [`Condition`](@ref),la tarea es marcada como no ejecutable, añadida a la cola de esta condición y el control pasa al planificador. El planificador se ocupa entonces de preparar otra tarea para ejecución o se queda bloqueado esperando eventos externos. Si todo va bien, eventualmente un manejador de eventos llamará a  [`notify()`](@ref) sobre la condición, lo que causa que las tareas que estaban esperando esa condición se vuelvan ejecutables de nuevo.
 
-A task created explicitly by calling [`Task`](@ref) is initially not known to the scheduler. This
-allows you to manage tasks manually using [`yieldto()`](@ref) if you wish. However, when such
-a task waits for an event, it still gets restarted automatically when the event happens, as you
-would expect. It is also possible to make the scheduler run a task whenever it can, without necessarily
-waiting for any events. This is done by calling [`schedule()`](@ref), or using the [`@schedule`](@ref)
-or [`@async`](@ref) macros (see [Parallel Computing](@ref parallel-computing) for more details).
+Una tarea creada explícitamente llamado a  [`Task`](@ref) es inicialmente no conocida por el planificador. Esto nos permite gestionar las tareas manualmente usando  [`yieldto()`](@ref) si lo deseamos. Sin embargo, cuando tal tarea espera un evento, sigue siendo reiniciada cuando el evento tiene lugar, como podría esperarse. Es también posible hacer que el planificador ejecute una tarea siempre que pueda, sin esperar ningún evento necesariamente. Esto se hace llamando a [`schedule()`](@ref), o usando las macros [`@schedule`](@ref) o [`@async`](@ref) macros (ver [Parallel Computing](@ref) para más detalles).
 
-### Task states
+### Estados de una Tarea
 
-Tasks have a `state` field that describes their execution status. A [`Task`](@ref) `state` is one of the following
-symbols:
+La tareas tienen un campo `state` que describe su estado de ejecucoión. El estado de una tarea es 
+uno de los siguientes símbolos:
 
-| Symbol      | Meaning                                            |
-|:----------- |:-------------------------------------------------- |
-| `:runnable` | Currently running, or available to be switched to  |
-| `:waiting`  | Blocked waiting for a specific event               |
-| `:queued`   | In the scheduler's run queue about to be restarted |
-| `:done`     | Successfully finished executing                    |
-| `:failed`   | Finished with an uncaught exception                |
+| Symbol      | Meaning                                                            |
+|:----------- |:------------------------------------------------------------------ |
+| `:runnable` | Ejecutando actualmente, o disponible para ser intercambiado        |
+| `:waiting`  | Bloqueado esperando un evento específico                           |
+| `:queued`   | En la cola de ejecución del planiticador a punto de ser reiniciado |
+| `:done`     | Finalizada su ejecucción con éxito                                 |
+| `:failed`   | Finalizado con alguna excepción no atrapada                        |
