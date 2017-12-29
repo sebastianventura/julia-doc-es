@@ -1,26 +1,19 @@
 # [Control Flow](@id control-flow)
 
-Julia provides a variety of control flow constructs:
+Julia proporciona una variedad de construcciones para control de flujo:
 
-  * [Compound Expressions](@ref man-compound-expressions): `begin` and `(;)`.
-  * [Conditional Evaluation](@ref man-conditional-evaluation): `if`-`elseif`-`else` and `?:` (ternary operator).
-  * [Short-Circuit Evaluation](@ref short-circuit-evaluation): `&&`, `||` and chained comparisons.
-  * [Repeated Evaluation: Loops](@ref man-loops): `while` and `for`.
-  * [Exception Handling](@ref): `try`-`catch`, [`error()`](@ref) and [`throw()`](@ref).
-  * [Tasks (aka Coroutines)](@ref man-tasks): [`yieldto()`](@ref).
+  * [Expresiones Compuestas](@ref man-compound-expressions): `begin` and `(;)`.
+  * [Evaluación Condicional](@ref man-conditional-evaluation): `if`-`elseif`-`else` and `?:` (ternary operator).
+  * [Evaluación en Cortocircuito](@ref short-circuit-evaluation): `&&`, `||` and chained comparisons. 
+  * [Evaluación Repetida: Bucles](@ref man-loops): `while` and `for`.
+  * [Manejo de Excepciones](@ref): `try`-`catch`, [`error()`](@ref) and [`throw()`](@ref).
+  * [Tareas (también denominadas Coroutinas)](@ref man-tasks): [`yieldto()`](@ref).
 
-The first five control flow mechanisms are standard to high-level programming languages. [`Task`](@ref)s
-are not so standard: they provide non-local control flow, making it possible to switch between
-temporarily-suspended computations. This is a powerful construct: both exception handling and
-cooperative multitasking are implemented in Julia using tasks. Everyday programming requires no
-direct usage of tasks, but certain problems can be solved much more easily by using tasks.
+Los cinco primeros mecanismos de control de flujo son estándar en los lenguajes de programación de alto nivel. Las [tareas](@ref tasks) no son un mecanismo tan estándar: ellas proporcionan control de flujo no local, haciendo posible conmutar entre cálculos suspendidos temporalmente. Esta es una construcción potente: tanto el manejo de excepciones como la multitarea cooperativa se implementan en Julia usando tareas. La programación diaria no suele requerir el uso de tareas, pero ciertos problemas se resuelve de forma mucho más sencilla usando este mecanismo.
 
-## [Compound Expressions](@id man-compound-expressions)
+## [Expresiones Compuestas](@id man-compound-expressions)
 
-Sometimes it is convenient to have a single expression which evaluates several subexpressions
-in order, returning the value of the last subexpression as its value. There are two Julia constructs
-that accomplish this: `begin` blocks and `(;)` chains. The value of both compound expression constructs
-is that of the last subexpression. Here's an example of a `begin` block:
+Algunas veces es conveniente tener una sola expresión que lleva nueve varias subexpresiones en orden, devolviendo el valor de la última subexpresión como su valor. Hay dos construcciones en Julia que llevan a cabo este trabajo: los bloques `begin` y las cadenas `;` El valor de ambas expresiones compuestas es el de la última subexpresión. He aquí un ejemplo del bloque `begin`:
 
 ```jldoctest
 julia> z = begin
@@ -31,17 +24,15 @@ julia> z = begin
 3
 ```
 
-Since these are fairly small, simple expressions, they could easily be placed onto a single line,
-which is where the `(;)` chain syntax comes in handy:
+Como estas expresiones son bastante pequeñas, podrían ponerse con facilidad en una sola línea, que es donde la sintaxis encadenada `(;)` es más útil:
 
 ```jldoctest
 julia> z = (x = 1; y = 2; x + y)
 3
 ```
 
-This syntax is particularly useful with the terse single-line function definition form introduced
-in [Functions](@ref). Although it is typical, there is no requirement that `begin` blocks be multiline
-or that `(;)` chains be single-line:
+Esta sintaxis es particularmente útil con la definición de función de una línea que introdujimos en [Funciones](@ref). Aunque es típico, no hay obligación de que los bloques `begin` sean multilínea o de que las cadenas de punto y coma (`;`) tengan una única línea.
+
 
 ```jldoctest
 julia> begin x = 1; y = 2; x + y end
@@ -53,10 +44,9 @@ julia> (x = 1;
 3
 ```
 
-## [Conditional Evaluation](@id man-conditional-evaluation)
+## [Evaluación Condicional](@id man-conditional-evaluation)
 
-Conditional evaluation allows portions of code to be evaluated or not evaluated depending on the
-value of a boolean expression. Here is the anatomy of the `if`-`elseif`-`else` conditional syntax:
+La evaluación condicional permite que porciones de código sean evaluadas o no evaluadas dependiendo del valor de una expresión booleana. Esta es la anatomía de la estructura de  `if`-`elseif`-`else`:
 
 ```julia
 if x < y
@@ -68,9 +58,7 @@ else
 end
 ```
 
-If the condition expression `x < y` is `true`, then the corresponding block is evaluated; otherwise
-the condition expression `x > y` is evaluated, and if it is `true`, the corresponding block is
-evaluated; if neither expression is true, the `else` block is evaluated. Here it is in action:
+En el ejemplo anterior, si la condición `x<y` es verdadera, entonces se evaluará el bloque correspondiente. En caso contrario se evaluará la expresión `x>y`, y si esta es verdadera, se ejecutará el bloque correspondiente. Si la expresión también es falsa, se ejecutaría el bloque correspondiente al `else`. Veámoslo en acción:
 
 ```jldoctest
 julia> function test(x, y)
@@ -94,14 +82,9 @@ julia> test(1, 1)
 x is equal to y
 ```
 
-The `elseif` and `else` blocks are optional, and as many `elseif` blocks as desired can be used.
-The condition expressions in the `if`-`elseif`-`else` construct are evaluated until the first
-one evaluates to `true`, after which the associated block is evaluated, and no further condition
-expressions or blocks are evaluated.
+Los bloques `elsif` y `else` son opcionales, y además pueden usarse tantos `elsif` como se deseen. Las expresiones condicionales del `if-elsif-else` serán evaluadas hasta que una de ellas se evalúe a `true`, después de lo cuál se evaluará el blqoue asociado, y ya no se evaluarán más expresiones condicionales.
 
-`if` blocks are "leaky", i.e. they do not introduce a local scope. This means that new variables
-defined inside the `if` clauses can be used after the `if` block, even if they weren't defined
-before. So, we could have defined the `test` function above as
+Los bloques `if` son "permeables", es decir, no introducen un ámbito local. Eso significa que las variables que se definen dentro del bloque serán visibles fuera del mismo. Por tanto, podríamos haber definido la relación `test` de antes como...
 
 ```jldoctest
 julia> function test(x,y)
@@ -120,9 +103,7 @@ julia> test(2, 1)
 x is greater than y.
 ```
 
-The variable `relation` is declared inside the `if` block, but used outside. However, when depending
-on this behavior, make sure all possible code paths define a value for the variable. The following
-change to the above function results in a runtime error
+La variable `relation` se ha declarado dentro del bloque `if`,  pero se usa fuera. Sin embargo, cuando se hace uso de este tipo de variables, hay que asegurarse de que todos los caminos de código definen un valor para la variable. La siguiente función no lo tiene en cuenta y genera un error en tiempo de ejecución.
 
 ```jldoctest
 julia> function test(x,y)
@@ -144,9 +125,7 @@ Stacktrace:
  [1] test(::Int64, ::Int64) at ./none:7
 ```
 
-`if` blocks also return a value, which may seem unintuitive to users coming from many other languages.
-This value is simply the return value of the last executed statement in the branch that was chosen,
-so
+Los bloques `if` también devuelven un valor, lo que puede no parecer intuitivo para quienes proceden de otros lenguajes de programación no funcionales. Este valor no es más que el devuelto por la última instrucción en la rama que fue elegida. Por tanto:
 
 ```jldoctest
 julia> x = 3
@@ -160,11 +139,9 @@ julia> if x > 0
 "positive!"
 ```
 
-Note that very short conditional statements (one-liners) are frequently expressed using Short-Circuit
-Evaluation in Julia, as outlined in the next section.
+Nótese que las instrucciones condicionales muy cortas (de una línea) se suelen expresar en Julia mediante evaluación en cortocircuito, como se verá en la siguiente sección.
 
-Unlike C, MATLAB, Perl, Python, and Ruby -- but like Java, and a few other stricter, typed languages
--- it is an error if the value of a conditional expression is anything but `true` or `false`:
+A diferencia de C, MATLAB, Perl, Python y Ruby (pero como en Java y en otros lenguajes tipados, más estrictos) en Julia se produce un error si el valor de una expresión condicional es algo que no sea `true` o `false`.
 
 ```jldoctest
 julia> if 1
@@ -173,26 +150,18 @@ julia> if 1
 ERROR: TypeError: non-boolean (Int64) used in boolean context
 ```
 
-This error indicates that the conditional was of the wrong type: [`Int64`](@ref) rather
-than the required [`Bool`](@ref).
+Este error indica que el condicional era de un tipo incorrecto: [`Int64`](@ref) en lugar del requerido [`Bool`](@ref).
 
-The so-called "ternary operator", `?:`, is closely related to the `if`-`elseif`-`else` syntax,
-but is used where a conditional choice between single expression values is required, as opposed
-to conditional execution of longer blocks of code. It gets its name from being the only operator
-in most languages taking three operands:
+El llamado *operador ternario* (`?`) está muy relacionado con la sintaxis de `if-elsif-else`, pero se usa donde hay que hacer una elección condicional entre expresiones sencillas, a diferencia de la ejecución condicional de grandes bloques de código. Su nombre se debe a que es el único operador que toma tres operandos en la mayoría de los lenguajes de programación:
 
 ```julia
 a ? b : c
 ```
 
-The expression `a`, before the `?`, is a condition expression, and the ternary operation evaluates
-the expression `b`, before the `:`, if the condition `a` is `true` or the expression `c`, after
-the `:`, if it is `false`.
+La expresión `a` delante del `?` es una expresión condicional, y la operación ternaria evalúa la expresión `b` (la que está delante del símbolo `:`)  si la condición `a` es `true` o la expresión `c` si la condición `a` es `false`. Nótese que los espacios alrededor de `?` y `:` son obligatorios: una expresión como `a?b:c` no es una expresin ternaria válida (aunque se
+pueden utilizar saltos de línea entre los símbolos `?` y `:`).
 
-The easiest way to understand this behavior is to see an example. In the previous example, the
-`println` call is shared by all three branches: the only real choice is which literal string to
-print. This could be written more concisely using the ternary operator. For the sake of clarity,
-let's try a two-way version first:
+La forma más fácil de comprender este comportamiento es ver un ejemplo. En el ejemplo anterior, la llamada a `println` es compartida por las tres ramas: la única elección real es qué cadena literal imprimir. Esto podría haberse escrito de forma más concisa usando el operador ternario. En aras de la claridad, intentemos primero la versión con dos caminos:
 
 ```jldoctest
 julia> x = 1; y = 2;
@@ -206,9 +175,7 @@ julia> println(x < y ? "less than" : "not less than")
 not less than
 ```
 
-If the expression `x < y` is true, the entire ternary operator expression evaluates to the string
-`"less than"` and otherwise it evaluates to the string `"not less than"`. The original three-way
-example requires chaining multiple uses of the ternary operator together:
+En los ejemplos anteriores, si `x < y` es `true` se devolverá la cadena `"less than"` y, en caso contrario, se devolverá la cadena `"not less than"`. El ejemplo original, que tiene tres opciones, requeriría el uso encadenado del operador `?`:
 
 ```jldoctest
 julia> test(x, y) = println(x < y ? "x is less than y"    :
@@ -225,10 +192,9 @@ julia> test(1, 1)
 x is equal to y
 ```
 
-To facilitate chaining, the operator associates from right to left.
+Para facilitar el encadenamiento, el operador `?` asocia de derecha a izquierda.
 
-It is significant that like `if`-`elseif`-`else`, the expressions before and after the `:` are
-only evaluated if the condition expression evaluates to `true` or `false`, respectively:
+Es también significativo que, como en la construcción `if-elsif-else` las expresiones anterior y posterior al símbolo `:` sólo se evalúan si la expresión condicional es evaluada a `true` o `false`, respectivamente.
 
 ```jldoctest
 julia> v(x) = (println(x); x)
@@ -243,21 +209,14 @@ no
 "no"
 ```
 
-## [Short-Circuit Evaluation](@id short-circuit-evaluation)
+## [Evaluación en Cortocircuito](@id short-circuit-evaluation)
 
-Short-circuit evaluation is quite similar to conditional evaluation. The behavior is found in
-most imperative programming languages having the `&&` and `||` boolean operators: in a series
-of boolean expressions connected by these operators, only the minimum number of expressions are
-evaluated as are necessary to determine the final boolean value of the entire chain. Explicitly,
-this means that:
+La evaluación en cortocircuito es bastante similar a la evaluación condicional. Este comportamiento aparece en la mayoría de los lenguajes de programación imperativos que tiene los operadores booleanos `&&` y `||`.  En una serie de expresiones booleanas conectadas por estos operadores, sólo se evalúa el número mínimo de expresiones necesarios para determinar el valor booleano final de la cadena completa. Explícitamente, esto significa que:
 
-  * In the expression `a && b`, the subexpression `b` is only evaluated if `a` evaluates to `true`.
-  * In the expression `a || b`, the subexpression `b` is only evaluated if `a` evaluates to `false`.
+* En la expresión `a && b` la subexpresión `b` sólo se evalúa si la subexpresión `a` es evaluada a `true`.
+* En la expresión `a || b` la subexpresión `b` sólo se evalúa si la subexpresión `a` es evaluada a `false`.
 
-The reasoning is that `a && b` must be `false` if `a` is `false`, regardless of the value of
-`b`, and likewise, the value of `a || b` must be true if `a` is `true`, regardless of the value
-of `b`. Both `&&` and `||` associate to the right, but `&&` has higher precedence than `||` does.
-It's easy to experiment with this behavior:
+El razonamiento es que `a && b` debe ser `false` si `a` is `false`, independientemente del valor de `b` y, análogamente, el valor de `a || b` debe ser cierto si `a` es `true`, independientemente del valor de `b`. Tanto `&&` como `||` asocian a la derecha, pero `&&` tiene mayore precedencia que `||`. Es fácil experimentar con este comportamiento:
 
 ```jldoctest tandf
 julia> t(x) = (println(x); true)
@@ -303,15 +262,11 @@ julia> f(1) || f(2)
 false
 ```
 
-You can easily experiment in the same way with the associativity and precedence of various combinations
-of `&&` and `||` operators.
+Se puede experimentar de forma parecida con la asociatividad y la precedencia de varias combinaciones de operadores `&&` y `||`.
 
-This behavior is frequently used in Julia to form an alternative to very short `if` statements.
-Instead of `if <cond> <statement> end`, one can write `<cond> && <statement>` (which could be
-read as: <cond> *and then* <statement>). Similarly, instead of `if ! <cond> <statement> end`,
-one can write `<cond> || <statement>` (which could be read as: <cond> *or else* <statement>).
+Este comportamiento se utiliza en Julia con frecuencia para formar una alternativa a instrucciones `if` muy cortas. En lugar de usar la construcción `if <cond> && <instrucción>` uno puede escribir `<cond> && <instrucción>` que puede leerse como `<cond>` y entonces `<instrucción>`. de forma similar, uno puede escribir `<cond> || <instrucción>`, que se leería como `<cond>` o sino `<instrucción>` en lugar de `if !<cond> || <instrucción>`.
 
-For example, a recursive factorial routine could be defined like this:
+Por ejemplo, una rutina recursiva para obtener un factorial podría ser definida como:
 
 ```jldoctest
 julia> function fact(n::Int)
@@ -333,9 +288,7 @@ Stacktrace:
  [1] fact(::Int64) at ./none:2
 ```
 
-Boolean operations *without* short-circuit evaluation can be done with the bitwise boolean operators
-introduced in [Mathematical Operations and Elementary Functions](@ref mathematical-operations): `&` and `|`. These are
-normal functions, which happen to support infix operator syntax, but always evaluate their arguments:
+Las operaciones booleanas sin cortocircuito podrían llevarse a cabo con los operadores a nivel de bit introducidos en la sección [Operaciones Matemáticas y Funciones Elementales](@ref mathematical-operations): `&` y `|`. Estas son funciones normales, que suportan la sintaxis infija de los operadores, pero que siempre evalúan sus argumentos:
 
 ```jldoctest tandf
 julia> f(1) & t(2)
@@ -349,17 +302,14 @@ julia> t(1) | t(2)
 true
 ```
 
-Just like condition expressions used in `if`, `elseif` or the ternary operator, the operands of
-`&&` or `||` must be boolean values (`true` or `false`). Using a non-boolean value anywhere except
-for the last entry in a conditional chain is an error:
+Como en el caso de las expresiones condicionales usadas en `if`, `elsif` o el operador ternario `?`, los operandos de `&&` y de `||` deben ser valores booleanos.  Usar un valor no booleanos en cualquier lugar distinto de la última entrada en una cadena condicional producirá un error.
 
 ```jldoctest
 julia> 1 && true
 ERROR: TypeError: non-boolean (Int64) used in boolean context
 ```
 
-On the other hand, any type of expression can be used at the end of a conditional chain. It will
-be evaluated and returned depending on the preceding conditionals:
+Por otra parte, cualquier tipo de expresión puede ser usada al final de una cadena condicional. Ella será evaluada y devuelta dependiendo de los condicionales precedentes:
 
 ```jldoctest
 julia> true && (x = (1, 2, 3))
@@ -369,10 +319,9 @@ julia> false && (x = (1, 2, 3))
 false
 ```
 
-## [Repeated Evaluation: Loops](@id man-loops)
+## [Evaluación Repetida: Bucles](@id man-loops)
 
-There are two constructs for repeated evaluation of expressions: the `while` loop and the `for`
-loop. Here is an example of a `while` loop:
+Hay dos construcciones que realizan la evaluación repetida de expresiones: el bucle `while` y el bucle `for`. He aquí un ejemplo del bucle `while`:
 
 ```jldoctest
 julia> i = 1;
@@ -388,13 +337,9 @@ julia> while i <= 5
 5
 ```
 
-The `while` loop evaluates the condition expression (`i <= 5` in this case), and as long it remains
-`true`, keeps also evaluating the body of the `while` loop. If the condition expression is `false`
-when the `while` loop is first reached, the body is never evaluated.
+El bucle `while` evalúa la expresión condicional (en el ejemplo `i<=5`) y, mientras que esta se evalúe a `true`, sigue evaluando el cuerpo del bucle `while`. Si la expresión se evalúa a `false` la primera vez en que se alcanza el bucle, su cuerpo nunca será evaluado.
 
-The `for` loop makes common repeated evaluation idioms easier to write. Since counting up and
-down like the above `while` loop does is so common, it can be expressed more concisely with a
-`for` loop:
+El bucle `for` facilita la repetición. Dado que contar arriba y abajo (como en el ejemplo anterior del bucle `while`) es tan común, podemos expresar esto de una forma muy concisa con un bucle `for`:
 
 ```jldoctest
 julia> for i = 1:5
@@ -407,12 +352,7 @@ julia> for i = 1:5
 5
 ```
 
-Here the `1:5` is a `Range` object, representing the sequence of numbers 1, 2, 3, 4, 5. The `for`
-loop iterates through these values, assigning each one in turn to the variable `i`. One rather
-important distinction between the previous `while` loop form and the `for` loop form is the scope
-during which the variable is visible. If the variable `i` has not been introduced in an other
-scope, in the `for` loop form, it is visible only inside of the `for` loop, and not afterwards.
-You'll either need a new interactive session instance or a different variable name to test this:
+En el ejemplo anterior, `1:5` es un objeto `Range` que representa una secuencia de números. El bucle `for` itera sobre estos valores, asignando cada uno de ellos por turno a la variable `i`.  Una distinción importante ente esta construcción (`for`) y la construcción anterior (`while`) es el ámbito durante el cuál la variable es visible. Si la variable `i` no ha sido introducida en otro ámbito, el bucle `for` la verá sólo en su interior y no posteriormente. Para demostrar esto necesitaremos una nueva sesión interactiva o usar un nombre de variable distinto:
 
 ```jldoctest
 julia> for j = 1:5
@@ -428,12 +368,9 @@ julia> j
 ERROR: UndefVarError: j not defined
 ```
 
-See [Scope of Variables](@ref scope-of-variables) for a detailed explanation of variable scope and how it works in
-Julia.
+Ver [Ámbito de Variables](@ref scope-of-variables) para una explicación detallada de los ámbitos de las variables y cómo funcionan en Julia.
 
-In general, the `for` loop construct can iterate over any container. In these cases, the alternative
-(but fully equivalent) keyword `in` or `∈` is typically used instead of `=`, since it makes
-the code read more clearly:
+En general, la construcción `for` puede iterar sobre cualquier contenedor. En estos casos, la palara clave alternativa (pero totalmente equivalente `in` o `∈` es usada en lugar de `=`, dado que hace que la lectura del código sea más clara.
 
 ```jldoctest
 julia> for i in [1,4,0]
@@ -451,12 +388,9 @@ bar
 baz
 ```
 
-Various types of iterable containers will be introduced and discussed in later sections of the
-manual (see, e.g., [Multi-dimensional Arrays](@ref man-multi-dim-arrays)).
+En otras secciones del manual se introducirán y discutirán varios tipos de contenedores iterables (ver, por ejemplo, [Arrays Multi-dimensionales](@ref man-multi-dim-arrays)).
 
-It is sometimes convenient to terminate the repetition of a `while` before the test condition
-is falsified or stop iterating in a `for` loop before the end of the iterable object is reached.
-This can be accomplished with the `break` keyword:
+Algunas veces es conveniente terminar la repetición de un `while` antes de chequear la condición de test o partar de iterar en un bucle `for` antes de que se alcance el final del objeto iterable. Esto puede conseguirse usando la palabra clave `break`:
 
 ```jldoctest
 julia> i = 1;
@@ -487,10 +421,9 @@ julia> for i = 1:1000
 5
 ```
 
-Without the `break` keyword, the above `while` loop would never terminate on its own, and the `for` loop would iterate up to 1000. These loops are both exited early by using `break`.
+Si no existiera la palabra clave `break`, el bucle `while` anterior nunca finalizará por si mismo,  y el bucle `for` iteraría hasta 10000. Si hacemos uso de la instrucción `break` conseguiremos abandonar el bucle mucho antes.
 
-In other circumstances, it is handy to be able to stop an iteration and move on to the next one
-immediately. The `continue` keyword accomplishes this:
+En otras circunstancias es útil ser capaz de detener una iteración y moverse a la siguiente de forma inmediata. Para ello, se utiliza la palabra clave `continue`:
 
 ```jldoctest
 julia> for i = 1:10
@@ -504,13 +437,9 @@ julia> for i = 1:10
 9
 ```
 
-This is a somewhat contrived example since we could produce the same behavior more clearly by
-negating the condition and placing the `println` call inside the `if` block. In realistic usage
-there is more code to be evaluated after the `continue`, and often there are multiple points from
-which one calls `continue`.
+Este es un ejemplo un tanto artificial, ya que podríamos obtener el mismo comportamiento de forma mucho más clara negando las condiciones y colocando la llamada a `println` dentro del bloque `if`. En usos más reales hay más código que evaluar después del `continue`, y con frecuencia hay muchos puntos desde los que uno puede llamar a esta instrucción.
 
-Multiple nested `for` loops can be combined into a single outer loop, forming the cartesian product
-of its iterables:
+Podemos anidar múltiples bucles for en un solo bucle externo, formando el producto cartesiano de sus iterables:
 
 ```jldoctest
 julia> for i = 1:2, j = 3:4
@@ -522,19 +451,16 @@ julia> for i = 1:2, j = 3:4
 (2, 4)
 ```
 
-A `break` statement inside such a loop exits the entire nest of loops, not just the inner one.
+Una instrucción `break` dentro de tal bucle sale del anidamiento de bucles completo, no sólo 
+del más interior.
 
-## Exception Handling
+## Manejo de Excepciones
 
-When an unexpected condition occurs, a function may be unable to return a reasonable value to
-its caller. In such cases, it may be best for the exceptional condition to either terminate the
-program, printing a diagnostic error message, or if the programmer has provided code to handle
-such exceptional circumstances, allow that code to take the appropriate action.
+Cuando tiene lugar una condición inesperada, una funció puede ser incapaz de devolver un valor razonable al código que la invoca. En tales casos, puede ser mejor para la condición excepcional terminar el programa, imprimiendo un mensaje de error diagnóstico, o si el programador ha proporcionado código para manejar tales circunstancias excepcionales, permitiendo que el código tome la acción apropiada.
 
-### Built-in `Exception`s
+### Excepciones predefinidas
 
-`Exception`s are thrown when an unexpected condition has occurred. The built-in `Exception`s listed
-below all interrupt the normal flow of control.
+Las excepciones se lanzan cuando ocurre una condición inesperada. En la siguiente tabla se muestran todas la excepciones predefinidas, que interrumplen todas el flujo de control normal.
 
 | `Exception`                   |
 |:----------------------------- |
@@ -563,8 +489,7 @@ below all interrupt the normal flow of control.
 | [`UndefVarError`](@ref)       |
 | `UnicodeError`                |
 
-For example, the [`sqrt()`](@ref) function throws a [`DomainError`](@ref) if applied to a negative
-real value:
+Por ejemplo, la función [`sqrt()`](@ref) lanza un [`DomainError`](@ref) si se aplica sobre un valor real negativo:
 
 ```jldoctest
 julia> sqrt(-1)
@@ -574,17 +499,15 @@ Stacktrace:
  [1] sqrt(::Int64) at ./math.jl:434
 ```
 
-You may define your own exceptions in the following way:
+Uno puede definir sus propias excepciones de la siguiente manera:
 
 ```jldoctest
 julia> struct MyCustomException <: Exception end
 ```
 
-### The [`throw()`](@ref) function
+### TLa función [`throw()`](@ref)
 
-Exceptions can be created explicitly with [`throw()`](@ref). For example, a function defined only
-for nonnegative numbers could be written to [`throw()`](@ref) a [`DomainError`](@ref) if the argument
-is negative:
+Las excepciones pueden crearse explícitamente con  [`throw()`](@ref). Por ejemplo, una función definida sólo para número no negativos podría escribirse para que lanzara un [`DomainError`](@ref) si el argumento es negativo:
 
 ```jldoctest
 julia> f(x) = x>=0 ? exp(-x) : throw(DomainError())
@@ -599,8 +522,7 @@ Stacktrace:
  [1] f(::Int64) at ./none:1
 ```
 
-Note that [`DomainError`](@ref) without parentheses is not an exception, but a type of exception.
-It needs to be called to obtain an `Exception` object:
+Notese que [`DomainError`](@ref) sin paréntesis no es una excepción, sino un tipo de excepción. Ella necesita ser invocada para obtener un objeto `Exception`:
 
 ```jldoctest
 julia> typeof(DomainError()) <: Exception
@@ -610,15 +532,15 @@ julia> typeof(DomainError) <: Exception
 false
 ```
 
-Additionally, some exception types take one or more arguments that are used for error reporting:
+Adicionalmente, algunos tipos de excepción toman uno o más argumentos que se utilizan para reportar errores.
 
 ```jldoctest
 julia> throw(UndefVarError(:x))
 ERROR: UndefVarError: x not defined
 ```
 
-This mechanism can be implemented easily by custom exception types following the way [`UndefVarError`](@ref)
-is written:
+Este mecanismo puede ser fácilmente implementado mediante los tipos de excepción personalizados que sigan la forma en que se escribe [`UndefVarError`](@ref):
+
 
 ```jldoctest
 julia> struct MyUndefVarError <: Exception
@@ -629,15 +551,18 @@ julia> Base.showerror(io::IO, e::MyUndefVarError) = print(io, e.var, " not defin
 ```
 
 !!! note
-    When writing an error message, it is preferred to make the first word lowercase. For example,
+    Cuando se escribe un mensaje de error, es preferible que la primera palabra sea minúscula. Por ejemplo,    
+    
     `size(A) == size(B) || throw(DimensionMismatch("size of A not equal to size of B"))`
 
-    is preferred over
+    es preferible a
 
     `size(A) == size(B) || throw(DimensionMismatch("Size of A not equal to size of B"))`.
 
-    However, sometimes it makes sense to keep the uppercase first letter, for instance if an argument
-    to a function is a capital letter: `size(A,1) == size(B,2) || throw(DimensionMismatch("A has first dimension..."))`.
+    Sin embargo, algunas veces tiene sentido mantener la primera letra en mayúscula, por 
+    ejemplo, si un argumento a función es una letra mayúscula: 
+    
+    `size(A,1) == size(B,2) || throw(DimensionMismatch("A has first dimension..."))`.
 
 ### Errors
 
