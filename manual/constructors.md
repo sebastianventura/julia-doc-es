@@ -1,9 +1,6 @@
-# [Constructors](@id man-constructors)
+# [Constructores](@id man-constructors)
 
-Constructors [^1] are functions that create new objects -- specifically, instances of [Composite Types](@ref).
-In Julia, type objects also serve as constructor functions: they create new instances of themselves
-when applied to an argument tuple as a function. This much was already mentioned briefly when
-composite types were introduced. For example:
+Los constructores [^1] son funciones que crean nuevos objetos (específicamente instancias de tipos compuestos). En Julia, los objetos también sirven como funciones constructor: ellos crean instancias de sí mismos cuando se aplican a una dupla de argumentos como una función. Esto se mencionó brevemente cuando se habló de tipos compuestos. Por ejemplo:
 
 ```jldoctest footype
 julia> struct Foo
@@ -21,15 +18,8 @@ julia> foo.baz
 2
 ```
 
-For many types, forming new objects by binding their field values together is all that is ever
-needed to create instances. There are, however, cases where more functionality is required when
-creating composite objects. Sometimes invariants must be enforced, either by checking arguments
-or by transforming them. [Recursive data structures](https://en.wikipedia.org/wiki/Recursion_%28computer_science%29#Recursive_data_structures_.28structural_recursion.29),
-especially those that may be self-referential, often cannot be constructed cleanly without first
-being created in an incomplete state and then altered programmatically to be made whole, as a
-separate step from object creation. Sometimes, it's just convenient to be able to construct objects
-with fewer or different types of parameters than they have fields. Julia's system for object construction
-addresses all of these cases and more.
+Para muchos tipos, formar nuevos objetos enlazando valores de campo juntos es todo se necesita para crear instancias. Hay, sin embargo, casos donde se requiere más funcionalidad cuando se crean objetos compuestos. Algunas invariantes deben ser forzadas, bien chequeando argumentos o transformándolos. Las [estructuras de datos recursivas](https://en.wikipedia.org/wiki/Recursion_%28computer_science%29#Recursive_data_structures_.28structural_recursion.29),
+especialmente aquellas que pueden ser auto referenciadas frecuentemente, no pueden construirse limpiamente sin que primero sean creadas e   n un estado incompleto y después sean alteradas programáticamente para ser completadas, como un paso separado de la creación del objeto. Algunas veces, es conveniente ser capaz de construir objetos con menos o diferentes tipos de parámetros que el número de campos que tiene. El sistema Julia para construcción de objetos cubre estos casos y más.
 
 [^1]:
     Nomenclature: while the term "constructor" generally refers to the entire function which constructs
@@ -38,13 +28,9 @@ addresses all of these cases and more.
     is used to mean "constructor method" rather than "constructor function", especially as it is often
     used in the sense of singling out a particular method of the constructor from all of the others.
 
-## Outer Constructor Methods
+## Métodos constructores externos
 
-A constructor is just like any other function in Julia in that its overall behavior is defined
-by the combined behavior of its methods. Accordingly, you can add functionality to a constructor
-by simply defining new methods. For example, let's say you want to add a constructor method for
-`Foo` objects that takes only one argument and uses the given value for both the `bar` and `baz`
-fields. This is simple:
+Un constructor es como cualquier otro función en Julia en que es su comportamiento global está definido por el comportamiento combinado de sus métodos. Según esto, se puede añadir funcionalidad a ún constructor simplemente definiendo nuevos métodos. Por ejemplo, supóngase que se desea añadir un método constructor para objetos `Foo` que tomar un argumento y usa el valor dado para los dos campos que presentan `baz` y `bar`. Esto es sencillo::
 
 ```jldoctest footype
 julia> Foo(x) = Foo(x,x)
@@ -54,8 +40,7 @@ julia> Foo(1)
 Foo(1, 1)
 ```
 
-You could also add a zero-argument `Foo` constructor method that supplies default values for both
-of the `bar` and `baz` fields:
+Podría también añadirse un constructor `Foo` sin argumentos que proporciona valores por defecto para los campos `bar` y `baz`:
 
 ```jldoctest footype
 julia> Foo() = Foo(0)
@@ -65,27 +50,16 @@ julia> Foo()
 Foo(0, 0)
 ```
 
-Here the zero-argument constructor method calls the single-argument constructor method, which
-in turn calls the automatically provided two-argument constructor method. For reasons that will
-become clear very shortly, additional constructor methods declared as normal methods like this
-are called *outer* constructor methods. Outer constructor methods can only ever create a new instance
-by calling another constructor method, such as the automatically provided default ones.
+Aquí, el método constructor sin argumentos llama al método constructor con un argumento, que a su vez llama al método constructor de dos argumentos proporcionado automáticamente. Por razones que se aclararán pronto, los metodos constructor adicionales declarados como métodos formales como éstos se denominan *métodos constructores externos*. Los métodos constructores externos sólo puede crear una nueva instancia llamando a otro método constructor, tal como los  proporcionados automáticamente por defecto.
 
-## Inner Constructor Methods
+## Métodos Constructores Internos
 
-While outer constructor methods succeed in addressing the problem of providing additional convenience
-methods for constructing objects, they fail to address the other two use cases mentioned in the
-introduction of this chapter: enforcing invariants, and allowing construction of self-referential
-objects. For these problems, one needs *inner* constructor methods. An inner constructor method
-is much like an outer constructor method, with two differences:
+Aunque los constructores externos resuelven con éxito el problema de proporcionar métodos adicionales para construir objetos, ellos fallan en los otros dos casos de uso mencionados en la introducción este capítulo: forzar invariantes y permitir la construcción de objetos autorreferenciales. Para estos problemas, se necesitan los *métodos constructores internos*. Un método constructor interno es parecido a uno externo, con dos diferencias:
 
-1. It is declared inside the block of a type declaration, rather than outside of it like normal methods.
-2. It has access to a special locally existent function called `new` that creates objects of the
-   block's type.
+1. Se declara dentro del bloque de la declaración del tipo, el lugar donde fuera como los métodos normales.
+2. Tiene acceso a una función especial, existente totalmente, llamada `new` que crea objetos del tipo del bloque.
 
-For example, suppose one wants to declare a type that holds a pair of real numbers, subject to
-the constraint that the first number is not greater than the second one. One could declare it
-like this:
+Poner ejemplo, supóngase que uno quiere declarar un tipo que almacene un par de elementos reales, sujetos a la restricción de que el primer número no es mayor que el segundo. Uno podría declararlo así:
 
 ```jldoctest pairtype
 julia> struct OrderedPair
@@ -96,7 +70,7 @@ julia> struct OrderedPair
 
 ```
 
-Now `OrderedPair` objects can only be constructed such that `x <= y`:
+Ahora sólo pueden construirse objetos `OrderedPair` tales que `x <= y`:
 
 ```jldoctest pairtype
 julia> OrderedPair(1, 2)
@@ -108,20 +82,9 @@ Stacktrace:
  [1] OrderedPair(::Int64, ::Int64) at ./none:4
 ```
 
-If the type were declared `mutable`, you could reach in and directly change the field values to
-violate this invariant, but messing around with an object's internals uninvited is considered poor form.
-You (or someone else) can also provide additional outer constructor methods at any later point, but
-once a type is declared, there is no way to add more inner constructor methods. Since outer constructor
-methods can only create objects by calling other constructor methods, ultimately, some inner constructor
-must be called to create an object. This guarantees that all objects of the declared type must come into
-existence by a call to one of the inner constructor methods provided with the type, thereby giving
-some degree of enforcement of a type's invariants.
+Si el tipo se declara `mutable`, se puede acceder y cambiar directamente los valores de campo para violar esta invariante, pero se considera deficiente la interacción con las partes internas de un objeto sin invitación. Usted (u otra persona) también puede proporcionar más métodos constructores externos en cualquier momento posterior, pero una vez que se declara un tipo, no hay forma de agregar más métodos internos de construcción. Como los métodos constructores externos solo pueden crear objetos llamando a otros métodos de construcción, en última instancia, se debe llamar a algún constructor interno para crear un objeto. Esto garantiza que todos los objetos del tipo declarado deben existir mediante una llamada a uno de los métodos de constructor internos proporcionados con el tipo, dando así cierto grado de cumplimiento de las invariantes de un tipo.
 
-If any inner constructor method is defined, no default constructor method is provided: it is presumed
-that you have supplied yourself with all the inner constructors you need. The default constructor
-is equivalent to writing your own inner constructor method that takes all of the object's fields
-as parameters (constrained to be of the correct type, if the corresponding field has a type),
-and passes them to `new`, returning the resulting object:
+Si se define cualquier método de constructor interno, no se proporciona ningún método constructor predeterminado: se supone que se ha provisto de todos los constructores internos que necesita. El constructor predeterminado es equivalente a escribir su propio método constructor interno que toma todos los campos del objeto como parámetros (restringidos para ser del tipo correcto, si el campo correspondiente tiene un tipo), y los pasa a `new`, devolviendo el objeto resultante: 
 
 ```jldoctest
 julia> struct Foo
@@ -132,9 +95,7 @@ julia> struct Foo
 
 ```
 
-This declaration has the same effect as the earlier definition of the `Foo` type without an explicit
-inner constructor method. The following two types are equivalent -- one with a default constructor,
-the other with an explicit constructor:
+Esta declaración tiene el mismo efecto que la definición anterior del tipo `Foo` sin un método constructor interno específico. Los siguientes dos tipos son equivalentes (uno con un constructor por defecto y el otro con un constructor explícito):
 
 ```jldoctest
 julia> struct T1
@@ -158,18 +119,11 @@ T1(1)
 julia> T2(1.0)
 T2(1)
 ```
+Se considera una buena práctica proporcionar tan pocos constructores internos como sea posible: sólo aquellos que tomen todos los argumentos explícitamente y fuercen la comprobación de errores y las transformaciones esenciales. Los demás constructores proporcionados, que proporcionan valores por defecto o transformaciones auxiliares, deberían proporcionarse como constructores externos que llaman a los internos para hacer el trabajo pesado. Esta situación suele ser bastante natural.
 
-It is considered good form to provide as few inner constructor methods as possible: only those
-taking all arguments explicitly and enforcing essential error checking and transformation. Additional
-convenience constructor methods, supplying default values or auxiliary transformations, should
-be provided as outer constructors that call the inner constructors to do the heavy lifting. This
-separation is typically quite natural.
+## Inicialización incompleta
 
-## Incomplete Initialization
-
-The final problem which has still not been addressed is construction of self-referential objects,
-or more generally, recursive data structures. Since the fundamental difficulty may not be immediately
-obvious, let us briefly explain it. Consider the following recursive type declaration:
+El problema final que aún no se ha resuelto es la construcción de objetos autorreferenciales o, más generalmente, estructuras de datos recursivas. Como la dificultad fundamental puede no ser obvia de inmediato, se explicará brevemente. Considere la siguiente declararción de tipo recursivo:
 
 ```jldoctest selfrefer
 julia> mutable struct SelfReferential
@@ -178,24 +132,15 @@ julia> mutable struct SelfReferential
 
 ```
 
-This type may appear innocuous enough, until one considers how to construct an instance of it.
-If `a` is an instance of `SelfReferential`, then a second instance can be created by the call:
+Este tipo puede parecer bastante inócuo a menos que uno considere cómo construir una instancia de él. Si `a` es una instancia de `SelfReferential`, entonces una segunda instancia `b` podría crearse mediante la llamada:
 
 ```julia-repl
 julia> b = SelfReferential(a)
 ```
 
-But how does one construct the first instance when no instance exists to provide as a valid value
-for its `obj` field? The only solution is to allow creating an incompletely initialized instance
-of `SelfReferential` with an unassigned `obj` field, and using that incomplete instance as a valid
-value for the `obj` field of another instance, such as, for example, itself.
+¿Pero cómo se construye la primera instancia cuando no existe ninguna otra instancia para propocionar un valor válido para el campo `obj`? La única solución es permitir la creación de una instancia de `SelfReferential` que no esté inicializada por completo, con el campo `obj` no asignado, y usar esta instancia incompleta como un valor válido que se podcría asignar al campo `obj` de otra instancia, o incluso al de ella misma.
 
-To allow for the creation of incompletely initialized objects, Julia allows the `new` function
-to be called with fewer than the number of fields that the type has, returning an object with
-the unspecified fields uninitialized. The inner constructor method can then use the incomplete
-object, finishing its initialization before returning it. Here, for example, we take another crack
-at defining the `SelfReferential` type, with a zero-argument inner constructor returning instances
-having `obj` fields pointing to themselves:
+Para permitir la creación de objetos inicializados de forma incompleta, Julia permite que la  función `new` sea llamada con menos argumentos del número de campos que el objeto tiene, devolviendo un objeto con los campos no especificados sin inicializar. El método constructor interno pues entonces usar el método incompleto, finalizando su inicialización antes de devolverlo. Aquí por ejemplo, se intenta definir el tipo `SelfReferental` con un constructor interno con cero argumentos que devuelve instancias con sus campos `obj` apuntando a ellos mismos:
 
 ```jldoctest selfrefer2
 julia> mutable struct SelfReferential
@@ -205,7 +150,7 @@ julia> mutable struct SelfReferential
 
 ```
 
-We can verify that this constructor works and constructs objects that are, in fact, self-referential:
+Podemos verificar que este constructor funciona y construye objetos que son, de hecho, autorreferenciados:
 
 ```jldoctest selfrefer2
 julia> x = SelfReferential();
@@ -220,8 +165,7 @@ julia> x === x.obj.obj
 true
 ```
 
-Although it is generally a good idea to return a fully initialized object from an inner constructor,
-incompletely initialized objects can be returned:
+Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un eror inmediato:
 
 ```jldoctest incomplete
 julia> mutable struct Incomplete
@@ -232,19 +176,14 @@ julia> mutable struct Incomplete
 julia> z = Incomplete();
 ```
 
-While you are allowed to create objects with uninitialized fields, any access to an uninitialized
-reference is an immediate error:
+Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un eror inmediato:
 
 ```jldoctest incomplete
 julia> z.xx
 ERROR: UndefRefError: access to undefined reference
 ```
 
-This avoids the need to continually check for `null` values. However, not all object fields are
-references. Julia considers some types to be "plain data", meaning all of their data is self-contained
-and does not reference other objects. The plain data types consist of primitive types (e.g. `Int`)
-and immutable structs of other plain data types. The initial contents of a plain data type is
-undefined:
+Esto evita la necesidad de estar comprobando datos `null` continuamente. Sin embargo, no todos los campos de objetos son referencias. Julia considera algunos tipos Como "datos planos", Lo que significa que todos sus datos son auto contenidos y que no referencian otros objetos. Los tipos de datos planos son los tipos primitivos (es decir `Int`) y las estructuras inmutables de otros tipos de datos planos. Los contenidos iniciales de un tipo de datos planos son indefinidos:
 
 ```julia-repl
 julia> struct HasPlain
@@ -256,9 +195,9 @@ julia> HasPlain()
 HasPlain(438103441441)
 ```
 
-Arrays of plain data types exhibit the same behavior.
+Los arrays de tipos de datos planos exhiben el mismo comportamiento.
 
-You can pass incomplete objects to other functions from inner constructors to delegate their completion:
+Uno puede pasar objetos incompletos a otras funciones desde los constructores internos para  delegar su terminación:
 
 ```jldoctest
 julia> mutable struct Lazy
@@ -267,16 +206,11 @@ julia> mutable struct Lazy
        end
 ```
 
-As with incomplete objects returned from constructors, if `complete_me` or any of its callees
-try to access the `xx` field of the `Lazy` object before it has been initialized, an error will
-be thrown immediately.
+Como sucede con los objetos incompletos devueltos desde los constructores, si `complete_me` o alguno de los métodos que lo llaman intenta acceder al campo `xx` del objeto `Lazy` antes de que éste sea inicializado, se lanzará un error de inmediato.
 
-## Parametric Constructors
+## Constructores paramétricos
 
-Parametric types add a few wrinkles to the constructor story. Recall from [Parametric Types](@ref parametric-types)
-that, by default, instances of parametric composite types can be constructed either with explicitly
-given type parameters or with type parameters implied by the types of the arguments given to the
-constructor. Here are some examples:
+Los tipos paramétricos añaden algunas complicaciones al tema de los constructores. Recuérdese la sección [Tipos Paramétricos](@ref parametric-types) que por defecto pueden construirse instancias de estos tipos dando  explícitamente los parámetros de tipo o con parámetros de tipo implicados por los tipos de los argumentos dados al constructor. He aquí algunos ejemplos:
 
 ```jldoctest parametric
 julia> struct Point{T<:Real}
@@ -311,20 +245,9 @@ julia> Point{Float64}(1,2) ## explicit T ##
 Point{Float64}(1.0, 2.0)
 ```
 
-As you can see, for constructor calls with explicit type parameters, the arguments are converted
-to the implied field types: `Point{Int64}(1,2)` works, but `Point{Int64}(1.0,2.5)` raises an
-[`InexactError`](@ref) when converting `2.5` to [`Int64`](@ref). When the type is implied
-by the arguments to the constructor call, as in `Point(1,2)`, then the types of the
-arguments must agree -- otherwise the `T` cannot be determined -- but any pair of real
-arguments with matching type may be given to the generic `Point` constructor.
+Como podemos ver, para las llamadas a constructor con parámetros de tipo explícito, los argumentos se convierten a los tipos implícitos de los campos: `Point{Int64}(1,2)` funciona, pero `Point{Int64}(1.0,2.5)` lanza un [`InexactError`](@ref) cuando `2.5` se convierte a [`Int64`](@ref). Cuando el tipo es implicado por los argumentos de la llamada al constructor, como en `Point(1,2)`, entonces los tipos de los argumentos deben concordar para que se pueda determinar `T`, pero da igual cuáles sean los tipos mientras ambos sean iguales y, además, subclases de `Real`.
 
-What's really going on here is that `Point`, `Point{Float64}` and `Point{Int64}` are all different
-constructor functions. In fact, `Point{T}` is a distinct constructor function for each type `T`.
-Without any explicitly provided inner constructors, the declaration of the composite type `Point{T<:Real}`
-automatically provides an inner constructor, `Point{T}`, for each possible type `T<:Real`, that
-behaves just like non-parametric default inner constructors do. It also provides a single general
-outer `Point` constructor that takes pairs of real arguments, which must be of the same type.
-This automatic provision of constructors is equivalent to the following explicit declaration:
+Lo que está pasando aquí realmente es que `Point`, `Point{Float64}` y `Point{Int64}` son funcioens constructores diferentes. De hecho, `Point{T}` es una función constructor distinto para cada tipo `T`. Sin ningún constructor interno propocionado explícitamente, la declaración del tipo compuesto `Point{T<:Real}` proporciona automáticamente un constructor interno `Point{T}` para cada posible ipo `T<:Real` que se comporta justo como lo hacen los constructores internos no paramétricos por defecto. Ella también proporciona un solo constructor general externo que toma pares de argumentos reales, que deben ser del mismo tipo. Esta provisión automática de constructores es equivalente a la siguiente declaración explícita:
 
 ```jldoctest parametric2
 julia> struct Point{T<:Real}
@@ -336,28 +259,18 @@ julia> struct Point{T<:Real}
 julia> Point(x::T, y::T) where {T<:Real} = Point{T}(x,y);
 ```
 
-Notice that each definition looks like the form of constructor call that it handles.
-The call `Point{Int64}(1,2)` will invoke the definition `Point{T}(x,y)` inside the
-`type` block.
-The outer constructor declaration, on the other hand, defines a
-method for the general `Point` constructor which only applies to pairs of values of the same real
-type. This declaration makes constructor calls without explicit type parameters, like `Point(1,2)`
-and `Point(1.0,2.5)`, work. Since the method declaration restricts the arguments to being of the
-same type, calls like `Point(1,2.5)`, with arguments of different types, result in "no method"
-errors.
+Observe que cada definición se parece a la forma de llamada de constructor que maneja. La llamada `Point{Int64}(1,2)` invocará la definición `Point{T}(x, y)` dentro del
+bloque `type`.
 
-Suppose we wanted to make the constructor call `Point(1,2.5)` work by "promoting" the integer
-value `1` to the floating-point value `1.0`. The simplest way to achieve this is to define the
-following additional outer constructor method:
+La declaración de constructor externo, por otro lado, define un método para el constructor general de `Point` que sólo se aplica a pares de valores del mismo tipo real. Esta declaración hace que las llamadas al constructor sin parámetros de tipo explícitos, como `Punto(1,2)` y `Punto(1.0,2.5)`, funcionen. Dado que la declaración del método restringe los argumentos para que sean del mismo tipo, las llamadas como `Point(1,2.5)`, con argumentos de diferentes tipos, dan como resultado errores "no method".
+
+Supongamos que queremos hacer la llamada a constructor `Point(1, 2.5)` funcione promocionando el valor entero `1` a punto flotante `1.0`. La forma más sencilla de conseguir eso es definir el siguiente método constructor adicional:
 
 ```jldoctest parametric2
 julia> Point(x::Int64, y::Float64) = Point(convert(Float64,x),y);
 ```
 
-This method uses the [`convert()`](@ref) function to explicitly convert `x` to [`Float64`](@ref)
-and then delegates construction to the general constructor for the case where both arguments are
-[`Float64`](@ref). With this method definition what was previously a [`MethodError`](@ref) now
-successfully creates a point of type `Point{Float64}`:
+Este método usa la función [`convert()`](@ref) para convertir explícitamente `x` a [`Float64`](@ref) y entonces delegar la construcción al constructor general para el caso de que ambos argumentos sean [`Float64`](@ref). Con esta definición de método, lo  que previamente producía un  [`MethodError`](@ref) ahora crea con éxito un punto de tipo `Point{Float64}`:
 
 ```jldoctest parametric2
 julia> Point(1,2.5)
@@ -367,7 +280,7 @@ julia> typeof(ans)
 Point{Float64}
 ```
 
-However, other similar calls still don't work:
+Sin embargo, otras llamadas similares siguen sin funcionar:
 
 ```jldoctest parametric2
 julia> Point(1.5,2)
@@ -376,17 +289,13 @@ Closest candidates are:
   Point(::T<:Real, !Matched::T<:Real) where T<:Real at none:1
 ```
 
-For a more general way to make all such calls work sensibly, see [Conversion and Promotion](@ref conversion-and-promotion).
-At the risk of spoiling the suspense, we can reveal here that all it takes is the following outer
-method definition to make all calls to the general `Point` constructor work as one would expect:
+Para una forma mucho más general de hacer que todas estas llamadas funcionen sensiblemente, ver [Conversión y promoción](@ref conversion-and-promotion). A riesgo de estropear el suspense, podemos revelar aquí que todo lo toma el siguiente método externo para hacer que todas las llamadas al constructor general `Point` trabajen como uno debería esperar:
 
 ```jldoctest parametric2
 julia> Point(x::Real, y::Real) = Point(promote(x,y)...);
 ```
 
-The `promote` function converts all its arguments to a common type -- in this case [`Float64`](@ref).
-With this method definition, the `Point` constructor promotes its arguments the same way that
-numeric operators like [`+`](@ref) do, and works for all kinds of real numbers:
+La función `promote` convierte todos sus argumentos a un tipo común (en este caso, `Float64`). Con esta definición de método el constructor `Point` promociona sus argumentos de la misma forma que lo hacen los operadores aritméticos como [`+`](@ref) y funciona para todos los tipos de números reales:
 
 ```jldoctest parametric2
 julia> Point(1.5,2)
@@ -399,16 +308,11 @@ julia> Point(1.0,1//2)
 Point{Float64}(1.0, 0.5)
 ```
 
-Thus, while the implicit type parameter constructors provided by default in Julia are fairly strict,
-it is possible to make them behave in a more relaxed but sensible manner quite easily. Moreover,
-since constructors can leverage all of the power of the type system, methods, and multiple dispatch,
-defining sophisticated behavior is typically quite simple.
+Por tanto, mientras los constructores con parámetros de tipo implícitos proporcionados por defecto en Julia son muy estrictos, es posible hacer que se comporten de una forma más relajada pero sensible con bastante facilidad. Además, como los constructores pueden sacar ventaja de toda la potencia del sistema de tipos, métodos y despacho múltiple, definir comportamientos sofisticados suele ser bastante simple.
 
 ## Case Study: Rational
 
-Perhaps the best way to tie all these pieces together is to present a real world example of a
-parametric composite type and its constructor methods. To that end, here is the (slightly modified) beginning of [`rational.jl`](https://github.com/JuliaLang/julia/blob/master/base/rational.jl),
-which implements Julia's [Rational Numbers](@ref rational-numbers):
+Quizás la mejor forma de unir todas las piezas es presentar un ejemplo del mundo real de un tipo compuesto paramétrico y sus métodos constructores. Para este fin, he aquí una parte de  [`rational.jl`](https://github.com/JuliaLang/julia/blob/master/base/rational.jl), que implementa los [Números Racionales](@ref rational-numbers) en Julia:
 
 ```jldoctest rational
 julia> struct OurRational{T<:Integer} <: Real
@@ -457,38 +361,14 @@ julia> function //(x::Complex, y::Complex)
 // (generic function with 6 methods)
 ```
 
-The first line -- `struct OurRational{T<:Integer} <: Real` -- declares that `OurRational` takes one
-type parameter of an integer type, and is itself a real type. The field declarations `num::T`
-and `den::T` indicate that the data held in a `OurRational{T}` object are a pair of integers of type
-`T`, one representing the rational value's numerator and the other representing its denominator.
+La primera línea -- `struct OurRational{T<:Integer} <: Real` -- declara que `OurRational` toma un parámetro de un subtipo de `Integer`, aunque él en si mismo es un tipo `Real`. Las declaraciones de campo `num::T` y `den::T` indican que los datos almacenados en un objeto `OurRational{T}` será un par de enteros de tipo `T`, uno que representará el numerador y otro el denominador. 
 
-Now things get interesting. `OurRational` has a single inner constructor method which checks that
-both of `num` and `den` aren't zero and ensures that every rational is constructed in "lowest
-terms" with a non-negative denominator. This is accomplished by dividing the given numerator and
-denominator values by their greatest common divisor, computed using the `gcd` function. Since
-`gcd` returns the greatest common divisor of its arguments with sign matching the first argument
-(`den` here), after this division the new value of `den` is guaranteed to be non-negative. Because
-this is the only inner constructor for `OurRational`, we can be certain that `OurRational` objects are
-always constructed in this normalized form.
+Ahora las cosas se ponen interesantes. `OurRational` tiene un solo constructor interno que comprueba que tanto `num` como `den` no son cero, y aegura que cada número racional se construye en sus términos mínimos con un denominador no negativo. Esto se consigue dividiendo los valores de numerador y denominador por su máximo común divisor, el cuál se calcula a través de la función `gcd`. Por último, y como `gcd` asigna el signo del primer argumento (en este caso `den`) se garantiza que el denominador ya no sea negativo. Como este es el único constructor interno de `Rational`, podemos estar seguros de que los objetos de este tipo siempre se construyen en forma normalizada.
 
-`OurRational` also provides several outer constructor methods for convenience. The first is the "standard"
-general constructor that infers the type parameter `T` from the type of the numerator and denominator
-when they have the same type. The second applies when the given numerator and denominator values
-have different types: it promotes them to a common type and then delegates construction to the
-outer constructor for arguments of matching type. The third outer constructor turns integer values
-into rationals by supplying a value of `1` as the denominator.
+`Rational` también proporciona varios métodos constructores externos por conveniencia. El primero es el constructor general "esándar", que infiere el tupo del parámetro `T` a partir del tipo del numerado y denominador que tienen que ser del mismo tipo. El segundo se aplica cuando numerador y denominador tiene tipos distintos: los promociona a un tipo común y entonces delega la construcción al otro constructor externo con argumentos del mismo tipo. En tercer constructor externo convierte valores enteros en racionales proporcionando un denominador de valor 1.
 
-Following the outer constructor definitions, we have a number of methods for the [`//`](@ref)
-operator, which provides a syntax for writing rationals. Before these definitions, [`//`](@ref)
-is a completely undefined operator with only syntax and no meaning. Afterwards, it behaves just
-as described in [Rational Numbers](@ref rational-numbers) -- its entire behavior is defined in these few lines.
-The first and most basic definition just makes `a//b` construct a `OurRational` by applying the
-`OurRational` constructor to `a` and `b` when they are integers. When one of the operands of [`//`](@ref)
-is already a rational number, we construct a new rational for the resulting ratio slightly differently;
-this behavior is actually identical to division of a rational with an integer.
-Finally, applying
-[`//`](@ref) to complex integral values creates an instance of `Complex{OurRational}` -- a complex
-number whose real and imaginary parts are rationals:
+Siguiendo las definiciones de constructores externos, tenemos una serie de métodos para el operador [`//`](@ref) que proporcionan una sintaxis para escribir racionales. Antes de estas definiciones,  [`//`](@ref)es un operador completamente indefinido con sólo sintaxis y sin significado. Después, se comporta tal y com se describe en [Números Racionales](@ref rational-numbers) -- 
+(su comportamiento completo está descrito en estas pocas líneas). La primera y más básica definición hace `a//b` construya un  `OurRational` aplicando el constructor de este tipo sobre `a` y `b` cuando ambos son enteros. Cuando uno de los operandos de  [`//`](@ref) ya es un número racional se construye un nuevo número racional para la razón resultante con una leve diferencia: este comportamiento es igual a la división de un racional entre un entero. Por último, aplicar [`//`](@ref) a valores complejos enteros crea una instancia de `Complex{Rational}`, que es un complejo cuyas partes real el imaginaria son racionales:
 
 ```jldoctest rational
 julia> ans = (1 + 2im)//(1 - 2im);
@@ -500,45 +380,23 @@ julia> ans <: Complex{OurRational}
 false
 ```
 
-Thus, although the [`//`](@ref) operator usually returns an instance of `OurRational`, if either
-of its arguments are complex integers, it will return an instance of `Complex{OurRational}` instead.
-The interested reader should consider perusing the rest of [`rational.jl`](https://github.com/JuliaLang/julia/blob/master/base/rational.jl):
-it is short, self-contained, and implements an entire basic Julia type.
+Por tanto, aunque el operador [`//`](@ref) suela devolver una instancia de `OurRational`, si uno de sus rgumentos es un complejo entero, devolverá una instancia de `Complex{OurRational}`. El lector interesado debería considerar la lectura del resto de [`rational.jl`](https://github.com/JuliaLang/julia/blob/master/base/rational.jl): es corto, autocontenido e implmeenta un tipo básico de Julia al completo.
 
-## [Constructors and Conversion](@id constructors-and-conversion)
+## [Constructores and Conversión](@id constructors-and-conversion)
 
-Constructors `T(args...)` in Julia are implemented like other callable objects: methods are added
-to their types. The type of a type is `Type`, so all constructor methods are stored in the method
-table for the `Type` type. This means that you can declare more flexible constructors, e.g. constructors
-for abstract types, by explicitly defining methods for the appropriate types.
+Los constructores `T(args)` se implementan como otros objetos invocables: los métodos se añaden a sus tipos. El tipo de un tipo es `Type` por lo que los métodos constructores se almacenan en la tabla de métodos para el tipo `Type`. Esto significa que se pueden declarar constructores más flexibles, es decir, constructores para tipos abstractos, mediante la definición explícita de métodos para los tipos apropiados.
 
-However, in some cases you could consider adding methods to `Base.convert` *instead* of defining
-a constructor, because Julia falls back to calling [`convert()`](@ref) if no matching constructor
-is found. For example, if no constructor `T(args...) = ...` exists `Base.convert(::Type{T}, args...) = ...`
-is called.
+Sin embargo, en algunos casos, uno debería considerar añadir métodos a `Base.convert` en ougar de definir un constructor, dado que Julia retrocede para llamar a [`convert()`](@ref) si no se encuentra un constructor que coincida. Por ejemplo, si no existe para constructor para `T(args...) =` se llamará a `Base.convert(::Type{T}, args...)=...`
 
-`convert` is used extensively throughout Julia whenever one type needs to be converted to another
-(e.g. in assignment, [`ccall`](@ref), etcetera), and should generally only be defined (or successful)
-if the conversion is lossless.  For example, `convert(Int, 3.0)` produces `3`, but `convert(Int, 3.2)`
-throws an `InexactError`.  If you want to define a constructor for a lossless conversion from
-one type to another, you should probably define a `convert` method instead.
+`convert` se usa extensivamente a través de Julia cuando un tipo tenga que ser convertido en otro (por ejemplo, en asignación, [`ccall`](@ref), etcetera), y sólo debería ser definido (o exitoso) si la conversión se realiza sin pérdidas. Por ejemplo, `convert(Int, 3.0)` produce `3`, pero `convert(Int,3.2)` lanza un `InexactError`. Si desea construirse un constructor para una conversión sin pérdidas de un tipo a otro, probablemente sería mejor definir un método `convert`.
 
-On the other hand, if your constructor does not represent a lossless conversion, or doesn't represent
-"conversion" at all, it is better to leave it as a constructor rather than a `convert` method.
-For example, the `Array{Int}()` constructor creates a zero-dimensional `Array` of the type `Int`,
-but is not really a "conversion" from `Int` to an `Array`.
+Por otra parte, si el constructro no representa una conversión sin pérdida, o no represnta ningua conversion es mejor dejarlo como constructor en lugar de como un método `convert`. Por ejemplo, el constructor `Array{Int}` crea un array cero-dimensional del tipo `Int` pero no es realmente una conversión de `Int` a `Array`.
 
-## Outer-only constructors
+## Constructores sólo exteriores
 
-As we have seen, a typical parametric type has inner constructors that are called when type parameters
-are known; e.g. they apply to `Point{Int}` but not to `Point`. Optionally, outer constructors
-that determine type parameters automatically can be added, for example constructing a `Point{Int}`
-from the call `Point(1,2)`. Outer constructors call inner constructors to do the core work of
-making an instance. However, in some cases one would rather not provide inner constructors, so
-that specific type parameters cannot be requested manually.
+Como se ha visto, un tipo paramétrico típico tiene constructroes internos que son invocados cuano se conocen los tupos de los parámetros, por ejemplo, se aplican a `Point{Int}`paro no a `Point`. Opcionalmente, los constructores externos que determinan los parámetros de tipo  pueden ser añadidos automáticamente, por ejemplo, construir un `Point{Int}` a partir de la llamada `Point(1,2)`. Los constructores externos llaman a los constructores internos para que hagan el trabajo básico de hacer una instancia.  Sin embargo, en algunos caos, uno podría en lugar de eso no proporcionar contructores internos para que los parámetros específicos no puedan ser solicitados manualmente. 
 
-For example, say we define a type that stores a vector along with an accurate representation of
-its sum:
+Por ejemplo, suponga que se define un tipo que almacena un vector con una representaciócn exacta de su suma:
 
 ```jldoctest
 julia> struct SummedArray{T<:Number,S<:Number}
@@ -550,12 +408,7 @@ julia> SummedArray(Int32[1; 2; 3], Int32(6))
 SummedArray{Int32,Int32}(Int32[1, 2, 3], 6)
 ```
 
-The problem is that we want `S` to be a larger type than `T`, so that we can sum many elements
-with less information loss. For example, when `T` is [`Int32`](@ref), we would like `S` to
-be [`Int64`](@ref). Therefore we want to avoid an interface that allows the user to construct
-instances of the type `SummedArray{Int32,Int32}`. One way to do this is to provide a
-constructor only for `SummedArray`, but inside the `type` definition block to suppress
-generation of default constructors:
+El problema es que nosotros queremos que `S` sea un tipo más grande que `T`, por lo que podemos sumar muchos elementos con menos pérdida de información. Por ejemplo, cuando `T` es [`Int32`](@ref), querríamos que `S` fiuera [`Int64`](@ref). Por tano queremos evitar un interfaz que permita al usuario construir instanca del tipo `SummedArray{Int32,Int32}`. Una forma de hacer esto es proporcionar sólo un constructor más exterior para `SummedArray`.  Esto puede hacerse usando a definicíon de métdo por tipo pero dentro del bloque de definición `type` para suprimir la generación de bucles por defecto:
 
 ```jldoctest
 julia> struct SummedArray{T<:Number,S<:Number}
@@ -573,7 +426,5 @@ Closest candidates are:
   SummedArray(::Array{T,1}) where T at none:5
 ```
 
-This constructor will be invoked by the syntax `SummedArray(a)`. The syntax `new{T,S}` allows
-specifying parameters for the type to be constructed, i.e. this call will return a `SummedArray{T,S}`.
-`new{T,S}` can be used in any constructor definition, but for convenience the parameters
-to `new{}` are automatically derived from the type being constructed when possible.
+El construcror será invocado por la sintaxis `SummedArray(a)`. La sintaxis `new{T,S}` permite especificar parámetrospara el tipo que se va a construir, es decir, esta llamada devolvera un `SummedArray{T, s]`.
+`new{T,S}` puede usarse en cualquier definicin de constructor, pero por conveniencia los parámtros a `new{}` se derivan automáticamente del tipo que se está construyendo cuando sea posible.
