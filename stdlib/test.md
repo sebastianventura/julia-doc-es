@@ -16,7 +16,7 @@ Base.runtests
 
 ## Pruebas Unitarias Básicas
 
-El módulo `Base.Test` proporciona una funcionalidad simple de *realización de pruebas unitarias*. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollarlo como una forma de especificar los comportamientos que su código debería tener cuando se complete.
+El módulo `Base.Test` proporciona una funcionalidad simple de *realización de pruebas unitarias*. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollar como una forma de especificar los comportamientos que su código debería tener cuando se complete.
 
 Se pueden realizar pruebas unitarias simples con las macros `@test ()` y `@test_throws ()`:
 
@@ -31,7 +31,7 @@ Por ejemplo, supongamos que queremos comprobar que nuestra nueva función `foo(x
 julia> using Base.Test
 
 julia> foo(x) = length(x)^2
-foo (generic function with 1 method)
+foo (función genérica con 1 método)
 ```
 
 Si la condición es cierta, se devuelve un `Pass`:
@@ -73,7 +73,7 @@ Error During Test
 ERROR: There was an error during testing
 ```
 
-Si esperamos que al evaluar una expresión *deberían* lanzarse una excepción, entonces podemos usar `@test_throws()` para comprobar que esto es lo que ocurre:
+Si esperamos que al evaluar una expresión *debería* lanzarse una excepción, entonces podemos usar `@test_throws()` para comprobar que esto es lo que ocurre:
 
 ```jldoctest testfoo
 julia> @test_throws MethodError foo(:cat)
@@ -85,13 +85,13 @@ Test Passed
 
 Normalmente, se utiliza una gran cantidad de pruebas para garantizar que las funciones trabajan correctamente sobre distintas entradas. En el caso de que una prueba falle, el comportamiento predeterminado es lanzar una excepción de inmediato. Sin embargo, normalmente es preferible ejecutar el resto de las pruebas primero para obtener una mejor idea de cuántos errores hay en el código que se prueba.
 
-La macro `@testset()` se puede usar para agrupar las pruebas en *conjuntos*. En un conjunto de pruebas, se ejecutarán variasy al final de su realización se imprimirá un resumen. Si alguna de las pruebas falla o no se puede evaluar debido a un error, el conjunto de prueba arrojará una `TestSetException`.
+La macro `@testset()` se puede usar para agrupar las pruebas en *conjuntos*. En un conjunto de pruebas, se ejecutarán varias y al final de su realización se imprimirá un resumen. Si alguna de las pruebas falla o no se puede evaluar debido a un error, el conjunto de prueba arrojará una `TestSetException`.
 
 ```@docs
 Base.Test.@testset
 ```
 
-Podemos poner nuestros tests para la función `foo(x)` en un conjuntos de tests:
+Podemos poner nuestras pruebas para la función `foo(x)` en un conjuntos de pruebas:
 
 ```jldoctest testfoo
 julia> @testset "Foo Tests" begin
@@ -103,7 +103,7 @@ Test Summary: | Pass  Total
 Foo Tests     |    3      3
 ```
 
-Los conjuntos de pruebas pueden también anidarse:
+Los conjuntos de pruebas también pueden anidarse:
 
 ```jldoctest testfoo
 julia> @testset "Foo Tests" begin
@@ -120,7 +120,7 @@ Test Summary: | Pass  Total
 Foo Tests     |    8      8
 ```
 
-En el caso de que un conjunto de pruebas anidado no tenga fallos, como pasa aquí, ello se ocultará en el resumen. Si tenemos un test que falle, sólo se mostrarán los detalles para este conjunto de tests que ha fallado:
+En el caso de que un conjunto de pruebas anidado no tenga fallos, como pasa aquí, se ocultará en el resumen. Si tenemos una prueba que falle, sólo se mostrarán los detalles para este conjunto de pruebas que ha fallado:
 
 ```julia-repl
 julia> @testset "Foo Tests" begin
@@ -150,7 +150,7 @@ Foo Tests     |    3     1      4
 ERROR: Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken.
 ```
 
-## Otras Macros para Tests
+## Otras Macros para Pruebas
 
 Como los cálculos sobre valores en punto flotane pueden ser imprecisos, podemos realizar comprobaciones de igualdad aproximada usando `@test a ≈ b` (donde `≈`, se obtiene mediante terminación con tabulador de `\approx`, es la función [`isapprox()`](@ref)) o usar directamente [`isapprox()`](@ref).
 
@@ -171,15 +171,15 @@ Base.Test.@test_warn
 Base.Test.@test_nowarn
 ```
 
-## Tests Rotos
+## Pruebas Rotas
 
-Si un test falla consistentemente puede ser cambiado para utilizar la macro `@test_broken()`. Esto denotará el test como Roto  (`Broken`) si el test continua fallando y alterta al usuaria a traves de un `Error` si el test tiene éxito.
+Si una prueba falla consistentemente, puede ser cambiada para utilizar la macro `@test_broken()`. Esto denotará la prueba como Rota (`Broken`) si la prueba continúa fallando y alerta al usuario a través de un `Error` si la prueba tiene éxito.
 
 ```@docs
 Base.Test.@test_broken
 ```
 
-`@test_skip()` está también disponible para saltar un test sin evaluación, pero contando el test que se ha saltado en el informe del conjunto de tests. El test no se ejecutará pero da un `Broken` `Result`.
+`@test_skip()` está también disponible para obviar una prueba sin evaluación, pero contabilizarla en el informe del conjunto de pruebas. La prueba no se ejecutará pero dará un `Broken` `Result`.
 
 ```@docs
 Base.Test.@test_skip
@@ -187,7 +187,7 @@ Base.Test.@test_skip
 
 ## Creando Tipos `AbstractTestSet` Personalizados
 
-Los paquetes pueden crear sus propios subtipos `AbstractTestSet` implementando los métodos `record` y `finish`. El subtipo debe tener un constructor de un argumento que tome una cadena de descripción, con todas las opciones pasadas como argumentos  palabra clave.
+Los paquetes pueden crear sus propios subtipos `AbstractTestSet` implementando los métodos `record` y `finish`. El subtipo debe tener un constructor de un argumento que tome una cadena de descripción, con todas las opciones pasadas como argumentos de tipo keyword.
 
 ```@docs
 Base.Test.record
@@ -201,7 +201,7 @@ Base.Test.get_testset
 Base.Test.get_testset_depth
 ```
 
-`Base.Test` también se asegura de que las invocaciones `@testset` anidadas utilicen el mismo subtipo `AbstractTestSet` que sus padres a menos que se establezca explícitamente. Él no propaga ninguna propiedad del conjunto de pruebas. El comportamiento de herencia de opciones se puede implementar mediante paquetes que usan la infraestructura de pila que proporciona `Base.Test`.
+`Base.Test` también se asegura de que las invocaciones `@testset` anidadas utilicen el mismo subtipo `AbstractTestSet` que sus padres, a menos que se establezca explícitamente. No propaga ninguna propiedad del conjunto de pruebas. El comportamiento de herencia de opciones se puede implementar mediante paquetes que usan la infraestructura de pila que proporciona `Base.Test`.
 
 La definición de un subtipo básico de 'AbstractTestSet` podría verse así:
 
@@ -228,7 +228,7 @@ function finish(ts::CustomTestSet)
 end
 ```
 
-Y usar este conjunto de test tiene el siguiente aspecto:
+Y usar este conjunto de prueba tiene el siguiente aspecto:
 
 ```julia
 @testset CustomTestSet foo=4 "custom testset inner 2" begin

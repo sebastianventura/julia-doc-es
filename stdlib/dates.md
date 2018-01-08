@@ -15,7 +15,7 @@ Base.Dates.Time
 
 ## Funciones para Fechas
 
-Todas las funciones para fechas están definidas en el módulo `Dates`; nótese que sólo se han exportado las funciones `Date`, `DateTime` y `now`; para usar todas las dems funciones de `Dates`, es necesario prefijar cada llamada a funcion con `Dates.`, por ejemplo,`Dates.dayofweek(dt)`. Alternativamente, uno puede escribir `using Base.Dates` para llevar todas las funciones exportadas en `Main` para ser usadas sin el prefijo `Dates.`
+Todas las funciones para fechas están definidas en el módulo `Dates`; nótese que solo se han exportado las funciones `Date`, `DateTime` y `now`; para usar el resto de funciones de `Dates`, es necesario prefijar cada llamada a función con `Dates.`, por ejemplo,`Dates.dayofweek(dt)`. Alternativamente, se puede escribir `using Base.Dates` para llevar todas las funciones exportadas a `Main` y que sean usadas sin el prefijo `Dates.`
 
 ```@docs
 Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)
@@ -42,7 +42,7 @@ Base.Dates.now(::Type{Base.Dates.UTC})
 Base.eps
 ```
 
-### Funciones Accesoras
+### Funciones de Acceso
 
 ```@docs
 Base.Dates.year
@@ -119,8 +119,8 @@ Base.Dates.default
 
 ### Funciones de Redondeo
 
-`Date` and `DateTime` values can be rounded to a specified resolution (e.g., 1 month or 15 minutes)
-with `floor`, `ceil`, or `round`.
+Los valores `Date` y `DateTime` pueden ser redondeados a una precisión especificada (por ejemplo, 1 mes o 15 minutos)
+con `floor`, `ceil`, o `round`.
 
 ```@docs
 Base.floor(::Base.Dates.TimeType, ::Base.Dates.Period)
@@ -152,7 +152,7 @@ Base.Dates.datetime2rata
 
 ### Constantes
 
-Días de la semana:
+Días de la Semana:
 
 | Variable    | Abbr. | Value (Int) |
 |:----------- |:----- |:----------- |

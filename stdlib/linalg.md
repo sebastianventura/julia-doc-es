@@ -2,7 +2,7 @@
 
 ## Funciones Estándar
 
-Las funciones de álgebra lineal en Julia está ampliamente implementadas llamando a funciones de [LAPACK](http://www.netlib.org/lapack/). Las factorizaciones *sparse* llaman a funciones de [SuiteSparse](http://faculty.cse.tamu.edu/davis/suitesparse.html)
+Las funciones de álgebra lineal en Julia están ampliamente implementadas llamando a funciones de [LAPACK](http://www.netlib.org/lapack/). Las factorizaciones *sparse* llaman a funciones de [SuiteSparse](http://faculty.cse.tamu.edu/davis/suitesparse.html)
 
 ```@docs
 Base.:*(::AbstractArray, ::AbstractArray)
@@ -117,7 +117,7 @@ Base.LinAlg.peakflops
 
 ## Operaciones matriciales de bajo nivel
 
-Las operaciones de matrices que involucran operaciones de transposición como `A' \ B` son convertidas por el analizador de Julia en llamadas a funciones especialmente nombradas como [`Ac_ldiv_B`](@ref). Si desea sobrecargar estas operaciones para sus propios tipos, será útil conocer los nombres de estas funciones.
+Las operaciones de matrices que involucran operaciones de transposición como `A' \ B` son convertidas por el analizador de Julia en llamadas a funciones especialmente nombradas como [`Ac_ldiv_B`](@ref). Si desea sobrecargar estas operaciones para sus propios tipos, le será útil conocer los nombres de estas funciones.
 
 Además, en muchos casos, hay versiones in situ de operaciones matriciales que le permiten suministrar un vector o matriz de salida preasignada. Esto es útil cuando se optimiza código crítico para evitar la sobrecarga de las asignaciones repetidas. Estas operaciones in situ tienen el sufijo `!` a continuación (por ejemplo, [`A_mul_B!`](@ref)) de acuerdo con la convención habitual de Julia.
 
@@ -148,36 +148,36 @@ Base.At_rdiv_Bt
 
 ## Funciones BLAS
 
-En Julia (como en gran parte de la computación científica), las operaciones  de álgebra lineal densa se basan en la [biblioteca LAPACK](http://www.netlib.org/lapack/), que a su vez se construye sobre bloques de construcción básicos de álgebra lineal conocidos como [BLAS](http://www.netlib.org/blas/). Hay implementaciones altamente optimizadas de BLAS disponibles para cada arquitectura de computadora, y algunas veces en rutinas de álgebra lineal de alto rendimiento, es útil llamar directamente a las funciones de BLAS.
+En Julia (como en gran parte de la computación científica), las operaciones de álgebra lineal densa se basan en la [biblioteca LAPACK](http://www.netlib.org/lapack/), que a su vez se construye sobre bloques de construcción básicos de álgebra lineal conocidos como [BLAS](http://www.netlib.org/blas/). Hay implementaciones altamente optimizadas de BLAS disponibles para cada arquitectura de computadora, y algunas veces en rutinas de álgebra lineal de alto rendimiento, es útil llamar directamente a las funciones de BLAS.
 
-`Base.LinAlg.BLAS` proporciona envoltorios para algunas de las funciones de BLAS. Esas funciones de BLAS que sobrescriben una de las matrices de entrada tienen nombres que terminan en `'!'`. Normalmente, una función BLAS tiene cuatro métodos definidos, para las arrays [`Float64`](@ref), [`Float32`](@ref), `Complex128` y` Complex64`.
+`Base.LinAlg.BLAS` proporciona envoltorios para algunas de las funciones de BLAS. Esas funciones de BLAS que sobrescriben una de las matrices de entrada tienen nombres que terminan en `'!'`. Normalmente, una función BLAS tiene cuatro métodos definidos, para los arrays [`Float64`](@ref), [`Float32`](@ref), `Complex128` y` Complex64`.
 
-### [BLAS Character Arguments](@id stdlib-blas-chars)
-Muchas funciones BLAS aceptan argumentos que determinan si se debe transponer un argumento (`trans`), qué triángulo de una matriz referenciar (` uplo` o `ul`), si se puede suponer que la diagonal de una matriz triangular está formada por unos (`dA`) o a qué lado de una multiplicación de matrices pertenece el argumento de entrada (`side`). Las posibilidades son:
+### [Argumentos de tipo carácter en BLAS](@id stdlib-blas-chars)
+Muchas funciones BLAS aceptan argumentos que determinan si se debe transponer un argumento (`trans`), qué triángulo de una matriz referenciar (`uplo` o `ul`), si se puede suponer que la diagonal de una matriz triangular está formada por unos (`dA`) o a qué lado de una multiplicación de matrices pertenece el argumento de entrada (`side`). Las posibilidades son:
 
 #### [Orden de Multiplicación](@id stdlib-blas-side)
-| `side` | Meaning                                                             |
+| `side` | Significado                                                         |
 |:-------|:--------------------------------------------------------------------|
 | `'L'`  | El argumento va al lado *izquierdo* de una operación matriz-matriz. |
 | `'R'`  | El argumento va al lado *derecho* de una operación matriz-matriz.   |
 
 #### [Referencia sobre el Triángulo](@id stdlib-blas-uplo)
-| `uplo`/`ul` | Meaning                                               |
+| `uplo`/`ul` | Significado                                           |
 |:------------|:------------------------------------------------------|
-| `'U'`       | Sólo se usará el triángulo *superior* de la matriz.   |
-| `'L'`       | Sólo se usará el triángulo *inferior* de la matriz. |
+| `'U'`       | Solo se usará el triángulo *superior* de la matriz.   |
+| `'L'`       | Solo se usará el triángulo *inferior* de la matriz.   |
 
 #### [Operación de Transposición](@id stdlib-blas-trans)
-| `trans`/`tX` | Meaning                                                  |
+| `trans`/`tX` | Significado                                              |
 |:-------------|:---------------------------------------------------------|
 | `'N'`        | La matriz de entrada `X` no es transpuesta ni conjugada. |
 | `'T'`        | La matriz de entrada `X` será transpuesta.               |
 | `'C'`        | La matriz de entrada `X` será conjugada y transpuesta.   |
 
 #### [Unidades en la Diagonal](@id stdlib-blas-diag)
-| `diag`/`dX` | Meaning                                                                     |
+| `diag`/`dX` | Significado                                                                 |
 |:------------|:----------------------------------------------------------------------------|
-| `'N'`       | Los valores diagonales de la matriz `X`serán leídos.                        |
+| `'N'`       | Los valores diagonales de la matriz `X` serán leídos.                       |
 | `'U'`       | Se supone que los elementos de la diagonal de la matriz `X` son todos unos. |
 
 ```@docs
@@ -225,11 +225,11 @@ Base.LinAlg.BLAS.set_num_threads
 Base.LinAlg.I
 ```
 
-## LAPACK Functions
+## Funciones LAPACK
 
 `Base.LinAlg.LAPACK` proporciona *wrappers* para algunas de las funciones LAPACK para álgebra lineal. Las funciones que sobrescriben una de las matrices de entrada tienen nombres que terminan en `'!'`.
 
-Por lo general, una función tiene 4 métodos definidos, uno para las arrays [`Float64`](@ref), [`Float32`](@ref), `Complex128` y `Complex64`.
+Por lo general, una función tiene 4 métodos definidos, uno para los arrays [`Float64`](@ref), [`Float32`](@ref), `Complex128` y `Complex64`.
 
 Tenga en cuenta que la API LAPACK proporcionada por Julia puede y va a cambiar en el futuro. Dado que esta API no está orientada al usuario, no existe el compromiso de admitir/desaprobar este conjunto específico de funciones en futuras versiones.
 

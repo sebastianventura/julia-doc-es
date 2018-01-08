@@ -84,7 +84,7 @@ Base.squeeze
 Base.vec
 ```
 
-## Concatenación and permutación
+## Concatenación y permutación
 
 ```@docs
 Base.cat
@@ -170,7 +170,7 @@ Base.ror
 
 ## [Matrices y Vectores *Sparse*](@id stdlib-sparse-arrays)
 
-Los vectores y las matrices *sparse* soportan ampliamente el mismo conjunto de operaciones que sus contrapartidas densas. las siguientes funcioens son específicas para arrays *sparse*.
+Los vectores y las matrices *sparse* soportan ampliamente el mismo conjunto de operaciones que sus contrapartidas densas. Las siguientes funciones son específicas para arrays *sparse*.
 
 ```@docs
 Base.SparseArrays.SparseVector

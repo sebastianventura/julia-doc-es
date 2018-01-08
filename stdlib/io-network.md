@@ -94,13 +94,13 @@ Base.displaysize
 
 ## [E/S Multimedia](@id multimedia-io)
 
-Del mismo modo que la salida de texto se realiza mediante [`print`](@ref) y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando [`show`](@ref), Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video) que consta de tres partes:
+Del mismo modo que la salida de texto se realiza mediante [`print`](@ref) y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando [`show`](@ref), Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video), que consta de tres partes:
 
 * Una función [`display(x)`](@ref) para solicitar la visualización multimedia más completa disponible de un objeto Julia `x` (con una reserva de texto sin formato).
 * Sobrecargar [`show`](@ref) permite indicar representaciones multimedia arbitrarias (codificadas mediante tipos MIME estándar) de tipos definidos por el usuario.
 * Pueden registrarse backends de visualización con capacidad multimedia subclasificando un tipo genérico de `Display` y poniéndolos en una pila de backends de visualización mediante [`pushdisplay`](@ref).
 
-El tiempo de ejecución base de Julia proporciona solo visualización de texto sin formato, pero las pantallas más ricas pueden habilitarse cargando módulos externos o utilizando entornos gráficos de Julia (como el *notebook* IJulia, basado en IPython).
+El tiempo de ejecución base de Julia solo proporciona visualización de texto sin formato, pero las pantallas más ricas pueden habilitarse cargando módulos externos o utilizando entornos gráficos de Julia (como el *notebook* IJulia, basado en IPython).
 
 ```@docs
 Base.Multimedia.display
@@ -112,9 +112,9 @@ Base.Multimedia.reprmime
 Base.Multimedia.stringmime
 ```
 
-Como se mencionó anteriormente, también se pueden definir nuevos backends de pantalla. Por ejemplo, un módulo que puede mostrar imágenes PNG en una ventana puede registrar esta capacidad con Julia, de modo que llamar a [`display(x)`](@ref) en tipos con representaciones PNG mostrará automáticamente la imagen usando la ventana del módulo.
+Como se mencionó anteriormente, también se pueden definir nuevos backends de pantalla. Por ejemplo, un módulo que puede mostrar imágenes PNG en una ventana puede registrar esta capacidad con Julia, de modo que al llamar a [`display(x)`](@ref) en tipos con representaciones PNG, se mostrará automáticamente la imagen usando la ventana del módulo.
 
-Para definir un nuevo backend de pantalla, primero se debe crear un subtipo `D` de la clase abstracta `Display`. Luego, para cada tipo MIME (cadena `mime`) que se puede mostrar en `D`, uno debe definir una función `display(d::D, ::MIME"mime", x) = ...` que muestra `x` como ese tipo MIME, generalmente llamando a [`reprmime(mime, x)`](@ref). Se debe lanzar `MethodError` si `x` no se puede mostrar como ese tipo MIME; esto es automático si uno llama a [`reprmime`](@ref). Finalmente, se debe definir una función `display(d::D, x)` que consulte [`mimewritable(mime,x)`](@ref) para los tipos `mime` soportados por `D` y muestre el "mejor"; debe lanzarse un `MethodError` si no se encuentran tipos MIME soportados para `x`. Del mismo modo, algunos subtipos pueden sobreescribir [`redisplay(d::D, ...)`](@ref Base.Multimedia.redisplay). (De nuevo, uno debe hacer `import Base.display` para agregar nuevos métodos a `display`.) Los valores de retorno de estas funciones dependen de la implementación (ya que en algunos casos puede ser útil devolver un "manejador" *handle* de visualización de algunos tipo). Las funciones de visualización para `D` se pueden llamar directamente, pero también se pueden invocar automáticamente desde [`display(x)`](@ref) simplemente presionando una nueva pantalla en la pila display-backend con:
+Para definir un nuevo backend de pantalla, primero se debe crear un subtipo `D` de la clase abstracta `Display`. Luego, para cada tipo MIME (cadena `mime`) que se puede mostrar en `D`, se debe definir una función `display(d::D, ::MIME"mime", x) = ...` que muestra `x` como ese tipo MIME, generalmente llamando a [`reprmime(mime, x)`](@ref). Se debe lanzar un `MethodError` si `x` no se puede mostrar como ese tipo MIME; esto es automático si se llama a [`reprmime`](@ref). Finalmente, se debe definir una función `display(d::D, x)` que consulte [`mimewritable(mime,x)`](@ref) para los tipos `mime` soportados por `D` y muestre el "mejor"; debe lanzarse un `MethodError` si no se encuentran tipos MIME soportados para `x`. Del mismo modo, algunos subtipos pueden sobreescribir [`redisplay(d::D, ...)`](@ref Base.Multimedia.redisplay). (De nuevo, se debe hacer `import Base.display` para agregar nuevos métodos a `display`.) Los valores de retorno de estas funciones dependen de la implementación (ya que en algunos casos puede ser útil devolver un "manejador" *handle* de visualización de algún tipo). Las funciones de visualización para `D` se pueden llamar directamente, pero también se pueden invocar automáticamente desde [`display(x)`](@ref) simplemente presionando una nueva pantalla en la pila display-backend con:
 
 ```@docs
 Base.Multimedia.pushdisplay

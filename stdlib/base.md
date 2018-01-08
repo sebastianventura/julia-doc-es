@@ -2,16 +2,16 @@
 
 ## Introducción
 
-La librería estándar de Julia contiene un rango de funciones y maros apropiadas para realizar 
+La librería estándar de Julia contiene un rango de funciones y marcos apropiados para realizar 
 computación científica y numérica, pero es también tan amplia como la de muchos lenguajes de 
 programación de propósito general. También hay funcionalidad adicional disponible en una 
-colección creciente de paquetes disponibles. Las funciones están agrupadas abajo por temas.
+creciente colección de paquetes disponibles. Las funciones están agrupadas abajo por temas.
 
 Algunas notas generales:
 
 * Excepto para las funciones en los módulos predefinidos (`Pkg`, `Collections`, `Test` 
-y `Profile`), todas las funciones documentadas aquí están disponibles directamente 
-para ser usadas en programas.
+y `Profile`), todas las funciones documentadas aquí están disponibles 
+para ser usadas en programas directamente.
 * Para usar funciones de módulos, usar `import Module` para importar el módulo, y `Module.fn(x)` 
 para usar las funciones.
 * Alternativamente `using Module` importará todas las funciones exportadas por el módulo en 

@@ -93,7 +93,7 @@ Base.indexpids
 Base.localindexes
 ```
 
-## Multi-Threading
+## Multi-Hilo
 
 Este interfaz experimental soporta las capacidades multi-hilo de Julia. Los tipos y funciones descritos aquí pueden cambiar en el futuro (y probablemente lo harán).
 
@@ -115,7 +115,7 @@ Base.Threads.atomic_min!
 Base.Threads.atomic_fence
 ```
 
-## ccall using a threadpool (Experimental)
+## ccall utilianzdo una threadpool (Experimental)
 
 ```@docs
 Base.@threadcall

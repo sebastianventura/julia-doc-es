@@ -2,13 +2,13 @@
 
 Puede encontrar documentación extendida sobre símbolos y funciones matemáticas [aquí](@ref math-ops).
 
-| symbol      | meaning                                                                                     |
+| Símbolo     | Significado                                                                                 |
 |:----------- |:------------------------------------------------------------------------------------------- |
 | `@m`        | Invoca la macro `m`; seguido de expresiones separadas por espacios                          |
 | `!`         | Operador "not" prefijo                                                                      |
 | `a!( )`     | Al final de un nombre de función, `!` indica que la función modifica su(s) argumento(s)     |
 | `#`         | Inicio de un comentario de una sola línea                                                   |
-| `#=`        | Inicio de un comentario multilínea (ellos son anidables)                                    |
+| `#=`        | Inicio de un comentario multilínea (pueden ser anidados)                                    |
 | `=#`        | Final de un comentario multilínea                                                           |
 | `$`         | Interpolación de cadena y expresión                                                         |
 | `%`         | Operador resto                                                                              |
@@ -34,14 +34,14 @@ Puede encontrar documentación extendida sobre símbolos y funciones matemática
 | `""`        | Delimitador de literales cadena                                                             |
 | `''`        | Delimitador de literales carácter                                                           |
 | ``` ` ` ``` | Delimitador de especificaciones de proceso externo (mandato)                                    |
-| `...`       | splice arguments into a function call or declare a varargs function or type                     |
-| `.`         | Acceso nombrado a campos en objectos/módulos, también llamadas a operator/function vectorizadas |
+| `...`       | Une argumentos en una llamada a función o declara una función o tipo varargs                    |
+| `.`         | Acceso nombrado a campos en objectos/módulos, también llamadas a operadores/funciones vectorizadas |
 | `a:b`       | Rango a, a+1, a+2, ..., b                                                                       |
 | `a:s:b`     | Rango a, a+s, a+2s, ..., b                                                                      |
-| `:`         | Indexa una dimensión entera (1:end)                                                         |
-| `::`        | Anotación de tipo ,dependiendo del contexto                                                 |
-| `:( )`      | Expresión citada                                                                           |
-| `:a`        | símbolo a                                                                                   |
+| `:`         | Indexa una dimensión entera (1:final)                                                       |
+| `::`        | Anotación de tipo, dependiendo del contexto                                                 |
+| `:( )`      | Expresión citada                                                                            |
+| `:a`        | Símbolo a                                                                                   |
 | `<:`        | [`subtype operator`](@ref <:)                                                               |
-| `>:`        | [`supertype operator`](@ref >:) (reverse of subtype operator)                               |
+| `>:`        | [`supertype operator`](@ref >:) (contrario al anterior)                                     |
 | `===`       | [`egal comparison operator`](@ref ===)                                                      |
