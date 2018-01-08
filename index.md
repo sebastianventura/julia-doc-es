@@ -43,16 +43,16 @@
 
 ## Standard Library
 
-* [Esenciales](@ref base)
+* [Esenciales](@ref essentials)
 * [Colecciones y Estructuras de Datos](@ref collections)
 * [Matemáticas](@ref math)
-* [Números](@ref numbers)
-* [Cadenas](@ref strings)
-* [Arrays](@ref arrays)
-* [Tareas y Computación Paralela](@ref parallel)
-* [Álgebra Lineal](@ref linalg)
-* [Constantes](@ref constants)
-* [Sistema de Ficheros](@ref file)
+* [Números](@ref lib-numbers)
+* [Cadenas](@ref lib-strings)
+* [Arrays](@ref lib-arrays)
+* [Tareas y Computación Paralela](@ref tasks-and-parallel-computing)
+* [Álgebra Lineal](@ref lib-linear-algebra)
+* [Constantes](@ref lib-constants)
+* [Sistema de Ficheros](@ref filesystem)
 * [E/S y Redes](@ref io-network)
 * [Puntuación](@ref punctuation)
 * [Ordenación y Funciones Relacionadas](@ref sort)
@@ -62,10 +62,10 @@
 * [Realizando Pruebas Unitarias](@ref test)
 * [Interfaz C](@ref c)
 * [Librería Estándar C](@ref libc)
-* [Enlazador Dinámico](@ref libdl)
+* [Enlazador Dinámico](@ref dynamic-linker)
 * [Realización de Perfiles](@ref profiling)
 * [*StackTraces*](@ref stacktraces)
-* [Soporte SIMD](@ref simd-types)
+* [Soporte SIMD](@ref simd-support)
 
 ## Developer Documentation
 
