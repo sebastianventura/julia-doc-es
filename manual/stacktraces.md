@@ -168,7 +168,7 @@ ERROR: Whoops!
 
 ## Comparación con [`backtrace()`](@ref)
 
-Una llamada a [`backtrace()`] (@ ref) devuelve un vector de `Ptr{Void}`, que puede pasarse luego a [`stacktrace()`](@ref) para la traducción:
+Una llamada a [`backtrace()`] (@ref) devuelve un vector de `Ptr{Void}`, que puede pasarse luego a [`stacktrace()`](@ref) para la traducción:
 
 ```julia-repl
 julia> trace = backtrace()
