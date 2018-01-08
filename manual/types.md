@@ -905,7 +905,7 @@ julia> [Polar(3, 4.0), Polar(4.0,5.3)]
 ```
 
 donde se sigue utilizando la forma de línea `show(io, z)` para un array de valores  `Polar`. Técnicamente, el REPL llama a  `display(z)` para mostrar el resultado de ejecutar una línea que por defecto es `show (STDOUT, MIME (" text / plain "), z)`,
- que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [` display () `] (@ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref multimedia-io)).
+ que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [`display() `] (@ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref multimedia-io)).
 
 Además, también puede definir métodos `show` para otros tipos MIME para permitir una visualización más rica (HTML, imágenes, etc.) de los objetos en entornos que lo admitan (por ejemplo, IJulia). Por ejemplo, podemos definir la visualización HTML formateada de objetos `Polar`, con superíndices y cursiva, a través de:
 
@@ -1046,7 +1046,7 @@ julia> get(Nullable(1.0), 0.0)
 
 !!! tip
     Asegúrese de que el tipo de valor predeterminado pasado a `get ()` y el del objeto `Nullable` coincidan para evitar 
-    la inestabilidad de tipo, lo que podría perjudicar el rendimiento. Utilice [`convert ()`] (@ref) manualmente si 
+    la inestabilidad de tipo, lo que podría perjudicar el rendimiento. Utilice [`convert()`] (@ref) manualmente si 
     es necesario.
 
 ### Realizando operaciones sobre objetos `Nullable`

@@ -402,7 +402,7 @@ shell> git command arguments...    # command will apply to Foo
 
 Ahora supongamos que está listo para hacer algunos cambios en `Foo`. Si bien hay varios enfoques posibles, aquí hay uno que se utiliza ampliamente:
 
-  * Desde el prompt de Julia, escriba [`Pkg.checkout (" Foo ")`] (@ref). Esto garantiza que está ejecutando 
+  * Desde el prompt de Julia, escriba [`Pkg.checkout("Foo")`] (@ref). Esto garantiza que está ejecutando 
     el último código (la rama `master`), en lugar de cualquier copia de la "versión oficial" que haya instalado. 
     (Si planea corregir un error, en este punto es una buena idea verificar nuevamente si el error ya ha sido 
     corregido por otra persona. Si lo ha hecho, puede solicitar que se etiquete un nuevo lanzamiento oficial 
@@ -424,7 +424,7 @@ Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocu
      del paquete que te has asegurado de que el código funcione según lo previsto.
    * Ejecuta las pruebas del paquete y asegúrate de que pasen. Hay varias formas de ejecutar las pruebas:
 
-      * Desde Julia, ejecuta [`Pkg.test (" Foo ")`] (@ref): esto ejecutará tus pruebas en un proceso 
+      * Desde Julia, ejecuta [`Pkg.test("Foo")`] (@ref): esto ejecutará tus pruebas en un proceso 
         separado (nuevo) `julia`.
       * Desde Julia, `include("runtests.jl")` desde la carpeta `test/` del paquete (es posible que el 
         archivo tenga un nombre diferente, busque uno que ejecute todas las pruebas): esto te permite 
