@@ -100,7 +100,7 @@ end
 
 Este ejemplo primero asigna un array de bytes, luego llama a la función de biblioteca C `gethostname` para llenar el array con el nombre de host, toma un puntero al buffer de nombre de host, y convierte el puntero a una cadena Julia, asumiendo que es una cadena C terminada en NUL. Es común que las bibliotecas C usen este patrón de requerir al llamador que asigne memoria para que la pase al llamado y la complete. La asignación de la memoria de Julia se logra generalmente creando un array no inicializada y pasando un puntero a sus datos a la función C. Es por eso que no usamos el tipo `Cstring` aquí: como la matriz no está inicializada, podría contener bytes NUL. Convertir a `Cstring` como parte de [`ccall`](@ref) comprueba si hay bytes NUL contenidos y, por lo tanto, puede arrojar un error de conversión.
 
-## creando Punteros a Función Julia Compatibles con C
+## Creando Punteros a Función Julia Compatibles con C
 
 Es posible pasar funciones Julia a funciones C nativas que aceptan argumentos punteros a función. Por ejemplo, para emparejar prototipos C de la forma:
 
