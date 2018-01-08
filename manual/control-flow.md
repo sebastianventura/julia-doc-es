@@ -4,10 +4,10 @@ Julia proporciona una variedad de construcciones para control de flujo:
 
   * [Expresiones Compuestas](@ref man-compound-expressions): `begin` and `(;)`.
   * [Evaluación Condicional](@ref man-conditional-evaluation): `if`-`elseif`-`else` and `?:` (ternary operator).
-  * [Evaluación en Cortocircuito](@ref short-circuit-evaluation): `&&`, `||` and chained comparisons. 
-  * [Evaluación Repetida: Bucles](@ref man-loops): `while` and `for`.
+  * [Evaluación en Cortocircuito](@ref short-circuit-evaluation): `&&`, `||` and chained comparisons. 
+  * [Evaluación Repetida: Bucles](@ref man-loops): `while` and `for`.
   * [Manejo de Excepciones](@ref): `try`-`catch`, [`error()`](@ref) and [`throw()`](@ref).
-  * [Tareas (también denominadas Coroutinas)](@ref man-tasks): [`yieldto()`](@ref).
+  * [Tareas (también denominadas Coroutinas)](@ref man-tasks): [`yieldto()`](@ref).
 
 Los cinco primeros mecanismos de control de flujo son estándar en los lenguajes de programación de alto nivel. Las [tareas](@ref tasks) no son un mecanismo tan estándar: ellas proporcionan control de flujo no local, haciendo posible conmutar entre cálculos suspendidos temporalmente. Esta es una construcción potente: tanto el manejo de excepciones como la multitarea cooperativa se implementan en Julia usando tareas. La programación diaria no suele requerir el uso de tareas, pero ciertos problemas se resuelve de forma mucho más sencilla usando este mecanismo.
 

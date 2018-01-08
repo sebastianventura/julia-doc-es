@@ -147,7 +147,7 @@ Las funciones [`addprocs()`](@ref), [`rmprocs()`](@ref), [`workers()`](@ref), y 
 
 Note que los *workers* no ejecutan un script `.juliarc.jl` de inicio, ni sincronizan su estado global (tal como variables globales, nuevas definiciones de métodos y módulos cargados) con cualquiera de los procesos que están ejecutando.
 
-Pueden soportarse otros tipos de clústers escribiendo nuestro propio `ClusterManager`, como se describe después en la sección [ClusterManagers](@ref clustermanagers) section.
+Pueden soportarse otros tipos de clústers escribiendo nuestro propio `ClusterManager`, como se describe después en la sección ClusterManagers section.
 
 ## Movimiento de Datos
 
@@ -289,7 +289,7 @@ a = zeros(100000)
 end
 ```
 
-Este código no inicializará todo `a`, ya que cada proceso tendrá una copia separada de él. Los bucles for paralelos como éste deben ser evitados. Afortunadamente, podemos usar los [arrays compartidos](@ref man-shared-arrays) para sortear esta limitación:
+Este código no inicializará todo `a`, ya que cada proceso tendrá una copia separada de él. Los bucles for paralelos como éste deben ser evitados. Afortunadamente, podemos usar los arrays compartidos para sortear esta limitación:
 
 ```julia
 a = SharedArray{Float64}(10)
