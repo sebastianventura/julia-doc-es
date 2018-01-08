@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Números enteros y en punto flotante · The Julia Language</title><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28835595-6', 'auto');
+ga('send', 'pageview');
+</script><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../index.html"><img class="logo" src="../assets/logo.png" alt="The Julia Language logo"/></a><h1>The Julia Language</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="../search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../index.html">Home</a></li><li><span class="toctext">Manual</span><ul><li><a class="toctext" href="introduction.html">Introducción</a></li><li><a class="toctext" href="getting-started.html">Empezando</a></li><li><a class="toctext" href="variables.html">Variables</a></li><li class="current"><a class="toctext" href="integers-and-floating-point-numbers.html">Números enteros y en punto flotante</a><ul class="internal"><li><a class="toctext" href="#Enteros-1">Enteros</a></li><li><a class="toctext" href="#Números-en-Punto-Flotante-1">Números en Punto Flotante</a></li><li><a class="toctext" href="#Aritmética-de-Precisión-Arbitraria-1">Aritmética de Precisión Arbitraria</a></li><li><a class="toctext" href="#man-numeric-literal-coefficients-1">Coeficientes Literales Numéricos</a></li><li><a class="toctext" href="#Literales-cero-and-uno-1">Literales cero and uno</a></li></ul></li><li><a class="toctext" href="mathematical-operations.html">Mathematical Operations and Elementary Functions</a></li><li><a class="toctext" href="complex-and-rational-numbers.html">Números Racionales y Complejos</a></li><li><a class="toctext" href="strings.html">Strings</a></li><li><a class="toctext" href="functions.html">Funciones</a></li><li><a class="toctext" href="control-flow.html">Control Flow</a></li><li><a class="toctext" href="variables-and-scoping.html">Ámbito de las variables</a></li><li><a class="toctext" href="types.html">Tipos</a></li><li><a class="toctext" href="methods.html">Métodos</a></li><li><a class="toctext" href="constructors.html">Constructores</a></li><li><a class="toctext" href="conversion-and-promotion.html">Conversión and Promoción</a></li><li><a class="toctext" href="interfaces.html">Interfaces</a></li><li><a class="toctext" href="modules.html">Módulos</a></li><li><a class="toctext" href="documentation.html">Documentation</a></li><li><a class="toctext" href="metaprogramming.html">Metaprogramación</a></li><li><a class="toctext" href="arrays.html">Arrays Multi-dimensionales</a></li><li><a class="toctext" href="linear-algebra.html">Álgebra Lineal</a></li><li><a class="toctext" href="networking-and-streams.html">Redes y Flujos</a></li><li><a class="toctext" href="parallel-computing.html">Computación Paralela</a></li><li><a class="toctext" href="dates.html">Date and DateTime</a></li><li><a class="toctext" href="interacting-with-julia.html">Interactuando con Julia</a></li><li><a class="toctext" href="running-external-programs.html">Ejecutando programas externos</a></li><li><a class="toctext" href="calling-c-and-fortran-code.html">Llamando a código C y Fortran</a></li><li><a class="toctext" href="handling-operating-system-variation.html">Manejando variaciones en el Sistema Operativo</a></li><li><a class="toctext" href="environment-variables.html">Variables de Entorno</a></li><li><a class="toctext" href="embedding.html">Embedding Julia</a></li><li><a class="toctext" href="packages.html">Paquetes</a></li><li><a class="toctext" href="profile.html">Elaboración de Perfiles (<em>Profiling</em>)</a></li><li><a class="toctext" href="stacktraces.html">Trazas de Pila</a></li><li><a class="toctext" href="performance-tips.html">Performance Tips</a></li><li><a class="toctext" href="workflow-tips.html">Workflow Tips</a></li><li><a class="toctext" href="style-guide.html">Guía de Estilo</a></li><li><a class="toctext" href="faq.html">Frequently Asked Questions</a></li><li><a class="toctext" href="noteworthy-differences.html">Diferencias notables con otros idiomas</a></li><li><a class="toctext" href="unicode-input.html">Entrada Unicode</a></li></ul></li><li><span class="toctext">Standard Library</span><ul><li><a class="toctext" href="../stdlib/base.html">Essentials</a></li><li><a class="toctext" href="../stdlib/collections.html">Colecciones y Estructuras de Datos</a></li><li><a class="toctext" href="../stdlib/math.html">Matemáticas</a></li><li><a class="toctext" href="../stdlib/numbers.html">Números</a></li><li><a class="toctext" href="../stdlib/strings.html">Cadenas</a></li><li><a class="toctext" href="../stdlib/arrays.html">Arrays</a></li><li><a class="toctext" href="../stdlib/parallel.html">Tareas y Computación Paralela</a></li><li><a class="toctext" href="../stdlib/linalg.html">Álgebra Lineal</a></li><li><a class="toctext" href="../stdlib/constants.html">Constantes</a></li><li><a class="toctext" href="../stdlib/file.html">Sistema de Ficheros</a></li><li><a class="toctext" href="../stdlib/io-network.html">E/S y Redes</a></li><li><a class="toctext" href="../stdlib/punctuation.html">Puntuación</a></li><li><a class="toctext" href="../stdlib/sort.html">Ordenación y Funciones Relacionadas</a></li><li><a class="toctext" href="../stdlib/pkg.html">Funciones del Administrador de Paquetes</a></li><li><a class="toctext" href="../stdlib/dates.html">Fechas y  Tiempo</a></li><li><a class="toctext" href="../stdlib/iterators.html">Utilidades para Iteración</a></li><li><a class="toctext" href="../stdlib/test.html">Haciendo Pruebas Unitarias</a></li><li><a class="toctext" href="../stdlib/c.html">Interfaz C</a></li><li><a class="toctext" href="../stdlib/libc.html">Librería Estándar C</a></li><li><a class="toctext" href="../stdlib/libdl.html">Enlazador Dinámico</a></li><li><a class="toctext" href="../stdlib/profile.html">Profiling</a></li><li><a class="toctext" href="../stdlib/stacktraces.html"><em>StackTraces</em></a></li><li><a class="toctext" href="../stdlib/simd-types.html">Soporte SIMD</a></li></ul></li><li><span class="toctext">Developer Documentation</span><ul><li><a class="toctext" href="../devdocs/reflection.html">Reflection and introspection</a></li><li><span class="toctext">Documentation of Julia&#39;s Internals</span><ul><li><a class="toctext" href="../devdocs/init.html">Initialization of the Julia runtime</a></li><li><a class="toctext" href="../devdocs/ast.html">Julia ASTs</a></li><li><a class="toctext" href="../devdocs/types.html">Más sobre tipos</a></li><li><a class="toctext" href="../devdocs/object.html">Memory layout of Julia Objects</a></li><li><a class="toctext" href="../devdocs/eval.html">Eval of Julia code</a></li><li><a class="toctext" href="../devdocs/callconv.html">Calling Conventions</a></li><li><a class="toctext" href="../devdocs/compiler.html">High-level Overview of the Native-Code Generation Process</a></li><li><a class="toctext" href="../devdocs/functions.html">Julia Functions</a></li><li><a class="toctext" href="../devdocs/cartesian.html">Base.Cartesian</a></li><li><a class="toctext" href="../devdocs/meta.html">Talking to the compiler (the <code>:meta</code> mechanism)</a></li><li><a class="toctext" href="../devdocs/subarrays.html">SubArrays</a></li><li><a class="toctext" href="../devdocs/sysimg.html">System Image Building</a></li><li><a class="toctext" href="../devdocs/llvm.html">Working with LLVM</a></li><li><a class="toctext" href="../devdocs/stdio.html">printf() and stdio in the Julia runtime</a></li><li><a class="toctext" href="../devdocs/boundscheck.html">Bounds checking</a></li><li><a class="toctext" href="../devdocs/locks.html">Proper maintenance and care of multi-threading locks</a></li><li><a class="toctext" href="../devdocs/offset-arrays.html">Arrays with custom indices</a></li><li><a class="toctext" href="../devdocs/libgit2.html">Base.LibGit2</a></li><li><a class="toctext" href="../devdocs/require.html">Module loading</a></li></ul></li><li><span class="toctext">Developing/debugging Julia&#39;s C code</span><ul><li><a class="toctext" href="../devdocs/backtraces.html">Reporting and analyzing crashes (segfaults)</a></li><li><a class="toctext" href="../devdocs/debuggingtips.html">gdb debugging tips</a></li><li><a class="toctext" href="../devdocs/valgrind.html">Usando Valgrind con Julia</a></li><li><a class="toctext" href="../devdocs/sanitizers.html">Sanitizer support</a></li></ul></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Manual</li><li><a href="integers-and-floating-point-numbers.html">Números enteros y en punto flotante</a></li></ul><a class="edit-page" href="https://github.com/JuliaLang/julia/tree/d386e40c17d43b79fc89d3e579fc04547241787c/doc/src/manual/integers-and-floating-point-numbers.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Números enteros y en punto flotante</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="integers-and-floating-point-numbers-1" href="#integers-and-floating-point-numbers-1">Números enteros y en punto flotante</a></h1><p>Los valores enteros y punto flotante son los bloques constructivos básicos de la aritmética y la computación. Las representaciones predefinidas para estos valores se denominan <em>tipos primitivos</em>, mientras que las reprentaciones de números enteros y en punto flotante como valores inmediatos en código se conocen como <em>literales numéricos</em>. Por ejemplo, <code>1</code> es un literal entero, mientras que <code>1.0</code> es un literal en punto flotante; sus representaciones binarias en memoria como objetos son los tipos primitivos.</p><p>Julia proporciona un amplio rango de tipos primitivos numéricos, y un complemento complemento de operadores aritméticos y de bits así como funciones matemáticas estándar definidas sobre ellos. Los operadores establecen una correspondencia enre los tipos numéricos y las operaciones que son soportadas de forma nativa sobre los ordenadores modernos, permitiendo a Julia sacar plena ventaja de los recursos computacionales. Además, Julia proporciona soporte software para <em>aritmética de precisión arbitraria</em> que puede manejar operaciones sobre valores numéricos que no puede ser representada de forma efectiva en representaciones hardware nativas, pero al coste de un rendimiento relativamente menor.</p><p>Los tipos primitivos de Julia son los siguientes:</p><ul><li><p><strong>Tipos enteros:</strong></p></li></ul><table><tr><th>Tipo            </th><th>Signo?</th><th>Número de bits</th><th>Valor más pequeño</th><th>Valor más grande</th></tr><tr><td><a href="../stdlib/numbers.html#Core.Int8"><code>Int8</code></a></td><td>✓</td><td>8</td><td>-2^7</td><td>2^7 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.UInt8"><code>UInt8</code></a></td><td> </td><td>8</td><td>0</td><td>2^8 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Int16"><code>Int16</code></a></td><td>✓</td><td>16</td><td>-2^15</td><td>2^15 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.UInt16"><code>UInt16</code></a></td><td> </td><td>16</td><td>0</td><td>2^16 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Int32"><code>Int32</code></a></td><td>✓</td><td>32</td><td>-2^31</td><td>2^31 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.UInt32"><code>UInt32</code></a></td><td> </td><td>32</td><td>0</td><td>2^32 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Int64"><code>Int64</code></a></td><td>✓</td><td>64</td><td>-2^63</td><td>2^63 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.UInt64"><code>UInt64</code></a></td><td> </td><td>64</td><td>0</td><td>2^64 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Int128"><code>Int128</code></a></td><td>✓</td><td>128</td><td>-2^127</td><td>2^127 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.UInt128"><code>UInt128</code></a></td><td> </td><td>128</td><td>0</td><td>2^128 - 1</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Bool"><code>Bool</code></a></td><td>N/A</td><td>8</td><td><code>false</code> (0)</td><td><code>true</code> (1)</td></tr></table><ul><li><p><strong>Tipos en punto flotante:</strong></p></li></ul><table><tr><th>Tipo            </th><th>Precisión                                                                      </th><th>Número de bits</th></tr><tr><td><a href="../stdlib/numbers.html#Core.Float16"><code>Float16</code></a></td><td><a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format">media</a></td><td>16</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Float32"><code>Float32</code></a></td><td><a href="https://en.wikipedia.org/wiki/Single_precision_floating-point_format">sencilla</a></td><td>32</td></tr><tr><td><a href="../stdlib/numbers.html#Core.Float64"><code>Float64</code></a></td><td><a href="https://en.wikipedia.org/wiki/Double_precision_floating-point_format">doble</a></td><td>64</td></tr></table><p>Adicionalmente, se ha construído un soporte completo para <a href="complex-and-rational-numbers.html#complex-and-rational-numbers-1">Números Complejos y Racionales</a> encima de estos tipos primitivos. Todos los tipos primitivos interoperan de forma natural sin tener que realizar conversiones específicas, gracias a un <a href="conversion-and-promotion.html#conversion-and-promotion-1">sistema de promoción de tipos</a> flexible y extensible por el usuario.</p><h2><a class="nav-anchor" id="Enteros-1" href="#Enteros-1">Enteros</a></h2><p>Los literales enteros se representan del modo estándar:</p><pre><code class="language-julia-repl">julia&gt; 1
+1
+
+julia&gt; 1234
+1234</code></pre><p>El tipo por defecto para un literal entero depende de si el sistema de trabajo tiene una aquitectura de 32 o de 64 bits:</p><pre><code class="language-julia-repl"># 32-bit system:
+julia&gt; typeof(1)
+Int32
+
+# 64-bit system:
+julia&gt; typeof(1)
+Int64</code></pre><p>La variable interna de Julia <a href="../stdlib/constants.html#Base.Sys.WORD_SIZE"><code>Sys.WORD_SIZE</code></a> indica si el sistema en el que trabajamos es de 32 bits o de 64 bits:</p><pre><code class="language-julia-repl"># 32-bit system:
+julia&gt; Sys.WORD_SIZE
+32
+
+# 64-bit system:
+julia&gt; Sys.WORD_SIZE
+64</code></pre><p>Julia también define los tipos <code>Int</code> y <code>UInt</code>, que son aliases para los tipos enteros nativos del sistema con y sin signo:</p><pre><code class="language-julia-repl"># 32-bit system:
+julia&gt; Int
+Int32
+julia&gt; UInt
+UInt32
+
+# 64-bit system:
+julia&gt; Int
+Int64
+julia&gt; UInt
+UInt64</code></pre><p>Los literales enteros mayores que no pueden ser representados usando sólo 32 bits pero pueden ser representados en 64 bits se crean como enteros de 64 bits, independientemente del tipo que tenga el sistema por defecto:</p><pre><code class="language-julia-repl"># 32-bit or 64-bit system:
+julia&gt; typeof(3000000000)
+Int64</code></pre><p>Los enteros sin signo se introducen y se muestran usando el prefijo <code>0x</code> y los dígitos hexadecimales <code>0-9a-f</code> (los dígitos capitalizados <code>A-F</code> también funcionan para la entrada). El tamaño de un valor sin signo está determinado por el número de dígitos hexadecimales usados:</p><pre><code class="language-julia-repl">julia&gt; 0x1
+0x01
+
+julia&gt; typeof(ans)
+UInt8
+
+julia&gt; 0x123
+0x0123
+
+julia&gt; typeof(ans)
+UInt16
+
+julia&gt; 0x1234567
+0x01234567
+
+julia&gt; typeof(ans)
+UInt32
+
+julia&gt; 0x123456789abcdef
+0x0123456789abcdef
+
+julia&gt; typeof(ans)
+UInt64</code></pre><p>Este comportamiento está basado en la observación de que cuando uno usa literales hexadecimales sin signo para valores enteros, se los suele utilizar para representar una secuencia de bytes numéricos fijos en lugar de un valor entero.</p><p>Recuerde que la variable <a href="../stdlib/base.html#ans"><code>ans</code></a> contiene el valor de la última expresión evaluada en una sesión interactiva. Esto no ocurre cuando el código Julia se ejecuta de otra forma.</p><p>Los literales binarios y octales también están soportados:</p><pre><code class="language-julia-repl">julia&gt; 0b10
+0x02
+
+julia&gt; typeof(ans)
+UInt8
+
+julia&gt; 0o10
+0x08
+
+julia&gt; typeof(ans)
+UInt8</code></pre><p>Los valores máximo y mínimo de tipos primitivos numéricos representables como enteros vienen dados por las funciones  <a href="../stdlib/base.html#Base.typemin"><code>typemin()</code></a> y <a href="../stdlib/base.html#Base.typemax"><code>typemax()</code></a>:</p><pre><code class="language-julia-repl">julia&gt; (typemin(Int32), typemax(Int32))
+(-2147483648, 2147483647)
+
+julia&gt; for T in [Int8,Int16,Int32,Int64,Int128,UInt8,UInt16,UInt32,UInt64,UInt128]
+           println(&quot;$(lpad(T,7)): [$(typemin(T)),$(typemax(T))]&quot;)
+       end
+   Int8: [-128,127]
+  Int16: [-32768,32767]
+  Int32: [-2147483648,2147483647]
+  Int64: [-9223372036854775808,9223372036854775807]
+ Int128: [-170141183460469231731687303715884105728,170141183460469231731687303715884105727]
+  UInt8: [0,255]
+ UInt16: [0,65535]
+ UInt32: [0,4294967295]
+ UInt64: [0,18446744073709551615]
+UInt128: [0,340282366920938463463374607431768211455]</code></pre><p>Los valores devueltos por <a href="../stdlib/base.html#Base.typemin"><code>typemin()</code></a> y <a href="../stdlib/base.html#Base.typemax"><code>typemax()</code></a> siempre son del tipo de argumento dado. (La expresión anterior utiliza varias características que todavía tenemos que introducir, incluyendo <a href="control-flow.html#man-loops-1">bucles for</a>, <a href="strings.html#man-strings-1">Cadenas</a>, e <a href="strings.html#string-interpolation-1">Interpolación</a>, pero debería ser lo suficientemente fácil de entender para los usuarios con cierta experiencia en programación).)</p><h3><a class="nav-anchor" id="Comportamiento-ante-el-Desbordamiento-1" href="#Comportamiento-ante-el-Desbordamiento-1">Comportamiento ante el Desbordamiento</a></h3><p>En Julia, superar el valor máximo representable de un tipo dado da como resultado un comportamiento envolvente:</p><pre><code class="language-julia-repl">julia&gt; x = typemax(Int64)
+9223372036854775807
+
+julia&gt; x + 1
+-9223372036854775808
+
+julia&gt; x + 1 == typemin(Int64)
+true</code></pre><p>Así, la aritmética con enteros de Julia es en realidad una forma de <a href="https://en.wikipedia.org/wiki/Modular_arithmetic">aritmética modular</a>. Esto refleja las características de la aritmética subyacente de números enteros tal como se implementa en las computadoras modernas. En aplicaciones donde es posible el desbordamiento, es esencial comprobar explícitamente el envolvente producido por el desbordamiento. De lo contrario, se recomienda el tipo <a href="../stdlib/numbers.html#Base.GMP.BigInt"><code>BigInt</code></a> en <a href="integers-and-floating-point-numbers.html#Aritmética-de-Precisión-Arbitraria-1">Aritmética de Precisión Arbitraria</a>.</p><h3><a class="nav-anchor" id="Errores-de-división-1" href="#Errores-de-división-1">Errores de división</a></h3><p>La división entera (la función <code>div</code>) tiene dos casos excepcionales: división por cero, y dividir el número  negativo más bajo  (<a href="../stdlib/base.html#Base.typemin"><code>typemin()</code></a>) por -1. Ambos casos lanzan un <a href="../stdlib/base.html#Core.DivideError"><code>DivideError</code></a>. El resto y las funciones de módulo (<code>rem</code> y <code>mod</code>) lanzan un  <a href="../stdlib/base.html#Core.DivideError"><code>DivideError</code></a> cuando su segundo argumento es cero.</p><h2><a class="nav-anchor" id="Números-en-Punto-Flotante-1" href="#Números-en-Punto-Flotante-1">Números en Punto Flotante</a></h2><p>Los literales de números en punto flotante son representados en las formas estándar:</p><pre><code class="language-julia-repl">julia&gt; 1.0
+1.0
+
+julia&gt; 1.
+1.0
+
+julia&gt; 0.5
+0.5
+
+julia&gt; .5
+0.5
+
+julia&gt; -1.23
+-1.23
+
+julia&gt; 1e10
+1.0e10
+
+julia&gt; 2.5e-4
+0.00025</code></pre><p>Los resultados anteriores son todos valores <a href="../stdlib/numbers.html#Core.Float64"><code>Float64</code></a>. Los valores literales <a href="../stdlib/numbers.html#Core.Float32"><code>Float32</code></a> pueden introducirse escribiendo <code>f</code> en lugar de <code>e</code>:</p><pre><code class="language-julia-repl">julia&gt; 0.5f0
+0.5f0
+
+julia&gt; typeof(ans)
+Float32
+
+julia&gt; 2.5f-4
+0.00025f0</code></pre><p>Los valores pueden ser convertidos a <a href="../stdlib/numbers.html#Core.Float32"><code>Float32</code></a> fácilmente:</p><pre><code class="language-julia-repl">julia&gt; Float32(-1.5)
+-1.5f0
+
+julia&gt; typeof(ans)
+Float32</code></pre><p>También son válidos los literales de punto flotante en formato hexadecimal, pero sólo como valores <a href="../stdlib/numbers.html#Core.Float64"><code>Float64</code></a>:</p><pre><code class="language-julia-repl">julia&gt; 0x1p0
+1.0
+
+julia&gt; 0x1.8p3
+12.0
+
+julia&gt; 0x.4p-1
+0.125
+
+julia&gt; typeof(ans)
+Float64</code></pre><p>También esta soportados los números en punto flotante de media precisión (<a href="../stdlib/numbers.html#Core.Float16"><code>Float16</code></a>), pero ellos están implementados en software y usan <a href="../stdlib/numbers.html#Core.Float32"><code>Float32</code></a> para los cálculos.</p><pre><code class="language-julia-repl">julia&gt; sizeof(Float16(4.))
+2
+
+julia&gt; 2*Float16(4.)
+Float16(8.0)</code></pre><p>El guión bajo (<em>underscore</em>) puede usarse como separador de dígitos:</p><pre><code class="language-julia-repl">julia&gt; 10_000, 0.000_000_005, 0xdead_beef, 0b1011_0010
+(10000, 5.0e-9, 0xdeadbeef, 0xb2)</code></pre><h3><a class="nav-anchor" id="Cero-en-punto-flotante-1" href="#Cero-en-punto-flotante-1">Cero en punto flotante</a></h3><p>Los números en punto flotante tienen <a href="https://en.wikipedia.org/wiki/Signed_zero">dos ceros</a>, positivo y negativo. Ellos son iguales entre sí, pero tienen distintas representaciones, como puede verse si usamos la función <code>bits</code>:</p><pre><code class="language-julia-repl">julia&gt; 0.0 == -0.0
+true
+
+julia&gt; bits(0.0)
+&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+
+julia&gt; bits(-0.0)
+&quot;1000000000000000000000000000000000000000000000000000000000000000&quot;</code></pre><h3><a class="nav-anchor" id="special-floating-point-values-1" href="#special-floating-point-values-1">Valores especiales en punto flotante</a></h3><p>Hay tres valores especificados en el estándar de punto flotante para valores que no se corresponden  con ningún punto en la línea de números reales:</p><table><tr><th><code>Float16</code></th><th><code>Float32</code></th><th><code>Float64</code></th><th>Name</th><th>Description</th></tr><tr><td><code>Inf16</code></td><td><code>Inf32</code></td><td><code>Inf</code></td><td>Infinito positivo</td><td>Un valor mayor que todos los valores finitos de punto flotante</td></tr><tr><td><code>-Inf16</code></td><td><code>-Inf32</code></td><td><code>-Inf</code></td><td>Infinito negativo</td><td>Un valor menos que todos los valores finitos de punto flotante</td></tr><tr><td><code>NaN16</code>  </td><td><code>NaN32</code>  </td><td><code>NaN</code>    </td><td><em>not a number</em>  </td><td>Un valor no <code>==</code> a otro valor en punto flotante (incluido el mismo)</td></tr></table><p>Para más información sobre cómo estos valores de punto flotante no finitos están ordenados entre sí y otros flotantes, vea <a href="mathematical-operations.html#numeric-comparisons-1">Comparaciones Numéricas</a>. Mediante el <a href="https://en.wikipedia.org/wiki/IEEE_754-2008">estándar IEEE 754</a>, estos valores de punto flotante son el resultado de ciertas operaciones aritméticas:</p><pre><code class="language-julia-repl">julia&gt; 1/Inf
+0.0
+
+julia&gt; 1/0
+Inf
+
+julia&gt; -5/0
+-Inf
+
+julia&gt; 0.000001/0
+Inf
+
+julia&gt; 0/0
+NaN
+
+julia&gt; 500 + Inf
+Inf
+
+julia&gt; 500 - Inf
+-Inf
+
+julia&gt; Inf + Inf
+Inf
+
+julia&gt; Inf - Inf
+NaN
+
+julia&gt; Inf * Inf
+Inf
+
+julia&gt; Inf / Inf
+NaN
+
+julia&gt; 0 * Inf
+NaN</code></pre><p>Las funciones <a href="../stdlib/base.html#Base.typemin"><code>typemin()</code></a> y <a href="../stdlib/base.html#Base.typemax"><code>typemax()</code></a> también se aplican a los tipos en punto flotante:</p><pre><code class="language-julia-repl">julia&gt; (typemin(Float16),typemax(Float16))
+(-Inf16, Inf16)
+
+julia&gt; (typemin(Float32),typemax(Float32))
+(-Inf32, Inf32)
+
+julia&gt; (typemin(Float64),typemax(Float64))
+(-Inf, Inf)</code></pre><h3><a class="nav-anchor" id="Epsilon-de-máquina-1" href="#Epsilon-de-máquina-1">Epsilon de máquina</a></h3><p>La mayoría de los números reales no pueden representarse exactamente con números de coma flotante, por lo que para muchos propósitos es importante conocer la distancia entre dos números de punto flotante representables adyacentes, lo que a menudo se conoce como <a href="https://en.wikipedia.org/wiki/Machine_epsilon">epsilon de máquina</a>.</p><p>Julia proporciona <a href="../stdlib/dates.html#Base.eps"><code>eps()</code></a>, que da la distancia entre 1,0 y el siguiente valor de punto flotante representable más grande:</p><pre><code class="language-julia-repl">julia&gt; eps(Float32)
+1.1920929f-7
+
+julia&gt; eps(Float64)
+2.220446049250313e-16
+
+julia&gt; eps() # same as eps(Float64)
+2.220446049250313e-16</code></pre><p>Estos valores son <code>2.0^-23</code> y <code>2.0^-52</code> como valores <a href="../stdlib/numbers.html#Core.Float32"><code>Float32</code></a> y <a href="../stdlib/numbers.html#Core.Float64"><code>Float64</code></a>, respectivamente. La función <a href="../stdlib/dates.html#Base.eps"><code>eps()</code></a> también puede tomar un valor de punto flotante como un argumento y da la diferencia absoluta entre ese valor y el siguiente valor de punto flotante representable. Es decir, <code>eps(x)</code> produce un valor del mismo tipo que <code>x</code> tal que <code>x</code> + <code>eps(x)</code> es el siguiente valor de punto flotante representable mayor que <code>x</code>:</p><pre><code class="language-julia-repl">julia&gt; eps(1.0)
+2.220446049250313e-16
+
+julia&gt; eps(1000.)
+1.1368683772161603e-13
+
+julia&gt; eps(1e-27)
+1.793662034335766e-43
+
+julia&gt; eps(0.0)
+5.0e-324</code></pre><p>La distancia entre dos números de punto flotante representables adyacentes no es constante, pero es menor para valores más pequeños y mayor para valores mayores. En otras palabras, los números de punto flotante representables son más densos en la línea de números reales cerca de cero, y crecen exponencialmente dispersos a medida que uno se aleja de cero. Por definición, <code>eps(1.0)</code> es el mismo que <code>eps(Float64)</code> ya que <code>1.0</code> es un valor de coma flotante de 64 bits.</p><p>Julia también proporciona las funciones <a href="../stdlib/numbers.html#Base.nextfloat"><code>nextfloat()</code></a> y <a href="../stdlib/numbers.html#Base.prevfloat"><code>prevfloat()</code></a> que devuelven el siguiente número de punto flotante representable más grande o más pequeño al argumento, respectivamente:</p><pre><code class="language-julia-repl">julia&gt; x = 1.25f0
+1.25f0
+
+julia&gt; nextfloat(x)
+1.2500001f0
+
+julia&gt; prevfloat(x)
+1.2499999f0
+
+julia&gt; bits(prevfloat(x))
+&quot;00111111100111111111111111111111&quot;
+
+julia&gt; bits(x)
+&quot;00111111101000000000000000000000&quot;
+
+julia&gt; bits(nextfloat(x))
+&quot;00111111101000000000000000000001&quot;</code></pre><p>Este ejemplo resalta el principio general de que los números de punto flotante representables adyacentes también tienen representaciones binarias enteras adyacentes.</p><h3><a class="nav-anchor" id="Modos-de-Redondeo-1" href="#Modos-de-Redondeo-1">Modos de Redondeo</a></h3><p>Si un número no tiene una representación de punto flotante exacta, debe redondearse a un valor representable apropiado. Sin embargo, si se desea, la forma en que se realiza este redondeo puede cambiarse de acuerdo con los modos de redondeo presentados en el <a href="https://en.wikipedia.org/wiki/IEEE_754-2008">estándar IEEE 754</a>.</p><pre><code class="language-julia-repl">julia&gt; x = 1.1; y = 0.1;
+
+julia&gt; x + y
+1.2000000000000002
+
+julia&gt; setrounding(Float64,RoundDown) do
+           x + y
+       end
+1.2</code></pre><p>El modo predeterminado utilizado siempre es <a href="../stdlib/math.html#Base.Rounding.RoundNearest"><code>RoundNearest</code></a>, , que redondea al valor representable  más cercano, con arcos redondeados hacia el valor más cercano con un bit menos significativo.</p><div class="admonition warning"><div class="admonition-title">Warning</div><div class="admonition-text"><p>El redondeo generalmente sólo es correcto para las funciones aritméticas básicas (<a href="../stdlib/math.html#Base.:+"><code>+()</code></a>,  <a href="../stdlib/math.html#Base.:--Tuple{Any}"><code>-()</code></a>, <a href="../stdlib/strings.html#Base.:*-Tuple{AbstractString,Vararg{Any,N} where N}"><code>*()</code></a>, <a href="../stdlib/math.html#Base.:/"><code>/()</code></a> and <a href="../stdlib/math.html#Base.sqrt"><code>sqrt()</code></a>) y las operaciones de conversión  de tipos. Muchas otras funciones asumen que el modo por defecto <a href="../stdlib/math.html#Base.Rounding.RoundNearest"><code>RoundNearest</code></a> está  establecido y pueden dar resultados erróneos al operar bajo otros modos de redondeo.</p></div></div><h3><a class="nav-anchor" id="Antecedentes-y-referencias-1" href="#Antecedentes-y-referencias-1">Antecedentes y referencias</a></h3><p>La aritmética de punto flotante supone muchas sutilezas que pueden sorprender a los usuarios que no  están familiarizados con los detalles de implementación de bajo nivel. Sin embargo, estas sutilezas  se describen en detalle en la mayoría de los libros sobre computación científica, y también en las  siguientes referencias:</p><ul><li><p>La guía definitiva para la aritmética de coma flotante es el estándar [IEEE 754-2008 (http://standards.ieee.org/findstds/standard/754-2008.html); Sin embargo, no está disponible </p></li></ul><p>en línea gratis.</p><ul><li><p>Para una presentación breve pero lúcida de cómo los números de punto flotante están </p></li></ul><p> representados, vea el <a href="https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/">artículo de John D. Cook</a> sobre el tema, así como su <a href="https://www.johndcook.com/blog/2009/04/06/numbers-are-a-leaky-abstraction/">introducción</a> a algunas de las cuestiones que surgen de cómo esta representación difiere en el comportamiento de la abstracción idealizada de números reales.   * También se recomienda la serie de <a href="https://randomascii.wordpress.com/2012/05/20/thats-not-normalthe-performance-of-odd-floats/">publicaciones de Bruce Dawson sobre números en punto flotante</a>.</p><ul><li><p>Para un excelente y profundo análisis de los números de punto flotante y los problemas de precisión numérica encontrados al calcular con ellos, vea el artículo de David Goldberg <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.22.6768&amp;rep=rep1&amp;type=pdf">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a>.</p></li><li><p>Para una documentación aún más extensa de la historia de, la razón y las cuestiones con los números de punto flotante, así como la discusión de muchos otros temas en la computación numérica, ver los <a href="https://people.eecs.berkeley.edu/~wkahan/">escritos recolectados</a> de <a href="https://en.wikipedia.org/wiki/William_Kahan">William Kahan</a>, comúnmente conocido como el &quot;padre de punto flotante&quot;. De interés particular puede ser <a href="https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html">An Interview with the Old Man of Floating-Point</a>.</p></li></ul><h2><a class="nav-anchor" id="Aritmética-de-Precisión-Arbitraria-1" href="#Aritmética-de-Precisión-Arbitraria-1">Aritmética de Precisión Arbitraria</a></h2><p>Para permitir cálculos con enteros y números de coma flotante de precisión arbitraria, Julia envuelve la <a href="https://gmplib.org">Biblioteca Aritmética de Precisión Múltiple GNU (GMP)</a> y la <a href="http://www.mpfr.org">biblioteca GNU MPFR</a>, respectivamente. Los tipos <a href="../stdlib/numbers.html#Base.GMP.BigInt"><code>BigInt</code></a> y <a href="../stdlib/numbers.html#Base.MPFR.BigFloat"><code>BigFloat</code></a> están disponibles en Julia para números enteros de precisión arbitraria y números de coma flotante, respectivamente.</p><p>Existen constructores para crear estos tipos de tipos numéricos primitivos, y podemos también utilizar <a href="../stdlib/numbers.html#Base.parse-Tuple{Type,Any,Any}"><code>parse()</code></a> para construirlos a partir de <code>AbstractString</code>s.  Una vez creados, participan en la aritmética con todos los demás tipos numéricos gracias al <a href="conversion-and-promotion.html#conversion-and-promotion-1">mecanismo de promotion y conversion de tipos</a> de Julia:</p><pre><code class="language-julia-repl">julia&gt; BigInt(typemax(Int64)) + 1
+9223372036854775808
+
+julia&gt; parse(BigInt, &quot;123456789012345678901234567890&quot;) + 1
+123456789012345678901234567891
+
+julia&gt; parse(BigFloat, &quot;1.23456789012345678901&quot;)
+1.234567890123456789010000000000000000000000000000000000000000000000000000000004
+
+julia&gt; BigFloat(2.0^66) / 3
+2.459565876494606882133333333333333333333333333333333333333333333333333333333344e+19
+
+julia&gt; factorial(BigInt(40))
+815915283247897734345611269596115894272000000000</code></pre><p>Sin embargo, la promoción de tipos entre los tipos primitivos ya vistos y <a href="../stdlib/numbers.html#Base.GMP.BigInt"><code>BigInt</code></a>/<a href="../stdlib/numbers.html#Base.MPFR.BigFloat"><code>BigFloat</code></a> no es automática y debe ser establecida explícitamente: </p><pre><code class="language-julia-repl">julia&gt; x = typemin(Int64)
+-9223372036854775808
+
+julia&gt; x = x - 1
+9223372036854775807
+
+julia&gt; typeof(x)
+Int64
+
+julia&gt; y = BigInt(typemin(Int64))
+-9223372036854775808
+
+julia&gt; y = y - 1
+-9223372036854775809
+
+julia&gt; typeof(y)
+BigInt</code></pre><p>La precisión predeterminada (en número de bits del significado) y el modo de redondeo de las operaciones de <a href="../stdlib/numbers.html#Base.MPFR.BigFloat"><code>BigFloat</code></a> pueden cambiarse globalmente llamando <a href="../stdlib/numbers.html#Base.MPFR.setprecision"><code>setprecision()</code></a> and <a href="../stdlib/numbers.html#Base.Rounding.setrounding-Tuple{Type,Any}"><code>setrounding()</code></a>, y todos los cálculos adicionales tomarán en cuenta estos cambios. Alternativamente, la precisión o el redondeo se puede cambiar dentro sólo de la ejecución de un bloque particular de código utilizando las mismas funciones dentro de un bloque <code>do</code>:</p><pre><code class="language-julia-repl">julia&gt; setrounding(BigFloat, RoundUp) do
+           BigFloat(1) + parse(BigFloat, &quot;0.1&quot;)
+       end
+1.100000000000000000000000000000000000000000000000000000000000000000000000000003
+
+julia&gt; setrounding(BigFloat, RoundDown) do
+           BigFloat(1) + parse(BigFloat, &quot;0.1&quot;)
+       end
+1.099999999999999999999999999999999999999999999999999999999999999999999999999986
+
+julia&gt; setprecision(40) do
+           BigFloat(1) + parse(BigFloat, &quot;0.1&quot;)
+       end
+1.1000000000004</code></pre><h2><a class="nav-anchor" id="man-numeric-literal-coefficients-1" href="#man-numeric-literal-coefficients-1">Coeficientes Literales Numéricos</a></h2><p>Para hacer más claras fórmulas numéricas y expresiones, Julia permite que las variables sean precedidas inmediatamente por un literal numérico, implicando la multiplicación. Esto hace que la escritura de las expresiones polinómicas sea mucho más limpias:</p><pre><code class="language-jldoctest">julia&gt; x = 3
+3
+
+julia&gt; 2x^2 - 3x + 1
+10
+
+julia&gt; 1.5x^2 - .5x + 1
+13.0</code></pre><p>También hace que escribir funciones exponenciales sea más elegante:</p><pre><code class="language-jldoctest">julia&gt; 2^2x
+64</code></pre><p>La precedencia de los coeficientes literales numéricos es la misma que la de los operadores unarios como la negación. Así que <code>2^3x</code> se analiza como <code>2^(3x)</code>, y <code>2x^3</code> se analiza como <code>2*(x ^ 3)</code>.</p><p>Los literales numéricos también funcionan como coeficientes de las expresiones entre paréntesis:</p><pre><code class="language-jldoctest">julia&gt; 2(x-1)^2 - 3(x-1) + 1
+3</code></pre><div class="admonition note"><div class="admonition-title">Note</div><div class="admonition-text"></div></div><p>   La precedencia de coeficientes literales numéricos usada para multiplicación      implícita es mayor que otros operadores binarios tales como la multiplicación     (<code>*</code>), y división (<code>/</code>, <code>\</code>, and <code>//</code>).  Esto significa, por ejemplo, que      <code>1 / 2im</code> es igual a <code>-0.5im</code> y <code>6 // 2(2 + 1)</code> es igual a <code>1 // 1</code>.</p><p>Además, las expresiones entre paréntesis se pueden utilizar como coeficientes a las variables, lo que implica la multiplicación de la expresión por la variable:</p><pre><code class="language-jldoctest">julia&gt; (x-1)x
+6</code></pre><p>Sin embargo, ni la yuxtaposición de dos expresiones entre paréntesis, ni la colocación de una variable antes de una expresión entre paréntesis puede ser usada para implicar multiplicación:</p><pre><code class="language-jldoctest">julia&gt; (x-1)(x+1)
+ERROR: MethodError: objects of type Int64 are not callable
+
+julia&gt; x(x+1)
+ERROR: MethodError: objects of type Int64 are not callable</code></pre><p>Ambas expresiones se interpretan como la aplicación de una función: cualquier expresión que no sea un literal numérico, inmediatamente seguida de una entre paréntesis, se interpreta como una función aplicada a los valores entre paréntesis (ver <a href="faq.html#functions-1">Funciones</a> para más información sobre las funciones). Por lo tanto, en ambos casos, se produce un error, ya que el valor de la izquierda no es una función.</p><p>Las mejoras sintácticas anteriores reducen significativamente el ruido visual producido al escribir fórmulas matemáticas comunes. Obsérvese que ningún espacio en blanco puede encontrarse entre un coeficiente literal numérico y el identificador o la expresión entre paréntesis que multiplica.</p><h3><a class="nav-anchor" id="Conflictos-de-Sintaxis-1" href="#Conflictos-de-Sintaxis-1">Conflictos de Sintaxis</a></h3><p>La sintaxis de los coeficientes literales yuxtapuestos puede entrar en conflicto con dos sintaxis numéricas literales: literales enteros hexadecimales y notación ingenieril para literales de punto flotante. Aquí hay algunas situaciones donde surgen conflictos sintácticos:</p><ul><li><p>La expresión literal de enteros hexadecimales <code>0xff</code> podría interpretarse como el literal numérico <code>0</code> multiplicado por la variable <code>xff</code>.</p></li><li><p>La expresión literal de punto flotante <code>1e10</code> podría interpretarse como el literal numérico <code>1</code> multiplicado por la variable <code>e10</code>, e igualmente con la forma <code>E</code> equivalente</p></li></ul><p>En ambos casos, resolvemos la ambigüedad a favor de la interpretación como literales numéricos:</p><ul><li><p>Las expresiones que comienzan con <code>0x</code> siempre son literales hexadecimales.</p></li><li><p>Las expresiones que empiezan con un literal numérico seguido por e o E siempre son literales de coma flotante.</p></li></ul><h2><a class="nav-anchor" id="Literales-cero-and-uno-1" href="#Literales-cero-and-uno-1">Literales cero and uno</a></h2><p>Julia proporciona funciones que devuelven los literales <code>0</code> y <code>1</code> correspondientes a un tipo especificado o al tipo de una variable dada.</p><table><tr><th>Function</th><th>Description</th></tr><tr><td><a href="../stdlib/numbers.html#Base.zero"><code>zero(x)</code></a></td><td>Literal cero del tipo <code>x</code> o del tipo de la variable <code>x</code></td></tr><tr><td><a href="../stdlib/numbers.html#Base.one"><code>one(x)</code></a></td><td>Literal uno del tipo <code>x</code> o del tipo de la variable <code>x</code></td></tr></table><p>Estas funciones son útiles en <a href="mathematical-operations.html#numeric-comparisons-1">comparaciones numéricas</a> para evitar la sobrecarga de una <a href="conversion-and-promotion.html#conversion-and-promotion-1">conversión de tipo</a> innecesaria.</p><p>Ejemplos:</p><pre><code class="language-julia-repl">julia&gt; zero(Float32)
+0.0f0
+
+julia&gt; zero(1.0)
+0.0
+
+julia&gt; one(Int32)
+1
+
+julia&gt; one(BigFloat)
+1.000000000000000000000000000000000000000000000000000000000000000000000000000000</code></pre><footer><hr/><a class="previous" href="variables.html"><span class="direction">Previous</span><span class="title">Variables</span></a><a class="next" href="mathematical-operations.html"><span class="direction">Next</span><span class="title">Mathematical Operations and Elementary Functions</span></a></footer></article></body></html>

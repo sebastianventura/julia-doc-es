@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Números Racionales y Complejos · The Julia Language</title><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28835595-6', 'auto');
+ga('send', 'pageview');
+</script><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../index.html"><img class="logo" src="../assets/logo.png" alt="The Julia Language logo"/></a><h1>The Julia Language</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="../search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../index.html">Home</a></li><li><span class="toctext">Manual</span><ul><li><a class="toctext" href="introduction.html">Introducción</a></li><li><a class="toctext" href="getting-started.html">Empezando</a></li><li><a class="toctext" href="variables.html">Variables</a></li><li><a class="toctext" href="integers-and-floating-point-numbers.html">Números enteros y en punto flotante</a></li><li><a class="toctext" href="mathematical-operations.html">Mathematical Operations and Elementary Functions</a></li><li class="current"><a class="toctext" href="complex-and-rational-numbers.html">Números Racionales y Complejos</a><ul class="internal"><li><a class="toctext" href="#complex-numbers-1">Números Complejos</a></li><li><a class="toctext" href="#rational-numbers-1">Números Racionales</a></li></ul></li><li><a class="toctext" href="strings.html">Strings</a></li><li><a class="toctext" href="functions.html">Funciones</a></li><li><a class="toctext" href="control-flow.html">Control Flow</a></li><li><a class="toctext" href="variables-and-scoping.html">Ámbito de las variables</a></li><li><a class="toctext" href="types.html">Tipos</a></li><li><a class="toctext" href="methods.html">Métodos</a></li><li><a class="toctext" href="constructors.html">Constructores</a></li><li><a class="toctext" href="conversion-and-promotion.html">Conversión and Promoción</a></li><li><a class="toctext" href="interfaces.html">Interfaces</a></li><li><a class="toctext" href="modules.html">Módulos</a></li><li><a class="toctext" href="documentation.html">Documentation</a></li><li><a class="toctext" href="metaprogramming.html">Metaprogramación</a></li><li><a class="toctext" href="arrays.html">Arrays Multi-dimensionales</a></li><li><a class="toctext" href="linear-algebra.html">Álgebra Lineal</a></li><li><a class="toctext" href="networking-and-streams.html">Redes y Flujos</a></li><li><a class="toctext" href="parallel-computing.html">Computación Paralela</a></li><li><a class="toctext" href="dates.html">Date and DateTime</a></li><li><a class="toctext" href="interacting-with-julia.html">Interactuando con Julia</a></li><li><a class="toctext" href="running-external-programs.html">Ejecutando programas externos</a></li><li><a class="toctext" href="calling-c-and-fortran-code.html">Llamando a código C y Fortran</a></li><li><a class="toctext" href="handling-operating-system-variation.html">Manejando variaciones en el Sistema Operativo</a></li><li><a class="toctext" href="environment-variables.html">Variables de Entorno</a></li><li><a class="toctext" href="embedding.html">Embedding Julia</a></li><li><a class="toctext" href="packages.html">Paquetes</a></li><li><a class="toctext" href="profile.html">Elaboración de Perfiles (<em>Profiling</em>)</a></li><li><a class="toctext" href="stacktraces.html">Trazas de Pila</a></li><li><a class="toctext" href="performance-tips.html">Performance Tips</a></li><li><a class="toctext" href="workflow-tips.html">Workflow Tips</a></li><li><a class="toctext" href="style-guide.html">Guía de Estilo</a></li><li><a class="toctext" href="faq.html">Frequently Asked Questions</a></li><li><a class="toctext" href="noteworthy-differences.html">Diferencias notables con otros idiomas</a></li><li><a class="toctext" href="unicode-input.html">Entrada Unicode</a></li></ul></li><li><span class="toctext">Standard Library</span><ul><li><a class="toctext" href="../stdlib/base.html">Essentials</a></li><li><a class="toctext" href="../stdlib/collections.html">Colecciones y Estructuras de Datos</a></li><li><a class="toctext" href="../stdlib/math.html">Matemáticas</a></li><li><a class="toctext" href="../stdlib/numbers.html">Números</a></li><li><a class="toctext" href="../stdlib/strings.html">Cadenas</a></li><li><a class="toctext" href="../stdlib/arrays.html">Arrays</a></li><li><a class="toctext" href="../stdlib/parallel.html">Tareas y Computación Paralela</a></li><li><a class="toctext" href="../stdlib/linalg.html">Álgebra Lineal</a></li><li><a class="toctext" href="../stdlib/constants.html">Constantes</a></li><li><a class="toctext" href="../stdlib/file.html">Sistema de Ficheros</a></li><li><a class="toctext" href="../stdlib/io-network.html">E/S y Redes</a></li><li><a class="toctext" href="../stdlib/punctuation.html">Puntuación</a></li><li><a class="toctext" href="../stdlib/sort.html">Ordenación y Funciones Relacionadas</a></li><li><a class="toctext" href="../stdlib/pkg.html">Funciones del Administrador de Paquetes</a></li><li><a class="toctext" href="../stdlib/dates.html">Fechas y  Tiempo</a></li><li><a class="toctext" href="../stdlib/iterators.html">Utilidades para Iteración</a></li><li><a class="toctext" href="../stdlib/test.html">Haciendo Pruebas Unitarias</a></li><li><a class="toctext" href="../stdlib/c.html">Interfaz C</a></li><li><a class="toctext" href="../stdlib/libc.html">Librería Estándar C</a></li><li><a class="toctext" href="../stdlib/libdl.html">Enlazador Dinámico</a></li><li><a class="toctext" href="../stdlib/profile.html">Profiling</a></li><li><a class="toctext" href="../stdlib/stacktraces.html"><em>StackTraces</em></a></li><li><a class="toctext" href="../stdlib/simd-types.html">Soporte SIMD</a></li></ul></li><li><span class="toctext">Developer Documentation</span><ul><li><a class="toctext" href="../devdocs/reflection.html">Reflection and introspection</a></li><li><span class="toctext">Documentation of Julia&#39;s Internals</span><ul><li><a class="toctext" href="../devdocs/init.html">Initialization of the Julia runtime</a></li><li><a class="toctext" href="../devdocs/ast.html">Julia ASTs</a></li><li><a class="toctext" href="../devdocs/types.html">Más sobre tipos</a></li><li><a class="toctext" href="../devdocs/object.html">Memory layout of Julia Objects</a></li><li><a class="toctext" href="../devdocs/eval.html">Eval of Julia code</a></li><li><a class="toctext" href="../devdocs/callconv.html">Calling Conventions</a></li><li><a class="toctext" href="../devdocs/compiler.html">High-level Overview of the Native-Code Generation Process</a></li><li><a class="toctext" href="../devdocs/functions.html">Julia Functions</a></li><li><a class="toctext" href="../devdocs/cartesian.html">Base.Cartesian</a></li><li><a class="toctext" href="../devdocs/meta.html">Talking to the compiler (the <code>:meta</code> mechanism)</a></li><li><a class="toctext" href="../devdocs/subarrays.html">SubArrays</a></li><li><a class="toctext" href="../devdocs/sysimg.html">System Image Building</a></li><li><a class="toctext" href="../devdocs/llvm.html">Working with LLVM</a></li><li><a class="toctext" href="../devdocs/stdio.html">printf() and stdio in the Julia runtime</a></li><li><a class="toctext" href="../devdocs/boundscheck.html">Bounds checking</a></li><li><a class="toctext" href="../devdocs/locks.html">Proper maintenance and care of multi-threading locks</a></li><li><a class="toctext" href="../devdocs/offset-arrays.html">Arrays with custom indices</a></li><li><a class="toctext" href="../devdocs/libgit2.html">Base.LibGit2</a></li><li><a class="toctext" href="../devdocs/require.html">Module loading</a></li></ul></li><li><span class="toctext">Developing/debugging Julia&#39;s C code</span><ul><li><a class="toctext" href="../devdocs/backtraces.html">Reporting and analyzing crashes (segfaults)</a></li><li><a class="toctext" href="../devdocs/debuggingtips.html">gdb debugging tips</a></li><li><a class="toctext" href="../devdocs/valgrind.html">Usando Valgrind con Julia</a></li><li><a class="toctext" href="../devdocs/sanitizers.html">Sanitizer support</a></li></ul></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Manual</li><li><a href="complex-and-rational-numbers.html">Números Racionales y Complejos</a></li></ul><a class="edit-page" href="https://github.com/JuliaLang/julia/tree/d386e40c17d43b79fc89d3e579fc04547241787c/doc/src/manual/complex-and-rational-numbers.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Números Racionales y Complejos</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="complex-and-rational-numbers-1" href="#complex-and-rational-numbers-1">Números Racionales y Complejos</a></h1><p>Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las <a href="mathematical-operations.html#mathematical-operations-1">Operaciones Matemáticas y Funciones Elementales</a> estándar sobre ellos. Se han definido <a href="conversion-and-promotion.html#conversion-and-promotion-1">conversiones y promociones</a> de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.</p><p>como se esperaba.</p><h2><a class="nav-anchor" id="complex-numbers-1" href="#complex-numbers-1">Números Complejos</a></h2><p>La constante global <a href="../stdlib/numbers.html#Base.im"><code>im</code></a> está ligada al número complejo <em>i</em>, que representa la raíz cuadrada principal de -1. Se consideró nocivo para co-optar el nombre <code>i</code> para una constante global, ya que es un nombre de variable de índice popular. Como Julia permite que los literales numéricos se <a href="integers-and-floating-point-numbers.html#man-numeric-literal-coefficients-1">yuxtapongan con identificadores como coeficientes</a>, esta unión es suficiente para proporcionar sintaxis conveniente para números complejos, similar a la notación matemática tradicional:</p><pre><code class="language-julia-repl">julia&gt; 1 + 2im
+1 + 2im</code></pre><p>Podemos realizar todas las operaciones aritméticas estándar con los números complejos:</p><pre><code class="language-julia-repl">julia&gt; (1 + 2im)*(2 - 3im)
+8 + 1im
+
+julia&gt; (1 + 2im)/(1 - 2im)
+-0.6 + 0.8im
+
+julia&gt; (1 + 2im) + (1 - 2im)
+2 + 0im
+
+julia&gt; (-3 + 2im) - (5 - 1im)
+-8 + 3im
+
+julia&gt; (-1 + 2im)^2
+-3 - 4im
+
+julia&gt; (-1 + 2im)^2.5
+2.7296244647840084 - 6.960664459571898im
+
+julia&gt; (-1 + 2im)^(1 + 1im)
+-0.27910381075826657 + 0.08708053414102428im
+
+julia&gt; 3(2 - 5im)
+6 - 15im
+
+julia&gt; 3(2 - 5im)^2
+-63 - 60im
+
+julia&gt; 3(2 - 5im)^-1.0
+0.20689655172413796 + 0.5172413793103449im</code></pre><p>El mecanismo de promoción asegura qur las combinaciones de operandos de distintos tipos funcionarán:</p><pre><code class="language-julia-repl">julia&gt; 2(1 - 1im)
+2 - 2im
+
+julia&gt; (2 + 3im) - 1
+1 + 3im
+
+julia&gt; (1 + 2im) + 0.5
+1.5 + 2.0im
+
+julia&gt; (2 + 3im) - 0.5im
+2.0 + 2.5im
+
+julia&gt; 0.75(1 + 2im)
+0.75 + 1.5im
+
+julia&gt; (2 + 3im) / 2
+1.0 + 1.5im
+
+julia&gt; (1 - 3im) / (2 + 2im)
+-0.5 - 1.0im
+
+julia&gt; 2im^2
+-2 + 0im
+
+julia&gt; 1 + 3/4im
+1.0 - 0.75im</code></pre><p>Nótese que <code>3/4im == 3/(4*im) == -(3/4*im)</code>, ya que un coeficiente literal se enlaza más fuerte que la división.</p><p>También se proporcionan las funciones estándar para manipular valores complejos:</p><pre><code class="language-julia-repl">julia&gt; z = 1 + 2im
+1 + 2im
+
+julia&gt; real(1 + 2im) # real part of z
+1
+
+julia&gt; imag(1 + 2im) # imaginary part of z
+2
+
+julia&gt; conj(1 + 2im) # complex conjugate of z
+1 - 2im
+
+julia&gt; abs(1 + 2im) # absolute value of z
+2.23606797749979
+
+julia&gt; abs2(1 + 2im) # squared absolute value
+5
+
+julia&gt; angle(1 + 2im) # phase angle in radians
+1.1071487177940904</code></pre><p>Como de costumbre, el valor absoluto (<a href="../stdlib/math.html#Base.abs"><code>abs()</code></a>) de un número complejo es su distancia a cero. <a href="../stdlib/math.html#Base.abs2"><code>abs2()</code></a> da el cuadrado del valor absoluto, y es de uso particular para los números complejos donde se evita tomar una raíz cuadrada. <a href="../stdlib/math.html#Base.angle"><code>angle()</code></a> devuelve el ángulo de fase en radianes (también conocido como <em>argumento</em> o función <em>arg</em>). La gama completa de otras <a href="mathematical-operations.html#elementary-functions-1">funciones elementales</a> está también definida para los números complejos:</p><pre><code class="language-julia-repl">julia&gt; sqrt(1im)
+0.7071067811865476 + 0.7071067811865475im
+
+julia&gt; sqrt(1 + 2im)
+1.272019649514069 + 0.7861513777574233im
+
+julia&gt; cos(1 + 2im)
+2.0327230070196656 - 3.0518977991518im
+
+julia&gt; exp(1 + 2im)
+-1.1312043837568135 + 2.4717266720048188im
+
+julia&gt; sinh(1 + 2im)
+-0.4890562590412937 + 1.4031192506220405im</code></pre><p>Tenga en cuenta que las funciones matemáticas normalmente devuelven valores reales cuando se aplican a números reales y valores complejos cuando se aplican a números complejos. Por ejemplo, <a href="../stdlib/math.html#Base.sqrt"><code>sqrt()</code></a> se comporta de forma diferente cuando se aplica a <code>-1</code> que cuanso se aplica sobre <code>-1 + 0im</code>, aunque <code>-1 == -1 + 0im</code>:</p><pre><code class="language-julia-repl">julia&gt; sqrt(-1)
+ERROR: DomainError:
+sqrt will only return a complex result if called with a complex argument. Try sqrt(complex(x)).
+Stacktrace:
+ [1] sqrt(::Int64) at ./math.jl:434
+
+julia&gt; sqrt(-1 + 0im)
+0.0 + 1.0im</code></pre><p>La <a href="integers-and-floating-point-numbers.html#man-numeric-literal-coefficients-1">notación de coeficiente numérico literal</a> no funciona cuando se construye un número complejo a partir de variables. En su lugar, la multiplicación debe expresarse explícitamente:</p><pre><code class="language-julia-repl">julia&gt; a = 1; b = 2; a + b*im
+1 + 2im</code></pre><p>Sin embargo, esto no es lo recomendable; En su lugar, utilice la función <a href="../stdlib/numbers.html#Base.complex-Tuple{Complex}"><code>complex()</code></a> para construir un valor complejo directamente de sus partes real e imaginaria:</p><pre><code class="language-julia-repl">julia&gt; a = 1; b = 2; complex(a, b)
+1 + 2im</code></pre><p>Esta construcción evita las operaciones de multiplicación y adición.</p><p><a href="../stdlib/numbers.html#Base.Inf"><code>Inf</code></a> y <a href="../stdlib/numbers.html#Base.NaN"><code>NaN</code></a> se propagan a través de números complejos en las partes real e imaginaria de un número complejo como se describe en la sección <a href="integers-and-floating-point-numbers.html#special-floating-point-values-1">valores especiales en punto flotante</a> section:</p><pre><code class="language-julia-repl">julia&gt; 1 + Inf*im
+1.0 + Inf*im
+
+julia&gt; 1 + NaN*im
+1.0 + NaN*im</code></pre><h2><a class="nav-anchor" id="rational-numbers-1" href="#rational-numbers-1">Números Racionales</a></h2><p>Julia tiene un tipo numérico racional para representar razones exactas de enteros. Los racionales se construyen usando el operador <a href="../stdlib/math.html#Base.://"><code>//</code></a>:</p><pre><code class="language-julia-repl">julia&gt; 2//3
+2//3</code></pre><p>Si el numerador y el denominador de un racional tienen factores comunes, ellos son reducidos a los términos mínimos tales que el denominador sea no negativo:</p><pre><code class="language-julia-repl">julia&gt; 6//9
+2//3
+
+julia&gt; -4//8
+-1//2
+
+julia&gt; 5//-15
+-1//3
+
+julia&gt; -4//-12
+1//3</code></pre><p>Esta forma normalizada para una razón de enteros es única, por lo que la igualdad de valores racionales puede ser testada comprobando la igualdad del numerador y el denominador. El numerador estandarizado y el denominador de un valor racional pueden ser extraídos usando las funciones <a href="../stdlib/math.html#Base.numerator"><code>numerator()</code></a> y <a href="../stdlib/math.html#Base.denominator"><code>denominator()</code></a>:</p><pre><code class="language-julia-repl">julia&gt; numerator(2//3)
+2
+
+julia&gt; denominator(2//3)
+3</code></pre><p>La comparación directa de numerador y denominador no suele ser necesaria, ya que la aritmetica  estándar y las operaciones de comparación están definidas para los valores racionales:</p><pre><code class="language-julia-repl">julia&gt; 2//3 == 6//9
+true
+
+julia&gt; 2//3 == 9//27
+false
+
+julia&gt; 3//7 &lt; 1//2
+true
+
+julia&gt; 3//4 &gt; 2//3
+true
+
+julia&gt; 2//4 + 1//6
+2//3
+
+julia&gt; 5//12 - 1//4
+1//6
+
+julia&gt; 5//8 * 3//12
+5//32
+
+julia&gt; 6//5 / 10//7
+21//25</code></pre><p>Los racionales pueden convertirse fácilmente en número en punto flotante:</p><pre><code class="language-julia-repl">julia&gt; float(3//4)
+0.75</code></pre><p>La conversión de racional a punto flotante respeta la siguiente identidad para dos valores enteros cualesquiera <code>a</code> y <code>b</code>, con las excepciones de los casos <code>a == 0</code> and <code>b == 0</code>:</p><pre><code class="language-julia-repl">julia&gt; a = 1; b = 2;
+
+julia&gt; isequal(float(a//b), a/b)
+true</code></pre><p>Construir valores racionales infinitos es aceptable:</p><pre><code class="language-julia-repl">julia&gt; 5//0
+1//0
+
+julia&gt; -3//0
+-1//0
+
+julia&gt; typeof(ans)
+Rational{Int64}</code></pre><p>Sin embargo, no lo es tratar de construir un valor NaN <a href="../stdlib/numbers.html#Base.NaN"><code>NaN</code></a> racional:</p><pre><code class="language-julia-repl">julia&gt; 0//0
+ERROR: ArgumentError: invalid rational: zero(Int64)//zero(Int64)
+Stacktrace:
+ [1] Rational{Int64}(::Int64, ::Int64) at ./rational.jl:13
+ [2] //(::Int64, ::Int64) at ./rational.jl:40</code></pre><p>Como es natural, el sistema de promoción hace que las interacciones con otros tipos numéricos se hagan sin esfuerzo alguno:</p><pre><code class="language-julia-repl">julia&gt; 3//5 + 1
+8//5
+
+julia&gt; 3//5 - 0.5
+0.09999999999999998
+
+julia&gt; 2//7 * (1 + 2im)
+2//7 + 4//7*im
+
+julia&gt; 2//7 * (1.5 + 2im)
+0.42857142857142855 + 0.5714285714285714im
+
+julia&gt; 3//2 / (1 + 2im)
+3//10 - 3//5*im
+
+julia&gt; 1//2 + 2im
+1//2 + 2//1*im
+
+julia&gt; 1 + 2//3im
+1//1 - 2//3*im
+
+julia&gt; 0.5 == 1//2
+true
+
+julia&gt; 0.33 == 1//3
+false
+
+julia&gt; 0.33 &lt; 1//3
+true
+
+julia&gt; 1//3 - 0.33
+0.0033333333333332993</code></pre><footer><hr/><a class="previous" href="mathematical-operations.html"><span class="direction">Previous</span><span class="title">Mathematical Operations and Elementary Functions</span></a><a class="next" href="strings.html"><span class="direction">Next</span><span class="title">Strings</span></a></footer></article></body></html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Strings · The Julia Language</title><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28835595-6', 'auto');
+ga('send', 'pageview');
+</script><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../index.html"><img class="logo" src="../assets/logo.png" alt="The Julia Language logo"/></a><h1>The Julia Language</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="../search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../index.html">Home</a></li><li><span class="toctext">Manual</span><ul><li><a class="toctext" href="introduction.html">Introducción</a></li><li><a class="toctext" href="getting-started.html">Empezando</a></li><li><a class="toctext" href="variables.html">Variables</a></li><li><a class="toctext" href="integers-and-floating-point-numbers.html">Números enteros y en punto flotante</a></li><li><a class="toctext" href="mathematical-operations.html">Mathematical Operations and Elementary Functions</a></li><li><a class="toctext" href="complex-and-rational-numbers.html">Números Racionales y Complejos</a></li><li class="current"><a class="toctext" href="strings.html">Strings</a><ul class="internal"><li><a class="toctext" href="#man-characters-1">Caracteres</a></li><li><a class="toctext" href="#Fundamentos-de-Cadenas-1">Fundamentos de Cadenas</a></li><li><a class="toctext" href="#Unicode-y-UTF-8-1">Unicode y UTF-8</a></li><li><a class="toctext" href="#concatenation-1">Concatenación</a></li><li><a class="toctext" href="#string-interpolation-1">Interpolación</a></li><li><a class="toctext" href="#triple-quoted-string-literals-1">Literales cadena con triples comillas</a></li><li><a class="toctext" href="#common-operations-1">Operaciones Comunes</a></li><li><a class="toctext" href="#non-standard-string-literals-1">Literales cadena no estándar</a></li><li><a class="toctext" href="#regular-expressions-1">Expresiones Regulares</a></li><li><a class="toctext" href="#man-byte-array-literals-1">Byte Array Literals</a></li><li><a class="toctext" href="#man-version-number-literals-1">Literales Número de Versión</a></li><li><a class="toctext" href="#man-raw-string-literals-1">Raw String Literals</a></li></ul></li><li><a class="toctext" href="functions.html">Funciones</a></li><li><a class="toctext" href="control-flow.html">Control Flow</a></li><li><a class="toctext" href="variables-and-scoping.html">Ámbito de las variables</a></li><li><a class="toctext" href="types.html">Tipos</a></li><li><a class="toctext" href="methods.html">Métodos</a></li><li><a class="toctext" href="constructors.html">Constructores</a></li><li><a class="toctext" href="conversion-and-promotion.html">Conversión and Promoción</a></li><li><a class="toctext" href="interfaces.html">Interfaces</a></li><li><a class="toctext" href="modules.html">Módulos</a></li><li><a class="toctext" href="documentation.html">Documentation</a></li><li><a class="toctext" href="metaprogramming.html">Metaprogramación</a></li><li><a class="toctext" href="arrays.html">Arrays Multi-dimensionales</a></li><li><a class="toctext" href="linear-algebra.html">Álgebra Lineal</a></li><li><a class="toctext" href="networking-and-streams.html">Redes y Flujos</a></li><li><a class="toctext" href="parallel-computing.html">Computación Paralela</a></li><li><a class="toctext" href="dates.html">Date and DateTime</a></li><li><a class="toctext" href="interacting-with-julia.html">Interactuando con Julia</a></li><li><a class="toctext" href="running-external-programs.html">Ejecutando programas externos</a></li><li><a class="toctext" href="calling-c-and-fortran-code.html">Llamando a código C y Fortran</a></li><li><a class="toctext" href="handling-operating-system-variation.html">Manejando variaciones en el Sistema Operativo</a></li><li><a class="toctext" href="environment-variables.html">Variables de Entorno</a></li><li><a class="toctext" href="embedding.html">Embedding Julia</a></li><li><a class="toctext" href="packages.html">Paquetes</a></li><li><a class="toctext" href="profile.html">Elaboración de Perfiles (<em>Profiling</em>)</a></li><li><a class="toctext" href="stacktraces.html">Trazas de Pila</a></li><li><a class="toctext" href="performance-tips.html">Performance Tips</a></li><li><a class="toctext" href="workflow-tips.html">Workflow Tips</a></li><li><a class="toctext" href="style-guide.html">Guía de Estilo</a></li><li><a class="toctext" href="faq.html">Frequently Asked Questions</a></li><li><a class="toctext" href="noteworthy-differences.html">Diferencias notables con otros idiomas</a></li><li><a class="toctext" href="unicode-input.html">Entrada Unicode</a></li></ul></li><li><span class="toctext">Standard Library</span><ul><li><a class="toctext" href="../stdlib/base.html">Essentials</a></li><li><a class="toctext" href="../stdlib/collections.html">Colecciones y Estructuras de Datos</a></li><li><a class="toctext" href="../stdlib/math.html">Matemáticas</a></li><li><a class="toctext" href="../stdlib/numbers.html">Números</a></li><li><a class="toctext" href="../stdlib/strings.html">Cadenas</a></li><li><a class="toctext" href="../stdlib/arrays.html">Arrays</a></li><li><a class="toctext" href="../stdlib/parallel.html">Tareas y Computación Paralela</a></li><li><a class="toctext" href="../stdlib/linalg.html">Álgebra Lineal</a></li><li><a class="toctext" href="../stdlib/constants.html">Constantes</a></li><li><a class="toctext" href="../stdlib/file.html">Sistema de Ficheros</a></li><li><a class="toctext" href="../stdlib/io-network.html">E/S y Redes</a></li><li><a class="toctext" href="../stdlib/punctuation.html">Puntuación</a></li><li><a class="toctext" href="../stdlib/sort.html">Ordenación y Funciones Relacionadas</a></li><li><a class="toctext" href="../stdlib/pkg.html">Funciones del Administrador de Paquetes</a></li><li><a class="toctext" href="../stdlib/dates.html">Fechas y  Tiempo</a></li><li><a class="toctext" href="../stdlib/iterators.html">Utilidades para Iteración</a></li><li><a class="toctext" href="../stdlib/test.html">Haciendo Pruebas Unitarias</a></li><li><a class="toctext" href="../stdlib/c.html">Interfaz C</a></li><li><a class="toctext" href="../stdlib/libc.html">Librería Estándar C</a></li><li><a class="toctext" href="../stdlib/libdl.html">Enlazador Dinámico</a></li><li><a class="toctext" href="../stdlib/profile.html">Profiling</a></li><li><a class="toctext" href="../stdlib/stacktraces.html"><em>StackTraces</em></a></li><li><a class="toctext" href="../stdlib/simd-types.html">Soporte SIMD</a></li></ul></li><li><span class="toctext">Developer Documentation</span><ul><li><a class="toctext" href="../devdocs/reflection.html">Reflection and introspection</a></li><li><span class="toctext">Documentation of Julia&#39;s Internals</span><ul><li><a class="toctext" href="../devdocs/init.html">Initialization of the Julia runtime</a></li><li><a class="toctext" href="../devdocs/ast.html">Julia ASTs</a></li><li><a class="toctext" href="../devdocs/types.html">Más sobre tipos</a></li><li><a class="toctext" href="../devdocs/object.html">Memory layout of Julia Objects</a></li><li><a class="toctext" href="../devdocs/eval.html">Eval of Julia code</a></li><li><a class="toctext" href="../devdocs/callconv.html">Calling Conventions</a></li><li><a class="toctext" href="../devdocs/compiler.html">High-level Overview of the Native-Code Generation Process</a></li><li><a class="toctext" href="../devdocs/functions.html">Julia Functions</a></li><li><a class="toctext" href="../devdocs/cartesian.html">Base.Cartesian</a></li><li><a class="toctext" href="../devdocs/meta.html">Talking to the compiler (the <code>:meta</code> mechanism)</a></li><li><a class="toctext" href="../devdocs/subarrays.html">SubArrays</a></li><li><a class="toctext" href="../devdocs/sysimg.html">System Image Building</a></li><li><a class="toctext" href="../devdocs/llvm.html">Working with LLVM</a></li><li><a class="toctext" href="../devdocs/stdio.html">printf() and stdio in the Julia runtime</a></li><li><a class="toctext" href="../devdocs/boundscheck.html">Bounds checking</a></li><li><a class="toctext" href="../devdocs/locks.html">Proper maintenance and care of multi-threading locks</a></li><li><a class="toctext" href="../devdocs/offset-arrays.html">Arrays with custom indices</a></li><li><a class="toctext" href="../devdocs/libgit2.html">Base.LibGit2</a></li><li><a class="toctext" href="../devdocs/require.html">Module loading</a></li></ul></li><li><span class="toctext">Developing/debugging Julia&#39;s C code</span><ul><li><a class="toctext" href="../devdocs/backtraces.html">Reporting and analyzing crashes (segfaults)</a></li><li><a class="toctext" href="../devdocs/debuggingtips.html">gdb debugging tips</a></li><li><a class="toctext" href="../devdocs/valgrind.html">Usando Valgrind con Julia</a></li><li><a class="toctext" href="../devdocs/sanitizers.html">Sanitizer support</a></li></ul></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Manual</li><li><a href="strings.html">Strings</a></li></ul><a class="edit-page" href="https://github.com/JuliaLang/julia/tree/d386e40c17d43b79fc89d3e579fc04547241787c/doc/src/manual/strings.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Strings</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="man-strings-1" href="#man-strings-1">Strings</a></h1><p>Las cadenas son secuencias finitas de caracteres. Por supuesto, el verdadero problema viene cuando uno se pregunta qué es un carácter. Los caracteres con los que están familiarizados con los hablantes de inglés son las letras <code>A</code>, <code>B</code>, <code>C</code>, etc., junto con los números y los símbolos de puntuación comunes. Estos caracteres se estandarizan junto con una correspondencia a valores enteros entre 0 y 127 a través del estándar ASCII. Hay, por supuesto, muchos otros caracteres utilizados en lenguas no  inglesas, incluyendo variantes de los caracteres ASCII con acentos y otras modificaciones, escrituras relacionadas como cirílico y griego, y escrituras no relacionadas en abosluto con ASCII o inglés, entre los que se incluyen árabe, chino, Hebreo, hindi, japonés y coreano. El estándar <a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a> aborda las complejidades de lo que es exactamente un carácter, y es generalmente aceptado como el estándar definitivo que aborda este problema. Dependiendo de tus necesidades, puedes ignorar estas complejidades por completo y fingir que sólo existen caracteres ASCII, o puedes escribir código que pueda manejar cualquiera de los caracteres o codificaciones que se pueden encontrar al manejar texto no ASCII. Julia hace que el manejo de texto ASCII sencillo sea simple y eficiente, y el manejo de Unicode tan simple y eficiente como sea posible. En particular, puedes escribir código de cadenas con estilo C para procesar cadenas ASCII y funcionarán como se esperaba, tanto en términos de rendimiento como de semántica. Si dicho código encuentra texto no ASCII, fallará  graciosamente con un mensaje de error claro, en lugar de introducir en silencio resultados corruptos. Cuando esto sucede, modificar el código para manejar datos no ASCII es sencillo.</p><p>Hay algunas características destacadas de alto nivel sobre las cadenas de caracteres en Julia:</p><ul><li><p>El tipo de concreto incorporado utilizado para cadenas (y literales de cadena) en Julia es <a href="../stdlib/strings.html#Core.String-Tuple{AbstractString}"><code>String</code></a>. Esto soporta el rango completo de caracteres  <a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a> a través de  la codificación <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>. (se proporciona una función <a href="../stdlib/strings.html#Base.transcode"><code>transcode()</code></a>   para convertir a/desde otras codificaciones Unicode).</p></li><li><p>Todos los tipos de cadenas son subtipos del tipo abstracto <code>AbstractString</code> y los paquetes  externos definen subtipos <code>AbstractString</code> adicionales (por ejemplo, para otras codificaciones).  Si define una función que espera un argumento de cadena, debe declarar el tipo como  <code>AbstractString</code> para aceptar cualquier tipo de cadena.</p></li><li><p>Como C y Java, pero a diferencia de la mayoría de los lenguajes dinámicos, Julia tiene un tipo  de primera clase que representa un solo carácter, llamado <code>Char</code>. Esto es sólo un tipo especial  de bits de 32 bits cuyo valor numérico representa un punto de código Unicode.</p></li><li><p>Como en Java, las cadenas son inmutables: el valor de un objeto <code>AbstractString</code> no se puede  cambiar. Para construir un valor de cadena diferente, se construye una nueva cadena de partes  de otras cadenas.</p></li><li><p>Conceptualmente, una cadena es una <em>función parcial</em> de índices a caracteres: para algunos  valores de índice, no se devuelve ningún valor de carácter y, en su lugar, se genera una  excepción. Esto permite una indexación eficiente en cadenas por el índice de bytes de una  representación codificada en lugar de por un índice de caracteres, que no se puede implementar  de manera eficiente y sencilla para encodificaciones de anchura variable de cadenas Unicode.</p></li></ul><h2><a class="nav-anchor" id="man-characters-1" href="#man-characters-1">Caracteres</a></h2><p>Un valor <code>Char</code> representa un solo carácter: es sólo un <em>bitstype</em> de 32 bits con una representación literal especial y comportamientos aritméticos apropiados, cuyo valor numérico se interpreta como un <a href="https://en.wikipedia.org/wiki/Code_point">punto de código Unicode</a>. Aquí se muestra cómo se introducen y se muestran los valores <code>Char</code>:</p><pre><code class="language-julia-repl">julia&gt; &#39;x&#39;
+&#39;x&#39;: ASCII/Unicode U+0078 (category Ll: Letter, lowercase)
+
+julia&gt; typeof(ans)
+Char</code></pre><p>Podemos convertir un <code>Char</code> a su valor entero (su punto de código) fácilmente:</p><pre><code class="language-julia-repl">julia&gt; Int(&#39;x&#39;)
+120
+
+julia&gt; typeof(ans)
+Int64</code></pre><p>En arquitecturas de 32 bits,  <a href="../stdlib/base.html#Core.typeof"><code>typeof(ans)</code></a> será <a href="../stdlib/numbers.html#Core.Int32"><code>Int32</code></a>. Puede convertir un valor entero de nuevo a un <code>Char</code> fácilmente:</p><pre><code class="language-julia-repl">julia&gt; Char(120)
+&#39;x&#39;: ASCII/Unicode U+0078 (category Ll: Letter, lowercase)</code></pre><p>No todos los valores enteros son puntos de código Unicode válidos, pero por una cuestión de  rendimiento, la conversión <code>Char()</code> no comprueba que cada valor de carácter sea válido. Si desea comprobar que cada valor convertido es un punto de código válido, utilice la función <a href="../stdlib/strings.html#Base.isvalid-Tuple{Any}"><code>isvalid()</code></a>:</p><pre><code class="language-julia-repl">julia&gt; Char(0x110000)
+&#39;\U110000&#39;: Unicode U+110000 (category Cn: Other, not assigned)
+
+julia&gt; isvalid(Char, 0x110000)
+false</code></pre><p>A partir de este momento, los puntos de código Unicode válidos son <code>U+00</code> a <code>U+d7ff</code> y <code>U+e000</code> a <code>U+10ffff</code>. A estos no se les han asignado todavía significados inteligibles, ni son necesariamente interpretables por las aplicaciones, pero todos ellos se consideran caracteres Unicode válidos.</p><p>Puede introducir cualquier carácter Unicode entre comillas simples utilizando <code>\u</code> seguido de hasta cuatro dígitos hexadecimales o <code>\U</code> seguido de hasta ocho dígitos hexadecimales (el valor válido más largo sólo requiere seis):</p><pre><code class="language-julia-repl">julia&gt; &#39;\u0&#39;
+&#39;\0&#39;: ASCII/Unicode U+0000 (category Cc: Other, control)
+
+julia&gt; &#39;\u78&#39;
+&#39;x&#39;: ASCII/Unicode U+0078 (category Ll: Letter, lowercase)
+
+julia&gt; &#39;\u2200&#39;
+&#39;∀&#39;: Unicode U+2200 (category Sm: Symbol, math)
+
+julia&gt; &#39;\U10ffff&#39;
+&#39;\U10ffff&#39;: Unicode U+10ffff (category Cn: Other, not assigned)</code></pre><p>Julia utiliza la configuración regional y de idioma de tu sistema para determinar qué caracteres se pueden imprimir tal cual y cuáles se deben imprimir utilizando las formas de entrada genéricas, escapadas con <code>\u</code> o <code>\U</code>. Además de estas formas de escape de Unicode, también se pueden usar todas las <a href="https://en.wikipedia.org/wiki/C_syntax#Backslash_escapes">formas de entrada de escape tradicionales de C</a>:</p><pre><code class="language-julia-repl">julia&gt; Int(&#39;\0&#39;)
+0
+
+julia&gt; Int(&#39;\t&#39;)
+9
+
+julia&gt; Int(&#39;\n&#39;)
+10
+
+julia&gt; Int(&#39;\e&#39;)
+27
+
+julia&gt; Int(&#39;\x7f&#39;)
+127
+
+julia&gt; Int(&#39;\177&#39;)
+127
+
+julia&gt; Int(&#39;\xff&#39;)
+255</code></pre><p>Puedes hacer comparaciones y una cantidad limitada de aritmética con los valores <code>Char</code>:</p><pre><code class="language-julia-repl">julia&gt; &#39;A&#39; &lt; &#39;a&#39;
+true
+
+julia&gt; &#39;A&#39; &lt;= &#39;a&#39; &lt;= &#39;Z&#39;
+false
+
+julia&gt; &#39;A&#39; &lt;= &#39;X&#39; &lt;= &#39;Z&#39;
+true
+
+julia&gt; &#39;x&#39; - &#39;a&#39;
+23
+
+julia&gt; &#39;A&#39; + 1
+&#39;B&#39;: ASCII/Unicode U+0042 (category Lu: Letter, uppercase)</code></pre><h2><a class="nav-anchor" id="Fundamentos-de-Cadenas-1" href="#Fundamentos-de-Cadenas-1">Fundamentos de Cadenas</a></h2><p>Los literales de cadenas están delimitados por comillas dobles o comillas dobles triples:</p><pre><code class="language-jldoctest">julia&gt; str = &quot;Hello, world.\n&quot;
+&quot;Hello, world.\n&quot;
+
+julia&gt; &quot;&quot;&quot;Contains &quot;quote&quot; characters&quot;&quot;&quot;
+&quot;Contains \&quot;quote\&quot; characters&quot;</code></pre><p>Si desea extraer un carácter de una cadena, indéxelo:</p><pre><code class="language-jldoctest">julia&gt; str[1]
+&#39;H&#39;: ASCII/Unicode U+0048 (category Lu: Letter, uppercase)
+
+julia&gt; str[6]
+&#39;,&#39;: ASCII/Unicode U+002c (category Po: Punctuation, other)
+
+julia&gt; str[end]
+&#39;\n&#39;: ASCII/Unicode U+000a (category Cc: Other, control)</code></pre><p>Toda la indexación en Julia está basada en 1: el primer elemento de cualquier objeto indexado medidante enteros se encuentra en el índice <code>1</code>, y el último elemento se encuentra en el índice <code>n</code>, cuando la cadena tiene una longitud de <code>n</code>.</p><p>En cualquier expresión de indexación, puede usarse la palabra clave <code>end</code> como una abreviatura para el último índice (calculado mediante <a href="../stdlib/collections.html#Base.endof"><code>endof(str)</code></a>). Puede realizar operaciones aritméticas y otras con <code>end</code>, como si de un valor normal se tratara:</p><pre><code class="language-jldoctest">julia&gt; str[end-1]
+&#39;.&#39;: ASCII/Unicode U+002e (category Po: Punctuation, other)
+
+julia&gt; str[end÷2]
+&#39; &#39;: ASCII/Unicode U+0020 (category Zs: Separator, space)</code></pre><p>Usar un índice menor que 1 o mayor que <code>end</code> lanza un error:</p><pre><code class="language-jldoctest">julia&gt; str[0]
+ERROR: BoundsError: attempt to access &quot;Hello, world.\n&quot;
+  at index [0]
+[...]
+
+julia&gt; str[end+1]
+ERROR: BoundsError: attempt to access &quot;Hello, world.\n&quot;
+  at index [15]
+[...]</code></pre><p>También puedes extraer una subcadena usando indexación mediante un rango:</p><pre><code class="language-jldoctest">julia&gt; str[4:9]
+&quot;lo, wo&quot;</code></pre><p>Nótese que las expresiones <code>str[k]</code> y <code>str[k:k]</code> no dan el mismo resultado:</p><pre><code class="language-jldoctest">julia&gt; str[6]
+&#39;,&#39;: ASCII/Unicode U+002c (category Po: Punctuation, other)
+
+julia&gt; str[6:6]
+&quot;,&quot;</code></pre><p>La primera es un valor carácter de tipo <code>Char</code>, mientras que la segunda es un valor cadena que tiene un único carácter. En Julia se trata de cosas muy diferentes.</p><h2><a class="nav-anchor" id="Unicode-y-UTF-8-1" href="#Unicode-y-UTF-8-1">Unicode y UTF-8</a></h2><p>Julia soporta totalmente caracteres y cadenas Unicode. Como se ha <a href="strings.html#man-characters-1">comentado anteriormente</a>, en literales de caracteres, los puntos de código Unicode se pueden representar usando las secuencias de escape Unicode <code>\u</code> y <code>\U</code>, así como todas las secuencias de escape C estándar. Éstos también se pueden utilizar para escribir literales de cadena:</p><pre><code class="language-jldoctest">julia&gt; s = &quot;\u2200 x \u2203 y&quot;
+&quot;∀ x ∃ y&quot;</code></pre><p>Si estos caracteres Unicode se muestran como escapes o se muestran como caracteres especiales depende de la configuración regional de tu terminal y su compatibilidad con Unicode. Los literales de cadena se codifican utilizando la codificación UTF-8. UTF-8 es una codificación de ancho variable, lo que significa que no todos los caracteres están codificados en el mismo número de bytes. En UTF-8, los caracteres ASCII -es decir, aquellos con puntos de código inferiores a 0x80 (128) - están codificados como lo están en ASCII, usando un solo byte, mientras que los puntos de código 0x80 y superiores se codifican utilizando múltiples bytes (hasta cuatro por carácter). Esto significa que no todos los índices de bytes en una cadena UTF-8 es necesariamente un índice válido para un carácter. Si indexas una cadena en un índice de bytes no válido, se genera un error:</p><pre><code class="language-jldoctest">julia&gt; s[1]
+&#39;∀&#39;: Unicode U+2200 (category Sm: Symbol, math)
+
+julia&gt; s[2]
+ERROR: UnicodeError: invalid character index
+[...]
+
+julia&gt; s[3]
+ERROR: UnicodeError: invalid character index
+[...]
+
+julia&gt; s[4]
+&#39; &#39;: ASCII/Unicode U+0020 (category Zs: Separator, space)</code></pre><p>En este caso, el carácter <code>∀</code> es un carácter de tres bytes, por lo que los índices 2 y 3 no son válidos y el índice del siguiente carácter es 4; este siguiente índice válido puede ser calculado con <a href="../stdlib/strings.html#Base.nextind"><code>nextind(s,1)</code></a>, y el siguiente índice después de éste con <code>nextind(s,4)</code> y así sucesivamente.</p><p>Debido a las codificaciones de longitud variable, el número de caracteres de una cadena (dada por <a href="../stdlib/collections.html#Base.length-Tuple{Any}"><code>length(s)</code></a>) no siempre lo mismo que el último índice. Si se itera a través de los índices 1 hasta <a href="../stdlib/collections.html#Base.endof"><code>endof(s)</code></a> y se indexa en <code>s</code>, la secuencia de caracteres devueltos cuando no se lanzan errores es la secuencia de caracteres que contiene la cadena <code>s</code>. Por tanto, tenemos la identidad de que <code>length(s) &lt;= endof(s)</code>, ya que cada carácter en una cadena debe tener su propio índice. La siguiente es una forma ineficaz y verbosa de iterar a través de los caracteres de <code>s</code>:</p><pre><code class="language-jldoctest">julia&gt; for i = 1:endof(s)
+           try
+               println(s[i])
+           catch
+               # ignore the index error
+           end
+       end
+∀
+
+x
+
+∃
+
+y</code></pre><p>Las líneas en blanco en realidad tienen espacios en ellos. Afortunadamente, el idioma anterior incómodo es innecesario para iterar a través de los caracteres de una cadena, ya que se puede utilizar la cadena como un objeto iterable, sin que se requiera el manejo de excepciones:</p><pre><code class="language-jldoctest">julia&gt; for c in s
+           println(c)
+       end
+∀
+
+x
+
+∃
+
+y</code></pre><p>Julia utiliza la codificación UTF-8 de forma predeterminada y el soporte para nuevas codificaciones puede agregarse mediante paquetes. Por ejemplo, el paquete <a href="https://github.com/JuliaArchive/LegacyStrings.jl">LegacyStrings.jl</a> implementa los tipos <code>UTF16String</code> y <code>UTF32String</code>. Una mayor discusión sobre otras codificaciones y cómo implementar el soporte para ellas está más allá del alcance de este documento por el momento. Para más información sobre los problemas de codificación UTF-8, consulte la sección siguiente sobre <a href="strings.html#man-byte-array-literals-1">literales byte array</a>. La función <a href="../stdlib/strings.html#Base.transcode"><code>transcode()</code></a> se proporciona para convertir datos entre las distintas codificaciones UTF-xx, principalmente para trabajar con datos y bibliotecas externas.</p><h2><a class="nav-anchor" id="concatenation-1" href="#concatenation-1">Concatenación</a></h2><p>Una de las operaciones de cadena más comunes y útiles es la concatenación:</p><pre><code class="language-jldoctest">julia&gt; greet = &quot;Hello&quot;
+&quot;Hello&quot;
+
+julia&gt; whom = &quot;world&quot;
+&quot;world&quot;
+
+julia&gt; string(greet, &quot;, &quot;, whom, &quot;.\n&quot;)
+&quot;Hello, world.\n&quot;</code></pre><p>Julia también proporciona el operador <code>*</code> para concatenar cadenas:</p><pre><code class="language-jldoctest">julia&gt; greet * &quot;, &quot; * whom * &quot;.\n&quot;
+&quot;Hello, world.\n&quot;</code></pre><p>Aunque <code>*</code> puede parecer una elección sorprendente a los usuarios de lenguajes que proporcionan <code>+</code> para concatenación de cadenas, este uso de <code>*</code>tiene precedentes en matemáticas, particularmente en álgebra abstracta.</p><p>En matemáticas, <code>+</code> suele denotar una operación <em>conmutativa</em>, donde el orden de los operandos no importa. Un ejemplo de esto es la suma de matrices, donde <code>A + B == B + A</code> para dos matrices cualesquiera <code>A</code> y <code>B</code> que tengan la misma forma. En contraste, <code>*</code> suele denotar una operación no conmutativa, donde el orden de los operandos <em>importa</em>. Un ejemplo de esto es la multiplicación de matrices donde, en general, <code>A * B != B * A</code>. Como con la multiplicación de matrices, la concatenación es no conmutativa: <code>greet * whom != whom * greet</code>. Por tanto, <code>*</code> es una elección más natural para el operador infijo de concatenación, consistente con el uso matemático común.</p><p>Más precisamente, el conjunto de todas las cadenas <em>S</em> de longitud finita junto con el operador de concatenación <code>*</code> forman un <a href="https://en.wikipedia.org/wiki/Free_monoid">monoide libre</a> (S, <code>*</code>). El elemento identidad de este conjunto es la cadena vacía &quot;&quot;. Siempre que un monoide libre es no conmutativo, la operación suele ser representada por <code>\cdot</code>, <code>*</code>, o un símbolo similar, en luga de con <code>+</code> que implica conmutatividad.</p><h2><a class="nav-anchor" id="string-interpolation-1" href="#string-interpolation-1">Interpolación</a></h2><p>Construir cadenas mediante concatenación puede llegar a ser un poco engorroso, sin embargo. Para reducir la necesidad de estas llamadas verbosas a <a href="../stdlib/strings.html#Base.string"><code>string()</code></a> o multiplicaciones repetidas, Julia permite la interpolación en literales de cadena usando <code>$</code>, como en Perl:</p><pre><code class="language-jldoctest">julia&gt; &quot;$greet, $whom.\n&quot;
+&quot;Hello, world.\n&quot;</code></pre><p>Esto es más legible y conveniente, y equivalente a la concatenación de cadena anterior – el sistema rescribe este aparente literal de cadena única en una concatenación de literales de cadena con variables.</p><p>La expresión completa más corta después de <code>$</code> se toma como la expresión cuyo valor debe ser interpolado en la cadena. Por lo tanto, puede interpolar cualquier expresión en una cadena usando paréntesis:</p><pre><code class="language-julia-repl">julia&gt; &quot;1 + 2 = $(1 + 2)&quot;
+&quot;1 + 2 = 3&quot;</code></pre><p>Tanto la concatenación como la interpolación de cadena llaman a <a href="../stdlib/strings.html#Base.string"><code>string()</code></a> para convertir objetos al formato de cadena. La mayoría de los objetos que no son <code>AbstractString</code> se convierten en cadenas que se corresponden estrechamente con la forma en que se introducen como expresiones literales:</p><pre><code class="language-julia-repl">julia&gt; v = [1,2,3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; &quot;v: $v&quot;
+&quot;v: [1, 2, 3]&quot;</code></pre><p><a href="../stdlib/strings.html#Base.string"><code>string()</code></a> es la identidad para los valores <code>AbstractString</code> y <code>Char</code> values, por lo que estos se interpolan en cadenas como ellos mismos, sin entrecomillar y sin escapar:</p><pre><code class="language-julia-repl">julia&gt; c = &#39;x&#39;
+&#39;x&#39;: ASCII/Unicode U+0078 (category Ll: Letter, lowercase)
+
+julia&gt; &quot;hi, $c&quot;
+&quot;hi, x&quot;</code></pre><p>Para incluir un literal <code>$</code> en una cadena, lo escaparemos con un backslash:</p><pre><code class="language-julia-repl">julia&gt; print(&quot;I have \$100 in my account.\n&quot;)
+I have $100 in my account.</code></pre><h2><a class="nav-anchor" id="triple-quoted-string-literals-1" href="#triple-quoted-string-literals-1">Literales cadena con triples comillas</a></h2><p>Cuando las cadenas se crean utilizando comillas triples (<code>&quot;&quot;&quot;...&quot;&quot;&quot;</code>) tienen un comportamiento especial que puede ser útil para crear bloques de texto más largos. En primer lugar, si la apertura &quot;&quot;&quot; es seguida por una nueva línea, la nueva línea se quita de la cadena resultante:</p><pre><code class="language-julia">&quot;&quot;&quot;hello&quot;&quot;&quot;</code></pre><p>es equivalente a</p><pre><code class="language-julia">&quot;&quot;&quot;
+hello&quot;&quot;&quot;</code></pre><p>pero</p><pre><code class="language-julia">&quot;&quot;&quot;
+
+hello&quot;&quot;&quot;</code></pre><p>contendrá un literal <em>new line</em> al principio. Los espacios en blanco no se modifican. Pueden contener símbolos <code>&quot;</code> sin escapar. Las cadenas de triple comilla también se dedican al nivel de la línea menos indentada. Esto es útil para definir cadenas dentro del código que está sangrado Por ejemplo:</p><pre><code class="language-julia-repl">julia&gt; str = &quot;&quot;&quot;
+           Hello,
+           world.
+         &quot;&quot;&quot;
+&quot;  Hello,\n  world.\n&quot;</code></pre><p>En este caso la línea final (vacía) antes del cierre <code>&quot;&quot;&quot;</code> establece el nivel de indentación.</p><p>Tenga en cuenta que las saltos de línea en cadenas literales, sean de una sola o triple comilla, resultan en un carácter de línea nueva (LF) <code>\n</code> en la cadena, incluso si su editor usa una combinación de retorno de carro (CR) o CRLF para finalizar líneas. Para incluir un CR en una cadena, utilice un escape explícito <code>\r</code>; Por ejemplo, puede introducir la cadena literal <code>&quot;una línea CRLF que termina \r \n&quot;</code>.</p><h2><a class="nav-anchor" id="common-operations-1" href="#common-operations-1">Operaciones Comunes</a></h2><p>Podemos comparar cadenas lexicográficamente usando los operadores de comparación estandard:</p><pre><code class="language-julia-repl">julia&gt; &quot;abracadabra&quot; &lt; &quot;xylophone&quot;
+true
+
+julia&gt; &quot;abracadabra&quot; == &quot;xylophone&quot;
+false
+
+julia&gt; &quot;Hello, world.&quot; != &quot;Goodbye, world.&quot;
+true
+
+julia&gt; &quot;1 + 2 = 3&quot; == &quot;1 + 2 = $(1 + 2)&quot;
+true</code></pre><p>La función <a href="../stdlib/strings.html#Base.search"><code>search()</code></a> permite buscar el índice de una carácter en una cadena:</p><pre><code class="language-julia-repl">julia&gt; search(&quot;xylophone&quot;, &#39;x&#39;)
+1
+
+julia&gt; search(&quot;xylophone&quot;, &#39;p&#39;)
+5
+
+julia&gt; search(&quot;xylophone&quot;, &#39;z&#39;)
+0</code></pre><p>Y se puede arrancar la búsqueda de un carácter a partir de un desplazamiento proporcionado por un tercer argumento:</p><pre><code class="language-julia-repl">julia&gt; search(&quot;xylophone&quot;, &#39;o&#39;)
+4
+
+julia&gt; search(&quot;xylophone&quot;, &#39;o&#39;, 5)
+7
+
+julia&gt; search(&quot;xylophone&quot;, &#39;o&#39;, 8)
+0</code></pre><p>La función <a href="../stdlib/arrays.html#Base.contains-Tuple{Function,Any,Any}"><code>contains()</code></a> se usa para comprobar si una subcadena está contenida en una cadena:</p><pre><code class="language-julia-repl">julia&gt; contains(&quot;Hello, world.&quot;, &quot;world&quot;)
+true
+
+julia&gt; contains(&quot;Xylophon&quot;, &quot;o&quot;)
+true
+
+julia&gt; contains(&quot;Xylophon&quot;, &quot;a&quot;)
+false
+
+julia&gt; contains(&quot;Xylophon&quot;, &#39;o&#39;)
+ERROR: MethodError: no method matching contains(::String, ::Char)
+Closest candidates are:
+  contains(!Matched::Function, ::Any, !Matched::Any) at reduce.jl:664
+  contains(::AbstractString, !Matched::AbstractString) at strings/search.jl:378</code></pre><p>Este último error es debido a que &#39;o&#39;  es un literal carácter, y <a href="../stdlib/arrays.html#Base.contains-Tuple{Function,Any,Any}"><code>contains()</code></a> es una función genérica que busca subsecuencias. Para buscar un elemento en una secuencia, debemos usar la función <a href="../stdlib/collections.html#Base.in"><code>in()</code></a> en lugra de la anterior.</p><p><a href="../stdlib/linalg.html#Base.repeat"><code>repeat()</code></a> y <a href="../stdlib/strings.html#Base.join"><code>join()</code></a> son otras dos funciones de cadena muy útiles:</p><pre><code class="language-julia-repl">julia&gt; repeat(&quot;.:Z:.&quot;, 10)
+&quot;.:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:..:Z:.&quot;
+
+julia&gt; join([&quot;apples&quot;, &quot;bananas&quot;, &quot;pineapples&quot;], &quot;, &quot;, &quot; and &quot;)
+&quot;apples, bananas and pineapples&quot;</code></pre><p>Algunas otras funciones útiles son:</p><ul><li><p><a href="../stdlib/collections.html#Base.endof"><code>endof(str)</code></a> el índice máximo (byte) que se puede utilizar para indexar en <code>str</code>.</p></li><li><p><a href="../stdlib/collections.html#Base.length-Tuple{Any}"><code>length(str)</code></a> el número de caracteres en <code>str</code>.</p></li></ul><p> * <a href="../stdlib/collections.html#Base.start"><code>i = start(str)</code></a> da el primer índice válido en el que se puede encontrar un carácter en `str (típicamente 1).</p><ul><li><p><a href="../stdlib/collections.html#Base.next"><code>c, j = next(str,i)</code></a> devuelve el carácter siguiente en o después del índice <code>i</code> y el siguiente índice de carácter válido que sigue a éste. Con <a href="../stdlib/collections.html#Base.start"><code>start()</code></a> y <a href="../stdlib/collections.html#Base.endof"><code>endof()</code></a>, se puede utilizar para iterar a través de los caracteres en str`.</p></li><li><p><a href="../stdlib/strings.html#Base.ind2chr"><code>ind2chr(str,i)</code></a> da el número de caracteres en <code>str</code> hasta e incluyendo cualquiera en el índice <code>i</code>.</p></li><li><p><a href="../stdlib/strings.html#Base.chr2ind"><code>chr2ind(str,j)</code></a> da el índice en el cual ocurre el carácter <code>j</code>-ésimo en <code>str</code>.</p></li></ul><h2><a class="nav-anchor" id="non-standard-string-literals-1" href="#non-standard-string-literals-1">Literales cadena no estándar</a></h2><p>Hay situaciones en las que se desea construir una cadena o utilizar semántica de cadenas, pero el comportamiento de la construcción de cadena estándar no es lo que se necesita. Para este tipo de situaciones, Julia proporciona <a href="strings.html#non-standard-string-literals-1">literales cadena no estándar</a>. Un literal de cadena no estándar es como una cadena literal normal de doble comilla, pero va inmediatamente precedido de un identificador y no se comporta como un literal de cadena normal. El convenio es que los literales no estándar con prefijos en mayúsculas producen objetos cadena reales, mientras que aquellos con prefijos en minúsculas producen objetos que no cadena, como arrays de bytes o expresiones regulares compiladas. Las expresiones regulares, literales arrays de bytes y literales de números de versión, como se describe a continuación, son algunos ejemplos de literales de cadena no estándar. Otros ejemplos se dan en la sección <a href="metaprogramming.html#metaprogramming-1">Metaprogramación</a>.</p><h2><a class="nav-anchor" id="regular-expressions-1" href="#regular-expressions-1">Expresiones Regulares</a></h2><p>Julia tiene expresiones regulares compatibles con Perl (expresiones regulares), tal y como las proporciona la biblioteca <a href="http://www.pcre.org/">PCRE</a>. Las expresiones regulares se relacionan con las cadenas de dos maneras: la conexión obvia es que las expresiones regulares se utilizan para encontrar patrones regulares en cadenas; La otra conexión es que las expresiones regulares se introducen ellas mismas como cadenas, que se analizan en una máquina de estado que puede utilizarse para buscar patrones en cadenas de forma eficiente. En Julia, las expresiones regulares se introducen usando literales de cadena no estándar prefijados con varios identificadores comenzando por <code>r</code>. El literal de expresión regular más básico sin ninguna opción activada sólo utiliza <code>r&quot;...&quot;</code>:</p><pre><code class="language-julia-repl">julia&gt; r&quot;^\s*(?:#|$)&quot;
+r&quot;^\s*(?:#|$)&quot;
+
+julia&gt; typeof(ans)
+Regex</code></pre><p>Para comprobar si una <em>regex</em> se corresponde con una cadena, se utiliza  <a href="../stdlib/strings.html#Base.ismatch"><code>ismatch()</code></a>:</p><pre><code class="language-julia-repl">julia&gt; ismatch(r&quot;^\s*(?:#|$)&quot;, &quot;not a comment&quot;)
+false
+
+julia&gt; ismatch(r&quot;^\s*(?:#|$)&quot;, &quot;# a comment&quot;)
+true</code></pre><p>Como puede verse aquí, <a href="../stdlib/strings.html#Base.ismatch"><code>ismatch()</code></a> simplemente devuelve <code>true</code> o <code>false</code>, indicando si la <em>regex</em> dada coincide o no con la cadena. Es común, sin embargo, que uno quiera saber no sólo si una cadena coincide, sino también <em>cómo</em> coincide. Para capturar esta información sobre una coincidencia, se utiliza la función <a href="../stdlib/strings.html#Base.match"><code>match()</code></a>:</p><pre><code class="language-julia-repl">julia&gt; match(r&quot;^\s*(?:#|$)&quot;, &quot;not a comment&quot;)
+
+julia&gt; match(r&quot;^\s*(?:#|$)&quot;, &quot;# a comment&quot;)
+RegexMatch(&quot;#&quot;)</code></pre><p>Si la expresión regular no coincide con la cadena dada, <a href="../stdlib/strings.html#Base.match"><code>match()</code></a> devuelve <code>nothing</code> – un valor especial que no imprime nada en el indicador interactivo. Aparte de no imprimir, es un valor completamente normal, como podemos comprobar en el siguiente código:</p><pre><code class="language-julia">m = match(r&quot;^\s*(?:#|$)&quot;, line)
+if m === nothing
+    println(&quot;not a comment&quot;)
+else
+    println(&quot;blank or comment&quot;)
+end</code></pre><p>Si la expresión regular coincide, el valor devuelto por <a href="../stdlib/strings.html#Base.match"><code>match()</code></a>  es un objeto <code>RegexMatch</code>. Estos objetos registran cómo coincide la expresión, incluyendo la subcadena que coincide con el patrón y cualquier subcadena capturada, si la hay. Este ejemplo sólo captura la parte de la subcadena que coincide, pero tal vez quisiéramos capturar cualquier texto no en blanco después del carácter de comentario. Podríamos hacer lo siguiente:</p><pre><code class="language-julia-repl">julia&gt; m = match(r&quot;^\s*(?:#\s*(.*?)\s*$|$)&quot;, &quot;# a comment &quot;)
+RegexMatch(&quot;# a comment &quot;, 1=&quot;a comment&quot;)</code></pre><p>Al invocar a <a href="../stdlib/strings.html#Base.match"><code>match()</code></a>, tenemos la opción de especificar un índice en el que iniciar la búsqueda. Por ejemplo:</p><pre><code class="language-julia-repl">julia&gt; m = match(r&quot;[0-9]&quot;,&quot;aaaa1aaaa2aaaa3&quot;,1)
+RegexMatch(&quot;1&quot;)
+
+julia&gt; m = match(r&quot;[0-9]&quot;,&quot;aaaa1aaaa2aaaa3&quot;,6)
+RegexMatch(&quot;2&quot;)
+
+julia&gt; m = match(r&quot;[0-9]&quot;,&quot;aaaa1aaaa2aaaa3&quot;,11)
+RegexMatch(&quot;3&quot;)</code></pre><p>Puede extraer la siguiente información de un objeto <code>RegexMatch</code>:</p><ul><li><p>La totalidad de la subcadena emparejada: <code>m.match</code></p></li><li><p>Las subcadenas capturadas como una matriz de cadenas: <code>m.captures</code></p></li><li><p>El desplazamiento en el que comienza la coincidencia del patrón: <code>m.offset</code></p></li><li><p>Los desplazamientos de las subcadenas capturadas como un vector: <code>m.offsets</code></p></li></ul><p>Para cuando una captura no coincide, en lugar de una subcadena, <code>m.captures</code> no contiene nada en esa posición, y <code>m.offsets</code> tiene un desplazamiento de cero (recuerde que los índices en Julia son <em>1-based</em>, por lo que un desplazamiento de cero en una cadena es inválido). Aquí hay un par de ejemplos algo artificiales:</p><pre><code class="language-jldoctest">julia&gt; m = match(r&quot;(a|b)(c)?(d)&quot;, &quot;acd&quot;)
+RegexMatch(&quot;acd&quot;, 1=&quot;a&quot;, 2=&quot;c&quot;, 3=&quot;d&quot;)
+
+julia&gt; m.match
+&quot;acd&quot;
+
+julia&gt; m.captures
+3-element Array{Union{SubString{String}, Void},1}:
+ &quot;a&quot;
+ &quot;c&quot;
+ &quot;d&quot;
+
+julia&gt; m.offset
+1
+
+julia&gt; m.offsets
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; m = match(r&quot;(a|b)(c)?(d)&quot;, &quot;ad&quot;)
+RegexMatch(&quot;ad&quot;, 1=&quot;a&quot;, 2=nothing, 3=&quot;d&quot;)
+
+julia&gt; m.match
+&quot;ad&quot;
+
+julia&gt; m.captures
+3-element Array{Union{SubString{String}, Void},1}:
+ &quot;a&quot;
+ nothing
+ &quot;d&quot;
+
+julia&gt; m.offset
+1
+
+julia&gt; m.offsets
+3-element Array{Int64,1}:
+ 1
+ 0
+ 2</code></pre><p>Es conveniente que las capturas sean retornadas como un array para que uno pueda usar la sintaxis de desestructurante para enlazarlas a variables locales: </p><pre><code class="language-jldoctest">julia&gt; first, second, third = m.captures; first
+&quot;a&quot;</code></pre><p>Las capturas también está accesibles indexando el objeto <code>RegexMatch</code> con el número o nombre del grupo captura:</p><pre><code class="language-julia-repl">julia&gt; m=match(r&quot;(?&lt;hour&gt;\d+):(?&lt;minute&gt;\d+)&quot;,&quot;12:45&quot;)
+RegexMatch(&quot;12:45&quot;, hour=&quot;12&quot;, minute=&quot;45&quot;)
+
+julia&gt; m[:minute]
+&quot;45&quot;
+
+julia&gt; m[2]
+&quot;45&quot;</code></pre><p>Las capturas pueden referenciarse en una cadena de sustitución cuando se utiliza <a href="../stdlib/strings.html#Base.replace"><code>replace()</code></a> utilizando <code>\n</code> para referirse al grupo de captura <code>n</code>-ésimo y prefijando la cadena de subsitución con <code>s</code>. El grupo de captura <code>0</code> se refiere a todo el objeto de coincidencia. Los grupos de captura nombrados se pueden hacer referencia en la sustitución con g&lt;groupname&gt;. Por ejemplo:</p><pre><code class="language-julia-repl">julia&gt; replace(&quot;first second&quot;, r&quot;(\w+) (?&lt;agroup&gt;\w+)&quot;, s&quot;\g&lt;agroup&gt; \1&quot;)
+&quot;second first&quot;</code></pre><p>Los grupos de captura numerados pueden también ser referenciados como <code>\g&lt;n&gt;</code> para evitar ambigüedad, como en:</p><pre><code class="language-julia-repl">julia&gt; replace(&quot;a&quot;, r&quot;.&quot;, s&quot;\g&lt;0&gt;1&quot;)
+&quot;a1&quot;</code></pre><p>Puedes modificar el comportamiento de las expresiones regulares mediante una combinación de los flags <code>i</code>, <code>m</code>, <code>s</code> y <code>x</code> después de la marca de comillas dobles de cierre. Estas banderas tienen el mismo significado que en Perl, tal y como se describe en este fragmento de la [página de manual del referencia de Perl(http://perldoc.perl.org/perlre.html#Modifiers):</p><pre><code class="language-none">i   Do case-insensitive pattern matching.
+
+    If locale matching rules are in effect, the case map is taken
+    from the current locale for code points less than 255, and
+    from Unicode rules for larger code points. However, matches
+    that would cross the Unicode rules/non-Unicode rules boundary
+    (ords 255/256) will not succeed.
+
+m   Treat string as multiple lines.  That is, change &quot;^&quot; and &quot;$&quot;
+    from matching the start or end of the string to matching the
+    start or end of any line anywhere within the string.
+
+s   Treat string as single line.  That is, change &quot;.&quot; to match any
+    character whatsoever, even a newline, which normally it would
+    not match.
+
+    Used together, as r&quot;&quot;ms, they let the &quot;.&quot; match any character
+    whatsoever, while still allowing &quot;^&quot; and &quot;$&quot; to match,
+    respectively, just after and just before newlines within the
+    string.
+
+x   Tells the regular expression parser to ignore most whitespace
+    that is neither backslashed nor within a character class. You
+    can use this to break up your regular expression into
+    (slightly) more readable parts. The &#39;#&#39; character is also
+    treated as a metacharacter introducing a comment, just as in
+    ordinary code.</code></pre><p>Por ejemplo, la siguiente regex tiene activados los tres <em>flags</em>:</p><pre><code class="language-julia-repl">julia&gt; r&quot;a+.*b+.*?d$&quot;ism
+r&quot;a+.*b+.*?d$&quot;ims
+
+julia&gt; match(r&quot;a+.*b+.*?d$&quot;ism, &quot;Goodbye,\nOh, angry,\nBad world\n&quot;)
+RegexMatch(&quot;angry,\nBad world&quot;)</code></pre><p>Las cadenas <em>regex</em> con triples comillas, de la forma <code>r&quot;&quot;&quot;...&quot;&quot;&quot;</code> están también soportadas (y puede ser conveniente para expresiones regulares que contengan comillas o caracteres de salto de línea).</p><h2><a class="nav-anchor" id="man-byte-array-literals-1" href="#man-byte-array-literals-1">Byte Array Literals</a></h2><p>Otro literal de cadena no estándar útil es el literal de cadena de bytes: <code>b &quot;...&quot;</code>. Esta forma nos permite usar la notación de cadena para expresar arrays de bytes literales, es decir, arrays de valores <a href="../stdlib/numbers.html#Core.UInt8"><code>UInt8</code></a>. Las reglas para los literales de arrays de bytes son las siguientes:</p><ul><li><p>Los caracteres ASCII y los escapes ASCII producen un solo byte.</p></li><li><p><code>\x</code> y las secuencias de escape octales producen el <em>byte</em> correspondiente al valor de escape.</p></li><li><p>Las secuencias de escape Unicode producen una secuencia de bytes que codifican ese punto de código en UTF-8.</p></li></ul><p>Hay una cierta superposición entre estas reglas ya que el comportamiento de <code>\x</code> y escapes octales menores de <code>0x80</code> (128) están cubiertos por las dos primeras reglas, pero aquí estas reglas están de acuerdo. Juntas, estas reglas permiten usar fácilmente caracteres ASCII, valores arbitrarios de bytes y secuencias UTF-8 para producir matrices de bytes. Aquí hay un ejemplo usando los tres:</p><pre><code class="language-julia-repl">julia&gt; b&quot;DATA\xff\u2200&quot;
+8-element Array{UInt8,1}:
+ 0x44
+ 0x41
+ 0x54
+ 0x41
+ 0xff
+ 0xe2
+ 0x88
+ 0x80</code></pre><p>La secuencia ASCII &quot;DATA&quot; corresponde a los bytes 68, 65, 84, 65. <code>\xff</code> produce el byte simple 255. El escape Unicode <code>\u2200</code> está codificado en UTF-8 como los tres bytes 226, 136, 128. Nótese que la matriz de bytes resultante no corresponde a una cadena UTF-8 válida - si intenta utilizar esto como una cadena literal normal, obtendrá un error de sintaxis:</p><pre><code class="language-julia-repl">julia&gt; &quot;DATA\xff\u2200&quot;
+ERROR: syntax: invalid UTF-8 sequence</code></pre><p>Observe también la distinción significativa entre <code>\xff</code> y <code>\uff</code>: la secuencia de escape anterior codifica el <em>byte 255</em>, mientras que la última secuencia de escape representa el <em>punto de código 255</em>, que se codifica como dos bytes en UTF-8:</p><pre><code class="language-julia-repl">julia&gt; b&quot;\xff&quot;
+1-element Array{UInt8,1}:
+ 0xff
+
+julia&gt; b&quot;\uff&quot;
+2-element Array{UInt8,1}:
+ 0xc3
+ 0xbf</code></pre><p>En los literales de caracteres, esta distinción se pasa por alto y <code>\xff</code> está autorizado a  representar el punto de código 255, porque los caracteres <em>siempre</em> representan puntos de código. En las cadenas, sin embargo, los escapes <code>\x</code> siempre representan bytes, no puntos de código, mientras que los escapes <code>\u</code> y <code>\U</code> siempre representan puntos de código, que están codificados en uno o más bytes. Para los puntos de código inferiores a <code>\u80</code>, ocurre que la codificación UTF-8 de cada punto de código es sólo el byte producido por el escape <code>\x</code> correspondiente, por lo que la distinción puede ignorarse con seguridad. Sin embargo, para los escapes <code>\x80</code> a <code>\xff</code> en comparación con <code>\u80</code> a <code>\uff</code>, existe una diferencia importante: el primero escapa a todos los bytes sencillos de codificación, los cuales -a menos que sean seguidos por bytes de continuación muy específicos- no forman UTF-8 válido, mientras que los últimos escapes representan puntos de código Unicode con codificaciones de dos bytes.</p><p>Si todo esto es muy confuso, intente leer <a href="https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/">&quot;The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets&quot;</a>. Es una excelente introducción a Unicode y UTF-8, y puede ayudar a aliviar cierta confusión sobre el asunto.</p><h2><a class="nav-anchor" id="man-version-number-literals-1" href="#man-version-number-literals-1">Literales Número de Versión</a></h2><p>Los números de versión se pueden expresar fácilmente con literales de cadena no estándar del forma <code>v&quot;...&quot;</code>. Los literales de número de versión crean objetos <code>VersionNumber</code> que siguen las especificaciones del <a href="http://semver.org/">control de versiones semánticas</a> y, por lo tanto, se componen de valores numéricos mayor, menor y de parche, seguidos de anotaciones alfanuméricas de pre-liberación y construcción. Por ejemplo, <code>v &quot;0.2.1-rc1 + win64&quot;</code> se divide en versión principal <code>0</code>, versión secundaria <code>2</code>, versión de revisión <code>1</code>, <code>rc1</code> de pre-lanzamiento y construcción <code>win64</code>. Al introducir una versión literal, todo excepto el número de versión principal es opcional, por ejemplo, <code>v&quot;0.2&quot;</code> es equivalente a <code>v&quot;0.2.0&quot;</code> (con anotaciones previas / de compilación vacías), <code>v&quot;2&quot;</code> equivale a <code>v&quot;2.0.0&quot;</code>, y así sucesivamente.</p><p>Los objetos <code>VersionNumber</code> son en su mayoría útiles para comparar fácilmente y correctamente dos (o más) versiones. Por ejemplo, la constante <code>VERSION</code> contiene el número de versión de Julia como un objeto <code>VersionNumber</code> y, por lo tanto, se puede definir algún comportamiento específico de la versión utilizando declaraciones simples como:</p><pre><code class="language-julia">if v&quot;0.2&quot; &lt;= VERSION &lt; v&quot;0.3-&quot;
+    # do something specific to 0.2 release series
+end</code></pre><p>Obsérvese que en el ejemplo anterior se utiliza el número de versión no estándar <code>v&quot;0.3-&quot;</code>, con un guión <code>-</code> en cola: esta notación es una extensión Julia del estándar, y se usa para indicar una versión que es más baja que cualquier versión <code>0.3</code>, Incluyendo todas sus pre-lanzamientos. Por lo tanto, en el ejemplo anterior, el código sólo se ejecuta con versiones estable <code>0.2</code> y excluye las versiones <code>v&quot;0.3.0-rc1&quot;</code>. Para permitir también versiones <code>0.2</code> inestables (es decir, pre-liberación), la verificación del límite inferior debería modificarse de la siguiente manera: <code>v&quot;0.2-&quot; &lt;= VERSION</code>.</p><p>Otra extensión de especificación de versión no estándar permite usar un <code>+</code> de cola para expresar un límite superior en las versiones de compilación, por ej. <code>VERSIÓN&gt; v &quot;0.2-rc1 +&quot;</code> se puede utilizar para significar cualquier versión por encima de <code>0.2-rc1</code> y cualquiera de sus compilaciones: devolverá <code>false</code> para la versión <code>v&quot;0.2-rc1+win64&quot;</code> y <code>true</code> para <code>v&quot;0.2-rc2&quot;</code>.</p><p>Es una buena práctica utilizar estas versiones especiales en comparaciones (en particular, el valor <code>-</code>de cola siempre debe utilizarse en los límites superiores a menos que haya una buena razón para no hacerlo), pero no deben utilizarse como el número de versión real de nada, ya que son inválidos en el esquema de versiones semánticas.</p><p>Además de ser utilizados por la constante <a href="../stdlib/constants.html#Base.VERSION"><code>VERSION</code></a>, los objetos <code>VersionNumber</code> son ampliamente utilizados en el módulo <code>Pkg</code>, para especificar las versiones de paquetes y sus dependencias.</p><h2><a class="nav-anchor" id="man-raw-string-literals-1" href="#man-raw-string-literals-1">Raw String Literals</a></h2><p>Las cadenas en bruto (<em>raw</em>) sin interpolación o <em>unescaping</em> pueden ser expresadas con literales cadena no estándar de la forma <code>raw&quot;...&quot;</code>. Los literales cadena en bruto crean objetos <code>String</code> ordinarios que contienen los contenidos encerrados exactamente como entrados sin interpolación ni separación. Esto es útil para cadenas que contiene código o marcado en otros idiomas que usan <code>$</code> o <code>\</code> como caracteres especiales. La excepción son las comillas que aún deben ser escapadas, por ejemplo,  <code>raw&quot; \ &quot;&quot;</code>es equivalente a<code>&quot;\&quot; &quot;</code>.</p><footer><hr/><a class="previous" href="complex-and-rational-numbers.html"><span class="direction">Previous</span><span class="title">Números Racionales y Complejos</span></a><a class="next" href="functions.html"><span class="direction">Next</span><span class="title">Funciones</span></a></footer></article></body></html>
