@@ -70,27 +70,27 @@
 ## Documentación para Desarrolladores
 
 * [Reflexión e Introspección](@ref reflection-and-introspection)
-* Documentation of Julia's Internals
+* Documentación de los Interiores de Julia
   * [Initialization of the Julia runtime](@ref init)
-  * [Julia ASTs](@ref ast)
-  * [More about types](@ref types)
+  * [ASTs de Julia](@ref ast)
+  * [Más sobre Tipos](@ref types)
   * [Memory layout of Julia Objects](@ref object)
-  * [Eval of Julia code](@ref eval)
-  * [Calling Conventions](@ref callconv)
+  * [Evaluación de Código Julia](@ref eval)
+  * [Convenios de Llamada](@ref callconv)
   * [High-level Overview of the Native-Code Generation Process](@ref compiler)
-  * [Julia Functions](@ref julia-functions)
+  * [Funciones Julia](@ref julia-functions)
   * [Base.Cartesian](@ref cartesian)
-  * [Talking to the compiler (the `:meta` mechanism)](@ref meta)
+  * [Hablando al Compilador (El Mecanismo `:meta`)](@ref meta)
   * [SubArrays](@ref subarrays)
-  * [System Image Building](@ref sysimg)
-  * [Working with LLVM](@ref llvm)
+  * [Construcción de Imagen del Sistema](@ref sysimg)
+  * [Trabajando con LLVM](@ref llvm)
   * [printf() and stdio in the Julia runtime](@ref stdio)
-  * [Bounds checking](@ref boundscheck)
+  * [Comprobación de Límites](@ref boundscheck)
   * [Proper maintenance and care of multi-threading locks](@ref locks)
   * [Arrays with custom indices](@ref offset-arrays)
   * [Base.LibGit2](@ref libgit2)
   * [Module loading](@ref require)
-* Developing/debugging Julia's C code
+* Desarrollo/Depuración de Código C de Julia
   * [Reporting and analyzing crashes (segfaults)](@ref backtraces)
   * [gdb debugging tips](@ref debuggingtips)
   * [Using Valgrind with Julia](@ref valgrind)
