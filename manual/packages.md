@@ -92,7 +92,7 @@ Additional packages:
  - Stats                         0.2.6
 ```
 
-Esto es funcionalmente equivalente a llamar a [`Pkg.add("SHA")`](@ref), excepto que [`Pkg.add()`](@ ref) no cambia `REQUIRE` hasta *después* de que la instalación haya finalizado, por lo que si hay problemas, `REQUIRE` quedará como estaba antes de llamar a [`Pkg.add()`](@ref). El formato del archivo `REQUIRE` se describe en [Especificación de requisitos](@ref requirements-specification); permite, entre otras cosas, requerir rangos específicos de versiones de paquetes.
+Esto es funcionalmente equivalente a llamar a [`Pkg.add("SHA")`](@ref), excepto que [`Pkg.add()`](@ref) no cambia `REQUIRE` hasta *después* de que la instalación haya finalizado, por lo que si hay problemas, `REQUIRE` quedará como estaba antes de llamar a [`Pkg.add()`](@ref). El formato del archivo `REQUIRE` se describe en [Especificación de requisitos](@ref requirements-specification); permite, entre otras cosas, requerir rangos específicos de versiones de paquetes.
 
 Cuando decida que no quiere tener un paquete más, puede usar [`Pkg.rm()`](@ref) para eliminar el requisito del archivo `REQUIRE`:
 
@@ -114,7 +114,7 @@ INFO: REQUIRE updated.
 julia> Pkg.status()
 No packages installed.
 ```
-Una vez más, esto es equivalente a editar el archivo `REQUIRE` para eliminar la línea con cada nombre de paquete y ejecutar [`Pkg.resolve()`](@ref) para actualizar el conjunto de paquetes instalados para que coincidan. Mientras que [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref) son convenientes para agregar y eliminar requisitos para un solo paquete, cuando desea agregar o eliminar paquetes múltiples, puede llamar a [`Pkg.edit()`](@ref) para cambiar manualmente el contenido de `REQUIRE` y luego actualizar sus paquetes en consecuencia. [`Pkg.edit()`](@ref) no retrotrae el contenido de `REQUIRE` si [`Pkg.resolve()`](@ref) falla, sino que debe ejecutar [`Pkg.edit()`](@ ref) otra vez para corregir el contenido de los archivos uno mismo.
+Una vez más, esto es equivalente a editar el archivo `REQUIRE` para eliminar la línea con cada nombre de paquete y ejecutar [`Pkg.resolve()`](@ref) para actualizar el conjunto de paquetes instalados para que coincidan. Mientras que [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref) son convenientes para agregar y eliminar requisitos para un solo paquete, cuando desea agregar o eliminar paquetes múltiples, puede llamar a [`Pkg.edit()`](@ref) para cambiar manualmente el contenido de `REQUIRE` y luego actualizar sus paquetes en consecuencia. [`Pkg.edit()`](@ref) no retrotrae el contenido de `REQUIRE` si [`Pkg.resolve()`](@ref) falla, sino que debe ejecutar [`Pkg.edit()`](@ref) otra vez para corregir el contenido de los archivos uno mismo.
 
 Debido a que el administrador de paquetes usa libgit2 internamente para administrar los repositorios git del paquete, los usuarios pueden encontrarse con problemas de protocolo (por ejemplo, si están detrás de un *firewall*) al ejecutar [`Pkg.add()`](@ref). Por defecto, se accederá a todos los paquetes alojados por GitHub a través de 'https'; este valor predeterminado se puede modificar llamando a [`Pkg.setprotocol!()`](@ref). El siguiente comando se puede ejecutar desde la línea de comando para decirle a git que use 'https' en lugar del protocolo 'git' cuando clona todos los repositorios, dondequiera que estén alojados:
 
@@ -180,7 +180,7 @@ Si los paquetes no registrados contienen un archivo `REQUIRE` en la parte superi
     
 ## Actualizando Paquetes
 
-Cuando los desarrolladores de paquetes publican nuevas versiones registradas de los paquetes que está utilizando, por supuesto, querrá las nuevas versiones brillantes. Para obtener las últimas y mejores versiones de todos sus paquetes, simplemente haga [`Pkg.update()`] (@ ref):
+Cuando los desarrolladores de paquetes publican nuevas versiones registradas de los paquetes que está utilizando, por supuesto, querrá las nuevas versiones brillantes. Para obtener las últimas y mejores versiones de todos sus paquetes, simplemente haga [`Pkg.update()`] (@ref):
 
 When package developers publish new registered versions of packages that you're using, you will,
 of course, want the new shiny versions. To get the latest and greatest versions of all your packages,
@@ -228,7 +228,7 @@ Este proceso de actualización parcial todavía calcula el nuevo conjunto de ver
 
 ## Pago, Pin y Gratis
 
-Puede querer usar la versión `maestra` de un paquete en lugar de una de sus versiones registradas. Es posible que haya correcciones o funcionalidades que necesite y que aún no se hayan publicado en ninguna versión registrada, o puede que sea un desarrollador del paquetes y necesite realizar cambios en `master` o en alguna otra rama de desarrollo. En tales casos, puede hacer [`Pkg.checkout(pkg)`](@ ref) para verificar la rama `master` de` pkg` o [`Pkg.checkout(pkg, branch)`](@ref) para verificar alguna otra rama:
+Puede querer usar la versión `maestra` de un paquete en lugar de una de sus versiones registradas. Es posible que haya correcciones o funcionalidades que necesite y que aún no se hayan publicado en ninguna versión registrada, o puede que sea un desarrollador del paquetes y necesite realizar cambios en `master` o en alguna otra rama de desarrollo. En tales casos, puede hacer [`Pkg.checkout(pkg)`](@ref) para verificar la rama `master` de` pkg` o [`Pkg.checkout(pkg, branch)`](@ref) para verificar alguna otra rama:
 
 ```julia-repl
 julia> Pkg.add("Distributions")
@@ -357,7 +357,7 @@ donde `FULL NAME` es su nombre completo actual (se permiten espacios entre las c
 $ git config --global github.user "USERNAME"
 ```
 
-donde `USERNAME` es nuestro nombre real de usuario en GitHub. Una vez que hace esto, el administrador de paquetes reconoce el nombre de usuario GitHub y puede configurar las cosas en consecuencia. También debemos [cargar](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fssh) nuestra clave pública SSH a GitHub y configurar un [agente SSH](https: //linux.die.net/man/1/ssh-agent) en nuestra máquina de desarrollo para que pueda realizar cambios con una molestia mínima. En el futuro, haremos que este sistema sea extensible y admitiremos otras opciones comunes de alojamiento git como [BitBucket] (https://bitbucket.org) y permitiremos a los desarrolladores elegir su favorito. Como las funciones de desarrollo del paquete se han movido al paquete [PkgDev](https://github.com/JuliaLang/PkgDev.jl), debe ejecutar `Pkg.add ("PkgDev"); import PkgDev` para acceder a las funciones que comienzan con `PkgDev` en el documento siguiente.
+donde `USERNAME` es nuestro nombre real de usuario en GitHub. Una vez que hace esto, el administrador de paquetes reconoce el nombre de usuario GitHub y puede configurar las cosas en consecuencia. También debemos [cargar](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fssh) nuestra clave pública SSH a GitHub y configurar un [agente SSH](https://linux.die.net/man/1/ssh-agent) en nuestra máquina de desarrollo para que pueda realizar cambios con una molestia mínima. En el futuro, haremos que este sistema sea extensible y admitiremos otras opciones comunes de alojamiento git como [BitBucket] (https://bitbucket.org) y permitiremos a los desarrolladores elegir su favorito. Como las funciones de desarrollo del paquete se han movido al paquete [PkgDev](https://github.com/JuliaLang/PkgDev.jl), debe ejecutar `Pkg.add ("PkgDev"); import PkgDev` para acceder a las funciones que comienzan con `PkgDev` en el documento siguiente.
 
 ## Hacer cambios a un paquete existente
 
@@ -402,7 +402,7 @@ shell> git command arguments...    # command will apply to Foo
 
 Ahora supongamos que está listo para hacer algunos cambios en `Foo`. Si bien hay varios enfoques posibles, aquí hay uno que se utiliza ampliamente:
 
-  * Desde el prompt de Julia, escriba [`Pkg.checkout (" Foo ")`] (@ ref). Esto garantiza que está ejecutando 
+  * Desde el prompt de Julia, escriba [`Pkg.checkout("Foo")`] (@ref). Esto garantiza que está ejecutando 
     el último código (la rama `master`), en lugar de cualquier copia de la "versión oficial" que haya instalado. 
     (Si planea corregir un error, en este punto es una buena idea verificar nuevamente si el error ya ha sido 
     corregido por otra persona. Si lo ha hecho, puede solicitar que se etiquete un nuevo lanzamiento oficial 
@@ -414,7 +414,7 @@ Ahora supongamos que está listo para hacer algunos cambios en `Foo`. Si bien ha
     asegura de que pueda moverse fácilmente entre su nuevo trabajo y la rama actual 'principal' (consulte 
     [https://git-scm.com/book/es/v2/Git-Branching-Branches-in-a-Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)).
 
-Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocupe: consulte [más detalles sobre la bifurcación] (@ ref man-branch-post-hoc) a continuación.
+Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocupe: consulte [más detalles sobre la bifurcación] (@ref man-branch-post-hoc) a continuación.
 
    * Haz tus cambios. Ya sea para corregir un error o agregar una nueva funcionalidad, en la mayoría de los casos tu 
      cambio debería incluir actualizaciones para las carpetas `src/` y `test/`. Si estás solucionando un error, agrega 
@@ -424,7 +424,7 @@ Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocu
      del paquete que te has asegurado de que el código funcione según lo previsto.
    * Ejecuta las pruebas del paquete y asegúrate de que pasen. Hay varias formas de ejecutar las pruebas:
 
-      * Desde Julia, ejecuta [`Pkg.test (" Foo ")`] (@ ref): esto ejecutará tus pruebas en un proceso 
+      * Desde Julia, ejecuta [`Pkg.test("Foo")`] (@ref): esto ejecutará tus pruebas en un proceso 
         separado (nuevo) `julia`.
       * Desde Julia, `include("runtests.jl")` desde la carpeta `test/` del paquete (es posible que el 
         archivo tenga un nombre diferente, busque uno que ejecute todas las pruebas): esto te permite 

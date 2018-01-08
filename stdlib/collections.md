@@ -162,7 +162,7 @@ Parcialmente implementado por:
 
 [`ObjectIdDict`](@ref) es una tabla hash especial donde las claves son siempre identidades de objeto.
 
-[`WeakKeyDict`] (@ ref) es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura incluso cuando se referencian en una tabla hash.
+[`WeakKeyDict`] (@ref) es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.
 
 [`Dict`](@ref)s se pueden crear pasando pares de objetos construidos con `=>()` a un constructor [`Dict`](@ref): `Dict ("A"=> 1," B "=> 2)`. Esta llamada intentará inferir información sobre el tipo de las claves y los valores (es decir, este ejemplo crea un `Dict{String, Int64}`). Para especificar los tipos explícitamente, use la sintaxis `Dict{KeyType,ValueType}(...)`. Por ejemplo, `Dict{String,Int32}(" A "=> 1," B "=> 2)`.
 

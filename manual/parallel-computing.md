@@ -33,7 +33,7 @@ julia> fetch(s)
 
 El primer argumento para [`remotecall()`](@ref) es la función para llamar. La mayoría de la programación paralela en Julia no hace referencia a procesos específicos ni a la cantidad de procesos disponibles, pero [`remotecall()`](@ref) se considera una interfaz de bajo nivel que proporciona un control más preciso. El segundo argumento para [`remotecall()`](@ref) es el `id` del proceso que hará el trabajo, y los argumentos restantes se pasarán a la función a la que se llama.
 
-Como puede ver, en la primera línea le pedimos al proceso 2 que construyera una matriz aleatoria de 2 por 2, y en la segunda línea le pedimos que agregara 1 a ella. El resultado de ambos cálculos está disponible en los dos futuros, `r` y` s`. La macro [`@ spawnat`] (@ ref) evalúa la expresión en el segundo argumento sobre el proceso especificado por el primer argumento.
+Como puede ver, en la primera línea le pedimos al proceso 2 que construyera una matriz aleatoria de 2 por 2, y en la segunda línea le pedimos que agregara 1 a ella. El resultado de ambos cálculos está disponible en los dos futuros, `r` y` s`. La macro [`@ spawnat`] (@ref) evalúa la expresión en el segundo argumento sobre el proceso especificado por el primer argumento.
 
 Ocasionalmente, es posible que desee un valor calculado de forma remota de inmediato. Esto suele ocurrir cuando lee desde un objeto remoto para obtener los datos que necesita la próxima operación local. La función [`remotecall_fetch()`](@ref) existe para este propósito. Es equivalente a `fetch (remotecall(...))`
 pero es más eficiente
@@ -147,7 +147,7 @@ Las funciones [`addprocs()`](@ref), [`rmprocs()`](@ref), [`workers()`](@ref), y 
 
 Note que los *workers* no ejecutan un script `.juliarc.jl` de inicio, ni sincronizan su estado global (tal como variables globales, nuevas definiciones de métodos y módulos cargados) con cualquiera de los procesos que están ejecutando.
 
-Pueden soportarse otros tipos de clústers escribiendo nuestro propio `ClusterManager`, como se describe después en la sección [ClusterManagers](@ref clustermanagers) section.
+Pueden soportarse otros tipos de clústers escribiendo nuestro propio `ClusterManager`, como se describe después en la sección ClusterManagers section.
 
 ## Movimiento de Datos
 
@@ -289,7 +289,7 @@ a = zeros(100000)
 end
 ```
 
-Este código no inicializará todo `a`, ya que cada proceso tendrá una copia separada de él. Los bucles for paralelos como éste deben ser evitados. Afortunadamente, podemos usar los [arrays compartidos](@ref man-shared-arrays) para sortear esta limitación:
+Este código no inicializará todo `a`, ya que cada proceso tendrá una copia separada de él. Los bucles for paralelos como éste deben ser evitados. Afortunadamente, podemos usar los arrays compartidos para sortear esta limitación:
 
 ```julia
 a = SharedArray{Float64}(10)
@@ -870,7 +870,7 @@ Los trabajadores recién lanzados están conectados entre sí y el proceso maest
 
 Como ejemplo de transporte no TCP / IP, una implementación puede optar por utilizar MPI, en cuyo caso `-worker` NO se debe especificar. En cambio, los trabajadores recién lanzados deberían llamar `init_worker (cookie)` antes de usar cualquiera de las construcciones paralelas.
 
-Para cada trabajador puesto en marcha, el método [`launch ()`] (@ ref) debe agregar un objeto `WorkerConfig` (con los campos apropiados inicializados) al `launched`
+Para cada trabajador puesto en marcha, el método [`launch ()`] (@ref) debe agregar un objeto `WorkerConfig` (con los campos apropiados inicializados) al `launched`
 
 ```julia
 mutable struct WorkerConfig
