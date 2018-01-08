@@ -1,4 +1,4 @@
-# [Mathematics](@id math)
+# [Matemáticas](@id math)
 
 ## [Operadores Matemáticos](@id math-ops)
 

@@ -1,6 +1,6 @@
 # [Enlazador Dinámico](@id dynamic-linker)
 
-The names in `Base.Libdl` are not exported and need to be called e.g. as `Libdl.dlopen()`.
+Los nombres en `Base.Libdl` no son exportados y necesitan ser llamados como, por ejemplo, `Libdl.dlopen()`.
 
 ```@docs
 Base.Libdl.dlopen

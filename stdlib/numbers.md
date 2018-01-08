@@ -131,12 +131,12 @@ Base.MPFR.BigFloat(x::String)
 
 ## [Números Aleatorios](@id random-numbers)
 
-La generación de números aleatorios en Julia utiliza la [librería Mersenne Twister](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT) a través de objetos `MersenneTwister`. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo `AbstractRNG`; ellos pueden ser usados entonces para tener multiples flujos de numeros aleatorios. Ademas de `MersenneTwister`, Julia proporciona el tipo RNG `RandomDevice` que es un *wrapper* sobre la entropía proporcionada por el SO.
+La generación de números aleatorios en Julia utiliza la [librería Mersenne Twister](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/#dSFMT) a través de objetos `MersenneTwister`. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo `AbstractRNG`; estos pueden ser usados entonces para tener múltiples flujos de números aleatorios. Ademas de `MersenneTwister`, Julia proporciona el tipo RNG `RandomDevice` que es un *wrapper* sobre la entropía proporcionada por el SO.
 
 La mayoría de las funciones relacionadas con la generación aleatoria aceptan un `AbstractRNG` opcional como primer argumento,`rng`, que se predetermina al global si no se proporciona. Además, algunos de ellos aceptan opcionalmente especificaciones de dimensión `dims ...` (que pueden darse como una tupla) para generar matrices de valores aleatorios.
 
 Un RNG de tipo `MersenneTwister` o `RandomDevice` puede generar números aleatorios de los siguientes tipos: [`Float16`](@ref), [`Float32`](@ref), [`Float64`](@ref), [`Bool`](@ref), [`Int8`](@ref), [`UInt8`](@ref), [`Int16`](@ref), [`UInt16`](@ref), [`Int32`](@ref), [`UInt32`](@ref), [`Int64`](@ref), [`UInt64`](@ref), [`Int128`](@ref), [`UInt128`](@ref), [`BigInt`](@ref)
-(o números complejos de estos tipos). Los números aleatorio en punto flotante son generados uniformemente en ``[0, 1)``. Como `BigInt` representa números sin límite, el intervalo debe ser especificado (por ejemplo, `rand(big(1:6))`).
+(o números complejos de estos tipos). Los números aleatorios en punto flotante son generados uniformemente en ``[0, 1)``. Como `BigInt` representa números sin límite, el intervalo debe ser especificado (por ejemplo, `rand(big(1:6))`).
 
 ```@docs
 Base.Random.srand

@@ -6,8 +6,8 @@ La iteración secuencial es implementada por los métodos [`start()`](@ref), [`d
 El bucle `for` general:
 
 ```julia
-for i = I   # or  "for i in I"
-    # body
+for i = I   # o  "for i in I"
+    # cuerpo
 end
 ```
 
@@ -17,11 +17,11 @@ es traducido a:
 state = start(I)
 while !done(I, state)
     (i, state) = next(I, state)
-    # body
+    # cuerpo
 end
 ```
 
-El objeto `state` puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la [sección de manual sobre la interfaz de iteración](@ref man-interface-iteration) para ms detalles sobre detinir un tipo iterable personalizado.
+El objeto `state` puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la [sección del manual sobre la interfaz de iteración](@ref man-interface-iteration) para más detalles sobre definir un tipo iterable personalizado.
 
 ```@docs
 Base.start
@@ -46,7 +46,7 @@ Completamente implementada por:
   * `AbstractString`
   * [`Set`](@ref)
 
-## Colecciones generales
+## Colecciones Generales
 
 ```@docs
 Base.isempty
@@ -156,19 +156,19 @@ Parcialmente implementado por:
   * `UnitRange`
   * `Tuple`
 
-## Colecciones asociativas
+## Colecciones Asociativas
 
-[`Dict`](@ref) es la colección asociativa estándar. Su implementación usa [`hash()`](@ref) como función de hashing para la clave, e [`isequal()`](@ref) para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado sobreescribiran como se almacenan dichos tipos en una tabla hash.
+[`Dict`](@ref) es la colección asociativa estándar. Su implementación usa [`hash()`](@ref) como función de hashing para la clave, e [`isequal()`](@ref) para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado, sobreescribirán cómo se almacenan dichos tipos en una tabla hash.
 
 [`ObjectIdDict`](@ref) es una tabla hash especial donde las claves son siempre identidades de objeto.
 
-[`WeakKeyDict`] (@ ref) es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.
+[`WeakKeyDict`] (@ ref) es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura incluso cuando se referencian en una tabla hash.
 
-[`Dict`](@ref)s se pueden crear pasando pares de objetos construidos con `=>() `a un constructor [`Dict`](@ref): `Dict ("A"=> 1," B "=> 2)`. Esta llamada intentará inferir información de tipo de las claves y valores (es decir, este ejemplo crea un `Dict{String, Int64}`). Para especificar explícitamente los tipos, use la sintaxis `Dict{KeyType,ValueType}(...)`. Por ejemplo, `Dict{String,Int32}(" A "=> 1," B "=> 2)`.
+[`Dict`](@ref)s se pueden crear pasando pares de objetos construidos con `=>()` a un constructor [`Dict`](@ref): `Dict ("A"=> 1," B "=> 2)`. Esta llamada intentará inferir información sobre el tipo de las claves y los valores (es decir, este ejemplo crea un `Dict{String, Int64}`). Para especificar los tipos explícitamente, use la sintaxis `Dict{KeyType,ValueType}(...)`. Por ejemplo, `Dict{String,Int32}(" A "=> 1," B "=> 2)`.
 
-Las colecciones asociativas pueden también ser creadas con generadores. Por ejemplo, `Dict(i => f(i) for i = 1:10)`.
+Las colecciones asociativas también pueden ser creadas con generadores. Por ejemplo, `Dict(i => f(i) for i = 1:10)`.
 
-Dado un diccionario `D`, la sintaxis` D[x]` devuelve el valor de la clave `x` (si existe) o arroja un error, y `D[x] = y` almacena el par de clave-valor `x => y` en `D` (reemplazando cualquier valor existente por la clave` x`). Múltiples argumentos para `D [...]` se convierten a tuplas; por ejemplo, la sintaxis `D[x,y]` es equivalente a `D[(x,y)]`, es decir, se refiere al valor introducido por la tupla `(x,y)`.
+Dado un diccionario `D`, la sintaxis `D[x]` devuelve el valor de la clave `x` (si existe) o arroja un error, y `D[x] = y` almacena el par de clave-valor `x => y` en `D` (reemplazando cualquier valor existente para la clave` x`). Múltiples argumentos para `D [...]` se convierten a tuplas; por ejemplo, la sintaxis `D[x,y]` es equivalente a `D[(x,y)]`, es decir, se refiere al valor introducido para la tupla `(x,y)`.
 
 ```@docs
 Base.Dict
@@ -205,7 +205,7 @@ Parcialmente implementado por:
   * [`Array`](@ref)
   * [`BitArray`](@ref)
 
-## Colecciones tipo Conjunto
+## Colecciones de tipo Conjunto
 
 ```@docs
 Base.Set
@@ -232,7 +232,7 @@ Parcialmente implementado por:
 
   * [`Array`](@ref)
 
-## Acciones relacionadas con colas
+## Acciones relacionadas con Colas
 
 ```@docs
 Base.push!
@@ -249,5 +249,5 @@ Base.prepend!
 
 Completamente implementado por:
 
-  * `Vector` (a.k.a. 1-dimensional [`Array`](@ref))
-  * `BitVector` (a.k.a. 1-dimensional [`BitArray`](@ref))
+  * `Vector` (también conocido como 1-dimensional [`Array`](@ref))
+  * `BitVector` (también conocido como 1-dimensional [`BitArray`](@ref))

@@ -4,7 +4,7 @@
 Base.Profile.@profile
 ```
 
-The methods in `Base.Profile` are not exported and need to be called e.g. as `Profile.print()`.
+Los métodos en `Base.Profile` no son exportados y necesitan ser llamados como, por ejemplo, `Profile.print()`.
 
 ```@docs
 Base.Profile.clear
