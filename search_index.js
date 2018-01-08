@@ -21,23 +21,23 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Manual",
     "category": "section",
-    "text": "Introducción\nEmpezando\nVariables\nNúmeros Enteros y en Punto Flotante\nOperaciones Matemáticas y Funciones Elementales\nNúmeros Complejos y Racionales\nCadenas\nFunctions\nControl Flow\nScope of Variables\nTypes\nMethods\nConstructors\nConversion and Promotion\nInterfaces\nModules\nDocumentation\nMetaprogramming\nMulti-dimensional Arrays\nLinear Algebra\nNetworking and Streams\nParallel Computing\nDate and DateTime\nRunning External Programs\nCalling C and Fortran Code\nHandling Operating System Variation\nEnvironment Variables\nInteracting With Julia\nEmbedding Julia\nPackages\nProfiling\nStack Traces\nPerformance Tips\nWorkflow Tips\nStyle Guide\nFrequently Asked Questions\nNoteworthy Differences from other Languages\nUnicode Input"
+    "text": "Introducción\nEmpezando\nVariables\nNúmeros Enteros y en Punto Flotante\nOperaciones Matemáticas y Funciones Elementales\nNúmeros Complejos y Racionales\nCadenas\nFunciones\nControl de Flujo\nÁmbito de las Variables\nTipos\nMétodos\nConstructores\nConversión y Promoción\nInterfaces\nMódulos\nDocumentación\nMetaprogramación\nArrays Multidimensionales\nÁlgebra Lineal\nRedes y Flujos\nComputación Paralela\nDate and DateTime\nEjecutando Programas Externos\nInvocando Código C y Fortran\nManejando Variaciones del Sistema Operativo\nVariables de Entorno\nInteractuando con Julia\nEmbebiendo Julia\nPaquetes\nCreando Perfiles\nTazas de Pila\nConsejos de Rendimiento\nConsejos relacionados con Workflow\nGuía de Estilo\nFrequently Asked Questions\nDiferencias Notables con Otros Lenguajes\nEntrada Unicode"
 },
 
 {
-    "location": "index.html#Standard-Library-1",
+    "location": "index.html#Biblioteca-Estándar-1",
     "page": "Home",
-    "title": "Standard Library",
+    "title": "Biblioteca Estándar",
     "category": "section",
     "text": "Esenciales\nColecciones y Estructuras de Datos\nMatemáticas\nNúmeros\nCadenas\nArrays\nTareas y Computación Paralela\nÁlgebra Lineal\nConstantes\nSistema de Ficheros\nE/S y Redes\nPuntuación\nOrdenación y Funciones Relacionadas\nFunciones del Gestor de Paquetes\nFechas y Hora\nUtilidades de Iteración\nRealizando Pruebas Unitarias\nInterfaz C\nLibrería Estándar C\nEnlazador Dinámico\nRealización de Perfiles\nStackTraces\nSoporte SIMD"
 },
 
 {
-    "location": "index.html#Developer-Documentation-1",
+    "location": "index.html#Documentación-para-Desarrolladores-1",
     "page": "Home",
-    "title": "Developer Documentation",
+    "title": "Documentación para Desarrolladores",
     "category": "section",
-    "text": "Reflection and introspection\nDocumentation of Julia's Internals\nInitialization of the Julia runtime\nJulia ASTs\nMore about types\nMemory layout of Julia Objects\nEval of Julia code\nCalling Conventions\nHigh-level Overview of the Native-Code Generation Process\nJulia Functions\nBase.Cartesian\nTalking to the compiler (the :meta mechanism)\nSubArrays\nSystem Image Building\nWorking with LLVM\nprintf() and stdio in the Julia runtime\nBounds checking\nProper maintenance and care of multi-threading locks\nArrays with custom indices\nBase.LibGit2\nModule loading\nDeveloping/debugging Julia's C code\nReporting and analyzing crashes (segfaults)\ngdb debugging tips\nUsing Valgrind with Julia\nSanitizer support"
+    "text": "Reflexión e Introspección\nDocumentación de los Interiores de Julia\nInitialization of the Julia runtime\nASTs de Julia * Más sobre TiposMemory layout of Julia Objects * Evaluación de Código JuliaConvenios de Llamada\nHigh-level Overview of the Native-Code Generation Process\nFunciones Julia\nBase.Cartesian\nHablando al Compilador (El Mecanismo :meta)\nSubArrays * Construcción de Imagen del SistemaTrabajando con LLVM\nprintf() and stdio in the Julia runtime * Comprobación de LímitesProper maintenance and care of multi-threading locks\nArrays with custom indices\nBase.LibGit2\nModule loading\nDesarrollo/Depuración de Código C de Julia\nReporting and analyzing crashes (segfaults)\ngdb debugging tips\nUsing Valgrind with Julia\nSanitizer support"
 },
 
 {
@@ -2489,11 +2489,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "manual/calling-c-and-fortran-code.html#Creating-C-Compatible-Julia-Function-Pointers-1",
+    "location": "manual/calling-c-and-fortran-code.html#Creando-Punteros-a-Función-Julia-Compatibles-con-C-1",
     "page": "Llamando a código C y Fortran",
-    "title": "Creating C-Compatible Julia Function Pointers",
+    "title": "Creando Punteros a Función Julia Compatibles con C",
     "category": "section",
-    "text": "It is possible to pass Julia functions to native C functions that accept function pointer arguments. For example, to match C prototypes of the form:typedef returntype (*functiontype)(argumenttype,...)The function cfunction() generates the C-compatible function pointer for a call to a Julia library function. Arguments to cfunction() are as follows:A Julia Function\nReturn type\nA tuple of input typesA classic example is the standard C library qsort function, declared as:void qsort(void *base, size_t nmemb, size_t size,\n           int(*compare)(const void *a, const void *b));The base argument is a pointer to an array of length nmemb, with elements of size bytes each. compare is a callback function which takes pointers to two elements a and b and returns an integer less/greater than zero if a should appear before/after b (or zero if any order is permitted). Now, suppose that we have a 1d array A of values in Julia that we want to sort using the qsort function (rather than Julia's built-in sort function). Before we worry about calling qsort and passing arguments, we need to write a comparison function that works for some arbitrary type T:julia> function mycompare(a::T, b::T) where T\n           return convert(Cint, a < b ? -1 : a > b ? +1 : 0)::Cint\n       end\nmycompare (generic function with 1 method)Notice that we have to be careful about the return type: qsort expects a function returning a C int, so we must be sure to return Cint via a call to convert and a typeassert.In order to pass this function to C, we obtain its address using the function cfunction:julia> const mycompare_c = cfunction(mycompare, Cint, (Ref{Cdouble}, Ref{Cdouble}));cfunction() accepts three arguments: the Julia function (mycompare), the return type (Cint), and a tuple of the argument types, in this case to sort an array of Cdouble (Float64) elements.The final call to qsort looks like this:julia> A = [1.3, -2.7, 4.4, 3.1]\n4-element Array{Float64,1}:\n  1.3\n -2.7\n  4.4\n  3.1\n\njulia> ccall(:qsort, Void, (Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Void}),\n             A, length(A), sizeof(eltype(A)), mycompare_c)\n\njulia> A\n4-element Array{Float64,1}:\n -2.7\n  1.3\n  3.1\n  4.4As can be seen, A is changed to the sorted array [-2.7, 1.3, 3.1, 4.4]. Note that Julia knows how to convert an array into a Ptr{Cdouble}, how to compute the size of a type in bytes (identical to C's sizeof operator), and so on. For fun, try inserting a println(\"mycompare($a,$b)\") line into mycompare, which will allow you to see the comparisons that qsort is performing (and to verify that it is really calling the Julia function that you passed to it)."
+    "text": "Es posible pasar funciones Julia a funciones C nativas que aceptan argumentos punteros a función. Por ejemplo, para emparejar prototipos C de la forma:typedef returntype (*functiontype)(argumenttype,...)La función cfunction() genera el puntero a función compatible con C para una llamadan a una función de biblioteca de Julia. Los argumentos a cfunction() son los siguientes:Una función Julia\nTipo de retorno\nUna tupla de tipos de entradaUn ejemplo clásico es la función estándar de biblioteca C qsort declarada como:void qsort(void *base, size_t nmemb, size_t size,\n           int(*compare)(const void *a, const void *b));The base argument is a pointer to an array of length nmemb, with elements of size bytes each. compare is a callback function which takes pointers to two elements a and b and returns an integer less/greater than zero if a should appear before/after b (or zero if any order is permitted). Now, suppose that we have a 1d array A of values in Julia that we want to sort using the qsort function (rather than Julia's built-in sort function). Before we worry about calling qsort and passing arguments, we need to write a comparison function that works for some arbitrary type T:julia> function mycompare(a::T, b::T) where T\n           return convert(Cint, a < b ? -1 : a > b ? +1 : 0)::Cint\n       end\nmycompare (generic function with 1 method)Notice that we have to be careful about the return type: qsort expects a function returning a C int, so we must be sure to return Cint via a call to convert and a typeassert.In order to pass this function to C, we obtain its address using the function cfunction:julia> const mycompare_c = cfunction(mycompare, Cint, (Ref{Cdouble}, Ref{Cdouble}));cfunction() accepts three arguments: the Julia function (mycompare), the return type (Cint), and a tuple of the argument types, in this case to sort an array of Cdouble (Float64) elements.The final call to qsort looks like this:julia> A = [1.3, -2.7, 4.4, 3.1]\n4-element Array{Float64,1}:\n  1.3\n -2.7\n  4.4\n  3.1\n\njulia> ccall(:qsort, Void, (Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Void}),\n             A, length(A), sizeof(eltype(A)), mycompare_c)\n\njulia> A\n4-element Array{Float64,1}:\n -2.7\n  1.3\n  3.1\n  4.4As can be seen, A is changed to the sorted array [-2.7, 1.3, 3.1, 4.4]. Note that Julia knows how to convert an array into a Ptr{Cdouble}, how to compute the size of a type in bytes (identical to C's sizeof operator), and so on. For fun, try inserting a println(\"mycompare($a,$b)\") line into mycompare, which will allow you to see the comparisons that qsort is performing (and to verify that it is really calling the Julia function that you passed to it)."
 },
 
 {
@@ -4181,7 +4181,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Essentials",
     "title": "Introducción",
     "category": "section",
-    "text": "La librería estándar de Julia contiene un rango de funciones y maros apropiadas para realizar  computación científica y numérica, pero es también tan amplia como la de muchos lenguajes de  programación de propósito general. También hay funcionalidad adicional disponible en una  colección creciente de paquetes disponibles. Las funciones están agrupadas abajo por temas.Algunas notas generales:Excepto para las funciones en los módulos predefinidos (Pkg, Collections, Test y Profile), todas las funciones documentadas aquí están disponibles directamente  para ser usadas en programas.Para usar funciones de módulos, usar import Module para importar el módulo, y Module.fn(x) para usar las funciones.Alternativamente using Module importará todas las funciones exportadas por el módulo en el espacio de nombres actual.Por convenio, los nombres de funciones que acaban con un signo de admiración (!) modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación  de los argumentos)."
+    "text": "La librería estándar de Julia contiene un rango de funciones y marcos apropiados para realizar  computación científica y numérica, pero es también tan amplia como la de muchos lenguajes de  programación de propósito general. También hay funcionalidad adicional disponible en una  creciente colección de paquetes disponibles. Las funciones están agrupadas abajo por temas.Algunas notas generales:Excepto para las funciones en los módulos predefinidos (Pkg, Collections, Test y Profile), todas las funciones documentadas aquí están disponibles  para ser usadas en programas directamente.Para usar funciones de módulos, usar import Module para importar el módulo, y Module.fn(x) para usar las funciones.Alternativamente using Module importará todas las funciones exportadas por el módulo en el espacio de nombres actual.Por convenio, los nombres de funciones que acaban con un signo de admiración (!) modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación  de los argumentos)."
 },
 
 {
@@ -6061,7 +6061,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Colecciones y Estructuras de Datos",
     "title": "Iteración",
     "category": "section",
-    "text": "La iteración secuencial es implementada por los métodos start(), done() y next(). El bucle for general:for i = I   # or  \"for i in I\"\n    # body\nendes traducido a:state = start(I)\nwhile !done(I, state)\n    (i, state) = next(I, state)\n    # body\nendEl objeto state puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la sección de manual sobre la interfaz de iteración para ms detalles sobre detinir un tipo iterable personalizado.Base.start\nBase.done\nBase.next\nBase.iteratorsize\nBase.iteratoreltypeCompletamente implementada por:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nEachLine\nAbstractString\nSet"
+    "text": "La iteración secuencial es implementada por los métodos start(), done() y next(). El bucle for general:for i = I   # o  \"for i in I\"\n    # cuerpo\nendes traducido a:state = start(I)\nwhile !done(I, state)\n    (i, state) = next(I, state)\n    # cuerpo\nendEl objeto state puede ser cualquier cosa, y debería ser elegido apropiadamente para cada tipo iterable. Ver la sección del manual sobre la interfaz de iteración para más detalles sobre definir un tipo iterable personalizado.Base.start\nBase.done\nBase.next\nBase.iteratorsize\nBase.iteratoreltypeCompletamente implementada por:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nEachLine\nAbstractString\nSet"
 },
 
 {
@@ -6097,9 +6097,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/collections.html#Colecciones-generales-1",
+    "location": "stdlib/collections.html#Colecciones-Generales-1",
     "page": "Colecciones y Estructuras de Datos",
-    "title": "Colecciones generales",
+    "title": "Colecciones Generales",
     "category": "section",
     "text": "Base.isempty\nBase.empty!\nBase.length(::Any)\nBase.endofCompletamente implementado por:Range\nUnitRange\nTuple\nNumber\nAbstractArray\nIntSet\nObjectIdDict\nDict\nWeakKeyDict\nAbstractString\nSet"
 },
@@ -6717,7 +6717,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Colecciones y Estructuras de Datos",
     "title": "Base.merge!",
     "category": "Function",
-    "text": "merge!(d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. See also merge.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 4\n\n\n\nmerge!(combine, d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. Values with the same key will be combined using the combiner function.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(+, d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 6\n\njulia> merge!(-, d1, d1);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 0\n  3 => 0\n  1 => 0\n\n\n\nMerge changes into current head \n\n\n\nInternal implementation of merge. Returns true if merge was successful, otherwise false\n\n\n\nmerge!(repo::GitRepo; kwargs...) -> Bool\n\nPerform a git merge on the repository repo, merging commits with diverging history into the current branch. Returns true if the merge succeeded, false if not.\n\nThe keyword arguments are:\n\ncommittish::AbstractString=\"\": Merge the named commit(s) in committish.\nbranch::AbstractString=\"\": Merge the branch branch and all its commits since it diverged from the current branch.\nfastforward::Bool=false: If fastforward is true, only merge if the merge is a fast-forward (the current branch head is an ancestor of the commits to be merged), otherwise refuse to merge and return false. This is equivalent to the git CLI option --ff-only.\nmerge_opts::MergeOptions=MergeOptions(): merge_opts specifies options for the merge, such as merge strategy in case of conflicts.\ncheckout_opts::CheckoutOptions=CheckoutOptions(): checkout_opts specifies options for the checkout step.\n\nEquivalent to git merge [--ff-only] [<committish> | <branch>].\n\nnote: Note\nIf you specify a branch, this must be done in reference format, since the string will be turned into a GitReference. For example, if you wanted to merge branch branch_a, you would call merge!(repo, branch=\"refs/heads/branch_a\").\n\n\n\n"
+    "text": "Merge changes into current head \n\n\n\nInternal implementation of merge. Returns true if merge was successful, otherwise false\n\n\n\nmerge!(repo::GitRepo; kwargs...) -> Bool\n\nPerform a git merge on the repository repo, merging commits with diverging history into the current branch. Returns true if the merge succeeded, false if not.\n\nThe keyword arguments are:\n\ncommittish::AbstractString=\"\": Merge the named commit(s) in committish.\nbranch::AbstractString=\"\": Merge the branch branch and all its commits since it diverged from the current branch.\nfastforward::Bool=false: If fastforward is true, only merge if the merge is a fast-forward (the current branch head is an ancestor of the commits to be merged), otherwise refuse to merge and return false. This is equivalent to the git CLI option --ff-only.\nmerge_opts::MergeOptions=MergeOptions(): merge_opts specifies options for the merge, such as merge strategy in case of conflicts.\ncheckout_opts::CheckoutOptions=CheckoutOptions(): checkout_opts specifies options for the checkout step.\n\nEquivalent to git merge [--ff-only] [<committish> | <branch>].\n\nnote: Note\nIf you specify a branch, this must be done in reference format, since the string will be turned into a GitReference. For example, if you wanted to merge branch branch_a, you would call merge!(repo, branch=\"refs/heads/branch_a\").\n\n\n\nmerge!(d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. See also merge.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 4\n\n\n\nmerge!(combine, d::Associative, others::Associative...)\n\nUpdate collection with pairs from the other collections. Values with the same key will be combined using the combiner function.\n\njulia> d1 = Dict(1 => 2, 3 => 4);\n\njulia> d2 = Dict(1 => 4, 4 => 5);\n\njulia> merge!(+, d1, d2);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 5\n  3 => 4\n  1 => 6\n\njulia> merge!(-, d1, d1);\n\njulia> d1\nDict{Int64,Int64} with 3 entries:\n  4 => 0\n  3 => 0\n  1 => 0\n\n\n\n"
 },
 
 {
@@ -6745,11 +6745,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/collections.html#Colecciones-asociativas-1",
+    "location": "stdlib/collections.html#Colecciones-Asociativas-1",
     "page": "Colecciones y Estructuras de Datos",
-    "title": "Colecciones asociativas",
+    "title": "Colecciones Asociativas",
     "category": "section",
-    "text": "Dict es la colección asociativa estándar. Su implementación usa hash() como función de hashing para la clave, e isequal() para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado sobreescribiran como se almacenan dichos tipos en una tabla hash.ObjectIdDict es una tabla hash especial donde las claves son siempre identidades de objeto.WeakKeyDict es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.Dicts se pueden crear pasando pares de objetos construidos con =>()a un constructor Dict: Dict (\"A\"=> 1,\" B \"=> 2). Esta llamada intentará inferir información de tipo de las claves y valores (es decir, este ejemplo crea un Dict{String, Int64}). Para especificar explícitamente los tipos, use la sintaxis Dict{KeyType,ValueType}(...). Por ejemplo, Dict{String,Int32}(\" A \"=> 1,\" B \"=> 2).Las colecciones asociativas pueden también ser creadas con generadores. Por ejemplo, Dict(i => f(i) for i = 1:10).Dado un diccionario D, la sintaxisD[x] devuelve el valor de la clave x (si existe) o arroja un error, y D[x] = y almacena el par de clave-valor x => y en D (reemplazando cualquier valor existente por la clavex). Múltiples argumentos para D [...] se convierten a tuplas; por ejemplo, la sintaxis D[x,y] es equivalente a D[(x,y)], es decir, se refiere al valor introducido por la tupla (x,y).Base.Dict\nBase.ObjectIdDict\nBase.WeakKeyDict\nBase.haskey\nBase.get(::Any, ::Any, ::Any)\nBase.get\nBase.get!(::Any, ::Any, ::Any)\nBase.get!(::Function, ::Any, ::Any)\nBase.getkey\nBase.delete!\nBase.pop!(::Any, ::Any, ::Any)\nBase.keys\nBase.values\nBase.merge\nBase.merge!\nBase.sizehint!\nBase.keytype\nBase.valtypeCompletamente implementado por:ObjectIdDict\nDict\nWeakKeyDictParcialmente implementado por:IntSet\nSet\nEnvHash\nArray\nBitArray"
+    "text": "Dict es la colección asociativa estándar. Su implementación usa hash() como función de hashing para la clave, e isequal() para determinar la igualdad. Si redefine estas dos funciones en un tipo personalizado, sobreescribirán cómo se almacenan dichos tipos en una tabla hash.ObjectIdDict es una tabla hash especial donde las claves son siempre identidades de objeto.WeakKeyDict es una implementación de tabla hash donde las claves son referencias débiles a los objetos y, por lo tanto, permiten recolección de basura recogida incluso cuando se referencian en una tabla hash.Dicts se pueden crear pasando pares de objetos construidos con =>() a un constructor Dict: Dict (\"A\"=> 1,\" B \"=> 2). Esta llamada intentará inferir información sobre el tipo de las claves y los valores (es decir, este ejemplo crea un Dict{String, Int64}). Para especificar los tipos explícitamente, use la sintaxis Dict{KeyType,ValueType}(...). Por ejemplo, Dict{String,Int32}(\" A \"=> 1,\" B \"=> 2).Las colecciones asociativas también pueden ser creadas con generadores. Por ejemplo, Dict(i => f(i) for i = 1:10).Dado un diccionario D, la sintaxis D[x] devuelve el valor de la clave x (si existe) o arroja un error, y D[x] = y almacena el par de clave-valor x => y en D (reemplazando cualquier valor existente para la clavex). Múltiples argumentos para D [...] se convierten a tuplas; por ejemplo, la sintaxis D[x,y] es equivalente a D[(x,y)], es decir, se refiere al valor introducido para la tupla (x,y).Base.Dict\nBase.ObjectIdDict\nBase.WeakKeyDict\nBase.haskey\nBase.get(::Any, ::Any, ::Any)\nBase.get\nBase.get!(::Any, ::Any, ::Any)\nBase.get!(::Function, ::Any, ::Any)\nBase.getkey\nBase.delete!\nBase.pop!(::Any, ::Any, ::Any)\nBase.keys\nBase.values\nBase.merge\nBase.merge!\nBase.sizehint!\nBase.keytype\nBase.valtypeCompletamente implementado por:ObjectIdDict\nDict\nWeakKeyDictParcialmente implementado por:IntSet\nSet\nEnvHash\nArray\nBitArray"
 },
 
 {
@@ -6857,9 +6857,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/collections.html#Colecciones-tipo-Conjunto-1",
+    "location": "stdlib/collections.html#Colecciones-de-tipo-Conjunto-1",
     "page": "Colecciones y Estructuras de Datos",
-    "title": "Colecciones tipo Conjunto",
+    "title": "Colecciones de tipo Conjunto",
     "category": "section",
     "text": "Base.Set\nBase.IntSet\nBase.union\nBase.union!\nBase.intersect\nBase.setdiff\nBase.setdiff!\nBase.symdiff\nBase.symdiff!(::IntSet, ::Integer)\nBase.symdiff!(::IntSet, ::Any)\nBase.symdiff!(::IntSet, ::IntSet)\nBase.intersect!\nBase.issubsetCompletamente implementado por:IntSet\nSetParcialmente implementado por:Array"
 },
@@ -6945,32 +6945,32 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/collections.html#Acciones-relacionadas-con-colas-1",
+    "location": "stdlib/collections.html#Acciones-relacionadas-con-Colas-1",
     "page": "Colecciones y Estructuras de Datos",
-    "title": "Acciones relacionadas con colas",
+    "title": "Acciones relacionadas con Colas",
     "category": "section",
-    "text": "Base.push!\nBase.pop!(::Any)\nBase.unshift!\nBase.shift!\nBase.insert!\nBase.deleteat!\nBase.splice!\nBase.resize!\nBase.append!\nBase.prepend!Completamente implementado por:Vector (a.k.a. 1-dimensional Array)\nBitVector (a.k.a. 1-dimensional BitArray)"
+    "text": "Base.push!\nBase.pop!(::Any)\nBase.unshift!\nBase.shift!\nBase.insert!\nBase.deleteat!\nBase.splice!\nBase.resize!\nBase.append!\nBase.prepend!Completamente implementado por:Vector (también conocido como 1-dimensional Array)\nBitVector (también conocido como 1-dimensional BitArray)"
 },
 
 {
     "location": "stdlib/math.html#",
-    "page": "Mathematics",
-    "title": "Mathematics",
+    "page": "Matemáticas",
+    "title": "Matemáticas",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "stdlib/math.html#math-1",
-    "page": "Mathematics",
-    "title": "Mathematics",
+    "page": "Matemáticas",
+    "title": "Matemáticas",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "stdlib/math.html#Base.:--Tuple{Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:-",
     "category": "Method",
     "text": "-(x)\n\nUnary minus operator.\n\n\n\n"
@@ -6978,7 +6978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:+",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:+",
     "category": "Function",
     "text": "+(x, y...)\n\nAddition operator. x+y+z+... calls this function with all arguments, i.e. +(x, y, z, ...).\n\n\n\n"
@@ -6986,7 +6986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:--Tuple{Any,Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:-",
     "category": "Method",
     "text": "-(x, y)\n\nSubtraction operator.\n\n\n\n"
@@ -6994,7 +6994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:*-Tuple{Any,Vararg{Any,N} where N}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:*",
     "category": "Method",
     "text": "*(x, y...)\n\nMultiplication operator. x*y*z*... calls this function with all arguments, i.e. *(x, y, z, ...).\n\n\n\n"
@@ -7002,7 +7002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:/",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:/",
     "category": "Function",
     "text": "/(x, y)\n\nRight division operator: multiplication of x by the inverse of y on the right. Gives floating-point results for integer arguments.\n\n\n\n"
@@ -7010,7 +7010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:\\-Tuple{Any,Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:\\",
     "category": "Method",
     "text": "\\(x, y)\n\nLeft division operator: multiplication of y by the inverse of x on the left. Gives floating-point results for integer arguments.\n\njulia> 3 \\ 6\n2.0\n\njulia> inv(3) * 6\n2.0\n\njulia> A = [1 2; 3 4]; x = [5, 6];\n\njulia> A \\ x\n2-element Array{Float64,1}:\n -4.0\n  4.5\n\njulia> inv(A) * x\n2-element Array{Float64,1}:\n -4.0\n  4.5\n\n\n\n"
@@ -7018,7 +7018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:^-Tuple{Number,Number}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:^",
     "category": "Method",
     "text": "^(x, y)\n\nExponentiation operator. If x is a matrix, computes matrix exponentiation.\n\nIf y is an Int literal (e.g. 2 in x^2 or -3 in x^-3), the Julia code x^y is transformed by the compiler to Base.literal_pow(^, x, Val{y}), to enable compile-time specialization on the value of the exponent. (As a default fallback we have Base.literal_pow(^, x, Val{y}) = ^(x,y), where usually ^ == Base.^ unless ^ has been defined in the calling namespace.)\n\njulia> 3^5\n243\n\njulia> A = [1 2; 3 4]\n2×2 Array{Int64,2}:\n 1  2\n 3  4\n\njulia> A^3\n2×2 Array{Int64,2}:\n 37   54\n 81  118\n\n\n\n"
@@ -7026,7 +7026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.fma",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.fma",
     "category": "Function",
     "text": "fma(x, y, z)\n\nComputes x*y+z without rounding the intermediate result x*y. On some systems this is significantly more expensive than x*y+z. fma is used to improve accuracy in certain algorithms. See muladd.\n\n\n\n"
@@ -7034,7 +7034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.muladd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.muladd",
     "category": "Function",
     "text": "muladd(x, y, z)\n\nCombined multiply-add, computes x*y+z in an efficient manner. This may on some systems be equivalent to x*y+z, or to fma(x,y,z). muladd is used to improve performance. See fma.\n\nExample\n\njulia> muladd(3, 2, 1)\n7\n\njulia> 3 * 2 + 1\n7\n\n\n\n"
@@ -7042,7 +7042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.div",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.div",
     "category": "Function",
     "text": "div(x, y)\n÷(x, y)\n\nThe quotient from Euclidean division. Computes x/y, truncated to an integer.\n\njulia> 9 ÷ 4\n2\n\njulia> -5 ÷ 3\n-1\n\n\n\n"
@@ -7050,7 +7050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.fld",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.fld",
     "category": "Function",
     "text": "fld(x, y)\n\nLargest integer less than or equal to x/y.\n\njulia> fld(7.3,5.5)\n1.0\n\n\n\n"
@@ -7058,7 +7058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cld",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cld",
     "category": "Function",
     "text": "cld(x, y)\n\nSmallest integer larger than or equal to x/y.\n\njulia> cld(5.5,2.2)\n3.0\n\n\n\n"
@@ -7066,7 +7066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.mod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.mod",
     "category": "Function",
     "text": "mod(x, y)\nrem(x, y, RoundDown)\n\nThe reduction of x modulo y, or equivalently, the remainder of x after floored division by y, i.e.\n\nx - y*fld(x,y)\n\nif computed without intermediate rounding.\n\nThe result will have the same sign as y, and magnitude less than abs(y) (with some exceptions, see note below).\n\nnote: Note\nWhen used with floating point values, the exact result may not be representable by the type, and so rounding error may occur. In particular, if the exact result is very close to y, then it may be rounded to y.\n\njulia> mod(8, 3)\n2\n\njulia> mod(9, 3)\n0\n\njulia> mod(8.9, 3)\n2.9000000000000004\n\njulia> mod(eps(), 3)\n2.220446049250313e-16\n\njulia> mod(-eps(), 3)\n3.0\n\n\n\nrem(x::Integer, T::Type{<:Integer}) -> T\nmod(x::Integer, T::Type{<:Integer}) -> T\n%(x::Integer, T::Type{<:Integer}) -> T\n\nFind y::T such that x ≡ y (mod n), where n is the number of integers representable in T, and y is an integer in [typemin(T),typemax(T)]. If T can represent any integer (e.g. T == BigInt), then this operation corresponds to a conversion to T.\n\njulia> 129 % Int8\n-127\n\n\n\n"
@@ -7074,7 +7074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.rem",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.rem",
     "category": "Function",
     "text": "rem(x, y)\n%(x, y)\n\nRemainder from Euclidean division, returning a value of the same sign as x, and smaller in magnitude than y. This value is always exact.\n\njulia> x = 15; y = 4;\n\njulia> x % y\n3\n\njulia> x == div(x, y) * y + rem(x, y)\ntrue\n\n\n\n"
@@ -7082,7 +7082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.rem2pi",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.rem2pi",
     "category": "Function",
     "text": "rem2pi(x, r::RoundingMode)\n\nCompute the remainder of x after integer division by 2π, with the quotient rounded according to the rounding mode r. In other words, the quantity\n\nx - 2π*round(x/(2π),r)\n\nwithout any intermediate rounding. This internally uses a high precision approximation of 2π, and so will give a more accurate result than rem(x,2π,r)\n\nif r == RoundNearest, then the result is in the interval - . This will generally be the most accurate result.\nif r == RoundToZero, then the result is in the interval 0 2 if x is positive,. or -2 0 otherwise.\nif r == RoundDown, then the result is in the interval 0 2.\nif r == RoundUp, then the result is in the interval -2 0.\n\nExample\n\njulia> rem2pi(7pi/4, RoundNearest)\n-0.7853981633974485\n\njulia> rem2pi(7pi/4, RoundDown)\n5.497787143782138\n\n\n\n"
@@ -7090,7 +7090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.mod2pi",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.mod2pi",
     "category": "Function",
     "text": "mod2pi(x)\n\nModulus after division by 2π, returning in the range 02).\n\nThis function computes a floating point representation of the modulus after division by numerically exact 2π, and is therefore not exactly the same as mod(x,2π), which would compute the modulus of x relative to division by the floating-point number 2π.\n\nExample\n\njulia> mod2pi(9*pi/4)\n0.7853981633974481\n\n\n\n"
@@ -7098,7 +7098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.divrem",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.divrem",
     "category": "Function",
     "text": "divrem(x, y)\n\nThe quotient and remainder from Euclidean division. Equivalent to (div(x,y), rem(x,y)) or (x÷y, x%y).\n\njulia> divrem(3,7)\n(0, 3)\n\njulia> divrem(7,3)\n(2, 1)\n\n\n\n"
@@ -7106,7 +7106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.fldmod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.fldmod",
     "category": "Function",
     "text": "fldmod(x, y)\n\nThe floored quotient and modulus after division. Equivalent to (fld(x,y), mod(x,y)).\n\n\n\n"
@@ -7114,7 +7114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.fld1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.fld1",
     "category": "Function",
     "text": "fld1(x, y)\n\nFlooring division, returning a value consistent with mod1(x,y)\n\nSee also: mod1.\n\njulia> x = 15; y = 4;\n\njulia> fld1(x, y)\n4\n\njulia> x == fld(x, y) * y + mod(x, y)\ntrue\n\njulia> x == (fld1(x, y) - 1) * y + mod1(x, y)\ntrue\n\n\n\n"
@@ -7122,7 +7122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.mod1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.mod1",
     "category": "Function",
     "text": "mod1(x, y)\n\nModulus after flooring division, returning a value r such that mod(r, y) == mod(x, y) in the range (0 y for positive y and in the range y0) for negative y.\n\njulia> mod1(4, 2)\n2\n\njulia> mod1(4, 3)\n1\n\n\n\n"
@@ -7130,7 +7130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.fldmod1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.fldmod1",
     "category": "Function",
     "text": "fldmod1(x, y)\n\nReturn (fld1(x,y), mod1(x,y)).\n\nSee also: fld1, mod1.\n\n\n\n"
@@ -7138,7 +7138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.://",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.://",
     "category": "Function",
     "text": "//(num, den)\n\nDivide two integers or rational numbers, giving a Rational result.\n\njulia> 3 // 5\n3//5\n\njulia> (3 // 5) // (2 // 1)\n3//10\n\n\n\n"
@@ -7146,7 +7146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.rationalize",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.rationalize",
     "category": "Function",
     "text": "rationalize([T<:Integer=Int,] x; tol::Real=eps(x))\n\nApproximate floating point number x as a Rational number with components of the given integer type. The result will differ from x by no more than tol. If T is not provided, it defaults to Int.\n\njulia> rationalize(5.6)\n28//5\n\njulia> a = rationalize(BigInt, 10.3)\n103//10\n\njulia> typeof(numerator(a))\nBigInt\n\n\n\n"
@@ -7154,7 +7154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.numerator",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.numerator",
     "category": "Function",
     "text": "numerator(x)\n\nNumerator of the rational representation of x.\n\njulia> numerator(2//3)\n2\n\njulia> numerator(4)\n4\n\n\n\n"
@@ -7162,7 +7162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.denominator",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.denominator",
     "category": "Function",
     "text": "denominator(x)\n\nDenominator of the rational representation of x.\n\njulia> denominator(2//3)\n3\n\njulia> denominator(4)\n1\n\n\n\n"
@@ -7170,7 +7170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:<<",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:<<",
     "category": "Function",
     "text": "<<(x, n)\n\nLeft bit shift operator, x << n. For n >= 0, the result is x shifted left by n bits, filling with 0s. This is equivalent to x * 2^n. For n < 0, this is equivalent to x >> -n.\n\njulia> Int8(3) << 2\n12\n\njulia> bits(Int8(3))\n\"00000011\"\n\njulia> bits(Int8(12))\n\"00001100\"\n\nSee also >>, >>>.\n\n\n\n<<(B::BitVector, n) -> BitVector\n\nLeft bit shift operator, B << n. For n >= 0, the result is B with elements shifted n positions backwards, filling with false values. If n < 0, elements are shifted forwards. Equivalent to B >> -n.\n\nExamples\n\njulia> B = BitVector([true, false, true, false, false])\n5-element BitArray{1}:\n  true\n false\n  true\n false\n false\n\njulia> B << 1\n5-element BitArray{1}:\n false\n  true\n false\n false\n false\n\njulia> B << -1\n5-element BitArray{1}:\n false\n  true\n false\n  true\n false\n\n\n\n"
@@ -7178,7 +7178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:>>",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:>>",
     "category": "Function",
     "text": ">>(x, n)\n\nRight bit shift operator, x >> n. For n >= 0, the result is x shifted right by n bits, where n >= 0, filling with 0s if x >= 0, 1s if x < 0, preserving the sign of x. This is equivalent to fld(x, 2^n). For n < 0, this is equivalent to x << -n.\n\njulia> Int8(13) >> 2\n3\n\njulia> bits(Int8(13))\n\"00001101\"\n\njulia> bits(Int8(3))\n\"00000011\"\n\njulia> Int8(-14) >> 2\n-4\n\njulia> bits(Int8(-14))\n\"11110010\"\n\njulia> bits(Int8(-4))\n\"11111100\"\n\nSee also >>>, <<.\n\n\n\n>>(B::BitVector, n) -> BitVector\n\nRight bit shift operator, B >> n. For n >= 0, the result is B with elements shifted n positions forward, filling with false values. If n < 0, elements are shifted backwards. Equivalent to B << -n.\n\nExample\n\njulia> B = BitVector([true, false, true, false, false])\n5-element BitArray{1}:\n  true\n false\n  true\n false\n false\n\njulia> B >> 1\n5-element BitArray{1}:\n false\n  true\n false\n  true\n false\n\njulia> B >> -1\n5-element BitArray{1}:\n false\n  true\n false\n false\n false\n\n\n\n"
@@ -7186,7 +7186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:>>>",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:>>>",
     "category": "Function",
     "text": ">>>(x, n)\n\nUnsigned right bit shift operator, x >>> n. For n >= 0, the result is x shifted right by n bits, where n >= 0, filling with 0s. For n < 0, this is equivalent to x << -n.\n\nFor Unsigned integer types, this is equivalent to >>. For Signed integer types, this is equivalent to signed(unsigned(x) >> n).\n\njulia> Int8(-14) >>> 2\n60\n\njulia> bits(Int8(-14))\n\"11110010\"\n\njulia> bits(Int8(60))\n\"00111100\"\n\nBigInts are treated as if having infinite size, so no filling is required and this is equivalent to >>.\n\nSee also >>, <<.\n\n\n\n>>>(B::BitVector, n) -> BitVector\n\nUnsigned right bitshift operator, B >>> n. Equivalent to B >> n. See >> for details and examples.\n\n\n\n"
@@ -7194,7 +7194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.colon",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.colon",
     "category": "Function",
     "text": "colon(start, [step], stop)\n\nCalled by : syntax for constructing ranges.\n\njulia> colon(1, 2, 5)\n1:2:5\n\n\n\n:(start, [step], stop)\n\nRange operator. a:b constructs a range from a to b with a step size of 1, and a:s:b is similar but uses a step size of s. These syntaxes call the function colon. The colon is also used in indexing to select whole dimensions.\n\n\n\n"
@@ -7202,7 +7202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.range",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.range",
     "category": "Function",
     "text": "range(start, [step], length)\n\nConstruct a range by length, given a starting value and optional step (defaults to 1).\n\n\n\n"
@@ -7210,7 +7210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.OneTo",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.OneTo",
     "category": "Type",
     "text": "Base.OneTo(n)\n\nDefine an AbstractUnitRange that behaves like 1:n, with the added distinction that the lower limit is guaranteed (by the type system) to be 1.\n\n\n\n"
@@ -7218,7 +7218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.StepRangeLen",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.StepRangeLen",
     "category": "Type",
     "text": "StepRangeLen{T,R,S}(ref::R, step::S, len, [offset=1])\n\nA range r where r[i] produces values of type T, parametrized by a reference value, a step, and the length.  By default ref is the starting value r[1], but alternatively you can supply it as the value of r[offset] for some other index 1 <= offset <= len.  In conjunction with TwicePrecision this can be used to implement ranges that are free of roundoff error.\n\n\n\n"
@@ -7226,7 +7226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:==",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:==",
     "category": "Function",
     "text": "==(x, y)\n\nGeneric equality operator, giving a single Bool result. Falls back to ===. Should be implemented for all types with a notion of equality, based on the abstract value that an instance represents. For example, all numeric types are compared by numeric value, ignoring type. Strings are compared as sequences of characters, ignoring encoding.\n\nFollows IEEE semantics for floating-point numbers.\n\nCollections should generally implement == by calling == recursively on all contents.\n\nNew numeric types should implement this function for two arguments of the new type, and handle comparison to other types via promotion rules where possible.\n\n\n\n"
@@ -7234,7 +7234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:!=",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:!=",
     "category": "Function",
     "text": "!=(x, y)\n≠(x,y)\n\nNot-equals comparison operator. Always gives the opposite answer as ==. New types should generally not implement this, and rely on the fallback definition !=(x,y) = !(x==y) instead.\n\njulia> 3 != 2\ntrue\n\njulia> \"foo\" ≠ \"foo\"\nfalse\n\n\n\n"
@@ -7242,7 +7242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:!==",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:!==",
     "category": "Function",
     "text": "!==(x, y)\n≢(x,y)\n\nEquivalent to !(x === y).\n\njulia> a = [1, 2]; b = [1, 2];\n\njulia> a ≢ b\ntrue\n\njulia> a ≢ a\nfalse\n\n\n\n"
@@ -7250,7 +7250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:<",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:<",
     "category": "Function",
     "text": "<(x, y)\n\nLess-than comparison operator. New numeric types should implement this function for two arguments of the new type. Because of the behavior of floating-point NaN values, < implements a partial order. Types with a canonical partial order should implement <, and types with a canonical total order should implement isless.\n\njulia> 'a' < 'b'\ntrue\n\njulia> \"abc\" < \"abd\"\ntrue\n\njulia> 5 < 3\nfalse\n\n\n\n"
@@ -7258,7 +7258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:<=",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:<=",
     "category": "Function",
     "text": "<=(x, y)\n≤(x,y)\n\nLess-than-or-equals comparison operator.\n\njulia> 'a' <= 'b'\ntrue\n\njulia> 7 ≤ 7 ≤ 9\ntrue\n\njulia> \"abc\" ≤ \"abc\"\ntrue\n\njulia> 5 <= 3\nfalse\n\n\n\n"
@@ -7266,7 +7266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:>",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:>",
     "category": "Function",
     "text": ">(x, y)\n\nGreater-than comparison operator. Generally, new types should implement < instead of this function, and rely on the fallback definition >(x, y) = y < x.\n\njulia> 'a' > 'b'\nfalse\n\njulia> 7 > 3 > 1\ntrue\n\njulia> \"abc\" > \"abd\"\nfalse\n\njulia> 5 > 3\ntrue\n\n\n\n"
@@ -7274,7 +7274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:>=",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:>=",
     "category": "Function",
     "text": ">=(x, y)\n≥(x,y)\n\nGreater-than-or-equals comparison operator.\n\njulia> 'a' >= 'b'\nfalse\n\njulia> 7 ≥ 7 ≥ 3\ntrue\n\njulia> \"abc\" ≥ \"abc\"\ntrue\n\njulia> 5 >= 3\ntrue\n\n\n\n"
@@ -7282,7 +7282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cmp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cmp",
     "category": "Function",
     "text": "cmp(x,y)\n\nReturn -1, 0, or 1 depending on whether x is less than, equal to, or greater than y, respectively. Uses the total order implemented by isless. For floating-point numbers, uses < but throws an error for unordered arguments.\n\njulia> cmp(1, 2)\n-1\n\njulia> cmp(2, 1)\n1\n\njulia> cmp(2+im, 3-im)\nERROR: MethodError: no method matching isless(::Complex{Int64}, ::Complex{Int64})\n[...]\n\n\n\n"
@@ -7290,7 +7290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:~",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:~",
     "category": "Function",
     "text": "~(x)\n\nBitwise not.\n\nExamples\n\njulia> ~4\n-5\n\njulia> ~10\n-11\n\njulia> ~true\nfalse\n\n\n\n"
@@ -7298,7 +7298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:&",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:&",
     "category": "Function",
     "text": "&(x, y)\n\nBitwise and.\n\nExamples\n\njulia> 4 & 10\n0\n\njulia> 4 & 12\n4\n\n\n\n"
@@ -7306,7 +7306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:|",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:|",
     "category": "Function",
     "text": "|(x, y)\n\nBitwise or.\n\nExamples\n\njulia> 4 | 10\n14\n\njulia> 4 | 1\n5\n\n\n\n"
@@ -7314,7 +7314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.xor",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.xor",
     "category": "Function",
     "text": "xor(x, y)\n⊻(x, y)\n\nBitwise exclusive or of x and y.  The infix operation a ⊻ b is a synonym for xor(a,b), and ⊻ can be typed by tab-completing \\xor or \\veebar in the Julia REPL.\n\njulia> [true; true; false] .⊻ [true; false; false]\n3-element BitArray{1}:\n false\n  true\n false\n\n\n\n"
@@ -7322,7 +7322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.:!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.:!",
     "category": "Function",
     "text": "!(x)\n\nBoolean not.\n\njulia> !true\nfalse\n\njulia> !false\ntrue\n\njulia> .![true false true]\n1×3 BitArray{2}:\n false  true  false\n\n\n\n!f::Function\n\nPredicate function negation: when the argument of ! is a function, it returns a function which computes the boolean negation of f. Example:\n\njulia> str = \"∀ ε > 0, ∃ δ > 0: |x-y| < δ ⇒ |f(x)-f(y)| < ε\"\n\"∀ ε > 0, ∃ δ > 0: |x-y| < δ ⇒ |f(x)-f(y)| < ε\"\n\njulia> filter(isalpha, str)\n\"εδxyδfxfyε\"\n\njulia> filter(!isalpha, str)\n\"∀  > 0, ∃  > 0: |-| <  ⇒ |()-()| < \"\n\n\n\n"
@@ -7330,7 +7330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#&&",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "&&",
     "category": "Keyword",
     "text": "x && y\n\nShort-circuiting boolean AND.\n\n\n\n"
@@ -7338,7 +7338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#||",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "||",
     "category": "Keyword",
     "text": "x || y\n\nShort-circuiting boolean OR.\n\n\n\n"
@@ -7346,7 +7346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#math-ops-1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Operadores Matemáticos",
     "category": "section",
     "text": "Base.:-(::Any)\nBase.:(+)\nBase.:-(::Any, ::Any)\nBase.:*(::Any, ::Any...)\nBase.:(/)\nBase.:\\(::Any, ::Any)\nBase.:^(::Number, ::Number)\nBase.fma\nBase.muladd\nBase.div\nBase.fld\nBase.cld\nBase.mod\nBase.rem\nBase.rem2pi\nBase.Math.mod2pi\nBase.divrem\nBase.fldmod\nBase.fld1\nBase.mod1\nBase.fldmod1\nBase.:(//)\nBase.rationalize\nBase.numerator\nBase.denominator\nBase.:(<<)\nBase.:(>>)\nBase.:(>>>)\nBase.colon\nBase.range\nBase.OneTo\nBase.StepRangeLen\nBase.:(==)\nBase.:(!=)\nBase.:(!==)\nBase.:(<)\nBase.:(<=)\nBase.:(>)\nBase.:(>=)\nBase.cmp\nBase.:(~)\nBase.:(&)\nBase.:(|)\nBase.xor\nBase.:(!)\n&&\n||"
@@ -7354,7 +7354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.isapprox",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.isapprox",
     "category": "Function",
     "text": "isapprox(x, y; rtol::Real=sqrt(eps), atol::Real=0, nans::Bool=false, norm::Function)\n\nInexact equality comparison: true if norm(x-y) <= atol + rtol*max(norm(x), norm(y)). The default atol is zero and the default rtol depends on the types of x and y. The keyword argument nans determines whether or not NaN values are considered equal (defaults to false).\n\nFor real or complex floating-point values, rtol defaults to sqrt(eps(typeof(real(x-y)))). This corresponds to requiring equality of about half of the significand digits. For other types, rtol defaults to zero.\n\nx and y may also be arrays of numbers, in which case norm defaults to vecnorm but may be changed by passing a norm::Function keyword argument. (For numbers, norm is the same thing as abs.) When x and y are arrays, if norm(x-y) is not finite (i.e. ±Inf or NaN), the comparison falls back to checking whether all elements of x and y are approximately equal component-wise.\n\nThe binary operator ≈ is equivalent to isapprox with the default arguments, and x ≉ y is equivalent to !isapprox(x,y).\n\njulia> 0.1 ≈ (0.1 - 1e-10)\ntrue\n\njulia> isapprox(10, 11; atol = 2)\ntrue\n\njulia> isapprox([10.0^9, 1.0], [10.0^9, 2.0])\ntrue\n\n\n\n"
@@ -7362,7 +7362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.sin",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.sin",
     "category": "Function",
     "text": "sin(x)\n\nCompute sine of x, where x is in radians.\n\n\n\n"
@@ -7370,7 +7370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cos",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cos",
     "category": "Function",
     "text": "cos(x)\n\nCompute cosine of x, where x is in radians.\n\n\n\n"
@@ -7378,7 +7378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.tan",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.tan",
     "category": "Function",
     "text": "tan(x)\n\nCompute tangent of x, where x is in radians.\n\n\n\n"
@@ -7386,7 +7386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.sind",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.sind",
     "category": "Function",
     "text": "sind(x)\n\nCompute sine of x, where x is in degrees. \n\n\n\n"
@@ -7394,7 +7394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cosd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cosd",
     "category": "Function",
     "text": "cosd(x)\n\nCompute cosine of x, where x is in degrees. \n\n\n\n"
@@ -7402,7 +7402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.tand",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.tand",
     "category": "Function",
     "text": "tand(x)\n\nCompute tangent of x, where x is in degrees. \n\n\n\n"
@@ -7410,7 +7410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.sinpi",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.sinpi",
     "category": "Function",
     "text": "sinpi(x)\n\nCompute sin(pi x) more accurately than sin(pi*x), especially for large x.\n\n\n\n"
@@ -7418,7 +7418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cospi",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cospi",
     "category": "Function",
     "text": "cospi(x)\n\nCompute cos(pi x) more accurately than cos(pi*x), especially for large x.\n\n\n\n"
@@ -7426,7 +7426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.sinh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.sinh",
     "category": "Function",
     "text": "sinh(x)\n\nCompute hyperbolic sine of x.\n\n\n\n"
@@ -7434,7 +7434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cosh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cosh",
     "category": "Function",
     "text": "cosh(x)\n\nCompute hyperbolic cosine of x.\n\n\n\n"
@@ -7442,7 +7442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.tanh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.tanh",
     "category": "Function",
     "text": "tanh(x)\n\nCompute hyperbolic tangent of x.\n\n\n\n"
@@ -7450,7 +7450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.asin",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.asin",
     "category": "Function",
     "text": "asin(x)\n\nCompute the inverse sine of x, where the output is in radians.\n\n\n\n"
@@ -7458,7 +7458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.acos",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.acos",
     "category": "Function",
     "text": "acos(x)\n\nCompute the inverse cosine of x, where the output is in radians\n\n\n\n"
@@ -7466,7 +7466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.atan",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.atan",
     "category": "Function",
     "text": "atan(x)\n\nCompute the inverse tangent of x, where the output is in radians.\n\n\n\n"
@@ -7474,7 +7474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.atan2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.atan2",
     "category": "Function",
     "text": "atan2(y, x)\n\nCompute the inverse tangent of y/x, using the signs of both x and y to determine the quadrant of the return value.\n\n\n\n"
@@ -7482,7 +7482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.asind",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.asind",
     "category": "Function",
     "text": "asind(x)\n\nCompute the inverse sine of x, where the output is in degrees. \n\n\n\n"
@@ -7490,7 +7490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acosd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acosd",
     "category": "Function",
     "text": "acosd(x)\n\nCompute the inverse cosine of x, where the output is in degrees. \n\n\n\n"
@@ -7498,7 +7498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.atand",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.atand",
     "category": "Function",
     "text": "atand(x)\n\nCompute the inverse tangent of x, where the output is in degrees. \n\n\n\n"
@@ -7506,7 +7506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.sec",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.sec",
     "category": "Function",
     "text": "sec(x)\n\nCompute the secant of x, where x is in radians.\n\n\n\n"
@@ -7514,7 +7514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.csc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.csc",
     "category": "Function",
     "text": "csc(x)\n\nCompute the cosecant of x, where x is in radians.\n\n\n\n"
@@ -7522,7 +7522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cot",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cot",
     "category": "Function",
     "text": "cot(x)\n\nCompute the cotangent of x, where x is in radians.\n\n\n\n"
@@ -7530,7 +7530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.secd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.secd",
     "category": "Function",
     "text": "secd(x)\n\nCompute the secant of x, where x is in degrees.\n\n\n\n"
@@ -7538,7 +7538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cscd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cscd",
     "category": "Function",
     "text": "cscd(x)\n\nCompute the cosecant of x, where x is in degrees.\n\n\n\n"
@@ -7546,7 +7546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cotd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cotd",
     "category": "Function",
     "text": "cotd(x)\n\nCompute the cotangent of x, where x is in degrees.\n\n\n\n"
@@ -7554,7 +7554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.asec",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.asec",
     "category": "Function",
     "text": "asec(x)\n\nCompute the inverse secant of x, where the output is in radians. \n\n\n\n"
@@ -7562,7 +7562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acsc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acsc",
     "category": "Function",
     "text": "acsc(x)\n\nCompute the inverse cosecant of x, where the output is in radians. \n\n\n\n"
@@ -7570,7 +7570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acot",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acot",
     "category": "Function",
     "text": "acot(x)\n\nCompute the inverse cotangent of x, where the output is in radians. \n\n\n\n"
@@ -7578,7 +7578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.asecd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.asecd",
     "category": "Function",
     "text": "asecd(x)\n\nCompute the inverse secant of x, where the output is in degrees. \n\n\n\n"
@@ -7586,7 +7586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acscd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acscd",
     "category": "Function",
     "text": "acscd(x)\n\nCompute the inverse cosecant of x, where the output is in degrees. \n\n\n\n"
@@ -7594,7 +7594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acotd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acotd",
     "category": "Function",
     "text": "acotd(x)\n\nCompute the inverse cotangent of x, where the output is in degrees. \n\n\n\n"
@@ -7602,7 +7602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.sech",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.sech",
     "category": "Function",
     "text": "sech(x)\n\nCompute the hyperbolic secant of x\n\n\n\n"
@@ -7610,7 +7610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.csch",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.csch",
     "category": "Function",
     "text": "csch(x)\n\nCompute the hyperbolic cosecant of x.\n\n\n\n"
@@ -7618,7 +7618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.coth",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.coth",
     "category": "Function",
     "text": "coth(x)\n\nCompute the hyperbolic cotangent of x.\n\n\n\n"
@@ -7626,7 +7626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.asinh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.asinh",
     "category": "Function",
     "text": "asinh(x)\n\nCompute the inverse hyperbolic sine of x.\n\n\n\n"
@@ -7634,7 +7634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.acosh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.acosh",
     "category": "Function",
     "text": "acosh(x)\n\nCompute the inverse hyperbolic cosine of x.\n\n\n\n"
@@ -7642,7 +7642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.atanh",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.atanh",
     "category": "Function",
     "text": "atanh(x)\n\nCompute the inverse hyperbolic tangent of x.\n\n\n\n"
@@ -7650,7 +7650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.asech",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.asech",
     "category": "Function",
     "text": "asech(x)\n\nCompute the inverse hyperbolic secant of x. \n\n\n\n"
@@ -7658,7 +7658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acsch",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acsch",
     "category": "Function",
     "text": "acsch(x)\n\nCompute the inverse hyperbolic cosecant of x. \n\n\n\n"
@@ -7666,7 +7666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.acoth",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.acoth",
     "category": "Function",
     "text": "acoth(x)\n\nCompute the inverse hyperbolic cotangent of x. \n\n\n\n"
@@ -7674,7 +7674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.sinc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.sinc",
     "category": "Function",
     "text": "sinc(x)\n\nCompute sin(pi x)  (pi x) if x neq 0, and 1 if x = 0.\n\n\n\n"
@@ -7682,7 +7682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cosc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cosc",
     "category": "Function",
     "text": "cosc(x)\n\nCompute cos(pi x)  x - sin(pi x)  (pi x^2) if x neq 0, and 0 if x = 0. This is the derivative of sinc(x).\n\n\n\n"
@@ -7690,7 +7690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.deg2rad",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.deg2rad",
     "category": "Function",
     "text": "deg2rad(x)\n\nConvert x from degrees to radians.\n\njulia> deg2rad(90)\n1.5707963267948966\n\n\n\n"
@@ -7698,7 +7698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.rad2deg",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.rad2deg",
     "category": "Function",
     "text": "rad2deg(x)\n\nConvert x from radians to degrees.\n\njulia> rad2deg(pi)\n180.0\n\n\n\n"
@@ -7706,7 +7706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.hypot",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.hypot",
     "category": "Function",
     "text": "hypot(x, y)\n\nCompute the hypotenuse sqrtx^2+y^2 avoiding overflow and underflow.\n\nExamples\n\njulia> a = 10^10;\n\njulia> hypot(a, a)\n1.4142135623730951e10\n\njulia> √(a^2 + a^2) # a^2 overflows\nERROR: DomainError:\nsqrt will only return a complex result if called with a complex argument. Try sqrt(complex(x)).\nStacktrace:\n [1] sqrt(::Int64) at ./math.jl:434\n\n\n\nhypot(x...)\n\nCompute the hypotenuse sqrtsum x_i^2 avoiding overflow and underflow.\n\n\n\n"
@@ -7714,7 +7714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.log-Tuple{Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.log",
     "category": "Method",
     "text": "log(x)\n\nCompute the natural logarithm of x. Throws DomainError for negative Real arguments. Use complex negative arguments to obtain complex results.\n\nThere is an experimental variant in the Base.Math.JuliaLibm module, which is typically faster and more accurate.\n\n\n\n"
@@ -7722,7 +7722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.log-Tuple{Number,Number}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.log",
     "category": "Method",
     "text": "log(b,x)\n\nCompute the base b logarithm of x. Throws DomainError for negative Real arguments.\n\njulia> log(4,8)\n1.5\n\njulia> log(4,2)\n0.5\n\nnote: Note\nIf b is a power of 2 or 10, log2 or log10 should be used, as these will typically be faster and more accurate. For example,julia> log(100,1000000)\n2.9999999999999996\n\njulia> log10(1000000)/2\n3.0\n\n\n\n"
@@ -7730,7 +7730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.log2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.log2",
     "category": "Function",
     "text": "log2(x)\n\nCompute the logarithm of x to base 2. Throws DomainError for negative Real arguments.\n\nExample\n\njulia> log2(4)\n2.0\n\njulia> log2(10)\n3.321928094887362\n\n\n\n"
@@ -7738,7 +7738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.log10",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.log10",
     "category": "Function",
     "text": "log10(x)\n\nCompute the logarithm of x to base 10. Throws DomainError for negative Real arguments.\n\nExample\n\njulia> log10(100)\n2.0\n\njulia> log10(2)\n0.3010299956639812\n\n\n\n"
@@ -7746,7 +7746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.log1p",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.log1p",
     "category": "Function",
     "text": "log1p(x)\n\nAccurate natural logarithm of 1+x. Throws DomainError for Real arguments less than -1.\n\nThere is an experimental variant in the Base.Math.JuliaLibm module, which is typically faster and more accurate.\n\nExamples\n\njulia> log1p(-0.5)\n-0.6931471805599453\n\njulia> log1p(0)\n0.0\n\n\n\n"
@@ -7754,7 +7754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.frexp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.frexp",
     "category": "Function",
     "text": "frexp(val)\n\nReturn (x,exp) such that x has a magnitude in the interval 12 1) or 0, and val is equal to x times 2^exp.\n\n\n\n"
@@ -7762,7 +7762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.exp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.exp",
     "category": "Function",
     "text": "exp(x)\n\nCompute the natural base exponential of x, in other words e^x.\n\n\n\n"
@@ -7770,7 +7770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.exp2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.exp2",
     "category": "Function",
     "text": "exp2(x)\n\nCompute 2^x.\n\njulia> exp2(5)\n32.0\n\n\n\n"
@@ -7778,7 +7778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.exp10",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.exp10",
     "category": "Function",
     "text": "exp10(x)\n\nCompute 10^x.\n\nExamples\n\njulia> exp10(2)\n100.0\n\njulia> exp10(0.2)\n1.5848931924611136\n\n\n\n"
@@ -7786,7 +7786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.ldexp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.ldexp",
     "category": "Function",
     "text": "ldexp(x, n)\n\nCompute x times 2^n.\n\nExample\n\njulia> ldexp(5., 2)\n20.0\n\n\n\n"
@@ -7794,7 +7794,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.modf",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.modf",
     "category": "Function",
     "text": "modf(x)\n\nReturn a tuple (fpart,ipart) of the fractional and integral parts of a number. Both parts have the same sign as the argument.\n\nExample\n\njulia> modf(3.5)\n(0.5, 3.0)\n\n\n\n"
@@ -7802,7 +7802,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.expm1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.expm1",
     "category": "Function",
     "text": "expm1(x)\n\nAccurately compute e^x-1.\n\n\n\n"
@@ -7810,7 +7810,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.round-Tuple{Type,Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.round",
     "category": "Method",
     "text": "round([T,] x, [digits, [base]], [r::RoundingMode])\n\nRounds x to an integer value according to the provided RoundingMode, returning a value of the same type as x. When not specifying a rounding mode the global mode will be used (see rounding), which by default is round to the nearest integer (RoundNearest mode), with ties (fractional values of 0.5) being rounded to the nearest even integer.\n\njulia> round(1.7)\n2.0\n\njulia> round(1.5)\n2.0\n\njulia> round(2.5)\n2.0\n\nThe optional RoundingMode argument will change how the number gets rounded.\n\nround(T, x, [r::RoundingMode]) converts the result to type T, throwing an InexactError if the value is not representable.\n\nround(x, digits) rounds to the specified number of digits after the decimal place (or before if negative). round(x, digits, base) rounds using a base other than 10.\n\njulia> round(pi, 2)\n3.14\n\njulia> round(pi, 3, 2)\n3.125\n\nnote: Note\nRounding to specified digits in bases other than 2 can be inexact when operating on binary floating point numbers. For example, the Float64 value represented by 1.15 is actually less than 1.15, yet will be rounded to 1.2.julia> x = 1.15\n1.15\n\njulia> @sprintf \"%.20f\" x\n\"1.14999999999999991118\"\n\njulia> x < 115//100\ntrue\n\njulia> round(x, 1)\n1.2\n\n\n\n"
@@ -7818,7 +7818,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundingMode",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundingMode",
     "category": "Type",
     "text": "RoundingMode\n\nA type used for controlling the rounding mode of floating point operations (via rounding/setrounding functions), or as optional arguments for rounding to the nearest integer (via the round function).\n\nCurrently supported rounding modes are:\n\nRoundNearest (default)\nRoundNearestTiesAway\nRoundNearestTiesUp\nRoundToZero\nRoundFromZero (BigFloat only)\nRoundUp\nRoundDown\n\n\n\n"
@@ -7826,7 +7826,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundNearest",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundNearest",
     "category": "Constant",
     "text": "RoundNearest\n\nThe default rounding mode. Rounds to the nearest integer, with ties (fractional values of 0.5) being rounded to the nearest even integer.\n\n\n\n"
@@ -7834,7 +7834,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundNearestTiesAway",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundNearestTiesAway",
     "category": "Constant",
     "text": "RoundNearestTiesAway\n\nRounds to nearest integer, with ties rounded away from zero (C/C++ round behaviour).\n\n\n\n"
@@ -7842,7 +7842,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundNearestTiesUp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundNearestTiesUp",
     "category": "Constant",
     "text": "RoundNearestTiesUp\n\nRounds to nearest integer, with ties rounded toward positive infinity (Java/JavaScript round behaviour).\n\n\n\n"
@@ -7850,7 +7850,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundToZero",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundToZero",
     "category": "Constant",
     "text": "RoundToZero\n\nround using this rounding mode is an alias for trunc.\n\n\n\n"
@@ -7858,7 +7858,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundUp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundUp",
     "category": "Constant",
     "text": "RoundUp\n\nround using this rounding mode is an alias for ceil.\n\n\n\n"
@@ -7866,7 +7866,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Rounding.RoundDown",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Rounding.RoundDown",
     "category": "Constant",
     "text": "RoundDown\n\nround using this rounding mode is an alias for floor.\n\n\n\n"
@@ -7874,7 +7874,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.round-Union{Tuple{Complex{T},RoundingMode{MR},RoundingMode{MI}}, Tuple{MI}, Tuple{MR}, Tuple{T}} where MI where MR where T<:AbstractFloat",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.round",
     "category": "Method",
     "text": "round(z, RoundingModeReal, RoundingModeImaginary)\n\nReturns the nearest integral value of the same type as the complex-valued z to z, breaking ties using the specified RoundingModes. The first RoundingMode is used for rounding the real components while the second is used for rounding the imaginary components.\n\n\n\n"
@@ -7882,7 +7882,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.ceil",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.ceil",
     "category": "Function",
     "text": "ceil([T,] x, [digits, [base]])\n\nceil(x) returns the nearest integral value of the same type as x that is greater than or equal to x.\n\nceil(T, x) converts the result to type T, throwing an InexactError if the value is not representable.\n\ndigits and base work as for round.\n\n\n\n"
@@ -7890,7 +7890,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.floor",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.floor",
     "category": "Function",
     "text": "floor([T,] x, [digits, [base]])\n\nfloor(x) returns the nearest integral value of the same type as x that is less than or equal to x.\n\nfloor(T, x) converts the result to type T, throwing an InexactError if the value is not representable.\n\ndigits and base work as for round.\n\n\n\n"
@@ -7898,7 +7898,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.trunc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.trunc",
     "category": "Function",
     "text": "trunc([T,] x, [digits, [base]])\n\ntrunc(x) returns the nearest integral value of the same type as x whose absolute value is less than or equal to x.\n\ntrunc(T, x) converts the result to type T, throwing an InexactError if the value is not representable.\n\ndigits and base work as for round.\n\n\n\n"
@@ -7906,7 +7906,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.unsafe_trunc",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.unsafe_trunc",
     "category": "Function",
     "text": "unsafe_trunc(T, x)\n\nunsafe_trunc(T, x) returns the nearest integral value of type T whose absolute value is less than or equal to x. If the value is not representable by T, an arbitrary value will be returned.\n\n\n\n"
@@ -7914,7 +7914,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.signif",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.signif",
     "category": "Function",
     "text": "signif(x, digits, [base])\n\nRounds (in the sense of round) x so that there are digits significant digits, under a base base representation, default 10. E.g., signif(123.456, 2) is 120.0, and signif(357.913, 4, 2) is 352.0.\n\n\n\n"
@@ -7922,7 +7922,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.min",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.min",
     "category": "Function",
     "text": "min(x, y, ...)\n\nReturn the minimum of the arguments. See also the minimum function to take the minimum element from a collection.\n\njulia> min(2, 5, 1)\n1\n\n\n\n"
@@ -7930,7 +7930,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.max",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.max",
     "category": "Function",
     "text": "max(x, y, ...)\n\nReturn the maximum of the arguments. See also the maximum function to take the maximum element from a collection.\n\njulia> max(2, 5, 1)\n5\n\n\n\n"
@@ -7938,7 +7938,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.minmax",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.minmax",
     "category": "Function",
     "text": "minmax(x, y)\n\nReturn (min(x,y), max(x,y)). See also: extrema that returns (minimum(x), maximum(x)).\n\njulia> minmax('c','b')\n('b', 'c')\n\n\n\n"
@@ -7946,7 +7946,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.clamp",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.clamp",
     "category": "Function",
     "text": "clamp(x, lo, hi)\n\nReturn x if lo <= x <= hi. If x < lo, return lo. If x > hi, return hi. Arguments are promoted to a common type.\n\njulia> clamp.([pi, 1.0, big(10.)], 2., 9.)\n3-element Array{BigFloat,1}:\n 3.141592653589793238462643383279502884197169399375105820974944592307816406286198\n 2.000000000000000000000000000000000000000000000000000000000000000000000000000000\n 9.000000000000000000000000000000000000000000000000000000000000000000000000000000\n\n\n\n"
@@ -7954,7 +7954,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.clamp!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.clamp!",
     "category": "Function",
     "text": "clamp!(array::AbstractArray, lo, hi)\n\nRestrict values in array to the specified range, in-place. See also clamp.\n\n\n\n"
@@ -7962,7 +7962,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.abs",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.abs",
     "category": "Function",
     "text": "abs(x)\n\nThe absolute value of x.\n\nWhen abs is applied to signed integers, overflow may occur, resulting in the return of a negative value. This overflow occurs only when abs is applied to the minimum representable value of a signed integer. That is, when x == typemin(typeof(x)), abs(x) == x < 0, not -x as might be expected.\n\njulia> abs(-3)\n3\n\njulia> abs(1 + im)\n1.4142135623730951\n\njulia> abs(typemin(Int64))\n-9223372036854775808\n\n\n\n"
@@ -7970,7 +7970,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_abs",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_abs",
     "category": "Function",
     "text": "Base.checked_abs(x)\n\nCalculates abs(x), checking for overflow errors where applicable. For example, standard two's complement signed integers (e.g. Int) cannot represent abs(typemin(Int)), thus leading to an overflow.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -7978,7 +7978,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_neg",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_neg",
     "category": "Function",
     "text": "Base.checked_neg(x)\n\nCalculates -x, checking for overflow errors where applicable. For example, standard two's complement signed integers (e.g. Int) cannot represent -typemin(Int), thus leading to an overflow.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -7986,7 +7986,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_add",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_add",
     "category": "Function",
     "text": "Base.checked_add(x, y)\n\nCalculates x+y, checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -7994,7 +7994,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_sub",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_sub",
     "category": "Function",
     "text": "Base.checked_sub(x, y)\n\nCalculates x-y, checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8002,7 +8002,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_mul",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_mul",
     "category": "Function",
     "text": "Base.checked_mul(x, y)\n\nCalculates x*y, checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8010,7 +8010,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_div",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_div",
     "category": "Function",
     "text": "Base.checked_div(x, y)\n\nCalculates div(x,y), checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8018,7 +8018,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_rem",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_rem",
     "category": "Function",
     "text": "Base.checked_rem(x, y)\n\nCalculates x%y, checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8026,7 +8026,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_fld",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_fld",
     "category": "Function",
     "text": "Base.checked_fld(x, y)\n\nCalculates fld(x,y), checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8034,7 +8034,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_mod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_mod",
     "category": "Function",
     "text": "Base.checked_mod(x, y)\n\nCalculates mod(x,y), checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8042,7 +8042,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.checked_cld",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.checked_cld",
     "category": "Function",
     "text": "Base.checked_cld(x, y)\n\nCalculates cld(x,y), checking for overflow errors where applicable.\n\nThe overflow protection may impose a perceptible performance penalty.\n\n\n\n"
@@ -8050,7 +8050,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.add_with_overflow",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.add_with_overflow",
     "category": "Function",
     "text": "Base.add_with_overflow(x, y) -> (r, f)\n\nCalculates r = x+y, with the flag f indicating whether overflow has occurred.\n\n\n\n"
@@ -8058,7 +8058,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.sub_with_overflow",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.sub_with_overflow",
     "category": "Function",
     "text": "Base.sub_with_overflow(x, y) -> (r, f)\n\nCalculates r = x-y, with the flag f indicating whether overflow has occurred.\n\n\n\n"
@@ -8066,7 +8066,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Checked.mul_with_overflow",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Checked.mul_with_overflow",
     "category": "Function",
     "text": "Base.mul_with_overflow(x, y) -> (r, f)\n\nCalculates r = x*y, with the flag f indicating whether overflow has occurred.\n\n\n\n"
@@ -8074,7 +8074,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.abs2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.abs2",
     "category": "Function",
     "text": "abs2(x)\n\nSquared absolute value of x.\n\njulia> abs2(-3)\n9\n\n\n\n"
@@ -8082,7 +8082,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.copysign",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.copysign",
     "category": "Function",
     "text": "copysign(x, y) -> z\n\nReturn z which has the magnitude of x and the same sign as y.\n\nExamples\n\njulia> copysign(1, -2)\n-1\n\njulia> copysign(-1, 2)\n1\n\n\n\n"
@@ -8090,7 +8090,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.sign",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.sign",
     "category": "Function",
     "text": "sign(x)\n\nReturn zero if x==0 and xx otherwise (i.e., ±1 for real x).\n\n\n\n"
@@ -8098,7 +8098,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.signbit",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.signbit",
     "category": "Function",
     "text": "signbit(x)\n\nReturns true if the value of the sign of x is negative, otherwise false.\n\nExamples\n\njulia> signbit(-4)\ntrue\n\njulia> signbit(5)\nfalse\n\njulia> signbit(5.5)\nfalse\n\njulia> signbit(-4.1)\ntrue\n\n\n\n"
@@ -8106,7 +8106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.flipsign",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.flipsign",
     "category": "Function",
     "text": "flipsign(x, y)\n\nReturn x with its sign flipped if y is negative. For example abs(x) = flipsign(x,x).\n\njulia> flipsign(5, 3)\n5\n\njulia> flipsign(5, -3)\n-5\n\n\n\n"
@@ -8114,7 +8114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.sqrt",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.sqrt",
     "category": "Function",
     "text": "sqrt(x)\n\nReturn sqrtx. Throws DomainError for negative Real arguments. Use complex negative arguments instead. The prefix operator √ is equivalent to sqrt.\n\n\n\n"
@@ -8122,7 +8122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.isqrt",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.isqrt",
     "category": "Function",
     "text": "isqrt(n::Integer)\n\nInteger square root: the largest integer m such that m*m <= n.\n\njulia> isqrt(5)\n2\n\n\n\n"
@@ -8130,7 +8130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.cbrt",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.cbrt",
     "category": "Function",
     "text": "cbrt(x::Real)\n\nReturn the cube root of x, i.e. x^13. Negative values are accepted (returning the negative real root when x  0).\n\nThe prefix operator ∛ is equivalent to cbrt.\n\njulia> cbrt(big(27))\n3.000000000000000000000000000000000000000000000000000000000000000000000000000000\n\n\n\n"
@@ -8138,7 +8138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.real-Tuple{Complex}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.real",
     "category": "Method",
     "text": "real(z)\n\nReturn the real part of the complex number z.\n\njulia> real(1 + 3im)\n1\n\n\n\n"
@@ -8146,7 +8146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.imag",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.imag",
     "category": "Function",
     "text": "imag(z)\n\nReturn the imaginary part of the complex number z.\n\njulia> imag(1 + 3im)\n3\n\n\n\n"
@@ -8154,7 +8154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.reim",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.reim",
     "category": "Function",
     "text": "reim(z)\n\nReturn both the real and imaginary parts of the complex number z.\n\njulia> reim(1 + 3im)\n(1, 3)\n\n\n\n"
@@ -8162,15 +8162,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.conj",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.conj",
     "category": "Function",
-    "text": "conj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\nconj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\n"
+    "text": "conj(v::RowVector)\n\nReturns a ConjArray lazy view of the input, where each element is conjugated.\n\nExample\n\njulia> v = [1+im, 1-im].'\n1×2 RowVector{Complex{Int64},Array{Complex{Int64},1}}:\n 1+1im  1-1im\n\njulia> conj(v)\n1×2 RowVector{Complex{Int64},ConjArray{Complex{Int64},1,Array{Complex{Int64},1}}}:\n 1-1im  1+1im\n\n\n\nconj(z)\n\nCompute the complex conjugate of a complex number z.\n\njulia> conj(1 + 3im)\n1 - 3im\n\n\n\n"
 },
 
 {
     "location": "stdlib/math.html#Base.angle",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.angle",
     "category": "Function",
     "text": "angle(z)\n\nCompute the phase angle in radians of a complex number z.\n\n\n\n"
@@ -8178,7 +8178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cis",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cis",
     "category": "Function",
     "text": "cis(z)\n\nReturn exp(iz).\n\n\n\n"
@@ -8186,7 +8186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.binomial",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.binomial",
     "category": "Function",
     "text": "binomial(n, k)\n\nNumber of ways to choose k out of n items.\n\nExample\n\njulia> binomial(5, 3)\n10\n\njulia> factorial(5) ÷ (factorial(5-3) * factorial(3))\n10\n\n\n\n"
@@ -8194,7 +8194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.factorial",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.factorial",
     "category": "Function",
     "text": "factorial(n)\n\nFactorial of n. If n is an Integer, the factorial is computed as an integer (promoted to at least 64 bits). Note that this may overflow if n is not small, but you can use factorial(big(n)) to compute the result exactly in arbitrary precision. If n is not an Integer, factorial(n) is equivalent to gamma(n+1).\n\njulia> factorial(6)\n720\n\njulia> factorial(21)\nERROR: OverflowError()\n[...]\n\njulia> factorial(21.0)\n5.109094217170944e19\n\njulia> factorial(big(21))\n51090942171709440000\n\n\n\n"
@@ -8202,7 +8202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.gcd",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.gcd",
     "category": "Function",
     "text": "gcd(x,y)\n\nGreatest common (positive) divisor (or zero if x and y are both zero).\n\nExamples\n\njulia> gcd(6,9)\n3\n\njulia> gcd(6,-9)\n3\n\n\n\n"
@@ -8210,7 +8210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.lcm",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.lcm",
     "category": "Function",
     "text": "lcm(x,y)\n\nLeast common (non-negative) multiple.\n\nExamples\n\njulia> lcm(2,3)\n6\n\njulia> lcm(-2,3)\n6\n\n\n\n"
@@ -8218,7 +8218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.gcdx",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.gcdx",
     "category": "Function",
     "text": "gcdx(x,y)\n\nComputes the greatest common (positive) divisor of x and y and their Bézout coefficients, i.e. the integer coefficients u and v that satisfy ux+vy = d = gcd(xy). gcdx(xy) returns (duv).\n\nExamples\n\njulia> gcdx(12, 42)\n(6, -3, 1)\n\njulia> gcdx(240, 46)\n(2, -9, 47)\n\nnote: Note\nBézout coefficients are not uniquely defined. gcdx returns the minimal Bézout coefficients that are computed by the extended Euclidean algorithm. (Ref: D. Knuth, TAoCP, 2/e, p. 325, Algorithm X.) For signed integers, these coefficients u and v are minimal in the sense that u  yd and v  xd. Furthermore, the signs of u and v are chosen so that d is positive. For unsigned integers, the coefficients u and v might be near their typemax, and the identity then holds only via the unsigned integers' modulo arithmetic.\n\n\n\n"
@@ -8226,7 +8226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.ispow2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.ispow2",
     "category": "Function",
     "text": "ispow2(n::Integer) -> Bool\n\nTest whether n is a power of two.\n\nExamples\n\njulia> ispow2(4)\ntrue\n\njulia> ispow2(5)\nfalse\n\n\n\n"
@@ -8234,7 +8234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.nextpow2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.nextpow2",
     "category": "Function",
     "text": "nextpow2(n::Integer)\n\nThe smallest power of two not less than n. Returns 0 for n==0, and returns -nextpow2(-n) for negative arguments.\n\nExamples\n\njulia> nextpow2(16)\n16\n\njulia> nextpow2(17)\n32\n\n\n\n"
@@ -8242,7 +8242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.prevpow2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.prevpow2",
     "category": "Function",
     "text": "prevpow2(n::Integer)\n\nThe largest power of two not greater than n. Returns 0 for n==0, and returns -prevpow2(-n) for negative arguments.\n\nExamples\n\njulia> prevpow2(5)\n4\n\njulia> prevpow2(0)\n0\n\n\n\n"
@@ -8250,7 +8250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.nextpow",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.nextpow",
     "category": "Function",
     "text": "nextpow(a, x)\n\nThe smallest a^n not less than x, where n is a non-negative integer. a must be greater than 1, and x must be greater than 0.\n\nExamples\n\njulia> nextpow(2, 7)\n8\n\njulia> nextpow(2, 9)\n16\n\njulia> nextpow(5, 20)\n25\n\njulia> nextpow(4, 16)\n16\n\nSee also prevpow.\n\n\n\n"
@@ -8258,7 +8258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.prevpow",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.prevpow",
     "category": "Function",
     "text": "prevpow(a, x)\n\nThe largest a^n not greater than x, where n is a non-negative integer. a must be greater than 1, and x must not be less than 1.\n\nExamples\n\njulia> prevpow(2, 7)\n4\n\njulia> prevpow(2, 9)\n8\n\njulia> prevpow(5, 20)\n5\n\njulia> prevpow(4, 16)\n16\n\nSee also nextpow.\n\n\n\n"
@@ -8266,7 +8266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.nextprod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.nextprod",
     "category": "Function",
     "text": "nextprod([k_1, k_2,...], n)\n\nNext integer greater than or equal to n that can be written as prod k_i^p_i for integers p_1, p_2, etc.\n\nExample\n\njulia> nextprod([2, 3], 105)\n108\n\njulia> 2^2 * 3^3\n108\n\n\n\n"
@@ -8274,7 +8274,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.invmod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.invmod",
     "category": "Function",
     "text": "invmod(x,m)\n\nTake the inverse of x modulo m: y such that x y = 1 pmod m, with div(xy) = 0. This is undefined for m = 0, or if gcd(xm) neq 1.\n\nExamples\n\njulia> invmod(2,5)\n3\n\njulia> invmod(2,3)\n2\n\njulia> invmod(5,6)\n5\n\n\n\n"
@@ -8282,7 +8282,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.powermod",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.powermod",
     "category": "Function",
     "text": "powermod(x::Integer, p::Integer, m)\n\nCompute x^p pmod m.\n\nExamples\n\njulia> powermod(2, 6, 5)\n4\n\njulia> mod(2^6, 5)\n4\n\njulia> powermod(5, 2, 20)\n5\n\njulia> powermod(5, 2, 19)\n6\n\njulia> powermod(5, 3, 19)\n11\n\n\n\n"
@@ -8290,7 +8290,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.gamma",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.gamma",
     "category": "Function",
     "text": "gamma(x)\n\nCompute the gamma function of x.\n\n\n\n"
@@ -8298,7 +8298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.lgamma",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.lgamma",
     "category": "Function",
     "text": "lgamma(x)\n\nCompute the logarithm of the absolute value of gamma for Real x, while for Complex x compute the principal branch cut of the logarithm of gamma(x) (defined for negative real(x) by analytic continuation from positive real(x)).\n\n\n\n"
@@ -8306,7 +8306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.lfact",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.lfact",
     "category": "Function",
     "text": "lfact(x)\n\nCompute the logarithmic factorial of a nonnegative integer x. Equivalent to lgamma of x + 1, but lgamma extends this function to non-integer x.\n\n\n\n"
@@ -8314,7 +8314,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.beta",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.beta",
     "category": "Function",
     "text": "beta(x, y)\n\nEuler integral of the first kind operatornameB(xy) = Gamma(x)Gamma(y)Gamma(x+y).\n\n\n\n"
@@ -8322,7 +8322,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.lbeta",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.lbeta",
     "category": "Function",
     "text": "lbeta(x, y)\n\nNatural logarithm of the absolute value of the beta function log(operatornameB(xy)).\n\n\n\n"
@@ -8330,7 +8330,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.ndigits",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.ndigits",
     "category": "Function",
     "text": "ndigits(n::Integer, b::Integer=10)\n\nCompute the number of digits in integer n written in base b. The base b must not be in [-1, 0, 1].\n\nExamples\n\njulia> ndigits(12345)\n5\n\njulia> ndigits(1022, 16)\n3\n\njulia> base(16, 1022)\n\"3fe\"\n\n\n\n"
@@ -8338,7 +8338,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.widemul",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.widemul",
     "category": "Function",
     "text": "widemul(x, y)\n\nMultiply x and y, giving the result as a larger type.\n\njulia> widemul(Float32(3.), 4.)\n1.200000000000000000000000000000000000000000000000000000000000000000000000000000e+01\n\n\n\n"
@@ -8346,7 +8346,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.Math.@evalpoly",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.Math.@evalpoly",
     "category": "Macro",
     "text": "@evalpoly(z, c...)\n\nEvaluate the polynomial sum_k ck z^k-1 for the coefficients c[1], c[2], ...; that is, the coefficients are given in ascending order by power of z.  This macro expands to efficient inline code that uses either Horner's method or, for complex z, a more efficient Goertzel-like algorithm.\n\njulia> @evalpoly(3, 1, 0, 1)\n10\n\njulia> @evalpoly(2, 1, 0, 1)\n5\n\njulia> @evalpoly(2, 1, 1, 1)\n7\n\n\n\n"
@@ -8354,7 +8354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Funciones-Matemáticas-1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Funciones Matemáticas",
     "category": "section",
     "text": "Base.isapprox\nBase.sin\nBase.cos\nBase.tan\nBase.Math.sind\nBase.Math.cosd\nBase.Math.tand\nBase.Math.sinpi\nBase.Math.cospi\nBase.sinh\nBase.cosh\nBase.tanh\nBase.asin\nBase.acos\nBase.atan\nBase.Math.atan2\nBase.Math.asind\nBase.Math.acosd\nBase.Math.atand\nBase.Math.sec\nBase.Math.csc\nBase.Math.cot\nBase.Math.secd\nBase.Math.cscd\nBase.Math.cotd\nBase.Math.asec\nBase.Math.acsc\nBase.Math.acot\nBase.Math.asecd\nBase.Math.acscd\nBase.Math.acotd\nBase.Math.sech\nBase.Math.csch\nBase.Math.coth\nBase.asinh\nBase.acosh\nBase.atanh\nBase.Math.asech\nBase.Math.acsch\nBase.Math.acoth\nBase.Math.sinc\nBase.Math.cosc\nBase.Math.deg2rad\nBase.Math.rad2deg\nBase.Math.hypot\nBase.log(::Any)\nBase.log(::Number, ::Number)\nBase.log2\nBase.log10\nBase.log1p\nBase.Math.frexp\nBase.exp\nBase.exp2\nBase.exp10\nBase.Math.ldexp\nBase.Math.modf\nBase.expm1\nBase.round(::Type, ::Any)\nBase.Rounding.RoundingMode\nBase.Rounding.RoundNearest\nBase.Rounding.RoundNearestTiesAway\nBase.Rounding.RoundNearestTiesUp\nBase.Rounding.RoundToZero\nBase.Rounding.RoundUp\nBase.Rounding.RoundDown\nBase.round{T <: AbstractFloat, MR, MI}(::Complex{T}, ::RoundingMode{MR}, ::RoundingMode{MI})\nBase.ceil\nBase.floor\nBase.trunc\nBase.unsafe_trunc\nBase.signif\nBase.min\nBase.max\nBase.minmax\nBase.Math.clamp\nBase.Math.clamp!\nBase.abs\nBase.Checked.checked_abs\nBase.Checked.checked_neg\nBase.Checked.checked_add\nBase.Checked.checked_sub\nBase.Checked.checked_mul\nBase.Checked.checked_div\nBase.Checked.checked_rem\nBase.Checked.checked_fld\nBase.Checked.checked_mod\nBase.Checked.checked_cld\nBase.Checked.add_with_overflow\nBase.Checked.sub_with_overflow\nBase.Checked.mul_with_overflow\nBase.abs2\nBase.copysign\nBase.sign\nBase.signbit\nBase.flipsign\nBase.sqrt\nBase.isqrt\nBase.Math.cbrt\nBase.real(::Complex)\nBase.imag\nBase.reim\nBase.conj\nBase.angle\nBase.cis\nBase.binomial\nBase.factorial\nBase.gcd\nBase.lcm\nBase.gcdx\nBase.ispow2\nBase.nextpow2\nBase.prevpow2\nBase.nextpow\nBase.prevpow\nBase.nextprod\nBase.invmod\nBase.powermod\nBase.Math.gamma\nBase.Math.lgamma\nBase.Math.lfact\nBase.Math.beta\nBase.Math.lbeta\nBase.ndigits\nBase.widemul\nBase.Math.@evalpoly"
@@ -8362,7 +8362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.mean",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.mean",
     "category": "Function",
     "text": "mean(f::Function, v)\n\nApply the function f to each element of v and take the mean.\n\njulia> mean(√, [1, 2, 3])\n1.3820881233139908\n\njulia> mean([√1, √2, √3])\n1.3820881233139908\n\n\n\nmean(v[, region])\n\nCompute the mean of whole array v, or optionally along the dimensions in region.\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8370,7 +8370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.mean!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.mean!",
     "category": "Function",
     "text": "mean!(r, v)\n\nCompute the mean of v over the singleton dimensions of r, and write results to r.\n\n\n\n"
@@ -8378,7 +8378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.std",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.std",
     "category": "Function",
     "text": "std(v[, region]; corrected::Bool=true, mean=nothing)\n\nCompute the sample standard deviation of a vector or array v, optionally along dimensions in region. The algorithm returns an estimator of the generative distribution's standard deviation under the assumption that each entry of v is an IID drawn from that generative distribution. This computation is equivalent to calculating sqrt(sum((v - mean(v)).^2) / (length(v) - 1)). A pre-computed mean may be provided. If corrected is true, then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = length(x).\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8386,7 +8386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.stdm",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.stdm",
     "category": "Function",
     "text": "stdm(v, m::Number; corrected::Bool=true)\n\nCompute the sample standard deviation of a vector v with known mean m. If corrected is true, then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = length(x).\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8394,7 +8394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.var",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.var",
     "category": "Function",
     "text": "var(v[, region]; corrected::Bool=true, mean=nothing)\n\nCompute the sample variance of a vector or array v, optionally along dimensions in region. The algorithm will return an estimator of the generative distribution's variance under the assumption that each entry of v is an IID drawn from that generative distribution. This computation is equivalent to calculating sum(abs2, v - mean(v)) / (length(v) - 1). If corrected is true, then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = length(x). The mean mean over the region may be provided.\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8402,7 +8402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.varm",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.varm",
     "category": "Function",
     "text": "varm(v, m[, region]; corrected::Bool=true)\n\nCompute the sample variance of a collection v with known mean(s) m, optionally over region. m may contain means for each dimension of v. If corrected is true, then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = length(x).\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8410,7 +8410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.middle",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.middle",
     "category": "Function",
     "text": "middle(x)\n\nCompute the middle of a scalar value, which is equivalent to x itself, but of the type of middle(x, x) for consistency.\n\n\n\nmiddle(x, y)\n\nCompute the middle of two reals x and y, which is equivalent in both value and type to computing their mean ((x + y) / 2).\n\n\n\nmiddle(range)\n\nCompute the middle of a range, which consists of computing the mean of its extrema. Since a range is sorted, the mean is performed with the first and last element.\n\njulia> middle(1:10)\n5.5\n\n\n\nmiddle(a)\n\nCompute the middle of an array a, which consists of finding its extrema and then computing their mean.\n\njulia> a = [1,2,3.6,10.9]\n4-element Array{Float64,1}:\n  1.0\n  2.0\n  3.6\n 10.9\n\njulia> middle(a)\n5.95\n\n\n\n"
@@ -8418,7 +8418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.median",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.median",
     "category": "Function",
     "text": "median(v[, region])\n\nCompute the median of an entire array v, or, optionally, along the dimensions in region. For an even number of elements no exact median element exists, so the result is equivalent to calculating mean of two median elements.\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended.\n\n\n\n"
@@ -8426,7 +8426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.median!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.median!",
     "category": "Function",
     "text": "median!(v)\n\nLike median, but may overwrite the input vector.\n\n\n\n"
@@ -8434,7 +8434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.quantile",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.quantile",
     "category": "Function",
     "text": "quantile(v, p; sorted=false)\n\nCompute the quantile(s) of a vector v at a specified probability or vector p. The keyword argument sorted indicates whether v can be assumed to be sorted.\n\nThe p should be on the interval [0,1], and v should not have any NaN values.\n\nQuantiles are computed via linear interpolation between the points ((k-1)/(n-1), v[k]), for k = 1:n where n = length(v). This corresponds to Definition 7 of Hyndman and Fan (1996), and is the same as the R default.\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended. quantile will throw an ArgumentError in the presence of NaN values in the data array.\n\nHyndman, R.J and Fan, Y. (1996) \"Sample Quantiles in Statistical Packages\", The American Statistician, Vol. 50, No. 4, pp. 361-365\n\n\n\n"
@@ -8442,7 +8442,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.quantile!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.quantile!",
     "category": "Function",
     "text": "quantile!([q, ] v, p; sorted=false)\n\nCompute the quantile(s) of a vector v at the probabilities p, with optional output into array q (if not provided, a new output array is created). The keyword argument sorted indicates whether v can be assumed to be sorted; if false (the default), then the elements of v may be partially sorted.\n\nThe elements of p should be on the interval [0,1], and v should not have any NaN values.\n\nQuantiles are computed via linear interpolation between the points ((k-1)/(n-1), v[k]), for k = 1:n where n = length(v). This corresponds to Definition 7 of Hyndman and Fan (1996), and is the same as the R default.\n\nnote: Note\nJulia does not ignore NaN values in the computation. For applications requiring the handling of missing data, the DataArrays.jl package is recommended. quantile! will throw an ArgumentError in the presence of NaN values in the data array.\n\nHyndman, R.J and Fan, Y. (1996) \"Sample Quantiles in Statistical Packages\", The American Statistician, Vol. 50, No. 4, pp. 361-365\n\n\n\n"
@@ -8450,7 +8450,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cov",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cov",
     "category": "Function",
     "text": "cov(x[, corrected=true])\n\nCompute the variance of the vector x. If corrected is true (the default) then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = length(x).\n\n\n\ncov(X[, vardim=1, corrected=true])\n\nCompute the covariance matrix of the matrix X along the dimension vardim. If corrected is true (the default) then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = size(X, vardim).\n\n\n\ncov(x, y[, corrected=true])\n\nCompute the covariance between the vectors x and y. If corrected is true (the default), computes frac1n-1sum_i=1^n (x_i-bar x) (y_i-bar y)^* where * denotes the complex conjugate and n = length(x) = length(y). If corrected is false, computes rac1nsum_i=1^n (x_i-bar x) (y_i-bar y)^*.\n\n\n\ncov(X, Y[, vardim=1, corrected=true])\n\nCompute the covariance between the vectors or matrices X and Y along the dimension vardim. If corrected is true (the default) then the sum is scaled with n-1, whereas the sum is scaled with n if corrected is false where n = size(X, vardim) = size(Y, vardim).\n\n\n\n"
@@ -8458,7 +8458,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.cor",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.cor",
     "category": "Function",
     "text": "cor(x)\n\nReturn the number one.\n\n\n\ncor(X[, vardim=1])\n\nCompute the Pearson correlation matrix of the matrix X along the dimension vardim.\n\n\n\ncor(x, y)\n\nCompute the Pearson correlation between the vectors x and y.\n\n\n\ncor(X, Y[, vardim=1])\n\nCompute the Pearson correlation between the vectors or matrices X and Y along the dimension vardim.\n\n\n\n"
@@ -8466,7 +8466,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Estadística-1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Estadística",
     "category": "section",
     "text": "Base.mean\nBase.mean!\nBase.std\nBase.stdm\nBase.var\nBase.varm\nBase.middle\nBase.median\nBase.median!\nBase.quantile\nBase.quantile!\nBase.cov\nBase.cor"
@@ -8474,7 +8474,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.fft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.fft",
     "category": "Function",
     "text": "fft(A [, dims])\n\nPerforms a multidimensional FFT of the array A. The optional dims argument specifies an iterable subset of dimensions (e.g. an integer, range, tuple, or array) to transform along. Most efficient if the size of A along the transformed dimensions is a product of small primes; see nextprod(). See also plan_fft() for even greater efficiency.\n\nA one-dimensional FFT computes the one-dimensional discrete Fourier transform (DFT) as defined by\n\noperatornameDFT(A)k =\n  sum_n=1^operatornamelength(A)\n  expleft(-ifrac2pi\n  (n-1)(k-1)operatornamelength(A) right) An\n\nA multidimensional FFT simply performs this operation along each transformed dimension of A.\n\nnote: Note\nJulia starts FFTW up with 1 thread by default. Higher performance is usually possible by increasing number of threads. Use FFTW.set_num_threads(Sys.CPU_CORES) to use as many threads as cores on your system.\nThis performs a multidimensional FFT by default. FFT libraries in other languages such as Python and Octave perform a one-dimensional FFT along the first non-singleton dimension of the array. This is worth noting while performing comparisons. For more details, refer to the Noteworthy Differences from other Languages section of the manual.\n\n\n\n"
@@ -8482,7 +8482,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.fft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.fft!",
     "category": "Function",
     "text": "fft!(A [, dims])\n\nSame as fft, but operates in-place on A, which must be an array of complex floating-point numbers.\n\n\n\n"
@@ -8490,7 +8490,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.ifft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.ifft",
     "category": "Function",
     "text": "ifft(A [, dims])\n\nMultidimensional inverse FFT.\n\nA one-dimensional inverse FFT computes\n\noperatornameIDFT(A)k = frac1operatornamelength(A)\nsum_n=1^operatornamelength(A) expleft(+ifrac2pi (n-1)(k-1)\noperatornamelength(A) right) An\n\nA multidimensional inverse FFT simply performs this operation along each transformed dimension of A.\n\n\n\n"
@@ -8498,7 +8498,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.ifft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.ifft!",
     "category": "Function",
     "text": "ifft!(A [, dims])\n\nSame as ifft, but operates in-place on A.\n\n\n\n"
@@ -8506,7 +8506,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.bfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.bfft",
     "category": "Function",
     "text": "bfft(A [, dims])\n\nSimilar to ifft, but computes an unnormalized inverse (backward) transform, which must be divided by the product of the sizes of the transformed dimensions in order to obtain the inverse. (This is slightly more efficient than ifft because it omits a scaling step, which in some applications can be combined with other computational steps elsewhere.)\n\noperatornameBDFT(A)k = operatornamelength(A) operatornameIDFT(A)k\n\n\n\n"
@@ -8514,7 +8514,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.bfft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.bfft!",
     "category": "Function",
     "text": "bfft!(A [, dims])\n\nSame as bfft, but operates in-place on A.\n\n\n\n"
@@ -8522,7 +8522,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_fft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_fft",
     "category": "Function",
     "text": "plan_fft(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nPre-plan an optimized FFT along given dimensions (dims) of arrays matching the shape and type of A.  (The first two arguments have the same meaning as for fft.) Returns an object P which represents the linear operator computed by the FFT, and which contains all of the information needed to compute fft(A, dims) quickly.\n\nTo apply P to an array A, use P * A; in general, the syntax for applying plans is much like that of matrices.  (A plan can only be applied to arrays of the same size as the A for which the plan was created.)  You can also apply a plan with a preallocated output array Â by calling A_mul_B!(Â, plan, A).  (For A_mul_B!, however, the input array A must be a complex floating-point array like the output Â.) You can compute the inverse-transform plan by inv(P) and apply the inverse plan with P \\ Â (the inverse plan is cached and reused for subsequent calls to inv or \\), and apply the inverse plan to a pre-allocated output array A with A_ldiv_B!(A, P, Â).\n\nThe flags argument is a bitwise-or of FFTW planner flags, defaulting to FFTW.ESTIMATE. e.g. passing FFTW.MEASURE or FFTW.PATIENT will instead spend several seconds (or more) benchmarking different possible FFT algorithms and picking the fastest one; see the FFTW manual for more information on planner flags.  The optional timelimit argument specifies a rough upper bound on the allowed planning time, in seconds. Passing FFTW.MEASURE or FFTW.PATIENT may cause the input array A to be overwritten with zeros during plan creation.\n\nplan_fft! is the same as plan_fft but creates a plan that operates in-place on its argument (which must be an array of complex floating-point numbers). plan_ifft and so on are similar but produce plans that perform the equivalent of the inverse transforms ifft and so on.\n\n\n\n"
@@ -8530,7 +8530,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_ifft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_ifft",
     "category": "Function",
     "text": "plan_ifft(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nSame as plan_fft, but produces a plan that performs inverse transforms ifft.\n\n\n\n"
@@ -8538,7 +8538,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_bfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_bfft",
     "category": "Function",
     "text": "plan_bfft(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nSame as plan_fft, but produces a plan that performs an unnormalized backwards transform bfft.\n\n\n\n"
@@ -8546,7 +8546,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_fft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_fft!",
     "category": "Function",
     "text": "plan_fft!(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nSame as plan_fft, but operates in-place on A.\n\n\n\n"
@@ -8554,7 +8554,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_ifft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_ifft!",
     "category": "Function",
     "text": "plan_ifft!(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nSame as plan_ifft, but operates in-place on A.\n\n\n\n"
@@ -8562,7 +8562,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_bfft!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_bfft!",
     "category": "Function",
     "text": "plan_bfft!(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nSame as plan_bfft, but operates in-place on A.\n\n\n\n"
@@ -8570,7 +8570,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.rfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.rfft",
     "category": "Function",
     "text": "rfft(A [, dims])\n\nMultidimensional FFT of a real array A, exploiting the fact that the transform has conjugate symmetry in order to save roughly half the computational time and storage costs compared with fft. If A has size (n_1, ..., n_d), the result has size (div(n_1,2)+1, ..., n_d).\n\nThe optional dims argument specifies an iterable subset of one or more dimensions of A to transform, similar to fft. Instead of (roughly) halving the first dimension of A in the result, the dims[1] dimension is (roughly) halved in the same way.\n\n\n\n"
@@ -8578,7 +8578,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.irfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.irfft",
     "category": "Function",
     "text": "irfft(A, d [, dims])\n\nInverse of rfft: for a complex array A, gives the corresponding real array whose FFT yields A in the first half. As for rfft, dims is an optional subset of dimensions to transform, defaulting to 1:ndims(A).\n\nd is the length of the transformed real array along the dims[1] dimension, which must satisfy div(d,2)+1 == size(A,dims[1]). (This parameter cannot be inferred from size(A) since both 2*size(A,dims[1])-2 as well as 2*size(A,dims[1])-1 are valid sizes for the transformed real array.)\n\n\n\n"
@@ -8586,7 +8586,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.brfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.brfft",
     "category": "Function",
     "text": "brfft(A, d [, dims])\n\nSimilar to irfft but computes an unnormalized inverse transform (similar to bfft), which must be divided by the product of the sizes of the transformed dimensions (of the real output array) in order to obtain the inverse transform.\n\n\n\n"
@@ -8594,7 +8594,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_rfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_rfft",
     "category": "Function",
     "text": "plan_rfft(A [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nPre-plan an optimized real-input FFT, similar to plan_fft except for rfft instead of fft. The first two arguments, and the size of the transformed result, are the same as for rfft.\n\n\n\n"
@@ -8602,7 +8602,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_brfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_brfft",
     "category": "Function",
     "text": "plan_brfft(A, d [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nPre-plan an optimized real-input unnormalized transform, similar to plan_rfft except for brfft instead of rfft. The first two arguments and the size of the transformed result, are the same as for brfft.\n\n\n\n"
@@ -8610,7 +8610,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.plan_irfft",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.plan_irfft",
     "category": "Function",
     "text": "plan_irfft(A, d [, dims]; flags=FFTW.ESTIMATE;  timelimit=Inf)\n\nPre-plan an optimized inverse real-input FFT, similar to plan_rfft except for irfft and brfft, respectively. The first three arguments have the same meaning as for irfft.\n\n\n\n"
@@ -8618,7 +8618,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.dct",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.dct",
     "category": "Function",
     "text": "dct(A [, dims])\n\nPerforms a multidimensional type-II discrete cosine transform (DCT) of the array A, using the unitary normalization of the DCT. The optional dims argument specifies an iterable subset of dimensions (e.g. an integer, range, tuple, or array) to transform along.  Most efficient if the size of A along the transformed dimensions is a product of small primes; see nextprod. See also plan_dct for even greater efficiency.\n\n\n\n"
@@ -8626,7 +8626,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.dct!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.dct!",
     "category": "Function",
     "text": "dct!(A [, dims])\n\nSame as dct!, except that it operates in-place on A, which must be an array of real or complex floating-point values.\n\n\n\n"
@@ -8634,7 +8634,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.idct",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.idct",
     "category": "Function",
     "text": "idct(A [, dims])\n\nComputes the multidimensional inverse discrete cosine transform (DCT) of the array A (technically, a type-III DCT with the unitary normalization). The optional dims argument specifies an iterable subset of dimensions (e.g. an integer, range, tuple, or array) to transform along.  Most efficient if the size of A along the transformed dimensions is a product of small primes; see nextprod.  See also plan_idct for even greater efficiency.\n\n\n\n"
@@ -8642,7 +8642,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.idct!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.idct!",
     "category": "Function",
     "text": "idct!(A [, dims])\n\nSame as idct!, but operates in-place on A.\n\n\n\n"
@@ -8650,7 +8650,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_dct",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_dct",
     "category": "Function",
     "text": "plan_dct(A [, dims [, flags [, timelimit]]])\n\nPre-plan an optimized discrete cosine transform (DCT), similar to plan_fft except producing a function that computes dct. The first two arguments have the same meaning as for dct.\n\n\n\n"
@@ -8658,7 +8658,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_dct!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_dct!",
     "category": "Function",
     "text": "plan_dct!(A [, dims [, flags [, timelimit]]])\n\nSame as plan_dct, but operates in-place on A.\n\n\n\n"
@@ -8666,7 +8666,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_idct",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_idct",
     "category": "Function",
     "text": "plan_idct(A [, dims [, flags [, timelimit]]])\n\nPre-plan an optimized inverse discrete cosine transform (DCT), similar to plan_fft except producing a function that computes idct. The first two arguments have the same meaning as for idct.\n\n\n\n"
@@ -8674,7 +8674,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_idct!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_idct!",
     "category": "Function",
     "text": "plan_idct!(A [, dims [, flags [, timelimit]]])\n\nSame as plan_idct, but operates in-place on A.\n\n\n\n"
@@ -8682,7 +8682,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.fftshift-Tuple{Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.fftshift",
     "category": "Method",
     "text": "fftshift(x)\n\nSwap the first and second halves of each dimension of x.\n\n\n\n"
@@ -8690,7 +8690,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.fftshift-Tuple{Any,Any}",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.fftshift",
     "category": "Method",
     "text": "fftshift(x,dim)\n\nSwap the first and second halves of the given dimension or iterable of dimensions of array x.\n\n\n\n"
@@ -8698,7 +8698,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.ifftshift",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.ifftshift",
     "category": "Function",
     "text": "ifftshift(x, [dim])\n\nUndoes the effect of fftshift.\n\n\n\n"
@@ -8706,7 +8706,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.filt",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.filt",
     "category": "Function",
     "text": "filt(b, a, x, [si])\n\nApply filter described by vectors a and b to vector x, with an optional initial filter state vector si (defaults to zeros).\n\n\n\n"
@@ -8714,7 +8714,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.filt!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.filt!",
     "category": "Function",
     "text": "filt!(out, b, a, x, [si])\n\nSame as filt but writes the result into the out argument, which may alias the input x to modify it in-place.\n\n\n\n"
@@ -8722,7 +8722,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.deconv",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.deconv",
     "category": "Function",
     "text": "deconv(b,a) -> c\n\nConstruct vector c such that b = conv(a,c) + r. Equivalent to polynomial division.\n\n\n\n"
@@ -8730,7 +8730,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.conv",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.conv",
     "category": "Function",
     "text": "conv(u,v)\n\nConvolution of two vectors. Uses FFT algorithm.\n\n\n\n"
@@ -8738,7 +8738,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.conv2",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.conv2",
     "category": "Function",
     "text": "conv2(u,v,A)\n\n2-D convolution of the matrix A with the 2-D separable kernel generated by the vectors u and v. Uses 2-D FFT algorithm.\n\n\n\nconv2(B,A)\n\n2-D convolution of the matrix B with the matrix A. Uses 2-D FFT algorithm.\n\n\n\n"
@@ -8746,7 +8746,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DSP.xcorr",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DSP.xcorr",
     "category": "Function",
     "text": "xcorr(u,v)\n\nCompute the cross-correlation of two vectors.\n\n\n\n"
@@ -8754,7 +8754,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.r2r",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.r2r",
     "category": "Function",
     "text": "r2r(A, kind [, dims])\n\nPerforms a multidimensional real-input/real-output (r2r) transform of type kind of the array A, as defined in the FFTW manual. kind specifies either a discrete cosine transform of various types (FFTW.REDFT00, FFTW.REDFT01, FFTW.REDFT10, or FFTW.REDFT11), a discrete sine transform of various types (FFTW.RODFT00, FFTW.RODFT01, FFTW.RODFT10, or FFTW.RODFT11), a real-input DFT with halfcomplex-format output (FFTW.R2HC and its inverse FFTW.HC2R), or a discrete Hartley transform (FFTW.DHT).  The kind argument may be an array or tuple in order to specify different transform types along the different dimensions of A; kind[end] is used for any unspecified dimensions.  See the FFTW manual for precise definitions of these transform types, at http://www.fftw.org/doc.\n\nThe optional dims argument specifies an iterable subset of dimensions (e.g. an integer, range, tuple, or array) to transform along. kind[i] is then the transform type for dims[i], with kind[end] being used for i > length(kind).\n\nSee also plan_r2r to pre-plan optimized r2r transforms.\n\n\n\n"
@@ -8762,7 +8762,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.r2r!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.r2r!",
     "category": "Function",
     "text": "r2r!(A, kind [, dims])\n\nSame as r2r, but operates in-place on A, which must be an array of real or complex floating-point numbers.\n\n\n\n"
@@ -8770,7 +8770,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_r2r",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_r2r",
     "category": "Function",
     "text": "plan_r2r(A, kind [, dims [, flags [, timelimit]]])\n\nPre-plan an optimized r2r transform, similar to plan_fft except that the transforms (and the first three arguments) correspond to r2r and r2r!, respectively.\n\n\n\n"
@@ -8778,7 +8778,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Base.DFT.FFTW.plan_r2r!",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Base.DFT.FFTW.plan_r2r!",
     "category": "Function",
     "text": "plan_r2r!(A, kind [, dims [, flags [, timelimit]]])\n\nSimilar to plan_fft, but corresponds to r2r!.\n\n\n\n"
@@ -8786,7 +8786,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "stdlib/math.html#Procesamiento-de-Señales-1",
-    "page": "Mathematics",
+    "page": "Matemáticas",
     "title": "Procesamiento de Señales",
     "category": "section",
     "text": "Las funciones de transformada rápida de Fourier (Fast Fourier transform – FFT) en Julia están implementadas mediante llamadas a funciones de la librería FFTW.Base.DFT.fft\nBase.DFT.fft!\nBase.DFT.ifft\nBase.DFT.ifft!\nBase.DFT.bfft\nBase.DFT.bfft!\nBase.DFT.plan_fft\nBase.DFT.plan_ifft\nBase.DFT.plan_bfft\nBase.DFT.plan_fft!\nBase.DFT.plan_ifft!\nBase.DFT.plan_bfft!\nBase.DFT.rfft\nBase.DFT.irfft\nBase.DFT.brfft\nBase.DFT.plan_rfft\nBase.DFT.plan_brfft\nBase.DFT.plan_irfft\nBase.DFT.FFTW.dct\nBase.DFT.FFTW.dct!\nBase.DFT.FFTW.idct\nBase.DFT.FFTW.idct!\nBase.DFT.FFTW.plan_dct\nBase.DFT.FFTW.plan_dct!\nBase.DFT.FFTW.plan_idct\nBase.DFT.FFTW.plan_idct!\nBase.DFT.fftshift(::Any)\nBase.DFT.fftshift(::Any, ::Any)\nBase.DFT.ifftshift\nBase.DSP.filt\nBase.DSP.filt!\nBase.DSP.deconv\nBase.DSP.conv\nBase.DSP.conv2\nBase.DSP.xcorrLas siguientes funciones están definidas dentro del módulo Base.FFTW.Base.DFT.FFTW.r2r\nBase.DFT.FFTW.r2r!\nBase.DFT.FFTW.plan_r2r\nBase.DFT.FFTW.plan_r2r!"
@@ -9717,7 +9717,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Números",
     "title": "Números Aleatorios",
     "category": "section",
-    "text": "La generación de números aleatorios en Julia utiliza la librería Mersenne Twister a través de objetos MersenneTwister. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo AbstractRNG; ellos pueden ser usados entonces para tener multiples flujos de numeros aleatorios. Ademas de MersenneTwister, Julia proporciona el tipo RNG RandomDevice que es un wrapper sobre la entropía proporcionada por el SO.La mayoría de las funciones relacionadas con la generación aleatoria aceptan un AbstractRNG opcional como primer argumento,rng, que se predetermina al global si no se proporciona. Además, algunos de ellos aceptan opcionalmente especificaciones de dimensión dims ... (que pueden darse como una tupla) para generar matrices de valores aleatorios.Un RNG de tipo MersenneTwister o RandomDevice puede generar números aleatorios de los siguientes tipos: Float16, Float32, Float64, Bool, Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Int128, UInt128, BigInt (o números complejos de estos tipos). Los números aleatorio en punto flotante son generados uniformemente en 0 1). Como BigInt representa números sin límite, el intervalo debe ser especificado (por ejemplo, rand(big(1:6))).Base.Random.srand\nBase.Random.MersenneTwister\nBase.Random.RandomDevice\nBase.Random.rand\nBase.Random.rand!\nBase.Random.bitrand\nBase.Random.randn\nBase.Random.randn!\nBase.Random.randexp\nBase.Random.randexp!\nBase.Random.randjump"
+    "text": "La generación de números aleatorios en Julia utiliza la librería Mersenne Twister a través de objetos MersenneTwister. Julia tiene un RNG global que es usado por defecto. Pueden conectarse otros tipos RNG heredando del tipo AbstractRNG; estos pueden ser usados entonces para tener múltiples flujos de números aleatorios. Ademas de MersenneTwister, Julia proporciona el tipo RNG RandomDevice que es un wrapper sobre la entropía proporcionada por el SO.La mayoría de las funciones relacionadas con la generación aleatoria aceptan un AbstractRNG opcional como primer argumento,rng, que se predetermina al global si no se proporciona. Además, algunos de ellos aceptan opcionalmente especificaciones de dimensión dims ... (que pueden darse como una tupla) para generar matrices de valores aleatorios.Un RNG de tipo MersenneTwister o RandomDevice puede generar números aleatorios de los siguientes tipos: Float16, Float32, Float64, Bool, Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Int128, UInt128, BigInt (o números complejos de estos tipos). Los números aleatorios en punto flotante son generados uniformemente en 0 1). Como BigInt representa números sin límite, el intervalo debe ser especificado (por ejemplo, rand(big(1:6))).Base.Random.srand\nBase.Random.MersenneTwister\nBase.Random.RandomDevice\nBase.Random.rand\nBase.Random.rand!\nBase.Random.bitrand\nBase.Random.randn\nBase.Random.randn!\nBase.Random.randexp\nBase.Random.randexp!\nBase.Random.randjump"
 },
 
 {
@@ -11049,9 +11049,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/arrays.html#Concatenación-and-permutación-1",
+    "location": "stdlib/arrays.html#Concatenación-y-permutación-1",
     "page": "Arrays",
-    "title": "Concatenación and permutación",
+    "title": "Concatenación y permutación",
     "category": "section",
     "text": "Base.cat\nBase.vcat\nBase.hcat\nBase.hvcat\nBase.flipdim\nBase.circshift\nBase.circshift!\nBase.circcopy!\nBase.contains(::Function, ::Any, ::Any)\nBase.find(::Any)\nBase.find(::Function, ::Any)\nBase.findn\nBase.findnz\nBase.findfirst(::Any)\nBase.findfirst(::Any, ::Any)\nBase.findfirst(::Function, ::Any)\nBase.findlast(::Any)\nBase.findlast(::Any, ::Any)\nBase.findlast(::Function, ::Any)\nBase.findnext(::Any, ::Integer)\nBase.findnext(::Function, ::Any, ::Integer)\nBase.findnext(::Any, ::Any, ::Integer)\nBase.findprev(::Any, ::Integer)\nBase.findprev(::Function, ::Any, ::Integer)\nBase.findprev(::Any, ::Any, ::Integer)\nBase.permutedims\nBase.permutedims!\nBase.PermutedDimsArray\nBase.promote_shape"
 },
@@ -11525,7 +11525,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Arrays",
     "title": "Matrices y Vectores Sparse",
     "category": "section",
-    "text": "Los vectores y las matrices sparse soportan ampliamente el mismo conjunto de operaciones que sus contrapartidas densas. las siguientes funcioens son específicas para arrays sparse.Base.SparseArrays.SparseVector\nBase.SparseArrays.SparseMatrixCSC\nBase.SparseArrays.sparse\nBase.SparseArrays.sparsevec\nBase.SparseArrays.issparse\nBase.full\nBase.SparseArrays.nnz\nBase.SparseArrays.spzeros\nBase.SparseArrays.spones\nBase.SparseArrays.speye(::Type, ::Integer, ::Integer)\nBase.SparseArrays.speye(::SparseMatrixCSC)\nBase.SparseArrays.spdiagm\nBase.SparseArrays.sprand\nBase.SparseArrays.sprandn\nBase.SparseArrays.nonzeros\nBase.SparseArrays.rowvals\nBase.SparseArrays.nzrange\nBase.SparseArrays.dropzeros!(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros!(::SparseVector, ::Bool)\nBase.SparseArrays.dropzeros(::SparseVector, ::Bool)\nBase.SparseArrays.permute\nBase.permute!{Tv, Ti, Tp <: Integer, Tq <: Integer}(::SparseMatrixCSC{Tv,Ti}, ::SparseMatrixCSC{Tv,Ti}, ::AbstractArray{Tp,1}, ::AbstractArray{Tq,1})"
+    "text": "Los vectores y las matrices sparse soportan ampliamente el mismo conjunto de operaciones que sus contrapartidas densas. Las siguientes funciones son específicas para arrays sparse.Base.SparseArrays.SparseVector\nBase.SparseArrays.SparseMatrixCSC\nBase.SparseArrays.sparse\nBase.SparseArrays.sparsevec\nBase.SparseArrays.issparse\nBase.full\nBase.SparseArrays.nnz\nBase.SparseArrays.spzeros\nBase.SparseArrays.spones\nBase.SparseArrays.speye(::Type, ::Integer, ::Integer)\nBase.SparseArrays.speye(::SparseMatrixCSC)\nBase.SparseArrays.spdiagm\nBase.SparseArrays.sprand\nBase.SparseArrays.sprandn\nBase.SparseArrays.nonzeros\nBase.SparseArrays.rowvals\nBase.SparseArrays.nzrange\nBase.SparseArrays.dropzeros!(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros(::SparseMatrixCSC, ::Bool)\nBase.SparseArrays.dropzeros!(::SparseVector, ::Bool)\nBase.SparseArrays.dropzeros(::SparseVector, ::Bool)\nBase.SparseArrays.permute\nBase.permute!{Tv, Ti, Tp <: Integer, Tq <: Integer}(::SparseMatrixCSC{Tv,Ti}, ::SparseMatrixCSC{Tv,Ti}, ::AbstractArray{Tp,1}, ::AbstractArray{Tq,1})"
 },
 
 {
@@ -12313,9 +12313,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/parallel.html#Multi-Threading-1",
+    "location": "stdlib/parallel.html#Multi-Hilo-1",
     "page": "Tareas y Computación Paralela",
-    "title": "Multi-Threading",
+    "title": "Multi-Hilo",
     "category": "section",
     "text": "Este interfaz experimental soporta las capacidades multi-hilo de Julia. Los tipos y funciones descritos aquí pueden cambiar en el futuro (y probablemente lo harán).Base.Threads.threadid\nBase.Threads.nthreads\nBase.Threads.@threads\nBase.Threads.Atomic\nBase.Threads.atomic_cas!\nBase.Threads.atomic_xchg!\nBase.Threads.atomic_add!\nBase.Threads.atomic_sub!\nBase.Threads.atomic_and!\nBase.Threads.atomic_nand!\nBase.Threads.atomic_or!\nBase.Threads.atomic_xor!\nBase.Threads.atomic_max!\nBase.Threads.atomic_min!\nBase.Threads.atomic_fence"
 },
@@ -12329,9 +12329,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/parallel.html#ccall-using-a-threadpool-(Experimental)-1",
+    "location": "stdlib/parallel.html#ccall-utilianzdo-una-threadpool-(Experimental)-1",
     "page": "Tareas y Computación Paralela",
-    "title": "ccall using a threadpool (Experimental)",
+    "title": "ccall utilianzdo una threadpool (Experimental)",
     "category": "section",
     "text": "Base.@threadcall"
 },
@@ -12637,7 +12637,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Base.LinAlg.lufact",
     "category": "Function",
-    "text": "lufact(A [,pivot=Val{true}]) -> F::LU\n\nCompute the LU factorization of A.\n\nIn most cases, if A is a subtype S of AbstractMatrix{T} with an element type T supporting +, -, * and /, the return type is LU{T,S{T}}. If pivoting is chosen (default) the element type should also support abs and <.\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] (right) permutation Vector\nF[:P] (right) permutation Matrix\n\nThe relationship between F and A is\n\nF[:L]*F[:U] == A[F[:p], :]\n\nF further supports the following functions:\n\nSupported function LU LU{T,Tridiagonal{T}}\n/ ✓ \n\\ ✓ ✓\ncond ✓ \ninv ✓ ✓\ndet ✓ ✓\nlogdet ✓ ✓\nlogabsdet ✓ ✓\nsize ✓ ✓\n\nExample\n\njulia> A = [4 3; 6 3]\n2×2 Array{Int64,2}:\n 4  3\n 6  3\n\njulia> F = lufact(A)\nBase.LinAlg.LU{Float64,Array{Float64,2}} with factors L and U:\n[1.0 0.0; 1.5 1.0]\n[4.0 3.0; 0.0 -1.5]\n\njulia> F[:L] * F[:U] == A[F[:p], :]\ntrue\n\n\n\nlufact(A::SparseMatrixCSC) -> F::UmfpackLU\n\nCompute the LU factorization of a sparse matrix A.\n\nFor sparse A with real or complex element type, the return type of F is UmfpackLU{Tv, Ti}, with Tv = Float64 or Complex128 respectively and Ti is an integer type (Int32 or Int64).\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] right permutation Vector\nF[:q] left permutation Vector\nF[:Rs] Vector of scaling factors\nF[:(:)] (L,U,p,q,Rs) components\n\nThe relation between F and A is\n\nF[:L]*F[:U] == (F[:Rs] .* A)[F[:p], F[:q]]\n\nF further supports the following functions:\n\n\\\ncond\ndet\n\nnote: Note\nlufact(A::SparseMatrixCSC) uses the UMFPACK library that is part of SuiteSparse. As this library only supports sparse matrices with Float64 or Complex128 elements, lufact converts A into a copy that is of type SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
+    "text": "lufact(A::SparseMatrixCSC) -> F::UmfpackLU\n\nCompute the LU factorization of a sparse matrix A.\n\nFor sparse A with real or complex element type, the return type of F is UmfpackLU{Tv, Ti}, with Tv = Float64 or Complex128 respectively and Ti is an integer type (Int32 or Int64).\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] right permutation Vector\nF[:q] left permutation Vector\nF[:Rs] Vector of scaling factors\nF[:(:)] (L,U,p,q,Rs) components\n\nThe relation between F and A is\n\nF[:L]*F[:U] == (F[:Rs] .* A)[F[:p], F[:q]]\n\nF further supports the following functions:\n\n\\\ncond\ndet\n\nnote: Note\nlufact(A::SparseMatrixCSC) uses the UMFPACK library that is part of SuiteSparse. As this library only supports sparse matrices with Float64 or Complex128 elements, lufact converts A into a copy that is of type SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\nlufact(A [,pivot=Val{true}]) -> F::LU\n\nCompute the LU factorization of A.\n\nIn most cases, if A is a subtype S of AbstractMatrix{T} with an element type T supporting +, -, * and /, the return type is LU{T,S{T}}. If pivoting is chosen (default) the element type should also support abs and <.\n\nThe individual components of the factorization F can be accessed by indexing:\n\nComponent Description\nF[:L] L (lower triangular) part of LU\nF[:U] U (upper triangular) part of LU\nF[:p] (right) permutation Vector\nF[:P] (right) permutation Matrix\n\nThe relationship between F and A is\n\nF[:L]*F[:U] == A[F[:p], :]\n\nF further supports the following functions:\n\nSupported function LU LU{T,Tridiagonal{T}}\n/ ✓ \n\\ ✓ ✓\ncond ✓ \ninv ✓ ✓\ndet ✓ ✓\nlogdet ✓ ✓\nlogabsdet ✓ ✓\nsize ✓ ✓\n\nExample\n\njulia> A = [4 3; 6 3]\n2×2 Array{Int64,2}:\n 4  3\n 6  3\n\njulia> F = lufact(A)\nBase.LinAlg.LU{Float64,Array{Float64,2}} with factors L and U:\n[1.0 0.0; 1.5 1.0]\n[4.0 3.0; 0.0 -1.5]\n\njulia> F[:L] * F[:U] == A[F[:p], :]\ntrue\n\n\n\n"
 },
 
 {
@@ -12661,7 +12661,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cholfact",
     "category": "Function",
-    "text": "cholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\ncholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\n"
+    "text": "cholfact(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nCompute the Cholesky factorization of a dense symmetric positive definite matrix A and return a Cholesky factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for Cholesky objects: size, \\, inv, and det. A PosDefException exception is thrown in case the matrix is not positive definite.\n\nExample\n\njulia> A = [4. 12. -16.; 12. 37. -43.; -16. -43. 98.]\n3×3 Array{Float64,2}:\n   4.0   12.0  -16.0\n  12.0   37.0  -43.0\n -16.0  -43.0   98.0\n\njulia> C = cholfact(A)\nBase.LinAlg.Cholesky{Float64,Array{Float64,2}} with factor:\n[2.0 6.0 -8.0; 0.0 1.0 5.0; 0.0 0.0 3.0]\n\njulia> C[:U]\n3×3 UpperTriangular{Float64,Array{Float64,2}}:\n 2.0  6.0  -8.0\n  ⋅   1.0   5.0\n  ⋅    ⋅    3.0\n\njulia> C[:L]\n3×3 LowerTriangular{Float64,Array{Float64,2}}:\n  2.0   ⋅    ⋅\n  6.0  1.0   ⋅\n -8.0  5.0  3.0\n\njulia> C[:L] * C[:U] == A\ntrue\n\n\n\ncholfact(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nCompute the pivoted Cholesky factorization of a dense symmetric positive semi-definite matrix A and return a CholeskyPivoted factorization. The matrix A can either be a Symmetric or Hermitian StridedMatrix or a perfectly symmetric or Hermitian StridedMatrix. In the latter case, the optional argument uplo may be :L for using the lower part or :U for the upper part of A. The default is to use :U. The triangular Cholesky factor can be obtained from the factorization F with: F[:L] and F[:U]. The following functions are available for PivotedCholesky objects: size, \\, inv, det, and rank. The argument tol determines the tolerance for determining the rank. For negative values, the tolerance is the machine precision.\n\n\n\ncholfact(A; shift = 0.0, perm = Int[]) -> CHOLMOD.Factor\n\nCompute the Cholesky factorization of a sparse positive definite matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = cholfact(A) is most frequently used to solve systems of equations with F\\b, but also the methods diag, det, and logdet are defined for F. You can also extract individual factors from F, using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it's typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P).\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
 },
 
 {
@@ -12669,7 +12669,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Base.LinAlg.cholfact!",
     "category": "Function",
-    "text": "cholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\n"
+    "text": "cholfact!(A, [uplo::Symbol,] Val{false}) -> Cholesky\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\nExample\n\njulia> A = [1 2; 2 50]\n2×2 Array{Int64,2}:\n 1   2\n 2  50\n\njulia> cholfact!(A)\nERROR: InexactError()\n\n\n\ncholfact!(A, [uplo::Symbol,] Val{true}; tol = 0.0) -> CholeskyPivoted\n\nThe same as cholfact, but saves space by overwriting the input A, instead of creating a copy. An InexactError exception is thrown if the factorization produces a number not representable by the element type of A, e.g. for integer types.\n\n\n\ncholfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the Cholesky (LL) factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/ Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also cholfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
 },
 
 {
@@ -12709,7 +12709,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ldltfact",
     "category": "Function",
-    "text": "ldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\nldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\n"
+    "text": "ldltfact(S::SymTridiagonal) -> LDLt\n\nCompute an LDLt factorization of a real symmetric tridiagonal matrix such that A = L*Diagonal(d)*L' where L is a unit lower triangular matrix and d is a vector. The main use of an LDLt factorization F = ldltfact(A) is to solve the linear system of equations Ax = b with F\\b.\n\n\n\nldltfact(A; shift = 0.0, perm=Int[]) -> CHOLMOD.Factor\n\nCompute the LDL factorization of a sparse matrix A. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian. A fill-reducing permutation is used. F = ldltfact(A) is most frequently used to solve systems of equations A*x = b with F\\b. The returned factorization object F also supports the methods diag, det, logdet, and inv. You can extract individual factors from F using F[:L]. However, since pivoting is on by default, the factorization is internally represented as A == P'*L*D*L'*P with a permutation matrix P; using just L without accounting for P will give incorrect answers. To include the effects of permutation, it is typically preferable to extract \"combined\" factors like PtL = F[:PtL] (the equivalent of P'*L) and LtP = F[:UP] (the equivalent of L'*P). The complete list of supported factors is :L, :PtL, :D, :UP, :U, :LD, :DU, :PtLD, :DUP.\n\nSetting the optional shift keyword argument computes the factorization of A+shift*I instead of A. If the perm argument is nonempty, it should be a permutation of 1:size(A,1) giving the ordering to use (instead of CHOLMOD's default AMD ordering).\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.Many other functions from CHOLMOD are wrapped but not exported from the Base.SparseArrays.CHOLMOD module.\n\n\n\n"
 },
 
 {
@@ -12717,7 +12717,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Base.LinAlg.ldltfact!",
     "category": "Function",
-    "text": "ldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\nldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\n"
+    "text": "ldltfact!(S::SymTridiagonal) -> LDLt\n\nSame as ldltfact, but saves space by overwriting the input A, instead of creating a copy.\n\n\n\nldltfact!(F::Factor, A; shift = 0.0) -> CHOLMOD.Factor\n\nCompute the LDL factorization of A, reusing the symbolic factorization F. A must be a SparseMatrixCSC or a Symmetric/Hermitian view of a SparseMatrixCSC. Note that even if A doesn't have the type tag, it must still be symmetric or Hermitian.\n\nSee also ldltfact.\n\nnote: Note\nThis method uses the CHOLMOD library from SuiteSparse, which only supports doubles or complex doubles. Input matrices not of those element types will be converted to SparseMatrixCSC{Float64} or SparseMatrixCSC{Complex128} as appropriate.\n\n\n\n"
 },
 
 {
@@ -13381,7 +13381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Funciones Estándar",
     "category": "section",
-    "text": "Las funciones de álgebra lineal en Julia está ampliamente implementadas llamando a funciones de LAPACK. Las factorizaciones sparse llaman a funciones de SuiteSparseBase.:*(::AbstractArray, ::AbstractArray)\nBase.:\\(::AbstractArray, ::Any)\nBase.LinAlg.dot\nBase.LinAlg.vecdot\nBase.LinAlg.cross\nBase.LinAlg.factorize\nBase.LinAlg.Diagonal\nBase.LinAlg.Bidiagonal\nBase.LinAlg.SymTridiagonal\nBase.LinAlg.Tridiagonal\nBase.LinAlg.Symmetric\nBase.LinAlg.Hermitian\nBase.LinAlg.LowerTriangular\nBase.LinAlg.UpperTriangular\nBase.LinAlg.lu\nBase.LinAlg.lufact\nBase.LinAlg.lufact!\nBase.LinAlg.chol\nBase.LinAlg.cholfact\nBase.LinAlg.cholfact!\nBase.LinAlg.lowrankupdate\nBase.LinAlg.lowrankdowndate\nBase.LinAlg.lowrankupdate!\nBase.LinAlg.lowrankdowndate!\nBase.LinAlg.ldltfact\nBase.LinAlg.ldltfact!\nBase.LinAlg.qr\nBase.LinAlg.qr!\nBase.LinAlg.qrfact\nBase.LinAlg.qrfact!\nBase.LinAlg.QR\nBase.LinAlg.QRCompactWY\nBase.LinAlg.QRPivoted\nBase.LinAlg.lqfact!\nBase.LinAlg.lqfact\nBase.LinAlg.lq\nBase.LinAlg.bkfact\nBase.LinAlg.bkfact!\nBase.LinAlg.eig\nBase.LinAlg.eigvals\nBase.LinAlg.eigvals!\nBase.LinAlg.eigmax\nBase.LinAlg.eigmin\nBase.LinAlg.eigvecs\nBase.LinAlg.eigfact\nBase.LinAlg.eigfact!\nBase.LinAlg.hessfact\nBase.LinAlg.hessfact!\nBase.LinAlg.schurfact\nBase.LinAlg.schurfact!\nBase.LinAlg.schur\nBase.LinAlg.ordschur\nBase.LinAlg.ordschur!\nBase.LinAlg.svdfact\nBase.LinAlg.svdfact!\nBase.LinAlg.svd\nBase.LinAlg.svdvals\nBase.LinAlg.Givens\nBase.LinAlg.givens\nBase.LinAlg.triu\nBase.LinAlg.triu!\nBase.LinAlg.tril\nBase.LinAlg.tril!\nBase.LinAlg.diagind\nBase.LinAlg.diag\nBase.LinAlg.diagm\nBase.LinAlg.scale!\nBase.LinAlg.rank\nBase.LinAlg.norm\nBase.LinAlg.vecnorm\nBase.LinAlg.normalize!\nBase.LinAlg.normalize\nBase.LinAlg.cond\nBase.LinAlg.condskeel\nBase.LinAlg.trace\nBase.LinAlg.det\nBase.LinAlg.logdet\nBase.LinAlg.logabsdet\nBase.inv\nBase.LinAlg.pinv\nBase.LinAlg.nullspace\nBase.repmat\nBase.repeat\nBase.kron\nBase.SparseArrays.blkdiag\nBase.LinAlg.linreg\nBase.LinAlg.expm\nBase.LinAlg.logm\nBase.LinAlg.sqrtm\nBase.LinAlg.lyap\nBase.LinAlg.sylvester\nBase.LinAlg.issymmetric\nBase.LinAlg.isposdef\nBase.LinAlg.isposdef!\nBase.LinAlg.istril\nBase.LinAlg.istriu\nBase.LinAlg.isdiag\nBase.LinAlg.ishermitian\nBase.LinAlg.RowVector\nBase.LinAlg.ConjArray\nBase.transpose\nBase.transpose!\nBase.ctranspose\nBase.ctranspose!\nBase.LinAlg.eigs(::Any)\nBase.LinAlg.eigs(::Any, ::Any)\nBase.LinAlg.svds\nBase.LinAlg.peakflops"
+    "text": "Las funciones de álgebra lineal en Julia están ampliamente implementadas llamando a funciones de LAPACK. Las factorizaciones sparse llaman a funciones de SuiteSparseBase.:*(::AbstractArray, ::AbstractArray)\nBase.:\\(::AbstractArray, ::Any)\nBase.LinAlg.dot\nBase.LinAlg.vecdot\nBase.LinAlg.cross\nBase.LinAlg.factorize\nBase.LinAlg.Diagonal\nBase.LinAlg.Bidiagonal\nBase.LinAlg.SymTridiagonal\nBase.LinAlg.Tridiagonal\nBase.LinAlg.Symmetric\nBase.LinAlg.Hermitian\nBase.LinAlg.LowerTriangular\nBase.LinAlg.UpperTriangular\nBase.LinAlg.lu\nBase.LinAlg.lufact\nBase.LinAlg.lufact!\nBase.LinAlg.chol\nBase.LinAlg.cholfact\nBase.LinAlg.cholfact!\nBase.LinAlg.lowrankupdate\nBase.LinAlg.lowrankdowndate\nBase.LinAlg.lowrankupdate!\nBase.LinAlg.lowrankdowndate!\nBase.LinAlg.ldltfact\nBase.LinAlg.ldltfact!\nBase.LinAlg.qr\nBase.LinAlg.qr!\nBase.LinAlg.qrfact\nBase.LinAlg.qrfact!\nBase.LinAlg.QR\nBase.LinAlg.QRCompactWY\nBase.LinAlg.QRPivoted\nBase.LinAlg.lqfact!\nBase.LinAlg.lqfact\nBase.LinAlg.lq\nBase.LinAlg.bkfact\nBase.LinAlg.bkfact!\nBase.LinAlg.eig\nBase.LinAlg.eigvals\nBase.LinAlg.eigvals!\nBase.LinAlg.eigmax\nBase.LinAlg.eigmin\nBase.LinAlg.eigvecs\nBase.LinAlg.eigfact\nBase.LinAlg.eigfact!\nBase.LinAlg.hessfact\nBase.LinAlg.hessfact!\nBase.LinAlg.schurfact\nBase.LinAlg.schurfact!\nBase.LinAlg.schur\nBase.LinAlg.ordschur\nBase.LinAlg.ordschur!\nBase.LinAlg.svdfact\nBase.LinAlg.svdfact!\nBase.LinAlg.svd\nBase.LinAlg.svdvals\nBase.LinAlg.Givens\nBase.LinAlg.givens\nBase.LinAlg.triu\nBase.LinAlg.triu!\nBase.LinAlg.tril\nBase.LinAlg.tril!\nBase.LinAlg.diagind\nBase.LinAlg.diag\nBase.LinAlg.diagm\nBase.LinAlg.scale!\nBase.LinAlg.rank\nBase.LinAlg.norm\nBase.LinAlg.vecnorm\nBase.LinAlg.normalize!\nBase.LinAlg.normalize\nBase.LinAlg.cond\nBase.LinAlg.condskeel\nBase.LinAlg.trace\nBase.LinAlg.det\nBase.LinAlg.logdet\nBase.LinAlg.logabsdet\nBase.inv\nBase.LinAlg.pinv\nBase.LinAlg.nullspace\nBase.repmat\nBase.repeat\nBase.kron\nBase.SparseArrays.blkdiag\nBase.LinAlg.linreg\nBase.LinAlg.expm\nBase.LinAlg.logm\nBase.LinAlg.sqrtm\nBase.LinAlg.lyap\nBase.LinAlg.sylvester\nBase.LinAlg.issymmetric\nBase.LinAlg.isposdef\nBase.LinAlg.isposdef!\nBase.LinAlg.istril\nBase.LinAlg.istriu\nBase.LinAlg.isdiag\nBase.LinAlg.ishermitian\nBase.LinAlg.RowVector\nBase.LinAlg.ConjArray\nBase.transpose\nBase.transpose!\nBase.ctranspose\nBase.ctranspose!\nBase.LinAlg.eigs(::Any)\nBase.LinAlg.eigs(::Any, ::Any)\nBase.LinAlg.svds\nBase.LinAlg.peakflops"
 },
 
 {
@@ -13565,7 +13565,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Operaciones matriciales de bajo nivel",
     "category": "section",
-    "text": "Las operaciones de matrices que involucran operaciones de transposición como A' \\ B son convertidas por el analizador de Julia en llamadas a funciones especialmente nombradas como Ac_ldiv_B. Si desea sobrecargar estas operaciones para sus propios tipos, será útil conocer los nombres de estas funciones.Además, en muchos casos, hay versiones in situ de operaciones matriciales que le permiten suministrar un vector o matriz de salida preasignada. Esto es útil cuando se optimiza código crítico para evitar la sobrecarga de las asignaciones repetidas. Estas operaciones in situ tienen el sufijo ! a continuación (por ejemplo, A_mul_B!) de acuerdo con la convención habitual de Julia.Base.LinAlg.A_ldiv_B!\nBase.A_ldiv_Bc\nBase.A_ldiv_Bt\nBase.LinAlg.A_mul_B!\nBase.A_mul_Bc\nBase.A_mul_Bt\nBase.A_rdiv_Bc\nBase.A_rdiv_Bt\nBase.Ac_ldiv_B\nBase.LinAlg.Ac_ldiv_B!\nBase.Ac_ldiv_Bc\nBase.Ac_mul_B\nBase.Ac_mul_Bc\nBase.Ac_rdiv_B\nBase.Ac_rdiv_Bc\nBase.At_ldiv_B\nBase.LinAlg.At_ldiv_B!\nBase.At_ldiv_Bt\nBase.At_mul_B\nBase.At_mul_Bt\nBase.At_rdiv_B\nBase.At_rdiv_Bt"
+    "text": "Las operaciones de matrices que involucran operaciones de transposición como A' \\ B son convertidas por el analizador de Julia en llamadas a funciones especialmente nombradas como Ac_ldiv_B. Si desea sobrecargar estas operaciones para sus propios tipos, le será útil conocer los nombres de estas funciones.Además, en muchos casos, hay versiones in situ de operaciones matriciales que le permiten suministrar un vector o matriz de salida preasignada. Esto es útil cuando se optimiza código crítico para evitar la sobrecarga de las asignaciones repetidas. Estas operaciones in situ tienen el sufijo ! a continuación (por ejemplo, A_mul_B!) de acuerdo con la convención habitual de Julia.Base.LinAlg.A_ldiv_B!\nBase.A_ldiv_Bc\nBase.A_ldiv_Bt\nBase.LinAlg.A_mul_B!\nBase.A_mul_Bc\nBase.A_mul_Bt\nBase.A_rdiv_Bc\nBase.A_rdiv_Bt\nBase.Ac_ldiv_B\nBase.LinAlg.Ac_ldiv_B!\nBase.Ac_ldiv_Bc\nBase.Ac_mul_B\nBase.Ac_mul_Bc\nBase.Ac_rdiv_B\nBase.Ac_rdiv_Bc\nBase.At_ldiv_B\nBase.LinAlg.At_ldiv_B!\nBase.At_ldiv_Bt\nBase.At_mul_B\nBase.At_mul_Bt\nBase.At_rdiv_B\nBase.At_rdiv_Bt"
 },
 
 {
@@ -13573,13 +13573,13 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Funciones BLAS",
     "category": "section",
-    "text": "En Julia (como en gran parte de la computación científica), las operaciones  de álgebra lineal densa se basan en la biblioteca LAPACK, que a su vez se construye sobre bloques de construcción básicos de álgebra lineal conocidos como BLAS. Hay implementaciones altamente optimizadas de BLAS disponibles para cada arquitectura de computadora, y algunas veces en rutinas de álgebra lineal de alto rendimiento, es útil llamar directamente a las funciones de BLAS.Base.LinAlg.BLAS proporciona envoltorios para algunas de las funciones de BLAS. Esas funciones de BLAS que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'. Normalmente, una función BLAS tiene cuatro métodos definidos, para las arrays Float64, Float32, Complex128 yComplex64."
+    "text": "En Julia (como en gran parte de la computación científica), las operaciones de álgebra lineal densa se basan en la biblioteca LAPACK, que a su vez se construye sobre bloques de construcción básicos de álgebra lineal conocidos como BLAS. Hay implementaciones altamente optimizadas de BLAS disponibles para cada arquitectura de computadora, y algunas veces en rutinas de álgebra lineal de alto rendimiento, es útil llamar directamente a las funciones de BLAS.Base.LinAlg.BLAS proporciona envoltorios para algunas de las funciones de BLAS. Esas funciones de BLAS que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'. Normalmente, una función BLAS tiene cuatro métodos definidos, para los arrays Float64, Float32, Complex128 yComplex64."
 },
 
 {
     "location": "stdlib/linalg.html#stdlib-blas-chars-1",
     "page": "Álgebra Lineal",
-    "title": "BLAS Character Arguments",
+    "title": "Argumentos de tipo carácter en BLAS",
     "category": "section",
     "text": "Muchas funciones BLAS aceptan argumentos que determinan si se debe transponer un argumento (trans), qué triángulo de una matriz referenciar (uplo o ul), si se puede suponer que la diagonal de una matriz triangular está formada por unos (dA) o a qué lado de una multiplicación de matrices pertenece el argumento de entrada (side). Las posibilidades son:"
 },
@@ -13589,7 +13589,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Orden de Multiplicación",
     "category": "section",
-    "text": "side Meaning\n'L' El argumento va al lado izquierdo de una operación matriz-matriz.\n'R' El argumento va al lado derecho de una operación matriz-matriz."
+    "text": "side Significado\n'L' El argumento va al lado izquierdo de una operación matriz-matriz.\n'R' El argumento va al lado derecho de una operación matriz-matriz."
 },
 
 {
@@ -13597,7 +13597,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Referencia sobre el Triángulo",
     "category": "section",
-    "text": "uplo/ul Meaning\n'U'       Sólo se usará el triángulo superior de la matriz.\n'L' Sólo se usará el triángulo inferior de la matriz."
+    "text": "uplo/ul Significado\n'U'       Solo se usará el triángulo superior de la matriz.\n'L' Solo se usará el triángulo inferior de la matriz."
 },
 
 {
@@ -13605,7 +13605,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Operación de Transposición",
     "category": "section",
-    "text": "trans/tX Meaning\n'N' La matriz de entrada X no es transpuesta ni conjugada.\n'T'       La matriz de entrada X será transpuesta.             \n'C'       La matriz de entrada X será conjugada y transpuesta."
+    "text": "trans/tX Significado\n'N' La matriz de entrada X no es transpuesta ni conjugada.\n'T'       La matriz de entrada X será transpuesta.             \n'C'       La matriz de entrada X será conjugada y transpuesta."
 },
 
 {
@@ -13949,7 +13949,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Álgebra Lineal",
     "title": "Unidades en la Diagonal",
     "category": "section",
-    "text": "diag/dX Meaning\n'N'       Los valores diagonales de la matriz Xserán leídos.\n'U' Se supone que los elementos de la diagonal de la matriz X son todos unos.Base.LinAlg.BLAS.dotu\nBase.LinAlg.BLAS.dotc\nBase.LinAlg.BLAS.blascopy!\nBase.LinAlg.BLAS.nrm2\nBase.LinAlg.BLAS.asum\nBase.LinAlg.axpy!\nBase.LinAlg.BLAS.scal!\nBase.LinAlg.BLAS.scal\nBase.LinAlg.BLAS.ger!\nBase.LinAlg.BLAS.syr!\nBase.LinAlg.BLAS.syrk!\nBase.LinAlg.BLAS.syrk\nBase.LinAlg.BLAS.her!\nBase.LinAlg.BLAS.herk!\nBase.LinAlg.BLAS.herk\nBase.LinAlg.BLAS.gbmv!\nBase.LinAlg.BLAS.gbmv\nBase.LinAlg.BLAS.sbmv!\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm!\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv!\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm!\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv!\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.trmm!\nBase.LinAlg.BLAS.trmm\nBase.LinAlg.BLAS.trsm!\nBase.LinAlg.BLAS.trsm\nBase.LinAlg.BLAS.trmv!\nBase.LinAlg.BLAS.trmv\nBase.LinAlg.BLAS.trsv!\nBase.LinAlg.BLAS.trsv\nBase.LinAlg.BLAS.set_num_threads\nBase.LinAlg.I"
+    "text": "diag/dX Significado\n'N'       Los valores diagonales de la matriz X serán leídos.\n'U' Se supone que los elementos de la diagonal de la matriz X son todos unos.Base.LinAlg.BLAS.dotu\nBase.LinAlg.BLAS.dotc\nBase.LinAlg.BLAS.blascopy!\nBase.LinAlg.BLAS.nrm2\nBase.LinAlg.BLAS.asum\nBase.LinAlg.axpy!\nBase.LinAlg.BLAS.scal!\nBase.LinAlg.BLAS.scal\nBase.LinAlg.BLAS.ger!\nBase.LinAlg.BLAS.syr!\nBase.LinAlg.BLAS.syrk!\nBase.LinAlg.BLAS.syrk\nBase.LinAlg.BLAS.her!\nBase.LinAlg.BLAS.herk!\nBase.LinAlg.BLAS.herk\nBase.LinAlg.BLAS.gbmv!\nBase.LinAlg.BLAS.gbmv\nBase.LinAlg.BLAS.sbmv!\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.sbmv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm!\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv!\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.gemv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm!\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symm(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv!\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.symv(::Any, ::Any, ::Any)\nBase.LinAlg.BLAS.trmm!\nBase.LinAlg.BLAS.trmm\nBase.LinAlg.BLAS.trsm!\nBase.LinAlg.BLAS.trsm\nBase.LinAlg.BLAS.trmv!\nBase.LinAlg.BLAS.trmv\nBase.LinAlg.BLAS.trsv!\nBase.LinAlg.BLAS.trsv\nBase.LinAlg.BLAS.set_num_threads\nBase.LinAlg.I"
 },
 
 {
@@ -14609,11 +14609,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/linalg.html#LAPACK-Functions-1",
+    "location": "stdlib/linalg.html#Funciones-LAPACK-1",
     "page": "Álgebra Lineal",
-    "title": "LAPACK Functions",
+    "title": "Funciones LAPACK",
     "category": "section",
-    "text": "Base.LinAlg.LAPACK proporciona wrappers para algunas de las funciones LAPACK para álgebra lineal. Las funciones que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'.Por lo general, una función tiene 4 métodos definidos, uno para las arrays Float64, Float32, Complex128 y Complex64.Tenga en cuenta que la API LAPACK proporcionada por Julia puede y va a cambiar en el futuro. Dado que esta API no está orientada al usuario, no existe el compromiso de admitir/desaprobar este conjunto específico de funciones en futuras versiones.Base.LinAlg.LAPACK.gbtrf!\nBase.LinAlg.LAPACK.gbtrs!\nBase.LinAlg.LAPACK.gebal!\nBase.LinAlg.LAPACK.gebak!\nBase.LinAlg.LAPACK.gebrd!\nBase.LinAlg.LAPACK.gelqf!\nBase.LinAlg.LAPACK.geqlf!\nBase.LinAlg.LAPACK.geqrf!\nBase.LinAlg.LAPACK.geqp3!\nBase.LinAlg.LAPACK.gerqf!\nBase.LinAlg.LAPACK.geqrt!\nBase.LinAlg.LAPACK.geqrt3!\nBase.LinAlg.LAPACK.getrf!\nBase.LinAlg.LAPACK.tzrzf!\nBase.LinAlg.LAPACK.ormrz!\nBase.LinAlg.LAPACK.gels!\nBase.LinAlg.LAPACK.gesv!\nBase.LinAlg.LAPACK.getrs!\nBase.LinAlg.LAPACK.getri!\nBase.LinAlg.LAPACK.gesvx!\nBase.LinAlg.LAPACK.gelsd!\nBase.LinAlg.LAPACK.gelsy!\nBase.LinAlg.LAPACK.gglse!\nBase.LinAlg.LAPACK.geev!\nBase.LinAlg.LAPACK.gesdd!\nBase.LinAlg.LAPACK.gesvd!\nBase.LinAlg.LAPACK.ggsvd!\nBase.LinAlg.LAPACK.ggsvd3!\nBase.LinAlg.LAPACK.geevx!\nBase.LinAlg.LAPACK.ggev!\nBase.LinAlg.LAPACK.gtsv!\nBase.LinAlg.LAPACK.gttrf!\nBase.LinAlg.LAPACK.gttrs!\nBase.LinAlg.LAPACK.orglq!\nBase.LinAlg.LAPACK.orgqr!\nBase.LinAlg.LAPACK.orgql!\nBase.LinAlg.LAPACK.orgrq!\nBase.LinAlg.LAPACK.ormlq!\nBase.LinAlg.LAPACK.ormqr!\nBase.LinAlg.LAPACK.ormql!\nBase.LinAlg.LAPACK.ormrq!\nBase.LinAlg.LAPACK.gemqrt!\nBase.LinAlg.LAPACK.posv!\nBase.LinAlg.LAPACK.potrf!\nBase.LinAlg.LAPACK.potri!\nBase.LinAlg.LAPACK.potrs!\nBase.LinAlg.LAPACK.pstrf!\nBase.LinAlg.LAPACK.ptsv!\nBase.LinAlg.LAPACK.pttrf!\nBase.LinAlg.LAPACK.pttrs!\nBase.LinAlg.LAPACK.trtri!\nBase.LinAlg.LAPACK.trtrs!\nBase.LinAlg.LAPACK.trcon!\nBase.LinAlg.LAPACK.trevc!\nBase.LinAlg.LAPACK.trrfs!\nBase.LinAlg.LAPACK.stev!\nBase.LinAlg.LAPACK.stebz!\nBase.LinAlg.LAPACK.stegr!\nBase.LinAlg.LAPACK.stein!\nBase.LinAlg.LAPACK.syconv!\nBase.LinAlg.LAPACK.sysv!\nBase.LinAlg.LAPACK.sytrf!\nBase.LinAlg.LAPACK.sytri!\nBase.LinAlg.LAPACK.sytrs!\nBase.LinAlg.LAPACK.hesv!\nBase.LinAlg.LAPACK.hetrf!\nBase.LinAlg.LAPACK.hetri!\nBase.LinAlg.LAPACK.hetrs!\nBase.LinAlg.LAPACK.syev!\nBase.LinAlg.LAPACK.syevr!\nBase.LinAlg.LAPACK.sygvd!\nBase.LinAlg.LAPACK.bdsqr!\nBase.LinAlg.LAPACK.bdsdc!\nBase.LinAlg.LAPACK.gecon!\nBase.LinAlg.LAPACK.gehrd!\nBase.LinAlg.LAPACK.orghr!\nBase.LinAlg.LAPACK.gees!\nBase.LinAlg.LAPACK.gges!\nBase.LinAlg.LAPACK.trexc!\nBase.LinAlg.LAPACK.trsen!\nBase.LinAlg.LAPACK.tgsen!\nBase.LinAlg.LAPACK.trsyl!"
+    "text": "Base.LinAlg.LAPACK proporciona wrappers para algunas de las funciones LAPACK para álgebra lineal. Las funciones que sobrescriben una de las matrices de entrada tienen nombres que terminan en '!'.Por lo general, una función tiene 4 métodos definidos, uno para los arrays Float64, Float32, Complex128 y Complex64.Tenga en cuenta que la API LAPACK proporcionada por Julia puede y va a cambiar en el futuro. Dado que esta API no está orientada al usuario, no existe el compromiso de admitir/desaprobar este conjunto específico de funciones en futuras versiones.Base.LinAlg.LAPACK.gbtrf!\nBase.LinAlg.LAPACK.gbtrs!\nBase.LinAlg.LAPACK.gebal!\nBase.LinAlg.LAPACK.gebak!\nBase.LinAlg.LAPACK.gebrd!\nBase.LinAlg.LAPACK.gelqf!\nBase.LinAlg.LAPACK.geqlf!\nBase.LinAlg.LAPACK.geqrf!\nBase.LinAlg.LAPACK.geqp3!\nBase.LinAlg.LAPACK.gerqf!\nBase.LinAlg.LAPACK.geqrt!\nBase.LinAlg.LAPACK.geqrt3!\nBase.LinAlg.LAPACK.getrf!\nBase.LinAlg.LAPACK.tzrzf!\nBase.LinAlg.LAPACK.ormrz!\nBase.LinAlg.LAPACK.gels!\nBase.LinAlg.LAPACK.gesv!\nBase.LinAlg.LAPACK.getrs!\nBase.LinAlg.LAPACK.getri!\nBase.LinAlg.LAPACK.gesvx!\nBase.LinAlg.LAPACK.gelsd!\nBase.LinAlg.LAPACK.gelsy!\nBase.LinAlg.LAPACK.gglse!\nBase.LinAlg.LAPACK.geev!\nBase.LinAlg.LAPACK.gesdd!\nBase.LinAlg.LAPACK.gesvd!\nBase.LinAlg.LAPACK.ggsvd!\nBase.LinAlg.LAPACK.ggsvd3!\nBase.LinAlg.LAPACK.geevx!\nBase.LinAlg.LAPACK.ggev!\nBase.LinAlg.LAPACK.gtsv!\nBase.LinAlg.LAPACK.gttrf!\nBase.LinAlg.LAPACK.gttrs!\nBase.LinAlg.LAPACK.orglq!\nBase.LinAlg.LAPACK.orgqr!\nBase.LinAlg.LAPACK.orgql!\nBase.LinAlg.LAPACK.orgrq!\nBase.LinAlg.LAPACK.ormlq!\nBase.LinAlg.LAPACK.ormqr!\nBase.LinAlg.LAPACK.ormql!\nBase.LinAlg.LAPACK.ormrq!\nBase.LinAlg.LAPACK.gemqrt!\nBase.LinAlg.LAPACK.posv!\nBase.LinAlg.LAPACK.potrf!\nBase.LinAlg.LAPACK.potri!\nBase.LinAlg.LAPACK.potrs!\nBase.LinAlg.LAPACK.pstrf!\nBase.LinAlg.LAPACK.ptsv!\nBase.LinAlg.LAPACK.pttrf!\nBase.LinAlg.LAPACK.pttrs!\nBase.LinAlg.LAPACK.trtri!\nBase.LinAlg.LAPACK.trtrs!\nBase.LinAlg.LAPACK.trcon!\nBase.LinAlg.LAPACK.trevc!\nBase.LinAlg.LAPACK.trrfs!\nBase.LinAlg.LAPACK.stev!\nBase.LinAlg.LAPACK.stebz!\nBase.LinAlg.LAPACK.stegr!\nBase.LinAlg.LAPACK.stein!\nBase.LinAlg.LAPACK.syconv!\nBase.LinAlg.LAPACK.sysv!\nBase.LinAlg.LAPACK.sytrf!\nBase.LinAlg.LAPACK.sytri!\nBase.LinAlg.LAPACK.sytrs!\nBase.LinAlg.LAPACK.hesv!\nBase.LinAlg.LAPACK.hetrf!\nBase.LinAlg.LAPACK.hetri!\nBase.LinAlg.LAPACK.hetrs!\nBase.LinAlg.LAPACK.syev!\nBase.LinAlg.LAPACK.syevr!\nBase.LinAlg.LAPACK.sygvd!\nBase.LinAlg.LAPACK.bdsqr!\nBase.LinAlg.LAPACK.bdsdc!\nBase.LinAlg.LAPACK.gecon!\nBase.LinAlg.LAPACK.gehrd!\nBase.LinAlg.LAPACK.orghr!\nBase.LinAlg.LAPACK.gees!\nBase.LinAlg.LAPACK.gges!\nBase.LinAlg.LAPACK.trexc!\nBase.LinAlg.LAPACK.trsen!\nBase.LinAlg.LAPACK.tgsen!\nBase.LinAlg.LAPACK.trsyl!"
 },
 
 {
@@ -16013,7 +16013,7 @@ var documenterSearchIndex = {"docs": [
     "page": "E/S y Redes",
     "title": "E/S Multimedia",
     "category": "section",
-    "text": "Del mismo modo que la salida de texto se realiza mediante print y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando show, Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video) que consta de tres partes:Una función display(x) para solicitar la visualización multimedia más completa disponible de un objeto Julia x (con una reserva de texto sin formato).\nSobrecargar show permite indicar representaciones multimedia arbitrarias (codificadas mediante tipos MIME estándar) de tipos definidos por el usuario.\nPueden registrarse backends de visualización con capacidad multimedia subclasificando un tipo genérico de Display y poniéndolos en una pila de backends de visualización mediante pushdisplay.El tiempo de ejecución base de Julia proporciona solo visualización de texto sin formato, pero las pantallas más ricas pueden habilitarse cargando módulos externos o utilizando entornos gráficos de Julia (como el notebook IJulia, basado en IPython).Base.Multimedia.display\nBase.Multimedia.redisplay\nBase.Multimedia.displayable\nBase.show(::Any, ::Any, ::Any)\nBase.Multimedia.mimewritable\nBase.Multimedia.reprmime\nBase.Multimedia.stringmimeComo se mencionó anteriormente, también se pueden definir nuevos backends de pantalla. Por ejemplo, un módulo que puede mostrar imágenes PNG en una ventana puede registrar esta capacidad con Julia, de modo que llamar a display(x) en tipos con representaciones PNG mostrará automáticamente la imagen usando la ventana del módulo.Para definir un nuevo backend de pantalla, primero se debe crear un subtipo D de la clase abstracta Display. Luego, para cada tipo MIME (cadena mime) que se puede mostrar en D, uno debe definir una función display(d::D, ::MIME\"mime\", x) = ... que muestra x como ese tipo MIME, generalmente llamando a reprmime(mime, x). Se debe lanzar MethodError si x no se puede mostrar como ese tipo MIME; esto es automático si uno llama a reprmime. Finalmente, se debe definir una función display(d::D, x) que consulte mimewritable(mime,x) para los tipos mime soportados por D y muestre el \"mejor\"; debe lanzarse un MethodError si no se encuentran tipos MIME soportados para x. Del mismo modo, algunos subtipos pueden sobreescribir redisplay(d::D, ...). (De nuevo, uno debe hacer import Base.display para agregar nuevos métodos a display.) Los valores de retorno de estas funciones dependen de la implementación (ya que en algunos casos puede ser útil devolver un \"manejador\" handle de visualización de algunos tipo). Las funciones de visualización para D se pueden llamar directamente, pero también se pueden invocar automáticamente desde display(x) simplemente presionando una nueva pantalla en la pila display-backend con:Base.Multimedia.pushdisplay\nBase.Multimedia.popdisplay\nBase.Multimedia.TextDisplay\nBase.Multimedia.istextmime"
+    "text": "Del mismo modo que la salida de texto se realiza mediante print y los tipos definidos por el usuario pueden indicar su representación textual sobrecargando show, Julia proporciona un mecanismo estandarizado para una salida multimedia enriquecida (como imágenes, texto formateado, o incluso audio y video), que consta de tres partes:Una función display(x) para solicitar la visualización multimedia más completa disponible de un objeto Julia x (con una reserva de texto sin formato).\nSobrecargar show permite indicar representaciones multimedia arbitrarias (codificadas mediante tipos MIME estándar) de tipos definidos por el usuario.\nPueden registrarse backends de visualización con capacidad multimedia subclasificando un tipo genérico de Display y poniéndolos en una pila de backends de visualización mediante pushdisplay.El tiempo de ejecución base de Julia solo proporciona visualización de texto sin formato, pero las pantallas más ricas pueden habilitarse cargando módulos externos o utilizando entornos gráficos de Julia (como el notebook IJulia, basado en IPython).Base.Multimedia.display\nBase.Multimedia.redisplay\nBase.Multimedia.displayable\nBase.show(::Any, ::Any, ::Any)\nBase.Multimedia.mimewritable\nBase.Multimedia.reprmime\nBase.Multimedia.stringmimeComo se mencionó anteriormente, también se pueden definir nuevos backends de pantalla. Por ejemplo, un módulo que puede mostrar imágenes PNG en una ventana puede registrar esta capacidad con Julia, de modo que al llamar a display(x) en tipos con representaciones PNG, se mostrará automáticamente la imagen usando la ventana del módulo.Para definir un nuevo backend de pantalla, primero se debe crear un subtipo D de la clase abstracta Display. Luego, para cada tipo MIME (cadena mime) que se puede mostrar en D, se debe definir una función display(d::D, ::MIME\"mime\", x) = ... que muestra x como ese tipo MIME, generalmente llamando a reprmime(mime, x). Se debe lanzar un MethodError si x no se puede mostrar como ese tipo MIME; esto es automático si se llama a reprmime. Finalmente, se debe definir una función display(d::D, x) que consulte mimewritable(mime,x) para los tipos mime soportados por D y muestre el \"mejor\"; debe lanzarse un MethodError si no se encuentran tipos MIME soportados para x. Del mismo modo, algunos subtipos pueden sobreescribir redisplay(d::D, ...). (De nuevo, se debe hacer import Base.display para agregar nuevos métodos a display.) Los valores de retorno de estas funciones dependen de la implementación (ya que en algunos casos puede ser útil devolver un \"manejador\" handle de visualización de algún tipo). Las funciones de visualización para D se pueden llamar directamente, pero también se pueden invocar automáticamente desde display(x) simplemente presionando una nueva pantalla en la pila display-backend con:Base.Multimedia.pushdisplay\nBase.Multimedia.popdisplay\nBase.Multimedia.TextDisplay\nBase.Multimedia.istextmime"
 },
 
 {
@@ -16269,7 +16269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Puntuación",
     "title": "Puntuación",
     "category": "section",
-    "text": "Puede encontrar documentación extendida sobre símbolos y funciones matemáticas aquí.symbol meaning\n@m Invoca la macro m; seguido de expresiones separadas por espacios\n! Operador \"not\" prefijo\na!( )     Al final de un nombre de función, ! indica que la función modifica su(s) argumento(s)    \n#         Inicio de un comentario de una sola línea                                                 \n#= Inicio de un comentario multilínea (ellos son anidables)\n=# Final de un comentario multilínea\n$         Interpolación de cadena y expresión                                                       \n% Operador resto\n^ Operador exponenente\n&         Operador and bit-a-bit                                                                     \n&& Operador and booleano (en corto-circuito)\n| Operador or bit-a-bit\n|| Operador or booleano (en corto-circuito)\n⊻ Operador xor bit-a-bit\n*         Multiplicación o producto matricial                                                         \n()       Tupla vacía                                                                            \n~ Operador not bit-a-bit\n\\ Operador backslash\n' Operador transpuesto complejo Aᴴ\na[]       Indexación de array                                                                       \n[,]       Concatenación vertical                                                                    \n[;]       Concatenación vertical (también)                                                          \n[    ]   Con expresiones separadas por espacios, concatenación horizontal                          \nT{ }     Instanciación de tipo paramétrico                                                          \n; Separador de instrucciones\n,         Separador de argumentos de función o de componentes de una tupla                          \n? Operador condicional ternario (conditional ? if_true : if_false)\n\"\" Delimitador de literales cadena\n''       Delimitador de literales carácter                                                          \n` ` Delimitador de especificaciones de proceso externo (mandato)\n... splice arguments into a function call or declare a varargs function or type\n.         Acceso nombrado a campos en objectos/módulos, también llamadas a operator/function vectorizadas\na:b Rango a, a+1, a+2, ..., b\na:s:b Rango a, a+s, a+2s, ..., b\n:         Indexa una dimensión entera (1:end)                                                        \n::       Anotación de tipo ,dependiendo del contexto                                                \n:( )     Expresión citada                                                                          \n:a       símbolo a                                                                                 \n<: subtype operator\n>: supertype operator (reverse of subtype operator)\n=== egal comparison operator"
+    "text": "Puede encontrar documentación extendida sobre símbolos y funciones matemáticas aquí.Símbolo Significado\n@m Invoca la macro m; seguido de expresiones separadas por espacios\n! Operador \"not\" prefijo\na!( )     Al final de un nombre de función, ! indica que la función modifica su(s) argumento(s)    \n#         Inicio de un comentario de una sola línea                                                 \n#= Inicio de un comentario multilínea (pueden ser anidados)\n=# Final de un comentario multilínea\n$         Interpolación de cadena y expresión                                                       \n% Operador resto\n^ Operador exponenente\n&         Operador and bit-a-bit                                                                     \n&& Operador and booleano (en corto-circuito)\n| Operador or bit-a-bit\n|| Operador or booleano (en corto-circuito)\n⊻ Operador xor bit-a-bit\n*         Multiplicación o producto matricial                                                         \n()       Tupla vacía                                                                            \n~ Operador not bit-a-bit\n\\ Operador backslash\n' Operador transpuesto complejo Aᴴ\na[]       Indexación de array                                                                       \n[,]       Concatenación vertical                                                                    \n[;]       Concatenación vertical (también)                                                          \n[    ]   Con expresiones separadas por espacios, concatenación horizontal                          \nT{ }     Instanciación de tipo paramétrico                                                          \n; Separador de instrucciones\n,         Separador de argumentos de función o de componentes de una tupla                          \n? Operador condicional ternario (conditional ? if_true : if_false)\n\"\" Delimitador de literales cadena\n''       Delimitador de literales carácter                                                          \n` ` Delimitador de especificaciones de proceso externo (mandato)\n... Une argumentos en una llamada a función o declara una función o tipo varargs\n.         Acceso nombrado a campos en objectos/módulos, también llamadas a operadores/funciones vectorizadas\na:b Rango a, a+1, a+2, ..., b\na:s:b Rango a, a+s, a+2s, ..., b\n:         Indexa una dimensión entera (1:final)                                                      \n::       Anotación de tipo, dependiendo del contexto                                                \n:( )     Expresión citada                                                                          \n:a       Símbolo a                                                                                 \n<: subtype operator\n>: supertype operator (contrario al anterior)\n=== egal comparison operator"
 },
 
 {
@@ -16285,7 +16285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Ordenación y Funciones Relacionadas",
     "title": "Ordenación y Funciones Relacionadas",
     "category": "section",
-    "text": "Julia tiene una API amplia y flexible para ordenar e interactuar con matrices de valores ya ordenados. Por defecto, Julia selecciona algoritmos y ordenaciones razonables en orden ascendente estándar:julia> sort([2,3,1])\n3-element Array{Int64,1}:\n 1\n 2\n 3Uno también puede ordenar en orden inverso:julia> sort([2,3,1], rev=true)\n3-element Array{Int64,1}:\n 3\n 2\n 1Para ordenar un array en el lugar, use la versión con admiración de la función de ordenación:julia> a = [2,3,1];\n\njulia> sort!(a);\n\njulia> a\n3-element Array{Int64,1}:\n 1\n 2\n 3En lugar de ordenar un array directamente, podemos computar una preemutación de los índices del array que ponen el array en un orden determinado:julia> v = randn(5)\n5-element Array{Float64,1}:\n  0.297288\n  0.382396\n -0.597634\n -0.0104452\n -0.839027\n\njulia> p = sortperm(v)\n5-element Array{Int64,1}:\n 5\n 3\n 4\n 1\n 2\n\njulia> v[p]\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Los arrays pueden ser ordenados fácilmente de acuerdo a una transformacin arbitraria de sus valores:julia> sort(v, by=abs)\n5-element Array{Float64,1}:\n -0.0104452\n  0.297288\n  0.382396\n -0.597634\n -0.839027O en orden reverso mediante una transformaciónjulia> sort(v, by=abs, rev=true)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n  0.382396\n  0.297288\n -0.0104452Si es necesario, puede elegirse el algoritmo de ordenación:julia> sort(v, alg=InsertionSort)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Todas las funciones de ordenación y relacionadas con orden se basan en una relación \"menor que\" que define un orden total sobre los valores que van a manipularse. La función isless es la invocada por defecto, pero la relación puede ser especificada mediante la palabra clave lt."
+    "text": "Julia tiene una API amplia y flexible para ordenar e interactuar con matrices de valores ya ordenados. Por defecto, Julia selecciona algoritmos y ordenaciones razonables en orden ascendente estándar:julia> sort([2,3,1])\n3-element Array{Int64,1}:\n 1\n 2\n 3También se puede ordenar en orden inverso:julia> sort([2,3,1], rev=true)\n3-element Array{Int64,1}:\n 3\n 2\n 1Para ordenar un array sobre sí mismo, use la versión con admiración de la función de ordenación:julia> a = [2,3,1];\n\njulia> sort!(a);\n\njulia> a\n3-element Array{Int64,1}:\n 1\n 2\n 3En lugar de ordenar un array directamente, podemos computar una permutación de los índices del array que ponen el array en un orden determinado:julia> v = randn(5)\n5-element Array{Float64,1}:\n  0.297288\n  0.382396\n -0.597634\n -0.0104452\n -0.839027\n\njulia> p = sortperm(v)\n5-element Array{Int64,1}:\n 5\n 3\n 4\n 1\n 2\n\njulia> v[p]\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Los arrays pueden ser ordenados fácilmente de acuerdo a una transformación arbitraria de sus valores:julia> sort(v, by=abs)\n5-element Array{Float64,1}:\n -0.0104452\n  0.297288\n  0.382396\n -0.597634\n -0.839027O en orden reverso mediante una transformación:julia> sort(v, by=abs, rev=true)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n  0.382396\n  0.297288\n -0.0104452Si es necesario, puede elegirse el algoritmo de ordenación:julia> sort(v, alg=InsertionSort)\n5-element Array{Float64,1}:\n -0.839027\n -0.597634\n -0.0104452\n  0.297288\n  0.382396Todas las funciones de ordenación y relacionadas con el orden se basan en una relación \"menor que\" que define un orden total sobre los valores que van a manipularse. La función isless es la invocada por defecto, pero la relación puede ser especificada mediante la palabra clave lt."
 },
 
 {
@@ -16409,9 +16409,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/sort.html#Funciones-relacionadas-con-Orden-1",
+    "location": "stdlib/sort.html#Funciones-Relacionadas-con-Orden-1",
     "page": "Ordenación y Funciones Relacionadas",
-    "title": "Funciones relacionadas con Orden",
+    "title": "Funciones Relacionadas con Orden",
     "category": "section",
     "text": "Base.issorted\nBase.Sort.searchsorted\nBase.Sort.searchsortedfirst\nBase.Sort.searchsortedlast\nBase.Sort.select!\nBase.Sort.select\nBase.Sort.selectperm\nBase.Sort.selectperm!"
 },
@@ -16421,7 +16421,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Ordenación y Funciones Relacionadas",
     "title": "Algoritmos de Ordenación",
     "category": "section",
-    "text": "Actualmente hay cuatro algoritmos de ordenación disponibles en Julia base:InsertionSort\nQuickSort\nPartialQuickSort(k)\nMergeSortInsertionSort es un algoritmo de ordenación estable cuyo coste es O(n^2). Es eficiente para n muy pequeños, y es usado internamente por QuickSort.QuickSort es un algoritmo de ordenación que es in-place muy rápido pero no estable (es decir, los elementos que son considerados iguales no permanecerán en el mismo orden en que se encontraban originalmente en el array antes de ser ordenados. Su coste computacional es O(n log n). QuickSort es el algoritmo por defecto para valores numéricos, incluyendo enteros y punto flotante.PartialQuickSort(k) es similar a QuickSort, pero el array de salida es sólo ordenado hasta el índice  k si k es un entero, o en el rango de k si k es un OrdinalRange. Por ejemplo:x = rand(1:500, 100)\nk = 50\nk2 = 50:100\ns = sort(x; alg=QuickSort)\nps = sort(x; alg=PartialQuickSort(k))\nqs = sort(x; alg=PartialQuickSort(k2))\nmap(issorted, (s, ps, qs))             # => (true, false, false)\nmap(x->issorted(x[1:k]), (s, ps, qs))  # => (true, true, false)\nmap(x->issorted(x[k2]), (s, ps, qs))   # => (true, false, true)\ns[1:k] == ps[1:k]                      # => true\ns[k2] == qs[k2]                        # => trueMergeSort es un algoritmo de ordenación estable, pero no in-place (requiere un array temporal de la mitad del tamaño del array de entrada), de coste O(n log n) y no suele ser tan rapido como QuickSort. Es el algoritmo por defecto para datos no numéricos.Los algoritmos de clasificación por defecto se eligen sobre la base de que son rápidos y estables, o parezcan serlo. Para los tipos numéricos, de hecho, se selecciona QuickSort ya que es más rápido e indistinguible en este caso de un tipo estable (a menos que la matriz registre sus mutaciones de alguna manera). La propiedad de estabilidad tiene un costo no despreciable, por lo que si no la necesita, puede especificar explícitamente su algoritmo preferido, p. sort!(v, alg=QuickSort).El mecanismo por el cual Julia selecciona los algoritmos de clasificación predeterminados se implementa a través de la función Base.Sort.defalg. Permite que un algoritmo particular se registre como el predeterminado en todas las funciones de ordenación para arrays específicos. Por ejemplo, aquí están los dos métodos predeterminados de sort.jl:defalg(v::AbstractArray) = MergeSort\ndefalg{T<:Number}(v::AbstractArray{T}) = QuickSortEn cuanto a los arrays numéricos, la elección de un algoritmo predeterminado no estable para los tipos de array para los cuales la noción de ordenación estable no tiene sentido (es decir, cuando dos valores que comparan iguales no se pueden distinguir) puede tener sentido."
+    "text": "Actualmente hay cuatro algoritmos de ordenación disponibles en Julia base:InsertionSort\nQuickSort\nPartialQuickSort(k)\nMergeSortInsertionSort es un algoritmo de ordenación estable cuyo coste es O(n^2). Es eficiente para n muy pequeños, y es usado internamente por QuickSort.QuickSort es un algoritmo de ordenación que es in-place muy rápido pero no estable (es decir, los elementos que son considerados iguales no permanecerán en el mismo orden en que se encontraban originalmente en el array antes de ser ordenados). Su coste computacional es O(n log n). QuickSort es el algoritmo por defecto para valores numéricos, incluyendo enteros y punto flotante.PartialQuickSort(k) es similar a QuickSort, pero el array de salida es sólo ordenado hasta el índice  k si k es un entero, o en el rango de k si k es un OrdinalRange. Por ejemplo:x = rand(1:500, 100)\nk = 50\nk2 = 50:100\ns = sort(x; alg=QuickSort)\nps = sort(x; alg=PartialQuickSort(k))\nqs = sort(x; alg=PartialQuickSort(k2))\nmap(issorted, (s, ps, qs))             # => (true, false, false)\nmap(x->issorted(x[1:k]), (s, ps, qs))  # => (true, true, false)\nmap(x->issorted(x[k2]), (s, ps, qs))   # => (true, false, true)\ns[1:k] == ps[1:k]                      # => true\ns[k2] == qs[k2]                        # => trueMergeSort es un algoritmo de ordenación estable, pero no in-place (requiere un array temporal de la mitad del tamaño del array de entrada), de coste O(n log n) y no suele ser tan rapido como QuickSort. Es el algoritmo por defecto para datos no numéricos.Los algoritmos de ordenación por defecto se eligen sobre la base de que son rápidos y estables, o parezcan serlo. Para los tipos numéricos, de hecho, se selecciona QuickSort ya que es más rápido e indistinguible en este caso de un tipo estable (a menos que la matriz registre sus mutaciones de alguna manera). La propiedad de estabilidad tiene un coste no despreciable, por lo que si no la necesita, puede especificar explícitamente su algoritmo preferido, p. sort!(v, alg=QuickSort).El mecanismo por el cual Julia selecciona los algoritmos de ordenación predeterminados se implementa a través de la función Base.Sort.defalg. Permite que un algoritmo particular se registre como el predeterminado en todas las funciones de ordenación para arrays específicos. Por ejemplo, aquí están los dos métodos predeterminados de sort.jl:defalg(v::AbstractArray) = MergeSort\ndefalg{T<:Number}(v::AbstractArray{T}) = QuickSortEn cuanto a los arrays numéricos, la elección de un algoritmo predeterminado no estable para los tipos de array para los cuales la noción de ordenación estable no tiene sentido (es decir, cuando dos valores que comparan iguales no se pueden distinguir) puede tener sentido."
 },
 
 {
@@ -16581,7 +16581,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Funciones del Administrador de Paquetes",
     "title": "Funciones del Administrador de Paquetes",
     "category": "section",
-    "text": "Todas las funciones del administrador de paquetes están definidas en el módulo Pkg. Ninguna de las funciones del módulo  Pkg están exportadas. Por tanto, para usarlas, necesotamps prefijar cada llamada a función con un Pkg. explícito, por ejemplo Pkg.status() or Pkg.dir().Las funciones para desarrollo de de paquetes (por ejemplo, tag, publish, etc.) se han movido al paquete PkgDev. Ver PkgDev README para la documentación de estas funciones.Base.Pkg.dir\nBase.Pkg.init\nBase.Pkg.resolve\nBase.Pkg.edit\nBase.Pkg.add\nBase.Pkg.rm\nBase.Pkg.clone\nBase.Pkg.setprotocol!\nBase.Pkg.available\nBase.Pkg.installed\nBase.Pkg.status\nBase.Pkg.update\nBase.Pkg.checkout\nBase.Pkg.pin\nBase.Pkg.free\nBase.Pkg.build\nBase.Pkg.test\nBase.Pkg.dependents"
+    "text": "Todas las funciones del administrador de paquetes están definidas en el módulo Pkg. Ninguna de las funciones del módulo Pkg están exportadas. Por tanto, para usarlas, necesitamos prefijar cada llamada a función con un Pkg. explícito, por ejemplo Pkg.status() o Pkg.dir().Las funciones para el desarrollo de paquetes (por ejemplo, tag, publish, etc.) se han movido al paquete PkgDev. Ver PkgDev README para la documentación de estas funciones.Base.Pkg.dir\nBase.Pkg.init\nBase.Pkg.resolve\nBase.Pkg.edit\nBase.Pkg.add\nBase.Pkg.rm\nBase.Pkg.clone\nBase.Pkg.setprotocol!\nBase.Pkg.available\nBase.Pkg.installed\nBase.Pkg.status\nBase.Pkg.update\nBase.Pkg.checkout\nBase.Pkg.pin\nBase.Pkg.free\nBase.Pkg.build\nBase.Pkg.test\nBase.Pkg.dependents"
 },
 
 {
@@ -16853,7 +16853,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Fechas y  Tiempo",
     "title": "Funciones para Fechas",
     "category": "section",
-    "text": "Todas las funciones para fechas están definidas en el módulo Dates; nótese que sólo se han exportado las funciones Date, DateTime y now; para usar todas las dems funciones de Dates, es necesario prefijar cada llamada a funcion con Dates., por ejemplo,Dates.dayofweek(dt). Alternativamente, uno puede escribir using Base.Dates para llevar todas las funciones exportadas en Main para ser usadas sin el prefijo Dates.Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.DateTime(::Base.Dates.Period...)\nBase.Dates.DateTime(::Function, ::Any...)\nBase.Dates.DateTime(::Base.Dates.TimeType)\nBase.Dates.DateTime(::AbstractString, ::AbstractString)\nBase.Dates.format(::Base.Dates.TimeType, ::AbstractString)\nBase.Dates.DateFormat\nBase.Dates.@dateformat_str\nBase.Dates.DateTime(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Date(::Int64, ::Int64, ::Int64)\nBase.Dates.Date(::Base.Dates.Period...)\nBase.Dates.Date(::Function, ::Any, ::Any, ::Any)\nBase.Dates.Date(::Base.Dates.TimeType)\nBase.Dates.Date(::AbstractString, ::AbstractString)\nBase.Dates.Date(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Time(::Int64::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.Time(::Base.Dates.TimePeriod...)\nBase.Dates.Time(::Function, ::Any...)\nBase.Dates.Time(::Base.Dates.DateTime)\nBase.Dates.now()\nBase.Dates.now(::Type{Base.Dates.UTC})\nBase.eps"
+    "text": "Todas las funciones para fechas están definidas en el módulo Dates; nótese que solo se han exportado las funciones Date, DateTime y now; para usar el resto de funciones de Dates, es necesario prefijar cada llamada a función con Dates., por ejemplo,Dates.dayofweek(dt). Alternativamente, se puede escribir using Base.Dates para llevar todas las funciones exportadas a Main y que sean usadas sin el prefijo Dates.Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.DateTime(::Base.Dates.Period...)\nBase.Dates.DateTime(::Function, ::Any...)\nBase.Dates.DateTime(::Base.Dates.TimeType)\nBase.Dates.DateTime(::AbstractString, ::AbstractString)\nBase.Dates.format(::Base.Dates.TimeType, ::AbstractString)\nBase.Dates.DateFormat\nBase.Dates.@dateformat_str\nBase.Dates.DateTime(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Date(::Int64, ::Int64, ::Int64)\nBase.Dates.Date(::Base.Dates.Period...)\nBase.Dates.Date(::Function, ::Any, ::Any, ::Any)\nBase.Dates.Date(::Base.Dates.TimeType)\nBase.Dates.Date(::AbstractString, ::AbstractString)\nBase.Dates.Date(::AbstractString, ::Base.Dates.DateFormat)\nBase.Dates.Time(::Int64::Int64, ::Int64, ::Int64, ::Int64, ::Int64)\nBase.Dates.Time(::Base.Dates.TimePeriod...)\nBase.Dates.Time(::Function, ::Any...)\nBase.Dates.Time(::Base.Dates.DateTime)\nBase.Dates.now()\nBase.Dates.now(::Type{Base.Dates.UTC})\nBase.eps"
 },
 
 {
@@ -17041,9 +17041,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/dates.html#Funciones-Accesoras-1",
+    "location": "stdlib/dates.html#Funciones-de-Acceso-1",
     "page": "Fechas y  Tiempo",
-    "title": "Funciones Accesoras",
+    "title": "Funciones de Acceso",
     "category": "section",
     "text": "Base.Dates.year\nBase.Dates.month\nBase.Dates.week\nBase.Dates.day\nBase.Dates.hour\nBase.Dates.minute\nBase.Dates.second\nBase.Dates.millisecond\nBase.Dates.microsecond\nBase.Dates.nanosecond\nBase.Dates.Year(::Base.Dates.TimeType)\nBase.Dates.Month(::Base.Dates.TimeType)\nBase.Dates.Week(::Base.Dates.TimeType)\nBase.Dates.Day(::Base.Dates.TimeType)\nBase.Dates.Hour(::DateTime)\nBase.Dates.Minute(::DateTime)\nBase.Dates.Second(::DateTime)\nBase.Dates.Millisecond(::DateTime)\nBase.Dates.Microsecond(::Dates.Time)\nBase.Dates.Nanosecond(::Dates.Time)\nBase.Dates.yearmonth\nBase.Dates.monthday\nBase.Dates.yearmonthday"
 },
@@ -17397,7 +17397,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Fechas y  Tiempo",
     "title": "Funciones de Redondeo",
     "category": "section",
-    "text": "Date and DateTime values can be rounded to a specified resolution (e.g., 1 month or 15 minutes) with floor, ceil, or round.Base.floor(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.ceil(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.round(::Base.Dates.TimeType, ::Base.Dates.Period, ::RoundingMode{:NearestTiesUp})Las siguientes funciones no están exportadas:Base.Dates.floorceil\nBase.Dates.epochdays2date\nBase.Dates.epochms2datetime\nBase.Dates.date2epochdays\nBase.Dates.datetime2epochms"
+    "text": "Los valores Date y DateTime pueden ser redondeados a una precisión especificada (por ejemplo, 1 mes o 15 minutos) con floor, ceil, o round.Base.floor(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.ceil(::Base.Dates.TimeType, ::Base.Dates.Period)\nBase.round(::Base.Dates.TimeType, ::Base.Dates.Period, ::RoundingMode{:NearestTiesUp})Las siguientes funciones no están exportadas:Base.Dates.floorceil\nBase.Dates.epochdays2date\nBase.Dates.epochms2datetime\nBase.Dates.date2epochdays\nBase.Dates.datetime2epochms"
 },
 
 {
@@ -17469,7 +17469,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Fechas y  Tiempo",
     "title": "Constantes",
     "category": "section",
-    "text": "Días de la semana:Variable Abbr. Value (Int)\nMonday Mon 1\nTuesday Tue 2\nWednesday Wed 3\nThursday Thu 4\nFriday Fri 5\nSaturday Sat 6\nSunday Sun 7Meses del Año:Variable Abbr. Value (Int)\nJanuary Jan 1\nFebruary Feb 2\nMarch Mar 3\nApril Apr 4\nMay May 5\nJune Jun 6\nJuly Jul 7\nAugust Aug 8\nSeptember Sep 9\nOctober Oct 10\nNovember Nov 11\nDecember Dec 12"
+    "text": "Días de la Semana:Variable Abbr. Value (Int)\nMonday Mon 1\nTuesday Tue 2\nWednesday Wed 3\nThursday Thu 4\nFriday Fri 5\nSaturday Sat 6\nSunday Sun 7Meses del Año:Variable Abbr. Value (Int)\nJanuary Jan 1\nFebruary Feb 2\nMarch Mar 3\nApril Apr 4\nMay May 5\nJune Jun 6\nJuly Jul 7\nAugust Aug 8\nSeptember Sep 9\nOctober Oct 10\nNovember Nov 11\nDecember Dec 12"
 },
 
 {
@@ -17629,7 +17629,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Haciendo Pruebas Unitarias",
     "title": "Pruebas Unitarias Básicas",
     "category": "section",
-    "text": "El módulo Base.Test proporciona una funcionalidad simple de realización de pruebas unitarias. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollarlo como una forma de especificar los comportamientos que su código debería tener cuando se complete.Se pueden realizar pruebas unitarias simples con las macros @test () y @test_throws ():Base.Test.@test\nBase.Test.@test_throwsPor ejemplo, supongamos que queremos comprobar que nuestra nueva función foo(x) funciona como se esperaba:julia> using Base.Test\n\njulia> foo(x) = length(x)^2\nfoo (generic function with 1 method)Si la condición es cierta, se devuelve un Pass:julia> @test foo(\"bar\") == 9\nTest Passed\n\njulia> @test foo(\"fizz\") >= 10\nTest PassedSi la condición es falsa, se devuelve un Fail y se lanza una excepción:julia> @test foo(\"f\") == 20\nTest Failed\n  Expression: foo(\"f\") == 20\n   Evaluated: 1 == 20\nERROR: There was an error during testingSi la condición no pudo ser evaluada porque se lanzó una excepción, lo que ocurre en este caso porque length() no está definido para símbolos, se devuelve un objeto Error y se lanza una excepción:julia> @test foo(:cat) == 1\nError During Test\n  Test threw an exception of type MethodError\n  Expression: foo(:cat) == 1\n  MethodError: no method matching length(::Symbol)\n  Closest candidates are:\n    length(::SimpleVector) at essentials.jl:256\n    length(::Base.MethodList) at reflection.jl:521\n    length(::MethodTable) at reflection.jl:597\n    ...\n  Stacktrace:\n   [...]\nERROR: There was an error during testingSi esperamos que al evaluar una expresión deberían lanzarse una excepción, entonces podemos usar @test_throws() para comprobar que esto es lo que ocurre:julia> @test_throws MethodError foo(:cat)\nTest Passed\n      Thrown: MethodError"
+    "text": "El módulo Base.Test proporciona una funcionalidad simple de realización de pruebas unitarias. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollar como una forma de especificar los comportamientos que su código debería tener cuando se complete.Se pueden realizar pruebas unitarias simples con las macros @test () y @test_throws ():Base.Test.@test\nBase.Test.@test_throwsPor ejemplo, supongamos que queremos comprobar que nuestra nueva función foo(x) funciona como se esperaba:julia> using Base.Test\n\njulia> foo(x) = length(x)^2\nfoo (función genérica con 1 método)Si la condición es cierta, se devuelve un Pass:julia> @test foo(\"bar\") == 9\nTest Passed\n\njulia> @test foo(\"fizz\") >= 10\nTest PassedSi la condición es falsa, se devuelve un Fail y se lanza una excepción:julia> @test foo(\"f\") == 20\nTest Failed\n  Expression: foo(\"f\") == 20\n   Evaluated: 1 == 20\nERROR: There was an error during testingSi la condición no pudo ser evaluada porque se lanzó una excepción, lo que ocurre en este caso porque length() no está definido para símbolos, se devuelve un objeto Error y se lanza una excepción:julia> @test foo(:cat) == 1\nError During Test\n  Test threw an exception of type MethodError\n  Expression: foo(:cat) == 1\n  MethodError: no method matching length(::Symbol)\n  Closest candidates are:\n    length(::SimpleVector) at essentials.jl:256\n    length(::Base.MethodList) at reflection.jl:521\n    length(::MethodTable) at reflection.jl:597\n    ...\n  Stacktrace:\n   [...]\nERROR: There was an error during testingSi esperamos que al evaluar una expresión debería lanzarse una excepción, entonces podemos usar @test_throws() para comprobar que esto es lo que ocurre:julia> @test_throws MethodError foo(:cat)\nTest Passed\n      Thrown: MethodError"
 },
 
 {
@@ -17645,7 +17645,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Haciendo Pruebas Unitarias",
     "title": "Trabajando con Conjuntos de Test",
     "category": "section",
-    "text": "Normalmente, se utiliza una gran cantidad de pruebas para garantizar que las funciones trabajan correctamente sobre distintas entradas. En el caso de que una prueba falle, el comportamiento predeterminado es lanzar una excepción de inmediato. Sin embargo, normalmente es preferible ejecutar el resto de las pruebas primero para obtener una mejor idea de cuántos errores hay en el código que se prueba.La macro @testset() se puede usar para agrupar las pruebas en conjuntos. En un conjunto de pruebas, se ejecutarán variasy al final de su realización se imprimirá un resumen. Si alguna de las pruebas falla o no se puede evaluar debido a un error, el conjunto de prueba arrojará una TestSetException.Base.Test.@testsetPodemos poner nuestros tests para la función foo(x) en un conjuntos de tests:julia> @testset \"Foo Tests\" begin\n           @test foo(\"a\")   == 1\n           @test foo(\"ab\")  == 4\n           @test foo(\"abc\") == 9\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    3      3Los conjuntos de pruebas pueden también anidarse:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @test foo(\"cat\") == 9\n               @test foo(\"dog\") == foo(\"cat\")\n           end\n           @testset \"Arrays $i\" for i in 1:3\n               @test foo(zeros(i)) == i^2\n               @test foo(ones(i)) == i^2\n           end\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    8      8En el caso de que un conjunto de pruebas anidado no tenga fallos, como pasa aquí, ello se ocultará en el resumen. Si tenemos un test que falle, sólo se mostrarán los detalles para este conjunto de tests que ha fallado:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @testset \"Felines\" begin\n                   @test foo(\"cat\") == 9\n               end\n               @testset \"Canines\" begin\n                   @test foo(\"dog\") == 9\n               end\n           end\n           @testset \"Arrays\" begin\n               @test foo(zeros(2)) == 4\n               @test foo(ones(4)) == 15\n           end\n       end\n\nArrays: Test Failed\n  Expression: foo(ones(4)) == 15\n   Evaluated: 16 == 15\nStacktrace:\n    [...]\nTest Summary: | Pass  Fail  Total\nFoo Tests     |    3     1      4\n  Animals     |    2            2\n  Arrays      |    1     1      2\nERROR: Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."
+    "text": "Normalmente, se utiliza una gran cantidad de pruebas para garantizar que las funciones trabajan correctamente sobre distintas entradas. En el caso de que una prueba falle, el comportamiento predeterminado es lanzar una excepción de inmediato. Sin embargo, normalmente es preferible ejecutar el resto de las pruebas primero para obtener una mejor idea de cuántos errores hay en el código que se prueba.La macro @testset() se puede usar para agrupar las pruebas en conjuntos. En un conjunto de pruebas, se ejecutarán varias y al final de su realización se imprimirá un resumen. Si alguna de las pruebas falla o no se puede evaluar debido a un error, el conjunto de prueba arrojará una TestSetException.Base.Test.@testsetPodemos poner nuestras pruebas para la función foo(x) en un conjuntos de pruebas:julia> @testset \"Foo Tests\" begin\n           @test foo(\"a\")   == 1\n           @test foo(\"ab\")  == 4\n           @test foo(\"abc\") == 9\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    3      3Los conjuntos de pruebas también pueden anidarse:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @test foo(\"cat\") == 9\n               @test foo(\"dog\") == foo(\"cat\")\n           end\n           @testset \"Arrays $i\" for i in 1:3\n               @test foo(zeros(i)) == i^2\n               @test foo(ones(i)) == i^2\n           end\n       end;\nTest Summary: | Pass  Total\nFoo Tests     |    8      8En el caso de que un conjunto de pruebas anidado no tenga fallos, como pasa aquí, se ocultará en el resumen. Si tenemos una prueba que falle, sólo se mostrarán los detalles para este conjunto de pruebas que ha fallado:julia> @testset \"Foo Tests\" begin\n           @testset \"Animals\" begin\n               @testset \"Felines\" begin\n                   @test foo(\"cat\") == 9\n               end\n               @testset \"Canines\" begin\n                   @test foo(\"dog\") == 9\n               end\n           end\n           @testset \"Arrays\" begin\n               @test foo(zeros(2)) == 4\n               @test foo(ones(4)) == 15\n           end\n       end\n\nArrays: Test Failed\n  Expression: foo(ones(4)) == 15\n   Evaluated: 16 == 15\nStacktrace:\n    [...]\nTest Summary: | Pass  Fail  Total\nFoo Tests     |    3     1      4\n  Animals     |    2            2\n  Arrays      |    1     1      2\nERROR: Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."
 },
 
 {
@@ -17673,9 +17673,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/test.html#Otras-Macros-para-Tests-1",
+    "location": "stdlib/test.html#Otras-Macros-para-Pruebas-1",
     "page": "Haciendo Pruebas Unitarias",
-    "title": "Otras Macros para Tests",
+    "title": "Otras Macros para Pruebas",
     "category": "section",
     "text": "Como los cálculos sobre valores en punto flotane pueden ser imprecisos, podemos realizar comprobaciones de igualdad aproximada usando @test a ≈ b (donde ≈, se obtiene mediante terminación con tabulador de \\approx, es la función isapprox()) o usar directamente isapprox().julia> @test 1 ≈ 0.999999999\nTest Passed\n\njulia> @test 1 ≈ 0.999999\nTest Failed\n  Expression: 1 ≈ 0.999999\n   Evaluated: 1 ≈ 0.999999\nERROR: There was an error during testingBase.Test.@inferred\nBase.Test.@test_warn\nBase.Test.@test_nowarn"
 },
@@ -17697,11 +17697,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "stdlib/test.html#Tests-Rotos-1",
+    "location": "stdlib/test.html#Pruebas-Rotas-1",
     "page": "Haciendo Pruebas Unitarias",
-    "title": "Tests Rotos",
+    "title": "Pruebas Rotas",
     "category": "section",
-    "text": "Si un test falla consistentemente puede ser cambiado para utilizar la macro @test_broken(). Esto denotará el test como Roto  (Broken) si el test continua fallando y alterta al usuaria a traves de un Error si el test tiene éxito.Base.Test.@test_broken@test_skip() está también disponible para saltar un test sin evaluación, pero contando el test que se ha saltado en el informe del conjunto de tests. El test no se ejecutará pero da un Broken Result.Base.Test.@test_skip"
+    "text": "Si una prueba falla consistentemente, puede ser cambiada para utilizar la macro @test_broken(). Esto denotará la prueba como Rota (Broken) si la prueba continúa fallando y alerta al usuario a través de un Error si la prueba tiene éxito.Base.Test.@test_broken@test_skip() está también disponible para obviar una prueba sin evaluación, pero contabilizarla en el informe del conjunto de pruebas. La prueba no se ejecutará pero dará un Broken Result.Base.Test.@test_skip"
 },
 
 {
@@ -17741,7 +17741,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Haciendo Pruebas Unitarias",
     "title": "Creando Tipos AbstractTestSet Personalizados",
     "category": "section",
-    "text": "Los paquetes pueden crear sus propios subtipos AbstractTestSet implementando los métodos record y finish. El subtipo debe tener un constructor de un argumento que tome una cadena de descripción, con todas las opciones pasadas como argumentos  palabra clave.Base.Test.record\nBase.Test.finishBase.Test asume la responsabilidad de mantener una pila de conjuntos de pruebas anidados a medida que se ejecutan, pero cualquier acumulación de resultados es responsabilidad del subtipoAbstractTestSet. Puede acceder a esta pila con los métodos get_testset yget_testset_depth. Tenga en cuenta que estas funciones no se exportan.Base.Test.get_testset\nBase.Test.get_testset_depthBase.Test también se asegura de que las invocaciones @testset anidadas utilicen el mismo subtipo AbstractTestSet que sus padres a menos que se establezca explícitamente. Él no propaga ninguna propiedad del conjunto de pruebas. El comportamiento de herencia de opciones se puede implementar mediante paquetes que usan la infraestructura de pila que proporciona Base.Test.La definición de un subtipo básico de 'AbstractTestSet` podría verse así:import Base.Test: record, finish\nusing Base.Test: AbstractTestSet, Result, Pass, Fail, Error\nusing Base.Test: get_testset_depth, get_testset\nstruct CustomTestSet <: Base.Test.AbstractTestSet\n    description::AbstractString\n    foo::Int\n    results::Vector\n    # constructor takes a description string and options keyword arguments\n    CustomTestSet(desc; foo=1) = new(desc, foo, [])\nend\n\nrecord(ts::CustomTestSet, child::AbstractTestSet) = push!(ts.results, child)\nrecord(ts::CustomTestSet, res::Result) = push!(ts.results, res)\nfunction finish(ts::CustomTestSet)\n    # just record if we're not the top-level parent\n    if get_testset_depth() > 0\n        record(get_testset(), ts)\n    end\n    ts\nendY usar este conjunto de test tiene el siguiente aspecto:@testset CustomTestSet foo=4 \"custom testset inner 2\" begin\n    # this testset should inherit the type, but not the argument.\n    @testset \"custom testset inner\" begin\n        @test true\n    end\nendDocTestSetup = nothing"
+    "text": "Los paquetes pueden crear sus propios subtipos AbstractTestSet implementando los métodos record y finish. El subtipo debe tener un constructor de un argumento que tome una cadena de descripción, con todas las opciones pasadas como argumentos de tipo keyword.Base.Test.record\nBase.Test.finishBase.Test asume la responsabilidad de mantener una pila de conjuntos de pruebas anidados a medida que se ejecutan, pero cualquier acumulación de resultados es responsabilidad del subtipoAbstractTestSet. Puede acceder a esta pila con los métodos get_testset yget_testset_depth. Tenga en cuenta que estas funciones no se exportan.Base.Test.get_testset\nBase.Test.get_testset_depthBase.Test también se asegura de que las invocaciones @testset anidadas utilicen el mismo subtipo AbstractTestSet que sus padres, a menos que se establezca explícitamente. No propaga ninguna propiedad del conjunto de pruebas. El comportamiento de herencia de opciones se puede implementar mediante paquetes que usan la infraestructura de pila que proporciona Base.Test.La definición de un subtipo básico de 'AbstractTestSet` podría verse así:import Base.Test: record, finish\nusing Base.Test: AbstractTestSet, Result, Pass, Fail, Error\nusing Base.Test: get_testset_depth, get_testset\nstruct CustomTestSet <: Base.Test.AbstractTestSet\n    description::AbstractString\n    foo::Int\n    results::Vector\n    # constructor takes a description string and options keyword arguments\n    CustomTestSet(desc; foo=1) = new(desc, foo, [])\nend\n\nrecord(ts::CustomTestSet, child::AbstractTestSet) = push!(ts.results, child)\nrecord(ts::CustomTestSet, res::Result) = push!(ts.results, res)\nfunction finish(ts::CustomTestSet)\n    # just record if we're not the top-level parent\n    if get_testset_depth() > 0\n        record(get_testset(), ts)\n    end\n    ts\nendY usar este conjunto de prueba tiene el siguiente aspecto:@testset CustomTestSet foo=4 \"custom testset inner 2\" begin\n    # this testset should inherit the type, but not the argument.\n    @testset \"custom testset inner\" begin\n        @test true\n    end\nendDocTestSetup = nothing"
 },
 
 {
@@ -18285,7 +18285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Enlazador Dinámico",
     "title": "Enlazador Dinámico",
     "category": "section",
-    "text": "The names in Base.Libdl are not exported and need to be called e.g. as Libdl.dlopen().Base.Libdl.dlopen\nBase.Libdl.dlopen_e\nBase.Libdl.RTLD_NOW\nBase.Libdl.dlsym\nBase.Libdl.dlsym_e\nBase.Libdl.dlclose\nBase.Libdl.dlext\nBase.Libdl.find_library\nBase.Libdl.DL_LOAD_PATH"
+    "text": "Los nombres en Base.Libdl no son exportados y necesitan ser llamados como, por ejemplo, Libdl.dlopen().Base.Libdl.dlopen\nBase.Libdl.dlopen_e\nBase.Libdl.RTLD_NOW\nBase.Libdl.dlsym\nBase.Libdl.dlsym_e\nBase.Libdl.dlclose\nBase.Libdl.dlext\nBase.Libdl.find_library\nBase.Libdl.DL_LOAD_PATH"
 },
 
 {
@@ -18365,7 +18365,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Profiling",
     "title": "Profiling",
     "category": "section",
-    "text": "Base.Profile.@profileThe methods in Base.Profile are not exported and need to be called e.g. as Profile.print().Base.Profile.clear\nBase.Profile.print\nBase.Profile.init\nBase.Profile.fetch\nBase.Profile.retrieve\nBase.Profile.callers\nBase.Profile.clear_malloc_data"
+    "text": "Base.Profile.@profileLos métodos en Base.Profile no son exportados y necesitan ser llamados como, por ejemplo, Profile.print().Base.Profile.clear\nBase.Profile.print\nBase.Profile.init\nBase.Profile.fetch\nBase.Profile.retrieve\nBase.Profile.callers\nBase.Profile.clear_malloc_data"
 },
 
 {
@@ -18445,7 +18445,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Soporte SIMD",
     "title": "Soporte SIMD",
     "category": "section",
-    "text": "El tipo VecElement{T} está pensado para construir librerías de operaciones SIMD operations. El uso práctico de él requiere usar llvmcall. El tipo está definido como:struct VecElement{T}\n    value::T\nendÉl tiene una regla de compilación especial: una tupla homogénea de VecElement{T} se corresponde con un tipo vector LLVM cuando T un tipo de bits primitivo y la longitud de la tupla está en el conjunto {2-6,8-10,16}.En -O3, el compilador podría automáticamente vectorizar operaciones sobre tales tuplas. Por ejemplo, el siguiente programa, cuando se compila con julia -O3 genera dos instrucciones de adición SIMD (addps) sobre los sistemas x86:const m128 = NTuple{4,VecElement{Float32}}\n\nfunction add(a::m128, b::m128)\n    (VecElement(a[1].value+b[1].value),\n     VecElement(a[2].value+b[2].value),\n     VecElement(a[3].value+b[3].value),\n     VecElement(a[4].value+b[4].value))\nend\n\ntriple(c::m128) = add(add(c,c),c)\n\ncode_native(triple,(m128,))Sin embargo, dado que no se puede confiar en la vectorización automática, el uso futuro se realizará principalmente a través de bibliotecas que usen llvmcall."
+    "text": "El tipo VecElement{T} está pensado para construir librerías de operaciones SIMD. Su uso práctico requiere usar llvmcall. El tipo está definido como:struct VecElement{T}\n    value::T\nendTiene una regla de compilación especial: una tupla homogénea de VecElement{T} se corresponde con un tipo vector LLVM cuando T es un tipo de bits primitivo y la longitud de la tupla está en el conjunto {2-6,8-10,16}.En -O3, el compilador podría vectorizar operaciones sobre tales tuplas automáticamente. Por ejemplo, el siguiente programa, cuando se compila con julia -O3 genera dos instrucciones de adición SIMD (addps) sobre los sistemas x86:const m128 = NTuple{4,VecElement{Float32}}\n\nfunction add(a::m128, b::m128)\n    (VecElement(a[1].value+b[1].value),\n     VecElement(a[2].value+b[2].value),\n     VecElement(a[3].value+b[3].value),\n     VecElement(a[4].value+b[4].value))\nend\n\ntriple(c::m128) = add(add(c,c),c)\n\ncode_native(triple,(m128,))Sin embargo, dado que no se puede confiar en la vectorización automática, el uso futuro se realizará principalmente a través de bibliotecas que usen llvmcall."
 },
 
 {
