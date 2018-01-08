@@ -2,7 +2,7 @@
 
 Los sistemas de tipos han caído tradicionalmente en dos categorías muy diferentes: los *sistemas de tipos estáticos*, donde cada expresión del programa debe tener un tipo computable antes de la ejecución del programa, y los *sistemas de tipos dinámicos*, donde nada es sabido sobre los tipos hasta el momento de la ejecución, cuando los valores actuales manipulados por el programa están disponibles. La orientación a objetos permite una flexibilidad en los lenguajes tipados estáticamente dejando que el código sea escrito sin que se conozcan los tipos precisos de los valores en tiempo de compilación. La capacidad de escribir código que pueda operar sobre diferentes tipos se denomina polimorfismo. Todo el código en los lenguajes clásicos tipados dinámicamente es polimórfico: sólo mediante comprobación de equipos explícita o cuando los objetos fallan para soportar las operaciones en tiempo de ejecución, están los tipos de cualquier valor siempre restringidos.
 
-El sistema de tipos de Julia es dinámico, pero tiene algunas de las ventajas de los sistemas de tipos estáticos haciendo posible indicar que ciertos valores son de tipos específicos. Esto puede ser de gran ayuda en la generación de código eficiente, pero incluso más significativamente, permite que el despacho de métodos sobre los tipos de los argumentos a función este profundamente integrado con el lenguaje. El despacho de métodos se explorará en detalle en la sección [Methods](@ref), pero está enraizado en el sistema de equipos presentado en este capítulo..
+El sistema de tipos de Julia es dinámico, pero tiene algunas de las ventajas de los sistemas de tipos estáticos haciendo posible indicar que ciertos valores son de tipos específicos. Esto puede ser de gran ayuda en la generación de código eficiente, pero incluso más significativamente, permite que el despacho de métodos sobre los tipos de los argumentos a función este profundamente integrado con el lenguaje. El despacho de métodos se explorará en detalle en la sección [Methods](@ref methods), pero está enraizado en el sistema de equipos presentado en este capítulo..
 
 El comportamiento por defecto en Julia cuando se omiten los tipos es permitir que los valores sean de cualquier tipo. Por tanto, uno puede escribir muchos programa Julia útiles sin siquiera usar explícitamente los tipos. Cuando se necesita una expresividad adicional, sin embargo, es fácil introducir gradualmente anotaciones de tipo explícitas en código previamente no tipado. Hacer eso suele incrementar el rendimiento y la robustez de estos sistemas, y quizás algo contra intuitivo: simplificarlos frecuentemente.
 
@@ -80,7 +80,7 @@ Retornar de esta función se comporta justo como una asignación a una variable 
 
 Los tipos abstractos no puede ser instanciados, y sólo sirven como nodos en el grafo de tipos, describiendo de este mundo conjuntos de tipos concretos relacionados: aquellos tipos concretos que son sus descendientes. Comenzamos con tipos abstractos incluso aunque no tienen instanciación debido a que ellos son la espina dorsal del sistema de tipos: ellos forman la jerarquí conceptual qu hace al sistema de tipos de Julia más que una colección de implementaciones de objetos. 
 
-Recuerde que en [Números Enteros y en Punto Flotante](@ref), introdujimos una variedad de tipos de valores numéricos concretos: [`Int8`](@ref), [`UInt8`](@ref), [`Int16`](@ref), [`UInt16`](@ref), [`Int32`](@ref), [`UInt32`](@ref), [`Int64`](@ref), [`UInt64`](@ref), [`Int128`](@ref), [`UInt128`](@ref), [`Float16`](@ref), [`Float32`](@ref), and [`Float64`](@ref). Aunque todos ellos tienen diferentes tamaños en representación,  `Int8`, `Int16`, `Int32`, `Int64` and `Int128` tienen en común que son tipos enteros con signo. Del mismo modo, `UInt8`, `UInt16`, `UInt32`, `UInt64` and `UInt128` son enteros sin signo, mientras que `Float16`, `Float32` and `Float64` son tipos en punto flotante. Es común para una pieza de código que ésta tenga sentido, por ejemplo, sólo si sus argumentos son algún tipo de entero, pero no que dependa de un tipo de entero particular. Por ejemplo, el algoritmo del máximo común denominador funciona para todas las clases de enteros, pero no funcionará para los números en punto flotante. Los tipos abstractos permiten la construcción de una jerarquía de tipos, proporcionando un contexto en el cuál los tipos concretos pueden ajustarse. Esto te permite, por ejemplo, programar fácilmente a cualquier tipo que sea un entero, sin restringir el algoritmo a un tipo de entero específico.
+Recuerde que en [Números Enteros y en Punto Flotante](@ref integers-and-floating-point-numbers), introdujimos una variedad de tipos de valores numéricos concretos: [`Int8`](@ref), [`UInt8`](@ref), [`Int16`](@ref), [`UInt16`](@ref), [`Int32`](@ref), [`UInt32`](@ref), [`Int64`](@ref), [`UInt64`](@ref), [`Int128`](@ref), [`UInt128`](@ref), [`Float16`](@ref), [`Float32`](@ref), and [`Float64`](@ref). Aunque todos ellos tienen diferentes tamaños en representación,  `Int8`, `Int16`, `Int32`, `Int64` and `Int128` tienen en común que son tipos enteros con signo. Del mismo modo, `UInt8`, `UInt16`, `UInt32`, `UInt64` and `UInt128` son enteros sin signo, mientras que `Float16`, `Float32` and `Float64` son tipos en punto flotante. Es común para una pieza de código que ésta tenga sentido, por ejemplo, sólo si sus argumentos son algún tipo de entero, pero no que dependa de un tipo de entero particular. Por ejemplo, el algoritmo del máximo común denominador funciona para todas las clases de enteros, pero no funcionará para los números en punto flotante. Los tipos abstractos permiten la construcción de una jerarquía de tipos, proporcionando un contexto en el cuál los tipos concretos pueden ajustarse. Esto te permite, por ejemplo, programar fácilmente a cualquier tipo que sea un entero, sin restringir el algoritmo a un tipo de entero específico.
 
 Los tipos abstractos se declaran usando la palabra clave `abstract`. Las sintaxis generales para declarar un tipo abstracto son:
 
@@ -124,7 +124,7 @@ function myplus(x,y)
 end
 ```
 
-La primera cosa que hay que notar es que las declaraciones de argumento anteriores son equivalentes a `x::Any` e `y::Any`.  Cuando se invoca a estas funciones, digamos con `myplus(2,5)`, el despachador elige el método más específico cuyo nombres sea `myplus` y que se corresponda con los argumentos dados (ver [Métodos](@ref) para más informacíon sobre despacho múltiple).
+La primera cosa que hay que notar es que las declaraciones de argumento anteriores son equivalentes a `x::Any` e `y::Any`.  Cuando se invoca a estas funciones, digamos con `myplus(2,5)`, el despachador elige el método más específico cuyo nombres sea `myplus` y que se corresponda con los argumentos dados (ver [Métodos](@ref methods) para más informacíon sobre despacho múltiple).
 
 Asumiendo que no se encuentra método más específico que el anterior, a continuación Julia define y compila un método llamado `myplus` específicamente para dos argumentos `Int` basado en la función genérica dada anteriormente, es decir, implícitamente define y compila:
 
@@ -176,11 +176,11 @@ primitive type «name» <: «supertype» «bits» end
 Los tipos [`Bool`](@ref), [`Int8`](@ref) y [`UInt8`](@ref) tienen representaciones idénticas: se trata de bloques de memoria de 8 bits. Como el sistema de tipos de Julia es nominativo, sin embargo, ellos no son intercambiables aunque tengan estructura idéntica. Otra diferencia fundamental entre ellos es que ellos tienen supertipos diferentes: [`Integer`](@ref) es el supertipo directo de [`Bool`](@ref), [`Signed`](@ref) es el de [`Int8`](@ref), y [`Unsigned`](@ref) es el de  [`UInt8`](@ref). Todas las demás diferencias entre  [`Bool`](@ref), [`Int8`](@ref), y [`UInt8`](@ref) son cuestiones de comportamiento 
 (la forma en la que las funciones son definidas para actuar cuando se pasan como argumentos objetos de estos tipos). Esta es la razón por la que es necesario un sistema de tipos nominativo: si la estructura determinara el tipo, que a su vez dicta el comportamiento, sería imposible hacer que los valores  [`Bool`](@ref) se comportaran de forma diferente a los [`Int8`](@ref) o los [`UInt8`](@ref).
 
-## Tipos Compuestos
+## [Tipos Compuestos](@id composite-types)
 
 [Los tipos compuestos](https://en.wikipedia.org/wiki/Composite_data_type) se llaman registros, estructuras (*structs*) u objetos en distintos lenguajes. Un tipo compuesto es una colección de campos nombrados, una instancia de los cuales puede ser tratada como un único valor. En muchos lenguajes, los tiempos compuestos sos la única clase de tipos definidos por el usuario, y ellos son de lejos el tiempo definido por el usuario  que se usa mas comúnmente en el lenguaje Julia.
 
-En el mundo de los lenguajes orientados a objetos tales como C++, Java, Python o Ruby, los tipos compuestos también tienen funciones asociadas a ellos, y esa combinación se denomina "objeto". En los lenguajes orientados a objetos más puros, tales como Ruby o SmallTalk, todo los valores son objetos sean compuestos o no. En lenguajes orientados objetos menos puros incuyendo C++ y Java, algunos valores tales como los enteros no se consideran objetos, mientras que las instancias de los tipos compuestos definidos por el usuario son verdaderos objetos con métodos asociados. En Julia, todos los valores son objetos, pero no hay funciones a los objetos sobre los que se opera. Esto es necesario ya que Julia elige qué método de una función usar mediante despacho múltiple, lo que significa que cuando se selecciona un método se consideran los tipos de todos los argumentos de la función y no sólo el primero (ver la sección [Métodos](@ref) para más información). Por tanto, sería inapropiado para las funciones "pertenecer" sólo a su primer argumento (el objeto que la posee). Organizar métodos en objetos función en lugar de tener bolsas de métodos nombrados "dentro" de cada objeto termina por ser un aspecto muy beneficioso de diseño del lenguaje.
+En el mundo de los lenguajes orientados a objetos tales como C++, Java, Python o Ruby, los tipos compuestos también tienen funciones asociadas a ellos, y esa combinación se denomina "objeto". En los lenguajes orientados a objetos más puros, tales como Ruby o SmallTalk, todo los valores son objetos sean compuestos o no. En lenguajes orientados objetos menos puros incuyendo C++ y Java, algunos valores tales como los enteros no se consideran objetos, mientras que las instancias de los tipos compuestos definidos por el usuario son verdaderos objetos con métodos asociados. En Julia, todos los valores son objetos, pero no hay funciones a los objetos sobre los que se opera. Esto es necesario ya que Julia elige qué método de una función usar mediante despacho múltiple, lo que significa que cuando se selecciona un método se consideran los tipos de todos los argumentos de la función y no sólo el primero (ver la sección [Métodos](@ref methods) para más información). Por tanto, sería inapropiado para las funciones "pertenecer" sólo a su primer argumento (el objeto que la posee). Organizar métodos en objetos función en lugar de tener bolsas de métodos nombrados "dentro" de cada objeto termina por ser un aspecto muy beneficioso de diseño del lenguaje.
 
 Los tipos compuestos son introducidos por la palabra clave `struct` seguida por un bloque de nombres de campos, opcionalmente anotados con tipos usando el operador `::`
 
@@ -264,7 +264,7 @@ La función `===` confirma que las dos instancias construidas de `NoFields` son 
 
 Hay mucho más que decir sobre cómo se crean las instancias de los tipos compuestos, pero esta discusión depende de los [Tipos Paramétricos](@ref parametric-types) y de los [Métodos](@ref methods), y es suficientemente importante para ser tratada en su propia sección: [Constructores](@ref man-constructors).
 
-## Tipos Compuestos Mutables
+## [Tipos Compuestos Mutables](@id mutable-composite-types)
 
 Si un tipo compuesto es declarado como `mutable struct` en lugar de como `struct`, sus instancias pueden ser modificadas:
 
@@ -424,7 +424,7 @@ function norm(p::Point{<:Real})
 end
 ```
 
-(Equivalentemente, uno podría definir `function norm{T<:Real}(p::Point{T})` o `function norm(p::Point{T} where T<:Real)`; ver [tipos UnionAll](@ref).)
+(Equivalentemente, uno podría definir `function norm{T<:Real}(p::Point{T})` o `function norm(p::Point{T} where T<:Real)`; ver [tipos UnionAll](@ref unionall-types).)
 
 Más ejemplos se discutirán después en [Métodos](@ref methods).
 
@@ -511,7 +511,7 @@ julia> Pointy{Real} <: Pointy{Float64}
 false
 ```
 
-La notación `Pointy{<:Real}` puede usarse para expresar el análogo Julia de un tipo *covariante*, mientras que  `Pointy{>:Int}` es el análogo de un tipo *contravariante*, pero técnicamente estos representan *conjuntos* de tipos (ver [tipos UnionAll](@ref)).
+La notación `Pointy{<:Real}` puede usarse para expresar el análogo Julia de un tipo *covariante*, mientras que  `Pointy{>:Int}` es el análogo de un tipo *contravariante*, pero técnicamente estos representan *conjuntos* de tipos (ver [tipos UnionAll](@ref unionall-types)).
 
 ```jldoctest pointytype
 julia> Pointy{Float64} <: Pointy{<:Real}
@@ -666,7 +666,7 @@ julia> isa(("1",1,2,3.0), mytupletype)
 false
 ```
 
-Notese que `Varags{T}` corresponde a cero o más elementos del tipo `T`. Los tipos tupla vararg se usan para representar los argumentos aceptados por los métodos vararg (ver [Funciones Vararg](@ref)).
+Notese que `Varags{T}` corresponde a cero o más elementos del tipo `T`. Los tipos tupla vararg se usan para representar los argumentos aceptados por los métodos vararg (ver [Funciones Vararg](@ref vararg-functions)).
 
 El tipo `Vararg{T,N}` se corresponde a exactamente `N` elementos de tipo `T`. `NTuple{N,T}` es un alias conveniente para `Tuple{Vararg{T,N}}`, es decir, un tipo tupla conteniendo exactamente `N` elementos de tipo `T`.
 
@@ -711,7 +711,7 @@ julia> isa("foo", Type)
 false
 ```
 
-Hasta que discutamos loa [métodos paramétricos](@ref) y las [conversiones](@ref conversion-and-promotion), , es difícil explicar la utilidad de la construcción tipo singleton, pero abreviando, permite a uno especializar el comportamiento de una función sobre *valores* de un tipo específico. Esto es útil para escribir métodos (especialmente paramétricos) cuy ocomportamiento dependa de un tipo que es dado como un argumento explícito en lugar de implicado por el tipo de un o de sus argumentos.
+Hasta que discutamos loa [métodos paramétricos](@ref parametric-types) y las [conversiones](@ref conversion-and-promotion), , es difícil explicar la utilidad de la construcción tipo singleton, pero abreviando, permite a uno especializar el comportamiento de una función sobre *valores* de un tipo específico. Esto es útil para escribir métodos (especialmente paramétricos) cuy ocomportamiento dependa de un tipo que es dado como un argumento explícito en lugar de implicado por el tipo de un o de sus argumentos.
 
 Unos pocos lenguajes de programación tienen tipos singleton, incluyendo Haskell, Scala y Ruby. En uso general, el término "tipo singleton" se refiere a un tipo cuya única instancia es un solo valor. Este significado se aplicaa a los tipos singleton de Julia, pero con la advertencia de que sólo los objetos tipo tienen tipos singleton.
 
@@ -737,7 +737,7 @@ julia> Ptr{Int64} <: Ptr
 true
 ```
 
-## Tipos UnionAll
+## [Tipos UnionAll](@id unionall-types)
 
 Hemos dicho que un tipo paramétrico como `Ptr` actúa como un supertipo de todas sus instancias (Ptr{Int64} etc.). ¿Cómo funciona esto? `Ptr` en si mismo no puede ser un tipo normal, ya que sin saber el tipo de los datos referenciados el tipo claramente no puede ser usado para operaciones en memoria. La respuesta es que `Ptr` (u otros tipos paramétricos como `Array`) es una clase diferente de tipo llamado `UnionAll`. Tal tipo expresa la unión iterada de tipos para todos los valores de algún parámetro.
 
@@ -884,7 +884,7 @@ Si en lugar de usar este modo de presentacin preferimos que su presentación sea
 julia> Base.show(io::IO, z::Polar) = print(io, z.r, " * exp(", z.Θ, "im)")
 ```
 
-Es posible un control de grano más fino sobre la visualizacin de los objetos `Polar`. En particular, algunas veces uno desea un formato de impresión detallado multilínea, utilizado para mostrar un solo objeto en REPL y otros entornos interactivos, y también un formato de línea única más compacto utilizado para [`print ()`] @ref) o para mostrar el objeto como parte de otro objeto (por ejemplo, en una matriz). Aunque de forma predeterminada se llama a la función `show (io, z)` en ambos casos, puede definir un formato multilínea *diferente* para mostrar un objeto sobrecargando una forma de tres argumentos de `show` que toma el tipo MIME `text/plain` como su segundo argumento (consulte [E/S multimedia](@ref)), por ejemplo:
+Es posible un control de grano más fino sobre la visualizacin de los objetos `Polar`. En particular, algunas veces uno desea un formato de impresión detallado multilínea, utilizado para mostrar un solo objeto en REPL y otros entornos interactivos, y también un formato de línea única más compacto utilizado para [`print ()`] @ref) o para mostrar el objeto como parte de otro objeto (por ejemplo, en una matriz). Aunque de forma predeterminada se llama a la función `show (io, z)` en ambos casos, puede definir un formato multilínea *diferente* para mostrar un objeto sobrecargando una forma de tres argumentos de `show` que toma el tipo MIME `text/plain` como su segundo argumento (consulte [E/S multimedia](@ref multimedia-io)), por ejemplo:
 
 ```jldoctest polartype
 julia> Base.show{T}(io::IO, ::MIME"text/plain", z::Polar{T}) =
@@ -905,7 +905,7 @@ julia> [Polar(3, 4.0), Polar(4.0,5.3)]
 ```
 
 donde se sigue utilizando la forma de línea `show(io, z)` para un array de valores  `Polar`. Técnicamente, el REPL llama a  `display(z)` para mostrar el resultado de ejecutar una línea que por defecto es `show (STDOUT, MIME (" text / plain "), z)`,
- que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [` display () `] (@ ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref)).
+ que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [` display () `] (@ ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref multimedia-io)).
 
 Además, también puede definir métodos `show` para otros tipos MIME para permitir una visualización más rica (HTML, imágenes, etc.) de los objetos en entornos que lo admitan (por ejemplo, IJulia). Por ejemplo, podemos definir la visualización HTML formateada de objetos `Polar`, con superíndices y cursiva, a través de:
 
@@ -926,7 +926,7 @@ julia> show(STDOUT, "text/html", Polar(3.0,4.0))
 <p>An HTML renderer would display this as: <code>Polar{Float64}</code> complex number: 3.0 <i>e</i><sup>4.0 <i>i</i></sup></p>
 ```
 
-## "Valores tipo"
+## ["Valores tipo"](@id value-types)
 
 En Julia uno no puede despachar sobre un *valor*  tal como `true` o `false`. Sin embargo, se se puede despachar sobre tipos paramétricos, y Julia  permite incluir valores "plain bits" (tipos, símbolos, enteros, números en punto flotante, tuplas, etc.) como parámetros de tipo. Un ejemplo común es el parámetro de dimensionalidad en `Array{T,N}`, donde `T` es un tipo (por ejemplo,  [`Float64`](@ref)) pero `N` es un `Int`.
 

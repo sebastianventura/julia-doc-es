@@ -291,7 +291,7 @@ For reasons of length the results are not shown here, but you may wish to try th
 the type is fully-specified in the first case, the compiler doesn't need to generate any code
 to resolve the type at run-time. This results in shorter and faster code.
 
-### Avoid fields with abstract containers
+### [Avoid fields with abstract containers](@id avoid-fields-with-abstract-containers)
 
 The same best practices also work for container types:
 
@@ -678,7 +678,7 @@ slow.
 Now, one very good way to solve such problems is by using the [function-barrier technique](@ref kernal-functions).
 However, in some cases you might want to eliminate the type-instability altogether.  In such cases,
 one approach is to pass the dimensionality as a parameter, for example through `Val{T}` (see
-["Value types"](@ref)):
+["Value types"](@ref value-types)):
 
 ```jldoctest
 julia> function array3(fillval, ::Type{Val{N}}) where N

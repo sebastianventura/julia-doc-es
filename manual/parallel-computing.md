@@ -66,7 +66,7 @@ Note que usamos `1 .+ fetch(r)` en lugar de `1 .+ r`. Esto es debido a que no sa
 
 Una importante cosa a recordar es que, una vez traída, un [`Future`](@ref) cacheará su valor localmente. Las llamadas adicionales a [`fetch()`](@ref) calls no implican un salto de red. Una vez que todos los [`Future`](@ref)s que referencian ha sido recuperados, el valor remoto almacenado es borrado.
 
-## Disponibiliad de Código y Carga de Paquetes
+## [Disponibiliad de Código y Carga de Paquetes](@id code-availability-and-loading-packages)
 
 Nuestro código debe estar disponible sobre cualquir proceso que lo ejecuta. Por ejemplo, escriba esto en el *prompt* de Julia:
 
@@ -147,7 +147,7 @@ Las funciones [`addprocs()`](@ref), [`rmprocs()`](@ref), [`workers()`](@ref), y 
 
 Note que los *workers* no ejecutan un script `.juliarc.jl` de inicio, ni sincronizan su estado global (tal como variables globales, nuevas definiciones de métodos y módulos cargados) con cualquiera de los procesos que están ejecutando.
 
-Pueden soportarse otros tipos de clústers escribiendo nuestro porpio `ClusterManager`, como se describe después en la sección [ClusterManagers](@ref) section.
+Pueden soportarse otros tipos de clústers escribiendo nuestro porpio `ClusterManager`, como se describe después en la sección [ClusterManagers](@ref clustermanagers) section.
 
 ## Movimiento de Datos
 
@@ -371,7 +371,7 @@ end
 
 ## Canales
 
-La sección sobre tareas ([`Task`](@ref)) en [Control de flujo](@ref) discutió la ejecución de múltiples funciones de forma cooperativa. Los canales ([`Channel`](@ref)) pueden ser bastante útiles para pasar datos entre tareas en ejecución, particularmente aquellas que involucran operaciones de E/S.
+La sección sobre tareas ([`Task`](@ref)) en [Control de flujo](@ref control-flow) discutió la ejecución de múltiples funciones de forma cooperativa. Los canales ([`Channel`](@ref)) pueden ser bastante útiles para pasar datos entre tareas en ejecución, particularmente aquellas que involucran operaciones de E/S.
 
 Ejemplos de operaciones que implican E/S incluyen la lectura/escritura en archivos, acceso a servicios web, ejecución de programas externos, etc. En todos estos casos, el tiempo de ejecución general puede mejorarse si se pueden ejecutar otras tareas mientras se lee un archivo, o mientras se espera a que se complete un servicio o programa externo.
 
@@ -787,7 +787,7 @@ La mayor ventaja de `advection_shared!` es que minimiza el tráfico entre los *w
 
 Al igual que las referencias remotas, las matrices compartidas también dependen de la recolección de basura en el nodo de creación para liberar referencias de todos los *workers* participantes. El código que crea muchos arrays compartidas de vida corta se beneficiaría de finalizar explícitamente estos objetos tan pronto como sea posible. Esto da como resultado que tanto la memoria como los manejadores de archivos mapeen el segmento compartido que se libera antes.
 
-## ClusterManagers
+## [ClusterManagers](@id clustermanagers)
 
 El lanzamiento, la administración y la comunicación en red de los procesos de Julia en un clúster lógico se realiza a través de los administradores del clúster. Un `ClusterManager` es responsable de
 

@@ -19,7 +19,7 @@ particularmente útil para código matemático, donde  tiene poco sentido consid
 
 En los ejemplos estudiados hasta ahora, sólo se han definido funciones con un único método que tienen argumentos con los tipos no restringidos. Estas funciones se comporta como las que hay en lenguajes con tipos dinámicos tradicionales. Sin embargo, también se han usado despacho múltiple y métodos sin ser consciente de ello: todas las funciones estándar y operadores de Julia, tal como función `+`, tiene muchos métodos que definen su comportamiento sobre varias combinaciones posibles número y tipo de argumentos.
 
-Cuando se define una función, uno puede opcionalmente restringir los tipos de los parámetros sobre los que se aplica usando el operador de la selección de tipos `::`, introducido en la sección [Tipos compuestos](@ref):
+Cuando se define una función, uno puede opcionalmente restringir los tipos de los parámetros sobre los que se aplica usando el operador de la selección de tipos `::`, introducido en la sección [Tipos compuestos](@ref composite-types):
 
 ```jldoctest fofxy
 julia> f(x::Float64, y::Float64) = 2x + y
@@ -236,7 +236,7 @@ julia> same_type(Int32(1), Int64(2))
 false
 ```
 
-Tales definiciones corresponden a métodos cuyas signaturas de tipo son tipos `UnionAll` (ver [tipos UnionAll](@ref).
+Tales definiciones corresponden a métodos cuyas signaturas de tipo son tipos `UnionAll` (ver [tipos UnionAll](@ref unionall-types).
 
 Esta clase de definición del comportamiento de una función mediante despacho es bastante común (incluso idiomático) en Julia. Los métodos con parámetros de tipo no están restringidos a ser usados como los tipos de los parámetros: ellos pueden ser usados en cualquier parte donde un palo estaría en la signatura de la función o cuerpo de la función. He aquí un eemplo donde el parámetro de tipo del método `T` se sa como el parámetro de tipo al tipo paramétrico `Vector{T}` en la signatura del método:
 
@@ -283,7 +283,7 @@ julia> mytypeof(1.0)
 Float64
 ```
 
-Así como puedes poner restricciones de subtipo para los parámetros de tipo en declaraciones de tipo (ver [Tipos Paramétricos](@ref)) también puedes restringir los parámetros de tipo de los métodos:
+Así como puedes poner restricciones de subtipo para los parámetros de tipo en declaraciones de tipo (ver [Tipos Paramétricos](@ref parametric-types)) también puedes restringir los parámetros de tipo de los métodos:
 
 ```jldoctest
 julia> same_type_numeric(x::T, y::T) where {T<:Number} = true
@@ -316,7 +316,7 @@ false
 
 La función `same_type_numeric` se comporta como la función `same_type` descrita antes, pero sólo está definida para pares de números.
 
-Los métodos paramétricos permiten la misma sintaxis que las expresiones `where` usadas para escribir tipos (ver [tipos UnionAll](@ref)). 
+Los métodos paramétricos permiten la misma sintaxis que las expresiones `where` usadas para escribir tipos (ver [tipos UnionAll](@ref unionall-types)). 
 
 Si hay un único parámetro, las llaves que lo encierran (en `where {T}`) pueden ser omitidas, aunque suele ser preferible mantenerlas por claridad.
 
@@ -413,9 +413,9 @@ julia> wait(schedule(t, 1))
 "definition for Int"
 ```
 
-## Parametrically-constrained Varargs methods
+## [Parametrically-constrained Varargs methods](@id parametrically-constrained-varargs-methods)
 
-Los parámetros de función pueden también ser usados para restringir el número de argumentos que pueden ser proporcionados a una función "varags" (ver [Funciones Vararg](@ref)).  La notación `Vararg{T,N}` se usa para indicar tal restricción. Por ejemplo:
+Los parámetros de función pueden también ser usados para restringir el número de argumentos que pueden ser proporcionados a una función "varags" (ver [Funciones Vararg](@ref vararg-functions)).  La notación `Vararg{T,N}` se usa para indicar tal restricción. Por ejemplo:
 
 ```jldoctest
 julia> bar(a,b,x::Vararg{Any,2}) = (a,b,x)
@@ -443,7 +443,7 @@ function getindex(A::AbstractArray{T,N}, indexes::Vararg{Number,N}) where {T,N}
 
 sería llamado sólo cuando el número de `indexes` se correspondiera con la dimensionalidad del array.
 
-## Note on Optional and keyword Arguments
+## [Note on Optional and keyword Arguments](@id note-on-optional-and-keyword-arguments)
 
 Como se menciona brevemente en [Funciones](@ref man-functions), los argumentos opcionales se implementan como sintaxis para múltiples definiciones de métodos. Por ejemplo, esta definición:
 

@@ -240,7 +240,7 @@ end
 
 Esto tiene exactamente el mismo efecto que la definición anterior de `foo`.
 
-## Funciones con argumentos variables (varargs)
+## [Funciones con argumentos variables (varargs)](@id vararg-functions)
 
 Suele ser muy conveniente ser capaz de escribir funciones que toman un número arbitrario de argumentos. Estas funciones se conocen como *funciones vararg*. Podemos definir funciones de tal tipo poniendo puntos suspensivos `…` después del último argumento.
 
@@ -267,7 +267,7 @@ julia> bar(1,2,3,4,5,6)
 
 En todos los casos, `x` es asociada a una tupla con el resto de valores pasados a la función.
 
-Es posible restringir el número de argumentos pasados como argumento variable. Esto se discutirá más adelante en la sección [métodos *vararg* restringidos paramétricamente](@ref).
+Es posible restringir el número de argumentos pasados como argumento variable. Esto se discutirá más adelante en la sección [métodos *vararg* restringidos paramétricamente](@ref parametrically-constrained-varargs-methods).
 
 Como contraposición, es frecuente manejar la división de los valores contenidos en una colección iterable en una llamada a función como argumentos individuales. Para hacer eso, se utilizará la notación de puntos suspensivos, pero esta vez en la llamada a función.
 
@@ -367,7 +367,7 @@ julia> parse(Int,"12")
 12
 ```
 
-Los argumentos opcionales son una sintaxis conveniente para escribir múltiples definiciones de métodos con diferentes números de argumentos (ver [Nota sobre Argumentos opcionales y *keyword*](@ref)).
+Los argumentos opcionales son una sintaxis conveniente para escribir múltiples definiciones de métodos con diferentes números de argumentos (ver [Nota sobre Argumentos opcionales y *keyword*](@ref note-on-optional-and-keyword-arguments)).
 
 ## Argumentos *keyword*
 
@@ -478,7 +478,7 @@ end
 ```
 
 Aquí, [`open()`](@ref) primero abre el fichero para escritura y luego pasa el flujo de salida resultante a la función anónima que se define en el bloque `do...end`.  Después de que la función exista, [`open()`](@ref) asegurará que el flujo ha sido cerrado apropiadamente, sin preocuparse de si la función salió normalmente o lanzó una excepción (la construcción 
-`try/finally` será descrita en  [Control de Flujo](@ref).)
+`try/finally` será descrita en [Control de Flujo](@ref control-flow).)
 
 Con la sintaxis de bloque `do` se ayuda a chequear la documentación o implementaciones para saber cómo se inicializan los argumentos de la función de usuario.
 
@@ -503,7 +503,7 @@ julia> sin.(A)
 
 Por supuesto, uno puede omitir el punto si escribe un método especial para vectores de `f` por ejemplo, vía `f(A::AbstractArray) = map(f, A)` y esto es tan eficiente como `f.(A)`. Pero este enfoque necesitaría que decidas a priori qué funciones quieres vectorizar.
 
-Más generalmente, `f.(args...)` es de hecho equivalente a `broadcast(f, args...)`, que te permite operar sobre múltiples arrays (incluso de formas distintas) o una mezcla de arrays y escalares (ver [Broadcasting](@ref)). Por ejemplo, si tenemos `f(x,y) = 3x + 4y`, entonces `f.(pi,A)` devolverá un nuevo array consistente en `f(pi,a)`para cada `a` en `A`, y `f.(vector1,vector2)` devolverá un nuevo vector que consiste en `f(vector1[i],vector2[i])` para cada índice `i` (lanzando una excepción si los vectores tienen diferente longitud).
+Más generalmente, `f.(args...)` es de hecho equivalente a `broadcast(f, args...)`, que te permite operar sobre múltiples arrays (incluso de formas distintas) o una mezcla de arrays y escalares (ver [Broadcasting](@ref broadcasting)). Por ejemplo, si tenemos `f(x,y) = 3x + 4y`, entonces `f.(pi,A)` devolverá un nuevo array consistente en `f(pi,a)`para cada `a` en `A`, y `f.(vector1,vector2)` devolverá un nuevo vector que consiste en `f(vector1[i],vector2[i])` para cada índice `i` (lanzando una excepción si los vectores tienen diferente longitud).
 
 ```jldoctest
 julia> f(x,y) = 3x + 4y;
@@ -527,7 +527,7 @@ julia> f.(A, B)
 
 Además, las llamadas anidadas `f.(args...)`se funden en un solo `broadcast`. Por ejemplo `sin.(cos.(X))` es equivalent a `broadcast(x->sin(cos(x)), X)`, lo cuál es similar a `[sin(cos(x)) for x in X]`. Hay un solo bucle sobre `X`, y se asigna un solo array para el resultado. En contraste, `sin(cos(X))` en un lenguaje vectorizado típio asignaría primero un array temporal `tmp = cos(X)` y luego calcularía `sin(tmp)` en un bucle separado, asignando un segundo array. Esta fusión de bucles no es una optimización del compilador que puede ocurrir o no, sino que es una *garantía sintáctica*  cuando se encuentran llamadas `f.(array...)` anidadas. Técnicamente, la fusión se para en cuanto se encuentr una función sin punto, por ejemplo, en `sin.(srt(cos.(X)))` los bucles de `sin` y `cos` no pueden mezclarse debido a la intervención de la función `sort`.
 
-Finalmente, la eficiencia máxima suele conseguirse cuando el array de salida de una operación vectorizada es *pre-asignado*, por lo que las llamadas repetidas no asignarán nuevos arrays una y otra vez para los resultados (ver [Preasignando salidas](@ref)). Una sintaxis conveniente para esto es `X .= ...` que es equivalente a `broadcast!(identity, X, ...)` excepto que, como antes, el bucle `broadcast!` es fusionado con cualquier llamada con punto anidada. Por ejemplo, `X .= sin.(Y)` es equivalente a `broadcast!(sin, X, Y)`, sobreescribiendo `X` con `sin.(Y)` en su lugar. Si el miembro izquierdo de la expresión es una expresión de indexación de un array, como `X[2:end] .= sin.(Y)` entonces ella se traduce a `broadcast!` sobre una vista, por ejemplo `broadcast!(sin, view(X, 2:endof(X)), Y)`.
+Finalmente, la eficiencia máxima suele conseguirse cuando el array de salida de una operación vectorizada es *pre-asignado*, por lo que las llamadas repetidas no asignarán nuevos arrays una y otra vez para los resultados (ver [Preasignando salidas](@ref pre-allocating-outputs)). Una sintaxis conveniente para esto es `X .= ...` que es equivalente a `broadcast!(identity, X, ...)` excepto que, como antes, el bucle `broadcast!` es fusionado con cualquier llamada con punto anidada. Por ejemplo, `X .= sin.(Y)` es equivalente a `broadcast!(sin, X, Y)`, sobreescribiendo `X` con `sin.(Y)` en su lugar. Si el miembro izquierdo de la expresión es una expresión de indexación de un array, como `X[2:end] .= sin.(Y)` entonces ella se traduce a `broadcast!` sobre una vista, por ejemplo `broadcast!(sin, view(X, 2:endof(X)), Y)`.
 
 Como añadir puntos a muchas operaciones y llamadas a función puede resultar tedioso y conducir a código difícil de leer, se proporciona la macro `@.` para convertir cada llamada a función, operación y asignación en una expresion en su versión "con puntos".
 

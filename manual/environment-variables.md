@@ -154,7 +154,7 @@ Si se establece en algo además de `0`, entonces la política de hilos de Julia 
 ## Formateo del REPL
 
 Variables de entorno que determinan cómo debe formatearse la salida REPL en el terminal. En general, estas variables deben establecerse en [seciencias de scape de terminal ANSI](http://ascii-table.com/ansi-escape-sequences.php). Julia proporciona
-una interfaz de alto nivel con gran parte de la misma funcionalidad: ver la sección sobre [Interacción con Julia](@ref).
+una interfaz de alto nivel con gran parte de la misma funcionalidad: ver la sección sobre [Interacción con Julia](@ref interacting-with-julia).
 
 ### `JULIA_ERROR_COLOR`
 

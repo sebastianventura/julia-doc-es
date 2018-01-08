@@ -31,7 +31,7 @@ julia> z = (x = 1; y = 2; x + y)
 3
 ```
 
-Esta sintaxis es particularmente útil con la definición de función de una línea que introdujimos en [Funciones](@ref). Aunque es típico, no hay obligación de que los bloques `begin` sean multilínea o de que las cadenas de punto y coma (`;`) tengan una única línea.
+Esta sintaxis es particularmente útil con la definición de función de una línea que introdujimos en [Funciones](@ref functions). Aunque es típico, no hay obligación de que los bloques `begin` sean multilínea o de que las cadenas de punto y coma (`;`) tengan una única línea.
 
 
 ```jldoctest
@@ -798,7 +798,7 @@ taskHdl = @task mytask(7)
 
 Para orquestar patrones de distribucióin más avanzados, pueden usarse [`bind()`](@ref) y [`schedule()`](@ref) en conjunción con los constructores de [`Task()`](@ref) y [`Channel()`](@ref) para enlazar explícitamente un conjunto de canales con un conjunto de tareas productor/consumidor.
 
-Note que en la actualidad las tareas Julia no son planificadas para que ejecuten sobre núcleos de CPU separados. Los verdaderos hilos del núcleo se discutirán en la sección [Computación Paralela](@ref).
+Note que en la actualidad las tareas Julia no son planificadas para que ejecuten sobre núcleos de CPU separados. Los verdaderos hilos del núcleo se discutirán en la sección [Computación Paralela](@ref parallel-computing).
 
 ### Operaciones Básicas de Tareas
 

@@ -176,8 +176,7 @@ Si los paquetes no registrados contienen un archivo `REQUIRE` en la parte superi
     pero los individuos y las organizaciones pueden usar fácilmente un repositorio de 
     metadatos diferente. Esto permite controlar qué paquetes están disponibles para la i
     nstalación automática. Solo se pueden permitir versiones de paquete auditadas y aprobadas, 
-    y hacer paquetes privados u horquillas disponibles. Ver [Repositorio METADATA personalizado](@ref) 
-    para más detalles.
+    y hacer paquetes privados u horquillas disponibles. Ver [Repositorio METADATA personalizado](@ref custom-metadata-repository) para más detalles.
     
 ## Actualizando Paquetes
 
@@ -329,7 +328,7 @@ Después de esto, el paquete `Stats` es gestionado nuevamente por el administrad
     Los paquetes que no están en las ramas también se marcarán como sucios si realiza cambios en el repositorio, 
     pero eso es menos común.
 
-## Repositorio METADATA Personalizado
+## [Repositorio METADATA Personalizado](@id custom-metadata-repository)
 
 Por defecto, Julia supone que utilizará el [repositorio oficial METADATA.jl](https://github.com/JuliaLang/METADATA.jl) para descargar e instalar paquetes. También podemos proporcionar una ubicación de repositorio de metadatos diferente. Un enfoque común es mantener nuestra rama `metadata-v2` actualizada con la rama oficial de Julia y agregar otra rama con sus paquetes personalizados. Puede inicializar su repositorio de metadatos local utilizando esa ubicación y rama personalizadas y luego volver a establecer la base de nuestra rama personalizada con la rama oficial `metadata-v2`. Para utilizar un repositorio y una sucursal personalizados, utilice el siguiente mandato:
 
@@ -408,7 +407,7 @@ Ahora supongamos que está listo para hacer algunos cambios en `Foo`. Si bien ha
     (Si planea corregir un error, en este punto es una buena idea verificar nuevamente si el error ya ha sido 
     corregido por otra persona. Si lo ha hecho, puede solicitar que se etiquete un nuevo lanzamiento oficial 
     para que la corrección se distribuya al resto de la comunidad). Si recibe un error `Foo is dirty, bailing`, 
-    consulte [Paquetes sucios](@ref) a continuación.
+    consulte [Paquetes sucios](@ref dirty-packages) a continuación.
   * Crea una rama para tus cambios: navega a la carpeta del paquete (la que Julia informa desde 
     [`Pkg.dir("Foo")`](@ref)) y (en modo shell) crea una nueva rama usando `git checkout -b <newbranch>`, 
     donde `<newbranch>` podría ser un nombre descriptivo (por ejemplo,`fixbar`). Al crear una rama, se 
@@ -457,7 +456,7 @@ Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocu
 
 Un posible tipo de cambio que el propietario puede solicitar es que elimine sus compromisos. Ver [Squashing](@ref man-squashing-and-rebasing) a continuación.
     
-### Paquetes Sucios
+### [Paquetes Sucios](@id dirty-packages)
 
 Si no se pueden cambiar las ramas porque el administrador del paquete se queja de que su paquete está sucio, significa que tiene algunos cambios que no se han confirmado (enviado). Desde el shell, use `git diff` para ver cuáles son estos cambios; puede descartarlos (`git checkout changedfile.jl`) o confirmarlos antes de cambiar de rama. Si no puede resolver los problemas manualmente, como último recurso, puede eliminar toda la carpeta `"Foo"` y reinstalar una nueva copia con [`Pkg.add("Foo")`](@ref). Naturalmente, esto borra cualquier cambio que haya realizado.
 
@@ -786,7 +785,7 @@ $ vi requires
 
 Como el hash de confirmación (*commit*) permanece igual, el contenido del archivo `REQUIRE` que se retirará en el repositorio **no** coincidirá con los requisitos en `METADATA` después de dicho cambio; esto es inevitable. Sin embargo, cuando se fijan los requisitos en `METADATA` para una versión anterior de un paquete, también se debe corregir el archivo` REQUIRE` en la versión actual del paquete.
 
-## Especificación de Requerimientos
+## [Especificación de Requisitos](@id requirements-specification)
 
 El archivo `~/.julia/v0.6/REQUIRE`, el archivo` REQUIRE` dentro de los paquetes y los archivos `require` del paquete `METADATA` utilizan un formato simple basado en línea para expresar los rangos de las versiones del paquete que necesitan estar instalados. Los archivos `REQUIRE` y `METADATA requires` también deben incluir el rango de versiones de `julia` con las que se espera que funcione el paquete. Además, los paquetes pueden incluir un archivo `test/REQUIRE` para especificar paquetes adicionales que solo son necesarios para la prueba.
 

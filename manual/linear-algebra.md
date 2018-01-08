@@ -186,7 +186,7 @@ Un operador [`UniformScaling`](@ref) representa un escalar multiplicado por el o
 [las factorizaciones de matrices (a.k.a. descomposiciones de matrices)](https://en.wikipedia.org/wiki/Matrix_decomposition)
 calculan la factorizacin de una matriz en un producto de matrices, y son uno de los conceptos centrales del álgebra lineal.
 
-La siguiente tabla resume los tipos de factorizaciones de matrices que han sido implementados en Julia. En la sección [Linear Algebra](@ref) de la documentación de la librería estándar pueden encontrarse más detalles de los métodos asociados.
+La siguiente tabla resume los tipos de factorizaciones de matrices que han sido implementados en Julia. En la sección [Linear Algebra](@ref lib-linear-algebra) de la documentación de la librería estándar pueden encontrarse más detalles de los métodos asociados.
 
 | Type              | Description                                                                                                    |
 |:----------------- |:-------------------------------------------------------------------------------------------------------------- |

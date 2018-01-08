@@ -41,7 +41,7 @@ obj3 = MyModule.someotherfunction(obj2, c)
 ...
 ```
 
-## Functions
+## [Functions](@id functions)
 
 ### I passed an argument `x` to a function, modified it inside that function, but on the outside,
 the variable `x` is still unchanged. Why?

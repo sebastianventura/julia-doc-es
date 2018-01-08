@@ -1,6 +1,6 @@
 # [Tareas y Computación Paralela](@id tasks-and-parallel-computing)
 
-## Tareas
+## [Tareas](@id tasks)
 
 ```@docs
 Core.Task

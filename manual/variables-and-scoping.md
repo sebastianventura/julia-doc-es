@@ -130,7 +130,7 @@ julia> z
 > En un ámbito local blando, todas las variables son heredadas de su ámbito padre a menos que una 
 > variable haya sido marcada específicamente con la palabra `local`.
 
-Los ámbitos locales blandos se introducen en los bucles `for`, bucles `while`, comprensiones, bloques `try-catch-finally` y bloques `let`. Hay algunas reglas extra para los [bloques `let`](@ref) y para los [bucles `for` y comprensiones](@ref).
+Los ámbitos locales blandos se introducen en los bucles `for`, bucles `while`, comprensiones, bloques `try-catch-finally` y bloques `let`. Hay algunas reglas extra para los [bloques `let`](@ref let-blocks) y para los [bucles `for` y comprensiones](@ref for-loops-and-comprehensions).
 
 En el siguiente ejemplo, `x` e `y` se refieren siempre a la misma variable dado que el ámbito local blando heredan ambas variables de lectura y escritura:
 
@@ -302,7 +302,7 @@ julia> counter()
 
 Ver también los cierres en los ejemplos de las dos siguientes secciones.
 
-### Bloques Let
+### [Bloques Let](@id let-blocks)
 
 A diferencia de las asignaciones a variables locales, las instrucciones `let` asignan nuevas asociaciones de variables cada vez que se ejecutan. Una asignación modifica el valor de una localización existente, y `let` crea nuevas localizaciones. Esta diferencia no suele ser importante, y es sólo detectable en el caso de variables que sobreviven a sus ámbitos vía cierres. La sintaxis de `let` acepta una serie de asignaciones y nombres de variables separados por comas:
 
@@ -369,7 +369,7 @@ julia> let
 Como `let` introduce un nuevo bloque de ámbito, la variable local interna `x` es diferente de la
 externa local `x`.
 
-### Blucles for y compresiones
+### [Bucles for y comprensiones](@id for-loops-and-comprehensions)
 
 Los bucles `for` y las [comprensiones](@ref comprehensions) tiene el siguiente comportamiento: cualquier nueva variable introducida en sus ámbitos se reservan de nuevo para cada nueva iteración del bucle. Esto contrasta con los bucles `while` que reservan las variables para todas las iteraciones. Por tanto, estas construcciones son similares a bucles `while` con bloques `let` dentro de ellos:
 

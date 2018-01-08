@@ -184,7 +184,7 @@ La sintaxis `M.x=y` no funciona para asignar una variable global en otro módulo
 
 Una variable puede estar "reservada" por el módulo actual sin asignar a ella declarándola como `global x` en el nivel superior. Esto puede usarse para prevenir conflictos de nombreas para globales inicializadas después del tiempo de carga.
 
-###  Inicialización y precompilación de módulos
+###  [Inicialización y precompilación de módulos](@id module-initialization-and-precompilation)
 
 Los módulos grandes puede necesitar varios segundos para cargar, debido a que ejecutar todas las instrucciones en un módulo implica compilar una gran candidad de código. Julia proporciona la capacidad de crear versiones precompiladas de los módulos para reducir este timepo.
 

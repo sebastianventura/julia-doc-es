@@ -225,7 +225,7 @@ Profile.init(n = 10^7, delay = 0.01)
 
 En consecuencia, es más probable que necesite modificar el `retraso`, expresado en segundos, que establece la cantidad de tiempo que Julia obtiene entre las instantáneas para realizar los cálculos solicitados. Un trabajo de larga duración puede no necesitar trazas frecuentes. La configuración predeterminada es `delay = 0.001`. Por supuesto, puede disminuir la demora y aumentarla; sin embargo, la sobrecarga de los perfiles crece una vez que la demora se vuelve similar a la cantidad de tiempo necesaria para tomar una traza inversa (~ 30 microsegundos en la computadora portátil del autor).
 
-# Análisis de la asignación de memoria
+# [Análisis de la asignación de memoria](@id memory-allocation-analysis)
 
 Una de las técnicas más comunes para mejorar el rendimiento es reducir la asignación de memoria. La cantidad total de  asignación se puede medir con [`@time`](@ref) y [`@assigned`](@ref), y las líneas específicas que desencadenan la asignación a  pueden a menudo inferirse a partir del perfil a través del costo de la recolección de basura en la que incurren estas líneas. Sin embargo, a veces es más eficiente medir directamente la cantidad de memoria asignada por cada línea de código.
 
