@@ -78,7 +78,7 @@
       * [Eval of Julia code](@ref eval)
       * [Calling Conventions](@ref callconv)
       * [High-level Overview of the Native-Code Generation Process](@ref compiler)
-      * [Julia Functions](@ref functions)
+      * [Julia Functions](@ref julia-functions)
       * [Base.Cartesian](@ref cartesian)
       * [Talking to the compiler (the `:meta` mechanism)](@ref meta)
       * [SubArrays](@ref subarrays)

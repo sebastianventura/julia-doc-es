@@ -103,7 +103,7 @@ Below you'll learn how to spot the problem with `f` and how to fix it.
 In some situations, your function may need to allocate memory as part of its operation, and this
 can complicate the simple picture above. In such cases, consider using one of the [tools](@ref tools)
 below to diagnose problems, or write a version of your function that separates allocation from
-its algorithmic aspects (see [Pre-allocating outputs](@ref)).
+its algorithmic aspects (see [Pre-allocating outputs](@ref pre-allocating-outputs)).
 
 ## [Tools](@id tools)
 
@@ -860,7 +860,7 @@ respects the column-based memory layout of the `Matrix` and fills it one column 
 `copy_col_row` is much faster than `copy_row_col` because it follows our rule of thumb that the
 first element to appear in a slice expression should be coupled with the inner-most loop.
 
-## Pre-allocating outputs
+## [Pre-allocating outputs](@id pre-allocating-outputs)
 
 If your function returns an `Array` or some other complex type, it may have to allocate memory.
  Unfortunately, oftentimes allocation and its converse, garbage collection, are substantial bottlenecks.

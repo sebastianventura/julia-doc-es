@@ -133,7 +133,7 @@ Las siguientes tablas resumen los tipos de matrices especiales que se han implem
 | [`SymTridiagonal`](@ref)  | Matriz tridiagonal simétrica                                                     |
 | [`Bidiagonal`](@ref)      | [Matriz bidiagonal](https://en.wikipedia.org/wiki/Bidiagonal_matrix) superior/inferior |
 | [`Diagonal`](@ref)        | [Matriz diagonal](https://en.wikipedia.org/wiki/Diagonal_matrix)                 |
-| [`UniformScaling`](@ref)  | [Operador escalado uniforme](https://en.wikipedia.org/wiki/Uniform_scaling)      |
+| `UniformScaling`  | [Operador escalado uniforme](https://en.wikipedia.org/wiki/Uniform_scaling)      |
 
 ### Operaciones elementales
 
@@ -146,7 +146,7 @@ Las siguientes tablas resumen los tipos de matrices especiales que se han implem
 | [`Tridiagonal`](@ref)     | M   | M   | MS  | MV  |                                                                     |
 | [`Bidiagonal`](@ref)      | M   | M   | MS  | MV  |                                                                     |
 | [`Diagonal`](@ref)        | M   | M   | MV  | MV  | [`inv()`](@ref), [`det()`](@ref), [`logdet()`](@ref), [`/()`](@ref) |
-| [`UniformScaling`](@ref)  | M   | M   | MVS | MVS | [`/()`](@ref)                                                       |
+| `UniformScaling`  | M   | M   | MVS | MVS | [`/()`](@ref)                                                       |
 
 Legend:
 
@@ -179,7 +179,7 @@ Legend:
 
 ### El operador de escalado uniforme
 
-Un operador [`UniformScaling`](@ref) representa un escalar multiplicado por el operador de identidad, `λ*I`. El operador de identidad `I` se define como una constante y es una instancia de `UniformScaling`. El tamaño de estos operadores es genérico y coincide con la otra matriz en las operaciones binarias [`+`](@ref), [`-`](@ref), [`*`](@ref) y [`\`](@ref). Para `A+I` y` A-I` esto significa que `A` debe ser cuadrado. La multiplicación con el operador de identidad `I` es un *noop* (excepto para comprobar que el factor de escala es uno) y, por lo tanto, casi sin sobrecarga.
+Un operador `UniformScaling` representa un escalar multiplicado por el operador de identidad, `λ*I`. El operador de identidad `I` se define como una constante y es una instancia de `UniformScaling`. El tamaño de estos operadores es genérico y coincide con la otra matriz en las operaciones binarias [`+`](@ref), [`-`](@ref), [`*`](@ref) y [`\`](@ref). Para `A+I` y` A-I` esto significa que `A` debe ser cuadrado. La multiplicación con el operador de identidad `I` es un *noop* (excepto para comprobar que el factor de escala es uno) y, por lo tanto, casi sin sobrecarga.
 
 ## [Factorizaciones de matrices](@id man-linalg-factorizations)
 

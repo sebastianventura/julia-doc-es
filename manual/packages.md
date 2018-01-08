@@ -27,7 +27,7 @@ Additional packages:
  - Stats                         0.2.6
 ```
 
-Estos paquetes están todos en versiones registradas, administradas por `Pkg`. Los paquetes pueden estar en estados más complicados, indicados por anotaciones a la derecha de la versión del paquete instalado; estos estados y anotaciones serán explicados a medida que los encontremos. Para el uso programático, [`Pkg.installed ()`](@ref) devuelve un diccionario, donde se hacen corresponder los nombres de paquetes instalados con la versión instalada de ese paquete:
+Estos paquetes están todos en versiones registradas, administradas por `Pkg`. Los paquetes pueden estar en estados más complicados, indicados por anotaciones a la derecha de la versión del paquete instalado; estos estados y anotaciones serán explicados a medida que los encontremos. Para el uso programático, [`Pkg.installed()`](@ref) devuelve un diccionario, donde se hacen corresponder los nombres de paquetes instalados con la versión instalada de ese paquete:
 
 ```julia-repl
 julia> Pkg.installed()
@@ -42,7 +42,7 @@ Dict{String,VersionNumber} with 4 entries:
 
 El administrador de paquetes de Julia es un poco inusual ya que es declarativo en lugar de imperativo. Esto significa que uno le dice lo que quiere y el gestor descubre qué versiones instalar (o eliminar) para satisfacer esos requisitos de manera óptima, - y mínimamente. Por tanto, en lugar de instalar un paquete, simplemente lo agrega a la lista de requisitos y luego "resuelve" lo que necesita instalar. En particular, esto significa que si algún paquete se ha instalado porque lo necesitaba una versión anterior de algo que usted quería, y una versión más nueva ya no tiene ese requisito, la actualización realmente eliminará ese paquete.
 
-Los requisitos de paquetes están en el archivo `~ /.julia/v0.6/REQUIRE`. Este archivo puede ser editado a mano y luego llamarse a [`Pkg.resolve()`](@ref) para instalar, actualizar o eliminar paquetes para satisfacer de manera óptima los requisitos, o puede hacer [`Pkg.edit()`](@ref), que abrirá 'REQUIRE' en su editor (configurado a través de las variables de entorno `EDITOR` o` VISUAL`), y luego llamará automáticamente a [`Pkg.resolve()`](@ref) después si es necesario. Si solo desea agregar o eliminar el requisito para un solo paquete, también puede usar los mandatos no interactivos [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref), que agregan o eliminan un solo requisito a `REQUIRE` y luego llaman a [`Pkg.resolve ()`](@ref).
+Los requisitos de paquetes están en el archivo `~ /.julia/v0.6/REQUIRE`. Este archivo puede ser editado a mano y luego llamarse a [`Pkg.resolve()`](@ref) para instalar, actualizar o eliminar paquetes para satisfacer de manera óptima los requisitos, o puede hacer [`Pkg.edit()`](@ref), que abrirá 'REQUIRE' en su editor (configurado a través de las variables de entorno `EDITOR` o` VISUAL`), y luego llamará automáticamente a [`Pkg.resolve()`](@ref) después si es necesario. Si solo desea agregar o eliminar el requisito para un solo paquete, también puede usar los mandatos no interactivos [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref), que agregan o eliminan un solo requisito a `REQUIRE` y luego llaman a [`Pkg.resolve()`](@ref).
 
 Puede agregarse un paquete a la lista de requisitos con la función [`Pkg.add()`](@ref), y se instalará el paquete y todos los paquetes de los que depende.
 
@@ -92,7 +92,7 @@ Additional packages:
  - Stats                         0.2.6
 ```
 
-Esto es funcionalmente equivalente a llamar a [`Pkg.add("SHA")`](@ref), excepto que [`Pkg.add()`](@ ref) no cambia `REQUIRE` hasta *después* de que la instalación haya finalizado, por lo que si hay problemas, `REQUIRE` quedará como estaba antes de llamar a [`Pkg.add()`](@ref). El formato del archivo `REQUIRE` se describe en [Especificación de requisitos](@ref); permite, entre otras cosas, requerir rangos específicos de versiones de paquetes.
+Esto es funcionalmente equivalente a llamar a [`Pkg.add("SHA")`](@ref), excepto que [`Pkg.add()`](@ ref) no cambia `REQUIRE` hasta *después* de que la instalación haya finalizado, por lo que si hay problemas, `REQUIRE` quedará como estaba antes de llamar a [`Pkg.add()`](@ref). El formato del archivo `REQUIRE` se describe en [Especificación de requisitos](@ref requirements-specification); permite, entre otras cosas, requerir rangos específicos de versiones de paquetes.
 
 Cuando decida que no quiere tener un paquete más, puede usar [`Pkg.rm()`](@ref) para eliminar el requisito del archivo `REQUIRE`:
 
@@ -180,7 +180,7 @@ Si los paquetes no registrados contienen un archivo `REQUIRE` en la parte superi
     
 ## Actualizando Paquetes
 
-Cuando los desarrolladores de paquetes publican nuevas versiones registradas de los paquetes que está utilizando, por supuesto, querrá las nuevas versiones brillantes. Para obtener las últimas y mejores versiones de todos sus paquetes, simplemente haga [`Pkg.update ()`] (@ ref):
+Cuando los desarrolladores de paquetes publican nuevas versiones registradas de los paquetes que está utilizando, por supuesto, querrá las nuevas versiones brillantes. Para obtener las últimas y mejores versiones de todos sus paquetes, simplemente haga [`Pkg.update()`] (@ ref):
 
 When package developers publish new registered versions of packages that you're using, you will,
 of course, want the new shiny versions. To get the latest and greatest versions of all your packages,
@@ -512,7 +512,7 @@ Ahora supongamos que has realizado la operación de rebase con éxito. Como el r
 
 ### REQUIRE habla por sí mismo
 
-Deberías tener un archivo `REQUIRE` en tu repositorio de paquetes, con una directiva mínima de la versión de Julia que esperas que los usuarios ejecuten para que el paquete funcione. Poniendo un piso en qué versión de Julia apoya tu paquete se hace simplemente agregando `julia 0.x` en este archivo. Si bien esta línea es parcialmente informativa, también tiene la consecuencia de si `Pkg.update ()` actualizará el código que se encuentra en los directorios de versiones `.julia`. No actualizará el código encontrado en los directorios de versiones debajo del piso de lo que se especifica en su 'REQUIRE'.
+Deberías tener un archivo `REQUIRE` en tu repositorio de paquetes, con una directiva mínima de la versión de Julia que esperas que los usuarios ejecuten para que el paquete funcione. Poniendo un piso en qué versión de Julia apoya tu paquete se hace simplemente agregando `julia 0.x` en este archivo. Si bien esta línea es parcialmente informativa, también tiene la consecuencia de si `Pkg.update()` actualizará el código que se encuentra en los directorios de versiones `.julia`. No actualizará el código encontrado en los directorios de versiones debajo del piso de lo que se especifica en su 'REQUIRE'.
 
 A medida que la versión de desarrollo '0.y' madura, es posible que la utilices con más frecuencia y desees que su paquete la admita. Ten cuidado, la rama de desarrollo de Julia es "tierra de la rotura", y puede esperar que haya cosas que se rompan. Cuando vayas a arreglar lo que rompió tu paquete en la rama de desarrollo `0.y`, probablemente encontrarás que acaba de romper tu paquete en la versión estable.
 
@@ -520,7 +520,7 @@ Hay un mecanismo que se encuentra en el paquete [Compat](https://github.com/Juli
 
 Es posible que tampoco tengas interés en apoyar la versión de desarrollo de Julia. Del mismo modo que puede agregar un piso a la versión que espera que tengan los usuarios, puede establecer un límite superior. En este caso, pondría `julia 0.x 0.y-` en su archivo `REQUIRE`. El `-` al final del número de versión se refiere a las versiones preliminares de esa versión específica desde el primer compromiso. Al establecerlo como techo, quiere decir que el código es compatible con todo pero no incluye la versión de techo.
 
-Otra situación es que está escribiendo la mayor parte del código para su paquete con Julia `0.y` y no desea admitir la versión estable actual de Julia. Si elige hacer esto, simplemente agregue `julia 0.y-` a su `REQUIRE`. Solo recuerda cambiar `julia 0.y-` a `julia 0.y` en tu archivo` REQUIRE` una vez que `0.y` sea lanzado oficialmente. Si no edita el dash cruft, estás sugiriendo que admita tanto el desarrollo como las versiones estables del mismo número de versión. Eso sería una locura. Consulte la [Especificación de requisitos](@ref) para obtener el formato completo de `REQUIRE`.
+Otra situación es que está escribiendo la mayor parte del código para su paquete con Julia `0.y` y no desea admitir la versión estable actual de Julia. Si elige hacer esto, simplemente agregue `julia 0.y-` a su `REQUIRE`. Solo recuerda cambiar `julia 0.y-` a `julia 0.y` en tu archivo` REQUIRE` una vez que `0.y` sea lanzado oficialmente. Si no edita el dash cruft, estás sugiriendo que admita tanto el desarrollo como las versiones estables del mismo número de versión. Eso sería una locura. Consulte la [Especificación de requisitos](@ref requirements-specification) para obtener el formato completo de `REQUIRE`.
 
 Por último, en muchos casos puede necesitar paquetes adicionales para las pruebas. Paquetes adicionales que solo son necesarios para las pruebas deben especificarse en el archivo `test/REQUIRE`. Este archivo `REQUIRE` tiene la misma especificación que el archivo `REQUIRE` estándar.
 
@@ -642,7 +642,7 @@ INFO: Cloning FooBar from git@github.com:StefanKarpinski/FooBar.jl.git
     Si aloja su paquete en GitHub, puede usar la [integración attobot](https://github.com/attobot/attobot) 
     para gestionar el registro, etiquetado y publicación de paquetes.
 
-Una vez que haya decidido que `FooBar` está listo para registrarse como paquete oficial, puede agregarlo a su copia local de` METADATA` usando `PkgDev.register ()`:
+Una vez que haya decidido que `FooBar` está listo para registrarse como paquete oficial, puede agregarlo a su copia local de` METADATA` usando `PkgDev.register()`:
 
 ```julia-repl
 julia> PkgDev.register("FooBar")
@@ -694,7 +694,7 @@ INFO: To create a pull-request open:
 
 entonces puede que hayas encontrado un problema al usar la API de GitHub en múltiples sistemas. La solución es eliminar el token de acceso personal "*Julia Package Manager*" [de tu cuenta Github](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Ftokens) e intentarlo de nuevo.
 
-Otros fallos pueden requerir que evites `PkgDev.publish ()` al [crear una solicitud de extracción en GitHub] (https://help.github.com/articles/creating-a-pull-request/). Ver: [Publicación de METADATA manualmente](@ref) a continuación.
+Otros fallos pueden requerir que evites `PkgDev.publish()` al [crear una solicitud de extracción en GitHub] (https://help.github.com/articles/creating-a-pull-request/). Ver: [Publicación de METADATA manualmente](@ref publishing-metadata-manually) a continuación.
 
 Una vez que la URL del paquete para `FooBar` se registra en el repositorio oficial de` METADATA`, las personas saben de dónde clonar el paquete, pero todavía no hay ninguna versión registrada disponible. Puede etiquetarlo y registrarlo con el comando `PkgDev.tag()`:
 
@@ -750,7 +750,7 @@ INFO: To create a pull-request open:
   https://github.com/StefanKarpinski/METADATA.jl/compare/pull-request/3ef4f5c4
 ```
 
-#### Publishing METADATA manually
+#### [Publishing METADATA manually](@id publishing-metadata-manually)
 
 Si `PkgDev.publish()` falla, puede seguir estas instrucciones para publicar su paquete manualmente.
 

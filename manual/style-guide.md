@@ -1,4 +1,4 @@
-# [GuÍa de Estilo](@id style-guide)
+# [Guía de Estilo](@id style-guide)
 
 Las siguientes secciones explican unos cuantos aspectos del estilo de codificación idiomático de Julia. Ninguna de estas reglas son absolutas; sólo son sugerencias para ayudar a familiarizarte con el lenguaje y ayudarte a elegir entre diseños alternativos.
 
@@ -184,7 +184,7 @@ foo(x::Real) = ...
 
 especialmente si `T` no se usa en el cuerpo de la función. Incluso si se usa `T`, se puede reemplazar con [`typeof(x)`](@ref) si es conveniente. No hay diferencia de rendimiento. Tenga en cuenta que esto no es una precaución general contra los parámetros estáticos, solo contra uso donde no son necesarios.
 
-Tenga en cuenta también que los tipos de contenedores, específicamente pueden necesitar parámetros de tipo en las llamadas a función. Consulte las Preguntas frecuentes [Evitar campos con contenedores abstractos](@ref) para obtener más información.
+Tenga en cuenta también que los tipos de contenedores, específicamente pueden necesitar parámetros de tipo en las llamadas a función. Consulte las Preguntas frecuentes [Evitar campos con contenedores abstractos](@ref avoid-fields-with-abstract-containers) para obtener más información.
 
 ## Evitar la confusion sobre si algo es una instancia o un tipo
 

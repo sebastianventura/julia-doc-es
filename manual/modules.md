@@ -237,7 +237,7 @@ Otros escenarios de fallo potencial conocidos incluyen:
   
   Note que `object_if` (qeu trabaja haciendo *hash* en el puntero a memoria) tieen problemas similares (ver las notas sobre el uso de `Dict` abajo).
 
-   Una alternativa es usar una macro para capturar [`@__MODULE__`](@ref) y almacenarlo sólo con el valor actual de `counter`; sin embargo, puede ser mejor rediseñar el código para no depender de este estado global.
+  One alternative is to store both [`current_module()`](@ref) and the current `counter` value, sin embargo, puede ser mejor rediseñar el código para no depender de este estado global.
 2. Las colecciones asociativas (tales como `Dict` y `Set`) necesitan ser re-hasheadas en `__init__` (en el futuro, 
    puede proporcionarse un mecanismo para registrar un inicializador de función).
 3. Dependiendo de los efectos secundarios de tiempo de compilación que persisten a través del tiempo de carga. El 
@@ -270,7 +270,7 @@ Algunos otros puntos a tener en cuenta:
 2. El comportamiento de compartir la memoria de una matriz reestructurada es ignorado por la precompilación (cada 
    vista obtiene su propia copia).
 3. Esperar que el sistema de archivos no cambie entre tiempo de compilación y tiempo de ejecución, p.ej 
-   [`@__ FILE __`](@ref) / `source_path()` para encontrar recursos en tiempo de ejecución, o la macro 
+   [`@__FILE __`](@ref) / `source_path()` para encontrar recursos en tiempo de ejecución, o la macro 
    BinDeps @checked_lib. A veces esto es inevitable. Sin embargo, cuando sea posible, puede ser una buena práctica 
    copiar recursos en el módulo en tiempo de compilación para que no sea necesario encontrarlos en tiempo de ejecución.
 4. Los objetos `WeakRef` y los finalizadores no son manejados correctamente por el serializador (esto se arreglará 

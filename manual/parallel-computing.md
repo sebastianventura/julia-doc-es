@@ -35,7 +35,7 @@ El primer argumento para [`remotecall()`](@ref) es la función para llamar. La m
 
 Como puede ver, en la primera línea le pedimos al proceso 2 que construyera una matriz aleatoria de 2 por 2, y en la segunda línea le pedimos que agregara 1 a ella. El resultado de ambos cálculos está disponible en los dos futuros, `r` y` s`. La macro [`@ spawnat`] (@ ref) evalúa la expresión en el segundo argumento sobre el proceso especificado por el primer argumento.
 
-Ocasionalmente, es posible que desee un valor calculado de forma remota de inmediato. Esto suele ocurrir cuando lee desde un objeto remoto para obtener los datos que necesita la próxima operación local. La función [`remotecall_fetch ()`](@ref) existe para este propósito. Es equivalente a `fetch (remotecall (...))`
+Ocasionalmente, es posible que desee un valor calculado de forma remota de inmediato. Esto suele ocurrir cuando lee desde un objeto remoto para obtener los datos que necesita la próxima operación local. La función [`remotecall_fetch()`](@ref) existe para este propósito. Es equivalente a `fetch (remotecall(...))`
 pero es más eficiente
 
 ```julia-repl
@@ -1080,7 +1080,7 @@ Tenga en cuenta que [`Threads.@threads`](@ref) no tiene un parámetro de reducci
 
 Todas las tareas de E/S, temporizadores, comandos REPL, etc. se multiplexan en una sola cadena del sistema operativo mediante un bucle de eventos. Una versión parcheada de libuv ([http://docs.libuv.org/en/v1.x/](http://docs.libuv.org/en/v1.x/)] proporciona esta funcionalidad. Los puntos de rendimiento proporcionan la planificación cooperativa de tareas múltiples en el mismo hilo del sistema operativo. Las tareas de E/S y los temporizadores se producen implícitamente mientras se espera que ocurra el evento. Llamar a [`yield()`](@ref) explícitamente permite planificar otras tareas.
 
-Por lo tanto, una tarea que ejecuta un [`ccall`](@ref) evita efectivamente que el planificador Julia ejecute otras tareas hasta que la llamada regrese. Esto es cierto para todas las llamadas a bibliotecas externas. Las excepciones son llamadas al código C personalizado que devuelve la llamada a Julia (que luego puede ceder) o al código C que llama a `jl_yield()` (C equivalente a [`yield ()`](@ref)).
+Por lo tanto, una tarea que ejecuta un [`ccall`](@ref) evita efectivamente que el planificador Julia ejecute otras tareas hasta que la llamada regrese. Esto es cierto para todas las llamadas a bibliotecas externas. Las excepciones son llamadas al código C personalizado que devuelve la llamada a Julia (que luego puede ceder) o al código C que llama a `jl_yield()` (C equivalente a [`yield()`](@ref)).
 
 Note that while Julia code runs on a single thread (by default), libraries used by Julia may launch their own internal threads. For example, the BLAS library may start as many threads as there are cores on a machine.
 

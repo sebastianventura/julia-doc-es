@@ -346,7 +346,7 @@ Como puede comprobarse, si el número de elementos que se van a sacar del conten
 
 ## Argumentos Opcionales
 
-En muchos casos, los argumentos de función tienen valores por defecto sensibles y, por tanto, puede no ser necesario que se pasen explícitamente en cada llamada. Por ejemplo, la función de librería [`parse(type, num, base`](@ref) interpreta una cadena como un número en cierta base. El argumento `base` tiene un valor por defecto de `10`. Este comportamiento puede expresarse de forma concisa como:
+En muchos casos, los argumentos de función tienen valores por defecto sensibles y, por tanto, puede no ser necesario que se pasen explícitamente en cada llamada. Por ejemplo, la función de librería [`parse(T, num, base)`](@ref) interpreta una cadena como un número en cierta base. El argumento `base` tiene un valor por defecto de `10`. Este comportamiento puede expresarse de forma concisa como:
 
 ```julia
 function parse(T, num, base=10)

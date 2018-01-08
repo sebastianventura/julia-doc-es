@@ -118,7 +118,7 @@ julia> example()
 
 Puede observar que en el ejemplo anterior, el primer marco apila puntos en la línea 4, donde se llama a [`stacktrace()`](@ref), en lugar de a la línea 2, donde se llama *bad_function* y el marco de `bad_function` falta por completo. Esto es comprensible, dado que [`stacktrace()`](@ref) se llama desde el contexto de *catch*. Si bien en este ejemplo es bastante fácil encontrar el origen real del error, en casos complejos, rastrear el origen del error no es trivial.
 
-Esto se puede remediar llamando a [`catch_stacktrace()`](@ref) en lugar de [`stacktrace ()`] (@ref). En lugar de devolver la información de la pila de llamadas para el contexto actual, [`catch_stacktrace()`](@ref) devuelve la información de la pila para el contexto de la excepción más reciente:
+Esto se puede remediar llamando a [`catch_stacktrace()`](@ref) en lugar de [`stacktrace()`] (@ref). En lugar de devolver la información de la pila de llamadas para el contexto actual, [`catch_stacktrace()`](@ref) devuelve la información de la pila para el contexto de la excepción más reciente:
 
 ```julia-repl
 julia> @noinline bad_function() = undeclared_variable
@@ -168,7 +168,7 @@ ERROR: Whoops!
 
 ## Comparación con [`backtrace()`](@ref)
 
-Una llamada a [`backtrace ()`] (@ ref) devuelve un vector de `Ptr{Void}`, que puede pasarse luego a [`stacktrace()`](@ref) para la traducción:
+Una llamada a [`backtrace()`] (@ ref) devuelve un vector de `Ptr{Void}`, que puede pasarse luego a [`stacktrace()`](@ref) para la traducción:
 
 ```julia-repl
 julia> trace = backtrace()
@@ -204,7 +204,7 @@ julia> stacktrace(trace)
  (::Base.REPL.##1#2{Base.REPL.REPLBackend})() at event.jl:73
 ```
 
-Observe que el vector devuelto por [`backtrace()`](@ref) tenía 21 punteros, mientras que el vector devuelto por [`stacktrace ()`](@ref) solo tiene 5. Esto es porque, de forma predeterminada, [`stacktrace()`](@ref) elimina cualquier función C de nivel inferior de la pila. Si desea incluir cuadros de pila de llamadas C, puede hacerlo así:
+Observe que el vector devuelto por [`backtrace()`](@ref) tenía 21 punteros, mientras que el vector devuelto por [`stacktrace()`](@ref) solo tiene 5. Esto es porque, de forma predeterminada, [`stacktrace()`](@ref) elimina cualquier función C de nivel inferior de la pila. Si desea incluir cuadros de pila de llamadas C, puede hacerlo así:
 
 ```julia-repl
 julia> stacktrace(trace, true)
