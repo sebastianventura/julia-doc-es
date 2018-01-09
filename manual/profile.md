@@ -200,7 +200,7 @@ The argumentos *keyword* pueden ser cualquier combinación de:
     al formato`: tree`). Un valor sugerido para intentar esto es 2.0 (el valor predeterminado es 0). Este parámetro 
     oculta muestras para las cuales `n <= noisefloor * √N`, donde` n` es el número de muestras en esta línea, y 
     `N` es el número de muestras para el método invocado.
-  * `mincount` -- Limita marcos con menos de `mincount` ocurrencias.
+  * `mincount` -- Limita marcos con menos de `mincount` ocurrencias.
 
 Los nombres de archivo/función a veces se truncan (con `...`), y la sangría se trunca con un `+n` al principio, donde `n` es el número de espacios adicionales que se habrían insertado, si hubiera habido espacio . Si desea un perfil completo de código profundamente anidado, a menudo una buena idea es guardar en un archivo usando un ancho "tamaño de pantalla" en un [`IOContext`] (@ref):
 

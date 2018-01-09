@@ -21,11 +21,11 @@ Por último, se puede usar [`ccall`](@ref) para generar de hecho una llamada a l
 
 2. Tipo de retorno (ver abajo para la correspondencia entre el tipo declarado en C y Julia)
 
-     * Este argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.
+    * Este argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.
 
 3. Una tupla de tipos de entrada. Los tipos de entrada deben ser escritos como un literal tupla, no como una variable o expresión de valor tupla.
 
-     * Este argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.
+    * Este argumento será evaluado en tiempo de compilación, cuando se defina el método que lo contiene.
 
 4. Los siguientes argumentos, si los hay, son los valores de los argumentos actuales pasados a la función.
 

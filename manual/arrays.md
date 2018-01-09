@@ -277,16 +277,16 @@ En la expresión `A[I_1, I_2, ..., I_n]`, cada `I_k` puede ser un índice escala
 
 1. Un índice escalar. Por defecto esto incluye:
     * Enteros no booleanos
-    * `CartesianIndex{N}`s, que se comportan como una `N`-tupla de enteros abarcando múltiples dimensiones (ver abajo para ms detalles)
+    * `CartesianIndex{N}`s, que se comportan como una `N`-tupla de enteros abarcando múltiples dimensiones (ver abajo para ms detalles)
 2. Un array de índices escalares. Esto incluye:
     * Vectores y arrays multidimensionales de enteros
-    * Arrays vacíos como `[]`, que no selecciona elementos
+    * Arrays vacíos como `[]`, que no selecciona elementos
     * `Range`s de la forma `a:c` o `a:b:c`, que seleccionan subsecciones contiguas o con salto desde `a` hasta `c` (inclusive)
-    * Cualquier array de índices escalares que sea un subtipo de `AbstractArray`
-    * Arrays de `CartesianIndex{N}` (ver abajo para ms detalles)
+    * Cualquier array de índices escalares que sea un subtipo de `AbstractArray`
+    * Arrays de `CartesianIndex{N}` (ver abajo para ms detalles)
 3. Un objeto que representa un array de índice escalares y puede ser convertido a tal mediante [`to_indices`](@ref). Por defecto esto incluye:
-    * [`Colon()`](@ref) (`:`), que representa todos los índices dentro de una dimensión entera o a través del array completo
-    * Arrays de booleans, que seleccionan los elementos en los que sus índices son `true` indices (ver abajo para más detalles)
+    * [`Colon()`](@ref) (`:`), que representa todos los índices dentro de una dimensión entera o a través del array completo
+    * Arrays de booleans, que seleccionan los elementos en los que sus índices son `true` indices (ver abajo para más detalles)
 
 #### Índices Cartesianos
 

@@ -970,11 +970,11 @@ En muchas situaciones, uno necesita interactuar con un valor de tipo `T` que pue
     del objeto está perdido.
   * Acceder al valor de un objeto `Nullable` con una garantía de que el valor por defecto del tipo `T` será devuelto 
     si el valor del objeto se pierde.
-  * Realizar una operación sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado` Nullable`. 
+  * Realizar una operación sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado` Nullable`. 
     El resultado faltará si falta el valor original.
-  * Realizar una prueba sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado que será perdido
+  * Realizar una prueba sobre el valor (si existe) de un objeto `Nullable`, obteniendo un resultado que será perdido
     si faltaba el` Nullable` o si la prueba falla.
-  * Realizar operaciones generales en objetos individuales `Nullable`, propagando los datos faltantes.
+  * Realizar operaciones generales en objetos individuales `Nullable`, propagando los datos faltantes.
    
 ### Construyendo objetos [`Nullable`](@ref)
 

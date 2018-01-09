@@ -235,7 +235,7 @@ Otros escenarios de fallo potencial conocidos incluyen:
 
    mientras que la intención de este código era dar a cada instancia un id único, el valor del contador es grabado al final de la compilación. Todos los usos posteriores de este módulo compilado incrementalmente empezarán desde el mismo valor de contador.
   
-  Note que `object_if` (qeu trabaja haciendo *hash* en el puntero a memoria) tieen problemas similares (ver las notas sobre el uso de `Dict` abajo).
+  Note que `object_if` (que trabaja haciendo *hash* en el puntero a memoria) tieen problemas similares (ver las notas sobre el uso de `Dict` abajo).
 
   One alternative is to store both [`current_module()`](@ref) and the current `counter` value, sin embargo, puede ser mejor rediseñar el código para no depender de este estado global.
 2. Las colecciones asociativas (tales como `Dict` y `Set`) necesitan ser re-hasheadas en `__init__` (en el futuro, 

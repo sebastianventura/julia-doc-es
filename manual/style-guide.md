@@ -134,12 +134,8 @@ En este caso `Array{Any}(n)` es mejor. Es también de más ayuda para el compila
 ## Usar convenciones de nombrado consistentes con el paquete `base/` de Julia
 
   * Los nombres de los módulos y tipos usan mayúsculas y *came case*: `module SparseArrays`, `struct UnitRange`.
-  * Las funciones van en minúscula ([`maximum()`](@ref), [`convert()`](@ref)) y, cuando es legible, con múltiples
-    palabras pegadas juntas ([`isequal()`](@ref), [`haskey()`](@ref)). Cuando sea necesario, use guiones bajos
-    como separadores de palabra. Los guiones bajos también se usan para indicar una combinacin de conceptos
-    ([`remotecall_fetch()`](@ref) como una implementación más eficiente de `fetch(remotecall(...))`) o como 
-    modificadores ([`sum_kbn()`](@ref)).
-  * Se valora la concisión, pero debe evitarse la abreviatura ([`indexin()`](@ref) en lugar de `indxin()`) ya
+  * Las funciones van en minúscula ([`maximum()`](@ref), [`convert()`](@ref)) y, cuando es legible, con múltiples palabras pegadas juntas ([`isequal()`](@ref), [`haskey()`](@ref)). Cuando sea necesario, use guiones bajos como separadores de palabra. Los guiones bajos también se usan para indicar una combinacin de conceptos ([`remotecall_fetch()`](@ref) como una implementación más eficiente de `fetch(remotecall(...))`) o como modificadores ([`sum_kbn()`](@ref)).
+  * Se valora la concisión, pero debe evitarse la abreviatura ([`indexin()`](@ref) en lugar de `indxin()`) ya
     que se vuelve difícil recordar si se abrevian palabras particulares y cómo se han abreviado.
 
 Si el nombre de una función requiere varias palabras, considere si podría representar más de un concepto y podría dividirse mejor en partes.

@@ -454,7 +454,7 @@ Algunas otras funciones útiles son:
 
   * [`endof(str)`](@ref) el índice máximo (byte) que se puede utilizar para indexar en `str`.
   * [`length(str)`](@ref) el número de caracteres en `str`.
-  * [`i = start(str)`](@ref start) da el primer índice válido en el que se puede encontrar un carácter en `str (típicamente 1).
+  * [`i = start(str)`](@ref start) da el primer índice válido en el que se puede encontrar un carácter en `str (típicamente 1).
   * [`c, j = next(str,i)`](@ref next) devuelve el carácter siguiente en o después del índice `i` y el siguiente índice de carácter válido que sigue a éste. Con [`start()`](@ref) y [`endof()`](@ref), se puede utilizar para iterar a través de los caracteres en str`.
   * [`ind2chr(str,i)`](@ref) da el número de caracteres en `str` hasta e incluyendo cualquiera en el índice `i`.
   * [`chr2ind(str,j)`](@ref) da el índice en el cual ocurre el carácter `j`-ésimo en `str`.
