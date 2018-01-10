@@ -869,7 +869,7 @@ Los trabajadores recién lanzados están conectados entre sí y el proceso maest
 
 Como ejemplo de transporte no TCP / IP, una implementación puede optar por utilizar MPI, en cuyo caso `-worker` NO se debe especificar. En cambio, los trabajadores recién lanzados deberían llamar `init_worker (cookie)` antes de usar cualquiera de las construcciones paralelas.
 
-Para cada trabajador puesto en marcha, el método [`launch ()`] (@ref) debe agregar un objeto `WorkerConfig` (con los campos apropiados inicializados) al `launched`
+Para cada trabajador puesto en marcha, el método [`launch()`] (@ref) debe agregar un objeto `WorkerConfig` (con los campos apropiados inicializados) al `launched`
 
 ```julia
 mutable struct WorkerConfig
@@ -998,7 +998,7 @@ Además de las tareas, llamadas remotas y referencias remotas, Julia desde la `v
 
 ### Setup
 
-Por defecto, Julia se inicia con un único hilo de ejecución. Esto se puede verificar utilizando el mandato [`Threads.nthreads ()`](@ref):
+Por defecto, Julia se inicia con un único hilo de ejecución. Esto se puede verificar utilizando el mandato [`Threads.nthreads()`](@ref):
 
 ```julia-repl
 julia> Threads.nthreads()
@@ -1048,7 +1048,7 @@ julia> a = zeros(10)
 
 Operemos sobre este array de forma simultánea utilizando 4 hilos. Haremos que cada hilo escriba su ID de hilo en cada ubicación.
 
-Julia soporta bucles paralelos utilizando la macro [`Threads.@Threads`](@ref). Esta macro está fijada delante de un bucle `for` para indicar a Julia que el bucle es una región con múltiples subprocesos:
+Julia soporta bucles paralelos utilizando la macro [`Threads.@threads`](@ref). Esta macro está fijada delante de un bucle `for` para indicar a Julia que el bucle es una región con múltiples subprocesos:
 
 ```julia-repl
 julia> Threads.@threads for i = 1:10
