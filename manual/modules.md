@@ -147,7 +147,7 @@ end
 
 Aquí, el módulo `Parent` contiene un submódulo `Utils` y el código en `Parent` quiere que el contenido de `Utils` esté visible. Este se consigue empezando la instrucción `using` con un punto. Ada punto adicional añadido se muevo hacia arriba niveles adicionales en la jerarquía de módulos. Por ejemplo, `using ..Utils` buscaría en el módulo que contiene a `Parent`, no en el propio `Padre`.
 
-Notese que los cualificadores de importación relativos son sólo válidos para las instrucciones `uing` e `import`.
+Notese que los cualificadores de importación relativos son sólo válidos para las instrucciones `using` e `import`.
 
 ### Caminos de ficheros de módulo
 
@@ -235,16 +235,15 @@ Otros escenarios de fallo potencial conocidos incluyen:
 
    mientras que la intención de este código era dar a cada instancia un id único, el valor del contador es grabado al final de la compilación. Todos los usos posteriores de este módulo compilado incrementalmente empezarán desde el mismo valor de contador.
   
-  Note que `object_if` (que trabaja haciendo *hash* en el puntero a memoria) tieen problemas similares (ver las notas sobre el uso de `Dict` abajo).
+   Note que `object_id` (que trabaja haciendo *hash* en el puntero a memoria) tieen problemas similares (ver las notas sobre el uso de `Dict` abajo).
 
-  One alternative is to store both [`current_module()`](@ref) and the current `counter` value, sin embargo, puede ser mejor rediseñar el código para no depender de este estado global.
+   One alternative is to store both [`current_module()`](@ref) and the current `counter` value, sin embargo, puede ser mejor rediseñar el código para no depender de este estado global.
 2. Las colecciones asociativas (tales como `Dict` y `Set`) necesitan ser re-hasheadas en `__init__` (en el futuro, 
    puede proporcionarse un mecanismo para registrar un inicializador de función).
 3. Dependiendo de los efectos secundarios de tiempo de compilación que persisten a través del tiempo de carga. El 
    ejemplo incluye: modificar arrays u otras variables en otros módulos de Julia; mantener manejadores para abrir 
    archivos o dispositivos; almacenar punteros a otros recursos del sistema (incluyendo memoria);
-4. Crear "copias" accidentales de estado global desde otro módulo, haciendo referencia directamente a él en vez de 
-   a través de su ruta de búsqueda. Por ejemplo, (en el ámbito global).
+4. Crear "copias" accidentales de estado global desde otro módulo, haciendo referencia directamente a él en vez de a través de su ruta de búsqueda. Por ejemplo, (en el ámbito global).
 
    ```julia
    #mystdout = Base.STDOUT #= will not work correctly, since this will copy Base.STDOUT into this module =#

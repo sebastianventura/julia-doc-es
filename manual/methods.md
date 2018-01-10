@@ -9,11 +9,7 @@ se basa solo en el primer argumento, que frecuentemente tiene una sintaxis espec
 particularmente útil para código matemático, donde  tiene poco sentido considerar que las operaciones pertenecen a un argumento más que los demás. Más allá de las operaciones matemáticas, sin embargo, el despacho múltiple ha resultado ser un paradigma potente y conveniente para estructurar y organizar los programas.
 
 [^1]:
-    En C++ o Java, por ejemplo, en una llamada a un método como `obj.meth(arg1,arg2)`, el objeto
-    obj "recibe" la llamada al método y es pasado implícitamente vía la palabra clave `this`, 
-    en lugar de con un argumento de método explícito. Cuando el objeto `this` actual es el 
-    receptor de una llamada a método él puede ser omitido, escribiendo justo `meth(arg1,arg2)`, 
-    con `this` implicito como objeto receptor.
+    En C++ o Java, por ejemplo, en una llamada a un método como `obj.meth(arg1,arg2)`, el objeto obj "recibe" la llamada al método y es pasado implícitamente vía la palabra clave `this`, en lugar de con un argumento de método explícito. Cuando el objeto `this` actual es el receptor de una llamada a método él puede ser omitido, escribiendo justo `meth(arg1,arg2)`, con `this` implícito como objeto receptor.
 
 ## Definiendo Métodos
 
@@ -85,7 +81,7 @@ julia> f(2, 3)
 1
 ```
 
-La definición `2x+y` sólo se usa en el primer caso, mientras que la definición `2x-y` se usa en los demás. Nunca se realiza conversión automática en los otros: todas las conversiones son no mágicas y completamente exlícitas. En la sección [Conversión y promoción](@ref conversion-and-promotion), sin embargo, se muestra cómo las aplicaciones inteligentes de tecnología suficientemente avanzada pueden ser indistinguibles de la magic [^Clarke61]
+La definición `2x+y` sólo se usa en el primer caso, mientras que la definición `2x-y` se usa en los demás. Nunca se realiza conversión automática en los otros: todas las conversiones son no mágicas y completamente exlícitas. En la sección [Conversión y promoción](@ref conversion-and-promotion), sin embargo, se muestra cómo las aplicaciones inteligentes de tecnología suficientemente avanzada pueden ser indistinguibles de la magia. [^Clarke61]
 
 Para valores no numéricos, ,y para menores de dos argumentos, la función `f` permanece indefinida, y aplicándola se obtendrá como resultado un [`MethodError`](@ref):
 
@@ -236,7 +232,7 @@ julia> same_type(Int32(1), Int64(2))
 false
 ```
 
-Tales definiciones corresponden a métodos cuyas signaturas de tipo son tipos `UnionAll` (ver [tipos UnionAll](@ref unionall-types).
+Tales definiciones corresponden a métodos cuyas signaturas de tipo son tipos `UnionAll` (ver [tipos UnionAll](@ref unionall-types)).
 
 Esta clase de definición del comportamiento de una función mediante despacho es bastante común (incluso idiomático) en Julia. Los métodos con parámetros de tipo no están restringidos a ser usados como los tipos de los parámetros: ellos pueden ser usados en cualquier parte donde un palo estaría en la signatura de la función o cuerpo de la función. He aquí un eemplo donde el parámetro de tipo del método `T` se sa como el parámetro de tipo al tipo paramétrico `Vector{T}` en la signatura del método:
 
@@ -354,7 +350,7 @@ Pero hay una excepción: las llamadas futuras a `newfun` *del REPL* funcionan co
 
 Es posible que desee probar esto para ver cómo funciona.
 
-La implementación de este comportamiento es un "contador de edad mundial". Este valor monótonamente creciente rastrea cada operación de definición de método. Esto permite describir "el conjunto de definiciones de métodos visibles para un entorno de tiempo de ejecución dado" como un solo número, o "edad mundial". También permite comparar los métodos disponibles en dos mundos simplemente comparando su valor ordinal. En el ejemplo anterior, vemos que el "mundo actual" (en el que existe el método `newfun ()`) es uno mayor que el "mundo de tiempo de ejecución" local de la tarea que se corrigió cuando se inició la ejecución de `tryeval`.
+La implementación de este comportamiento es un "contador de edad mundial". Este valor monótonamente creciente rastrea cada operación de definición de método. Esto permite describir "el conjunto de definiciones de métodos visibles para un entorno de tiempo de ejecución dado" como un solo número, o "edad mundial". También permite comparar los métodos disponibles en dos mundos simplemente comparando su valor ordinal. En el ejemplo anterior, vemos que el "mundo actual" (en el que existe el método `newfun()`) es uno mayor que el "mundo de tiempo de ejecución" local de la tarea que se corrigió cuando se inició la ejecución de `tryeval`.
 
 A veces es necesario evitar esto (por ejemplo, si está implementando el REPL anterior). Afortunadamente, hay una solución fácil: llamar a la función usando [`Base.invokelatest`](@ref):
 
@@ -369,7 +365,7 @@ julia> tryeval2()
 2
 ```
 
-Por último, echemos un vistazo a algunos ejemplos más complejos donde esta regñla se pone en funcionamiento. Definamos una función `f(x)`, que inicialmente tiene un método:
+Por último, echemos un vistazo a algunos ejemplos más complejos donde esta regla se pone en funcionamiento. Definamos una función `f(x)`, que inicialmente tiene un método:
 
 ```jldoctest redefinemethod
 julia> f(x) = "original definition"
@@ -459,7 +455,7 @@ f(a) = f(a,2)
 f() = f(1,2)
 ```
 
-Esto significa que llamar a `f()` es equivalente a llamar a `f(1,2)`. En este caso, el resultado es `5`, porque` f (1,2) `invoca el primer método de `f` anterior. Sin embargo, este no siempre es el caso. Si define un cuarto método que es más especializado para enteros:
+Esto significa que llamar a `f()` es equivalente a llamar a `f(1,2)`. En este caso, el resultado es `5`, porque `f(1,2)` invoca el primer método de `f` anterior. Sin embargo, este no siempre es el caso. Si define un cuarto método que es más especializado para enteros:
 
 ```julia
 f(a::Int,b::Int) = a-2b
@@ -528,7 +524,7 @@ definiendo un método
 f(x::Int, y::Int) = 3
 ```
 
-Esta es a menudo la estrategia correcta; sin embargo, hay circunstancias en las que seguir este consejo a ciegas puede ser contraproducente. En particular, cuantos más métodos tenga una función genérica, más posibilidades habrá de ambigüedades. Cuando sus jerarquías de métodos se vuelven más complicadas que este simple ejemplo, puede valer la pena pensar cuidadosamente sobre estrategias alternativas.
+Ésta es a menudo la estrategia correcta; sin embargo, hay circunstancias en las que seguir este consejo a ciegas puede ser contraproducente. En particular, cuantos más métodos tenga una función genérica, más posibilidades habrá de ambigüedades. Cuando sus jerarquías de métodos se vuelven más complicadas que este simple ejemplo, puede valer la pena pensar cuidadosamente sobre estrategias alternativas.
 
 A continuación, discutimos los desafíos particulares y algunas formas alternativas de resolver dichos problemas.
 
@@ -571,20 +567,20 @@ f(x::A, y::A) = ...
 f(x, y) = f(g(x), g(y))
 ```
 
-donde `g` convierte el argumento para escribir `A`. Esto es un ejemplo muy específico del principio más general de [diseño ortogonal](https://en.wikipedia.org/wiki/Orthogonality_ (programación)), en el que los conceptos separados se alinean a métodos separados. Aquí, `g` muy probablemente necesitará una definición de repliegue
+donde `g` convierte el argumento para escribir `A`. Esto es un ejemplo muy específico del principio más general de [diseño ortogonal](https://en.wikipedia.org/wiki/Orthogonality_(programming)), en el que los conceptos separados se alinean a métodos separados. Aquí, `g` muy probablemente necesitará una definición de repliegue
 
 ```julia
 g(x::A) = x
 ```
 
-Una estrategia relacionada explota `promote` para llevar` x` y `y` a un tipo común:
+Una estrategia relacionada explota `promote` para llevar `x` y `y` a un tipo común:
 
 ```julia
 f(x::T, y::T) where {T} = ...
 f(x, y) = f(promote(x, y)...)
 ```
 
-Un riesgo de este diseño es la posibilidad de que si no hay un método de promoción adecuado para convertir `x` y` y` al mismo tipo, el segundo método se repetirá en sí mismo infinitamente y desencadenará un desbordamiento de la pila. La función no exportada `Base.promote_noncircular` se puede usar como alternativa; cuando la promoción falla, aún arrojará un error, pero uno que falla más rápido con un mensaje de error más específico.
+Un riesgo de este diseño es la posibilidad de que si no hay un método de promoción adecuado para convertir `x` y `y` al mismo tipo, el segundo método se repetirá en sí mismo infinitamente y desencadenará un desbordamiento de la pila. La función no exportada `Base.promote_noncircular` se puede usar como alternativa; cuando la promoción falla, aún arrojará un error, pero uno que falla más rápido con un mensaje de error más específico.
 
 ### Despacho en un argumento a la vez
 
@@ -595,9 +591,9 @@ f(x::A, y) = _fA(x, y)
 f(x::B, y) = _fB(x, y)
 ```
 
-Entonces los métodos internos `_fA` y` _fB` pueden enviarse en `y` sin preocuparse por las ambigüedades entre sí con respecto a `x`.
+Entonces los métodos internos `_fA` y `_fB` pueden enviarse en `y` sin preocuparse por las ambigüedades entre sí con respecto a `x`.
 
-Tenga en cuenta que esta estrategia tiene al menos una desventaja importante: en muchos casos, no es posible para los usuarios personalizar aún más el comportamiento de `f` definiendo más especializaciones de su función` f` exportada. En su lugar, tienen que definir especializaciones para sus métodos internos `_fA` y` _fB`, y esto borra las líneas entre los métodos exportados e internos.
+Tenga en cuenta que esta estrategia tiene al menos una desventaja importante: en muchos casos, no es posible para los usuarios personalizar aún más el comportamiento de `f` definiendo más especializaciones de su función `f` exportada. En su lugar, tienen que definir especializaciones para sus métodos internos `_fA` y `_fB`, y esto borra las líneas entre los métodos exportados e internos.
 
 ### Contenedores abstractos y tipos de elementos
 

@@ -48,7 +48,7 @@ while !done(iter, state)
 end
 ```
 
-Un ejemplo sencillo es una secuencia iterable de cuadrados de número con una longitd definida:
+Un ejemplo sencillo es una secuencia iterable de cuadrados de número con una longitud definida:
 
 ```jldoctest squaretype
 julia> struct Squares
@@ -94,7 +94,7 @@ julia> std(Squares(100))
 3024.355854282583
 ```
 
-Hay unos pocos más métodos que se pueden extender para dar a Julia más información sobre esta colección iterable. Se sabe que todos los elementos en una secuencia `Squares` serán `Int`. Extendiendo el método  [`eltype()`](@ref) method, se puede proporcionar esta información a Julia y ayudarlo a hacer código más especializado en métodos más complicados. También se sabe el número de elementos de esa secuencia, por loq ue también se pude extender [`length()`](@ref).
+Hay unos pocos más métodos que se pueden extender para dar a Julia más información sobre esta colección iterable. Se sabe que todos los elementos en una secuencia `Squares` serán `Int`. Extendiendo el método  [`eltype()`](@ref), se puede proporcionar esta información a Julia y ayudarlo a hacer código más especializado en métodos más complicados. También se sabe el número de elementos de esa secuencia, por lo que también se pude extender [`length()`](@ref).
 
 Ahora, cuando pedimos a Julia que [`collect()`](@ref) todos los elementos en un array ella puede preasignar un `Vector{Int}` en la parte derecha de la expresión, en lugar de ir poniendo a ciegas mediante [`push!`](@ref)ing cada elemento en un `Vector{Any}`.
 
@@ -231,7 +231,7 @@ julia> s ⋅ s # dot(s, s)
 4676
 ```
 
-Un ejemplo un poco más complicado. definamos nuestro propio tipo array *sparse* N-dimensional "de juguete", construído encima de [`Dict`](@ref):
+Un ejemplo un poco más complicado, definamos nuestro propio tipo array *sparse* N-dimensional "de juguete", construído encima de [`Dict`](@ref):
 
 
 ```jldoctest squarevectype
@@ -253,7 +253,7 @@ julia> Base.getindex(A::SparseArray{T,N}, I::Vararg{Int,N}) where {T,N} = get(A.
 julia> Base.setindex!(A::SparseArray{T,N}, v, I::Vararg{Int,N}) where {T,N} = (A.data[I] = v)
 ```
 
-Observe que se trata de un array  `IndexCartesian` array, , por lo que debemos definir manualmente [`getindex()`](@ref) y [`setindex!()`](@ref) en la dimensionalidad de la matriz. En este caso, a diferencia de en `SquaresVector`, somos capaces de definir  [`setindex!()`](@ref) y, en consecuencia, podemos mutar el array:
+Observe que se trata de un array  `IndexCartesian` array, por lo que debemos definir manualmente [`getindex()`](@ref) y [`setindex!()`](@ref) en la dimensionalidad de la matriz. En este caso, a diferencia de en `SquaresVector`, somos capaces de definir  [`setindex!()`](@ref) y, en consecuencia, podemos mutar el array:
 
 ```jldoctest squarevectype
 julia> A = SparseArray(Float64, 3, 3)
@@ -284,7 +284,7 @@ julia> A[1:2,:]
  2.0  5.0  8.0
 ```
 
-En este ejemplo esto se logra mediante la definición de `Base.similar{T}(A::SparseArray, :: Type{T}, dims::Dims)` para crear la matriz wrapped apropiada. (Tenga en cuenta que aunque `similar` soporta formas de 1 y 2 argumentos, en la mayoría de los casos sólo necesita especializar el formulario de 3 argumentos). Para que esto funcione es importante que `SparseArray` sea mutable (soporte `setindex!`). Definir `similar()`, `getindex()` y `setindex!()` para `SparseArray` también hace posible copiar el array mediante [`copy()`](@ref):
+En este ejemplo esto se logra mediante la definición de `Base.similar{T}(A::SparseArray, ::Type{T}, dims::Dims)` para crear la matriz wrapped apropiada. (Tenga en cuenta que aunque `similar` soporta formas de 1 y 2 argumentos, en la mayoría de los casos sólo necesita especializar el formulario de 3 argumentos). Para que esto funcione es importante que `SparseArray` sea mutable (soporte `setindex!`). Definir `similar()`, `getindex()` y `setindex!()` para `SparseArray` también hace posible copiar el array mediante [`copy()`](@ref):
 
 
 ```jldoctest squarevectype

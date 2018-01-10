@@ -30,7 +30,7 @@ especialmente aquellas que pueden ser auto referenciadas frecuentemente, no pued
 
 ## Métodos constructores externos
 
-Un constructor es como cualquier otro función en Julia en que es su comportamiento global está definido por el comportamiento combinado de sus métodos. Según esto, se puede añadir funcionalidad a ún constructor simplemente definiendo nuevos métodos. Por ejemplo, supóngase que se desea añadir un método constructor para objetos `Foo` que tomar un argumento y usa el valor dado para los dos campos que presentan `baz` y `bar`. Esto es sencillo::
+Un constructor es como cualquier otro función en Julia en que es su comportamiento global está definido por el comportamiento combinado de sus métodos. Según esto, se puede añadir funcionalidad a ún constructor simplemente definiendo nuevos métodos. Por ejemplo, supóngase que se desea añadir un método constructor para objetos `Foo` que tomar un argumento y usa el valor dado para los dos campos que presentan `baz` y `bar`. Esto es sencillo:
 
 ```jldoctest footype
 julia> Foo(x) = Foo(x,x)
@@ -165,7 +165,7 @@ julia> x === x.obj.obj
 true
 ```
 
-Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un eror inmediato:
+Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un error inmediato:
 
 ```jldoctest incomplete
 julia> mutable struct Incomplete
@@ -176,7 +176,7 @@ julia> mutable struct Incomplete
 julia> z = Incomplete();
 ```
 
-Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un eror inmediato:
+Aunque se permite crear objetos con campos no inicializados, cualquier objeto a una referencia no inicializada es un error inmediato:
 
 ```jldoctest incomplete
 julia> z.xx
@@ -365,7 +365,7 @@ La primera línea -- `struct OurRational{T<:Integer} <: Real` -- declara que `Ou
 
 Ahora las cosas se ponen interesantes. `OurRational` tiene un solo constructor interno que comprueba que tanto `num` como `den` no son cero, y aegura que cada número racional se construye en sus términos mínimos con un denominador no negativo. Esto se consigue dividiendo los valores de numerador y denominador por su máximo común divisor, el cuál se calcula a través de la función `gcd`. Por último, y como `gcd` asigna el signo del primer argumento (en este caso `den`) se garantiza que el denominador ya no sea negativo. Como este es el único constructor interno de `Rational`, podemos estar seguros de que los objetos de este tipo siempre se construyen en forma normalizada.
 
-`Rational` también proporciona varios métodos constructores externos por conveniencia. El primero es el constructor general "esándar", que infiere el tupo del parámetro `T` a partir del tipo del numerado y denominador que tienen que ser del mismo tipo. El segundo se aplica cuando numerador y denominador tiene tipos distintos: los promociona a un tipo común y entonces delega la construcción al otro constructor externo con argumentos del mismo tipo. En tercer constructor externo convierte valores enteros en racionales proporcionando un denominador de valor 1.
+`Rational` también proporciona varios métodos constructores externos por conveniencia. El primero es el constructor general "estándar", que infiere el tupo del parámetro `T` a partir del tipo del numerado y denominador que tienen que ser del mismo tipo. El segundo se aplica cuando numerador y denominador tiene tipos distintos: los promociona a un tipo común y entonces delega la construcción al otro constructor externo con argumentos del mismo tipo. En tercer constructor externo convierte valores enteros en racionales proporcionando un denominador de valor 1.
 
 Siguiendo las definiciones de constructores externos, tenemos una serie de métodos para el operador [`//`](@ref) que proporcionan una sintaxis para escribir racionales. Antes de estas definiciones,  [`//`](@ref)es un operador completamente indefinido con sólo sintaxis y sin significado. Después, se comporta tal y com se describe en [Números Racionales](@ref rational-numbers) -- 
 (su comportamiento completo está descrito en estas pocas líneas). La primera y más básica definición hace `a//b` construya un  `OurRational` aplicando el constructor de este tipo sobre `a` y `b` cuando ambos son enteros. Cuando uno de los operandos de  [`//`](@ref) ya es un número racional se construye un nuevo número racional para la razón resultante con una leve diferencia: este comportamiento es igual a la división de un racional entre un entero. Por último, aplicar [`//`](@ref) a valores complejos enteros crea una instancia de `Complex{Rational}`, que es un complejo cuyas partes real el imaginaria son racionales:

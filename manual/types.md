@@ -595,7 +595,7 @@ struct Point{T<:Real} <: Pointy{T}
 end
 ```
 
-Para dar un ejemplo del mundo real de cómo toda esta maquinaria de tipos paramétricos puede ser útil, he aquí la definición actual del tipo inmutable `Rational` [`Rational`](@ref) de Julia (omitiendo el constructor por simplicidad), que representa una relacíon exacta de enteros:
+Para dar un ejemplo del mundo real de cómo toda esta maquinaria de tipos paramétricos puede ser útil, he aquí la definición actual del tipo inmutable [`Rational`](@ref) de Julia (omitiendo el constructor por simplicidad), que representa una relacíon exacta de enteros:
 
 ```julia
 struct Rational{T<:Integer} <: Real
@@ -711,7 +711,7 @@ julia> isa("foo", Type)
 false
 ```
 
-Hasta que discutamos loa [métodos paramétricos](@ref parametric-types) y las [conversiones](@ref conversion-and-promotion), , es difícil explicar la utilidad de la construcción tipo singleton, pero abreviando, permite a uno especializar el comportamiento de una función sobre *valores* de un tipo específico. Esto es útil para escribir métodos (especialmente paramétricos) cuy ocomportamiento dependa de un tipo que es dado como un argumento explícito en lugar de implicado por el tipo de un o de sus argumentos.
+Hasta que discutamos los [métodos paramétricos](@ref parametric-types) y las [conversiones](@ref conversion-and-promotion), es difícil explicar la utilidad de la construcción tipo singleton, pero abreviando, permite a uno especializar el comportamiento de una función sobre *valores* de un tipo específico. Esto es útil para escribir métodos (especialmente paramétricos) cuy ocomportamiento dependa de un tipo que es dado como un argumento explícito en lugar de implicado por el tipo de un o de sus argumentos.
 
 Unos pocos lenguajes de programación tienen tipos singleton, incluyendo Haskell, Scala y Ruby. En uso general, el término "tipo singleton" se refiere a un tipo cuya única instancia es un solo valor. Este significado se aplicaa a los tipos singleton de Julia, pero con la advertencia de que sólo los objetos tipo tienen tipos singleton.
 
@@ -739,7 +739,7 @@ true
 
 ## [Tipos UnionAll](@id unionall-types)
 
-Hemos dicho que un tipo paramétrico como `Ptr` actúa como un supertipo de todas sus instancias (Ptr{Int64} etc.). ¿Cómo funciona esto? `Ptr` en si mismo no puede ser un tipo normal, ya que sin saber el tipo de los datos referenciados el tipo claramente no puede ser usado para operaciones en memoria. La respuesta es que `Ptr` (u otros tipos paramétricos como `Array`) es una clase diferente de tipo llamado `UnionAll`. Tal tipo expresa la unión iterada de tipos para todos los valores de algún parámetro.
+Hemos dicho que un tipo paramétrico como `Ptr` actúa como un supertipo de todas sus instancias (`Ptr{Int64}` etc.). ¿Cómo funciona esto? `Ptr` en si mismo no puede ser un tipo normal, ya que sin saber el tipo de los datos referenciados el tipo claramente no puede ser usado para operaciones en memoria. La respuesta es que `Ptr` (u otros tipos paramétricos como `Array`) es una clase diferente de tipo llamado `UnionAll`. Tal tipo expresa la unión iterada de tipos para todos los valores de algún parámetro.
 
 Los tipos `UnionAll`suelen ser escritos usando la palabra clave `where`. Por ejemplo, `Ptr` podría ser escrito de forma más exacta como `Ptr{T} where T`, lo que significa que todos los valores cuyo tipo es `Ptr{T}` para algún valor de `T`. En este contexto, el parámetro `T` suele llamarse también una "variable tipo", ya que es como una variable que se extiende sobre los tipos. Cada `where` introduce una sola variable tipo, por lo que estas expresiones están anidadas para tipos con múltiples parámetros, por ejemplo `Array{T,N} where N where T`.
 
@@ -767,7 +767,7 @@ Hay una sintaxis conveniente para nombrar tales tipos, similar a la forma corta 
 Vector{T} = Array{T,1}
 ```
 
-Esto es equivalente a const Vector = Array{T,1} where T. Escribir Vector{Float64} es equivalente a escribir Array{Float64,1}, y el tipo paraguas Vector tiene como instancias todos los objetos Array donde el segundo parámetro (el número de dimensiones del array) es uno, sin importar cuál es el tipo del elemento. En lenguajes donde los tipos paramétricos deben siempre ser especificados por completo, esto no suele ser de ayuda, pero en Julia, esto permite a uno escribir justo Vector para el tipo abstract incluyendo arrays densos unidimensionales de cualquier tipo de elementos.
+Esto es equivalente a `const Vector = Array{T,1} where T`. Escribir `Vector{Float64}` es equivalente a escribir `Array{Float64,1}`, y el tipo paraguas `Vector` tiene como instancias todos los objetos `Array` donde el segundo parámetro (el número de dimensiones del array) es uno, sin importar cuál es el tipo del elemento. En lenguajes donde los tipos paramétricos deben siempre ser especificados por completo, esto no suele ser de ayuda, pero en Julia, esto permite a uno escribir justo `Vector` para el tipo abstract incluyendo arrays densos unidimensionales de cualquier tipo de elementos.
 
 ## Aliases de Tipos
 
@@ -878,13 +878,13 @@ Polar
 
 Aquí, hemos añadido una función constructor personalizado para que pueda tomar argumentos de distinto tipos [`Real`](@ref) y los promocione a un tipo común (ver [Constructores](@ref man-constructors) y [Conversión y Promoción](@ref conversion-and-promotion)). (Por supuesto, tendríamos que definir montones de otros métodos también, para hacer que actíe como un [`Number`](@ref), por ejemplo, `+`, `*`, `one`, `zero`, reglas de promoción y otras cosas). Por defecto, las instancias de este tipo se muestran de forma bastante simple, con información sobre el nombre del tipo y los valores de los campos, como por ejemplo en  `Polar{Float64}(3.0,4.0)`.
 
-Si en lugar de usar este modo de presentacin preferimos que su presentación sea `3.0 * exp(4.0im)`, hay que definir el siguiente método para que imprima el objeto a un objeto de salida `io`dado (que representa un fichero, terminal, buffer, etc.; ver [Networking and Streams](@ref networking-and-streams)):
+Si en lugar de usar este modo de presentación preferimos que su presentación sea `3.0 * exp(4.0im)`, hay que definir el siguiente método para que imprima el objeto a un objeto de salida `io`dado (que representa un fichero, terminal, buffer, etc.; ver [Networking and Streams](@ref networking-and-streams)):
 
 ```jldoctest polartype
 julia> Base.show(io::IO, z::Polar) = print(io, z.r, " * exp(", z.Θ, "im)")
 ```
 
-Es posible un control de grano más fino sobre la visualizacin de los objetos `Polar`. En particular, algunas veces uno desea un formato de impresión detallado multilínea, utilizado para mostrar un solo objeto en REPL y otros entornos interactivos, y también un formato de línea única más compacto utilizado para [`print ()`] @ref) o para mostrar el objeto como parte de otro objeto (por ejemplo, en una matriz). Aunque de forma predeterminada se llama a la función `show (io, z)` en ambos casos, puede definir un formato multilínea *diferente* para mostrar un objeto sobrecargando una forma de tres argumentos de `show` que toma el tipo MIME `text/plain` como su segundo argumento (consulte [E/S multimedia](@ref multimedia-io)), por ejemplo:
+Es posible un control de grano más fino sobre la visualizacin de los objetos `Polar`. En particular, algunas veces uno desea un formato de impresión detallado multilínea, utilizado para mostrar un solo objeto en REPL y otros entornos interactivos, y también un formato de línea única más compacto utilizado para [`print()`] @ref) o para mostrar el objeto como parte de otro objeto (por ejemplo, en una matriz). Aunque de forma predeterminada se llama a la función `show(io, z)` en ambos casos, puede definir un formato multilínea *diferente* para mostrar un objeto sobrecargando una forma de tres argumentos de `show` que toma el tipo MIME `text/plain` como su segundo argumento (consulte [E/S multimedia](@ref multimedia-io)), por ejemplo:
 
 ```jldoctest polartype
 julia> Base.show{T}(io::IO, ::MIME"text/plain", z::Polar{T}) =
@@ -904,8 +904,8 @@ julia> [Polar(3, 4.0), Polar(4.0,5.3)]
  4.0 * exp(5.3im)
 ```
 
-donde se sigue utilizando la forma de línea `show(io, z)` para un array de valores  `Polar`. Técnicamente, el REPL llama a  `display(z)` para mostrar el resultado de ejecutar una línea que por defecto es `show (STDOUT, MIME (" text / plain "), z)`,
- que a su vez por defecto es `show (STDOUT, z) `, pero debe *no* definir nuevos métodos [`display() `] (@ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref multimedia-io)).
+donde se sigue utilizando la forma de línea `show(io, z)` para un array de valores  `Polar`. Técnicamente, el REPL llama a  `display(z)` para mostrar el resultado de ejecutar una línea que por defecto es `show (STDOUT, MIME("text/plain"), z)`,
+ que a su vez por defecto es `show(STDOUT, z) `, pero debe *no* definir nuevos métodos [`display()`] (@ref) a menos que esté definiendo un nuevo controlador de pantalla multimedia (consulte [E/S multimedia] (@ref multimedia-io)).
 
 Además, también puede definir métodos `show` para otros tipos MIME para permitir una visualización más rica (HTML, imágenes, etc.) de los objetos en entornos que lo admitan (por ejemplo, IJulia). Por ejemplo, podemos definir la visualización HTML formateada de objetos `Polar`, con superíndices y cursiva, a través de:
 
@@ -978,7 +978,7 @@ En muchas situaciones, uno necesita interactuar con un valor de tipo `T` que pue
    
 ### Construyendo objetos [`Nullable`](@ref)
 
-Para construir un objeto representando un valor perdido de tipo `T`, use la siguiente función `Nullable{T}():
+Para construir un objeto representando un valor perdido de tipo `T`, use la siguiente función `Nullable{T}()`:
 
 ```jldoctest
 julia> x1 = Nullable{Int64}()
@@ -1045,9 +1045,7 @@ julia> get(Nullable(1.0), 0.0)
 ```
 
 !!! tip
-    Asegúrese de que el tipo de valor predeterminado pasado a `get ()` y el del objeto `Nullable` coincidan para evitar 
-    la inestabilidad de tipo, lo que podría perjudicar el rendimiento. Utilice [`convert()`] (@ref) manualmente si 
-    es necesario.
+    Asegúrese de que el tipo de valor predeterminado pasado a `get()` y el del objeto `Nullable` coincidan para evitar la inestabilidad de tipo, lo que podría perjudicar el rendimiento. Utilice [`convert()`](@ref) manualmente si es necesario.
 
 ### Realizando operaciones sobre objetos `Nullable`
 
@@ -1068,18 +1066,18 @@ La función [`filter`](@ref) toma como argumentos una función predicado `p` (es
 
 De esta forma, `filter` puede ser considerado como seleccionar sólo valores permisibles, y convertir valores no permisibles en valores perdidos.
 
-Mientras que `map` y `filter` son útiles para casos específicos, la función de orden superior más útil es, con diferencia, [`broadcast`](@ref), que puede manejar una amplia variedad de casos, incluyendo hacer operaciones existentes funcionen y propaguen `Nullable`s. El siguiente ejemplo motivará la necesidad de `broadcast`. Supongamos que tenemos una funcion que calcula la mayor de las dos raices reales de una ecuacion cuadratica, usando la formula cuadratica:
+Mientras que `map` y `filter` son útiles para casos específicos, la función de orden superior más útil es, con diferencia, [`broadcast`](@ref), que puede manejar una amplia variedad de casos, incluyendo hacer operaciones existentes funcionen y propaguen `Nullable`s. El siguiente ejemplo motivará la necesidad de `broadcast`. Supongamos que tenemos una función que calcula la mayor de las dos raíces reales de una ecuación cuadrática, usando la formula cuadrática:
 
 ```jldoctest nullableroot
 julia> root(a::Real, b::Real, c::Real) = (-b + √(b^2 - 4a*c)) / 2a
 root (generic function with 1 method)
 ```
 
-Podemos verificar que el resultado de `root (1, -9, 20)` es `5.0` como esperamos, ya que `5.0` es la mayor de dos raíces reales de la ecuación cuadrática.
+Podemos verificar que el resultado de `root(1, -9, 20)` es `5.0` como esperamos, ya que `5.0` es la mayor de dos raíces reales de la ecuación cuadrática.
 
 Supongamos ahora que queremos encontrar la mayor raíz real de una ecuación cuadrática donde los coeficientes pueden ser valores perdidos. Tener valores perdidos en los conjuntos de datos es una ocurrencia común en los datos del mundo real, por lo que es importante poder tratar con ellos. Pero no podemos encontrar las raíces de una ecuación si no conocemos todos los coeficientes. La mejor solución para esto dependerá del caso de uso particular; quizás deberíamos arrojar un error. Sin embargo, para este ejemplo, asumiremos que la mejor solución es propagar los valores perdidos; es decir, si falta alguna entrada, simplemente producimos una salida faltante.
 
-La función `broadcast ()` facilita esta tarea; simplemente podemos pasar la función `root` que escribimos a` broadcast`:
+La función `broadcast()` facilita esta tarea; simplemente podemos pasar la función `root` que escribimos a` broadcast`:
 
 ```jldoctest nullableroot
 julia> broadcast(root, Nullable(1), Nullable(-9), Nullable(20))
@@ -1092,7 +1090,7 @@ julia> broadcast(root, Nullable{Int}(), Nullable(-9), Nullable(20))
 Nullable{Float64}()
 ```
 
-Si faltan una o más de las entradas, faltará la salida de `broadcast ()`.
+Si faltan una o más de las entradas, faltará la salida de `broadcast()`.
 
 Existe un convenio sintáctico especial para la función `broadcast()` usando la notación punto:
 

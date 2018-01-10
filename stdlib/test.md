@@ -18,7 +18,7 @@ Base.runtests
 
 El módulo `Base.Test` proporciona una funcionalidad simple de *realización de pruebas unitarias*. Las pruebas unitarias son una forma de ver si su código es correcto al verificar que los resultados sean los esperados. Puede ser útil asegurarse de que su código aún funcione después de realizar los cambios, y se puede usar al desarrollar como una forma de especificar los comportamientos que su código debería tener cuando se complete.
 
-Se pueden realizar pruebas unitarias simples con las macros `@test ()` y `@test_throws ()`:
+Se pueden realizar pruebas unitarias simples con las macros `@test()` y `@test_throws()`:
 
 ```@docs
 Base.Test.@test

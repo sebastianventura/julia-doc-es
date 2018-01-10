@@ -44,7 +44,7 @@ julia> grandparent()
 [...]
 ```
 
-Tenga en cuenta que cuando llama a [`stacktrace()`](@ref) normalmente verá un marco con `eval (...) en boot.jl`. Al invocar [`stacktrace()`](@ref) desde el REPL, también tendrá algunos fotogramas adicionales en la pila de `REPL.jl`, que generalmente se ve así:
+Tenga en cuenta que cuando llama a [`stacktrace()`](@ref) normalmente verá un marco con `eval(...) en boot.jl`. Al invocar [`stacktrace()`](@ref) desde el REPL, también tendrá algunos fotogramas adicionales en la pila de `REPL.jl`, que generalmente se ve así:
 
 
 ```julia-repl
@@ -238,7 +238,7 @@ julia> stacktrace(trace, true)
  ip:0xffffffffffffffff
 ```
 
-Los punteros individuales devueltos por [`backtrace()`](@ref) se pueden traducir a [`StackFrame`](@ref) s pasándolos a [`StackTraces.lookup()`](@ref):
+Los punteros individuales devueltos por [`backtrace()`](@ref) se pueden traducir a [`StackFrame`](@ref)s pasándolos a [`StackTraces.lookup()`](@ref):
 
 ```julia-repl
 julia> pointer = backtrace()[1];

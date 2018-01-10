@@ -8,7 +8,7 @@ if is_windows()
 end
 ```
 
-Note que `is_linux`e `is_apple` son subconjuntos mutuamente exclusivos de `is_unix`. Adicionalmente, existe una macro `@static` que hace posible usar estas funciones para ocultar código inválido condicionalmente, como demuestran los siguientes ejemplos:
+Note que `is_linux` e `is_apple` son subconjuntos mutuamente exclusivos de `is_unix`. Adicionalmente, existe una macro `@static` que hace posible usar estas funciones para ocultar código inválido condicionalmente, como demuestran los siguientes ejemplos:
 
 Bloques simples:
 

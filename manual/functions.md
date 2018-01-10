@@ -544,7 +544,7 @@ julia> @. X = sin(cos(Y)) # equivalent to X .= sin.(cos.(Y))
  -0.608083
 ```
 
-Los operadores binarios (o unarios) como `.+` se manejan con el mismo mecanismo: son equivalentes a llamadas retransmitidas (broadcast) y son fundidas con otras llamadas que tiene puntos. `X .+= Y etcetera` es equivalente a `X .= X .+ Y` y dan como resultado una asignación fusionada. Ver también [dot operators](@ref man-dot-operators).
+Los operadores binarios (o unarios) como `.+` se manejan con el mismo mecanismo: son equivalentes a llamadas retransmitidas (broadcast) y son fundidas con otras llamadas que tiene puntos. `X .+= Y` etcetera es equivalente a `X .= X .+ Y` y dan como resultado una asignación fusionada. Ver también [dot operators](@ref man-dot-operators).
 
 ## Otras Lecturas
 

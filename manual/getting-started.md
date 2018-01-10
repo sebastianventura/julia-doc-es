@@ -81,7 +81,7 @@ Greetings! 你好! 안녕하세요?
 ...
 ```
 
-Hay varias formas de ejecutar el código Julia y proporcionar opciones, similares a las disponibles para los programas `perl` y `ruby:
+Hay varias formas de ejecutar el código Julia y proporcionar opciones, similares a las disponibles para los programas `perl` y `ruby`:
 
 ```
 julia [switches] -- [programfile] [args...]

@@ -85,7 +85,7 @@ julia> Meta.show_sexpr(ex3)
 (:call, :/, (:call, :+, 4, 4), 2)
 ```
 
-### Simbolos
+### Símbolos
 
 El carácter `:` tiene dos propósitos sintácticos en Julia. La primera forma crea un símbolo (`Symbol`), una [cadena internada](https://en.wikipedia.org/wiki/String_interning) usada como un bloque constructivo de expresiones:
 
@@ -275,7 +275,7 @@ El valor de `a` se ha usado para construir la expresión `ex` que aplica la func
   momento de la evaluación de la expresión, sin embargo, el valor del símbolo `:b` se resuelve buscando el valor de 
   la variable `b`.
 
-### Funcciones sobre `Expr`esiones
+### Funciones sobre `Expr`esiones
 
 Como se ha sugerido anteriormente, una característica muy útil de Julia es la capacidad de generar y manipular código Julia dentro del propio Julia. Ya hemos visto un ejemplo de una función que devuelve objetos `Expr`: la función [`parse()`](@ref), que toma una cadena de código Julia y devuelve la `Expr` correspondiente. Una función también puede tomar uno o más objetos `Expr` como argumentos, y devolver otro `Expr`. Aquí hay un ejemplo simple y motivador:
 
@@ -411,7 +411,7 @@ I execute at runtime. The argument is: (1, 2, 3)
 
 Las macros son invocadas con la siguiente sintaxis general:
 
-``julia
+```julia
 @name expr1 expr2 ...
 @name(expr1, expr2, ...)
 ```
@@ -544,7 +544,6 @@ end
 
 Aquí, queremos que `t0`, `t1` y `val` sean variables temporales privadas, y queremos que `time` se refiera a la función [`time()`](@ref) de la biblioteca estándar, no a cualquier variable de tiempo que el usuario pueda tener (lo mismo se aplica a `println`). Imagine los problemas que podrían ocurrir si la expresión de usuario `ex` también contuviera asignaciones a una variable denominada `t0`, o definiese su propia variable `time`. Podríamos obtener errores o comportamiento misteriosamente incorrecto.
 
-
 El expansor de macro de Julia resuelve estos problemas de la siguiente manera. En primer lugar, las variables dentro de un resultado de macro se clasifican como locales o globales. Una variable se considera local si es asignada (y no se declara global), se declara local o se utiliza como un nombre de argumento de función. De lo contrario, se considera global. Las variables locales son renombradas como únicas (utilizando la función [`gensym()`](@ref), que genera nuevos símbolos), y las variables globales se resuelven dentro del entorno de definición de macro. Por lo tanto, ambas preocupaciones se manejan; Los locales de la macro no entrarán en conflicto con ninguna variable de usuario, y `time` y `println` se referirán a las definiciones de la biblioteca estándar.
 
 Sin embargo, queda un problema. Considere el siguiente uso de esta macro:
@@ -611,7 +610,7 @@ function timeit(f)
 end
 ```
 
-Sin embargo, no hacemos esto por una buena razón: al envolver el `expr` en un nuevo bloque de alcance (la función anónima) también cambia ligeramente el significado de la expresión (el alcance de cualquier variable en él), mientras que queremos` @ time` para ser utilizable con un impacto mínimo en el código ajustado.
+Sin embargo, no hacemos esto por una buena razón: al envolver el `expr` en un nuevo bloque de alcance (la función anónima) también cambia ligeramente el significado de la expresión (el alcance de cualquier variable en él), mientras que queremos `@time` para ser utilizable con un impacto mínimo en el código ajustado.
 
 ## Generación de Código
 
@@ -702,7 +701,7 @@ Por otra parte, si el compilador no pudiera determinar que el objeto regex era c
 
 Al igual que los literales de cadena no estándar, existen literales de comandos no estándar que usan una variante prefijada de la sintaxis literal del comando. El comando literal ```custom `literal` ``` se analiza como `@custom_cmd "literal"`. Julia por sí misma no contiene ningún literal de comando no estándar, pero los paquetes pueden hacer uso de esta sintaxis. Aparte de la sintaxis diferente y el sufijo `_cmd` en lugar del sufijo` _str`, los literales de comandos no estándar se comportan exactamente como los literales de cadena no estándar.
 
-En el caso de que dos módulos proporcionen cadenas o literales de comando con el mismo nombre, es posible calificar la cadena o literal de comando con un nombre de módulo. Por ejemplo, si tanto `Foo` como` Bar` proporcionan literal de cadena no estándar `@x_str`, entonces uno puede escribir `Foo.x "literal"` o `Bar.x "literal" `para desambiguar entre los dos.
+En el caso de que dos módulos proporcionen cadenas o literales de comando con el mismo nombre, es posible calificar la cadena o literal de comando con un nombre de módulo. Por ejemplo, si tanto `Foo` como `Bar` proporcionan literal de cadena no estándar `@x_str`, entonces uno puede escribir `Foo.x "literal"` o `Bar.x "literal" `para desambiguar entre los dos.
 
 El mecanismo para literales de cadena definidos por el usuario es profundo, profundamente poderoso. No sólo son literales no estándar de Julia implementados usándolos, sino que también se implementa la sintaxis literal de comandos (``` `echo "Hello, $person"` ```) se implementa con la siguiente macro de aspecto inofensivo:
 
@@ -775,9 +774,9 @@ Tenga en cuenta que no hay ninguna impresión de [`Int64`](@ref). El cuerpo de l
 
 La cantidad de veces que se genera una función generada *podría* ser solo una vez, pero *podría* también ser más frecuente o no aparecer en absoluto. Como consecuencia, *nunca* debe escribir una función generada con efectos secundarios: cuándo y con qué frecuencia ocurren los efectos secundarios no está definida. (Esto también es válido para las macros, y al igual que para las macros, el uso de [`eval()`](@ref) en una función generada es una señal de que estás haciendo algo incorrecto.) Sin embargo, a diferencia de las macros , el sistema de tiempo de ejecución no puede manejar correctamente una llamada a [`eval()`](@ref), por lo que no se permite.
 
-También es importante ver cómo las funciones `@generated` interactúan con la redefinición del método. Siguiendo el principio de que una función correcta `@ generated` no debe observar ningún estado mutable ni causar ninguna mutación del estado global, vemos el siguiente comportamiento. Observe que la función generada *no puede* llamar a ningún método que no se haya definido antes de la * definición * de la función generada en sí.
+También es importante ver cómo las funciones `@generated` interactúan con la redefinición del método. Siguiendo el principio de que una función correcta `@generated` no debe observar ningún estado mutable ni causar ninguna mutación del estado global, vemos el siguiente comportamiento. Observe que la función generada *no puede* llamar a ningún método que no se haya definido antes de la * definición * de la función generada en sí.
 
-Inicialmente `f (x)` tiene una definición:
+Inicialmente `f(x)` tiene una definición:
 
 ```jldoctest redefinition
 julia> f(x) = "original definition";
@@ -825,7 +824,7 @@ julia> @generated gen1(x::Real) = f(x);
 julia> gen1(1)
 "definition for Type{Int}"
 ```
-La función de ejemplo `foo` anterior no hizo nada de lo que una función normal` foo(x) = x*x` no pudo hacer (excepto imprimir el tipo en la primera invocación y incurrir en una sobrecarga más alta). Sin embargo, el poder de una función generada radica en su capacidad para calcular diferentes expresiones entrecomilladas según los tipos que se le pasen:
+La función de ejemplo `foo` anterior no hizo nada de lo que una función normal `foo(x) = x*x` no pudo hacer (excepto imprimir el tipo en la primera invocación y incurrir en una sobrecarga más alta). Sin embargo, el poder de una función generada radica en su capacidad para calcular diferentes expresiones entrecomilladas según los tipos que se le pasen:
 
 ```jldoctest
 julia> @generated function bar(x)
@@ -844,7 +843,7 @@ julia> bar("baz")
 "baz"
 ```
 
-(although por supuesto este ejemplo artificial se implementa facilmente usando despacho múltiple...
+(although por supuesto este ejemplo artificial se implementa fácilmente usando despacho múltiple...
 
 Podemos, por supuesto, abusar de esto para producir algún comportamiento interesante:
 
@@ -859,7 +858,7 @@ julia> @generated function baz(x)
 baz (generic function with 1 method)
 ```
 
-ado que el cuerpo de la función generada es no determinista, su comportamiento es indefinido.
+dado que el cuerpo de la función generada es no determinista, su comportamiento es indefinido.
 
 *¡No copie estos ejemplos!*
 

@@ -1,11 +1,11 @@
-# [Conversión and Promoción](@id conversion-and-promotion)
+# [Conversión y Promoción](@id conversion-and-promotion)
 
 Julia tiene un sistema para promocionar argumento de operaciones matemáticas a un tipo común, que ha sido mencionado en varias secciones, incluyendo [números enteros y en punto flotante](@ref integers-and-floating-point-numbers),
-[operaciones matemáticas y funciones elmentales](@ref mathematical-operations), [Tipos](@ref man-types), and [Métodos](@ref methods).En esta sección, explicaremos cómo funciona este sistema de promociones, y también cómo extenderlo a nuevos tipos y aplicarlo a funciones junto a operadores matemáticos predefinidos. Tradicionalmente, los lenguajes de programación caen en dos categorías con respecto a la promoción de los argumentos aritméticos:
+[operaciones matemáticas y funciones elementales](@ref mathematical-operations), [Tipos](@ref man-types), and [Métodos](@ref methods).En esta sección, explicaremos cómo funciona este sistema de promociones, y también cómo extenderlo a nuevos tipos y aplicarlo a funciones junto a operadores matemáticos predefinidos. Tradicionalmente, los lenguajes de programación caen en dos categorías con respecto a la promoción de los argumentos aritméticos:
 
-  * **Promoción automática para operadores y tipos artiméticos predefinidos**. En la mayoría de los lenguajes, los tipos
+  * **Promoción automática para operadores y tipos aritméticos predefinidos**. En la mayoría de los lenguajes, los tipos
     numéricos predefinidos, cuando se usan como operandos de operaciones aritméticas con una sintaxis infija, tal y 
-    como `+`, `-`, `*`y `/`, son promocionados automáticamente a un tipo común para producir el resultado esperado. C, 
+    como `+`, `-`, `*` y `/`, son promocionados automáticamente a un tipo común para producir el resultado esperado. C, 
     Java, Perl y Pytho,, por nombrar unos pocos, calculan todos la suma `1 + 1.5` correctamente como el valor en punto
     flotante `2.5`, incluso aunque uno de los operandos sea un entero. Estos sistemas son convenientes y diseñados
     cuidadosamente de forma que generalmente realizan esta labor de forma invisible al programador: a duras penas, 
@@ -13,7 +13,7 @@ Julia tiene un sistema para promocionar argumento de operaciones matemáticas a 
     compiladores e intérpretes deben realizar la conversión antes de la adición debido a que los valores enteros y en 
     punto flotante no pueden sumarse tal cual. Por tanto, reglas complejas para tales conversiones automáticas son 
     una parte inevitable de la especificación e implementación de estos lenguajes.
-  * **No promoción automática** Este campo incluy a Ada y ML (lenguajes tipados estáticamente y muy estrictos). En 
+  * **No promoción automática** Este campo incluye a Ada y ML (lenguajes tipados estáticamente y muy estrictos). En 
     estos lenguajes, cada conversión debe ser especificada por el programador de foma explícita. Por tanto, la expresión 
     de ejemplo `1 + 1.5` daría un error de compilación en ambos lenguajes. En lugar de esta expresión, uno debería 
     escribir `real(1) + 1.5`, convirtiendo explícitamente el 1 enteror a un valores en punto flotante antes de realizar la
@@ -21,7 +21,7 @@ Julia tiene un sistema para promocionar argumento de operaciones matemáticas a 
     de conversión automática.: los literales enteros son promocionaods al tipo entero esperado automáticamente, y los
     literales en punto flotante son promocionados similarmente a los tipos apropiados en punto flotante.
 
-En cierto sentido, Julia cae en la categoría "no promoción automática": los operadores automáticos son funciones con sintaxis especial, y los argumentos de funciones no son nunca convertidos automáticamente. Sin embargo, uno puede observar que aplicar operaciones matermáticas a una amplia variedad de tipos de argumentos mixtos es justo un caso extremo del despacho múltiple polimórfico (algo que el despacho de Julia y los sistemas de tipos manejan bastante bien. La promoción "automática" de operandos matermáticos simplemente emerge como una aplicación especial: Julia viene un reglas de despacho "atrapa-todo" predefinidas para los operadores matemáticos, invocadas cuando no existen implementaciones específicas para alguna combinación de tipos de operandos. Estas reglas "atrapa-todo" primero promocionan todos los operandos a un tipo común usando reglas de promoción definibles por el usuario, y luego invoca a una implementación especializada del operador en cuestión para los valores resultantes, ahora del mismo tipo. Los tipos definidos por el usuario pueden participar fácilmente en este sistema de promoción definiendo métodos para la conversión hacia o desde otros tipos, y proporcionar un puñado de reglas de promoción que definan a qué tipos deberían ellos promocionarse cuando se mezclan con otros tipos.
+En cierto sentido, Julia cae en la categoría "no promoción automática": los operadores automáticos son funciones con sintaxis especial, y los argumentos de funciones no son nunca convertidos automáticamente. Sin embargo, uno puede observar que aplicar operaciones matemáticas a una amplia variedad de tipos de argumentos mixtos es justo un caso extremo del despacho múltiple polimórfico (algo que el despacho de Julia y los sistemas de tipos manejan bastante bien. La promoción "automática" de operandos matemáticos simplemente emerge como una aplicación especial: Julia viene un reglas de despacho "atrapa-todo" predefinidas para los operadores matemáticos, invocadas cuando no existen implementaciones específicas para alguna combinación de tipos de operandos. Estas reglas "atrapa-todo" primero promocionan todos los operandos a un tipo común usando reglas de promoción definibles por el usuario, y luego invoca a una implementación especializada del operador en cuestión para los valores resultantes, ahora del mismo tipo. Los tipos definidos por el usuario pueden participar fácilmente en este sistema de promoción definiendo métodos para la conversión hacia o desde otros tipos, y proporcionar un puñado de reglas de promoción que definan a qué tipos deberían ellos promocionarse cuando se mezclan con otros tipos.
 
 ## Conversión
 
@@ -66,7 +66,7 @@ This may have arisen from a call to the constructor AbstractFloat(...),
 since type constructors fall back to convert methods.
 ```
 
-Algunos lenguajes consideran que el análisis sintáctico de cadenas como número o el formateo de números a cadenas es una conversión (muchos lengaujes dinámicos realizarán esta conversión por ti automáticamente). Sin embargo, Julia no lo hace. Incluso aunque algunas cadenas puedan ser analizadas como números, la mayoría de las cadenas no son representaciones válidas de números, y sólo un subconjunto muy limitado de ellas lo son. Por tanto, en Julia la función  dedicada `parse()` debe ser usada para realizar esta operación, haciéndolo más explícito.
+Algunos lenguajes consideran que el análisis sintáctico de cadenas como número o el formateo de números a cadenas es una conversión (muchos lenguajes dinámicos realizarán esta conversión por ti automáticamente). Sin embargo, Julia no lo hace. Incluso aunque algunas cadenas puedan ser analizadas como números, la mayoría de las cadenas no son representaciones válidas de números, y sólo un subconjunto muy limitado de ellas lo son. Por tanto, en Julia la función  dedicada `parse()` debe ser usada para realizar esta operación, haciéndolo más explícito.
 
 ### Definiendo nuevas conversiones
 
@@ -131,13 +131,13 @@ convert(::Type{T}, x::Rational) where {T<:AbstractFloat} = convert(T,x.num)/conv
 convert(::Type{T}, x::Rational) where {T<:Integer} = div(convert(T,x.num),convert(T,x.den))
 ```
 
-Los cuatro primeros métodos `convert` proporcionan conversión a tipos racionales. El primer método converte el tipo de reacional a otro tipo de racional convirtiendo el nomerador y el denominador al tipo de entero apropiado. El segundo método hace la misma conversión para enteros tomando el denominado para que sea 1. El tercer método implementa un aalgoritmo estándar para aproximar un número de punto flotante por una razón de enteros dentro de un a tolerancia dada, y el cuarto método lo aplica, usando el epsilo de máquina como el valor dado para elumbral. En general, uno debería tener `a//b == convert(Rational{Int64}, a/b)`.
+Los cuatro primeros métodos `convert` proporcionan conversión a tipos racionales. El primer método convierte el tipo de reacional a otro tipo de racional convirtiendo el nomerador y el denominador al tipo de entero apropiado. El segundo método hace la misma conversión para enteros tomando el denominado para que sea 1. El tercer método implementa un aalgoritmo estándar para aproximar un número de punto flotante por una razón de enteros dentro de un a tolerancia dada, y el cuarto método lo aplica, usando el epsilo de máquina como el valor dado para elumbral. En general, uno debería tener `a//b == convert(Rational{Int64}, a/b)`.
 
 Los dos últimos métodos conversores proporcionan conversiones de tipos racionales a punto flotante y entero. Para convertir a punto flotante, uno simplemente convierte tanto numerador como denominador a punto flotante y luego divide. Para convertir a entero, uno usa el operador `div` para división entera truncada (redondeo hacia cero).
 
 ## Promoción
 
-La promoción se refiere a convetir valores de tipos mezclados a un solo tipo común. Aunque esto no es estrictamente necesario, se supone generalmente que el tipo común al cuál los valores son convertidos puede representar de forma fidedigna todos los valores. En este sentido, el término "promoción" es apropiado ya que los valores son convertidos a un tipo "mayor" (es decir, uno que pueda reprsentar todos los valores de entrada en un solo tipo común). Es importante, sin embargo, no confundir esto con los super-tipos orientados a objetos (estructurales), o l nocíon de super-tipos abstractos de Julia: la promoción no tiene nada que ver con la jerarquía de tipos, y todo que ver con convertir entre representaciones alternas. Por ejemplo, aunque cad valor [`Int32`](@ref) puede también ser representado como un valor [`Float64`](@ref), `Int32` no es un subtipo de `Float64`.
+La promoción se refiere a convertir valores de tipos mezclados a un solo tipo común. Aunque esto no es estrictamente necesario, se supone generalmente que el tipo común al cuál los valores son convertidos puede representar de forma fidedigna todos los valores. En este sentido, el término "promoción" es apropiado ya que los valores son convertidos a un tipo "mayor" (es decir, uno que pueda reprsentar todos los valores de entrada en un solo tipo común). Es importante, sin embargo, no confundir esto con los super-tipos orientados a objetos (estructurales), o l nocíon de super-tipos abstractos de Julia: la promoción no tiene nada que ver con la jerarquía de tipos, y todo que ver con convertir entre representaciones alternas. Por ejemplo, aunque cad valor [`Int32`](@ref) puede también ser representado como un valor [`Float64`](@ref), `Int32` no es un subtipo de `Float64`.
 
 La promoción a un tipo mayor común es realizada por Julia mediante la función `promote`, que toma cualquier número de argumentos, y devuelve un atupla con el mismo número de valores, convertidos a un tipo común, o lanza una excepción si no es posible la promoción. El caso de uso más común para la promoción es convertir argumentos numéricos a un tipo común:
 
@@ -193,7 +193,7 @@ Para la mayoría de los tipos definidos por usuario, es mejor práctica requerir
 ### Definiendo reglas de promoción
 
 
-Aunque uno podría, en principio, definir métodos para la función `promote` directamente, esto requeriría muchas defniciones redundantes para todas las posibles permutaciones de tipos de argumentos. En lugar de ello, el comportamiento de `promote` es definido en términos de una función auxiliar denominada `promote_rule`, para la que uno puede proporcionar métodos. La funci´no `promote_rule` toma un par de objetos tipo y devuelve otro objeto tipo, tal que instancias de los tipos de argumentos sean promocionadas al tipo retornado. De este modo, definiendo la regla:
+Aunque uno podría, en principio, definir métodos para la función `promote` directamente, esto requeriría muchas defniciones redundantes para todas las posibles permutaciones de tipos de argumentos. En lugar de ello, el comportamiento de `promote` es definido en términos de una función auxiliar denominada `promote_rule`, para la que uno puede proporcionar métodos. La función `promote_rule` toma un par de objetos tipo y devuelve otro objeto tipo, tal que instancias de los tipos de argumentos sean promocionadas al tipo retornado. De este modo, definiendo la regla:
 
 ```julia
 promote_rule(::Type{Float64}, ::Type{Float32}) = Float64
@@ -215,7 +215,7 @@ julia> promote_type(Int8, UInt16)
 Int64
 ```
 
-Internamente, `promote_type` se usa dentro de `promote` para determinar a qué valores argumento tipo deberían ser convertidos tras una promoción. Ell puede, sin embargo, ser útil en sí misma. el lector curioso puede leer el código en [`promotion.jl`](https://github.com/JuliaLang/julia/blob/master/base/promotion.jl), , que define el mecanismo de promoción completo en aproximadamente 35 líneas.
+Internamente, `promote_type` se usa dentro de `promote` para determinar a qué valores argumento tipo deberían ser convertidos tras una promoción. Él puede, sin embargo, ser útil en sí misma. El lector curioso puede leer el código en [`promotion.jl`](https://github.com/JuliaLang/julia/blob/master/base/promotion.jl), que define el mecanismo de promoción completo en aproximadamente 35 líneas.
 
 ### Caso de estudio: promociones Rational
 
@@ -229,4 +229,4 @@ promote_rule(::Type{Rational{T}}, ::Type{S}) where {T<:Integer,S<:AbstractFloat}
 
 La primera regla dice que promocionar un número racional con algún otro entero promociona a un tipo racional cuyo tipo numerados/denominador es el resultado de la promoción de sus tipos numerador/denoinador con el otro tipo entero. La segunda regla aplica la misma lógic a dos tipos diferentes de números racionales, dando como resultado un racional de la promoción de sus respectivos tipos numerador/denominador. Las reglas tercera y última dictan que promocionar un racional con un punto flotante da como resultado el mismo tipo que promocionar el tipo de numerador/denominador con el float.
 
-Este pequeño puñado de reglas de promoción, junto con los [métodos de conversión discutidos antes](@ref man-rational-conversion), son suficiente para hacer que los números racionales interoperen completamente y de forma natural con todos los demás tipos numéricos de Julia (enteros, números en punto flotante y números complehjos). Proporcionando métodos de converión apropiadosy reglas de promoción en la misma manera, cualquier tipo numérico definido por el usuario puede interoperar así de naturalmente con los numéricos predefinidos en Julia.
+Este pequeño puñado de reglas de promoción, junto con los [métodos de conversión discutidos antes](@ref man-rational-conversion), son suficiente para hacer que los números racionales interoperen completamente y de forma natural con todos los demás tipos numéricos de Julia (enteros, números en punto flotante y números complejos). Proporcionando métodos de converión apropiados y reglas de promoción en la misma manera, cualquier tipo numérico definido por el usuario puede interoperar así de forma natural con los numéricos predefinidos en Julia.

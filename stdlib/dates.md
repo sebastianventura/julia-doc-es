@@ -15,7 +15,7 @@ Base.Dates.Time
 
 ## Funciones para Fechas
 
-Todas las funciones para fechas están definidas en el módulo `Dates`; nótese que solo se han exportado las funciones `Date`, `DateTime` y `now`; para usar el resto de funciones de `Dates`, es necesario prefijar cada llamada a función con `Dates.`, por ejemplo,`Dates.dayofweek(dt)`. Alternativamente, se puede escribir `using Base.Dates` para llevar todas las funciones exportadas a `Main` y que sean usadas sin el prefijo `Dates.`
+Todas las funciones para fechas están definidas en el módulo `Dates`; nótese que solo se han exportado las funciones `Date`, `DateTime` y `now`; para usar el resto de funciones de `Dates`, es necesario prefijar cada llamada a función con `Dates.`, por ejemplo, `Dates.dayofweek(dt)`. Alternativamente, se puede escribir `using Base.Dates` para llevar todas las funciones exportadas a `Main` y que sean usadas sin el prefijo `Dates.`
 
 ```@docs
 Base.Dates.DateTime(::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64, ::Int64)

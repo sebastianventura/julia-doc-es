@@ -2,7 +2,6 @@
 
 Julia se distribuye con tipos predefinidos que representan números complejos y racionales, y soporta todas las [Operaciones Matemáticas y Funciones Elementales](@ref mathematical-operations) estándar sobre ellos. Se han definido [conversiones y promociones](@ref conversion-and-promotion) de modo que las operaciones con cualquier combinación de tipos numéricos predefinidos, primitivos o compuestos, se comporten como se esperaba.
 
-como se esperaba.
 ## [Números Complejos](@id complex-numbers)
 
 La constante global [`im`](@ref) está ligada al número complejo *i*, que representa la raíz cuadrada principal de -1. Se consideró nocivo para co-optar el nombre `i` para una constante global, ya que es un nombre de variable de índice popular. Como Julia permite que los literales numéricos se [yuxtapongan con identificadores como coeficientes](@ref man-numeric-literal-coefficients), esta unión es suficiente para proporcionar sintaxis conveniente para números complejos, similar a la notación matemática tradicional:

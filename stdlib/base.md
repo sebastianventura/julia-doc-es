@@ -9,16 +9,10 @@ creciente colección de paquetes disponibles. Las funciones están agrupadas aba
 
 Algunas notas generales:
 
-* Excepto para las funciones en los módulos predefinidos (`Pkg`, `Collections`, `Test` 
-y `Profile`), todas las funciones documentadas aquí están disponibles 
-para ser usadas en programas directamente.
-* Para usar funciones de módulos, usar `import Module` para importar el módulo, y `Module.fn(x)` 
-para usar las funciones.
-* Alternativamente `using Module` importará todas las funciones exportadas por el módulo en 
-el espacio de nombres actual.
-* Por convenio, los nombres de funciones que acaban con un signo de admiración (`!`) 
-modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación 
-de los argumentos).
+* Excepto para las funciones en los módulos predefinidos (`Pkg`, `Collections`, `Test` y `Profile`), todas las funciones documentadas aquí están disponibles para ser usadas en programas directamente.
+* Para usar funciones de módulos, usar `import Module` para importar el módulo, y `Module.fn(x)` para usar las funciones.
+* Alternativamente `using Module` importará todas las funciones exportadas por el módulo en el espacio de nombres actual.
+* Por convenio, los nombres de funciones que acaban con un signo de admiración (`!`) modifican sus argumentos. Algunas funciones tienen las dos versiones (con y sin modificación de los argumentos).
 
 ## Moviéndose
 

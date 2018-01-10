@@ -31,8 +31,7 @@ Julia tiene como objetivo crear una combinación sin precedentes de facilidad de
   * Hilos "verdes" de peso ligero ([coroutinas](https://en.wikipedia.org/wiki/Coroutine)).
   * Sistema de tipos discreto pero potente.
   * Conversiones y promociones elegantes y extensibles para números y otros tipos.
-  * Soporte eficiente para [Unicode](https://en.wikipedia.org/wiki/Unicode), incluyendo pero no 
-  limitado a [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+  * Soporte eficiente para [Unicode](https://en.wikipedia.org/wiki/Unicode), incluyendo pero no limitado a [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
   * Llamada a las funciones C directamente (no se necesitan envolturas o API especiales).
   * Poderosas capacidades tipo shell para administrar otros procesos.
   * Macros similares a Lisp y otras instalaciones de metaprogramación.

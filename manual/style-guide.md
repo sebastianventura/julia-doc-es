@@ -135,8 +135,7 @@ En este caso `Array{Any}(n)` es mejor. Es también de más ayuda para el compila
 
   * Los nombres de los módulos y tipos usan mayúsculas y *came case*: `module SparseArrays`, `struct UnitRange`.
   * Las funciones van en minúscula ([`maximum()`](@ref), [`convert()`](@ref)) y, cuando es legible, con múltiples palabras pegadas juntas ([`isequal()`](@ref), [`haskey()`](@ref)). Cuando sea necesario, use guiones bajos como separadores de palabra. Los guiones bajos también se usan para indicar una combinacin de conceptos ([`remotecall_fetch()`](@ref) como una implementación más eficiente de `fetch(remotecall(...))`) o como modificadores ([`sum_kbn()`](@ref)).
-  * Se valora la concisión, pero debe evitarse la abreviatura ([`indexin()`](@ref) en lugar de `indxin()`) ya
-    que se vuelve difícil recordar si se abrevian palabras particulares y cómo se han abreviado.
+  * Se valora la concisión, pero debe evitarse la abreviatura ([`indexin()`](@ref) en lugar de `indxin()`) ya que se vuelve difícil recordar si se abrevian palabras particulares y cómo se han abreviado.
 
 Si el nombre de una función requiere varias palabras, considere si podría representar más de un concepto y podría dividirse mejor en partes.
 
@@ -160,9 +159,7 @@ if (a == b)
 
 ## No usar demasiado `...`
 
-El uso de `...` en los argumentos de función puede ser adictivo. En lugar de `[a..., b...]`, use `[a; b]`,
-que ya concatena arrays. [`collect(a)`](@ref) es mejor que `[a...]`, pero como `a` ya es iterable suele ser 
-incluso mejor d3jarlo solo, y no convertirlo en array.
+El uso de `...` en los argumentos de función puede ser adictivo. En lugar de `[a..., b...]`, use `[a; b]`, que ya concatena arrays. [`collect(a)`](@ref) es mejor que `[a...]`, pero como `a` ya es iterable suele ser incluso mejor dejarlo solo, y no convertirlo en array.
 
 ## No usar parámetros estáticos innecesarios
 
@@ -193,7 +190,7 @@ foo(::MyType) = foo(MyType)
 
 Decida si el concepto en cuestión se escribirá como `MyType` o `MyType()`, y sígalo.
 
-El estilo preferido es usar instancias por defecto, y solo agregue métodos que incluyan `Tipo{MiTipo}` más tarde si se vuelven necesarios para resolver algún problema.
+El estilo preferido es usar instancias por defecto, y solo agregue métodos que incluyan `Type{MyType}` más tarde si se vuelven necesarios para resolver algún problema.
 
 Si un tipo es efectivamente una enumeración, debe definirse como un tipo único (idealmente, `immutable struct` o primitivo), con los valores de enumeración como instancias de este. Los constructores y las conversiones pueden verificar si los valores son válidos. Este diseño es preferible a hacer que la enumeración sea un tipo abstracto, con los "valores" como subtipos.
 

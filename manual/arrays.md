@@ -1,6 +1,6 @@
 # [Arrays Multi-dimensionales](@id man-multi-dim-arrays)
 
-Julia, como la mayoría de los lenguajes informáticos técnicos, proporciona una implementación de los arrays de primera clase. La mayoría de los lenguajes informáticos técnicos prestan mucha atención a su implementación de arrays a expensas de otros contenedores. Julia no trata los arrays de manera especial. La biblioteca de arrays se ha implementado casi completamente en el propio lenguaje Julia, y deriva su rendimiento del compilador, al igual que cualquier otro código escrito en Julia. Como tal, es también posible definir tipos de arrays personalizados heredando de AbstractArray. Consulte la [sección de manual en la interfaz AbstractArray](@ref man-interface-array) para ms detalles sobre implementar un tipo array personalizado.
+Julia, como la mayoría de los lenguajes informáticos técnicos, proporciona una implementación de los arrays de primera clase. La mayoría de los lenguajes informáticos técnicos prestan mucha atención a su implementación de arrays a expensas de otros contenedores. Julia no trata los arrays de manera especial. La biblioteca de arrays se ha implementado casi completamente en el propio lenguaje Julia, y deriva su rendimiento del compilador, al igual que cualquier otro código escrito en Julia. Como tal, es también posible definir tipos de arrays personalizados heredando de `AbstractArray`. Consulte la [sección de manual en la interfaz AbstractArray](@ref man-interface-array) para ms detalles sobre implementar un tipo array personalizado.
 
 Un array es una colección de objetos almacenados en una cuadrícula multidimensional. En el caso más general, un array puede contener objetos de tipo `Any`. Para la mayoría de los propósitos computacionales, los arrays deben contener objetos de un tipo más específico, como  [`Float64`](@ref) o [`Int32`](@ref).
 
@@ -204,7 +204,7 @@ Como parte especial de esta sintaxis, se puede usar la palabra clave `end` para 
 X = getindex(A, I_1, I_2, ..., I_n)
 ```
 
-Example:
+Ejemplo:
 
 ```jldoctest
 julia> x = reshape(1:16, 4, 4)
@@ -345,13 +345,11 @@ julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), :]
 
 !!! warning
 
-    `CartesianIndex` y los arrays de `CartesianIndex` no son compatibles con la palabra
-    clave `end` que representa el último índice de una dimensión. No usaremos `end`
-    cuando se indexen expresiones que puedan contener `CartesianIndex` or arrays de ellos.
+    `CartesianIndex` y los arrays de `CartesianIndex` no son compatibles con la palabra clave `end` que representa el último índice de una dimensión. No usaremos `end` cuando se indexen expresiones que puedan contener `CartesianIndex` or arrays de ellos.
 
 #### Indexación Lógica
 
-A menudo denominada indexación lógica o indexación con una máscara lógica, la indexación mediante  una matriz booleana selecciona elementos en los índices cuyos valores son `verdaderos`. La indexación por un vector booleano `B` es efectivamente igual a la indexación por el vector de enteros que es devuelto por `find (B)`. De forma similar, la indexación por una matriz booleana `N`-dimensional es efectivamente igual a la indexación por el vector de `CartesianIndex{N}`s donde sus valores son `true`. Un índice lógico debe ser un vector de la misma longitud que la dimensión en la que indexa, o debe ser el único índice proporcionado y debe coincidir con el tamaño y la dimensionalidad de la matriz en la que se indexa. En general, es más eficiente usar matrices booleanas como índices directamente en lugar de llamar primero a [`find()`](@ref).
+A menudo denominada indexación lógica o indexación con una máscara lógica, la indexación mediante  una matriz booleana selecciona elementos en los índices cuyos valores son `verdaderos`. La indexación por un vector booleano `B` es efectivamente igual a la indexación por el vector de enteros que es devuelto por `find(B)`. De forma similar, la indexación por una matriz booleana `N`-dimensional es efectivamente igual a la indexación por el vector de `CartesianIndex{N}`s donde sus valores son `true`. Un índice lógico debe ser un vector de la misma longitud que la dimensión en la que indexa, o debe ser el único índice proporcionado y debe coincidir con el tamaño y la dimensionalidad de la matriz en la que se indexa. En general, es más eficiente usar matrices booleanas como índices directamente en lugar de llamar primero a [`find()`](@ref).
 
 ```jldoctest
 julia> x = reshape(1:16, 4, 4)
@@ -476,9 +474,9 @@ julia> broadcast(+, a, b)
  1.73659  0.873631
 ```
 
-[Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función `broadcast!()` para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y `broadcast_setindex! ()` que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ref man-dot-operators) en una sola llamada `broadcast`.
+[Los operadores con punto](@ref man-dot-operators) tales como `.+` y `.*` son equivalentes a llamadas a `broadcast` (excepto que se funden, como se describe a continuación). También hay una función `broadcast!()` para especificar un destino explícito (al que también se puede acceder por fusión mediante asignación `.=`), y funciones [`broadcast_getindex()`](@ref) y `broadcast_setindex!()` que retransmiten los índices antes de indexar. Además, `f. (Args ...)` es equivalente a `broadcast(f, args ...)`, proporcionando una sintaxis conveniente para retransmitir cualquier función ([sintaxis punto](@ref man-vectorized)). "Llamadas punto" anidadas `f.(...)` (incluidas las llamadas a `.+` Etcétera) [fusibles automáticamente](@ref man-dot-operators) en una sola llamada `broadcast`.
 
-Además, `broadcast ()` no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
+Además, `broadcast()` no está limitado a los array (ver la documentación de la función), también maneja tuplas y trata cualquier argumento que no sea un array, tupla o `Ref` (excepto para` Ptr` ) como un "escalar".
 
 ```jldoctest
 julia> convert.(Float32, [1, 2])

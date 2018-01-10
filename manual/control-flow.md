@@ -568,7 +568,7 @@ julia> Base.showerror(io::IO, e::MyUndefVarError) = print(io, e.var, " not defin
 
 La función [`error()`](@ref) se usa para producir una [`ErrorException`](@ref) que interrumpe el flujo de control normal.
 
-Supóngase que deseamos detener la ejecución inmediatamente si se toma la raíz cuadrad de un número negativo. Para hacer ésto, podemos definir una versión "quisquillosa" de la función  [`sqrt()`](@ref) que lanza un error si recibe un número negativo:
+Supóngase que deseamos detener la ejecución inmediatamente si se toma la raíz cuadrad de un número negativo. Para hacer esto, podemos definir una versión "quisquillosa" de la función  [`sqrt()`](@ref) que lanza un error si recibe un número negativo:
 
 ```jldoctest fussy_sqrt
 julia> fussy_sqrt(x) = x >= 0 ? sqrt(x) : error("negative x not allowed")
@@ -628,7 +628,7 @@ Stacktrace:
 
 ### La instrucción `try/catch` 
 
-La intrucción `try/ catch` permite comprobar a aparición de excepciones. Por ejemplo, puede escribirse una función personalizada para calcular la raíz cuadrada que invoque automáticamente al método de cálculo de la raíz de valores reales y/o complejos en función de la excepción:
+La intrucción `try / catch` permite comprobar a aparición de excepciones. Por ejemplo, puede escribirse una función personalizada para calcular la raíz cuadrada que invoque automáticamente al método de cálculo de la raíz de valores reales y/o complejos en función de la excepción:
 
 ```jldoctest
 julia> f(x) = try

@@ -29,10 +29,10 @@ determina el directorio en el que Julia inicialmente busca los archivos fuente (
 
 Del mismo modo, la variable global `Base.SYSCONFDIR` determina una ruta relativa al directorio del archivo de configuración. Entonces Julia busca un archivo `juliarc.jl` en
 
-`` `
+```
 $JULIA_HOME/$SYSCONFDIR/julia/juliarc.jl
 $JULIA_HOME/../etc/julia/juliarc.jl
-`` `
+```
 
 por defecto (a través de `Base.load_juliarc()`).
 

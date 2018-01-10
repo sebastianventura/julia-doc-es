@@ -13,8 +13,7 @@ Un generador de perfiles de muestreo (*sampling profiler*) no proporciona una co
 
 A pesar de estas limitaciones, los perfiles de muestreo tienen fortalezas sustanciales:
 
-  * No tiene que hacer ninguna modificación en su código para tomar medidas de temporización (en c
-  ontraste con la alternativa [instrumenting profiler](https://github.com/timholy/IProfile.jl)).  
+  * No tiene que hacer ninguna modificación en su código para tomar medidas de temporización (en contraste con la alternativa [instrumenting profiler](https://github.com/timholy/IProfile.jl)).  
   * Puede perfilarse en el código central de Julia e incluso (opcionalmente) en las bibliotecas C y Fortran.
   * Al ejecutarse "con poca frecuencia", hay muy poca sobrecarga de rendimiento; durante el perfilado, 
     su código puede ejecutarse a una velocidad casi nativa.
@@ -69,7 +68,7 @@ julia> Profile.print()
 
 Cada línea de esta pantalla representa un punto particular (número de línea) en el código. La sangría se usa para indicar la secuencia anidada de llamadas a funciones, con líneas más sangradas que son más profundas en la secuencia de llamadas. En cada línea, el primer "campo" es el número de trazas inversas (muestras) tomadas *en esta línea o en cualquier función ejecutada por esta línea*. El segundo campo es el nombre del archivo y el número de línea, y el tercer campo es el nombre de la función. Tenga en cuenta que los números de línea específicos pueden cambiar como los cambios de código de Julia; si quieres seguir, es mejor que ejecutes este ejemplo tú mismo.
 
-En este ejemplo, podemos ver que la función de nivel superior llamada está en el archivo `event.jl`. Esta es la función que ejecuta REPL cuando se lanza Julia. Si se examina la línea 97 de `REPL.jl`, verá que aquí es donde se llama a la función `eval_user_input()`. Esta es la función que evalúa lo que escribes en el REPL, y dado que estamos trabajando de forma interactiva estas funciones se invocaron cuando ingresamos `@profile myfunc()`. La siguiente línea refleja las acciones tomadas en la macro [`@ profile`](@ref).
+En este ejemplo, podemos ver que la función de nivel superior llamada está en el archivo `event.jl`. Esta es la función que ejecuta REPL cuando se lanza Julia. Si se examina la línea 97 de `REPL.jl`, verá que aquí es donde se llama a la función `eval_user_input()`. Esta es la función que evalúa lo que escribes en el REPL, y dado que estamos trabajando de forma interactiva estas funciones se invocaron cuando ingresamos `@profile myfunc()`. La siguiente línea refleja las acciones tomadas en la macro [`@profile`](@ref).
 
 La primera línea muestra que se tomaron 80 trazas inversas en la línea 73 de `event.jl`, pero no es que esta línea fuera "costosa" por sí misma: la tercera línea revela que las 80 trazas inversas se desencadenaron dentro de su llamada a `eval_user_input`, y así sucesivamente. Para averiguar qué operaciones se están tomando realmente el tiempo, necesitamos buscar más profundamente en la cadena de llamadas.
 
@@ -79,7 +78,7 @@ La primera línea "importante" en esta salida es esta:
 52 ./REPL[1]:2; myfunc()
 ```
 
-`REPL` se refiere al hecho de que definimos` myfunc` en REPL, en lugar de ponerlo en un archivo; si hubiéramos usado un archivo, esto mostraría el nombre del archivo. El `[1]` muestra que la función `myfunc` fue la primera expresión evaluada en esta sesión REPL. La línea 2 de `myfunc()` contiene la llamada a `rand`, y hubo 52 (de 80) trazas inversas que ocurrieron en esta línea. Debajo de eso, puede ver una llamada a `dsfmt_fill_array_close_open!` Dentro de `dSFMT.jl`.
+`REPL` se refiere al hecho de que definimos `myfunc` en REPL, en lugar de ponerlo en un archivo; si hubiéramos usado un archivo, esto mostraría el nombre del archivo. El `[1]` muestra que la función `myfunc` fue la primera expresión evaluada en esta sesión REPL. La línea 2 de `myfunc()` contiene la llamada a `rand`, y hubo 52 (de 80) trazas inversas que ocurrieron en esta línea. Debajo de eso, puede ver una llamada a `dsfmt_fill_array_close_open!` Dentro de `dSFMT.jl`.
 
 Un poco más abajo, ves:
 
@@ -87,7 +86,7 @@ Un poco más abajo, ves:
 28 ./REPL[1]:3; myfunc()
 ```
 
-La línea 3 de `myfunc` contiene la llamada a` maximum`, y hubo 28 (de 80) trazas inversas tomadas aquí. Debajo de eso, puede ver los lugares específicos en `base/reduce.jl` que llevan a cabo las operaciones que consumen mucho tiempo en la función` maximum` para este tipo de datos de entrada.
+La línea 3 de `myfunc` contiene la llamada a `maximum`, y hubo 28 (de 80) trazas inversas tomadas aquí. Debajo de eso, puede ver los lugares específicos en `base/reduce.jl` que llevan a cabo las operaciones que consumen mucho tiempo en la función `maximum` para este tipo de datos de entrada.
 
 En general, podemos concluir tentativamente que generar los números aleatorios es aproximadamente el doble de costoso que encontrar el elemento máximo. Podríamos aumentar nuestra confianza en este resultado recopilando más muestras:
 
@@ -182,12 +181,10 @@ Primero discutamos los dos argumentos posicionales, y luego los argumentos *keyw
 
 The argumentos *keyword* pueden ser cualquier combinación de:
 
-  * `format` -- Introducido anteriormente, determina si se imprimen trazas inversas con (por defecto, `: árbol`) 
-    o sin (`: plano`) indentación que indica la estructura en árbol.
+  * `format` -- Introducido anteriormente, determina si se imprimen trazas inversas con (por defecto, `: árbol`) o sin (`: plano`) indentación que indica la estructura en árbol.
   * `C` -- Si` true`, se muestran trazas inversas de C y Fortran (normalmente están excluidas). Intente ejecutar 
     el ejemplo introductorio con `Profile.print(C = true)`. Esto puede ser extremadamente útil para decidir si 
-    es el código Julia o el código C lo que está causando un cuello de botella; establecer `C = true` también 
-    mejora la interpretabilidad del anidamiento, a coste de unos listados de perfil más largos. 
+    es el código Julia o el código C lo que está causando un cuello de botella; establecer `C = true` también mejora la interpretabilidad del anidamiento, a coste de unos listados de perfil más largos. 
   * `combine` -- Algunas líneas de código contienen múltiples operaciones; por ejemplo, `s + = A [i]` contiene 
     una referencia de matriz (`A[i]`) y una operación de suma. Estos corresponden a diferentes líneas en el 
     código máquina generado, y por lo tanto puede haber dos o más direcciones diferentes capturadas durante 
@@ -198,8 +195,7 @@ The argumentos *keyword* pueden ser cualquier combinación de:
     de origen, mientras que `:count` se ordena según el número de muestras recolectadas.
   * `noisefloor` -- Límita los marcos que están debajo del umbral de ruido heurístico de la muestra (solo se aplica
     al formato`: tree`). Un valor sugerido para intentar esto es 2.0 (el valor predeterminado es 0). Este parámetro 
-    oculta muestras para las cuales `n <= noisefloor * √N`, donde` n` es el número de muestras en esta línea, y 
-    `N` es el número de muestras para el método invocado.
+    oculta muestras para las cuales `n <= noisefloor * √N`, donde` n` es el número de muestras en esta línea, y `N` es el número de muestras para el método invocado.
   * `mincount` -- Limita marcos con menos de `mincount` ocurrencias.
 
 Los nombres de archivo/función a veces se truncan (con `...`), y la sangría se trunca con un `+n` al principio, donde `n` es el número de espacios adicionales que se habrían insertado, si hubiera habido espacio . Si desea un perfil completo de código profundamente anidado, a menudo una buena idea es guardar en un archivo usando un ancho "tamaño de pantalla" en un [`IOContext`] (@ref):
@@ -212,7 +208,7 @@ end
 
 ## Configuración
 
-[`@ profile`](@ref) solo acumula *backtraces*, y el análisis ocurre cuando usted llama a [`Profile.print()`](@ref). Para un cálculo de larga ejecución, es muy posible que se llene el búfer preasignado para almacenar *backtraces*. Si eso sucede, las trazas inversas se detienen pero su cálculo continúa. Como consecuencia, es posible que omitan algunos datos importantes de generación de perfiles (recibirá una advertencia cuando eso suceda).
+[`@profile`](@ref) solo acumula *backtraces*, y el análisis ocurre cuando usted llama a [`Profile.print()`](@ref). Para un cálculo de larga ejecución, es muy posible que se llene el búfer preasignado para almacenar *backtraces*. Si eso sucede, las trazas inversas se detienen pero su cálculo continúa. Como consecuencia, es posible que omitan algunos datos importantes de generación de perfiles (recibirá una advertencia cuando eso suceda).
 
 Puede obtener y configurar los parámetros relevantes de esta manera:
 

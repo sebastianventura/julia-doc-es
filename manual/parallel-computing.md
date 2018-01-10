@@ -213,7 +213,7 @@ Como se habrá dado cuenta, aunque la memoria asociada con los globales se puede
 
 Por lo tanto, los programas deben ser cuidadosos al hacer referencia a los globales en las llamadas remotas. De hecho, es preferible evitarlos por completo si es posible. Si hay que hacer referencia a globales, considere usar bloques `let` para localizar variables globales.
 
-For example:
+Por ejemplo:
 
 ```julia-repl
 julia> A = rand(10,10);
@@ -268,7 +268,7 @@ julia> fetch(a)+fetch(b)
 
 Este ejemplo demuestra un patrón de programación paralela potente y frecuentemente usado. Muchas iteraciones se ejecutan independientemente sobre varios porocesos, y entonces sus resultados se combinan usando alguna función. El proceso de combinación se denomina *reducción* ya que suele ser la reduccin de rango de un tensor: un vector de números es reducido a un solo número o una matriz es reducida a una sola fila o columna, etc. En código esto suele tener el aspecto del patrón `x = f(x,v[i])`, donde `x` es el acumulador, `f` es la funcin de reducción, y los `v[i]` son los elementos que se reducirán. Es deseable que `f` sea asociativa, para que no importe el orden en el que se realizan las operaciones.
 
-Notese que nuestro uso de este patrón con `count_heads` puede ser generalizado. Se utilizaron dos instrucciones [`@spawn`](@ref) explícitas, que limitan el paralelismo a dos procesos. Para ejecutar sobre cualquier número de procesos, se puede usar el *bucle for paralelo* que puede escribirse en Julia usando la macro [`@parallel`](@ref) como en este ejemplo:
+Nótese que nuestro uso de este patrón con `count_heads` puede ser generalizado. Se utilizaron dos instrucciones [`@spawn`](@ref) explícitas, que limitan el paralelismo a dos procesos. Para ejecutar sobre cualquier número de procesos, se puede usar el *bucle for paralelo* que puede escribirse en Julia usando la macro [`@parallel`](@ref) como en este ejemplo:
 
 ```julia
 nheads = @parallel (+) for i = 1:200000000
@@ -377,9 +377,9 @@ Ejemplos de operaciones que implican E/S incluyen la lectura/escritura en archiv
 
 Un canal se puede visualizar como un conducto, es decir, tiene un extremo de escritura y un extremo de lectura.
 
-   * Varios escritores en diferentes tareas pueden escribir en el mismo canal concurrentemente a través de llamadas [`put!()`](@ref).
-   * Varios lectores en diferentes tareas pueden leer datos simultáneamente a través de llamadas [`take!()`](@ref).
-   * Como ejemplo:
+  * Varios escritores en diferentes tareas pueden escribir en el mismo canal concurrentemente a través de llamadas [`put!()`](@ref).
+  * Varios lectores en diferentes tareas pueden leer datos simultáneamente a través de llamadas [`take!()`](@ref).
+  * Como ejemplo:
 
     ```julia
     # Given Channels c1 and c2,
@@ -401,12 +401,11 @@ Un canal se puede visualizar como un conducto, es decir, tiene un extremo de esc
         @schedule foo()
     end
     ```
- 
-   * Los canales se crean a través del constructor `Channel{T}(sz)`. El canal solo tendrá objetos de tipo `T`. Si no se especifica el tipo, el canal puede contener objetos de cualquier tipo. `sz` se refiere a la cantidad máxima de elementos que pueden mantenerse en el canal en cualquier momento. Por ejemplo, `Channel(32)` crea un canal que puede contener un máximo de 32 objetos de cualquier tipo. Un `Channel{MyType}(64)` puede contener hasta 64 objetos de `MyType` en cualquier momento.
-   * Si un [`Channel`](@ref) está vacío, los lectores (en una llamada [`take!()`](@ref)) se bloquearán hasta que los datos estén disponibles.
-   * Si un [`Channel`](@ref) está lleno, los escritores (en una llamada [`put!()`](@ref)) se bloquearán hasta que haya espacio disponible.
-   * [`isready()`](@ref) comprueba la presencia de cualquier objeto en el canal, mientras que [`wait()`](@ref) espera a que un objeto esté disponible.
-   * Un [`Channel`](@ref) está inicialmente en un estado abierto. Esto significa que puede leerse y escribirse libremente a través de llamadas [`take!()`](@ref) y [`put!()`](@ref). [`close()`](@ref) cierra un [`Channel`](@ref). En un [`Channel`](@ref) cerrado, la función [`put!()`](@ref) fallará. Por ejemplo:
+  * Los canales se crean a través del constructor `Channel{T}(sz)`. El canal solo tendrá objetos de tipo `T`. Si no se especifica el tipo, el canal puede contener objetos de cualquier tipo. `sz` se refiere a la cantidad máxima de elementos que pueden mantenerse en el canal en cualquier momento. Por ejemplo, `Channel(32)` crea un canal que puede contener un máximo de 32 objetos de cualquier tipo. Un `Channel{MyType}(64)` puede contener hasta 64 objetos de `MyType` en cualquier momento.
+  * Si un [`Channel`](@ref) está vacío, los lectores (en una llamada [`take!()`](@ref)) se bloquearán hasta que los datos estén disponibles.
+  * Si un [`Channel`](@ref) está lleno, los escritores (en una llamada [`put!()`](@ref)) se bloquearán hasta que haya espacio disponible.
+  * [`isready()`](@ref) comprueba la presencia de cualquier objeto en el canal, mientras que [`wait()`](@ref) espera a que un objeto esté disponible.
+  * Un [`Channel`](@ref) está inicialmente en un estado abierto. Esto significa que puede leerse y escribirse libremente a través de llamadas [`take!()`](@ref) y [`put!()`](@ref). [`close()`](@ref) cierra un [`Channel`](@ref). En un [`Channel`](@ref) cerrado, la función [`put!()`](@ref) fallará. Por ejemplo:
   
 ```julia-repl
 julia> c = Channel(2);
@@ -421,7 +420,7 @@ ERROR: InvalidStateException("Channel is closed.",:closed)
 [...]
 ```
 
-* [`take!()`](@ref) y [`fetch()`](@ref) (que recupera pero no elimina el valor) en un canal cerrado devuelve con éxito cualquier valor existente hasta que se vacíe. Continuando con el ejemplo anterior:
+  * [`take!()`](@ref) y [`fetch()`](@ref) (que recupera pero no elimina el valor) en un canal cerrado devuelve con éxito cualquier valor existente hasta que se vacíe. Continuando con el ejemplo anterior:
 
 ```julia-repl
 julia> fetch(c) # Any number of `fetch` calls succeed.
@@ -536,12 +535,12 @@ Los métodos [`put!()`](@ref), [`take!()`](@ref), [`fetch()`](@ref), [`isready()
 
 ## `Channel`s y `RemoteChannel`s
 
-* Un objeto [`Channel`](@ref) es local a un proceso. El *worker* 2 no puede referirse directamente a un `Channel` sobre el *worker* 3 y viceversa. Un [`RemoteChannel`](@ref), sin embargo, puedo poner y tomar valores entre *worker*s.
-* Un [`RemoteChannel`](@ref) se puede considerar como un *manejador* para un `Channel`.
-* La identificación del proceso, `pid`, asociada con un [`RemoteChannel`](@ref) identifica el proceso donde el almacén de respaldo, es decir, el `Channel`  de respaldo existe.
-* Cualquier proceso con una referencia a [`RemoteChannel`](@ref) puede poner y tomar elementos del canal. Los datos se envían automáticamente a (o se recuperan de) el proceso al que está asociado [`RemoteChannel`](@ref).
-* Serializar un `Channel` también serializa cualquier dato presente en el canal. Deserializarlo, por lo tanto, efectivamente hace una copia del objeto original.
-* Por otro lado, serializar un [`RemoteChannel`](@ref) solo implica la serialización de un identificador que identifica la ubicación y la instancia del `Channel` al que hace referencia el manejador. Un objeto [`RemoteChannel`](@ref) deserializado  (en cualquier *worker*), por lo tanto, también apunta al mismo almacén de respaldo que el original.
+  * Un objeto [`Channel`](@ref) es local a un proceso. El *worker* 2 no puede referirse directamente a un `Channel` sobre el *worker* 3 y viceversa. Un [`RemoteChannel`](@ref), sin embargo, puedo poner y tomar valores entre *worker*s.
+  * Un [`RemoteChannel`](@ref) se puede considerar como un *manejador* para un `Channel`.
+  * La identificación del proceso, `pid`, asociada con un [`RemoteChannel`](@ref) identifica el proceso donde el almacén de respaldo, es decir, el `Channel`  de respaldo existe.
+  * Cualquier proceso con una referencia a [`RemoteChannel`](@ref) puede poner y tomar elementos del canal. Los datos se envían automáticamente a (o se recuperan de) el proceso al que está asociado [`RemoteChannel`](@ref).
+  * Serializar un `Channel` también serializa cualquier dato presente en el canal. Deserializarlo, por lo tanto, efectivamente hace una copia del objeto original.
+  * Por otro lado, serializar un [`RemoteChannel`](@ref) solo implica la serialización de un identificador que identifica la ubicación y la instancia del `Channel` al que hace referencia el manejador. Un objeto [`RemoteChannel`](@ref) deserializado  (en cualquier *worker*), por lo tanto, también apunta al mismo almacén de respaldo que el original.
 
 El ejemplo de canales anterior puede modificarse para la comunicación entre procesos, como se muestra a continuación.
 
@@ -1084,7 +1083,7 @@ Por lo tanto, una tarea que ejecuta un [`ccall`](@ref) evita efectivamente que e
 
 Note that while Julia code runs on a single thread (by default), libraries used by Julia may launch their own internal threads. For example, the BLAS library may start as many threads as there are cores on a machine.
 
-La macro `@ threadcall` trata los escenarios donde no queremos que un `ccall` bloquee el ciclo principal de eventos de Julia. Planifica una función C para su ejecución en un hilo separado. Para esto, se usa un pool de hilos con un tamaño predeterminado de 4. El tamaño del pool de hilos se controla mediante la variable de entorno `UV_THREADPOOL_SIZE`. Mientras espera un hilo libre, y durante la ejecución de la función una vez que un hilo está disponible, la tarea solicitante (en el ciclo de eventos principal de Julia) cede a otras tareas. Tenga en cuenta que `@threadcall` no regresa hasta que se completa la ejecución. Desde el punto de vista del usuario, es por lo tanto una llamada de bloqueo como otras API de Julia.
+La macro `@threadcall` trata los escenarios donde no queremos que un `ccall` bloquee el ciclo principal de eventos de Julia. Planifica una función C para su ejecución en un hilo separado. Para esto, se usa un pool de hilos con un tamaño predeterminado de 4. El tamaño del pool de hilos se controla mediante la variable de entorno `UV_THREADPOOL_SIZE`. Mientras espera un hilo libre, y durante la ejecución de la función una vez que un hilo está disponible, la tarea solicitante (en el ciclo de eventos principal de Julia) cede a otras tareas. Tenga en cuenta que `@threadcall` no regresa hasta que se completa la ejecución. Desde el punto de vista del usuario, es por lo tanto una llamada de bloqueo como otras API de Julia.
 
 Es muy importante que la función llamada no vuelva a llamar a Julia.
 

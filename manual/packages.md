@@ -42,7 +42,7 @@ Dict{String,VersionNumber} with 4 entries:
 
 El administrador de paquetes de Julia es un poco inusual ya que es declarativo en lugar de imperativo. Esto significa que uno le dice lo que quiere y el gestor descubre qué versiones instalar (o eliminar) para satisfacer esos requisitos de manera óptima, - y mínimamente. Por tanto, en lugar de instalar un paquete, simplemente lo agrega a la lista de requisitos y luego "resuelve" lo que necesita instalar. En particular, esto significa que si algún paquete se ha instalado porque lo necesitaba una versión anterior de algo que usted quería, y una versión más nueva ya no tiene ese requisito, la actualización realmente eliminará ese paquete.
 
-Los requisitos de paquetes están en el archivo `~ /.julia/v0.6/REQUIRE`. Este archivo puede ser editado a mano y luego llamarse a [`Pkg.resolve()`](@ref) para instalar, actualizar o eliminar paquetes para satisfacer de manera óptima los requisitos, o puede hacer [`Pkg.edit()`](@ref), que abrirá 'REQUIRE' en su editor (configurado a través de las variables de entorno `EDITOR` o` VISUAL`), y luego llamará automáticamente a [`Pkg.resolve()`](@ref) después si es necesario. Si solo desea agregar o eliminar el requisito para un solo paquete, también puede usar los mandatos no interactivos [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref), que agregan o eliminan un solo requisito a `REQUIRE` y luego llaman a [`Pkg.resolve()`](@ref).
+Los requisitos de paquetes están en el archivo `~/.julia/v0.6/REQUIRE`. Este archivo puede ser editado a mano y luego llamarse a [`Pkg.resolve()`](@ref) para instalar, actualizar o eliminar paquetes para satisfacer de manera óptima los requisitos, o puede hacer [`Pkg.edit()`](@ref), que abrirá `REQUIRE` en su editor (configurado a través de las variables de entorno `EDITOR` o` VISUAL`), y luego llamará automáticamente a [`Pkg.resolve()`](@ref) después si es necesario. Si solo desea agregar o eliminar el requisito para un solo paquete, también puede usar los mandatos no interactivos [`Pkg.add()`](@ref) y [`Pkg.rm()`](@ref), que agregan o eliminan un solo requisito a `REQUIRE` y luego llaman a [`Pkg.resolve()`](@ref).
 
 Puede agregarse un paquete a la lista de requisitos con la función [`Pkg.add()`](@ref), y se instalará el paquete y todos los paquetes de los que depende.
 
@@ -74,7 +74,7 @@ $ cat ~/.julia/v0.6/REQUIRE
 Distributions
 ```
 
-A continuación, ejecuta [`Pkg.resolve()`](@ref) utilizando estos nuevos requisitos, lo que lleva a la conclusión de que el paquete `Distributions` debe instalarse ya que es obligatorio pero no está instalado. Como se dijo anteriormente, puede lograr lo mismo editando su archivo `~ /.julia/v0.6/REQUIRE` a mano y luego ejecutando [`Pkg.resolve()`](@ref) usted mismo:
+A continuación, ejecuta [`Pkg.resolve()`](@ref) utilizando estos nuevos requisitos, lo que lleva a la conclusión de que el paquete `Distributions` debe instalarse ya que es obligatorio pero no está instalado. Como se dijo anteriormente, puede lograr lo mismo editando su archivo `~/.julia/v0.6/REQUIRE` a mano y luego ejecutando [`Pkg.resolve()`](@ref) usted mismo:
 
 ```julia-repl
 $ echo SHA >> ~/.julia/v0.6/REQUIRE
@@ -172,7 +172,7 @@ Si los paquetes no registrados contienen un archivo `REQUIRE` en la parte superi
 
 [^1]:
 
-    El conjunto oficial de paquetes está en  [https://github.com/JuliaLang/METADATA.jl(https://github.com/JuliaLang/METADATA.jl), 
+    El conjunto oficial de paquetes está en  [https://github.com/JuliaLang/METADATA.jl](https://github.com/JuliaLang/METADATA.jl), 
     pero los individuos y las organizaciones pueden usar fácilmente un repositorio de 
     metadatos diferente. Esto permite controlar qué paquetes están disponibles para la i
     nstalación automática. Solo se pueden permitir versiones de paquete auditadas y aprobadas, 
@@ -363,7 +363,7 @@ donde `USERNAME` es nuestro nombre real de usuario en GitHub. Una vez que hace e
 
 ### Cambios en la Documentación
 
-Si desea mejorar la documentación en línea de un paquete, el enfoque más fácil (al menos para pequeños cambios) es utilizar la funcionalidad de edición en línea de GitHub. Primero, vaya a la "página de inicio" de GitHub del repositorio, busque el archivo (por ejemplo, `README.md`) dentro de la estructura de carpetas del repositorio y haga clic en él. Verá el contenido que se muestra, junto con un pequeño icono de "lápiz" en la esquina superior derecha. Al hacer clic en ese icono, se abre el archivo en modo de edición. Realice los cambios, escriba un breve resumen que describa los cambios que desea realizar (este es su *mensaje de confirmación*), y luego presione "Proponer cambio de archivo". Sus cambios serán enviados para su consideración por el propietario (s) del paquete y sus colaboradores.
+Si desea mejorar la documentación en línea de un paquete, el enfoque más fácil (al menos para pequeños cambios) es utilizar la funcionalidad de edición en línea de GitHub. Primero, vaya a la "página de inicio" de GitHub del repositorio, busque el archivo (por ejemplo, `README.md`) dentro de la estructura de carpetas del repositorio y haga clic en él. Verá el contenido que se muestra, junto con un pequeño icono de "lápiz" en la esquina superior derecha. Al hacer clic en ese icono, se abre el archivo en modo de edición. Realice los cambios, escriba un breve resumen que describa los cambios que desea realizar (este es su *mensaje de confirmación*), y luego presione "Proponer cambio de archivo". Sus cambios serán enviados para su consideración por el propietario(s) del paquete y sus colaboradores.
 
 Para cambios de documentación más grandes, y especialmente aquellos que espera tener que actualizar en respuesta a los comentarios, puede que le resulte más fácil utilizar el procedimiento para los cambios de código que se describe a continuación.
 
@@ -389,7 +389,7 @@ La última línea le presentará un enlace para enviar una solicitud de extracci
 
 #### Descripción Detallada
 
-Si desea corregir un error o agregar una nueva funcionalidad, desea poder probar los cambios antes de enviarlos para su consideración. También debe tener una manera fácil de actualizar su propuesta en respuesta a los comentarios del propietario del paquete. En consecuencia, en este caso, la estrategia es trabajar localmente en su propia máquina; una vez que esté satisfecho con sus cambios, los envía para su consideración. Este proceso se llama *solicitud de extracción* porque usted está solicitando "extraer" sus cambios en el repositorio principal del proyecto. Debido a que el repositorio en línea no puede ver el código en su máquina privada, primero * envía * sus cambios a una ubicación visible públicamente, su propio * fork * en línea del paquete (alojado en su propia cuenta personal de GitHub).
+Si desea corregir un error o agregar una nueva funcionalidad, desea poder probar los cambios antes de enviarlos para su consideración. También debe tener una manera fácil de actualizar su propuesta en respuesta a los comentarios del propietario del paquete. En consecuencia, en este caso, la estrategia es trabajar localmente en su propia máquina; una vez que esté satisfecho con sus cambios, los envía para su consideración. Este proceso se llama *solicitud de extracción* porque usted está solicitando "extraer" sus cambios en el repositorio principal del proyecto. Debido a que el repositorio en línea no puede ver el código en su máquina privada, primero *envía* sus cambios a una ubicación visible públicamente, su propio *fork* en línea del paquete (alojado en su propia cuenta personal de GitHub).
 
 Supongamos que ya tiene instalado el paquete `Foo`. En la siguiente descripción, todo lo que comience con `Pkg` o` PkgDev` debe escribirse en el prompt de Julia; cualquier cosa que comience con `git` debe escribirse en [modo de shell de julia](@ref man-shell-mode) (o usando el shell que viene con su sistema operativo). Dentro de Julia, puedes combinar estos dos modos:
 
@@ -413,8 +413,8 @@ Ahora supongamos que está listo para hacer algunos cambios en `Foo`. Si bien ha
     donde `<newbranch>` podría ser un nombre descriptivo (por ejemplo,`fixbar`). Al crear una rama, se 
     asegura de que pueda moverse fácilmente entre su nuevo trabajo y la rama actual 'principal' (consulte 
     [https://git-scm.com/book/es/v2/Git-Branching-Branches-in-a-Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)).
-
-Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocupe: consulte [más detalles sobre la bifurcación] (@ref man-branch-post-hoc) a continuación.
+    
+    Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocupe: consulte [más detalles sobre la bifurcación] (@ref man-branch-post-hoc) a continuación.
 
    * Haz tus cambios. Ya sea para corregir un error o agregar una nueva funcionalidad, en la mayoría de los casos tu 
      cambio debería incluir actualizaciones para las carpetas `src/` y `test/`. Si estás solucionando un error, agrega 
@@ -453,8 +453,8 @@ Si olvida hacer este paso hasta que haya realizado algunos cambios, no se preocu
       * Desde el shell, escribe `git push`. Esto agregará sus nuevas confirmaciones a la misma solicitud 
         de extracción; debería verlos aparecer automáticamente en la página que contiene la discusión de 
         su solicitud de extracción.
-
-Un posible tipo de cambio que el propietario puede solicitar es que elimine sus compromisos. Ver [Squashing](@ref man-squashing-and-rebasing) a continuación.
+        
+      Un posible tipo de cambio que el propietario puede solicitar es que elimine sus compromisos. Ver [Squashing](@ref man-squashing-and-rebasing) a continuación.
     
 ### [Paquetes Sucios](@id dirty-packages)
 
@@ -464,7 +464,7 @@ Si no se pueden cambiar las ramas porque el administrador del paquete se queja d
 
 Especialmente para los recién llegados a git, uno a menudo se olvida de crear una nueva rama hasta después de que ya se hayan hecho algunos cambios. Si todavía no has organizado ni comprometido tus cambios, puedes crear una nueva rama con `git checkout -b <newbranch>` como siempre - git te mostrará amablemente que algunos archivos han sido modificados y creará la nueva rama para ti. *Sus cambios aún no se han comprometido a esta nueva rama*, por lo que las reglas de trabajo normales aún se aplican.
 
-Sin embargo, si ya has hecho un commit a `master` pero deseas volver al` master` oficial (llamado `origin/master`), utiliza el siguiente procedimiento:
+Sin embargo, si ya has hecho un commit a `master` pero deseas volver al `master` oficial (llamado `origin/master`), utiliza el siguiente procedimiento:
 
   * Crea una nueva rama. Esta rama mantendrá tus cambios.
   * Asegúrate de que todo esté comprometido con esta rama.
@@ -488,7 +488,7 @@ Rats, forgot to export the second function
 ...
 ```
 
-Esto entra en el territorio del uso de git más avanzado, y se te anima a leer un poco ([https://git-scm.com/book/en/v2/Git-Branching-Rebasing]]https://git -scm.com/book/en/v2/Git-Branching-Rebasing)). Sin embargo, un breve resumen del procedimiento es el siguiente:
+Esto entra en el territorio del uso de git más avanzado, y se te anima a leer un poco ([https://git-scm.com/book/en/v2/Git-Branching-Rebasing](https://git -scm.com/book/en/v2/Git-Branching-Rebasing)). Sin embargo, un breve resumen del procedimiento es el siguiente:
 
    * Para protegerse del error, comienza desde tu rama `fixbar` y crea una nueva rama con` git checkout -b fixbar_backup`. Como has comenzado desde `fixbar`, esta será una copia. Ahora vuelve a la que intentas modificar con `git checkout fixbar`.
    * Desde el shell, escribe `git rebase -i origin/master`.
@@ -512,9 +512,9 @@ Ahora supongamos que has realizado la operación de rebase con éxito. Como el r
 
 ### REQUIRE habla por sí mismo
 
-Deberías tener un archivo `REQUIRE` en tu repositorio de paquetes, con una directiva mínima de la versión de Julia que esperas que los usuarios ejecuten para que el paquete funcione. Poniendo un piso en qué versión de Julia apoya tu paquete se hace simplemente agregando `julia 0.x` en este archivo. Si bien esta línea es parcialmente informativa, también tiene la consecuencia de si `Pkg.update()` actualizará el código que se encuentra en los directorios de versiones `.julia`. No actualizará el código encontrado en los directorios de versiones debajo del piso de lo que se especifica en su 'REQUIRE'.
+Deberías tener un archivo `REQUIRE` en tu repositorio de paquetes, con una directiva mínima de la versión de Julia que esperas que los usuarios ejecuten para que el paquete funcione. Poniendo un piso en qué versión de Julia apoya tu paquete se hace simplemente agregando `julia 0.x` en este archivo. Si bien esta línea es parcialmente informativa, también tiene la consecuencia de si `Pkg.update()` actualizará el código que se encuentra en los directorios de versiones `.julia`. No actualizará el código encontrado en los directorios de versiones debajo del piso de lo que se especifica en su `REQUIRE`.
 
-A medida que la versión de desarrollo '0.y' madura, es posible que la utilices con más frecuencia y desees que su paquete la admita. Ten cuidado, la rama de desarrollo de Julia es "tierra de la rotura", y puede esperar que haya cosas que se rompan. Cuando vayas a arreglar lo que rompió tu paquete en la rama de desarrollo `0.y`, probablemente encontrarás que acaba de romper tu paquete en la versión estable.
+A medida que la versión de desarrollo `0.y` madura, es posible que la utilices con más frecuencia y desees que su paquete la admita. Ten cuidado, la rama de desarrollo de Julia es "tierra de la rotura", y puede esperar que haya cosas que se rompan. Cuando vayas a arreglar lo que rompió tu paquete en la rama de desarrollo `0.y`, probablemente encontrarás que acaba de romper tu paquete en la versión estable.
 
 Hay un mecanismo que se encuentra en el paquete [Compat](https://github.com/JuliaLang/Compat.jl) que le permitirá admitir tanto la versión estable como los cambios de última hora que se encuentran en la versión de desarrollo. Si decide utilizar esta solución, deberá agregar `Compat` a su archivo` REQUIRE`. En este caso, todavía tendrá `julia 0.x` en su` REQUIRE`. La `x` es la versión de piso de lo que su paquete admite.
 
@@ -538,12 +538,12 @@ Los nombres de los paquetes deben ser sensatos para la mayoría de los usuarios 
      * Tener a Julia en el nombre puede implicar que el paquete está conectado a, o avalado por, colaboradores del propio lenguaje Julia.
 3. Los paquetes que proporcionan la mayor parte de su funcionalidad en asociación con un nuevo tipo deberían tener nombres pluralizados.
 
-     * `DataFrames` proporciona el tipo` DataFrame`.
-     * `BloomFilters` proporciona el tipo` BloomFilter`.
+     * `DataFrames` proporciona el tipo `DataFrame`.
+     * `BloomFilters` proporciona el tipo `BloomFilter`.
      * Por el contrario, `JuliaParser` no proporciona ningún tipo nuevo, sino una nueva funcionalidad en la función `JuliaParser.parse()`.
 4. Err del lado de la claridad, incluso si la claridad te parece larga.
 
-     * `RandomMatrices` es un nombre menos ambiguo que`RndMat` o `RMT`, aunque estos últimos sean más cortos.
+     * `RandomMatrices` es un nombre menos ambiguo que `RndMat` o `RMT`, aunque estos últimos sean más cortos.
 5. Un nombre menos sistemático puede adaptarse a un paquete que implemente uno de varios enfoques posibles para su dominio.
 
      * Julia no tiene un solo paquete completo de graficación. En cambio, `Gadfly`,` PyPlot`, `Winston`
@@ -552,7 +552,7 @@ Los nombres de los paquetes deben ser sensatos para la mayoría de los usuarios 
        de algoritmos de clasificación.
 6. Los paquetes que envuelven bibliotecas externas o programas deben tener el nombre de esas bibliotecas o programas.
 
-     * `CPLEX.jl` envuelve la biblioteca` CPLEX`, -que se puede identificar fácilmente en una búsqueda web.
+     * `CPLEX.jl` envuelve la biblioteca `CPLEX`, -que se puede identificar fácilmente en una búsqueda web.
      * `MATLAB.jl` proporciona una interfaz para llamar al motor de MATLAB desde dentro de Julia.
      
 ### Generando el paquete
@@ -642,7 +642,7 @@ INFO: Cloning FooBar from git@github.com:StefanKarpinski/FooBar.jl.git
     Si aloja su paquete en GitHub, puede usar la [integración attobot](https://github.com/attobot/attobot) 
     para gestionar el registro, etiquetado y publicación de paquetes.
 
-Una vez que haya decidido que `FooBar` está listo para registrarse como paquete oficial, puede agregarlo a su copia local de` METADATA` usando `PkgDev.register()`:
+Una vez que haya decidido que `FooBar` está listo para registrarse como paquete oficial, puede agregarlo a su copia local de `METADATA` usando `PkgDev.register()`:
 
 ```julia-repl
 julia> PkgDev.register("FooBar")
@@ -692,9 +692,9 @@ INFO: To create a pull-request open:
     ERROR: key not found: "token"
     ```
 
-entonces puede que hayas encontrado un problema al usar la API de GitHub en múltiples sistemas. La solución es eliminar el token de acceso personal "*Julia Package Manager*" [de tu cuenta Github](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Ftokens) e intentarlo de nuevo.
+    entonces puede que hayas encontrado un problema al usar la API de GitHub en múltiples sistemas. La solución es eliminar el token de acceso personal "*Julia Package Manager*" [de tu cuenta Github](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Ftokens) e intentarlo de nuevo.
 
-Otros fallos pueden requerir que evites `PkgDev.publish()` al [crear una solicitud de extracción en GitHub] (https://help.github.com/articles/creating-a-pull-request/). Ver: [Publicación de METADATA manualmente](@ref publishing-metadata-manually) a continuación.
+    Otros fallos pueden requerir que evites `PkgDev.publish()` al [crear una solicitud de extracción en GitHub] (https://help.github.com/articles/creating-a-pull-request/). Ver: [Publicación de METADATA manualmente](@ref publishing-metadata-manually) a continuación.
 
 Una vez que la URL del paquete para `FooBar` se registra en el repositorio oficial de` METADATA`, las personas saben de dónde clonar el paquete, pero todavía no hay ninguna versión registrada disponible. Puede etiquetarlo y registrarlo con el comando `PkgDev.tag()`:
 
@@ -734,7 +734,7 @@ El mandato `PkgDev.tag()` toma un segundo argumento opcional que es un objeto de
 
 Agregar una versión etiquetada de su paquete agilizará el registro oficial en METADATA.jl por parte de los colaboradores. Se recomienda enfáticamente que complete este proceso, independientemente de si su paquete está completamente listo para una versión oficial.
 
-Como regla general, los paquetes deben etiquetarse como `0.0.1` primero. Como Julia no ha alcanzado el estado '1.0', es mejor ser conservador en las versiones etiquetadas de su paquete.
+Como regla general, los paquetes deben etiquetarse como `0.0.1` primero. Como Julia no ha alcanzado el estado `1.0`, es mejor ser conservador en las versiones etiquetadas de su paquete.
 
 Al igual que con `PkgDev.register()`, estos cambios en `METADATA` no están disponibles para nadie más hasta que se hayan incluido en la versión anterior. De nuevo, use el comando `PkgDev.publish()`, que primero se asegura de que los repos individuales de paquetes hayan sido etiquetados, los empuja si no han sido ya, y luego abre una solicitud de extracción a `METADATA`:
 
@@ -756,17 +756,16 @@ Si `PkgDev.publish()` falla, puede seguir estas instrucciones para publicar su p
 
 Al "bifurcar" el repositorio principal de METADATA, puede crear una copia personal (de METADATA.jl) en su cuenta de GitHub. Una vez que existe esa copia, puede enviar sus cambios locales a su copia (al igual que cualquier otro proyecto de GitHub).
 
-1. Vaya a [https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FJuliaLang%2FMETADATA.jl%2Ffork](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FJuliaLang%2FMETADATA.jl%2Ffork)
-y cree su propia bifurcación.
+1. Vaya a [https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FJuliaLang%2FMETADATA.jl%2Ffork](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FJuliaLang%2FMETADATA.jl%2Ffork) y cree su propia bifurcación.
 
 2. Agregue su bifurcación como un repositorio remoto para el repositorio METADATA en su computadora local (en la terminal donde USERNAME es su nombre de usuario github)::
 
-```
-cd ~/.julia/v0.6/METADATA
-git remote add USERNAME https://github.com/USERNAME/METADATA.jl.git
-```
+   ```
+   cd ~/.julia/v0.6/METADATA
+   git remote add USERNAME https://github.com/USERNAME/METADATA.jl.git
+   ```
 
-1. empuja tus cambios a tu bifurcación:
+3. empuja tus cambios a tu bifurcación:
 
    ```
    git push USERNAME metadata-v2
@@ -783,11 +782,11 @@ julia 0.3-
 $ vi requires
 ```
 
-Como el hash de confirmación (*commit*) permanece igual, el contenido del archivo `REQUIRE` que se retirará en el repositorio **no** coincidirá con los requisitos en `METADATA` después de dicho cambio; esto es inevitable. Sin embargo, cuando se fijan los requisitos en `METADATA` para una versión anterior de un paquete, también se debe corregir el archivo` REQUIRE` en la versión actual del paquete.
+Como el hash de confirmación (*commit*) permanece igual, el contenido del archivo `REQUIRE` que se retirará en el repositorio **no** coincidirá con los requisitos en `METADATA` después de dicho cambio; esto es inevitable. Sin embargo, cuando se fijan los requisitos en `METADATA` para una versión anterior de un paquete, también se debe corregir el archivo `REQUIRE` en la versión actual del paquete.
 
 ## [Especificación de Requisitos](@id requirements-specification)
 
-El archivo `~/.julia/v0.6/REQUIRE`, el archivo` REQUIRE` dentro de los paquetes y los archivos `require` del paquete `METADATA` utilizan un formato simple basado en línea para expresar los rangos de las versiones del paquete que necesitan estar instalados. Los archivos `REQUIRE` y `METADATA requires` también deben incluir el rango de versiones de `julia` con las que se espera que funcione el paquete. Además, los paquetes pueden incluir un archivo `test/REQUIRE` para especificar paquetes adicionales que solo son necesarios para la prueba.
+El archivo `~/.julia/v0.6/REQUIRE`, el archivo `REQUIRE` dentro de los paquetes y los archivos `require` del paquete `METADATA` utilizan un formato simple basado en línea para expresar los rangos de las versiones del paquete que necesitan estar instalados. Los archivos `REQUIRE` y `METADATA requires` también deben incluir el rango de versiones de `julia` con las que se espera que funcione el paquete. Además, los paquetes pueden incluir un archivo `test/REQUIRE` para especificar paquetes adicionales que solo son necesarios para la prueba.
 
 Así es cómo se analizan e interpretan estos archivos.
 
@@ -822,7 +821,7 @@ Esta entrada de requisito:
 Distributions 0.1 0.2.5
 ```
 
-se satisface con versiones desde '0.1.0' hasta, pero sin incluir, '0.2.5'. Si quiere indicar que cualquier versión de `0.1.x` va a funcionar, querrá escribir:
+se satisface con versiones desde `0.1.0` hasta, pero sin incluir, `0.2.5`. Si quiere indicar que cualquier versión de `0.1.x` va a funcionar, querrá escribir:
 
 ```
 Distributions 0.1 0.2-

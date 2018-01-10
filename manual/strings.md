@@ -438,7 +438,7 @@ Closest candidates are:
   contains(::AbstractString, !Matched::AbstractString) at strings/search.jl:378
 ```
 
-Este último error es debido a que 'o'  es un literal carácter, y [`contains()`](@ref) es una función genérica que busca subsecuencias. Para buscar un elemento en una secuencia, debemos usar la función [`in()`](@ref) en lugra de la anterior.
+Este último error es debido a que 'o'  es un literal carácter, y [`contains()`](@ref) es una función genérica que busca subsecuencias. Para buscar un elemento en una secuencia, debemos usar la función [`in()`](@ref) en lugar de la anterior.
 
 [`repeat()`](@ref) y [`join()`](@ref) son otras dos funciones de cadena muy útiles:
 
@@ -612,7 +612,7 @@ julia> replace("a", r".", s"\g<0>1")
 "a1"
 ```
 
-Puedes modificar el comportamiento de las expresiones regulares mediante una combinación de los flags `i`, `m`, `s` y `x` después de la marca de comillas dobles de cierre. Estas banderas tienen el mismo significado que en Perl, tal y como se describe en este fragmento de la [página de manual del referencia de Perl(http://perldoc.perl.org/perlre.html#Modifiers):
+Puedes modificar el comportamiento de las expresiones regulares mediante una combinación de los flags `i`, `m`, `s` y `x` después de la marca de comillas dobles de cierre. Estas banderas tienen el mismo significado que en Perl, tal y como se describe en este fragmento de la [página de manual del referencia de Perl](http://perldoc.perl.org/perlre.html#Modifiers):
 ```
 i   Do case-insensitive pattern matching.
 
