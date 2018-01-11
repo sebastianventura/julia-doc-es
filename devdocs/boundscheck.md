@@ -1,21 +1,10 @@
-# [Bounds checking](@id boundscheck)
+# [Comprobación de Límites](@id boundscheck)
 
-Like many modern programming languages, Julia uses bounds checking to ensure program safety when
-accessing arrays. In tight inner loops or other performance critical situations, you may wish
-to skip these bounds checks to improve runtime performance. For instance, in order to emit vectorized
-(SIMD) instructions, your loop body cannot contain branches, and thus cannot contain bounds checks.
-Consequently, Julia includes an `@inbounds(...)` macro to tell the compiler to skip such bounds
-checks within the given block. For the built-in `Array` type, the magic happens inside the `arrayref`
-and `arrayset` intrinsics. User-defined array types instead use the `@boundscheck(...)` macro
-to achieve context-sensitive code selection.
+Como muchos lenguajes de programación modernos, Julia usa comprobación de límites para asegurar la seguridad del programa cuando se accede a arrays. En bucles interiores apretados u otras situaciones de rendimiento críticas, uno puede desear saltar estas comprobaciones de límites para mejorar el rendimiento en tiempo de ejecución. Por ejemplo, para emitir instrucciones vectorizadas (SIMD), el cuerpo de nuestro bucle no puede contener ramificaciones y, por tanto no puede contener comprobaciones de límites. En consecuencia, Julia incluye una macro `@inbounds(...)` para decir al compilador que se salte estas comprobaciones de límites dentro del bloque dado. Para el tipo predefinido `Array`, la magia sucede dentro de los intrísecos `arrayref` y `arrayset`. Los tipos array definidos por el usuario usan la macro `@boundscheck(...)` para conseguir una selección de código sensible al contexto.
 
-## Eliding bounds checks
+## Omitiendo comprobaciones de límites
 
-The `@boundscheck(...)` macro marks blocks of code that perform bounds checking. When such blocks
-appear inside of an `@inbounds(...)` block, the compiler removes these blocks. When the `@boundscheck(...)`
-is nested inside of a calling function containing an `@inbounds(...)`, the compiler will remove
-the `@boundscheck` block *only if it is inlined* into the calling function. For example, you might
-write the method `sum` as:
+La macro `@boundscheck(...)` marca bloques de código que realizan comprobación de límites. Cuando tales bloques aparecen dentro de un bloque `@inbounds(...)`, el compilador elimina esos bloques. Cuando `@boundscheck(...)` es anidado dentro de una función llamadora que contiene un `@inbounds(...)`, el compilador borrará el bloque `@boundscheck` *sólo si este está en línea (`inlined`)* en la función llamadora. Por ejemplo, uno podría escribir el método `sum` como:
 
 ```julia
 function sum(A::AbstractArray)
