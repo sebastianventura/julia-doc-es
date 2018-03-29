@@ -10,50 +10,49 @@ En la forma disminuida existen los siguientes tipos de datos:
 
   * `Expr`
 
-    Tiene un nodo indicado por el campo `head`, y un campo `args` que es un `Vector{Any}` de 
-    subexpresiones.
+    Tiene un nodo indicado por el campo `head`, y un campo `args` que es un `Vector{Any}` de subexpresiones.
 
   * `Slot`
-
-    Identifica argumentos y variables locales mediante numerado consecutivo. `Slot` es un tipo abstracto con subtipos
-    `SlotNumber` y `TypedSlot`. Ambos tipos tienen un campo `id` de valor entero que da el índice del slot. La mayoría 
-    de los slots tienen el mismo tipo en todos sus usos, y por tanto están representados con `SlotNumber`. Los tipos
-    de estos slots se encuentran en el campo `slottypes` de su objeto `MethodInstance`. Los slots que necesitan 
-    anotaciones de tipo por uso son representados con `TypedSlot`, que tiene un campo `typ` field.
+  
+  Identifica argumentos y variables locales mediante numerado consecutivo. `Slot` es un tipo abstracto con subtipos
+  `SlotNumber` y `TypedSlot`. Ambos tipos tienen un campo `id` de valor entero que da el índice del slot. La mayoría 
+  de los slots tienen el mismo tipo en todos sus usos, y por tanto están representados con `SlotNumber`. Los tipos
+  de estos slots se encuentran en el campo `slottypes` de su objeto `MethodInstance`. Los slots que necesitan 
+  anotaciones de tipo por uso son representados con `TypedSlot`, que tiene un campo `typ` field.
 
   * `CodeInfo`
-
-    Envuelve el IR de un método.
+  
+  Envuelve el IR de un método.
 
   * `LineNumberNode`
-
-    Contiene un solo número, especificando el número de línea de la siguiente instrucción.
+  
+  Contiene un solo número, especificando el número de línea de la siguiente instrucción.
 
   * `LabelNode`
-
-    Blanco de la bifurcación, un número entero numerado consecutivamente que comienza en 0.
+  
+  Blanco de la bifurcación, un número entero numerado consecutivamente que comienza en 0.
 
   * `GotoNode`
-
-    Bifurcacin incondicional.
+  
+  Bifurcación incondicional.
 
   * `QuoteNode`
-
-    Envuelve un valor arbitrario para referenciarlo como datos. Por ejemplo, la función `f() =: a` contiene un 
-    `QuoteNode` cuyo campo `value` es el símbolo `a`, para devolver el símbolo en sí mismo en lugar de evaluarlo.
+  
+  Envuelve un valor arbitrario para referenciarlo como datos. Por ejemplo, la función `f() =: a` contiene un
+  `QuoteNode` cuyo campo `value` es el símbolo `a`, para devolver el símbolo en sí mismo en lugar de evaluarlo.
 
   * `GlobalRef`
-
-    Se refiere a una variable global `name` en el módulo `mod`.
+  
+  Se refiere a una variable global `name` en el módulo `mod`.
 
   * `SSAValue`
-
-    Se refiere a una variable de asignación única estática ($static single assignment$ - SSA) numerada 
-    consecutivamente (comenzando en 0) insertada por el compilador.
+  
+  Se refiere a una variable de asignación única estática ($static single assignment$ - SSA) numerada 
+  consecutivamente (comenzando en 0) insertada por el compilador.
 
   * `NewvarNode`
-
-    Marca un punto donde se crea una variable. Esto tiene el efecto de restablecer una variable a indefinida.
+  
+  Marca un punto donde se crea una variable. Esto tiene el efecto de restablecer una variable a indefinida.
 
 ### Expr types
 
