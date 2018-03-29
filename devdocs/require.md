@@ -1,4 +1,4 @@
-# [Module loading](@id require)
+# [Carga de módulos](@id require)
 
 `Base.require`[@ref] es responsable de cargar los módulos y también maneja la caché de precompilación.
 Es la implementación de la instrucción `import`.
