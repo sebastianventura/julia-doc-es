@@ -1,69 +1,59 @@
 # [Julia ASTs](@id ast)
 
-Julia has two representations of code. First there is a surface syntax AST returned by the parser
-(e.g. the [`parse()`](@ref) function), and manipulated by macros. It is a structured representation
-of code as it is written, constructed by `julia-parser.scm` from a character stream. Next there
-is a lowered form, or IR (intermediate representation), which is used by type inference and code
-generation. In the lowered form there are fewer types of nodes, all macros are expanded, and all
-control flow is converted to explicit branches and sequences of statements. The lowered form is
-constructed by `julia-syntax.scm`.
+Julia tiene dos representaciones del código. Primero hay una sintaxis de superficie AST devuelta por el analizador sintáctico (e.g. la función [`parse()`](@ref)), y manipulada por macros. Es una representación estructurada del código tal como está escrito, construída por `julia-parser.scm` a partir de un flujo de caracteres. Después hay una forma disminuida, o IR ($intermediate representation$), que es usada por la inferencia de tipos y la generación de código. En la forma disminuida hay menos tipos de nodos, todas las macros son expandidas, y todo el control de flujo es convertido a bifurcaciones específicas y secuencias de instrucciones. La forma disminuida es construída por `julia-syntax.scm`.
 
-First we will focus on the lowered form, since it is more important to the compiler. It is also
-less obvious to the human, since it results from a significant rearrangement of the input syntax.
+Primero nos centraremo en la forma disminuida, ya que es ms importante para el compilador. Es también menos obvia para el humano, ya que ella resulta de un reordenamiento significativo de la sintaxis de entrada.
 
-## Lowered form
+## Forma disminuida
 
-The following data types exist in lowered form:
+En la forma disminuida existen los siguientes tipos de datos:
 
   * `Expr`
 
-    Has a node type indicated by the `head` field, and an `args` field which is a `Vector{Any}` of
-    subexpressions.
+    Tiene un nodo indicado por el campo `head`, y un campo `args` que es un `Vector{Any}` de 
+    subexpresiones.
 
   * `Slot`
 
-    Identifies arguments and local variables by consecutive numbering. `Slot` is an abstract type
-    with subtypes `SlotNumber` and `TypedSlot`. Both types have an integer-valued `id` field giving
-    the slot index. Most slots have the same type at all uses, and so are represented with `SlotNumber`.
-    The types of these slots are found in the `slottypes` field of their `MethodInstance` object.
-    Slots that require per-use type annotations are represented with `TypedSlot`, which has a `typ`
-    field.
+    Identifica argumentos y variables locales mediante numerado consecutivo. `Slot` es un tipo abstracto con subtipos
+    `SlotNumber` y `TypedSlot`. Ambos tipos tienen un campo `id` de valor entero que da el índice del slot. La mayoría 
+    de los slots tienen el mismo tipo en todos sus usos, y por tanto están representados con `SlotNumber`. Los tipos
+    de estos slots se encuentran en el campo `slottypes` de su objeto `MethodInstance`. Los slots que necesitan 
+    anotaciones de tipo por uso son representados con `TypedSlot`, que tiene un campo `typ` field.
 
   * `CodeInfo`
 
-    Wraps the IR of a method.
+    Envuelve el IR de un método.
 
   * `LineNumberNode`
 
-    Contains a single number, specifying the line number the next statement came from.
+    Contiene un solo número, especificando el número de línea de la siguiente instrucción.
 
   * `LabelNode`
 
-    Branch target, a consecutively-numbered integer starting at 0.
+    Blanco de la bifurcación, un número entero numerado consecutivamente que comienza en 0.
 
   * `GotoNode`
 
-    Unconditional branch.
+    Bifurcacin incondicional.
 
   * `QuoteNode`
 
-    Wraps an arbitrary value to reference as data. For example, the function `f() = :a` contains a
-    `QuoteNode` whose `value` field is the symbol `a`, in order to return the symbol itself instead
-    of evaluating it.
+    Envuelve un valor arbitrario para referenciarlo como datos. Por ejemplo, la función `f() =: a` contiene un 
+    `QuoteNode` cuyo campo `value` es el símbolo `a`, para devolver el símbolo en sí mismo en lugar de evaluarlo.
 
   * `GlobalRef`
 
-    Refers to global variable `name` in module `mod`.
+    Se refiere a una variable global `name` en el módulo `mod`.
 
   * `SSAValue`
 
-    Refers to a consecutively-numbered (starting at 0) static single assignment (SSA) variable inserted
-    by the compiler.
+    Se refiere a una variable de asignación única estática ($static single assignment$ - SSA) numerada 
+    consecutivamente (comenzando en 0) insertada por el compilador.
 
   * `NewvarNode`
 
-    Marks a point where a variable is created. This has the effect of resetting a variable to undefined.
-
+    Marca un punto donde se crea una variable. Esto tiene el efecto de restablecer una variable a indefinida.
 
 ### Expr types
 
