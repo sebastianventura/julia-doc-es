@@ -30,14 +30,14 @@ En general, `Cartesian` permitirá escribir código que contiene elementos repet
 
 La sintaxis básica de `@nloops` es la siguiente:
 
-  * El primer argumento debe ser un entero (*no* una variable) que especifica el número de bucles.
-  * El segundo argumento es el prefijo simbólico que se utilizará para la variable iteradora. De este modo, en el ejemplo anterior usamos `i`, y se generaron las variables  `i_1, i_2, i_3`.
-  * El tercer argumento especifica el rango para cada variable iteradora. Si se usa una variable (símbolo) aquí, es considerado como `1:size(A,dim)`. De forma más flexible, se puede usar la sintaxis de expresiones basadas en funciones anónimas que se decribe más adelante.
-  * El último argumento es el cuerpo del bucle. En el ejemplo anterior, lo que aparece entre `begin...end`.
+* El primer argumento debe ser un entero (*no* una variable) que especifica el número de bucles.
+* El segundo argumento es el prefijo simbólico que se utilizará para la variable iteradora. De este modo, en el ejemplo anterior usamos `i`, y se generaron las variables  `i_1, i_2, i_3`.
+* El tercer argumento especifica el rango para cada variable iteradora. Si se usa una variable (símbolo) aquí, es considerado como `1:size(A,dim)`. De forma más flexible, se puede usar la sintaxis de expresiones basadas en funciones anónimas que se decribe más adelante.
+* El último argumento es el cuerpo del bucle. En el ejemplo anterior, lo que aparece entre `begin...end`.
 
 Hay otras características adicionales de `@nloops` descritas en la [sección de referencia](@ref dev-cartesian-reference).
 
-`@nref` sigue un patrn similar, generando `A[i_1,i_2,i_3]` a partir de `@nref 3 A i`. La práctica general es leer de izquierda a derecha, por lo que `@nloops` es `@nloops 3 i A expr` (como en el bucle `for i_2 = 1:size(A,2)`, donde `i_2` está a la izquierda y el rango a la derecha) mientras que `@nref` es `@nref 3 A i` (como en `A[i_1,i_2,i_3]`, donde el array va primero).
+`@nref` sigue un patrón similar, generando `A[i_1,i_2,i_3]` a partir de `@nref 3 A i`. La práctica general es leer de izquierda a derecha, por lo que `@nloops` es `@nloops 3 i A expr` (como en el bucle `for i_2 = 1:size(A,2)`, donde `i_2` está a la izquierda y el rango a la derecha) mientras que `@nref` es `@nref 3 A i` (como en `A[i_1,i_2,i_3]`, donde el array va primero).
 
 Si ests desarrollando código con Cartesian, puedes encontrar que depurar es más sencillo cuando examinas el código generado, usando `macroexpand`:
 
@@ -58,7 +58,7 @@ DocTestSetup = nothing
 
 ### Proporcionando el número de expresiones
 
-El primer argumentos de estas dos macros es el número de expresiones, que debe ser un entero. Cuando estás escribiendo una funcin que pretendes que trabaje en múltiples dimensiones, esto puede no ser algo que desees codificar. Si estás escribiendo código que necesitas que trabaje con versiones antiguas de Julia, deberías usar la macro `@ngenerate` descrita en [una versión más antigua de esta documentación](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
+El primer argumentos de estas dos macros es el número de expresiones, que debe ser un entero. Cuando estás escribiendo una función que pretendes que trabaje en múltiples dimensiones, esto puede no ser algo que desees codificar. Si estás escribiendo código que necesitas que trabaje con versiones antiguas de Julia, deberías usar la macro `@ngenerate` descrita en [una versión más antigua de esta documentación](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
 
 Empezando en Julia 0.4-pre, el enfoque recomendado es usar una `@generated function`.  He aquí un ejemplo:
 
