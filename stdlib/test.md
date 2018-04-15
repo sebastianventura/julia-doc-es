@@ -173,7 +173,7 @@ Base.Test.@test_nowarn
 
 ## Pruebas Rotas
 
-Si una prueba falla consistentemente, puede ser cambiada para utilizar la macro `@test_broken()`. Esto denotará la prueba como Rota (`Broken`) si la prueba continúa fallando y alerta al usuario a través de un `Error` si la prueba tiene éxito.
+Si una prueba falla consistentemente, puede ser cambiada para utilizar la macro `@test_broken()`. Esto denotará la prueba como rota (`Broken`) si la prueba continúa fallando y alerta al usuario a través de un `Error` si la prueba tiene éxito.
 
 ```@docs
 Base.Test.@test_broken
