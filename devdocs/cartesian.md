@@ -39,7 +39,7 @@ Hay otras características adicionales de `@nloops` descritas en la [sección de
 
 `@nref` sigue un patrón similar, generando `A[i_1,i_2,i_3]` a partir de `@nref 3 A i`. La práctica general es leer de izquierda a derecha, por lo que `@nloops` es `@nloops 3 i A expr` (como en el bucle `for i_2 = 1:size(A,2)`, donde `i_2` está a la izquierda y el rango a la derecha) mientras que `@nref` es `@nref 3 A i` (como en `A[i_1,i_2,i_3]`, donde el array va primero).
 
-Si ests desarrollando código con Cartesian, puedes encontrar que depurar es más sencillo cuando examinas el código generado, usando `macroexpand`:
+Si se está desarrollando código con Cartesian, puede utilizarse `macroexpand`, que muestra el código generado, para depurar de un modo más sencillo:
 
 ```@meta
 DocTestSetup = quote
@@ -58,7 +58,7 @@ DocTestSetup = nothing
 
 ### Proporcionando el número de expresiones
 
-El primer argumentos de estas dos macros es el número de expresiones, que debe ser un entero. Cuando estás escribiendo una función que pretendes que trabaje en múltiples dimensiones, esto puede no ser algo que desees codificar. Si estás escribiendo código que necesitas que trabaje con versiones antiguas de Julia, deberías usar la macro `@ngenerate` descrita en [una versión más antigua de esta documentación](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
+El primer argumento de estas dos macros es el número de expresiones, que debe ser un entero. Cuando se está escribiendo una función para que trabaje en múltiples dimensiones, esto puede no ser algo que uno desee codificar. Si se está escribiendo código que tiene que funcionar con versiones antiguas de Julia, debería usarse la macro `@ngenerate` descrita en [una versión más antigua de esta documentación](https://docs.julialang.org/en/release-0.3/devdocs/cartesian/#supplying-the-number-of-expressions).
 
 Empezando en Julia 0.4-pre, el enfoque recomendado es usar una `@generated function`.  He aquí un ejemplo:
 
@@ -74,7 +74,7 @@ Empezando en Julia 0.4-pre, el enfoque recomendado es usar una `@generated funct
 end
 ```
 
-Naturalmente, también podemos preparar expresiones o realizar cálculos antes del bloque `quote`.
+Naturalmente, también se pueden preparar expresiones o realizar cálculos antes del bloque `quote`.
 
 ### Expresiones función anónima como argumentos de macros
 
